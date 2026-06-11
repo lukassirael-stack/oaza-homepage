@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oáza Adamanthea — Krystal & retreat centrum v srdci Moravy</title>
+<meta name="description" content="Oáza Adamanthea v Halenkovicích — krystal a retreat centrum. Pobyt ve světle, portálová zahrada, terapie, rituály, pronájem prostoru a Bali shop. Místo pro zastavení, ztišení a návrat k sobě.">
+<link rel="canonical" href="https://www.oaza-adamanthea.cz/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Oáza Adamanthea — Krystal & retreat centrum">
+<meta property="og:description" content="Místo pro zastavení, ztišení a návrat k sobě. Retreat centrum v srdci Moravy.">
+<meta property="og:url" content="https://www.oaza-adamanthea.cz/">
+<meta property="og:image" content="https://www.oaza-adamanthea.cz/img/hero.jpg">
+<meta property="og:locale" content="cs_CZ">
+<meta name="theme-color" content="#23352a">
+<link rel="preload" as="image" href="/img/hero.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Oáza Adamanthea",
+  "description": "Krystal a retreat centrum — pobyty, terapie, portálová zahrada, rituály a pronájem prostoru.",
+  "url": "https://www.oaza-adamanthea.cz",
+  "telephone": "+420737869752",
+  "email": "oaza.adamanthea@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Halenkovice 400",
+    "addressLocality": "Halenkovice",
+    "postalCode": "763 63",
+    "addressCountry": "CZ"
+  },
+  "image": "https://www.oaza-adamanthea.cz/img/hero.jpg"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f5f1e9;
+    --cream-dark:#ede7db;
+    --green:#2e4434;
+    --rose:#b06a6c;
+    --rose-dark:#9c585a;
+    --ink:#3a3f38;
+    --line:#d8d0c2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Cormorant Garamond',serif;
+    background:var(--cream);
+    color:var(--ink);
+    font-size:20px;
+    line-height:1.6;
+  }
+  h1,h2,h3{font-weight:500;color:var(--green)}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
+
+  .btn{
+    display:inline-block;
+    background:var(--rose);
+    color:#fdfaf5;
+    font-size:19px;
+    padding:13px 34px;
+    border-radius:6px;
+    transition:background .25s ease;
+  }
+  .btn:hover{background:var(--rose-dark)}
+
+  /* ===== HERO + NAV ===== */
+  .hero{
+    position:relative;
+    aspect-ratio:1535/1024;
+    display:flex;
+    flex-direction:column;
+    color:#fdfaf5;
+    background:
+      url(/img/hero.jpg);
+    background-size:cover;
+    background-position:center;
+  }
+
+  nav{
+    display:flex;align-items:center;justify-content:flex-end;gap:34px;
+    padding:26px 48px 60px;
+    background:linear-gradient(180deg,rgba(12,18,10,.62) 0%,rgba(12,18,10,.30) 55%,rgba(12,18,10,0) 100%);
+  }
+  nav .menu{display:flex;gap:26px;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}
+  .jen-mobil{display:none}
+  nav .menu a{position:relative;padding-bottom:3px}
+  nav .menu a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:#fdfaf5;transition:width .25s ease;
+  }
+  nav .menu a:hover::after{width:100%}
+  .nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
+
+  /* pruh s textem pod hero fotkou */
+  .hero-pod{
+    background:#23352a;
+    color:#f3efe5;
+    text-align:center;
+    padding:54px 24px 60px;
+  }
+  .hero-pod .sub{
+    font-size:clamp(24px,3.4vw,32px);
+    margin-bottom:8px;
+  }
+  .hero-pod .sub-it{
+    font-style:italic;
+    font-size:clamp(19px,2.4vw,23px);
+    color:rgba(243,239,229,.85);
+    margin-bottom:32px;
+  }
+  .sr-only{
+    position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;
+  }
+
+  /* ===== ČTYŘI PILÍŘE ===== */
+  .pilire-wrap{max-width:1280px;margin:0 auto;padding:84px 32px 76px}
+  .pilire{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    text-align:center;
+  }
+  .pilir{
+    padding:8px 30px;
+    opacity:0;transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .pilir.in{opacity:1;transform:none}
+  .pilir + .pilir{border-left:1px solid var(--line)}
+  .pilir .ikona{height:54px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .pilir h3{font-size:27px;margin-bottom:12px}
+  .pilir p{font-size:19px;margin-bottom:16px;color:#4c5247}
+  .pilire-dots{display:none;justify-content:center;gap:9px;margin-top:26px}
+  .pilire-dots span{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--line);transition:background .25s;
+  }
+  .pilire-dots span.on{background:var(--rose)}
+  .vice{
+    color:var(--rose);font-size:18px;
+    display:inline-flex;align-items:center;gap:7px;
+    border-bottom:1px solid transparent;transition:border-color .25s;
+  }
+  .vice:hover{border-color:var(--rose)}
+  .vice svg{transition:transform .25s}
+  .vice:hover svg{transform:translateX(4px)}
+
+  /* ===== SEKCE NADPIS S ORNAMENTEM ===== */
+  .sekce-head{text-align:center;margin-bottom:46px}
+  .sekce-head h2{font-size:clamp(32px,4.5vw,42px);margin-bottom:14px}
+  .orn{display:flex;align-items:center;justify-content:center;gap:12px}
+  .orn::before,.orn::after{content:"";height:1px;width:54px;background:var(--line)}
+
+  /* ===== AKCE ===== */
+  .akce{max-width:1240px;margin:0 auto;padding:30px 32px 90px}
+  .akce-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .akce-card{
+    background:#fbf8f2;
+    border:1px solid var(--line);
+    border-radius:8px;overflow:hidden;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .akce-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(46,68,52,.10)}
+  .akce-foto{
+    aspect-ratio:4/3;
+    display:flex;align-items:flex-end;justify-content:flex-end;
+    padding:10px 14px;
+    font-style:italic;font-size:14px;color:rgba(253,250,245,.7);
+  }
+  .akce-foto.f1{background:linear-gradient(150deg,#6e5a72,#9b7d8e 55%,#c2a3a8)}
+  .akce-foto.f2{background:linear-gradient(150deg,#7c6a4f,#a98f63 55%,#d3bf94)}
+  .akce-foto.f3{background:linear-gradient(150deg,#48604a,#7d9168 55%,#c2cf9e)}
+  .akce-body{padding:24px 26px 28px}
+  .akce-body .datum{font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin-bottom:8px}
+  .akce-body h3{font-size:25px;margin-bottom:10px}
+  .akce-body p{font-size:18px;color:#4c5247;margin-bottom:14px}
+
+  /* ===== O OÁZE pruh ===== */
+  .o-oaze{
+    background:var(--green);
+    color:#f0ede4;
+    text-align:center;
+    padding:90px 32px;
+  }
+  .o-oaze h2{color:#f5f1e9;font-size:clamp(30px,4.5vw,40px);margin-bottom:20px}
+  .o-oaze p{max-width:640px;margin:0 auto 34px;font-size:21px;font-style:italic}
+  .o-oaze .btn{background:#f5f1e9;color:var(--green)}
+  .o-oaze .btn:hover{background:#e2dccd}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--cream-dark);
+    text-align:center;
+    padding:64px 32px 40px;
+    border-top:1px solid var(--line);
+  }
+  footer .f-logo{font-size:26px;color:var(--green);margin-bottom:6px}
+  footer .f-tag{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#6f7468;margin-bottom:26px}
+  footer .kontakt{font-size:19px;line-height:2;color:#4c5247}
+  footer .kontakt a{color:var(--rose)}
+  footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
+
+  @media (max-width:900px){
+    nav{padding:20px 22px;gap:20px}
+    nav .menu{
+      display:none;position:fixed;inset:0;
+      background:#15221a;flex-direction:column;
+      padding:96px 28px 40px;gap:0;text-align:left;z-index:50;
+      overflow-y:auto;
+    }
+    nav .menu.open{display:flex}
+    nav .menu a{
+      font-size:25px;color:#f3efe5;
+      padding:21px 4px;
+      border-bottom:1px solid rgba(243,239,229,.14);
+    }
+    nav .menu a::after{display:none}
+    .jen-mobil{display:block}
+    .nav-toggle{display:block;position:relative;z-index:60}
+    .hero-pod{padding:42px 20px 48px}
+    .pilire-wrap{padding:60px 0 56px}
+    .pilire{
+      display:flex;overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+      padding:0 10vw;gap:0;
+    }
+    .pilire::-webkit-scrollbar{display:none}
+    .pilir{
+      min-width:80vw;scroll-snap-align:center;
+      padding:10px 22px;
+    }
+    .pilir + .pilir{border-left:1px solid var(--line)}
+    .pilire-dots{display:flex}
+    .akce-grid{grid-template-columns:1fr}
+    .galerie{padding:60px 16px 56px}
+    .gal-grid{grid-template-columns:1fr 1fr;grid-auto-rows:150px;gap:10px}
+    .gal-item.velka{grid-column:span 2;grid-row:span 2}
+    .shop{padding:64px 20px}
+    .shop-grid{grid-template-columns:1fr 1fr;gap:14px}
+    .produkt-body{padding:14px 10px 18px}
+    .produkt-body h3{font-size:19px}
+  }
+
+
+
+  /* ===== GALERIE ===== */
+  .galerie{max-width:1240px;margin:0 auto;padding:90px 32px 80px}
+  .gal-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:210px;
+    gap:14px;
+  }
+  .gal-item{
+    border-radius:8px;overflow:hidden;position:relative;
+    display:flex;align-items:flex-end;justify-content:center;
+    font-style:italic;font-size:14px;color:rgba(253,250,245,.8);
+    padding-bottom:10px;
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .gal-item:hover{transform:scale(1.02);box-shadow:0 14px 32px rgba(46,68,52,.16)}
+  .gal-item.velka{grid-column:span 2;grid-row:span 2}
+  .gal-item .popisek{
+    position:absolute;left:14px;bottom:12px;
+    font-family:'Cormorant Garamond',serif;font-style:normal;
+    font-size:17px;letter-spacing:.06em;color:#fdfaf5;
+    text-shadow:0 1px 10px rgba(0,0,0,.6);
+  }
+  .g1{background:linear-gradient(150deg,#3f5a3c,#6e8a58 55%,#aec487)}
+  .g2{background:linear-gradient(150deg,#5d4a32,#94794f 55%,#cdb88a)}
+  .g3{background:linear-gradient(150deg,#41506b,#6d7e9c 55%,#aab9d2)}
+  .g4{background:linear-gradient(150deg,#5a3f50,#8c6680 55%,#c3a3b6)}
+  .g5{background:linear-gradient(150deg,#54614a,#84926e 55%,#c0cda2)}
+  .g6{background:linear-gradient(150deg,#6b5436,#a08252 55%,#d6c094)}
+  /* ===== BALI SHOP ===== */
+  .shop{max-width:1240px;margin:0 auto;padding:90px 32px}
+  .shop .sekce-head p.pod{
+    font-size:20px;font-style:italic;color:#4c5247;
+    max-width:560px;margin:14px auto 0;
+  }
+  .shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-bottom:44px}
+  .produkt{
+    background:#fbf8f2;border:1px solid var(--line);border-radius:8px;
+    overflow:hidden;text-align:center;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .produkt:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(46,68,52,.10)}
+  .produkt-foto{
+    aspect-ratio:1/1;
+    display:flex;align-items:flex-end;justify-content:center;
+    font-style:italic;font-size:14px;color:rgba(253,250,245,.75);
+    padding-bottom:10px;
+  }
+  .produkt-foto.p1{background:linear-gradient(160deg,#9b8467,#cbb592 60%,#e9dcc0)}
+  .produkt-foto.p2{background:linear-gradient(160deg,#74506b,#a8799a 60%,#d3aec4)}
+  .produkt-foto.p3{background:linear-gradient(160deg,#5f6e52,#8da178 60%,#c5d3a8)}
+  .produkt-foto.p4{background:linear-gradient(160deg,#6d5e4c,#9d8a6c 60%,#d0bf9c)}
+  .produkt-body{padding:20px 18px 24px}
+  .produkt-body h3{font-size:22px;margin-bottom:6px}
+  .produkt-body .cena{font-size:18px;color:var(--rose);letter-spacing:.04em}
+  .shop-cta{text-align:center}
+  .shop-cta .btn{background:var(--green)}
+  .shop-cta .btn:hover{background:#1f3024}
+  /* ===== ROZCESTNÍK „CHCI PŘIJET" ===== */
+  .modal-backdrop{
+    position:fixed;inset:0;background:rgba(20,26,18,.55);
+    display:none;align-items:flex-start;justify-content:center;
+    padding:7vh 18px 40px;z-index:100;overflow-y:auto;
+    backdrop-filter:blur(3px);
+  }
+  .modal-backdrop.open{display:flex}
+  .modal{
+    background:#fdf7ea;
+    border-radius:16px;
+    max-width:880px;width:100%;
+    padding:40px 44px 44px;
+    position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,.35);
+  }
+  .modal .eyebrow-m{
+    font-size:15px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--rose);margin-bottom:10px;
+  }
+  .modal h2{font-size:clamp(28px,4vw,38px);margin-bottom:30px}
+  .modal-close{
+    position:absolute;top:30px;right:32px;
+    width:48px;height:48px;
+    background:#fff;border:1px solid var(--line);border-radius:8px;
+    font-size:22px;color:var(--green);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s;
+  }
+  .modal-close:hover{background:var(--cream-dark)}
+  .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .modal-card{
+    display:block;background:#fff;
+    border:1px solid var(--line);border-radius:10px;
+    padding:22px 26px;
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .modal-card:hover{
+    border-color:var(--rose);transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(46,68,52,.10);
+  }
+  .modal-card h3{font-size:24px;font-weight:600;margin-bottom:6px}
+  .modal-card p{font-size:18px;color:#4c5247}
+  @media (max-width:680px){
+    .modal{padding:30px 22px 26px}
+    .modal-close{top:22px;right:20px}
+    .modal-grid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <nav>
+    <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+    <div class="menu" id="menu">
+      <a href="/portalova-zahrada">Portálová zahrada</a>
+      <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+      <a href="#oaza">Akce</a>
+      <a href="/nabidka-sluzeb">Služby</a>
+      <a href="/pronajem-prostor">Pronájem</a>
+      <a href="/spirit-shop-1">E-shop</a>
+      <a href="https://web.oaza-adamanthea.cz/">O nás</a>
+      <a href="/kontakt">Kontakt</a>
+      <a href="/kontakt" class="js-prijet jen-mobil">Chci přijet</a>
+    </div>
+    <a class="btn js-prijet" href="/kontakt">Chci přijet</a>
+  </nav>
+
+  <div style="flex:1"></div>
+</header>
+
+<!-- ============ PODTITUL POD FOTKOU ============ -->
+<section class="hero-pod">
+  <h1 class="sr-only">Oáza Adamanthea — krystal &amp; retreat centrum</h1>
+  <p class="sub">Místo pro zastavení, ztišení a návrat k sobě</p>
+  <p class="sub-it">Retreat centrum v srdci Moravy</p>
+  <a class="btn js-prijet" href="/kontakt">Chci přijet</a>
+</section>
+
+<!-- ============ ČTYŘI PILÍŘE ============ -->
+<div class="pilire-wrap">
+<section class="pilire" id="pilire">
+  <div class="pilir" id="pobyty">
+    <div class="ikona">
+      <!-- lotos -->
+      <svg width="46" height="40" viewBox="0 0 46 40" fill="none" aria-hidden="true">
+        <path d="M23 6 C27 12 27 20 23 26 C19 20 19 12 23 6Z" stroke="#b06a6c" stroke-width="1.2"/>
+        <path d="M10 14 C16 16 20 22 21 28 C14 27 10 21 10 14Z" stroke="#b06a6c" stroke-width="1.2"/>
+        <path d="M36 14 C30 16 26 22 25 28 C32 27 36 21 36 14Z" stroke="#b06a6c" stroke-width="1.2"/>
+        <path d="M4 26 C10 32 18 34 23 33 C28 34 36 32 42 26 C36 38 10 38 4 26Z" stroke="#b06a6c" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <h3>Pobyt ve světle</h3>
+    <p>Apartmán v srdci portálové zahrady pro hluboký odpočinek a návrat k sobě.</p>
+    <a class="vice" href="/pobyt-ve-svetle">Zobrazit více
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
+    </a>
+  </div>
+
+  <div class="pilir" id="zahrada">
+    <div class="ikona">
+      <!-- portál -->
+      <svg width="42" height="46" viewBox="0 0 42 46" fill="none" aria-hidden="true">
+        <path d="M8 42 L8 22 C8 6 34 6 34 22 L34 42" stroke="#b06a6c" stroke-width="1.2"/>
+        <path d="M13 42 L13 23 C13 11 29 11 29 23 L29 42" stroke="#b06a6c" stroke-width=".8" opacity=".7"/>
+        <circle cx="21" cy="26" r="2" fill="#b06a6c"/>
+        <path d="M4 42 L38 42" stroke="#b06a6c" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <h3>Portálová zahrada</h3>
+    <p>Pyramida, portál Sirius a čakrová cesta — posvátný prostor, který léčí sám o sobě.</p>
+    <a class="vice" href="/portalova-zahrada">Zobrazit více
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
+    </a>
+  </div>
+
+  <div class="pilir" id="sluzby">
+    <div class="ikona">
+      <!-- krystal -->
+      <svg width="40" height="46" viewBox="0 0 40 46" fill="none" aria-hidden="true">
+        <path d="M20 4 L29 14 L25 40 L15 40 L11 14 Z" stroke="#b06a6c" stroke-width="1.2"/>
+        <path d="M11 14 L29 14 M20 4 L20 40" stroke="#b06a6c" stroke-width=".8" opacity=".7"/>
+        <path d="M34 8 L34 13 M31.5 10.5 L36.5 10.5" stroke="#b06a6c" stroke-width="1"/>
+        <circle cx="6" cy="20" r="1" fill="#b06a6c"/>
+      </svg>
+    </div>
+    <h3>Služby a terapie</h3>
+    <p>Krystalové rituály, harmonizace a terapie pro tělo, mysl i duši. Osobně i na dálku.</p>
+    <a class="vice" href="/nabidka-sluzeb">Zobrazit více
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
+    </a>
+  </div>
+
+  <div class="pilir" id="pronajem">
+    <div class="ikona">
+      <!-- altán -->
+      <svg width="46" height="42" viewBox="0 0 46 42" fill="none" aria-hidden="true">
+        <path d="M8 18 L23 6 L38 18" stroke="#b06a6c" stroke-width="1.2"/>
+        <path d="M11 18 L11 36 M35 18 L35 36 M8 36 L38 36" stroke="#b06a6c" stroke-width="1.2"/>
+        <path d="M19 36 L19 26 C19 23 27 23 27 26 L27 36" stroke="#b06a6c" stroke-width="1"/>
+      </svg>
+    </div>
+    <h3>Pronájem prostoru</h3>
+    <p>Klidné a inspirativní prostory pro vaše akce, kurzy a setkání.</p>
+    <a class="vice" href="/pronajem-prostor">Zobrazit více
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
+    </a>
+  </div>
+</section>
+<div class="pilire-dots" id="pilire-dots" aria-hidden="true">
+  <span class="on"></span><span></span><span></span><span></span>
+</div>
+</div>
+
+<!-- ============ NADCHÁZEJÍCÍ AKCE ============ -->
+<section class="akce" id="oaza">
+  <div class="sekce-head">
+    <h2>Nadcházející akce</h2>
+    <div class="orn">
+      <svg width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
+        <path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#b06a6c" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="akce-grid">
+    <article class="akce-card">
+      <div class="akce-foto f1">— fotka akce —</div>
+      <div class="akce-body">
+        <p class="datum">15. června · 21:00</p>
+        <h3>Sedm světelných impulzů</h3>
+        <p>Večerní energetické setkání — sedm impulzů světla pro vaši duši.</p>
+        <a class="vice" href="https://web.oaza-adamanthea.cz/#medita%C4%8Dn%C3%AD-centrum-3">Více o akci
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <article class="akce-card">
+      <div class="akce-foto f2">— fotka akce —</div>
+      <div class="akce-body">
+        <p class="datum">27. června · 16:00</p>
+        <h3>Kakaová ceremonie a mantry</h3>
+        <p>Posvátný rituál s ceremoniálním kakaem, mantrami a sdílením v kruhu.</p>
+        <a class="vice" href="https://web.oaza-adamanthea.cz/#medita%C4%8Dn%C3%AD-centrum-3">Více o akci
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <article class="akce-card">
+      <div class="akce-foto f3">— fotka akce —</div>
+      <div class="akce-body">
+        <p class="datum">24.–29. září 2026</p>
+        <h3>Cesta na pyramidy v Bosně</h3>
+        <p>Šestidenní transformační výprava do údolí bosenských pyramid.</p>
+        <a class="vice" href="https://web.oaza-adamanthea.cz/#medita%C4%8Dn%C3%AD-centrum-3">Více o akci
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ O OÁZE ============ -->
+<section class="o-oaze" id="onas">
+  <h2>Místo, kde se propojují světy</h2>
+  <p>Kousek od Zlína i Uherského Hradiště, obklopeni přírodou, najdete prostor, který léčí sám o sobě. Portálová zahrada, krystaly a posvátný klid vás provedou zpět k vaší podstatě.</p>
+  <a class="btn" href="https://web.oaza-adamanthea.cz/">Poznat náš příběh</a>
+</section>
+
+
+<!-- ============ GALERIE OÁZY ============ -->
+<section class="galerie" id="galerie">
+  <div class="sekce-head">
+    <h2>Galerie Oázy</h2>
+    <div class="orn">
+      <svg width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
+        <path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#b06a6c" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="gal-grid">
+    <div class="gal-item velka g1"><span class="popisek">Portálová zahrada</span></div>
+    <div class="gal-item g2"><span class="popisek">Pyramida</span></div>
+    <div class="gal-item g6"><span class="popisek">Portál Sirius</span></div>
+    <div class="gal-item g3"><span class="popisek">Meditační místnost</span></div>
+    <div class="gal-item g5"><span class="popisek">Maloka</span></div>
+  </div>
+</section>
+
+<!-- ============ BALI SHOP ============ -->
+<section class="shop" id="eshop">
+  <div class="sekce-head">
+    <h2>Bali shop</h2>
+    <div class="orn">
+      <svg width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
+        <path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#b06a6c" stroke-width="1"/>
+      </svg>
+    </div>
+    <p class="pod">Krystaly, šaty, šperky a rituální předměty — vybírané osobně na cestách po Bali.</p>
+  </div>
+
+  <div class="shop-grid">
+    <a class="produkt" href="/spirit-shop-1">
+      <div class="produkt-foto p1">— foto produktu —</div>
+      <div class="produkt-body">
+        <h3>Šaty Bohyně</h3>
+        <p class="cena">cena v e-shopu</p>
+      </div>
+    </a>
+    <a class="produkt" href="/spirit-shop-1">
+      <div class="produkt-foto p2">— foto produktu —</div>
+      <div class="produkt-body">
+        <h3>Tantric Love</h3>
+        <p class="cena">cena v e-shopu</p>
+      </div>
+    </a>
+    <a class="produkt" href="/spirit-shop-1">
+      <div class="produkt-foto p3">— foto produktu —</div>
+      <div class="produkt-body">
+        <h3>Ceremoniální kakao</h3>
+        <p class="cena">cena v e-shopu</p>
+      </div>
+    </a>
+    <a class="produkt" href="/spirit-shop-1">
+      <div class="produkt-foto p4">— foto produktu —</div>
+      <div class="produkt-body">
+        <h3>Křišťálová špice</h3>
+        <p class="cena">cena v e-shopu</p>
+      </div>
+    </a>
+  </div>
+
+  <div class="shop-cta">
+    <a class="btn" href="/spirit-shop-1">Vstoupit do e-shopu</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="kontakt">
+  <p class="f-logo">Oáza Adamanthea</p>
+  <p class="f-tag">Krystal &amp; retreat centrum</p>
+  <p class="kontakt">
+    Halenkovice 400, 763 63 Halenkovice<br>
+    <a href="tel:+420737869752">+420 737 869 752</a> · <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
+  </p>
+  <p class="drobne">Místo pro zastavení, ztišení a návrat k sobě.</p>
+</footer>
+
+
+<!-- ============ ROZCESTNÍK „CHCI PŘIJET" ============ -->
+<div class="modal-backdrop" id="prijet" role="dialog" aria-modal="true" aria-labelledby="prijet-h">
+  <div class="modal">
+    <button class="modal-close" aria-label="Zavřít" onclick="zavriPrijet()">✕</button>
+    <p class="eyebrow-m">Chci přijet</p>
+    <h2 id="prijet-h">Jak chcete Oázu navštívit?</h2>
+    <div class="modal-grid">
+      <a class="modal-card" href="/pobyt-ve-svetle" onclick="zavriPrijet()">
+        <h3>Na pobyt</h3>
+        <p>Navede na Pobyt ve Světle a další pobytové možnosti.</p>
+      </a>
+      <a class="modal-card" href="https://web.oaza-adamanthea.cz/#medita%C4%8Dn%C3%AD-centrum-3" onclick="zavriPrijet()">
+        <h3>Na akci</h3>
+        <p>Přejde na kalendář a nejbližší události v Oáze.</p>
+      </a>
+      <a class="modal-card" href="/nabidka-sluzeb" onclick="zavriPrijet()">
+        <h3>Na sezení</h3>
+        <p>Otevře nabídku služeb, terapií a harmonizací.</p>
+      </a>
+      <a class="modal-card" href="/portalova-zahrada" onclick="zavriPrijet()">
+        <h3>Do zahrady</h3>
+        <p>Vede k Portálové zahradě jako samostatnému prožitku.</p>
+      </a>
+      <a class="modal-card" href="/pronajem-prostor" onclick="zavriPrijet()">
+        <h3>Pronajmout prostor</h3>
+        <p>Pro lektory, průvodce a pořadatele vlastních setkání.</p>
+      </a>
+      <a class="modal-card" href="/kontakt" onclick="zavriPrijet()">
+        <h3>Nejsem si jistá</h3>
+        <p>Vede rovnou na kontakt, kde se dá společně vybrat cesta.</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  // jemné objevení pilířů při scrollu
+  (function(){
+    const cards=document.querySelectorAll('.pilir');
+    if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches){
+      cards.forEach(c=>c.classList.add('in'));return;
+    }
+    const io=new IntersectionObserver(es=>{
+      es.forEach((e)=>{ if(e.isIntersecting){
+        const i=[...cards].indexOf(e.target);
+        setTimeout(()=>e.target.classList.add('in'), i*130);
+        io.unobserve(e.target);
+      }});
+    },{threshold:.2});
+    cards.forEach(c=>io.observe(c));
+  })();
+
+  // tečky pro mobilní posouvání
+  (function(){
+    const strip=document.getElementById('pilire');
+    const dots=document.querySelectorAll('#pilire-dots span');
+    if(!strip||!dots.length) return;
+    strip.addEventListener('scroll',()=>{
+      const i=Math.round(strip.scrollLeft / (strip.scrollWidth/4 - 1));
+      dots.forEach((d,k)=>d.classList.toggle('on', k===Math.min(i,3)));
+    },{passive:true});
+  })();
+  function prepniMenu(btn){
+    const m=document.getElementById('menu');
+    const open=m.classList.toggle('open');
+    btn.textContent=open?'✕':'☰';
+    document.body.style.overflow=open?'hidden':'';
+  }
+  document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{
+    const m=document.getElementById('menu');
+    if(m.classList.contains('open')){
+      m.classList.remove('open');
+      document.querySelector('.nav-toggle').textContent='☰';
+      document.body.style.overflow='';
+    }
+  }));
+  function otevriPrijet(e){
+    if(e) e.preventDefault();
+    document.getElementById('prijet').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function zavriPrijet(){
+    document.getElementById('prijet').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  document.querySelectorAll('.js-prijet').forEach(b=>b.addEventListener('click',otevriPrijet));
+  document.getElementById('prijet').addEventListener('click',function(e){
+    if(e.target===this) zavriPrijet();
+  });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') zavriPrijet(); });
+</script>
+
+</body>
+</html>

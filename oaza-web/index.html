@@ -268,18 +268,22 @@
   }
   .gal-item:hover{transform:scale(1.02);box-shadow:0 14px 32px rgba(46,68,52,.16)}
   .gal-item.velka{grid-column:span 2;grid-row:span 2}
-  .gal-item .popisek{
+  .gal-item::after{
+    content:"";position:absolute;inset:auto 0 0 0;height:42%;
+    background:linear-gradient(0deg,rgba(20,28,18,.55),transparent);
+  }
+  .gal-item .popisek{z-index:1;
     position:absolute;left:14px;bottom:12px;
     font-family:'Cormorant Garamond',serif;font-style:normal;
     font-size:17px;letter-spacing:.06em;color:#fdfaf5;
     text-shadow:0 1px 10px rgba(0,0,0,.6);
   }
-  .g1{background:linear-gradient(150deg,#3f5a3c,#6e8a58 55%,#aec487)}
-  .g2{background:linear-gradient(150deg,#5d4a32,#94794f 55%,#cdb88a)}
-  .g3{background:linear-gradient(150deg,#41506b,#6d7e9c 55%,#aab9d2)}
-  .g4{background:linear-gradient(150deg,#5a3f50,#8c6680 55%,#c3a3b6)}
-  .g5{background:linear-gradient(150deg,#54614a,#84926e 55%,#c0cda2)}
-  .g6{background:linear-gradient(150deg,#6b5436,#a08252 55%,#d6c094)}
+  .gal-item{background-size:cover;background-position:center}
+  .g1{background-image:url(/img/gal-1.jpg)}
+  .g2{background-image:url(/img/gal-2.jpg)}
+  .g6{background-image:url(/img/gal-3.jpg)}
+  .g3{background-image:url(/img/gal-4.jpg)}
+  .g5{background-image:url(/img/gal-5.jpg)}
   /* ===== BALI SHOP ===== */
   .shop{max-width:1240px;margin:0 auto;padding:90px 32px}
   .shop .sekce-head p.pod{
@@ -705,4 +709,3 @@
 
 </body>
 </html>
-

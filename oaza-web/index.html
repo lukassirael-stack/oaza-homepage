@@ -215,6 +215,7 @@
   footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
   @media (max-width:900px){
+
     nav{padding:20px 22px;gap:20px}
     nav .menu{
       display:none;position:fixed;inset:0;
@@ -374,6 +375,14 @@
     .modal{padding:30px 22px 26px}
     .modal-close{top:22px;right:20px}
     .modal-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:900px){
+    .shop-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+    .produkt-body h3{font-size:17px}
+    .produkt-body .cena{font-size:15px}
+    .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;gap:10px}
+    .gal-velka{grid-column:span 2;grid-row:span 2}
+    .gal-item .popisek{font-size:13px;padding:8px 10px}
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important}
@@ -581,32 +590,32 @@
   </div>
 
   <div class="shop-grid">
+    <a class="produkt" href="/product-page/flow-disc">
+      <img class="produkt-foto" src="/img/produkt-3.jpg" alt="Flow Disc" loading="lazy">
+      <div class="produkt-body">
+        <h3>Flow Disc</h3>
+        <p class="cena">12 000 Kč / 480 €</p>
+      </div>
+    </a>
     <a class="produkt" href="/product-page/aura-sprej-narozen%C3%AD">
       <img class="produkt-foto" src="/img/produkt-1.jpg" alt="Aura sprej – Zrození" loading="lazy">
       <div class="produkt-body">
         <h3>Aura sprej – Zrození</h3>
-        <p class="cena">690 Kč</p>
+        <p class="cena">690 Kč / 28 €</p>
       </div>
     </a>
     <a class="produkt" href="/product-page/ceremoni%C3%A1ln%C3%AD-kakao-ubud-raw-120g">
       <img class="produkt-foto" src="/img/produkt-2.jpg" alt="Ceremoniální kakao UBUD RAW" loading="lazy">
       <div class="produkt-body">
         <h3>Ceremoniální kakao UBUD RAW</h3>
-        <p class="cena">350 Kč</p>
-      </div>
-    </a>
-    <a class="produkt" href="/product-page/flow-disc">
-      <img class="produkt-foto" src="/img/produkt-3.jpg" alt="Flow Disc" loading="lazy">
-      <div class="produkt-body">
-        <h3>Flow Disc</h3>
-        <p class="cena">12 000 Kč</p>
+        <p class="cena">350 Kč / 14 €</p>
       </div>
     </a>
     <a class="produkt" href="/product-page/%C5%A1aty-s-v%C3%BD%C5%A1ivkou-indie-1">
       <img class="produkt-foto" src="/img/produkt-4.jpg" alt="Šaty s výšivkou Indie" loading="lazy">
       <div class="produkt-body">
         <h3>Šaty s výšivkou Indie</h3>
-        <p class="cena">1 550 Kč</p>
+        <p class="cena">1 550 Kč / 62 €</p>
       </div>
     </a>
   </div>

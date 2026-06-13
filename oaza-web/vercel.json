@@ -1,7 +1,7 @@
 {
   "redirects": [
     {
-      "source": "/:path((?!img/|favicon\\.svg|robots\\.txt|index\\.html).+)",
+      "source": "/:path((?!img/|api/|favicon\\.svg|robots\\.txt|index\\.html|pobyt-ve-svetle|portalova-zahrada).+)",
       "destination": "https://web.oaza-adamanthea.cz/:path",
       "permanent": false
     }

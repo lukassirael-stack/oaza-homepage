@@ -55,6 +55,8 @@ nav .menu{display:flex;gap:26px;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,
 nav .menu a{position:relative;padding-bottom:3px}
 nav .menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#fdfaf5;transition:width .25s ease}
 nav .menu a:hover::after{width:100%}
+nav .menu a.aktivni::after{width:100%}
+nav .menu a.aktivni{font-weight:600}
 .nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
 nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px}
 
@@ -306,7 +308,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
     <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
     <div class="menu" id="menu">
       <a href="/portalova-zahrada">Portálová zahrada</a>
-      <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+      <a href="/pobyt-ve-svetle" class="aktivni">Pobyt ve světle</a>
       <a href="/#oaza">Akce</a>
       <a href="/nabidka-sluzeb">Služby</a>
       <a href="/pronajem-prostor">Pronájem</a>

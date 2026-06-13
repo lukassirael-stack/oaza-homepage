@@ -23,13 +23,13 @@ img{max-width:100%;display:block}
 
 /* ===== NAV (přes hero) ===== */
 nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px;background:linear-gradient(180deg,rgba(12,18,10,.62) 0%,rgba(12,18,10,.30) 55%,rgba(12,18,10,0) 100%)}
-nav .menu{display:flex;gap:26px;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,.55);font-family:'Jost',sans-serif;color:#fdfaf5}
+nav .menu{display:flex;gap:26px;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,.55);font-family:'Cormorant Garamond',serif;color:#fdfaf5}
 .jen-mobil{display:none}
 nav .menu a{position:relative;padding-bottom:3px}
 nav .menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#fdfaf5;transition:width .25s}
 nav .menu a:hover::after{width:100%}
 .nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
-nav .btn{font-family:'Jost',sans-serif;font-size:16px;padding:11px 26px}
+nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px}
 
 /* ===== HERO ===== */
 .pz-hero{position:relative;width:100%;min-height:82vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -185,7 +185,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   <div class="pz-hero-overlay"></div>
   <div class="pz-hero-content">
     <span class="pz-badge" id="secretBadge" onclick="secretClick()">Oáza Adamanthea · Halenkovice</span>
-    <h1>Portálová zahrada</h1>
+    <h1 onclick="secretClick()" style="cursor:default;user-select:none">Portálová zahrada</h1>
     <p class="pz-hero-sub">Posvátný prostor · místo, kde se propojují světy</p>
   </div>
 </header>
@@ -210,8 +210,8 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
     <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/d991d3_dc5a46e2764941c39da6811f080c9f72~mv2.jpg/v1/fill/w_500,h_375,al_c,q_85/p.jpg" alt="Sirius portál"><div class="pz-card-body"><span class="pz-num">02</span><h3>Sirius portál</h3><p>Hvězdná brána. Napojení na vesmírný původ a komunikace s vyššími světy — požádejte, ať vám ukáže, co potřebujete vědět.</p></div></div>
     <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/1e7d8f_29dee2359fc44bbd8b42f92319a11790~mv2.jpg/v1/fill/w_500,h_375,al_c,q_85/p.jpg" alt="Plejády"><div class="pz-card-body"><span class="pz-num">03</span><h3>Plejády</h3><p>Naladění na harmonii, lásku, klid a mír. Buďte zde v srdci — domov uvnitř srdce.</p></div></div>
     <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/d991d3_4c1f82a2f8334b67bf2a1bf7d9c15b92~mv2.jpg/v1/fill/w_500,h_375,al_c,q_85/p.jpg" alt="Čakrová cesta"><div class="pz-card-body"><span class="pz-num">04</span><h3>Čakrová cesta</h3><p>Čakrové portály z polodrahokamů pro harmonizaci, roztočení a zvědomění energetických center.</p></div></div>
-    <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/d991d3_20b645054f584e8c986906a5a73c7ca0~mv2.jpg/v1/fill/w_500,h_375,al_c,q_85/p.jpg" alt="Atlantis"><div class="pz-card-body"><span class="pz-num">05</span><h3>Atlantis</h3><p>Chrám Atlantidy s velkým krystalem — velmi silné místo pro hlubší meditaci a léčení dávných zranění.</p></div></div>
-    <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/d991d3_387fea80798b4a428ca2cef6c2adf809~mv2.jpg/v1/fill/w_500,h_375,al_c,q_85/p.jpg" alt="Pacha Mama"><div class="pz-card-body"><span class="pz-num">06</span><h3>Pacha Mama</h3><p>Portál se sochou Matky Země. Spojení se Zemí, ukotvení, uzemnění, výdech a síla. Práce s tématem matky a ženy.</p></div></div>
+    <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/d991d3_20b645054f584e8c986906a5a73c7ca0~mv2.jpg/v1/fill/w_500,h_375,al_t,q_85/p.jpg" alt="Atlantis"><div class="pz-card-body"><span class="pz-num">05</span><h3>Atlantis</h3><p>Chrám Atlantidy s velkým krystalem — velmi silné místo pro hlubší meditaci a léčení dávných zranění.</p></div></div>
+    <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/d991d3_387fea80798b4a428ca2cef6c2adf809~mv2.jpg/v1/fill/w_500,h_375,al_t,q_85/p.jpg" alt="Pacha Mama"><div class="pz-card-body"><span class="pz-num">06</span><h3>Pacha Mama</h3><p>Portál se sochou Matky Země. Spojení se Zemí, ukotvení, uzemnění, výdech a síla. Práce s tématem matky a ženy.</p></div></div>
     <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/d991d3_fa153f2c906f4c23818b8fdedd3b5a83~mv2.jpg/v1/fill/w_500,h_375,al_c,q_85/p.jpg" alt="Drúza hojnosti"><div class="pz-card-body"><span class="pz-num">07</span><h3>Drúza hojnosti</h3><p>Krystal s vědomím hojnosti předá své dary tomu, kdo je připraven. Požádejte o otevření hojnosti a proudění.</p></div></div>
     <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/d991d3_83b84f2bbb7c4f8880bd7c155b73328e~mv2.jpg/v1/fill/w_500,h_375,al_c,q_85/p.jpg" alt="Strom předků"><div class="pz-card-body"><span class="pz-num">08</span><h3>Strom předků</h3><p>Spojení a komunikace s předky. Uzdravte staré rány svého rodu a přijměte dary.</p></div></div>
     <div class="pz-card"><img loading="lazy" src="https://static.wixstatic.com/media/d991d3_2ec898d23dcf4befb64cbc971ea024da~mv2.jpg/v1/fill/w_500,h_375,al_c,q_85/p.jpg" alt="Dračí vortex"><div class="pz-card-body"><span class="pz-num">09</span><h3>Dračí vortex</h3><p>Krystal od pyramidy Draka z bosenského údolí pyramid. Načerpejte sílu pro své další kroky a rozhodnutí.</p></div></div>

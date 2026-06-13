@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pobyt ve světle | Oáza Adamanthea</title>
+<meta name="description" content="Balijská boho chatka — lesní glamping na Moravě nedaleko Zlína a Uherského Hradiště. Prostor pro odpočinek, meditaci a návrat k sobě. Rezervujte si svůj pobyt ve světle.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ====================================================================
+   GLOBÁLNÍ ZÁKLAD (sjednoceno s homepage)
+   ==================================================================== */
+:root{
+  --cream:#f5f1e9;
+  --cream-dark:#ede7db;
+  --green:#2e4434;
+  --rose:#b06a6c;
+  --rose-dark:#9c585a;
+  --ink:#3a3f38;
+  --line:#d8d0c2;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cormorant Garamond',serif;
+  background:var(--cream);
+  color:var(--ink);
+  font-size:20px;
+  line-height:1.6;
+}
+h1,h2,h3{font-weight:500;color:var(--green)}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.btn{
+  display:inline-block;background:var(--rose);color:#fdfaf5;
+  font-size:19px;padding:13px 34px;border-radius:6px;
+  transition:background .25s ease;
+}
+.btn:hover{background:var(--rose-dark)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ====================================================================
+   NAVIGACE (z homepage, položená přes hero)
+   ==================================================================== */
+nav{
+  position:absolute;top:0;left:0;right:0;z-index:10;
+  display:flex;align-items:center;justify-content:flex-end;gap:34px;
+  padding:26px 48px 60px;
+  background:linear-gradient(180deg,rgba(12,18,10,.62) 0%,rgba(12,18,10,.30) 55%,rgba(12,18,10,0) 100%);
+}
+nav .menu{display:flex;gap:26px;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,.55);font-family:'Jost',sans-serif;color:#fdfaf5}
+.jen-mobil{display:none}
+nav .menu a{position:relative;padding-bottom:3px}
+nav .menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#fdfaf5;transition:width .25s ease}
+nav .menu a:hover::after{width:100%}
+.nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
+nav .btn{font-family:'Jost',sans-serif;font-size:16px;padding:11px 26px}
+
+/* ====================================================================
+   ČÁST 1 — HERO (prefix pvs- aby nekolidoval s nav/rezervací/recenzemi)
+   ==================================================================== */
+.pvs-hero{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pvs-hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://static.wixstatic.com/media/1e7d8f_b486c9fa95af4c4ebeb9d59b78e39f42~mv2.jpg');
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  filter:brightness(0.85);transform:scale(1.02);transition:transform 8s ease;
+}
+.pvs-hero:hover .pvs-hero-bg{transform:scale(1.05)}
+.pvs-hero-light{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 65% 30%,rgba(255,230,100,0.15) 0%,transparent 70%);pointer-events:none}
+.pvs-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,20,0,0.25) 40%,rgba(0,15,0,0.45) 100%)}
+.pvs-hero-content{position:relative;z-index:2;width:100%;max-width:780px;margin:0 auto;padding:60px 40px;text-align:center}
+.pvs-card{
+  background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:50px 56px;
+  box-shadow:0 8px 60px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.15);
+}
+.pvs-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6vw,62px);font-weight:300;letter-spacing:0.15em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,0.4);margin-bottom:28px;line-height:1.1}
+.pvs-divider{width:60px;height:1px;background:rgba(255,255,255,0.5);margin:0 auto 28px}
+.pvs-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,24px);font-weight:400;font-style:italic;color:rgba(255,255,255,0.95);text-shadow:0 1px 20px rgba(0,0,0,0.3);margin-bottom:30px;line-height:1.5}
+.pvs-perex{font-family:'Jost',sans-serif;font-size:clamp(14px,1.8vw,17px);font-weight:300;color:rgba(255,255,255,0.88);line-height:1.8;margin-bottom:36px;text-shadow:0 1px 10px rgba(0,0,0,0.3)}
+.pvs-section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);font-weight:400;font-style:italic;color:#fff;margin-bottom:20px;text-shadow:0 1px 20px rgba(0,0,0,0.3)}
+.pvs-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.pvs-list li{font-family:'Jost',sans-serif;font-size:clamp(13px,1.6vw,16px);font-weight:300;color:rgba(255,255,255,0.9);text-shadow:0 1px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;gap:10px}
+.pvs-list li::before{content:'•';color:rgba(200,230,150,0.9);font-size:18px;line-height:1}
+
+/* ====================================================================
+   ČÁST 2 — GALERIE + TEXT
+   ==================================================================== */
+.pvs2{max-width:760px;margin:0 auto;padding:72px 28px 30px;font-size:17px}
+.pvs2-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:46px;max-width:620px;margin-left:auto;margin-right:auto}
+.pvs2-gallery figure{margin:0;border-radius:9px;overflow:hidden;box-shadow:0 5px 20px rgba(46,68,52,.10)}
+.pvs2-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .6s ease}
+.pvs2-gallery figure:hover img{transform:scale(1.04)}
+.pvs2-text{max-width:680px;margin:0 auto}
+.pvs2-lead{font-size:21px;font-style:italic;color:var(--green);text-align:center;line-height:1.5;margin-bottom:30px}
+.pvs2-text p{margin-bottom:16px;color:#4c5247;font-size:17px;line-height:1.7}
+.pvs2-sub{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--green);margin:30px 0 10px;font-weight:500}
+.pvs2-info{list-style:none;padding:0;margin:8px 0 18px}
+.pvs2-info li{position:relative;padding:6px 0 6px 24px;color:#4c5247;border-bottom:1px solid var(--line);font-size:16px}
+.pvs2-info li:last-child{border-bottom:none}
+.pvs2-info li::before{content:'🌿';position:absolute;left:0;top:7px;font-size:13px}
+.pvs2-services{background:var(--cream-dark);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:24px 0;text-align:center;font-style:italic;color:#4c5247;font-size:16px}
+.pvs2-closing{text-align:center;font-style:italic;font-size:19px;color:var(--green);margin:30px 0 8px}
+
+/* ====================================================================
+   ČÁST 3 — REZERVACE (z původního souboru; vynechán *, body a .hero reset)
+   ==================================================================== */
+.rez-bg{background:linear-gradient(160deg,#f8f4ee 0%,#f0ead8 50%,#e8e0cc 100%);padding-top:30px}
+.rez{font-family:'Jost',sans-serif;color:#3a2e20}
+.rez .main{max-width:680px;margin:0 auto;padding:36px 20px 60px}
+
+.rez .info-box{background:rgba(255,255,255,0.7);border:1px solid rgba(160,130,80,0.2);border-radius:16px;padding:22px;margin-bottom:28px;backdrop-filter:blur(8px)}
+.rez .info-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:#6a4e2a;margin-bottom:16px;font-style:italic}
+.rez .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rez .info-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#7a6040;font-weight:300;line-height:1.5}
+
+.rez .cenik{background:rgba(255,255,255,0.7);border:1px solid rgba(160,130,80,0.2);border-radius:16px;padding:22px;margin-bottom:28px}
+.rez .cenik-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:#6a4e2a;margin-bottom:16px;font-style:italic}
+.rez .cenik-grid{display:grid;gap:8px}
+.rez .cenik-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(160,130,80,0.06);border-radius:10px;border:1px solid rgba(160,130,80,0.12)}
+.rez .cenik-label{font-size:13px;color:#5a4030;font-weight:400}
+.rez .cenik-price{font-size:13px;color:#8a6030;font-weight:500;text-align:right}
+
+.rez .form-card{background:rgba(255,255,255,0.75);border:1px solid rgba(160,130,80,0.2);border-radius:20px;padding:32px;backdrop-filter:blur(8px);box-shadow:0 4px 30px rgba(120,90,40,0.08)}
+.rez .form-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:#6a4e2a;margin-bottom:4px;font-style:italic}
+.rez .form-sub{font-size:13px;color:#9a8060;margin-bottom:26px;font-weight:300}
+
+.rez .field{margin-bottom:18px}
+.rez .field label{display:block;font-size:11px;letter-spacing:.12em;color:#9a7850;text-transform:uppercase;margin-bottom:7px}
+.rez .field input,.rez .field select,.rez .field textarea{width:100%;background:rgba(255,255,255,0.8);border:1.5px solid rgba(160,130,80,0.25);border-radius:10px;padding:11px 15px;color:#4a3520;font-family:'Jost',sans-serif;font-size:14px;font-weight:300;outline:none;transition:border-color .2s}
+.rez .field input:focus,.rez .field select:focus,.rez .field textarea:focus{border-color:rgba(160,130,80,0.6);background:#fff}
+.rez .field select option{background:#fff;color:#4a3520}
+.rez .field textarea{resize:vertical;min-height:70px}
+.rez .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.rez .cal-wrap{margin-bottom:18px}
+.rez .cal-label{font-size:11px;letter-spacing:.12em;color:#9a7850;text-transform:uppercase;margin-bottom:10px;display:block}
+.rez .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.rez .cal-nav{background:rgba(160,130,80,0.08);border:1.5px solid rgba(160,130,80,0.2);border-radius:8px;color:#8a6840;padding:6px 16px;cursor:pointer;font-size:16px;transition:all .2s}
+.rez .cal-nav:hover{background:rgba(160,130,80,0.15);border-color:rgba(160,130,80,0.5)}
+.rez .cal-month{font-family:'Cormorant Garamond',serif;font-size:18px;color:#6a4e2a;font-style:italic}
+.rez .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.rez .cal-day-name{text-align:center;font-size:10px;letter-spacing:.06em;color:#b09070;text-transform:uppercase;padding:4px 0}
+.rez .cal-day{text-align:center;padding:9px 3px;border-radius:8px;cursor:pointer;font-size:12px;color:#7a5830;transition:all .2s;border:1.5px solid transparent}
+.rez .cal-day:hover:not(.disabled):not(.empty){background:rgba(160,130,80,0.1);border-color:rgba(160,130,80,0.3)}
+.rez .cal-day.checkin{background:rgba(120,180,80,0.2);border-color:rgba(120,180,80,0.5);color:#4a7820;font-weight:500}
+.rez .cal-day.checkout{background:rgba(200,120,60,0.2);border-color:rgba(200,120,60,0.5);color:#8a4010;font-weight:500}
+.rez .cal-day.inrange{background:rgba(160,130,80,0.1);border-color:rgba(160,130,80,0.15);color:#6a4e2a}
+.rez .cal-day.booked{background:rgba(200,60,60,0.1);color:#c06060;cursor:not-allowed;text-decoration:line-through}
+.rez .cal-day.disabled{color:#d0c0a0;cursor:not-allowed}
+.rez .cal-day.empty{cursor:default}
+.rez .cal-day.today{border-color:rgba(160,130,80,0.4);color:#8a6030}
+.rez .cal-legend{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
+.rez .leg{display:flex;align-items:center;gap:6px;font-size:11px;color:#9a8060}
+.rez .leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+.rez .services{margin-bottom:18px}
+.rez .services-title{font-size:11px;letter-spacing:.12em;color:#9a7850;text-transform:uppercase;margin-bottom:14px;display:block}
+.rez .services-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rez .service-item{background:rgba(255,255,255,0.7);border:1.5px solid rgba(160,130,80,0.15);border-radius:16px;cursor:pointer;transition:all .25s;overflow:hidden;display:flex;flex-direction:column}
+.rez .service-item:hover{border-color:rgba(160,130,80,0.4);box-shadow:0 4px 16px rgba(120,90,40,0.1);transform:translateY(-2px)}
+.rez .service-item.selected{border-color:rgba(160,130,80,0.6);box-shadow:0 4px 20px rgba(120,90,40,0.15);background:rgba(160,130,80,0.08)}
+.rez .service-img{width:100%;height:140px;object-fit:cover;display:block;filter:brightness(0.92);object-position:center center}
+.rez .service-img.img-aura{object-position:center 60%}
+.rez .service-img.img-ocista{object-position:center top}
+.rez .service-img.img-shop{object-position:center 30%}
+.rez .service-body{padding:12px 14px 14px;flex:1;display:flex;flex-direction:column;gap:6px}
+.rez .service-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.rez .service-cb{width:18px;height:18px;border-radius:5px;border:2px solid rgba(160,130,80,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:11px;margin-top:1px}
+.rez .service-item.selected .service-cb{background:#a08050;border-color:#a08050;color:#fff}
+.rez .service-name{font-size:13px;color:#4a3520;font-weight:500;line-height:1.3;flex:1}
+.rez .service-desc{font-size:11.5px;color:#8a7060;font-weight:300;line-height:1.6}
+.rez .service-price{font-size:12px;color:#9a7050;font-weight:500;margin-top:2px}
+
+.rez .summary{background:rgba(160,130,80,0.07);border:1.5px solid rgba(160,130,80,0.2);border-radius:14px;padding:20px;margin-bottom:22px;display:none}
+.rez .summary-title{font-size:11px;letter-spacing:.15em;color:#9a7850;text-transform:uppercase;margin-bottom:14px}
+.rez .summary-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid rgba(160,130,80,0.1);color:#7a6040}
+.rez .summary-row:last-of-type{border-bottom:none}
+.rez .summary-row span:last-child{color:#4a3520;font-weight:500}
+.rez .summary-divider{height:1px;background:rgba(160,130,80,0.2);margin:10px 0}
+.rez .summary-total{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:18px;color:#6a4e2a;padding-top:4px}
+.rez .summary-total span:last-child{color:#8a5020;font-size:20px}
+.rez .summary-vs{font-size:11px;color:#9a8060;margin-top:8px;text-align:center;font-style:italic}
+
+.rez .payment-info{background:rgba(160,130,80,0.06);border:1px solid rgba(160,130,80,0.2);border-radius:12px;padding:16px 18px;margin-bottom:22px;font-size:13px;color:#7a6040;line-height:1.8}
+.rez .payment-info strong{color:#5a3e20}
+
+.rez .btn-submit{background:linear-gradient(135deg,#8a6030,#c09050);color:#fff;border:none;border-radius:50px;padding:15px 40px;font-family:'Jost',sans-serif;font-size:14px;font-weight:500;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;width:100%;transition:all .3s}
+.rez .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(140,100,40,.3)}
+.rez .btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+.rez .success{display:none;text-align:center;padding:40px 16px}
+.rez .success-icon{font-size:52px;margin-bottom:14px;display:block}
+.rez .success-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:#6a4e2a;margin-bottom:10px}
+.rez .success-text{font-size:13px;color:#9a8060;line-height:1.8;font-weight:300}
+.rez .success-payment{background:rgba(160,130,80,0.08);border:1px solid rgba(160,130,80,0.25);border-radius:14px;padding:18px;margin:20px 0;text-align:left;font-size:13px;color:#5a4030;line-height:2}
+.rez .success-payment strong{color:#4a3020}
+
+.rez .notes{margin-top:20px;padding:14px 16px;background:rgba(160,130,80,0.05);border-radius:10px;border:1px solid rgba(160,130,80,0.12);font-size:12px;color:#9a8060;line-height:1.8}
+.rez .required{color:#c07050}
+
+.rez .storno-wrap{margin-bottom:18px}
+.rez .storno-toggle{width:100%;background:rgba(160,130,80,0.06);border:1.5px solid rgba(160,130,80,0.2);border-radius:12px;padding:13px 18px;font-family:'Jost',sans-serif;font-size:13px;color:#7a6040;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.rez .storno-toggle:hover{background:rgba(160,130,80,0.12);border-color:rgba(160,130,80,0.4)}
+.rez .storno-arrow{font-size:18px;transition:transform .3s;display:inline-block}
+.rez .storno-toggle.open .storno-arrow{transform:rotate(90deg)}
+.rez .storno-body{display:none;padding:16px 18px;background:rgba(160,130,80,0.04);border:1.5px solid rgba(160,130,80,0.15);border-top:none;border-radius:0 0 12px 12px;font-size:13px;color:#7a6040;line-height:1.8}
+.rez .storno-intro{margin-bottom:12px}
+.rez .storno-list{padding-left:18px;margin-bottom:12px}
+.rez .storno-list li{margin-bottom:6px}
+.rez .storno-extra{margin-bottom:12px;font-style:italic}
+.rez .storno-footer{color:#9a8060;font-style:italic}
+
+.rez .check-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;cursor:pointer}
+.rez .check-box{width:20px;height:20px;border-radius:6px;border:2px solid rgba(160,130,80,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px;background:rgba(255,255,255,0.8)}
+.rez .check-box.checked{background:#a08050;border-color:#a08050;color:#fff;font-size:12px}
+.rez .check-label{font-size:13px;color:#7a6040;line-height:1.6}
+.rez .check-label a{color:#8a6030;text-decoration:underline}
+.rez .faktura-fields{display:none;margin-top:10px;padding:14px 16px;background:rgba(160,130,80,0.05);border:1.5px solid rgba(160,130,80,0.2);border-radius:12px}
+.rez .faktura-fields .field{margin-bottom:12px}
+.rez .faktura-fields .field:last-child{margin-bottom:0}
+
+/* ====================================================================
+   ČÁST 4 — RECENZE (scoped do .reviews-scope; body reset -> wrapper)
+   ==================================================================== */
+.reviews-scope{font-family:'Cormorant Garamond',serif;color:#5c4a35;padding:70px 24px 30px;overflow-x:hidden}
+.reviews-container{max-width:1200px;margin:0 auto}
+.reviews-header{text-align:center;margin-bottom:60px;opacity:0;transform:translateY(20px);transition:opacity 1.2s ease,transform 1.2s ease}
+.reviews-header.visible{opacity:1;transform:translateY(0)}
+.reviews-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:500;letter-spacing:0.18em;color:#b8956a;margin-bottom:18px;text-transform:uppercase}
+.reviews-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.1rem,2vw,1.3rem);color:#8a7456;font-weight:300;letter-spacing:0.05em}
+.ornament{display:flex;align-items:center;justify-content:center;margin:24px auto;gap:16px;color:#b8956a}
+.ornament-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,#b8956a,transparent)}
+.ornament-symbol{font-size:0.9rem;color:#b8956a}
+.reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+@media (max-width:720px){.reviews-grid{grid-template-columns:1fr;gap:22px}.reviews-scope{padding:50px 16px 20px}}
+.review-card{background:linear-gradient(135deg,#faf5ec 0%,#f4ecd8 100%);border:1px solid rgba(184,149,106,0.3);border-radius:4px;padding:32px 28px;position:relative;opacity:0;transform:translateY(30px);transition:opacity 0.9s ease,transform 0.9s ease,border-color 0.4s ease,box-shadow 0.4s ease;box-shadow:0 2px 12px rgba(140,110,70,0.06)}
+.review-card.visible{opacity:1;transform:translateY(0)}
+.review-card:hover{border-color:rgba(184,149,106,0.6);box-shadow:0 6px 24px rgba(140,110,70,0.12)}
+.review-card::before{content:'"';position:absolute;top:8px;left:18px;font-family:'Cormorant Garamond',serif;font-size:4.5rem;color:rgba(184,149,106,0.25);line-height:1;font-weight:400}
+.review-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid rgba(184,149,106,0.25);position:relative;z-index:1;flex-wrap:wrap}
+.review-name{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:500;color:#8a6938;letter-spacing:0.1em;text-transform:uppercase}
+.review-separator{color:rgba(184,149,106,0.7);font-size:0.7rem}
+.review-date{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.95rem;color:#9a8568;font-weight:400}
+.review-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.7;color:#5c4a35;font-weight:400;position:relative;z-index:1;max-height:200px;overflow:hidden;transition:max-height 0.6s ease}
+.review-text.expanded{max-height:2000px}
+.review-text-wrapper{position:relative}
+.review-text-wrapper::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(180deg,transparent,#f4ecd8);pointer-events:none;opacity:1;transition:opacity 0.4s ease}
+.review-text-wrapper.expanded::after{opacity:0}
+.review-text-wrapper.no-fade::after{display:none}
+.read-more{background:none;border:none;color:#b8956a;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;margin-top:14px;padding:6px 0;transition:color 0.3s ease,letter-spacing 0.3s ease;display:inline-flex;align-items:center;gap:8px;font-weight:500}
+.read-more:hover{color:#8a6938;letter-spacing:0.18em}
+.read-more::after{content:'✦';font-size:0.65rem}
+.read-more.hidden{display:none}
+.reviews-footer{text-align:center;margin-top:60px;opacity:0;transform:translateY(20px);transition:opacity 1.2s ease,transform 1.2s ease}
+.reviews-footer.visible{opacity:1;transform:translateY(0)}
+.footer-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:#8a7456;font-weight:300;letter-spacing:0.05em}
+
+/* ====================================================================
+   PATIČKA (z homepage)
+   ==================================================================== */
+footer{background:var(--cream-dark);text-align:center;padding:64px 32px 40px;border-top:1px solid var(--line)}
+footer .f-logo{font-size:26px;color:var(--green);margin-bottom:6px}
+footer .f-tag{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#6f7468;margin-bottom:26px}
+footer .kontakt{font-size:19px;line-height:2;color:#4c5247}
+footer .kontakt a{color:var(--rose)}
+.soc{display:flex;justify-content:center;gap:16px;margin-top:28px}
+.soc a{width:44px;height:44px;border:1px solid var(--rose);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .25s}
+.soc a:hover{background:var(--rose);transform:translateY(-2px)}
+.soc a:hover svg path,.soc a:hover svg rect,.soc a:hover svg circle{stroke:#fdfaf5}
+footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
+
+/* ====================================================================
+   MOBILNÍ NAVIGACE (z homepage)
+   ==================================================================== */
+@media (max-width:900px){
+  nav{padding:20px 22px;gap:20px}
+  nav .menu{display:none;position:fixed;inset:0;background:#15221a;flex-direction:column;padding:96px 28px 40px;gap:0;text-align:left;z-index:50;overflow-y:auto}
+  nav .menu.open{display:flex}
+  nav .menu a{font-size:25px;color:#f3efe5;padding:21px 4px;border-bottom:1px solid rgba(243,239,229,.14)}
+  nav .menu a::after{display:none}
+  .jen-mobil{display:block}
+  .nav-toggle{display:block;position:relative;z-index:60}
+  nav .btn:not(.jen-mobil){display:none}
+}
+@media(max-width:760px){
+  .pvs2{padding:60px 20px 20px}
+  .pvs2-gallery{grid-template-columns:1fr;gap:14px}
+  .pvs2-gallery img{aspect-ratio:16/10}
+}
+@media(max-width:480px){
+  .rez .field-row{grid-template-columns:1fr}
+  .rez .info-grid{grid-template-columns:1fr}
+  .rez .services-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ ČÁST 1 — HERO + NAVIGACE ============ -->
+<header class="pvs-hero">
+  <nav>
+    <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+    <div class="menu" id="menu">
+      <a href="/portalova-zahrada">Portálová zahrada</a>
+      <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+      <a href="/#oaza">Akce</a>
+      <a href="/nabidka-sluzeb">Služby</a>
+      <a href="/pronajem-prostor">Pronájem</a>
+      <a href="/spirit-shop-1">E-shop</a>
+      <a href="https://web.oaza-adamanthea.cz/">O nás</a>
+      <a href="/kontakt">Kontakt</a>
+      <a href="/kontakt" class="js-prijet jen-mobil">Chci přijet</a>
+    </div>
+    <a class="btn js-prijet" href="#rezervace">Chci přijet</a>
+  </nav>
+
+  <div class="pvs-hero-bg"></div>
+  <div class="pvs-hero-light"></div>
+  <div class="pvs-hero-overlay"></div>
+
+  <div class="pvs-hero-content">
+    <div class="pvs-card">
+      <h1 class="pvs-title">POBYT VE SVĚTLE</h1>
+      <div class="pvs-divider"></div>
+      <p class="pvs-quote">„Existují místa, kde se člověk znovu nadechne."</p>
+      <p class="pvs-perex">
+        Představte si místo uprostřed lesa, kde na chvíli utichne svět.<br>
+        Jen vy, příroda a prostor pro návrat k sobě.<br><br>
+        Pobyt ve světle je jedinečná příležitost dopřát si čas pro sebe –
+        meditaci, tvoření, ujasnění životních kroků nebo jen hluboký odpočinek.
+        V balijské boho chatce vás bude doprovázet příroda a mistrovský krystal,
+        který podporuje napojení na sebe sama.
+      </p>
+      <h2 class="pvs-section-title">🌿 Co zde můžete zažít</h2>
+      <ul class="pvs-list">
+        <li>hluboké ztišení a meditaci</li>
+        <li>prostor pro vlastní tvorbu a vnitřní práci</li>
+        <li>ujasnění životních kroků</li>
+        <li>návrat k vlastnímu středu</li>
+        <li>načerpání nové energie</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ČÁST 2 — GALERIE + TEXT ============ -->
+<section class="pvs2">
+  <div class="pvs2-gallery">
+    <figure><img src="/img/pobyt-1.jpg" alt="Balijská boho chatka v lese" loading="lazy"></figure>
+    <figure><img src="/img/pobyt-2.jpg" alt="Terasa chatky s výhledem do přírody" loading="lazy"></figure>
+    <figure><img src="/img/pobyt-3.jpg" alt="Interiér chatky" loading="lazy"></figure>
+  </div>
+
+  <div class="pvs2-text">
+    <p class="pvs2-lead">Představte si ráno v lese, kde je ticho tak hluboké, že slyšíte vlastní myšlenky. Místo, kde čas plyne jinak — pomalu, vědomě, jen pro vás.</p>
+
+    <p>Naše balijská boho chatka je jedinečný glamping v přírodě na Moravě — nedaleko Zlína a Uherského Hradiště, uprostřed lesa, daleko od ruchu měst. Přijeďte si odpočinout, ujasnit si životní kroky, tvořit, meditovat — nebo jen prostě být.</p>
+
+    <h3 class="pvs2-sub">Co na vás čeká</h3>
+    <p>Chatka je součástí meditačního centra Oáza Adamanthea a portálové zahrady s energetickými místy, které můžete během pobytu volně navštěvovat. Les, ticho, příroda a mistrovský krystal, který podporuje napojení na sebe sama. Tento lesní glamping na Moravě není jen ubytování — je to prostor pro skutečný odpočinek a vnitřní proměnu.</p>
+
+    <h3 class="pvs2-sub">Vybavení</h3>
+    <p>Kuchyňka s vařičem, konvicí a lednicí, klimatizace, ložní prádlo — deku ani spacák vozit nemusíte. Sprcha je k dispozici v meditačním centru. Připravte se na krátký výstup lesem (cca 100 schodů) — doporučujeme batoh.</p>
+
+    <h3 class="pvs2-sub">Praktické informace</h3>
+    <ul class="pvs2-info">
+      <li>Max. 3 osoby (2 dospělí + 1 dítě), děti do 12 let zdarma</li>
+      <li>Domácí mazlíčci nejsou povoleni</li>
+      <li>Alkohol, kouření a návykové látky nejsou povoleny</li>
+      <li>Prosíme o zdržení se přípravy a konzumace masa</li>
+      <li>Chatku prosíme zanechte po odjezdu tak, jak jste ji našli</li>
+    </ul>
+
+    <div class="pvs2-services">Doplňkové služby: Focení aury a čaker · terapie · energetická očista · Spirit Shop</div>
+
+    <p class="pvs2-closing">Pobyt berte jako čas pro svou duši.<br>Přijeďte, jak jste — odjeďte lehčí. 🌿</p>
+
+    <p>Ideální pro ty, kteří hledají retreat, wellness pobyt v přírodě nebo jednoduše klidné místo k načerpání sil mimo město. Rezervaci provedete přes formulář níže.</p>
+  </div>
+</section>
+
+<!-- ============ ČÁST 3 — REZERVACE ============ -->
+<div class="rez-bg" id="rezervace">
+<div class="rez">
+  <div class="main">
+
+    <!-- INFO -->
+    <div class="info-box">
+      <div class="info-title">🌿 O pobytu</div>
+      <div class="info-grid">
+        <div class="info-item">🏡&nbsp;<span>Balijská boho chatka v přírodě</span></div>
+        <div class="info-item">👥&nbsp;<span>Max. 2 dospělí + 1 dítě</span></div>
+        <div class="info-item">🌙&nbsp;<span>Minimálně 2 noci</span></div>
+        <div class="info-item">🧒&nbsp;<span>Děti do 12 let zdarma</span></div>
+        <div class="info-item">🐾&nbsp;<span>Domácí mazlíčci nejsou povoleni</span></div>
+        <div class="info-item">🚿&nbsp;<span>Sprcha v meditačním centru</span></div>
+        <div class="info-item">🍳&nbsp;<span>Kuchyňka, klimatizace, lednice</span></div>
+        <div class="info-item">💎&nbsp;<span>Vstup do portálové zahrady</span></div>
+      </div>
+    </div>
+
+    <!-- CENÍK -->
+    <div class="cenik">
+      <div class="cenik-title">💰 Ceník (sezóna duben–říjen)</div>
+      <div class="cenik-grid">
+        <div class="cenik-row"><span class="cenik-label">Neděle – čtvrtek</span><span class="cenik-price">1 700 Kč / 70 € za noc</span></div>
+        <div class="cenik-row"><span class="cenik-label">Pátek – sobota</span><span class="cenik-price">2 000 Kč / 80 € za noc</span></div>
+        <div class="cenik-row"><span class="cenik-label">Týdenní pobyt</span><span class="cenik-price"><s style="opacity:.55;font-weight:400">12 500 Kč</s>&nbsp; 10 800 Kč / 432 €</span></div>
+        <div class="cenik-row"><span class="cenik-label">Měsíční pobyt</span><span class="cenik-price">24 000 Kč / 960 €</span></div>
+        <div class="cenik-row"><span class="cenik-label">Druhá osoba</span><span class="cenik-price">+ 500 Kč / 20 € za noc</span></div>
+      </div>
+    </div>
+
+    <!-- FORMULÁŘ -->
+    <div class="form-card" id="formCard">
+      <div class="form-title">Rezervace pobytu</div>
+      <p class="form-sub">Vyplňte prosím níže — celá částka je splatná předem převodem na účet.</p>
+
+      <div id="formContent">
+
+        <div class="field-row">
+          <div class="field">
+            <label>Jméno a příjmení <span class="required">*</span></label>
+            <input type="text" id="name" placeholder="Vaše jméno" oninput="updateSummary()">
+          </div>
+          <div class="field">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="vas@email.cz">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Telefon</label>
+          <input type="tel" id="phone" placeholder="+420 777 000 000">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Počet dospělých <span class="required">*</span></label>
+            <select id="adults" onchange="calcPrice()">
+              <option value="1">1 dospělý</option>
+              <option value="2">2 dospělí</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Děti do 12 let (zdarma)</label>
+            <select id="children" onchange="updateSummary()">
+              <option value="0">Bez dětí</option>
+              <option value="1">1 dítě</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- KALENDÁŘ -->
+        <div class="cal-wrap">
+          <span class="cal-label">Datum příjezdu a odjezdu <span class="required">*</span></span>
+          <div class="cal-header">
+            <button type="button" class="cal-nav" onclick="prevMonth()">‹</button>
+            <span class="cal-month" id="calMonth"></span>
+            <button type="button" class="cal-nav" onclick="nextMonth()">›</button>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-legend">
+            <div class="leg"><div class="leg-dot" style="background:rgba(120,180,80,0.3);border:1px solid rgba(120,180,80,0.6)"></div>Příjezd</div>
+            <div class="leg"><div class="leg-dot" style="background:rgba(200,120,60,0.3);border:1px solid rgba(200,120,60,0.6)"></div>Odjezd</div>
+            <div class="leg"><div class="leg-dot" style="background:rgba(160,130,80,0.15);border:1px solid rgba(160,130,80,0.2)"></div>Vybraný pobyt</div>
+            <div class="leg"><div class="leg-dot" style="background:rgba(200,60,60,0.15);border:1px solid rgba(200,60,60,0.3)"></div>Obsazeno</div>
+          </div>
+        </div>
+
+        <!-- DOPLŇKOVÉ SLUŽBY -->
+        <div class="services">
+          <span class="services-title">✨ Doplňkové služby (volitelné)</span>
+          <div class="services-grid">
+
+            <div class="service-item" onclick="toggleService(this,'aura',700)">
+              <img class="service-img img-aura" src="https://static.wixstatic.com/media/1e7d8f_b486c9fa95af4c4ebeb9d59b78e39f42~mv2.jpg" alt="Focení aury a čaker">
+              <div class="service-body">
+                <div class="service-header">
+                  <div class="service-name">🔮 Focení aury a čaker</div>
+                  <div class="service-cb"></div>
+                </div>
+                <div class="service-desc">Jedinečná metoda, která vizuálně zachycuje energetické pole a centra v těle, a pomáhá lépe porozumět aktuálnímu vnitřnímu stavu i celkové harmonii.</div>
+                <div class="service-price">700 Kč / 30 €</div>
+              </div>
+            </div>
+
+            <div class="service-item" onclick="toggleService(this,'terapie',2200)">
+              <img class="service-img" src="https://static.wixstatic.com/media/1e7d8f_edfd14824def46c1bdca1fbef923ee04~mv2.jpg" alt="Terapie">
+              <div class="service-body">
+                <div class="service-header">
+                  <div class="service-name">🌿 Osobní terapie</div>
+                  <div class="service-cb"></div>
+                </div>
+                <div class="service-desc">Individuální, citlivě vedený proces, který pomáhá porozumět sobě samému, uvolnit vnitřní bloky a podpořit hlubší rovnováhu i životní změnu.</div>
+                <div class="service-price">2 200 Kč / 90 €</div>
+              </div>
+            </div>
+
+            <div class="service-item" onclick="toggleService(this,'ocista',1500)">
+              <img class="service-img img-ocista" src="https://static.wixstatic.com/media/1e7d8f_edfd14824def46c1bdca1fbef923ee04~mv2.jpg" alt="Energetická očista">
+              <div class="service-body">
+                <div class="service-header">
+                  <div class="service-name">✨ Energetická očista</div>
+                  <div class="service-cb"></div>
+                </div>
+                <div class="service-desc">Jemný proces harmonizace, při kterém se uvolňují nahromaděné negativní energie a obnovuje přirozený tok životní síly v těle.</div>
+                <div class="service-price">1 500 Kč / 60 €</div>
+              </div>
+            </div>
+
+            <div class="service-item" onclick="toggleService(this,'shop',0)">
+              <img class="service-img img-shop" src="https://static.wixstatic.com/media/1e7d8f_b486c9fa95af4c4ebeb9d59b78e39f42~mv2.jpg" alt="Bali Shop">
+              <div class="service-body">
+                <div class="service-header">
+                  <div class="service-name">🛍️ Návštěva Bali Shopu</div>
+                  <div class="service-cb"></div>
+                </div>
+                <div class="service-desc">Zážitek, kde objevíte šaty, šperky, krystaly a další jedinečné předměty podporující harmonii, osobní růst a propojení s vlastní energií i intuicí.</div>
+                <div class="service-price">Zdarma</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- POZNÁMKA -->
+        <div class="field">
+          <label>Poznámka / dotaz</label>
+          <textarea id="note" placeholder="Speciální přání, otázky, potřeby..."></textarea>
+        </div>
+
+        <!-- SHRNUTÍ -->
+        <div class="summary" id="summary">
+          <div class="summary-title">📋 Shrnutí rezervace</div>
+          <div class="summary-row"><span>Jméno</span><span id="s-name">—</span></div>
+          <div class="summary-row"><span>Příjezd</span><span id="s-checkin">—</span></div>
+          <div class="summary-row"><span>Odjezd</span><span id="s-checkout">—</span></div>
+          <div class="summary-row"><span>Počet nocí</span><span id="s-nights">—</span></div>
+          <div class="summary-row"><span>Dospělí</span><span id="s-adults">—</span></div>
+          <div class="summary-row"><span>Děti</span><span id="s-children">—</span></div>
+          <div class="summary-row" id="s-services-row" style="display:none"><span>Doplňkové služby</span><span id="s-services">—</span></div>
+          <div class="summary-divider"></div>
+          <div class="summary-total"><span>Celkem k úhradě</span><span id="s-total">—</span></div>
+          <div class="summary-vs" id="s-vs"></div>
+        </div>
+
+        <!-- PLATEBNÍ INFO -->
+        <div class="payment-info">
+          💳 <strong>Platba převodem předem</strong><br>
+          Číslo účtu: <strong>8159854004/5500</strong> (Raiffeisen Bank)<br>
+          Variabilní symbol: <strong id="vs-display">bude vygenerován po vyplnění</strong><br>
+          Celá částka je splatná před nástupem na pobyt.
+        </div>
+
+        <!-- STORNO PODMÍNKY -->
+        <div class="storno-wrap">
+          <button class="storno-toggle" onclick="toggleStorno(this)" type="button">
+            📋 Storno podmínky <span class="storno-arrow">›</span>
+          </button>
+          <div class="storno-body" id="stornoBody">
+            <p class="storno-intro">Vaše rezervace se stává závaznou po přijetí platby. Každý termín držíme s respektem právě pro vás, a proto vás prosíme o stejné vnímání i z vaší strany.</p>
+            <ul class="storno-list">
+              <li>Při zrušení více než 21 dní před příjezdem je storno <strong>zdarma</strong>.</li>
+              <li>Při zrušení 20–7 dní před příjezdem činí storno poplatek <strong>50 % z ceny pobytu</strong>.</li>
+              <li>Při zrušení 6 dní a méně před příjezdem činí storno poplatek <strong>100 % z ceny pobytu</strong>.</li>
+            </ul>
+            <p class="storno-extra">Pokud se vaše plány změní:<br>
+            💛 rezervaci je možné převést na jinou osobu<br>
+            💛 změna termínu je možná ve výjimečných případech a po individuální domluvě (není nároková)</p>
+            <p class="storno-footer">Děkujeme, že k rezervaci přistupujete vědomě a s respektem 🌿</p>
+          </div>
+        </div>
+
+        <!-- SOUHLAS + FAKTURA -->
+        <div class="check-item" onclick="toggleCheck('checkStorno')">
+          <div class="check-box" id="checkStorno"></div>
+          <div class="check-label">Souhlasím se <span style="text-decoration:underline;color:#8a6030;">storno podmínkami</span> rezervace <span style="color:#c07050">*</span></div>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck('checkFaktura')">
+          <div class="check-box" id="checkFaktura"></div>
+          <div class="check-label">Potřebuji fakturu</div>
+        </div>
+        <div class="faktura-fields" id="fakturaFields">
+          <div class="field">
+            <label>Název firmy / jméno</label>
+            <input type="text" id="firmaName" placeholder="Např. Jana Nováková s.r.o.">
+          </div>
+          <div class="field">
+            <label>IČO</label>
+            <input type="text" id="ico" placeholder="12345678">
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label>DIČ (volitelné)</label>
+            <input type="text" id="dic" placeholder="CZ12345678">
+          </div>
+        </div>
+
+        <button class="btn-submit" id="submitBtn" onclick="submitForm()">🌿 Odeslat rezervaci</button>
+
+        <div class="notes">
+          🌱 Po odeslání obdržíte potvrzovací email s platebními údaji.<br>
+          🙏 Rezervace je závazná po přijetí platby.<br>
+          🐾 Domácí mazlíčci nejsou povoleni.<br>
+          🚭 Alkohol, kouření a návykové látky nejsou povoleny.<br>
+          🥗 Prosíme o zdržení se přípravy a konzumace masa.
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success" id="successMsg">
+        <span class="success-icon">🌿</span>
+        <div class="success-title">Rezervace odeslána!</div>
+        <p class="success-text">Děkujeme za zájem o Pobyt ve světle.<br>Na váš email jsme zaslali potvrzení s platebními údaji.</p>
+        <div class="success-payment" id="successPayment"></div>
+        <p class="success-text">S láskou, tým Oázy Adamanthea 🙏</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ============ ČÁST 4 — RECENZE ============ -->
+<section class="reviews-scope">
+  <div class="reviews-container">
+    <div class="reviews-header">
+      <h2 class="reviews-title">Slova hostů</h2>
+      <div class="ornament">
+        <div class="ornament-line"></div><span class="ornament-symbol">✦</span><div class="ornament-line"></div>
+      </div>
+      <p class="reviews-subtitle">Co si odnášejí ti, kteří u nás strávili svůj čas</p>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+    <div class="reviews-footer">
+      <div class="ornament">
+        <div class="ornament-line"></div><span class="ornament-symbol">✦</span><div class="ornament-line"></div>
+      </div>
+      <p class="footer-text">Děkujeme všem, kdo s námi sdíleli svůj čas i své srdce.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PATIČKA ============ -->
+<footer id="kontakt">
+  <p class="f-logo">Oáza Adamanthea</p>
+  <p class="f-tag">Krystal &amp; retreat centrum</p>
+  <p class="kontakt">
+    Halenkovice 400, 763 63 Halenkovice<br>
+    <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+    <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
+  </p>
+  <div class="soc">
+    <a href="https://www.facebook.com/groups/1679547508831715" aria-label="Facebook" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 3.5 H10.8 C9.2 3.5 8.2 4.5 8.2 6.2 V8.2 H6.5 V10.8 H8.2 V16.5 H10.9 V10.8 H12.9 L13.3 8.2 H10.9 V6.5 C10.9 6 11.2 5.8 11.7 5.8 H13.4 Z" stroke="#b06a6c" stroke-width="1.2" fill="none"/></svg>
+    </a>
+    <a href="https://www.instagram.com/oazahalenkovice_healingcenter" aria-label="Instagram" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="4.2" stroke="#b06a6c" stroke-width="1.2"/><circle cx="10" cy="10" r="3.4" stroke="#b06a6c" stroke-width="1.2"/><circle cx="14.4" cy="5.6" r="0.9" fill="#b06a6c"/></svg>
+    </a>
+  </div>
+  <p class="drobne">Místo pro zastavení, ztišení a návrat k sobě.</p>
+  <p class="drobne" style="font-style:normal;font-size:14px;margin-top:14px">
+    © 2026 Oáza Adamanthea · IČ 76564410 · <a href="/gdpr" style="color:var(--rose)">Ochrana osobních údajů</a>
+  </p>
+</footer>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>emailjs.init('p05n4K9B-MKfAohxp');</script>
+
+<script>
+// ── NAVIGACE (mobilní menu) ──────────────────────────
+function prepniMenu(btn){
+  const m=document.getElementById('menu');
+  const open=m.classList.toggle('open');
+  btn.textContent=open?'✕':'☰';
+  document.body.style.overflow=open?'hidden':'';
+}
+
+// ── REZERVAČNÍ PROXY (vlastní Vercel projekt) ────────
+// Token ani base ID nejsou v kódu — žijí jen na serveru proxy.
+const PROXY_URL = 'https://rezervace-proxy.vercel.app/api/airtable';
+// ── EMAILJS KONFIGURACE ──────────────────────────────
+const EJS_SERVICE  = 'service_4lhe2ki';
+const EJS_TEMPLATE = 'template_z8387nb';
+
+let BOOKED_RANGES = [];
+const CLOSED_DATES = [];
+
+let today = new Date(); today.setHours(0,0,0,0);
+let calYear = today.getFullYear(), calMonth = today.getMonth();
+let checkIn = null, checkOut = null;
+let selectedServices = {};
+let currentVS = null;
+
+// ── LOCALSTORAGE CACHE (TTL 24h + stale fallback 30 dnů) ──────
+const CACHE_PREFIX = 'airtable_cache_';
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const STALE_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
+
+function getCached(key, allowStale){
+  try {
+    const raw = localStorage.getItem(CACHE_PREFIX + key);
+    if(!raw) return null;
+    const obj = JSON.parse(raw);
+    if(!obj || typeof obj.timestamp !== 'number') return null;
+    const age = Date.now() - obj.timestamp;
+    if(allowStale){
+      if(age > STALE_MAX_AGE_MS){ localStorage.removeItem(CACHE_PREFIX + key); return null; }
+      return { data: obj.data, ageHours: Math.round(age / 3600000) };
+    }
+    if(age > CACHE_TTL_MS) return null;
+    return obj.data;
+  } catch(e){ console.warn('Cache read error:', e); return null; }
+}
+
+function setCached(key, data){
+  try {
+    localStorage.setItem(CACHE_PREFIX + key, JSON.stringify({ data: data, timestamp: Date.now() }));
+  } catch(e){ console.warn('Cache write error:', e); }
+}
+
+function invalidateAirtableCache(){
+  try {
+    const keys = [];
+    for(let i = 0; i < localStorage.length; i++){
+      const k = localStorage.key(i);
+      if(k && k.indexOf(CACHE_PREFIX) === 0) keys.push(k);
+    }
+    keys.forEach(k => localStorage.removeItem(k));
+  } catch(e){ console.warn('Cache invalidation error:', e); }
+}
+
+async function loadBookedDates(){
+  const CACHE_KEY = 'booked_ranges_v4';
+  try {
+    const res = await fetch(PROXY_URL, { method: 'GET' });
+    if(!res.ok){
+      console.warn('⚠️ Proxy chyba:', res.status, res.statusText);
+      const stale = getCached(CACHE_KEY, true);
+      if(stale){ BOOKED_RANGES = stale.data; }
+      renderCal(); return;
+    }
+    const data = await res.json();
+    BOOKED_RANGES = Array.isArray(data.ranges) ? data.ranges : [];
+    setCached(CACHE_KEY, BOOKED_RANGES);
+    renderCal();
+  } catch(e){
+    console.warn('⚠️ Síťová chyba při volání proxy:', e.message);
+    const stale = getCached(CACHE_KEY, true);
+    if(stale){ BOOKED_RANGES = stale.data; }
+    renderCal();
+  }
+}
+
+async function saveToAirtable(data){
+  const res = await fetch(PROXY_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fields: data })
+  });
+  const json = await res.json();
+  if(!res.ok) throw new Error('Rezervace selhala: ' + res.status + ' - ' + JSON.stringify(json));
+  invalidateAirtableCache();
+  return json;
+}
+
+const MONTHS=["Leden","Únor","Březen","Duben","Květen","Červen","Červenec","Srpen","Září","Říjen","Listopad","Prosinec"];
+const MONTHS_GEN=["ledna","února","března","dubna","května","června","července","srpna","září","října","listopadu","prosince"];
+const DAYS=["Po","Út","St","Čt","Pá","So","Ne"];
+
+function dateStr(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function dateLabel(d){ return `${d.getDate()}. ${MONTHS_GEN[d.getMonth()]} ${d.getFullYear()}`; }
+function isWeekend(d){ return d.getDay()===0||d.getDay()===6; }
+
+function isBooked(d){
+  const ds = dateStr(d);
+  return BOOKED_RANGES.some(r=>ds>=r.from && ds<r.to);
+}
+
+function nightPrice(d){
+  const day = d.getDay();
+  return (day===5||day===6) ? 2000 : 1700;
+}
+
+function renderCal(){
+  document.getElementById('calMonth').textContent = MONTHS[calMonth]+' '+calYear;
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = DAYS.map(d=>`<div class="cal-day-name">${d}</div>`).join('');
+  let startDay = new Date(calYear,calMonth,1).getDay();
+  startDay = startDay===0?6:startDay-1;
+  for(let i=0;i<startDay;i++) grid.innerHTML+=`<div class="cal-day empty"></div>`;
+  const days = new Date(calYear,calMonth+1,0).getDate();
+  for(let d=1;d<=days;d++){
+    const date = new Date(calYear,calMonth,d);
+    const ds = dateStr(date);
+    const isPast = date < today;
+    const booked = isBooked(date);
+    const isToday = date.getTime()===today.getTime();
+    const ciStr = checkIn?dateStr(checkIn):null;
+    const coStr = checkOut?dateStr(checkOut):null;
+    let cls='cal-day';
+    if(isPast||booked) cls+= booked?' booked':' disabled';
+    if(isToday) cls+=' today';
+    if(ciStr===ds) cls+=' checkin';
+    else if(coStr===ds) cls+=' checkout';
+    else if(checkIn&&checkOut&&ds>ciStr&&ds<coStr) cls+=' inrange';
+    const oc=(!isPast&&!booked)?`onclick="selectDay('${ds}')"`:'' ;
+    grid.innerHTML+=`<div class="${cls}" ${oc}>${d}</div>`;
+  }
+}
+
+function selectDay(ds){
+  const date = new Date(ds);
+  if(!checkIn||( checkIn&&checkOut)){
+    checkIn=date; checkOut=null;
+  } else {
+    if(date<=checkIn){ checkIn=date; checkOut=null; }
+    else {
+      const diff=(date-checkIn)/(1000*60*60*24);
+      if(diff<2){ alert('Minimální délka pobytu jsou 2 noci.'); return; }
+      checkOut=date;
+    }
+  }
+  renderCal(); calcPrice();
+}
+
+function calcPrice(){
+  if(!checkIn||!checkOut){ updateSummary(); return; }
+  let total=0, nights=0;
+  let d=new Date(checkIn);
+  while(d<checkOut){ total+=nightPrice(d); nights++; d.setDate(d.getDate()+1); }
+  if(nights===7) total = 10800;
+  const adults=parseInt(document.getElementById('adults').value)||1;
+  if(adults===2) total+=500*nights;
+  Object.values(selectedServices).forEach(p=>total+=p);
+  const vs = generateVS();
+  document.getElementById('vs-display').textContent = vs;
+  updateSummary(total, nights, vs);
+}
+
+function generateVS(){
+  if(checkIn){
+    return checkIn.getFullYear().toString().slice(2) +
+      String(checkIn.getMonth()+1).padStart(2,'0') +
+      String(checkIn.getDate()).padStart(2,'0') +
+      String(Math.floor(Math.random()*100)).padStart(2,'0');
+  }
+  return '—';
+}
+
+function updateSummary(total, nights, vs){
+  const name = document.getElementById('name').value;
+  const show = checkIn||name;
+  document.getElementById('summary').style.display = show?'block':'none';
+  if(!show) return;
+  document.getElementById('s-name').textContent = name||'—';
+  document.getElementById('s-checkin').textContent = checkIn?dateLabel(checkIn):'—';
+  document.getElementById('s-checkout').textContent = checkOut?dateLabel(checkOut):'—';
+  document.getElementById('s-nights').textContent = nights?nights+' nocí':'—';
+  document.getElementById('s-adults').textContent = document.getElementById('adults').value+' os.';
+  const ch=document.getElementById('children').value;
+  document.getElementById('s-children').textContent = ch==='0'?'Bez dětí':ch+' dítě (zdarma)';
+  const svcNames=Object.keys(selectedServices);
+  if(svcNames.length){
+    document.getElementById('s-services-row').style.display='flex';
+    document.getElementById('s-services').textContent=svcNames.join(', ');
+  } else {
+    document.getElementById('s-services-row').style.display='none';
+  }
+  if(total!==undefined){
+    document.getElementById('s-total').textContent=total.toLocaleString('cs-CZ')+' Kč';
+    document.getElementById('s-vs').textContent='Variabilní symbol: '+vs;
+  }
+}
+
+function toggleService(el, key, price){
+  el.classList.toggle('selected');
+  el.querySelector('.service-cb').textContent = el.classList.contains('selected')?'✓':'';
+  if(el.classList.contains('selected')) selectedServices[key]=price;
+  else delete selectedServices[key];
+  calcPrice();
+}
+
+function prevMonth(){ calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCal(); }
+function nextMonth(){ calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCal(); }
+
+async function submitForm(){
+  const name=document.getElementById('name').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  if(!name){alert('Prosím vyplňte jméno.');return;}
+  if(!email){alert('Prosím vyplňte email.');return;}
+  if(!checkIn){alert('Prosím vyberte datum příjezdu.');return;}
+  if(!checkOut){alert('Prosím vyberte datum odjezdu.');return;}
+  if(!document.getElementById('checkStorno').classList.contains('checked')){alert('Prosím potvrďte souhlas se storno podmínkami.');return;}
+
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='Odesílám...';
+
+  let total=0, nights=0;
+  let d=new Date(checkIn);
+  while(d<checkOut){ total+=nightPrice(d); nights++; d.setDate(d.getDate()+1); }
+  if(nights===7) total = 10800;
+  const adults=parseInt(document.getElementById('adults').value)||1;
+  const children=document.getElementById('children').value;
+  if(adults===2) total+=500*nights;
+  Object.values(selectedServices).forEach(p=>total+=p);
+  const vs=generateVS();
+  currentVS=vs;
+
+  const svcList = Object.keys(selectedServices).length
+    ? Object.keys(selectedServices).map(k=>{
+        const names={aura:'Focení aury a čaker',terapie:'Terapie',ocista:'Energetická očista',shop:'Spirit Shop'};
+        return names[k]||k;
+      }).join(', ')
+    : 'Žádné';
+
+  try {
+    await saveToAirtable({
+      jmeno: name,
+      email: email,
+      telefon: phone||'—',
+      datum_prijezdu: dateStr(checkIn),
+      datum_odjezdu: dateStr(checkOut),
+      pocet_noci: nights,
+      dospeli: adults,
+      deti: parseInt(children)||0,
+      sluzby: svcList,
+      cena_celkem: total,
+      variabilni_symbol: vs,
+      poznamka: document.getElementById('note').value||'',
+      faktura: document.getElementById('checkFaktura').classList.contains('checked') ? 'Ano – ' + (document.getElementById('firmaName').value||'') + ', IČO: ' + (document.getElementById('ico').value||'') + (document.getElementById('dic').value ? ', DIČ: '+document.getElementById('dic').value : '') : 'Ne'
+    });
+
+    try {
+      await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+        jmeno: name, email: email,
+        datum_prijezdu: dateLabel(checkIn),
+        datum_odjezdu: dateLabel(checkOut),
+        pocet_noci: nights, dospeli: adults, sluzby: svcList,
+        cena_celkem: total.toLocaleString('cs-CZ'),
+        variabilni_symbol: vs
+      });
+    } catch(ejsErr){ console.warn('EmailJS chyba:', ejsErr); }
+
+    document.getElementById('formContent').style.display='none';
+    const sp=document.getElementById('successPayment');
+    sp.innerHTML=`
+      <strong>📋 Vaše rezervace:</strong><br>
+      Jméno: <strong>${name}</strong><br>
+      Příjezd: <strong>${dateLabel(checkIn)}</strong><br>
+      Odjezd: <strong>${dateLabel(checkOut)}</strong><br>
+      Počet nocí: <strong>${nights}</strong><br>
+      Dospělí: <strong>${adults}</strong>${parseInt(children)?', děti: <strong>'+children+'</strong>':''}<br>
+      Doplňkové služby: <strong>${svcList}</strong><br><br>
+      <strong>💳 Platební údaje:</strong><br>
+      Číslo účtu: <strong>8159854004/5500</strong><br>
+      Banka: <strong>Raiffeisen Bank</strong><br>
+      Variabilní symbol: <strong>${vs}</strong><br>
+      Částka: <strong>${total.toLocaleString('cs-CZ')} Kč</strong><br><br>
+      <em>Rezervace bude potvrzena po přijetí platby na náš účet.</em>
+    `;
+    document.getElementById('successMsg').style.display='block';
+    loadBookedDates();
+
+  } catch(err){
+    console.error(err);
+    alert('Nastala chyba při odesílání. Zkuste to prosím znovu nebo nás kontaktujte přímo.');
+    btn.disabled=false; btn.textContent='🌿 Odeslat rezervaci';
+  }
+}
+
+function toggleStorno(btn){
+  btn.classList.toggle('open');
+  const body = document.getElementById('stornoBody');
+  body.style.display = body.style.display === 'block' ? 'none' : 'block';
+}
+
+function toggleCheck(id){
+  const box = document.getElementById(id);
+  box.classList.toggle('checked');
+  box.textContent = box.classList.contains('checked') ? '✓' : '';
+  if(id === 'checkFaktura'){
+    document.getElementById('fakturaFields').style.display = box.classList.contains('checked') ? 'block' : 'none';
+  }
+}
+
+document.getElementById('name').addEventListener('input', updateSummary);
+renderCal(); calcPrice();
+loadBookedDates();
+</script>
+
+<script>
+// ── ČÁST 4 — RECENZE ─────────────────────────────────
+const reviews = [
+  { name:"Pavlína", date:"17. 4. – 24. 4. 2026", text:"Přijela jsem na 4 dny a hned jsem věděla, že si pobyt prodloužím aspoň na týden. Potřebovala jsem se uzdravit a zklidnit mysl. A to se v tomto úžasném domečku a přírodě podařilo. Ta rána, kdy Vás budí zpěv ptáků, jsou TOP. Každé ráno procházka lesem za chatou až na pole a dál k rozhledně Šárka byl úžasný start do nového dne, večer odtud pozorovat západ slunce. Po 3 dnech jsem si uvědomila, že potřebuji i terapii a tak jsem s Lukášem zažila RODOVÉ KLÍČE a konečně se uvolnilo něco z rodové linie jen od mámy. Tolik uvědomění jsem tady zažila, skvělé. Odjíždím klidnější, uvolněnější a tělo stále prochází léčením. Ráda se zase někdy vrátím. Děkuji za vytvoření tohoto krásného, kouzelného místa. S úctou Pavlína." },
+  { name:"Lenka", date:"10. 4. – 15. 4. 2026", text:"Kdyby moje srdce umělo psát, napsalo by ódu nebo báseň na toto kouzelné místo. Ostrov Bali je ostrov Bohů, obec Halenkovice je ostrov klidu, bezpečí, míru, lidské hrdosti, jemných milých bytostí, přítomných okamžiků, plná ochrany, andělů, místo pod Boží ochranou. Místo, kde se Ti laskavě naslouchá duše, utichne mysl a probudí se slzy dojetí i vděčnosti. Zažiješ tu pocit, že jsi doma – doma ve svém srdci. Velký obdiv všem, kdo toto nádherné místo budují a dávají tím otisk lidské hrdosti naší Matce Zemi. Děkuji, děkuji, děkuji, za Vaše tvoření. P.S. Odložím si sem i svůj sen – zorganizovat tady BIODANZU. A moc děkujeme za výbornou vodu. A moc Vám přeji, ať se daří!" },
+  { name:"Klára T.", date:"30. 12. 2025 – 4. 1. 2026", text:"Miláčkové, světlo, klid a pohoda, kterou jsem tu měla, mi přinesla více jasnosti a klidu do mého vnitřního světa. A Vaše dobré srdce a čistý záměr cítím, jak podporují celý tento prostor a lidi i bytosti, kteří se tu nachází. Bylo a je mi tu krásně a těším se na každou další návštěvu, ať už přátelsky či formou pobytu, workshopu. Silvestr u Vás byl prostě boží, plný lásky a skvělých a krásných bytostí. Děkuji za Vás. S láskou, Klára T." },
+  { name:"Romana", date:"10. 4. – 13. 4. 2026", text:"Jednoznačně pocit ochrany a bezpečí. Děkuji vám i tomuto kouzelnému místu z celého srdce. Přeji požehnaný čas." },
+  { name:"Petr a Jana", date:"červenec 2025", text:"Děkujeme za azyl v tom nejlepším slova smyslu. Utekli jsme z města a našli jsme tu přesně to, co jsme hledali – ticho, tmu a hvězdy. Vaše meduňkový čaj byl balzám na duši. Určitě jsme tu nebyli naposledy." },
+  { name:"Marek", date:"srpen 2025", text:"Smekám před tím, co jste tady dokázali vybudovat. Ten výhled do údolí při ranní kávě mi bude chybět. Díky za inspirativní rozhovory a za to, že sdílíte tento kousek ráje s ostatními." },
+  { name:"Vlasta", date:"2. – 9. 8. 2025", text:"Ráno vás vítá mezi stromy vycházející slunce a pocit, že můžete všechno a nemusíte nic. Obnovení biorytmu, s úsvitem vstávat a se západem slunce jít spát. Jíst jen, když máte hlad. Poslední večer jsem zakončila meditací na Lví bránu a měsíc v úplňku mi v noci zodpověděl poslední otázky. Jsem vděčná, že jsem tu mohla dopsat svoji knížku. Jsem vděčná, že jsem tu mohla být. Díky, Vlasta." },
+  { name:"Ivana", date:"18. – 20. 7. 2025", text:"Moc děkuji za krásné a klidné místo k odpočinku, rozjímání a načerpání nových sil. Je tu cítit velká péče a láska, se kterou vše tvoříte. Přeji, ať se vám daří a do Halenkovic se vrací jen spokojení hosté." },
+  { name:"Miloš", date:"15. – 19. 8. 2025", text:"Děkuji za toto nádherné místo, kde se člověk zastaví, propojí se s přírodou, sebou samým. Odložil jsem mobil, hodinky, jídlo a snad i kousek ega. Děkuji." },
+  { name:"Dubinka", date:"", text:"Krásné čisté místo, úžasná příroda, spousta života kolem, inspirace i proměna vlastních záměrů. Přijela jsem v tichu tvořit novou etapu svého života a nakonec to bylo všechno jinak, tvořilo se v diskuzi a souladu. Děkuji a smekám, co jste pro nás lidi připravili. S láskou Dubinka." },
+  { name:"Kika", date:"11. – 14. 8. 2025", text:"Ďakujem za toto krásne miesto, vďaka ktorému som sa znovu prepojila sama so sebou a svojou vnútornou múdrosťou. V každom dni som našla mnoho cenných odpovedí a vhľadov. ♡" },
+  { name:"Hanka", date:"14. 8. 2025", text:"Děkuji z celého srdce za možnost pobytu na tomto úžasném místě uprostřed přírody, za probuzení slunečními paprsky, za vše, co zde s láskou tvoříte." },
+  { name:"Monika", date:"29. 8. – 5. 9. 2025", text:"Bylo tu krásně a odvážím si důležité poznání. Miluju výhled z chatky na les okolo." },
+  { name:"Jana", date:"5. – 7. 9. 2025", text:"Děkuji za prostředí, kde se učím být sama sebou a zároveň sama se sebou." },
+  { name:"Dáša", date:"21. – 24. 8. 2025", text:"Do třetice a vím, že ne naposledy. Děkuji nekonečněkrát za vás, za toto místo, za to, že jsem si vybrala tu být. Děje se tu toho tolik..." },
+  { name:"D.", date:"26. – 29. 4. 2025", text:"Přijela jsem s rozbouřeným oceánem, odjíždím s plynoucí řekou. Děkuji." }
+];
+
+(function(){
+  const grid = document.getElementById('reviewsGrid');
+  const TRUNCATE_THRESHOLD = 280;
+  reviews.forEach((review, index) => {
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.style.transitionDelay = `${(index % 4) * 0.08}s`;
+    const isLong = review.text.length > TRUNCATE_THRESHOLD;
+    const dateHTML = review.date
+      ? `<span class="review-separator">✦</span><span class="review-date">${review.date}</span>`
+      : '';
+    card.innerHTML = `
+      <div class="review-header">
+        <span class="review-name">${review.name}</span>
+        ${dateHTML}
+      </div>
+      <div class="review-text-wrapper ${!isLong ? 'no-fade' : ''}">
+        <div class="review-text">${review.text}</div>
+      </div>
+      ${isLong ? '<button class="read-more">Číst celé</button>' : ''}
+    `;
+    grid.appendChild(card);
+    if (isLong) {
+      const btn = card.querySelector('.read-more');
+      const textEl = card.querySelector('.review-text');
+      const wrapper = card.querySelector('.review-text-wrapper');
+      btn.addEventListener('click', () => {
+        const isExpanded = textEl.classList.contains('expanded');
+        textEl.classList.toggle('expanded');
+        wrapper.classList.toggle('expanded');
+        btn.textContent = isExpanded ? 'Číst celé' : 'Skrýt';
+      });
+    }
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.review-card, .reviews-header, .reviews-footer').forEach(el => observer.observe(el));
+})();
+</script>
+
+</body>
+</html>

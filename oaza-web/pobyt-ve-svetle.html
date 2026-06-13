@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pobyt ve světle | Oáza Adamanthea</title>
 <meta name="description" content="Balijská boho chatka — lesní glamping na Moravě nedaleko Zlína a Uherského Hradiště. Prostor pro odpočinek, meditaci a návrat k sobě. Rezervujte si svůj pobyt ve světle.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pobyt ve světle | Oáza Adamanthea">
+<meta property="og:description" content="Balijská boho chatka — lesní glamping na Moravě. Prostor pro odpočinek, meditaci a návrat k sobě.">
+<meta property="og:url" content="https://oaza-adamanthea.cz/pobyt-ve-svetle">
+<meta property="og:image" content="https://static.wixstatic.com/media/1e7d8f_b486c9fa95af4c4ebeb9d59b78e39f42~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_85/p.jpg">
+<meta property="og:locale" content="cs_CZ">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -298,6 +305,9 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   .rez .info-grid{grid-template-columns:1fr}
   .rez .services-grid{grid-template-columns:1fr}
 }
+.to-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility .3s;z-index:80;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.to-top:hover{background:#1f3024}
 </style>
 </head>
 <body>
@@ -1061,5 +1071,9 @@ const reviews = [
 })();
 </script>
 
+<button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',window.scrollY>500);});
+</script>
 </body>
 </html>

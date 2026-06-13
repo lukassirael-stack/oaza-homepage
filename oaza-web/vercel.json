@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "redirects": [
     {
       "source": "/:path((?!img/|api/|favicon\\.svg|robots\\.txt|index\\.html|pobyt-ve-svetle|portalova-zahrada).+)",

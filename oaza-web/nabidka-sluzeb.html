@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/oaza-adamanthea-favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png">
+<title>Nabídka služeb | Oáza Adamanthea</title>
+<meta name="description" content="Terapie a duchovní služby v Oáze Adamanthea — kraniosakrální terapie, Divine Healing, karma a minulé životy, focení aury, harmonizace a další. Osobně i na dálku.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nabídka služeb | Oáza Adamanthea">
+<meta property="og:description" content="Citlivě vedená sezení pro tělo, duši i prostor — osobně i na dálku.">
+<meta property="og:url" content="https://oaza-adamanthea.cz/nabidka-sluzeb">
+<meta property="og:image" content="https://static.wixstatic.com/media/d991d3_6ab167b465fe4ec0af8c7eff70c51058~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_85/p.jpg">
+<meta property="og:locale" content="cs_CZ">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f5f1e9;--cream-dark:#ede7db;--green:#2e4434;--green-deep:#1f3024;--rose:#b06a6c;--rose-dark:#9c585a;--ink:#3a3f38;--line:#d8d0c2;--gold:#bca060;--gold-soft:#d8bd83}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Cormorant Garamond',serif;background:var(--cream);color:var(--ink);font-size:19px;line-height:1.6}
+h1,h2,h3{font-weight:500;color:var(--green)}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.btn{display:inline-block;background:var(--rose);color:#fdfaf5;font-size:18px;padding:12px 30px;border-radius:6px;transition:background .25s;font-family:'Jost',sans-serif}
+.btn:hover{background:var(--rose-dark)}
+
+/* NAV */
+nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px;background:linear-gradient(180deg,rgba(12,18,10,.55) 0%,rgba(12,18,10,.25) 55%,rgba(12,18,10,0) 100%)}
+nav .menu{display:flex;gap:26px;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,.55);font-family:'Cormorant Garamond',serif;color:#fdfaf5}
+.jen-mobil{display:none}
+nav .menu a{position:relative;padding-bottom:3px}
+nav .menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#fdfaf5;transition:width .25s}
+nav .menu a:hover::after{width:100%}
+nav .menu a.aktivni::after{width:100%}
+nav .menu a.aktivni{font-weight:600}
+.nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
+nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px}
+
+/* HERO */
+.svc-hero{position:relative;min-height:46vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(155deg,#34503c 0%,#243a2c 60%,#1c2c22 100%)}
+.svc-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(216,189,131,.12),transparent 60%)}
+.svc-hero-content{position:relative;z-index:2;text-align:center;padding:122px 28px 64px;max-width:760px}
+.svc-eyebrow{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:20px}
+.svc-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,7vw,64px);font-weight:300;letter-spacing:.1em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.4);margin-bottom:16px}
+.svc-hero-sub{font-style:italic;font-size:clamp(17px,2.4vw,22px);color:rgba(255,255,255,.9)}
+
+/* WRAP */
+.svc-wrap{max-width:1080px;margin:0 auto;padding:60px 28px 30px}
+.svc-lead{font-size:21px;font-style:italic;color:var(--green);text-align:center;line-height:1.55;max-width:680px;margin:0 auto 44px}
+
+/* FEATURED */
+.svc-featured{position:relative;background:#fff;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 12px 44px rgba(46,68,52,.10);margin-bottom:46px}
+.svc-featured .topbar{height:6px;background:linear-gradient(90deg,var(--gold),#ecd9a8,var(--gold))}
+.svc-featured .row{display:flex;align-items:stretch}
+.svc-featured .pic{flex:0 0 38%;position:relative;background:linear-gradient(150deg,#243a2c,#9c585a)}
+.svc-featured .pic::after{content:"";position:absolute;width:60px;height:60px;border:2px solid rgba(255,255,255,.5);transform:rotate(45deg);top:calc(50% - 30px);left:calc(50% - 30px)}
+.svc-featured .badge{position:absolute;top:20px;left:20px;background:var(--gold);color:#fff;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.18em;padding:7px 16px;border-radius:20px}
+.svc-featured .info{flex:1;padding:34px 38px 32px}
+.svc-featured .eyebrow{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:12px}
+.svc-featured h2{font-family:'Cinzel',serif;font-size:clamp(24px,3.2vw,32px);font-weight:600;color:var(--green);line-height:1.18;margin-bottom:14px}
+.svc-featured .session{font-size:17px;color:#4c5247;margin-bottom:10px}
+.svc-featured .short{color:#5a6055;margin-bottom:16px}
+.svc-featured .price{font-family:'Cinzel',serif;font-size:24px;color:var(--green);margin-bottom:6px}
+
+/* GRID */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.svc-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 4px 22px rgba(46,68,52,.06);display:flex;flex-direction:column}
+.svc-img{height:150px;position:relative;flex-shrink:0}
+.svc-img::after{content:"";position:absolute;width:30px;height:30px;border:2px solid rgba(255,255,255,.55);transform:rotate(45deg);top:calc(50% - 15px);left:calc(50% - 15px)}
+.svc-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+.svc-card h3{font-family:'Cinzel',serif;font-size:19px;font-weight:600;color:var(--green);line-height:1.25;margin-bottom:10px}
+.svc-short{font-size:17px;color:#5a6055;line-height:1.5;margin-bottom:16px}
+.svc-price{font-family:'Jost',sans-serif;font-size:15px;color:var(--rose-dark);margin-top:auto;margin-bottom:14px}
+.svc-more{align-self:flex-start;cursor:pointer;font-family:'Jost',sans-serif;font-size:14px;color:var(--green);border:1.5px solid rgba(46,68,52,.25);border-radius:30px;padding:8px 18px;background:none;transition:all .2s}
+.svc-more:hover{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* DETAIL (accordion) */
+.svc-detail{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.open .svc-detail{display:block}
+.svc-detail p{font-size:16px;color:#54594d;line-height:1.7;margin-bottom:12px}
+.svc-book{margin-top:14px;font-family:'Jost',sans-serif;font-size:13px;color:#6f7468;line-height:1.7}
+.svc-book a{color:var(--rose-dark)}
+.svc-book .obj{display:inline-block;margin-top:10px;background:var(--rose);color:#fff;padding:10px 24px;border-radius:6px;font-size:14px}
+.svc-book .obj:hover{background:var(--rose-dark)}
+.svc-review{margin-top:14px;background:var(--cream);border-left:3px solid var(--gold);padding:14px 18px;border-radius:0 8px 8px 0}
+.svc-review p{font-style:italic;color:#54594d;margin-bottom:6px;font-size:16px}
+.svc-review .who{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.1em;color:#8a8e80;font-style:normal}
+
+footer{background:var(--cream-dark);text-align:center;padding:64px 32px 40px;border-top:1px solid var(--line)}
+footer .f-logo{font-size:26px;color:var(--green);margin-bottom:6px}
+footer .f-tag{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#6f7468;margin-bottom:26px}
+footer .kontakt{font-size:19px;line-height:2;color:#4c5247}
+footer .kontakt a{color:var(--rose)}
+.soc{display:flex;justify-content:center;gap:16px;margin-top:28px}
+.soc a{width:44px;height:44px;border:1px solid var(--rose);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .25s}
+.soc a:hover{background:var(--rose);transform:translateY(-2px)}
+footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
+
+.to-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility .3s;z-index:80;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.to-top:hover{background:var(--green-deep)}
+
+@media(max-width:860px){.svc-grid{grid-template-columns:repeat(2,1fr)}.svc-featured .row{flex-direction:column}.svc-featured .pic{flex:none;height:170px}}
+@media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+@media(max-width:900px){
+  nav{padding:20px 22px;gap:20px}
+  nav .menu{display:none;position:fixed;inset:0;background:#15221a;flex-direction:column;padding:96px 28px 40px;gap:0;text-align:left;z-index:50;overflow-y:auto}
+  nav .menu.open{display:flex}
+  nav .menu a{font-size:25px;color:#f3efe5;padding:21px 4px;border-bottom:1px solid rgba(243,239,229,.14)}
+  nav .menu a::after{display:none}
+  .jen-mobil{display:block}
+  .nav-toggle{display:block;position:relative;z-index:60}
+  nav .btn:not(.jen-mobil){display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="svc-hero">
+  <nav>
+    <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+    <div class="menu" id="menu">
+      <a href="/portalova-zahrada">Portálová zahrada</a>
+      <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+      <a href="/#oaza">Akce</a>
+      <a href="/nabidka-sluzeb" class="aktivni">Služby</a>
+      <a href="/pronajem-prostor">Pronájem</a>
+      <a href="/spirit-shop-1">E-shop</a>
+      <a href="https://web.oaza-adamanthea.cz/">O nás</a>
+      <a href="/kontakt">Kontakt</a>
+      <a href="/kontakt" class="jen-mobil">Objednat</a>
+    </div>
+    <a class="btn" href="#sluzby">Objednat</a>
+  </nav>
+  <div class="svc-hero-content">
+    <div class="svc-eyebrow">Nabídka služeb</div>
+    <h1>Služby pro vás</h1>
+    <div class="svc-hero-sub">Citlivě vedená sezení pro tělo, duši i prostor — osobně i na dálku.</div>
+  </div>
+</div>
+
+<div class="svc-wrap" id="sluzby">
+  <p class="svc-lead">Každá z našich terapií je cestou k sobě — k uvolnění, rovnováze a hlubšímu porozumění. Vyberte si, co vás oslovuje, a ozvěte se nám.</p>
+  <div class="svc-featured" id="kranio">
+    <div class="topbar"></div>
+    <div class="row">
+      <div class="pic"><span class="badge">NOVÉ</span></div>
+      <div class="info">
+        <div class="eyebrow">Nová terapie · Martina</div>
+        <h2>Kraniosakrální terapie &amp; Divine Healing</h2>
+        <div class="session">Celé setkání 80–90 min · 50–60 min kraniosakrální terapie + 30 min Divine Healing</div>
+        <p class="short">Jemné, hluboce uvolňující ošetření, při kterém se tělo i duše vrací do rovnováhy a klidu. Po jemné práci s tělem následuje léčivý přenos Divine Healing.</p>
+        <div class="price">2 200 Kč / 88 €</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Kraniosakrální terapie pracuje velmi jemnými doteky s rytmem mozkomíšního moku a uvolňuje napětí uložené hluboko v těle. V navazujícím Divine Healing přichází léčivý energetický přenos, který harmonizuje a zklidňuje.</p>
+          <div class="svc-review">
+            <p>„Když jsem na terapii přišla, cítila jsem neklid a nervozitu. Ale jakmile začala terapie, velice rychle jsem se uklidnila a nastal ve mně mír a uvolněnost, jakoby se někdo dotýkal mé duše a hladil. Děkuji Martině za tento božský přenos. Přijdu zas."</p>
+            <span class="who">— Pavla</span>
+          </div>
+          <div class="svc-book">
+            Provádí <strong>Martina</strong> · osobně v Oáze Adamanthea, Halenkovice 400<br>
+            Objednání: <a href="tel:+420608828996">+420 608 828 996</a> (Martina) · <a href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Kraniosakr%C3%A1ln%C3%AD%20terapie%20a%20Divine%20Healing">oaza.adamanthea@gmail.com</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Kraniosakr%C3%A1ln%C3%AD%20terapie%20a%20Divine%20Healing">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#c9b48f,#8a6f4a)"></div>
+      <div class="svc-body">
+        <h3>Osobní terapie</h3>
+        <p class="svc-short">Individuální, citlivě vedené sezení — uvolnění bloků, emocí a podpora vnitřní rovnováhy.</p>
+        <div class="svc-price">2 200 Kč · 60–90 min</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Osobní sezení zaměřené na uvolnění zablokovaných emocí, vzorců a programů — práce s psychikou, vztahy i konkrétní životní situací.</p>
+          <div class="svc-book">
+            Provádí <strong>Martina / Lukáš</strong><br>
+            Objednání: <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Osobn%C3%AD%20terapie">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#b9a06a,#6f5a3a)"></div>
+      <div class="svc-body">
+        <h3>Karma a minulé životy</h3>
+        <p class="svc-short">Pochopení souvislostí osudu skrze čtení energetického pole, automatickou kresbu a channeling.</p>
+        <div class="svc-price">2 200 Kč / 88 € · 60 min · i na dálku</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Léčení rodové i osobní karmy, duchovní příčiny nemocí a trápení, spirituální rozvoj a sebepoznání. Lze absolvovat osobně i dálkově (WhatsApp / Messenger).</p>
+          <div class="svc-book">
+            Provádí <strong>Lukáš Hudeček</strong><br>
+            Objednání: <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Karma%20a%20minul%C3%A9%20%C5%BEivoty">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#a7b0a0,#5f6f58)"></div>
+      <div class="svc-body">
+        <h3>Terapie hojnosti a prosperity</h3>
+        <p class="svc-short">Uvolnění bloků, které brání přirozenému proudu hojnosti ve vašem životě.</p>
+        <div class="svc-price">2 200 Kč / 88 € · 60–90 min</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Nejde o to „jak zbohatnout“, ale jak se otevřít proudu, který vám hojnost přirozeně nabízí. Společně uvolníme vzorce nedostatku a podpoříme nový postoj.</p>
+          <div class="svc-book">
+            Provádí <strong>Lukáš Hudeček</strong><br>
+            Objednání: <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Terapie%20hojnosti%20a%20prosperity">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#9fb0b6,#5d7480)"></div>
+      <div class="svc-body">
+        <h3>Rodové klíče</h3>
+        <p class="svc-short">Práce s rodovou linií — uvolnění zátěží předků a otevření vlastní cesty.</p>
+        <div class="svc-price">2 200 Kč</div>
+        <a class="svc-more" href="/rodove-klice" style="text-decoration:none">Více informací →</a>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#bda9a0,#7a5f58)"></div>
+      <div class="svc-body">
+        <h3>Focení aury a diagnostika čaker</h3>
+        <p class="svc-short">Uvidíte barvy své aury a stav svých čaker — a co vám říkají.</p>
+        <div class="svc-price">700 Kč / 28 € · 30–60 min</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Měření na přístroji Aura Video Station 7 s tištěným reportem (4× A4). Pomáhá porozumět aktuálnímu vnitřnímu stavu i celkové harmonii.</p>
+          <div class="svc-book">
+            Provádí <strong>Lukáš Hudeček</strong><br>
+            Objednání: <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Focen%C3%AD%20aury%20a%20diagnostika%20%C4%8Daker">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#a8b4a2,#62795f)"></div>
+      <div class="svc-body">
+        <h3>Energetická očista</h3>
+        <p class="svc-short">Jemný proces, při kterém se uvolňují nahromaděné energie a obnovuje přirozený tok životní síly.</p>
+        <div class="svc-price">1 500 Kč</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Harmonizace, která uvolní nahromaděné negativní energie a obnoví přirozený tok životní síly v těle.</p>
+          <div class="svc-book">
+            Provádí <strong>Martina / Lukáš</strong><br>
+            Objednání: <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Energetick%C3%A1%20o%C4%8Dista">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#c2b39a,#7d6a4a)"></div>
+      <div class="svc-body">
+        <h3>Dálková harmonizace aury</h3>
+        <p class="svc-short">Energetická očista aury a čaker v teple vašeho domova — na dálku.</p>
+        <div class="svc-price">1 500 Kč / 60 € · cca 90 min</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Harmonizace probíhá na dálku (ideálně večer Po–Čt). Vrátí energii, projasní auru a podpoří vnitřní rovnováhu bez nutnosti cestovat.</p>
+          <div class="svc-book">
+            Provádí <strong>Lukáš Hudeček</strong><br>
+            Objednání: <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20D%C3%A1lkov%C3%A1%20harmonizace%20aury">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#9eaab0,#5a6e76)"></div>
+      <div class="svc-body">
+        <h3>Harmonizace a očista prostoru</h3>
+        <p class="svc-short">Vyčištění a harmonizace energie domova, bytu či pracovního prostoru.</p>
+        <div class="svc-price">Cena individuální (dle zátěže prostoru)</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Odstranění nahromaděných a cizích energií z prostoru a obnovení jeho přirozené harmonie. Cena se odvíjí od velikosti a zátěže prostoru — domluvíme se individuálně.</p>
+          <div class="svc-book">
+            Provádí <strong>Lukáš</strong><br>
+            Objednání: <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Harmonizace%20a%20o%C4%8Dista%20prostoru">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#c0ad94,#856f52)"></div>
+      <div class="svc-body">
+        <h3>Energetická harmonizace jména a příjmení</h3>
+        <p class="svc-short">Sladění energie vašeho jména a příjmení s vaší cestou.</p>
+        <div class="svc-price">1 500 Kč</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Jméno nese energii, která nás provází celý život. Tato harmonizace pomáhá sladit ji s vaším směřováním a uvolnit, co už neslouží.</p>
+          <div class="svc-book">
+            Provádí <strong>Lukáš</strong><br>
+            Objednání: <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Energetick%C3%A1%20harmonizace%20jm%C3%A9na%20a%20p%C5%99%C3%ADjmen%C3%AD">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="kontakt">
+  <p class="f-logo">Oáza Adamanthea</p>
+  <p class="f-tag">Krystal &amp; retreat centrum</p>
+  <p class="kontakt">
+    Halenkovice 400, 763 63 Halenkovice<br>
+    <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+    <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
+  </p>
+  <div class="soc">
+    <a href="https://www.facebook.com/groups/1679547508831715" aria-label="Facebook" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 3.5 H10.8 C9.2 3.5 8.2 4.5 8.2 6.2 V8.2 H6.5 V10.8 H8.2 V16.5 H10.9 V10.8 H12.9 L13.3 8.2 H10.9 V6.5 C10.9 6 11.2 5.8 11.7 5.8 H13.4 Z" stroke="#b06a6c" stroke-width="1.2"/></svg>
+    </a>
+    <a href="https://www.instagram.com/oazahalenkovice_healingcenter" aria-label="Instagram" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="4.2" stroke="#b06a6c" stroke-width="1.2"/><circle cx="10" cy="10" r="3.4" stroke="#b06a6c" stroke-width="1.2"/><circle cx="14.4" cy="5.6" r="0.9" fill="#b06a6c"/></svg>
+    </a>
+  </div>
+  <p class="drobne">Místo, kde se propojují světy.</p>
+  <p class="drobne" style="font-style:normal;font-size:14px;margin-top:14px">© 2026 Oáza Adamanthea · IČ 76564410 · <a href="/gdpr" style="color:var(--rose)">Ochrana osobních údajů</a></p>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}
+function svcToggle(btn){const c=btn.parentElement;const open=c.classList.toggle('open');btn.textContent=open?'Méně informací':'Více informací';}
+window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',window.scrollY>500);});
+</script>
+</body>
+</html>

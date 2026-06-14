@@ -24,7 +24,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -48,7 +48,7 @@ body{
   line-height:1.7;
   -webkit-font-smoothing:antialiased;
 }
-h1,h2,h3,h4{font-family:"Cardo",Georgia,serif;color:var(--ink);font-weight:700;line-height:1.2;margin:0;}
+h1,h2,h3,h4{font-family:"Cormorant Garamond",Georgia,serif;color:var(--ink);font-weight:700;line-height:1.2;margin:0;}
 a{color:inherit;}
 img{max-width:100%;display:block;}
 .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
@@ -73,18 +73,22 @@ img{max-width:100%;display:block;}
 }
 .oa-nav-inner{
   max-width:1180px;margin:0 auto;padding:14px 24px;
-  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  display:flex;align-items:center;justify-content:flex-start;gap:16px;
 }
+.nav-home{display:flex;align-items:center;color:var(--ink-soft);transition:color .25s ease;text-decoration:none;}
+.nav-home:hover{color:var(--gold-deep);}
+.nav-home svg{display:block;}
 .oa-brand{
   font-family:"Cardo",serif;font-weight:700;
   font-size:1.32rem;letter-spacing:.04em;color:var(--ink);
   text-decoration:none;line-height:1.1;white-space:nowrap;
 }
 .oa-brand small{display:block;font-style:italic;font-weight:400;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);}
-.oa-links{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap;}
+.oa-links{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap;margin-left:auto;}
 .oa-links a{
-  text-decoration:none;color:var(--ink-soft);
-  font-size:1.02rem;padding:7px 12px;border-radius:4px;
+  text-decoration:none;color:var(--ink);
+  font-size:1.08rem;font-weight:600;letter-spacing:.012em;
+  padding:7px 12px;border-radius:4px;
   position:relative;transition:color .2s ease;
 }
 .oa-links a::after{
@@ -98,7 +102,7 @@ img{max-width:100%;display:block;}
 .oa-links a.aktivni::after{transform:scaleX(1);}
 .oa-burger{
   display:none;background:none;border:1px solid var(--line);border-radius:6px;
-  padding:8px 10px;cursor:pointer;color:var(--ink);font-size:1.1rem;line-height:1;
+  padding:8px 10px;cursor:pointer;color:var(--ink);font-size:1.1rem;line-height:1;margin-left:auto;
 }
 @media(max-width:900px){
   .oa-burger{display:block;}
@@ -132,7 +136,7 @@ img{max-width:100%;display:block;}
   border:1px solid rgba(201,161,74,.4);
   border-radius:50% 50% 4px 4px / 38% 38% 4px 4px;pointer-events:none;
 }
-.oa-hero h1{font-size:clamp(2.4rem,6vw,3.6rem);margin:0 0 .4rem;}
+.oa-hero h1{font-size:clamp(2.6rem,6.5vw,3.9rem);letter-spacing:.03em;margin:0 0 .4rem;}
 .oa-hero .lead{font-size:1.32rem;font-style:italic;color:var(--ink-soft);margin:0 auto;max-width:30ch;}
 .oa-hero .offer{
   margin:1.4rem auto 0;max-width:34ch;
@@ -254,6 +258,7 @@ section:nth-of-type(even){background:var(--cream-warm);}
 <!-- ===== NAVIGATION ===== -->
 <nav class="oa-nav">
   <div class="oa-nav-inner">
+    <a class="nav-home" href="/" aria-label="Domů — hlavní stránka"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></a>
     <a class="oa-brand" href="/">Oáza Adamanthea<small>Crystal &amp; Retreat Centrum · Morava</small></a>
     <button class="oa-burger" aria-label="Menu" onclick="prepniMenu()">☰</button>
     <ul class="oa-links" id="oaLinks">

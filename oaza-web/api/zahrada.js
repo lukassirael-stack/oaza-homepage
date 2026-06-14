@@ -15,7 +15,7 @@ const BASE      = 'appRwBZ3wWbId3bTM';
 const T_REZ     = 'Rezervace_zahrada';
 const T_CLOSED  = 'Zavrete_dny_zahrada';
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const TOKEN = process.env.ZAHRADA_AIRTABLE_TOKEN;
   const HESLO = process.env.ZAHRADA_ADMIN_HESLO;
 

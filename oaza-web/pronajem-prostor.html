@@ -115,15 +115,17 @@ img{max-width:100%;display:block;}
 
 /* ---------- Hero ---------- */
 .oa-hero{
-  background:radial-gradient(120% 90% at 50% 0%,var(--cream-warm) 0%,var(--cream) 70%);
-  text-align:center;padding:72px 24px 60px;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,rgba(250,246,238,.74),rgba(250,246,238,.9)),url('/img/shalla.jpg') center 40%/cover no-repeat;
+  text-align:center;padding:96px 24px 88px;position:relative;overflow:hidden;
 }
 .oa-hero .portal{
-  max-width:560px;margin:0 auto;
+  max-width:600px;margin:0 auto;
   border:1px solid var(--gold);
-  border-radius:50% 50% 6px 6px / 38% 38% 6px 6px;
-  padding:54px 36px 46px;position:relative;
-  background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0));
+  border-radius:50% 50% 6px 6px / 30% 30% 6px 6px;
+  padding:50px 40px 44px;position:relative;
+  background:rgba(250,246,238,.82);
+  backdrop-filter:blur(3px);
+  box-shadow:0 26px 60px -30px rgba(74,57,66,.55);
 }
 .oa-hero .portal::before{
   content:"";position:absolute;inset:9px;
@@ -132,6 +134,12 @@ img{max-width:100%;display:block;}
 }
 .oa-hero h1{font-size:clamp(2.4rem,6vw,3.6rem);margin:0 0 .4rem;}
 .oa-hero .lead{font-size:1.32rem;font-style:italic;color:var(--ink-soft);margin:0 auto;max-width:30ch;}
+.oa-hero .offer{
+  margin:1.4rem auto 0;max-width:34ch;
+  font-family:"Cardo",serif;letter-spacing:.04em;
+  color:var(--gold-deep);font-size:1.02rem;
+  padding-top:1rem;border-top:1px solid rgba(201,161,74,.45);
+}
 .oa-hero .mark{color:var(--gold-deep);font-size:1.5rem;letter-spacing:.4em;margin-bottom:1.1rem;}
 
 /* ---------- Sections ---------- */
@@ -267,6 +275,7 @@ section:nth-of-type(even){background:var(--cream-warm);}
     <div class="mark">✦ ✦ ✦</div>
     <h1>Pronájem prostor</h1>
     <p class="lead">Klid, energetická čistota a prostor pro vaši práci — v srdci Moravy.</p>
+    <p class="offer">Skupinové retreaty · Ženské kruhy · Soukromé pobyty · Portálová zahrada</p>
   </div>
 </header>
 

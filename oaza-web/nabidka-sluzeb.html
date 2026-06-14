@@ -60,6 +60,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .svc-featured .row{display:flex;align-items:stretch}
 .svc-featured .pic{flex:0 0 38%;position:relative;background:linear-gradient(150deg,#243a2c,#9c585a)}
 .svc-featured .pic::after{content:"";position:absolute;width:60px;height:60px;border:2px solid rgba(255,255,255,.5);transform:rotate(45deg);top:calc(50% - 30px);left:calc(50% - 30px)}
+.svc-featured .pic.has-photo::after{display:none}
 .svc-featured .badge{position:absolute;top:20px;left:20px;background:var(--gold);color:#fff;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.18em;padding:7px 16px;border-radius:20px}
 .svc-featured .info{flex:1;padding:34px 38px 32px}
 .svc-featured .eyebrow{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:12px}
@@ -151,33 +152,21 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   <div class="svc-featured" id="kranio">
     <div class="topbar"></div>
     <div class="row">
-      <div class="pic"><span class="badge">NOVÉ</span></div>
+      <div class="pic has-photo" style="background:url('/img/kranio.jpg') center/cover"><span class="badge">NOVÉ</span></div>
       <div class="info">
         <div class="eyebrow">Nová terapie · Martina</div>
         <h2>Kraniosakrální terapie &amp; Divine Healing</h2>
         <div class="session">Celé setkání 80–90 min · 50–60 min kraniosakrální terapie + 30 min Divine Healing</div>
         <p class="short">Jemné, hluboce uvolňující ošetření, při kterém se tělo i duše vrací do rovnováhy a klidu. Po jemné práci s tělem následuje léčivý přenos Divine Healing.</p>
         <div class="price">2 200 Kč / 88 €</div>
-        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
-        <div class="svc-detail">
-          <p>Kraniosakrální terapie pracuje velmi jemnými doteky s rytmem mozkomíšního moku a uvolňuje napětí uložené hluboko v těle. V navazujícím Divine Healing přichází léčivý energetický přenos, který harmonizuje a zklidňuje.</p>
-          <div class="svc-review">
-            <p>„Když jsem na terapii přišla, cítila jsem neklid a nervozitu. Ale jakmile začala terapie, velice rychle jsem se uklidnila a nastal ve mně mír a uvolněnost, jakoby se někdo dotýkal mé duše a hladil. Děkuji Martině za tento božský přenos. Přijdu zas."</p>
-            <span class="who">— Pavla</span>
-          </div>
-          <div class="svc-book">
-            Provádí <strong>Martina</strong> · osobně v Oáze Adamanthea, Halenkovice 400<br>
-            Objednání: <a href="tel:+420608828996">+420 608 828 996</a> (Martina) · <a href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Kraniosakr%C3%A1ln%C3%AD%20terapie%20a%20Divine%20Healing">oaza.adamanthea@gmail.com</a><br>
-            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Kraniosakr%C3%A1ln%C3%AD%20terapie%20a%20Divine%20Healing">Objednat termín</a>
-          </div>
-        </div>
+        <a class="svc-more" href="/kraniosakralni-terapie" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
   </div>
 
   <div class="svc-grid">
     <div class="svc-card">
-      <div class="svc-img" style="background:linear-gradient(150deg,#c9b48f,#8a6f4a)"></div>
+      <div class="svc-img has-photo" style="background:url('/img/osobni-terapie.jpg') center/cover"></div>
       <div class="svc-body">
         <h3>Osobní terapie</h3>
         <p class="svc-short">Individuální, citlivě vedené sezení — uvolnění bloků, emocí a podpora vnitřní rovnováhy.</p>
@@ -211,7 +200,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
     <div class="svc-card">
-      <div class="svc-img" style="background:linear-gradient(150deg,#a7b0a0,#5f6f58)"></div>
+      <div class="svc-img has-photo" style="background:url('/img/hojnost.png') center/cover"></div>
       <div class="svc-body">
         <h3>Terapie hojnosti a prosperity</h3>
         <p class="svc-short">Uvolnění bloků, které brání přirozenému proudu hojnosti ve vašem životě.</p>
@@ -228,7 +217,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
     <div class="svc-card">
-      <div class="svc-img" style="background:linear-gradient(150deg,#9fb0b6,#5d7480)"></div>
+      <div class="svc-img has-photo" style="background:url('/img/rodove-klice.jpg') center/cover"></div>
       <div class="svc-body">
         <h3>Rodové klíče</h3>
         <p class="svc-short">Práce s rodovou linií — uvolnění zátěží předků a otevření vlastní cesty.</p>
@@ -254,7 +243,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
     <div class="svc-card">
-      <div class="svc-img" style="background:linear-gradient(150deg,#a8b4a2,#62795f)"></div>
+      <div class="svc-img has-photo" style="background:url('/img/energeticka-ocista.jpg') center/cover"></div>
       <div class="svc-body">
         <h3>Energetická očista</h3>
         <p class="svc-short">Jemný proces, při kterém se uvolňují nahromaděné energie a obnovuje přirozený tok životní síly.</p>
@@ -271,7 +260,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
     <div class="svc-card">
-      <div class="svc-img" style="background:linear-gradient(150deg,#c2b39a,#7d6a4a)"></div>
+      <div class="svc-img has-photo" style="background:url('/img/dalkova-harmonizace.png') center/cover"></div>
       <div class="svc-body">
         <h3>Dálková harmonizace aury</h3>
         <p class="svc-short">Energetická očista aury a čaker v teple vašeho domova — na dálku.</p>
@@ -305,7 +294,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
     <div class="svc-card">
-      <div class="svc-img" style="background:linear-gradient(150deg,#c0ad94,#856f52)"></div>
+      <div class="svc-img has-photo" style="background:url('/img/jmeno.jpeg') center/cover"></div>
       <div class="svc-body">
         <h3>Energetická harmonizace jména a příjmení</h3>
         <p class="svc-short">Sladění energie vašeho jména a příjmení s vaší cestou.</p>
@@ -319,6 +308,50 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
             <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Energetick%C3%A1%20harmonizace%20jm%C3%A9na%20a%20p%C5%99%C3%ADjmen%C3%AD">Objednat termín</a>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img has-photo" style="background:url('/img/shamballa.png') center/cover"></div>
+      <div class="svc-body">
+        <h3>Shamballa</h3>
+        <p class="svc-short">Vícedimenzionální léčivý systém pracující s energií lásky a světla — hluboké uvolnění a harmonizace na všech úrovních.</p>
+        <div class="svc-price">Cena na dotaz</div>
+        <button class="svc-more" onclick="svcToggle(this)">Více informací</button>
+        <div class="svc-detail">
+          <p>Jemná energetická práce, která podporuje uvolnění bloků a návrat do rovnováhy na fyzické, emoční i duchovní úrovni.</p>
+          <div class="svc-book">
+            Provádí <strong>Lukáš / Martina</strong><br>
+            Objednání: <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+            <a class="obj" href="mailto:oaza.adamanthea@gmail.com?subject=Objedn%C3%A1n%C3%AD:%20Shamballa">Objednat termín</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#5b6b8c,#2e2c4a)"></div>
+      <div class="svc-body">
+        <h3>Vesmírný kód zrození</h3>
+        <p class="svc-short">Interaktivní kvíz, který odhalí váš hvězdný původ a vesmírný kód vašeho zrození.</p>
+        <div class="svc-price">Online · zdarma</div>
+        <a class="svc-more" href="https://kviz.oaza-adamanthea.cz" style="text-decoration:none">Spustit kvíz →</a>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#9a7ba8,#5b4170)"></div>
+      <div class="svc-body">
+        <h3>Lemoare Krystaly</h3>
+        <p class="svc-short">Ručně vybrané krystaly a kameny s příběhem — pro podporu, harmonii a krásu vašeho prostoru.</p>
+        <div class="svc-price">E-shop</div>
+        <a class="svc-more" href="/spirit-shop-1" style="text-decoration:none">Do e-shopu →</a>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img" style="background:linear-gradient(150deg,#7d9a8a,#41614f)"></div>
+      <div class="svc-body">
+        <h3>Spolupráce s vámi</h3>
+        <p class="svc-short">Hledáte prostor pro svůj kurz, akci či terapii? Pojďme tvořit společně.</p>
+        <div class="svc-price">Dle domluvy</div>
+        <a class="svc-more" href="/kontakt" style="text-decoration:none">Ozvěte se nám →</a>
       </div>
     </div>
   </div>

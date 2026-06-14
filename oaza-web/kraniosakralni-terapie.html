@@ -45,6 +45,8 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
 .site-nav .nav-cta:hover{background:var(--gold);color:#fff}
 .site-nav .nav-toggle{display:none;background:none;border:none;color:var(--ink-soft);font-size:30px;line-height:1;cursor:pointer}
 .site-nav .jen-mobil{display:none}
+.site-nav .nav-home{margin-right:auto;display:flex;align-items:center;color:var(--ink-soft);transition:color .25s}
+.site-nav .nav-home:hover{color:var(--gold-deep)}
 
 @media(max-width:900px){
   .site-nav{padding:18px 22px;gap:16px;background:linear-gradient(180deg,rgba(253,248,243,.96),rgba(253,248,243,0))}
@@ -63,6 +65,7 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
 
 <!-- ===== SDÍLENÁ NAVIGACE ===== -->
 <nav class="site-nav">
+  <a class="nav-home" href="/" aria-label="Domů — hlavní stránka"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></a>
   <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
   <div class="menu" id="menu">
     <a href="/portalova-zahrada">Portálová zahrada</a>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pronájem prostor | Oáza Adamanthea</title>
+<meta name="description" content="Pronájem prostor v Oáze Adamanthea — meditační místnost a Shalla pro retreaty, semináře a kruhy, soukromé tematické pokoje pro váš vnitřní návrat. V srdci Moravy.">
+<link rel="canonical" href="https://oaza-adamanthea.cz/pronajem-prostor">
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/oaza-adamanthea-favicon-192.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Oáza Adamanthea">
+<meta property="og:title" content="Pronájem prostor | Oáza Adamanthea">
+<meta property="og:description" content="Pronájem prostor v Oáze Adamanthea — meditační místnost a Shalla pro retreaty a kruhy, soukromé tematické pokoje pro váš vnitřní návrat.">
+<meta property="og:url" content="https://oaza-adamanthea.cz/pronajem-prostor">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --gold:#c9a14a;
+  --gold-deep:#9a7628;
+  --ink:#4a3942;
+  --ink-soft:#6b4a55;
+  --cream:#faf6ee;
+  --cream-warm:#f4ead8;
+  --line:#e7dcc8;
+  --shadow:0 18px 50px -28px rgba(74,57,66,.35);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink-soft);
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:1.18rem;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:"Cardo",Georgia,serif;color:var(--ink);font-weight:700;line-height:1.2;margin:0;}
+a{color:inherit;}
+img{max-width:100%;display:block;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+/* ---------- Eyebrow ---------- */
+.eyebrow{
+  font-family:"Cardo",serif;
+  font-style:italic;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-size:.82rem;
+  color:var(--gold-deep);
+  margin:0 0 .6rem;
+}
+
+/* ---------- Navigation ---------- */
+.oa-nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(250,246,238,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.oa-nav-inner{
+  max-width:1180px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+}
+.oa-brand{
+  font-family:"Cardo",serif;font-weight:700;
+  font-size:1.32rem;letter-spacing:.04em;color:var(--ink);
+  text-decoration:none;line-height:1.1;white-space:nowrap;
+}
+.oa-brand small{display:block;font-style:italic;font-weight:400;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);}
+.oa-links{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap;}
+.oa-links a{
+  text-decoration:none;color:var(--ink-soft);
+  font-size:1.02rem;padding:7px 12px;border-radius:4px;
+  position:relative;transition:color .2s ease;
+}
+.oa-links a::after{
+  content:"";position:absolute;left:12px;right:12px;bottom:3px;height:1px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;
+  transition:transform .25s ease;
+}
+.oa-links a:hover{color:var(--gold-deep);}
+.oa-links a:hover::after{transform:scaleX(1);}
+.oa-links a.aktivni{color:var(--gold-deep);}
+.oa-links a.aktivni::after{transform:scaleX(1);}
+.oa-burger{
+  display:none;background:none;border:1px solid var(--line);border-radius:6px;
+  padding:8px 10px;cursor:pointer;color:var(--ink);font-size:1.1rem;line-height:1;
+}
+@media(max-width:900px){
+  .oa-burger{display:block;}
+  .oa-links{
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--cream);border-bottom:1px solid var(--line);
+    padding:8px 16px 16px;display:none;box-shadow:var(--shadow);
+  }
+  .oa-links.otevreno{display:flex;}
+  .oa-links a{padding:11px 8px;border-bottom:1px solid var(--line);}
+  .oa-links a::after{display:none;}
+}
+
+/* ---------- Hero ---------- */
+.oa-hero{
+  background:radial-gradient(120% 90% at 50% 0%,var(--cream-warm) 0%,var(--cream) 70%);
+  text-align:center;padding:72px 24px 60px;position:relative;overflow:hidden;
+}
+.oa-hero .portal{
+  max-width:560px;margin:0 auto;
+  border:1px solid var(--gold);
+  border-radius:50% 50% 6px 6px / 38% 38% 6px 6px;
+  padding:54px 36px 46px;position:relative;
+  background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0));
+}
+.oa-hero .portal::before{
+  content:"";position:absolute;inset:9px;
+  border:1px solid rgba(201,161,74,.4);
+  border-radius:50% 50% 4px 4px / 38% 38% 4px 4px;pointer-events:none;
+}
+.oa-hero h1{font-size:clamp(2.4rem,6vw,3.6rem);margin:0 0 .4rem;}
+.oa-hero .lead{font-size:1.32rem;font-style:italic;color:var(--ink-soft);margin:0 auto;max-width:30ch;}
+.oa-hero .mark{color:var(--gold-deep);font-size:1.5rem;letter-spacing:.4em;margin-bottom:1.1rem;}
+
+/* ---------- Sections ---------- */
+section{padding:66px 0;}
+section:nth-of-type(even){background:var(--cream-warm);}
+.sec-head{text-align:center;max-width:46ch;margin:0 auto 44px;}
+.sec-head h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:.5rem;}
+.sec-head p{margin:.4rem 0 0;}
+.intro{max-width:60ch;margin:0 auto 40px;text-align:center;}
+
+/* ---------- Cards ---------- */
+.grid{display:grid;gap:28px;}
+.grid.two{grid-template-columns:repeat(2,1fr);}
+.grid.rooms{grid-template-columns:repeat(2,1fr);}
+@media(max-width:760px){.grid.two,.grid.rooms{grid-template-columns:1fr;}}
+
+.card{
+  background:#fffdf8;border:1px solid var(--line);border-radius:8px;
+  padding:34px 30px;box-shadow:var(--shadow);position:relative;
+}
+.card h3{font-size:1.55rem;margin-bottom:.3rem;}
+.card-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;margin-bottom:20px;display:block;box-shadow:0 8px 20px -14px rgba(74,57,66,.5);}
+.wide-photo{width:100%;max-height:460px;object-fit:cover;object-position:center;border-radius:8px;display:block;box-shadow:var(--shadow);}
+.photo-cap{text-align:center;font-style:italic;font-size:1rem;color:var(--ink-soft);opacity:.85;margin:10px 0 0;}
+.card .tag{font-family:"Cardo",serif;font-style:italic;color:var(--gold-deep);margin:0 0 1rem;}
+.card ul{list-style:none;margin:1rem 0 0;padding:0;}
+.card ul li{position:relative;padding:5px 0 5px 26px;border-bottom:1px dashed var(--line);}
+.card ul li:last-child{border-bottom:none;}
+.card ul li::before{content:"◈";position:absolute;left:0;top:5px;color:var(--gold);font-size:.85rem;}
+
+/* room card — double gold frame signature */
+.room{
+  background:#fffdf8;border-radius:8px;padding:6px;
+  box-shadow:var(--shadow);
+  background-image:linear-gradient(#fffdf8,#fffdf8);
+}
+.room-inner{
+  border:1px solid var(--gold);border-radius:5px;padding:30px 28px;height:100%;
+  position:relative;
+}
+.room-inner::before{
+  content:"";position:absolute;inset:6px;border:1px solid rgba(201,161,74,.35);
+  border-radius:3px;pointer-events:none;
+}
+.room-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;margin-bottom:18px;display:block;box-shadow:0 8px 20px -14px rgba(74,57,66,.5);}
+.room .glyph{font-size:1.9rem;line-height:1;margin-bottom:.5rem;}
+.room h3{font-size:1.4rem;margin-bottom:.3rem;}
+.room .energy{font-style:italic;color:var(--gold-deep);margin:.7rem 0 0;}
+.room p{margin:.5rem 0 0;}
+
+/* ---------- Reasons ---------- */
+.reasons{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;max-width:880px;margin:0 auto;}
+@media(max-width:680px){.reasons{grid-template-columns:1fr;}}
+.reason{padding:22px 24px;border-left:2px solid var(--gold);background:rgba(255,253,248,.6);}
+.reason h4{font-size:1.18rem;margin-bottom:.25rem;color:var(--gold-deep);}
+.reason p{margin:0;}
+
+/* ---------- Price list ---------- */
+.prices{max-width:760px;margin:40px auto 0;background:#fffdf8;border:1px solid var(--line);border-radius:8px;padding:14px 30px;box-shadow:var(--shadow);}
+.prices .row{display:flex;justify-content:space-between;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:baseline;}
+.prices .row:last-child{border-bottom:none;}
+.prices .row .name{flex:1;}
+.prices .row .name small{display:block;font-size:.9rem;color:var(--ink-soft);opacity:.8;font-style:italic;}
+.prices .row .amount{font-family:"Cardo",serif;color:var(--gold-deep);font-size:1.18rem;white-space:nowrap;text-align:right;}
+.prices .note{font-size:1rem;font-style:italic;text-align:center;padding-top:14px;color:var(--ink-soft);}
+
+/* ---------- Lists & quote ---------- */
+.softlist{max-width:60ch;margin:0 auto;list-style:none;padding:0;}
+.softlist li{position:relative;padding:9px 0 9px 30px;border-bottom:1px solid var(--line);}
+.softlist li:last-child{border-bottom:none;}
+.softlist li::before{content:"✦";position:absolute;left:0;top:9px;color:var(--gold);}
+.softlist strong{color:var(--ink);font-family:"Cardo",serif;}
+
+.quote{max-width:50ch;margin:40px auto 0;text-align:center;font-size:1.32rem;font-style:italic;color:var(--ink);}
+.quote::before,.quote::after{content:"❦";display:block;color:var(--gold);font-style:normal;font-size:1.1rem;margin:.4rem 0;}
+
+/* ---------- CTA ---------- */
+.cta-band{text-align:center;margin-top:48px;}
+.btn{
+  display:inline-block;text-decoration:none;
+  font-family:"Cardo",serif;letter-spacing:.06em;
+  padding:14px 34px;border-radius:4px;margin:6px;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.btn-gold{background:var(--gold-deep);color:#fff;box-shadow:0 10px 24px -12px rgba(154,118,40,.7);}
+.btn-gold:hover{transform:translateY(-2px);}
+.btn-ghost{border:1px solid var(--gold);color:var(--gold-deep);}
+.btn-ghost:hover{background:rgba(201,161,74,.1);}
+
+/* ---------- Rules ---------- */
+.rules{max-width:62ch;margin:0 auto;}
+.rules .r{padding:18px 0;border-bottom:1px solid var(--line);}
+.rules .r:last-child{border-bottom:none;}
+.rules .r strong{font-family:"Cardo",serif;color:var(--ink);display:block;margin-bottom:.2rem;}
+
+.place{max-width:58ch;margin:40px auto 0;text-align:center;font-style:italic;}
+
+/* ---------- Footer ---------- */
+.oa-footer{background:var(--cream-warm);border-top:1px solid var(--gold);padding:50px 24px 30px;text-align:center;}
+.oa-footer .fbrand{font-family:"Cardo",serif;font-size:1.4rem;color:var(--ink);letter-spacing:.05em;}
+.oa-footer .fcontact{margin:14px 0;}
+.oa-footer a{color:var(--gold-deep);text-decoration:none;}
+.oa-footer a:hover{text-decoration:underline;}
+.oa-footer .fsocial{margin:18px 0;display:flex;gap:18px;justify-content:center;}
+.oa-footer .fsocial a{font-family:"Cardo",serif;letter-spacing:.05em;}
+.oa-footer-note{font-size:.95rem;color:var(--ink-soft);opacity:.85;margin-top:18px;line-height:1.5;}
+.oa-footer-note a{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="oa-nav">
+  <div class="oa-nav-inner">
+    <a class="oa-brand" href="/">Oáza Adamanthea<small>Healing centrum · Morava</small></a>
+    <button class="oa-burger" aria-label="Menu" onclick="prepniMenu()">☰</button>
+    <ul class="oa-links" id="oaLinks">
+      <li><a href="/portalova-zahrada">Portálová zahrada</a></li>
+      <li><a href="/pobyt-ve-svetle">Pobyt ve světle</a></li>
+      <li><a href="/#oaza">Akce</a></li>
+      <li><a href="/nabidka-sluzeb">Služby</a></li>
+      <li><a href="/pronajem-prostor" class="aktivni">Pronájem</a></li>
+      <li><a href="/spirit-shop-1">E-shop</a></li>
+      <li><a href="https://web.oaza-adamanthea.cz">O nás</a></li>
+      <li><a href="/kontakt">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="oa-hero">
+  <div class="portal">
+    <div class="mark">✦ ✦ ✦</div>
+    <h1>Pronájem prostor</h1>
+    <p class="lead">Klid, energetická čistota a prostor pro vaši práci — v srdci Moravy.</p>
+  </div>
+</header>
+
+<!-- ===== INTRO ===== -->
+<section>
+  <div class="wrap">
+    <p class="intro">Oáza je místem stvořeným s láskou a záměrem podporovat transformaci, klid a setkávání v srdci. Nabízíme k pronájmu prostory, které dýchají čistou energií a jsou připravené pojmout váš jedinečný program — i tiché pokoje pro váš osobní návrat k sobě.</p>
+  </div>
+</section>
+
+<!-- ===== 1. SKUPINOVÝ RETREAT ===== -->
+<section id="retreat">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">1 · Skupinový retreat</p>
+      <h2>Prostor pro váš seminář či setkání</h2>
+      <p>Hledáte bezpečný a inspirativní prostor pro retreat, kruh nebo workshop? Vyberte si místo, které souzní s vaší akcí.</p>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <img class="card-photo" src="/img/meditacka.jpg" alt="Meditační místnost — krystal uprostřed mandaly, čakrové kruhy a krystaly" loading="lazy">
+        <h3>Meditační místnost</h3>
+        <p class="tag">Pro intimní setkání a hlubokou práci</p>
+        <p>Prostor, kde se čas zpomaluje a dovoluje jít do hloubky. Pozvednut přítomností mnoha velkých krystalů — útulný, tichý a bezpečný.</p>
+        <ul>
+          <li>Kapacita do 10 osob (až 15)</li>
+          <li>Meditace, ženské kruhy, semináře a menší workshopy</li>
+          <li>Kuchyňka, 2× toaleta se sprchou</li>
+          <li>Nocování na matracích</li>
+          <li>Terasa pro odpočinek a stravování</li>
+          <li>Free Wi-Fi · jinový, ztišující prostor</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <img class="card-photo" src="/img/shalla.jpg" alt="Shalla — prostorný kruhový sál s polštáři a podsvíceným dřevěným stropem" loading="lazy">
+        <h3>Shalla</h3>
+        <p class="tag">Velkorysý prostor pro dech, pohyb i proměnu</p>
+        <p>Světlý a vzdušný prostor o rozloze 70 m² s vysokou vibrací — stvořený pro dynamičtější i hluboce relaxační aktivity větších skupin.</p>
+        <ul>
+          <li>Rozloha 70 m²</li>
+          <li>Jóga, tanec, konstelace, vícedenní retreaty</li>
+          <li>Přednášky a kurzy</li>
+          <li>Světlý hlavní prostor, šatna</li>
+          <li>Terasa, venkovní toalety</li>
+          <li>Free Wi-Fi</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="intro" style="margin-top:40px">Oba prostory lze využít podle počtu účastníků — hlavní program v Shalle, stravování a nocování v meditační místnosti i soukromých pokojích. Velkým bonusem je <strong>Portálová zahrada</strong>: její energetická místa, portály, koupací jezírko, pyramida i venkovní altán Maloka.</p>
+
+    <figure style="margin:8px 0 0">
+      <img class="wide-photo" src="/img/shalla-oltar.jpg" alt="Oltář v Shalle — zlatá mandala, soška Buddhy a velké ametystové drúzy mezi bambusy" loading="lazy">
+      <figcaption class="photo-cap">Oltář v Shalle — zlatá mandala, Buddha a ametystové drúzy</figcaption>
+    </figure>
+
+    <div class="sec-head" style="margin-top:30px;margin-bottom:30px">
+      <h2 style="font-size:1.8rem">Proč uspořádat akci právě u nás?</h2>
+    </div>
+    <div class="reasons">
+      <div class="reason"><h4>Energie Oázy</h4><p>Celý areál je koncipovaný jako healing centrum, což přirozeně prohlubuje prožitek všech účastníků.</p></div>
+      <div class="reason"><h4>Klid a příroda</h4><p>Únik z hluku města, ticho lesa a čistý vzduch.</p></div>
+      <div class="reason"><h4>Zázemí</h4><p>Společné prostory i soukromé pokoje — ubytování a stravu doladíme dle typu akce.</p></div>
+      <div class="reason"><h4>Portálová zahrada</h4><p>Možnost propojit vnitřní práci s pobytem v naší magické zahradě.</p></div>
+    </div>
+
+    <div class="prices">
+      <div class="row"><span class="name">Meditační místnost<small>den a noc — 24 hodin / za účastníka</small></span><span class="amount">800 Kč / 35 €</span></div>
+      <div class="row"><span class="name">Shalla + meditační místnost</span><span class="amount">1 000 Kč / 40 €</span></div>
+      <div class="row"><span class="name">Vegetariánská / veganská strava<small>snídaně, oběd, večeře</small></span><span class="amount">450 Kč / den</span></div>
+      <div class="row"><span class="name">Soukromé pokoje se sdílenou koupelnou<small>aktuálně pro 7 osob · sdílení pokoje +200 Kč</small></span><span class="amount">+ 300 Kč / os. / den</span></div>
+      <div class="row"><span class="name">Chatka Pobyt ve světle<small>1–2 osoby</small></span><span class="amount">1 700 Kč / 70 €</span></div>
+      <p class="note">Nocování účastníků v meditační místnosti na matracích je součástí ceny.</p>
+    </div>
+
+    <div class="cta-band">
+      <a class="btn btn-gold" href="tel:+420608828996">Rezervace &amp; dotazy</a>
+      <a class="btn btn-ghost" href="mailto:info@oaza-adamanthea.cz?subject=Pron%C3%A1jem%20prostor%20%E2%80%93%20skupinov%C3%BD%20retreat">Napsat e-mail</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. SOUKROMÝ POBYT ===== -->
+<section id="soukromy-pobyt">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">2 · Soukromý pobyt</p>
+      <h2>Pokoje pro váš vnitřní návrat</h2>
+      <p>Místo, kde můžete jen <em>být</em>. Někdy je největším luxusem ticho, samota a čas věnovaný vlastní duši.</p>
+    </div>
+
+    <p class="intro">Naše pokoje nejsou určené k běžnému turistickému ubytování. Jsou navržené jako bezpečné buňky pro vaši transformaci, léčení a odpočinek. Nejste tu hostem v hotelu, ale poutníkem ve vlastní krajině.</p>
+
+    <ul class="softlist">
+      <li><strong>Potřebujete být sami se sebou</strong> — v tichu přírody a energeticky čistém prostředí, kde vás nic neruší.</li>
+      <li><strong>Integrujete životní změny</strong> — klidné zázemí pro zpracování hlubokých vhledů a prožitků z terapií.</li>
+      <li><strong>Hledáte prostor pro svou praxi</strong> — ranní jóga, meditace, studium i psaní.</li>
+      <li><strong>Toužíte po hlubokém odpočinku</strong> — odpojení od technologií, shonu a nároků okolního světa.</li>
+    </ul>
+
+    <div class="grid rooms" style="margin-top:46px">
+      <div class="room"><div class="room-inner">
+        <img class="room-photo" src="/img/pokoj-zen.jpg" alt="Pokoj Zen — dvě jednolůžka, Buddha, lotos a čakry" loading="lazy">
+        <div class="glyph">🪷</div>
+        <h3>Pokoj Zen</h3>
+        <p>Čistota a ticho mysli, spojení se Zemí. Jednoduchost a minimalismus pro hluboké ztišení a návrat do přítomného okamžiku.</p>
+        <p class="energy">Kapacita: 2× jednolůžko · Energie: klid, spočinutí, ticho</p>
+      </div></div>
+
+      <div class="room"><div class="room-inner">
+        <img class="room-photo" src="/img/pokoj-egyptsky.jpg" alt="Egyptský pokoj — zlatá mandala, pyramidy, papyrus a soška kočky" loading="lazy">
+        <div class="glyph">🏺</div>
+        <h3>Egyptský pokoj</h3>
+        <p>Mystika a vnitřní síla. Přenese vás do země pyramid a pradávné moudrosti.</p>
+        <p class="energy">Kapacita: dvoulůžko · Energie: uzemnění, pevnost, sebevědomí, intuice</p>
+      </div></div>
+
+      <div class="room"><div class="room-inner">
+        <img class="room-photo" src="/img/pokoj-andelsky.jpg" alt="Andělský pokoj — jemné růžové tóny, andělská polička, třešňové květy" loading="lazy">
+        <div class="glyph">🪽</div>
+        <h3>Andělský pokoj</h3>
+        <p>Jemnost, světelná ochrana a bezpečí. Oáza jemnosti a světla — bezpečný přístav pro jemné duše a klidný spánek.</p>
+        <p class="energy">Kapacita: 1× jednolůžko · Energie: čistota, bezpečí, světelná péče</p>
+      </div></div>
+
+      <div class="room"><div class="room-inner">
+        <img class="room-photo" src="/img/pokoj-boho.jpg" alt="Boho pokoj — dřevěné trámy, lapač snů, útulný přírodní prostor" loading="lazy">
+        <div class="glyph">🪢</div>
+        <h3>Boho pokoj</h3>
+        <p>Oslava svobody, inspirace, kreativity i hojnosti.</p>
+        <p class="energy">Kapacita: dvoulůžko + jednolůžko (2 osoby) · Energie: opečování, volnost, tvůrčí flow</p>
+      </div></div>
+    </div>
+
+    <div class="prices">
+      <div class="row"><span class="name">Boho pokoj</span><span class="amount">1 400 Kč (2–3 os.) / 1 000 Kč (1 os.)</span></div>
+      <div class="row"><span class="name">Pokoj Zen</span><span class="amount">1 200 Kč (2 os.) / 1 000 Kč (1 os.)</span></div>
+      <div class="row"><span class="name">Egyptský pokoj</span><span class="amount">1 200 Kč (2 os.) / 1 000 Kč (1 os.)</span></div>
+      <div class="row"><span class="name">Andělský pokoj</span><span class="amount">800 Kč (1 os.)</span></div>
+      <p class="note">Ubytování je k dispozici od jara do podzimu. Hosté mají volný přístup do Portálové zahrady, k meditační pyramidě a koupacímu jezírku se slanou vodou. Možnost domluvit individuální vegetariánskou/veganskou stravu.</p>
+    </div>
+
+    <div class="cta-band">
+      <a class="btn btn-gold" href="tel:+420608828996">Rezervace &amp; dotazy</a>
+      <a class="btn btn-ghost" href="mailto:info@oaza-adamanthea.cz?subject=Soukrom%C3%BD%20pobyt%20%E2%80%93%20rezervace%20pokoje">Napsat e-mail</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRAVIDLA ===== -->
+<section id="pravidla">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Pravidla soužití</p>
+      <h2>Aby si prostor uchoval svou čistotu</h2>
+      <p>Pro vysokou energetickou čistotu a klid, který je pro healing centrum i vaši regeneraci zásadní, prosíme o respektování několika pravidel.</p>
+    </div>
+    <div class="rules">
+      <div class="r"><strong>Vnitřní čistota</strong>V celém areálu není povolena konzumace alkoholu, masa ani návykových látek. Věříme, že čisté tělo je branou k hlubšímu prožitku.</div>
+      <div class="r"><strong>Prostředí bez kouře</strong>Vnitřní i venkovní prostory jsou nekuřácké. Kouření je možné pouze na vyhrazeném místě na parkovišti.</div>
+      <div class="r"><strong>Klid pro zvířecí přátele</strong>Domácí mazlíčky prosím nechte tentokrát doma — pomáháte tím udržet klidné prostředí pro všechny hosty i místní přírodu.</div>
+    </div>
+    <p class="quote">Děkujeme, že s námi spoluvytváříte prostor plný míru, úcty a harmonie.</p>
+    <p class="place">Naše meditační centrum se nachází v obci Halenkovice, v malebném kraji u Napajedel a nedaleko Baťova kanálu — ideální výchozí bod pro poutníky hledající klid v přírodě Zlínského kraje.</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="oa-footer">
+  <div class="fbrand">Oáza Adamanthea</div>
+  <div class="fcontact">
+    Halenkovice, Zlínský kraj ·
+    <a href="tel:+420608828996">+420 608 828 996</a> ·
+    <a href="mailto:info@oaza-adamanthea.cz">info@oaza-adamanthea.cz</a>
+  </div>
+  <div class="fsocial">
+    <a href="https://www.facebook.com/groups/1679547508831715" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://instagram.com/oazahalenkovice_healingcenter" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="oa-footer-note">
+    © 2025 Oáza Halenkovice · peace — love — happiness<br>
+    <a href="https://web.oaza-adamanthea.cz/gdpr">Ochrana osobních údajů</a>
+  </div>
+</footer>
+
+<script>
+function prepniMenu(){
+  document.getElementById('oaLinks').classList.toggle('otevreno');
+}
+</script>
+
+</body>
+</html>

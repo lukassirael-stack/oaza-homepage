@@ -46,13 +46,14 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 
 /* ===== HERO ===== */
 .pz-hero{position:relative;width:100%;min-height:82vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.pz-hero-bg{position:absolute;inset:0;background-image:url('https://static.wixstatic.com/media/d991d3_6ab167b465fe4ec0af8c7eff70c51058~mv2.jpg/v1/fill/w_1600,h_900,al_c,q_85/p.jpg');background-size:cover;background-position:center;filter:brightness(.82);transform:scale(1.02);transition:transform 8s ease}
+.pz-hero-bg{position:absolute;inset:0;background-image:url('/img/pz-hero.jpg');background-size:cover;background-position:50% 42%;filter:brightness(.9);transform:scale(1.02);transition:transform 8s ease}
 .pz-hero:hover .pz-hero-bg{transform:scale(1.05)}
-.pz-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15),rgba(10,25,12,.5))}
+.pz-hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse 80% 42% at 50% 46%,rgba(8,18,10,.45) 0%,transparent 70%),linear-gradient(to bottom,rgba(8,18,10,.55) 0%,rgba(8,18,10,.12) 32%,rgba(8,18,10,.20) 60%,rgba(10,25,12,.72) 100%)}
 .pz-hero-content{position:relative;z-index:2;text-align:center;padding:40px 28px;max-width:760px}
-.pz-badge{display:inline-block;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.82);margin-bottom:22px;cursor:default;user-select:none;text-shadow:0 1px 10px rgba(0,0,0,.5)}
-.pz-hero-content h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,7vw,68px);font-weight:300;letter-spacing:.12em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.45);margin-bottom:18px}
-.pz-hero-sub{font-style:italic;font-size:clamp(17px,2.4vw,23px);color:rgba(255,255,255,.92);text-shadow:0 1px 18px rgba(0,0,0,.4)}
+.pz-badge{display:inline-block;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:22px;cursor:default;user-select:none;text-shadow:0 1px 10px rgba(0,0,0,.55)}
+.pz-hero-content h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,7vw,68px);font-weight:300;letter-spacing:.12em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.5);margin-bottom:16px}
+.pz-divider{display:block;width:60px;height:1px;margin:0 auto 16px;background:linear-gradient(90deg,transparent,rgba(214,184,122,.95),transparent)}
+.pz-hero-sub{font-style:italic;font-size:clamp(17px,2.4vw,23px);color:rgba(255,255,255,.94);text-shadow:0 1px 18px rgba(0,0,0,.45)}
 
 /* ===== INTRO + ORIENTACE ===== */
 .pz-wrap{max-width:760px;margin:0 auto;padding:72px 28px 20px}
@@ -202,6 +203,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   <div class="pz-hero-content">
     <span class="pz-badge" id="secretBadge" onclick="secretClick()">Oáza Adamanthea · Halenkovice</span>
     <h1 onclick="secretClick()" style="cursor:default;user-select:none">Portálová zahrada</h1>
+    <span class="pz-divider"></span>
     <p class="pz-hero-sub">Posvátný prostor · místo, kde se propojují světy</p>
   </div>
 </header>

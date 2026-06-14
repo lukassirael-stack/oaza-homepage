@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/oaza-adamanthea-favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png">
+<title>Kontakt | Oáza Adamanthea</title>
+<meta name="description" content="Kontakt na Oázu Adamanthea — krystal & retreat centrum v Halenkovicích na Moravě. Adresa, telefon, e-mail a mapa. Terapie, pobyty a akce po předchozí domluvě.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kontakt | Oáza Adamanthea">
+<meta property="og:description" content="Ozvěte se nám — rádi vám odpovíme a provedeme vás. Halenkovice, Morava.">
+<meta property="og:url" content="https://oaza-adamanthea.cz/kontakt">
+<meta property="og:image" content="https://static.wixstatic.com/media/d991d3_6ab167b465fe4ec0af8c7eff70c51058~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_85/p.jpg">
+<meta property="og:locale" content="cs_CZ">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f5f1e9;--cream-dark:#ede7db;--green:#2e4434;--green-deep:#1f3024;--rose:#b06a6c;--rose-dark:#9c585a;--ink:#3a3f38;--line:#d8d0c2;--gold:#bca060;--gold-soft:#d8bd83}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Cormorant Garamond',serif;background:var(--cream);color:var(--ink);font-size:19px;line-height:1.6}
+h1,h2,h3{font-weight:500;color:var(--green)}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:var(--rose);color:#fdfaf5;font-size:18px;padding:12px 30px;border-radius:6px;transition:background .25s;font-family:'Jost',sans-serif}
+.btn:hover{background:var(--rose-dark)}
+
+/* NAV */
+nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px;background:linear-gradient(180deg,rgba(12,18,10,.55) 0%,rgba(12,18,10,.25) 55%,rgba(12,18,10,0) 100%)}
+nav .menu{display:flex;gap:26px;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,.55);font-family:'Cormorant Garamond',serif;color:#fdfaf5}
+.jen-mobil{display:none}
+nav .menu a{position:relative;padding-bottom:3px}
+nav .menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#fdfaf5;transition:width .25s}
+nav .menu a:hover::after{width:100%}
+nav .menu a.aktivni::after{width:100%}
+nav .menu a.aktivni{font-weight:600}
+.nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
+nav .nav-home{margin-right:auto;display:flex;align-items:center;color:#fdfaf5;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:color .25s}
+nav .nav-home:hover{color:var(--gold-soft)}
+nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px}
+
+/* HERO */
+.svc-hero{position:relative;min-height:42vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(155deg,#34503c 0%,#243a2c 60%,#1c2c22 100%)}
+.svc-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(216,189,131,.12),transparent 60%)}
+.svc-hero-content{position:relative;z-index:2;text-align:center;padding:122px 28px 60px;max-width:760px}
+.svc-eyebrow{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:20px}
+.svc-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,7vw,64px);font-weight:300;letter-spacing:.1em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.4);margin-bottom:16px}
+.svc-hero-sub{font-style:italic;font-size:clamp(17px,2.4vw,22px);color:rgba(255,255,255,.9)}
+
+/* WRAP */
+.svc-wrap{max-width:900px;margin:0 auto;padding:60px 28px 20px}
+.svc-lead{font-size:21px;font-style:italic;color:var(--green);text-align:center;line-height:1.55;max-width:680px;margin:0 auto 46px}
+
+/* KONTAKT GRID */
+.kontakt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:760px;margin:0 auto 44px}
+.kc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:32px 28px;text-align:center;box-shadow:0 4px 22px rgba(46,68,52,.06);display:flex;flex-direction:column;align-items:center}
+.kc-ico{width:54px;height:54px;margin-bottom:16px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.kc h3{font-family:'Cinzel',serif;font-size:18px;font-weight:600;margin-bottom:10px}
+.kc p{font-size:18px;color:#5a6055;line-height:1.6}
+.kc p a{color:var(--rose-dark)}
+.kc-link{display:inline-block;margin-top:16px;font-family:'Jost',sans-serif;font-size:14px;color:var(--green);border:1.5px solid rgba(46,68,52,.25);border-radius:30px;padding:8px 18px;transition:all .2s}
+.kc-link:hover{background:var(--green);color:#fff;border-color:var(--green)}
+.soc-line{text-align:center;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#8a8e80;margin-bottom:50px}
+.soc-line a{color:var(--rose);margin:0 9px;font-size:15px}
+
+/* MAP */
+.map-wrap{max-width:1080px;margin:0 auto 72px;padding:0 28px}
+.map-wrap iframe{width:100%;height:380px;border:0;border-radius:18px;filter:grayscale(.12);box-shadow:0 10px 40px rgba(46,68,52,.12)}
+
+footer{background:var(--cream-dark);text-align:center;padding:64px 32px 40px;border-top:1px solid var(--line)}
+footer .f-logo{font-size:26px;color:var(--green);margin-bottom:6px}
+footer .f-tag{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#6f7468;margin-bottom:26px}
+footer .kontakt{font-size:19px;line-height:2;color:#4c5247}
+footer .kontakt a{color:var(--rose)}
+.soc{display:flex;justify-content:center;gap:16px;margin-top:28px}
+.soc a{width:44px;height:44px;border:1px solid var(--rose);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .25s}
+.soc a:hover{background:var(--rose);transform:translateY(-2px)}
+footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
+
+.to-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility .3s;z-index:80;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.to-top:hover{background:var(--green-deep)}
+
+@media(max-width:600px){.kontakt-grid{grid-template-columns:1fr}}
+@media(max-width:900px){
+  nav{padding:20px 22px;gap:20px}
+  nav .menu{display:none;position:fixed;inset:0;background:#15221a;flex-direction:column;padding:96px 28px 40px;gap:0;text-align:left;z-index:50;overflow-y:auto}
+  nav .menu.open{display:flex}
+  nav .menu a{font-size:25px;color:#f3efe5;padding:21px 4px;border-bottom:1px solid rgba(243,239,229,.14)}
+  nav .menu a::after{display:none}
+  .jen-mobil{display:block}
+  .nav-toggle{display:block;position:relative;z-index:60}
+  nav .btn:not(.jen-mobil){display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="svc-hero">
+  <nav>
+    <a class="nav-home" href="/" aria-label="Domů — hlavní stránka"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+    <div class="menu" id="menu">
+      <a href="/portalova-zahrada">Portálová zahrada</a>
+      <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+      <a href="/#oaza">Akce</a>
+      <a href="/nabidka-sluzeb">Služby</a>
+      <a href="/pronajem-prostor">Pronájem</a>
+      <a href="/spirit-shop-1">E-shop</a>
+      <a href="https://web.oaza-adamanthea.cz/">O nás</a>
+      <a href="/kontakt" class="aktivni">Kontakt</a>
+      <a href="mailto:oaza.adamanthea@gmail.com" class="jen-mobil">Napsat</a>
+    </div>
+    <a class="btn" href="mailto:oaza.adamanthea@gmail.com">Napsat</a>
+  </nav>
+  <div class="svc-hero-content">
+    <div class="svc-eyebrow">Kontakt</div>
+    <h1>Spojme se</h1>
+    <div class="svc-hero-sub">Ozvěte se — rádi vám odpovíme a provedeme vás.</div>
+  </div>
+</div>
+
+<div class="svc-wrap">
+  <p class="svc-lead">Ať už chcete přijet na terapii, pobyt či akci, nebo se jen na něco zeptat — napište nebo zavolejte. Sídlíme v klidu přírody nedaleko Zlína i Uherského Hradiště.</p>
+
+  <div class="kontakt-grid">
+    <div class="kc">
+      <div class="kc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+      <h3>Kde nás najdete</h3>
+      <p>Halenkovice 400<br>763 63 Halenkovice<br>Zlínský kraj, Morava</p>
+      <a class="kc-link" href="https://maps.google.com/?q=Halenkovice%20400,%20763%2063%20Halenkovice" target="_blank" rel="noopener">Navigovat →</a>
+    </div>
+    <div class="kc">
+      <div class="kc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l1.6 4-2 1.4a12 12 0 0 0 5 5l1.4-2 4 1.6V19a1.5 1.5 0 0 1-1.6 1.5C9.7 20 4 14.3 3.5 6.6A1.5 1.5 0 0 1 5 4Z"/></svg></div>
+      <h3>Telefon</h3>
+      <p><a href="tel:+420737869752">+420 737 869 752</a><br><a href="tel:+420608828996">+420 608 828 996</a></p>
+      <a class="kc-link" href="https://wa.me/420737869752" target="_blank" rel="noopener">Napsat na WhatsApp →</a>
+    </div>
+    <div class="kc">
+      <div class="kc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg></div>
+      <h3>E-mail</h3>
+      <p><a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a></p>
+      <a class="kc-link" href="mailto:oaza.adamanthea@gmail.com">Napsat zprávu →</a>
+    </div>
+    <div class="kc">
+      <div class="kc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg></div>
+      <h3>Návštěvy</h3>
+      <p>Terapie, pobyty i prohlídky<br>zahrady po předchozí<br>domluvě.</p>
+    </div>
+  </div>
+
+  <p class="soc-line">Sledujte nás &nbsp;·&nbsp; <a href="https://www.facebook.com/groups/1679547508831715" target="_blank" rel="noopener">Facebook</a> &nbsp;·&nbsp; <a href="https://www.instagram.com/oazahalenkovice_healingcenter" target="_blank" rel="noopener">Instagram</a></p>
+</div>
+
+<div class="map-wrap">
+  <iframe title="Mapa — Oáza Adamanthea, Halenkovice" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Halenkovice%20400%2C%20763%2063%20Halenkovice&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>
+</div>
+
+<footer>
+  <p class="f-logo">Oáza Adamanthea</p>
+  <p class="f-tag">Krystal &amp; retreat centrum</p>
+  <p class="kontakt">
+    Halenkovice 400, 763 63 Halenkovice<br>
+    <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+    <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
+  </p>
+  <div class="soc">
+    <a href="https://www.facebook.com/groups/1679547508831715" aria-label="Facebook" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 3.5 H10.8 C9.2 3.5 8.2 4.5 8.2 6.2 V8.2 H6.5 V10.8 H8.2 V16.5 H10.9 V10.8 H12.9 L13.3 8.2 H10.9 V6.5 C10.9 6 11.2 5.8 11.7 5.8 H13.4 Z" stroke="#b06a6c" stroke-width="1.2"/></svg>
+    </a>
+    <a href="https://www.instagram.com/oazahalenkovice_healingcenter" aria-label="Instagram" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="4.2" stroke="#b06a6c" stroke-width="1.2"/><circle cx="10" cy="10" r="3.4" stroke="#b06a6c" stroke-width="1.2"/><circle cx="14.4" cy="5.6" r="0.9" fill="#b06a6c"/></svg>
+    </a>
+    <a href="https://wa.me/420737869752" aria-label="WhatsApp" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 16l1-2.9a6.5 6.5 0 1 1 2.5 2.5L4 16Z" stroke="#b06a6c" stroke-width="1.2" stroke-linejoin="round"/><path d="M7.8 7.2c.2 2.3 2 4.1 4.3 4.3.5 0 .9-.4.9-.9 0-.3-.2-.6-.5-.7l-1-.3-.7.7c-.8-.4-1.4-1-1.8-1.8l.7-.7-.3-1c-.1-.3-.4-.5-.7-.5-.5 0-.9.4-.9.9Z" fill="#b06a6c"/></svg>
+    </a>
+  </div>
+  <p class="drobne">Místo, kde se propojují světy.</p>
+  <p class="drobne" style="font-style:normal;font-size:14px;margin-top:14px">© 2026 Oáza Adamanthea · IČ 76564410 · <a href="/gdpr" style="color:var(--rose)">Ochrana osobních údajů</a></p>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}
+window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',window.scrollY>500);});
+</script>
+</body>
+</html>

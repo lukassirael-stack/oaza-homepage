@@ -642,6 +642,7 @@
   <p class="pod">Připojte se k více než 1 300 čtenářům. Jednou za čas vám pošleme pozvánky na akce, inspiraci a vhledy z portálové zahrady.</p>
   <div class="news-form">
     <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="1a7bce6b-489b-4ee8-a36c-3375cc2385d8"></script>
+    <p class="news-fallback" id="newsFallback" style="display:none;margin-top:6px;font-size:16px;color:#8a8e80;font-style:italic">Formulář se nenačetl (může za to blokovač reklam). <a href="mailto:oaza.adamanthea@gmail.com?subject=Odb%C4%9Br%20Dopis%C5%AF%20z%20O%C3%A1zy" style="color:#b06a6c;font-style:normal">Napište nám</a> a rádi vás přidáme.</p>
   </div>
 </section>
 
@@ -766,6 +767,13 @@
     if(e.target===this) zavriPrijet();
   });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') zavriPrijet(); });
+
+  // záchrana: když se beehiiv formulář nenačte (blokovač/cache), ukaž odkaz
+  setTimeout(function(){
+    var nf=document.querySelector('.news-form');
+    var fb=document.getElementById('newsFallback');
+    if(nf&&fb&&!nf.querySelector('iframe')) fb.style.display='block';
+  },3000);
 </script>
 
 </body>

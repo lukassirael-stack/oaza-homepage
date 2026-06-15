@@ -64,68 +64,33 @@ img{max-width:100%;display:block;}
   margin:0 0 .7rem;
 }
 
-/* ---------- Navigation ---------- */
-.oa-nav{
+/* ---------- Navigation (jednotná lišta) ---------- */
+.nav{
+  display:flex;align-items:center;gap:3px;flex-wrap:wrap;
+  padding:14px 26px;background:var(--cream);border-bottom:1px solid var(--line);
   position:sticky;top:0;z-index:50;
-  background:rgba(250,246,238,.92);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line);
 }
-.oa-nav-inner{
-  max-width:1180px;margin:0 auto;padding:14px 24px;
-  display:flex;align-items:center;justify-content:flex-start;gap:16px;
+.nav-home{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:50%;border:1px solid var(--line);color:var(--ink);
+  margin-right:auto;transition:.2s;
 }
-.nav-home{display:none;}
-/* domeček v hero obrázku */
-.hero-home{
-  position:absolute;top:18px;left:20px;z-index:4;
-  display:flex;align-items:center;justify-content:center;
-  width:46px;height:46px;border-radius:50%;
-  background:rgba(250,246,238,.85);border:1px solid var(--gold);
-  color:var(--gold-deep);text-decoration:none;
-  box-shadow:0 8px 22px -10px rgba(74,57,66,.55);
-  transition:transform .25s ease,background .25s ease;
+.nav-home:hover{color:var(--gold-deep);border-color:var(--gold);}
+.nav a:not(.nav-home){
+  font-family:"Jost",sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink);padding:8px 11px;border-radius:6px;
+  white-space:nowrap;transition:color .2s ease;text-decoration:none;
 }
-.hero-home:hover{background:#fff;transform:translateY(-2px);}
-.hero-home svg{display:block;}
-.oa-brand{
-  font-family:"Cinzel",serif;font-weight:600;
-  font-size:1.16rem;letter-spacing:.06em;color:var(--ink);
-  text-decoration:none;line-height:1.15;white-space:nowrap;
-}
-.oa-brand small{display:block;font-family:"Jost",sans-serif;font-weight:400;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep);margin-top:3px;}
-.oa-links{display:flex;align-items:center;gap:3px;list-style:none;margin:0;padding:0;flex-wrap:wrap;margin-left:auto;}
-.oa-links a{
-  text-decoration:none;color:var(--ink);
-  font-family:"Jost",sans-serif;
-  font-size:.92rem;font-weight:400;letter-spacing:.02em;
-  padding:6px 9px;border-radius:4px;
-  position:relative;transition:color .2s ease;white-space:nowrap;
-}
-.oa-links a::after{
-  content:"";position:absolute;left:12px;right:12px;bottom:3px;height:1px;
-  background:var(--gold);transform:scaleX(0);transform-origin:left;
-  transition:transform .25s ease;
-}
-.oa-links a:hover{color:var(--gold-deep);}
-.oa-links a:hover::after{transform:scaleX(1);}
-.oa-links a.aktivni{color:var(--gold-deep);font-weight:500;}
-.oa-links a.aktivni::after{transform:scaleX(1);}
-.oa-burger{
-  display:none;background:none;border:1px solid var(--line);border-radius:6px;
-  padding:8px 10px;cursor:pointer;color:var(--ink);font-size:1.1rem;line-height:1;margin-left:auto;
-}
-@media(max-width:900px){
-  .oa-burger{display:block;}
-  .oa-links{
-    position:absolute;top:100%;left:0;right:0;
-    flex-direction:column;align-items:stretch;gap:0;
-    background:var(--cream);border-bottom:1px solid var(--line);
-    padding:8px 16px 16px;display:none;box-shadow:var(--shadow);
-  }
-  .oa-links.otevreno{display:flex;}
-  .oa-links a{padding:13px 8px;border-bottom:1px solid var(--line);font-size:1rem;}
-  .oa-links a::after{display:none;}
+.nav a:not(.nav-home):hover{color:var(--gold-deep);}
+.nav a.active{color:var(--gold-deep);font-weight:500;}
+.nav-toggle{display:none;margin-left:auto;background:none;border:0;cursor:pointer;padding:8px;color:var(--ink);}
+@media(max-width:820px){
+  .nav a:not(.nav-home){display:none;}
+  .nav.open a:not(.nav-home){display:block;width:100%;text-align:center;padding:11px;}
+  .nav-toggle{display:inline-flex;}
+  .nav.open{flex-direction:column;align-items:stretch;}
+  .nav.open .nav-home{margin:0 auto 6px;}
+  .nav.open .nav-toggle{position:absolute;right:18px;top:12px;}
 }
 
 /* ---------- Hero ---------- */
@@ -291,26 +256,25 @@ section:nth-of-type(even){background:var(--cream-warm);}
 <body>
 
 <!-- ===== NAVIGATION ===== -->
-<nav class="oa-nav">
-  <div class="oa-nav-inner">
-    <a class="oa-brand" href="/">Oáza Adamanthea<small>Crystal &amp; Retreat Centrum · Morava</small></a>
-    <button class="oa-burger" aria-label="Menu" onclick="prepniMenu()">☰</button>
-    <ul class="oa-links" id="oaLinks">
-      <li><a href="/portalova-zahrada">Portálová zahrada</a></li>
-      <li><a href="/pobyt-ve-svetle">Pobyt ve světle</a></li>
-      <li><a href="/#oaza">Akce</a></li>
-      <li><a href="/nabidka-sluzeb">Služby</a></li>
-      <li><a href="/pronajem-prostor" class="aktivni">Pronájem</a></li>
-      <li><a href="/spirit-shop-1">E-shop</a></li>
-      <li><a href="https://web.oaza-adamanthea.cz">O nás</a></li>
-      <li><a href="/kontakt">Kontakt</a></li>
-    </ul>
-  </div>
+<nav class="nav" id="nav">
+  <a class="nav-home" href="/" aria-label="Domů">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+  </a>
+  <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu()">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <a href="/portalova-zahrada">Portálová zahrada</a>
+  <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+  <a href="/#oaza">Akce</a>
+  <a href="/nabidka-sluzeb">Služby</a>
+  <a href="/pronajem-prostor" class="active">Pronájem prostor</a>
+  <a href="/spirit-shop-1">Spirit Shop</a>
+  <a href="https://web.oaza-adamanthea.cz">O nás</a>
+  <a href="/kontakt">Kontakt</a>
 </nav>
 
 <!-- ===== HERO ===== -->
 <header class="oa-hero">
-  <a class="hero-home" href="/" aria-label="Domů — hlavní stránka"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></a>
   <div class="portal">
     <span class="keystone" aria-hidden="true"></span>
     <h1>Pronájem prostor</h1>
@@ -506,7 +470,7 @@ section:nth-of-type(even){background:var(--cream-warm);}
 
 <script>
 function prepniMenu(){
-  document.getElementById('oaLinks').classList.toggle('otevreno');
+  document.getElementById('nav').classList.toggle('open');
 }
 </script>
 

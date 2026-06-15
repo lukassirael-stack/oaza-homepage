@@ -133,6 +133,33 @@
     .nav.open .nav-toggle{position:absolute;right:18px;top:12px}
     .cenik li{flex-direction:column;gap:2px}
   }
+
+  /* ===== Hero: odlehčený portál – fotka dominuje, text se stínem ===== */
+  .hero,.oa-hero{position:relative;}
+  .hero::after,.oa-hero::after{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(ellipse 74% 64% at 50% 46%,rgba(0,0,0,.46),rgba(0,0,0,.20) 68%,rgba(0,0,0,.04) 100%);
+  }
+  .hero .portal,.oa-hero .portal{
+    position:relative;z-index:2;
+    background:transparent !important;backdrop-filter:none !important;
+    border-color:transparent !important;box-shadow:none !important;
+  }
+  .hero .portal::before,.oa-hero .portal::before{display:none !important;}
+  .hero h1,.oa-hero h1{
+    color:#fff !important;
+    text-shadow:0 2px 4px rgba(0,0,0,.5),0 2px 26px rgba(0,0,0,.55) !important;
+  }
+  .hero .eyebrow,.oa-hero .eyebrow{
+    color:#fff !important;opacity:.92;
+    text-shadow:0 1px 4px rgba(0,0,0,.55) !important;
+  }
+  .hero .lead,.oa-hero .lead,.oa-hero .offer{
+    color:#fff !important;
+    text-shadow:0 1px 4px rgba(0,0,0,.5),0 1px 18px rgba(0,0,0,.45) !important;
+  }
+  .hero .rule,.oa-hero .divider span,.oa-hero .keystone{filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));}
+
 </style>
 </head>
 <body>

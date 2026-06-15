@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Focení aury a diagnostika čaker | Oáza Adamanthea</title>
+<meta name="description" content="Uvidíte barvy své aury a stav svých čaker. Profesionální focení aury přístrojem Aura Video Station 7 s osobním výkladem a aura-reportem. Osobně i pro skupiny.">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png">
+<link rel="apple-touch-icon" href="/oaza-adamanthea-favicon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Oáza Adamanthea">
+<meta property="og:title" content="Focení aury a diagnostika čaker | Oáza Adamanthea">
+<meta property="og:description" content="Uvidíte barvy své aury a stav svých čaker — a co vám říkají.">
+<meta property="og:url" content="https://oaza-adamanthea.cz/foceni-aury-a-caker">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fdfbff;
+    --cream-2:#f5f1fb;
+    --cream-3:#ece6f4;
+    --gold:#7b5fc0;
+    --gold-deep:#5a3f9e;
+    --gold-soft:#d9cdf0;
+    --ink:#2b2533;
+    --ink-soft:#5d5566;
+    --line:rgba(120,95,180,.24);
+    --rainbow:linear-gradient(90deg,#e0564f,#e08b3a,#d9c23a,#5fb45a,#3aada6,#4f7fd0,#9a5fc6);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--cream);color:var(--ink-soft);
+    font-family:"Cormorant Garamond",Georgia,serif;font-size:1.22rem;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--gold-deep);text-decoration:none}
+  h1,h2,h3{font-family:"Cinzel",serif;color:var(--ink);font-weight:500;line-height:1.2;margin:0}
+
+  .nav{
+    display:flex;align-items:center;gap:3px;flex-wrap:wrap;
+    padding:14px 26px;background:var(--cream);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:50;
+  }
+  .nav-home{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:40px;height:40px;border-radius:50%;border:1px solid var(--line);color:var(--ink);
+    margin-right:auto;transition:.2s;
+  }
+  .nav-home:hover{color:var(--gold-deep);border-color:var(--gold)}
+  .nav a:not(.nav-home){
+    font-family:"Jost",sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--ink);padding:8px 11px;border-radius:6px;
+    white-space:nowrap;transition:color .2s ease;
+  }
+  .nav a:not(.nav-home):hover{color:var(--gold-deep)}
+  .nav a.active{color:var(--gold-deep);font-weight:500}
+  .nav-toggle{display:none;margin-left:auto;background:none;border:0;cursor:pointer;padding:8px;color:var(--ink)}
+
+  .hero{
+    position:relative;padding:100px 24px 88px;text-align:center;
+    background:
+      radial-gradient(ellipse 78% 68% at 50% 32%,rgba(255,255,255,.42),rgba(255,255,255,.7)),
+      linear-gradient(105deg,#f4b8c0,#f6ccad,#f7e6ad,#cfe9b3,#b6e6df,#c3d6f5,#dcc6ef);
+    overflow:hidden;
+  }
+  .portal{
+    position:relative;z-index:2;max-width:760px;margin:0 auto;
+    border:1px solid var(--line);border-radius:230px 230px 14px 14px;
+    padding:64px 40px 52px;
+    background:rgba(255,255,255,.66);backdrop-filter:blur(6px);
+    box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 24px 70px -34px rgba(80,60,120,.5);
+  }
+  .portal::before{content:"";position:absolute;inset:10px;border:1px solid rgba(123,95,192,.28);border-radius:220px 220px 8px 8px;pointer-events:none}
+  .eyebrow{font-family:"Jost",sans-serif;font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 22px}
+  .hero h1{font-size:clamp(1.9rem,5vw,2.9rem);letter-spacing:.05em;color:var(--ink)}
+  .rule{width:64px;height:2px;margin:22px auto;border-radius:2px;background:var(--rainbow)}
+  .hero .lead{font-style:italic;font-size:1.32rem;color:var(--ink-soft);max-width:560px;margin:0 auto}
+
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px}
+  section{padding:54px 0}
+  .section-head{text-align:center;margin-bottom:34px}
+  .section-head h2{font-size:clamp(1.5rem,3.6vw,2.05rem);letter-spacing:.05em}
+  .section-head .rule{margin:18px auto 0}
+  .lede{font-size:1.28rem;color:var(--ink-soft)}
+  .lede p{margin:0 0 1.1em}
+  .alt{background:linear-gradient(180deg,var(--cream-2),var(--cream))}
+
+  .aura-figure{margin:0;text-align:center}
+  .aura-figure img{width:100%;max-width:900px;border-radius:14px;display:block;margin:0 auto;box-shadow:0 18px 50px -24px rgba(40,30,60,.6)}
+  .aura-figure figcaption{font-style:italic;font-size:1.04rem;margin-top:14px;color:var(--ink-soft)}
+  .gallery{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:30px;align-items:center}
+  .gallery img{width:100%;border-radius:12px;display:block;box-shadow:0 14px 40px -22px rgba(40,30,60,.6)}
+
+  .ticks{list-style:none;margin:0;padding:0}
+  .ticks li{position:relative;padding:11px 0 11px 32px;margin:0;border-bottom:1px solid var(--line)}
+  .ticks li::before{content:"";position:absolute;left:2px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--gold)}
+  .ticks li:nth-child(7n+1)::before{background:#e0564f}
+  .ticks li:nth-child(7n+2)::before{background:#e08b3a}
+  .ticks li:nth-child(7n+3)::before{background:#d3b62f}
+  .ticks li:nth-child(7n+4)::before{background:#5fb45a}
+  .ticks li:nth-child(7n+5)::before{background:#3aada6}
+  .ticks li:nth-child(7n+6)::before{background:#4f7fd0}
+  .ticks li:nth-child(7n)::before{background:#9a5fc6}
+
+  .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:30px}
+  .card{border:1px solid var(--line);border-radius:16px;padding:26px 22px;background:rgba(255,255,255,.7);text-align:center}
+  .card .k{font-family:"Jost",sans-serif;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep)}
+  .card .v{font-family:"Cinzel",serif;font-size:1.4rem;color:var(--ink);margin:8px 0 4px;line-height:1.25}
+  .card .d{font-size:1.02rem}
+
+  .quiet{max-width:700px;margin:0 auto;text-align:center;font-style:italic;font-size:1.2rem;color:var(--ink-soft)}
+
+  .cta{text-align:center}
+  .btn{display:inline-block;margin-top:10px;font-family:"Jost",sans-serif;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,#8a63cf,#5a3f9e);padding:15px 34px;border-radius:40px;transition:.2s;box-shadow:0 12px 30px -14px rgba(90,63,158,.7)}
+  .btn:hover{transform:translateY(-1px);color:#fff}
+  .contact-line{font-size:1.14rem;margin-top:18px}
+
+  footer{background:var(--cream-3);border-top:1px solid var(--line);padding:42px 24px 30px;margin-top:20px;text-align:center;color:var(--ink-soft)}
+  footer .f-soc{display:flex;gap:14px;justify-content:center;margin:6px 0 16px}
+  footer .f-soc a{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;color:var(--ink);transition:.2s}
+  footer .f-soc a:hover{color:var(--gold-deep);border-color:var(--gold)}
+  footer .f-meta{font-size:.96rem;line-height:1.7}
+  footer .f-meta a{color:var(--gold-deep)}
+
+  @media(max-width:820px){
+    .nav a:not(.nav-home){display:none}
+    .nav.open a:not(.nav-home){display:block;width:100%;text-align:center;padding:11px}
+    .nav-toggle{display:inline-flex}
+    .nav.open{flex-direction:column;align-items:stretch}
+    .nav.open .nav-home{margin:0 auto 6px}
+    .nav.open .nav-toggle{position:absolute;right:18px;top:12px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a class="nav-home" href="/" aria-label="Domů">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+  </a>
+  <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu()">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <a href="/portalova-zahrada">Portálová zahrada</a>
+  <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+  <a href="/#oaza">Akce</a>
+  <a href="/nabidka-sluzeb" class="active">Služby</a>
+  <a href="/pronajem-prostor">Pronájem prostor</a>
+  <a href="/spirit-shop-1">Spirit Shop</a>
+  <a href="https://web.oaza-adamanthea.cz">O nás</a>
+  <a href="/kontakt">Kontakt</a>
+</nav>
+
+<header class="hero">
+  <div class="portal">
+    <p class="eyebrow">Oáza Adamanthea · měření aury</p>
+    <h1>Focení aury<br>a diagnostika čaker</h1>
+    <div class="rule"></div>
+    <p class="lead">Uvidíte barvy své aury a stav svých čaker — a co vám říkají.</p>
+    <div style="margin-top:28px"><a class="btn" href="mailto:oaza.adamanthea@gmail.com?subject=Focen%C3%AD%20aury%20a%20diagnostika%20%C4%8Daker%20%E2%80%93%20objedn%C3%A1n%C3%AD&body=Jm%C3%A9no%3A%0ATelefon%3A%0APreferovan%C3%BD%20term%C3%ADn%3A%0A">Objednat focení</a></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="lede">
+      <p>S focením aury dostáváte komplexní přehled o své auře a stavu energetického systému a čaker. Inspirující pro všechny, kdo chtějí podpořit osobní růst, včas zachytit nerovnováhu a zjistit, jakou oblast je potřeba posílit. Dozvíte se mnohé o sobě — což vám usnadní na sobě cíleně pracovat.</p>
+      <p>Čemu odpovídá barva vaší aury a proč jsou vaše čakry odlišné? Výstup můžete porovnat s tím, kde se v životě nacházíte, jak se cítíte a jaký způsob života vedete. Důležité je, jak získané informace uplatníte v běžném životě.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <figure class="aura-figure">
+      <img src="/img/aura-foto.jpg" alt="Ukázka snímků aury — barevná energetická pole kolem postav">
+      <figcaption>Ukázka snímků aury — každá barva nese svůj význam.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Co obsahuje aura-report</h2>
+      <div class="rule"></div>
+    </div>
+    <ul class="ticks">
+      <li>Barvu a rozsah vaší aury</li>
+      <li>Osobnostní typ a vaše předpoklady</li>
+      <li>Rovnováhu jin–jang (ženské a mužské energie)</li>
+      <li>Rozložení mysli, duše a těla</li>
+      <li>Míru psychické a fyzické zátěže</li>
+      <li>Velikost a stav jednotlivých čaker</li>
+      <li>Energii v jednotlivých čakrách</li>
+      <li>Barvy aury a jejich význam</li>
+      <li>Grafické znázornění čaker a diagnostiku energetického pole</li>
+      <li>Osobní výklad aury a fotografii s protokolem</li>
+    </ul>
+
+    <div class="cards">
+      <div class="card">
+        <div class="k">Délka sezení</div>
+        <div class="v">30–60 min</div>
+      </div>
+      <div class="card">
+        <div class="k">Příspěvek</div>
+        <div class="v">700 Kč / 28 €</div>
+      </div>
+      <div class="card">
+        <div class="k">Výstup</div>
+        <div class="v">Aura-report</div>
+        <div class="d">4× A4 s sebou domů.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Jak auru a čakry měříme</h2>
+      <div class="rule"></div>
+    </div>
+    <p class="lede">Využíváme moderní počítačový systém s biologickou zpětnou vazbou — nejnovější verzi <b>Aura Video Station 7</b> z USA. Systém vychází z poznatků bio-zpětné vazby, psychologie barev, lidských energetických polí a vědy o duchovním těle a zachytí základní vrstvy aury i čakry, které jsou dlouhodobě stabilnější než povrchové energie nálad.</p>
+    <p class="lede" style="margin-top:18px">Ruční biosenzor měří elektrickou aktivitu a vodivost kůže na ruce; měření se v reálném čase vyhodnocuje díky napojení na kameru snímající obličej. Výsledkem je aurafotografie s informacemi o vašich bio-energetických polích, citových stavech a typu osobnosti.</p>
+
+    <div class="gallery">
+      <figure class="aura-figure"><img src="/img/aura-report-2.jpg" alt="Ukázka aura-reportu — modrozelená aura s grafy čaker a energie"></figure>
+      <figure class="aura-figure"><img src="/img/aura-report-1.jpg" alt="Ukázka výstupu Aura Video Station — graf čaker a barevný profil"></figure>
+    </div>
+    <p class="quiet" style="margin-top:18px;font-size:1.04rem">Ukázky výstupu z Aura Video Station — barevný profil aury, grafy energie a stav jednotlivých čaker.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Spolupráce — focení pro skupiny</h2>
+      <div class="rule"></div>
+    </div>
+    <p class="lede">Máte klienty nebo skupinu, pro kterou byste focení aury rádi zařídili? Přijedeme k vám do centra či na jiné místo po celé ČR a SR a provedeme měření aury a diagnostiku čaker s přednáškou.</p>
+    <ul class="ticks" style="margin-top:22px">
+      <li>Přednáška + aura-report pro každého účastníka (5 stran A4)</li>
+      <li>Co ovlivňuje vaše hodnoty a současnou situaci + jak se sebou pracovat</li>
+      <li>Individuální dotazy a krátké konzultace</li>
+      <li>Doba trvání akce 2–3 hodiny</li>
+      <li>Skupina min. 8, max. 20 osob (zvládneme až 3 skupiny za den)</li>
+      <li>Příspěvek 600 Kč / 25 € za osobu · dopravu nepočítáme</li>
+    </ul>
+    <p class="lede" style="margin-top:18px">Celkovou cenu pro účastníky si určíte sami (provize za organizaci, nájem prostor). Připravíme i vzájemnou propagaci a letáčky.</p>
+  </div>
+</section>
+
+<section class="cta alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Objednejte se</h2>
+      <div class="rule"></div>
+    </div>
+    <p class="lede">Focení aury je nevšední zážitek — ze zvědavosti i pro osobní rozvoj. Těšíme se na vás.</p>
+    <a class="btn" href="mailto:oaza.adamanthea@gmail.com?subject=Focen%C3%AD%20aury%20a%20diagnostika%20%C4%8Daker%20%E2%80%93%20objedn%C3%A1n%C3%AD&body=Jm%C3%A9no%3A%0ATelefon%3A%0APreferovan%C3%BD%20term%C3%ADn%3A%0AOsobn%C4%9B%20nebo%20skupina%3A%0A">Objednat e-mailem</a>
+    <p class="contact-line">Lukáš Hudeček · <a href="tel:+420737869752">+420 737 869 752</a> · <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="f-soc">
+    <a href="https://www.facebook.com/groups/1679547508831715" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
+    <a href="https://instagram.com/oazahalenkovice_healingcenter" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a>
+    <a href="https://wa.me/420737869752" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.1-.3.2-.5.1-.7-.3-1.4-.7-2-1.4-.4-.5-.8-1-.9-1.3 0-.2 0-.3.1-.4l.4-.4c.1-.1.2-.3.2-.4 0-.1 0-.3-.1-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.1 1.6 2.5 4 3.5 1.4.6 2 .6 2.7.5.4 0 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.1-.4-.2z"/></svg></a>
+  </div>
+  <p class="f-meta">
+    Oáza Adamanthea · Halenkovice 400, 763 63 · IČO 76564410<br>
+    <a href="https://web.oaza-adamanthea.cz/gdpr">Ochrana osobních údajů</a> · © 2025 Oáza Adamanthea — peace · love · happiness
+  </p>
+</footer>
+
+<script>
+  function prepniMenu(){document.getElementById('nav').classList.toggle('open');}
+</script>
+</body>
+</html>

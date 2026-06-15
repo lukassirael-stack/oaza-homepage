@@ -2,7 +2,7 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/:path((?!img/|api/|favicon|oaza-adamanthea-favicon|robots\\.txt|index\\.html|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|kontakt).+)",
+      "source": "/:path((?!img/|api/|favicon|oaza-adamanthea-favicon|robots\\.txt|index\\.html|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|harmonizace-jmena-a-prijmeni|kontakt).+)",
       "destination": "https://web.oaza-adamanthea.cz/:path",
       "permanent": false
     }

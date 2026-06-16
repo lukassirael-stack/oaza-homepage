@@ -34,10 +34,16 @@ nav a:hover{color:var(--gold-deep)}
 nav a.active{color:var(--gold-deep);border-bottom:1.5px solid var(--gold)}
 
 /* HERO */
-.hero{text-align:center;padding:64px 24px 34px}
+.hero{text-align:center;padding:64px 24px 38px;position:relative;
+  background:radial-gradient(ellipse 70% 90% at 50% -10%, rgba(201,161,74,.13), transparent 72%)}
 .hero .eyebrow{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
 .hero h1{font-size:clamp(30px,5vw,46px);color:var(--text);margin:14px 0 10px}
 .hero p{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--muted);max-width:620px;margin:0 auto}
+.hero-orn{display:flex;align-items:center;justify-content:center;gap:16px;margin:26px auto 0;max-width:300px}
+.hero-orn .line{height:1px;flex:1}
+.hero-orn .line.l{background:linear-gradient(90deg,transparent,#dcc89a)}
+.hero-orn .line.r{background:linear-gradient(90deg,#dcc89a,transparent)}
+.hero-orn svg{flex:none}
 
 /* GRID */
 .wrap{max-width:1080px;margin:0 auto;padding:10px 24px 70px}
@@ -93,6 +99,11 @@ footer .fine{font-size:12px;margin-top:10px}
   <div class="eyebrow">Oáza Adamanthea</div>
   <h1>Akce a setkání</h1>
   <p>Pobyty, semináře, dny otevřených dveří a společné cesty. Vyberte si, co rezonuje — a přijďte.</p>
+  <div class="hero-orn" aria-hidden="true">
+    <span class="line l"></span>
+    <svg width="15" height="21" viewBox="0 0 16 22" fill="none"><path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#c9a14a" stroke-width="1"/></svg>
+    <span class="line r"></span>
+  </div>
 </header>
 
 <main class="wrap">

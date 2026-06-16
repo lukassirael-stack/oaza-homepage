@@ -41,18 +41,6 @@ module.exports = async (req, res) => {
 
     if (action === 'save') {
       const a = body.akce || {};
-      let obrazek_url = a.obrazek_url || null;
-
-      // nahrání letáku/fotky (base64 data URL)
-      if (body.obrazek_base64) {
-        const m = /^data:(image\/[a-z+]+);base64,(.+)$/i.exec(body.obrazek_base64);
-        if (!m) return res.status(400).json({ error: 'Neplatný formát obrázku.' });
-        const ext = m[1].split('/')[1].replace('jpeg', 'jpg');
-        const buf = Buffer.from(m[2], 'base64');
-        if (buf.length > 6 * 1024 * 1024) return res.status(400).json({ error: 'Obrázek je větší než 6 MB.' });
-        const baseSlug = a.slug || slugify(a.nazev || 'akce');
-        obrazek_url = await supaUpload(`letaky/${baseSlug}-${Date.now()}.${ext}`, buf, m[1]);
-      }
 
       const rec = {
         nazev: a.nazev,
@@ -61,7 +49,6 @@ module.exports = async (req, res) => {
         datum_text: a.datum_text || null,
         datum_od: a.datum_od || null,
         misto: a.misto || null,
-        obrazek_url,
         platba_typ: a.platba_typ || 'online',
         cena_czk: a.cena_czk === '' || a.cena_czk == null ? null : Number(a.cena_czk),
         cena_eur: a.cena_eur === '' || a.cena_eur == null ? null : Number(a.cena_eur),
@@ -71,6 +58,21 @@ module.exports = async (req, res) => {
         poradi: a.poradi == null ? 0 : parseInt(a.poradi, 10) || 0,
       };
       if (!rec.nazev) return res.status(400).json({ error: 'Akce musí mít název.' });
+
+      // Obrázek: nový soubor přepíše, jinak se zachová stávající.
+      if (body.obrazek_base64) {
+        const m = /^data:(image\/[a-z+]+);base64,(.+)$/i.exec(body.obrazek_base64);
+        if (!m) return res.status(400).json({ error: 'Neplatný formát obrázku.' });
+        const ext = m[1].split('/')[1].replace('jpeg', 'jpg');
+        const buf = Buffer.from(m[2], 'base64');
+        if (buf.length > 6 * 1024 * 1024) return res.status(400).json({ error: 'Obrázek je větší než 6 MB.' });
+        const baseSlug = rec.slug || slugify(a.nazev || 'akce');
+        rec.obrazek_url = await supaUpload(`letaky/${baseSlug}-${Date.now()}.${ext}`, buf, m[1]);
+      } else if (a.obrazek_url !== undefined) {
+        // editor poslal stávající URL → zachovej ji (prázdné = odebrat)
+        rec.obrazek_url = a.obrazek_url || null;
+      }
+      // jinak obrazek_url do rec vůbec nedáváme → PATCH ho nezmění
 
       let saved;
       if (a.id) {

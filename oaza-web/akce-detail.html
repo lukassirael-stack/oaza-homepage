@@ -126,7 +126,9 @@ footer .fine{font-size:12px;margin-top:10px}
 </footer>
 
 <script>
-const slug = new URLSearchParams(location.search).get('slug');
+const params = new URLSearchParams(location.search);
+let slug = params.get('slug');
+if(!slug){ const m = location.pathname.match(/\/akce\/([^\/]+)\/?$/); if(m) slug = decodeURIComponent(m[1]); }
 let AKCE = null;
 
 function fmt(n){ return Number(n).toLocaleString('cs-CZ'); }

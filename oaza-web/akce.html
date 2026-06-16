@@ -141,7 +141,7 @@ async function load(){
         ? `<img src="${a.obrazek_url}" alt="${(a.nazev||'').replace(/"/g,'')}" loading="lazy">`
         : `<div class="ph">Oáza Adamanthea</div>`;
       const cena = cenaText(a);
-      return `<a class="card ${a.stav==='zrusena'?'cancelled':''}" href="/akce-detail.html?slug=${encodeURIComponent(a.slug)}">
+      return `<a class="card ${a.stav==='zrusena'?'cancelled':''}" href="/akce/${encodeURIComponent(a.slug)}">
         <div class="thumb">${img}${badge}</div>
         <div class="body">
           <h3>${a.nazev||''}</h3>

@@ -171,6 +171,8 @@ function otevritEditor(a){
     </div>
     <div class="field"><label>Popis (lze HTML: &lt;p&gt;, &lt;h3&gt;, &lt;ul&gt;&lt;li&gt;, &lt;b&gt;…)</label>
       <textarea id="f-popis">${(a.popis||'').replace(/</g,'&lt;')}</textarea></div>
+    <div class="field"><label>Externí přihláška (nepovinné) — když vyplníš, tlačítko „Přihlásit" povede sem místo vestavěného formuláře</label>
+      <input id="f-prihlaska_url" value="${(a.prihlaska_url||'').replace(/"/g,'&quot;')}" placeholder="https://… (např. vlastní formulář na zájezd)"></div>
     <div class="row">
       <div class="field"><label>Typ platby</label>
         <select id="f-platba">
@@ -224,6 +226,7 @@ async function ulozit(){
     datum_od:document.getElementById('f-datum_od').value||null,
     misto:document.getElementById('f-misto').value.trim(),
     popis:document.getElementById('f-popis').value,
+    prihlaska_url:document.getElementById('f-prihlaska_url').value.trim(),
     platba_typ:document.getElementById('f-platba').value,
     cena_czk:document.getElementById('f-czk').value,
     cena_eur:document.getElementById('f-eur').value,

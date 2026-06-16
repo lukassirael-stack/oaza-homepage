@@ -7,6 +7,9 @@
       "permanent": false
     }
   ],
+  "rewrites": [
+    { "source": "/akce/:slug", "destination": "/akce-detail.html?slug=:slug" }
+  ],
   "headers": [
     {
       "source": "/img/(.*)",

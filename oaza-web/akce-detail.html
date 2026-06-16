@@ -170,6 +170,8 @@ function render(a, box){
     statusbar=`<div class="statusbar"><span class="statuspill cancel">Akce zrušena</span></div>`;
   }else if(a.stav==='obsazena'){
     statusbar=`<div class="statusbar"><span class="statuspill full">Obsazeno</span></div>`;
+  }else if(a.prihlaska_url){
+    cta=`<div class="cta-wrap"><a class="btn" href="${a.prihlaska_url}" target="_blank" rel="noopener">Přihlásit se</a></div>`;
   }else{
     cta=`<div class="cta-wrap"><button class="btn" onclick="otevritFormular()">Přihlásit se</button></div>`;
   }
@@ -189,7 +191,7 @@ function render(a, box){
 }
 
 function formularHTML(a){
-  if(a.stav!=='otevrena') return '';
+  if(a.stav!=='otevrena' || a.prihlaska_url) return '';
   // výběr měny jen když jsou obě ceny a platí se online/na místě
   let menaField='';
   if(a.platba_typ!=='zdarma' && a.cena_czk!=null && a.cena_eur!=null){

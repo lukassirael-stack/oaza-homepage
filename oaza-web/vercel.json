@@ -10,6 +10,9 @@
   "rewrites": [
     { "source": "/akce/:slug", "destination": "/akce-detail?slug=:slug" }
   ],
+  "crons": [
+    { "path": "/api/akce-denni-souhrn", "schedule": "0 6 * * *" }
+  ],
   "headers": [
     {
       "source": "/img/(.*)",

@@ -46,6 +46,7 @@ module.exports = async (req, res) => {
         nazev: a.nazev,
         slug: a.slug || slugify(a.nazev || ''),
         popis: a.popis || null,
+        prihlaska_url: a.prihlaska_url || null,
         datum_text: a.datum_text || null,
         datum_od: a.datum_od || null,
         misto: a.misto || null,

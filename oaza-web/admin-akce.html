@@ -159,6 +159,7 @@ function otevritEditor(a){
   ed.innerHTML=`
     <h3 style="margin-bottom:14px">${a.id?'Upravit akci':'Nová akce'}</h3>
     <input type="hidden" id="f-id" value="${a.id||''}">
+    <input type="hidden" id="f-obrazek_url" value="${(a.obrazek_url||'').replace(/"/g,'&quot;')}">
     <div class="row">
       <div class="field" style="flex:2"><label>Název *</label><input id="f-nazev" value="${a.nazev||''}"></div>
       <div class="field"><label>Slug (URL)</label><input id="f-slug" value="${a.slug||''}" placeholder="vygeneruje se"></div>
@@ -216,6 +217,7 @@ function fileToBase64(input){
 async function ulozit(){
   const akce={
     id:document.getElementById('f-id').value||undefined,
+    obrazek_url:document.getElementById('f-obrazek_url').value,
     nazev:document.getElementById('f-nazev').value.trim(),
     slug:document.getElementById('f-slug').value.trim(),
     datum_text:document.getElementById('f-datum_text').value.trim(),

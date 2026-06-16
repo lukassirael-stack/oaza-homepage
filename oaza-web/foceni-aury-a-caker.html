@@ -63,9 +63,7 @@
 
   .hero{
     position:relative;padding:100px 24px 88px;text-align:center;
-    background:
-      radial-gradient(ellipse 78% 68% at 50% 32%,rgba(255,255,255,.42),rgba(255,255,255,.7)),
-      linear-gradient(105deg,#f4b8c0,#f6ccad,#f7e6ad,#cfe9b3,#b6e6df,#c3d6f5,#dcc6ef);
+    background:url('/img/aura-hero.jpg') center 30%/cover no-repeat;
     overflow:hidden;
   }
   .portal{
@@ -135,6 +133,36 @@
     .nav.open .nav-home{margin:0 auto 6px}
     .nav.open .nav-toggle{position:absolute;right:18px;top:12px}
   }
+
+  /* ===== Hero: fotka aury – průhledný portál, bílý text s konturou (světlá fotka) ===== */
+  .hero{position:relative;}
+  .hero .portal{
+    background:transparent !important;backdrop-filter:none !important;
+    border-color:transparent !important;box-shadow:none !important;
+  }
+  .hero .portal::before{display:none !important;}
+  .hero h1{
+    color:#fff !important;
+    text-shadow:
+      1px 1px 0 rgba(60,40,90,.8),-1px 1px 0 rgba(60,40,90,.8),
+      1px -1px 0 rgba(60,40,90,.75),-1px -1px 0 rgba(60,40,90,.75),
+      0 2px 12px rgba(40,20,70,.7),0 0 30px rgba(40,20,70,.5) !important;
+  }
+  .hero .eyebrow{
+    color:#fff !important;
+    text-shadow:
+      .8px .8px 0 rgba(60,40,90,.85),-.8px .8px 0 rgba(60,40,90,.85),
+      .8px -.8px 0 rgba(60,40,90,.8),-.8px -.8px 0 rgba(60,40,90,.8),
+      0 1px 8px rgba(40,20,70,.7) !important;
+  }
+  .hero .lead{
+    color:#fff !important;font-weight:500 !important;
+    text-shadow:
+      .8px .8px 0 rgba(60,40,90,.8),-.8px .8px 0 rgba(60,40,90,.8),
+      .8px -.8px 0 rgba(60,40,90,.75),-.8px -.8px 0 rgba(60,40,90,.75),
+      0 2px 12px rgba(40,20,70,.7),0 0 24px rgba(40,20,70,.5) !important;
+  }
+  .hero .rule{filter:drop-shadow(0 1px 4px rgba(40,20,70,.6));}
 </style>
 </head>
 <body>

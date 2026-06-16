@@ -63,7 +63,6 @@
   .hero{
     position:relative;padding:104px 24px 92px;text-align:center;
     background:
-      linear-gradient(180deg,rgba(70,30,38,.10),rgba(70,30,38,.04) 42%,rgba(70,30,38,.14)),
       url('/img/jmeno-hero.jpg') center 34%/cover no-repeat;
     overflow:hidden;
   }
@@ -131,6 +130,30 @@
     .nav.open .nav-home{margin:0 auto 6px}
     .nav.open .nav-toggle{position:absolute;right:18px;top:12px}
   }
+
+  /* ===== Hero: odlehčený portál – fotka dominuje, text se stínem ===== */
+  .hero,.oa-hero{position:relative;}
+  /* žádné ztmavení fotky – čitelnost řeší jen stín textu */
+  .hero .portal,.oa-hero .portal{
+    position:relative;z-index:2;
+    background:transparent !important;backdrop-filter:none !important;
+    border-color:transparent !important;box-shadow:none !important;
+  }
+  .hero .portal::before,.oa-hero .portal::before{display:none !important;}
+  .hero h1,.oa-hero h1{
+    color:#fff !important;
+    text-shadow:0 1px 2px rgba(0,0,0,.85),0 2px 10px rgba(0,0,0,.7),0 0 28px rgba(0,0,0,.45) !important;
+  }
+  .hero .eyebrow,.oa-hero .eyebrow{
+    color:#fff !important;opacity:.95;
+    text-shadow:0 1px 2px rgba(0,0,0,.9),0 1px 8px rgba(0,0,0,.65) !important;
+  }
+  .hero .lead,.oa-hero .lead,.oa-hero .offer{
+    color:#fff !important;
+    text-shadow:0 1px 2px rgba(0,0,0,.85),0 1px 10px rgba(0,0,0,.6) !important;
+  }
+  .hero .rule,.oa-hero .divider span,.oa-hero .keystone{filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));}
+
 </style>
 </head>
 <body>

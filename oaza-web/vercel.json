@@ -8,7 +8,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/akce/:slug", "destination": "/akce-detail.html?slug=:slug" }
+    { "source": "/akce/:slug", "destination": "/akce-detail?slug=:slug" }
   ],
   "headers": [
     {

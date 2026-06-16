@@ -166,6 +166,8 @@
       0 3px 14px rgba(40,18,80,.8),0 0 28px rgba(40,18,80,.55) !important;
   }
   .hero .rule{filter:drop-shadow(0 1px 4px rgba(40,20,70,.6));}
+  /* iOS fix: hero do vlastní vrstvy, ať animace tlačítka neshodí fotku na mobilu */
+  .hero,.oa-hero{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
   /* jemné dýchání objednávacího tlačítka */
   @keyframes oazaPuls{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.04);filter:brightness(1.1)}}
   @media(prefers-reduced-motion:no-preference){.btn,.oa-btn{animation:oazaPuls 2.6s ease-in-out infinite}}

@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     const slug = (req.query && req.query.slug) || null;
 
     // Bezpečný výběr sloupců (popis akce je veřejný)
-    const cols = 'id,slug,nazev,popis,datum_text,datum_od,misto,obrazek_url,platba_typ,cena_czk,cena_eur,kapacita,stav,poradi';
+    const cols = 'id,slug,nazev,popis,datum_text,datum_od,misto,obrazek_url,platba_typ,cena_czk,cena_eur,kapacita,stav,poradi,prihlaska_url';
 
     if (slug) {
       const rows = await supaRest(

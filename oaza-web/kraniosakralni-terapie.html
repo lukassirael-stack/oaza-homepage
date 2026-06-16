@@ -59,6 +59,10 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
   .site-nav .jen-mobil{display:block}
   .site-nav .nav-cta:not(.jen-mobil){display:none}
 }
+  /* jemné dýchání objednávacího tlačítka */
+  @keyframes oazaPuls{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.04);filter:brightness(1.1)}}
+  @media(prefers-reduced-motion:no-preference){.btn,.oa-btn{animation:oazaPuls 2.6s ease-in-out infinite}}
+  .btn:hover,.oa-btn:hover{animation:none}
 </style>
 </head>
 <body>

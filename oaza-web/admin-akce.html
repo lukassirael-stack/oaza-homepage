@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Správa akcí · Oáza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fdfaf5;--cream-2:#f7f1e8;--line:#eadcc4;--gold:#c9a14a;--gold-deep:#9a7628;--green:#5f7a52;--red:#a85050;--text:#4a3b33;--muted:#8a7d72}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.55}
+h1,h2,h3{font-family:'Cinzel',serif;font-weight:600;margin:0}
+a{color:var(--gold-deep)}
+.bar{display:flex;align-items:center;gap:16px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line)}
+.bar h1{font-size:18px;color:var(--gold-deep);margin-right:auto}
+.tab{cursor:pointer;font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:6px 4px;border-bottom:2px solid transparent}
+.tab.on{color:var(--gold-deep);border-color:var(--gold)}
+.wrap{max-width:980px;margin:0 auto;padding:24px}
+.btn{font-family:'Jost',sans-serif;font-size:13.5px;padding:9px 16px;border-radius:8px;border:1px solid var(--gold);background:var(--gold);color:#fff;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
+.btn.ghost{background:#fff;color:var(--gold-deep)}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn.danger{background:#fff;color:var(--red);border-color:#e0bcbc}
+.btn.danger:hover{background:var(--red);color:#fff}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.row{display:flex;gap:14px;flex-wrap:wrap}
+.field{margin-bottom:13px;flex:1;min-width:160px}
+.field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px;letter-spacing:.4px}
+.field input,.field select,.field textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-family:'Jost',sans-serif;font-size:14px;background:var(--cream);color:var(--text)}
+.field textarea{min-height:140px;resize:vertical;font-family:ui-monospace,monospace;font-size:13px}
+.akce-item{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.akce-item .thumb{width:56px;height:56px;border-radius:8px;object-fit:cover;border:1px solid var(--line);background:var(--cream-2)}
+.akce-item .name{font-family:'Cinzel',serif;font-size:15px}
+.akce-item .sub{font-size:12.5px;color:var(--muted)}
+.akce-item .grow{flex:1;min-width:140px}
+.pill{font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:14px;border:1px solid var(--line)}
+.pill.otevrena{color:var(--green);background:#eef3ea}
+.pill.obsazena{color:#a06a34;background:#fbf2e3}
+.pill.zrusena{color:var(--red);background:#f7e9e9}
+.pill.skryta{color:var(--muted);background:#f0ece4}
+.msg{padding:11px 14px;border-radius:8px;margin-bottom:14px;font-size:14px;display:none}
+.msg.ok{background:#eef3ea;color:var(--green);display:block}
+.msg.err{background:#f7e9e9;color:var(--red);display:block}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+th{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase}
+.login{max-width:340px;margin:80px auto;text-align:center}
+.login input{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;margin:14px 0;font-size:15px}
+.hint{font-size:12px;color:var(--muted)}
+.hidden{display:none}
+.preview{max-width:120px;border-radius:8px;border:1px solid var(--line);margin-top:8px}
+</style>
+</head>
+<body>
+
+<div id="login" class="login">
+  <h1 style="color:var(--gold-deep)">Správa akcí</h1>
+  <input id="heslo" type="password" placeholder="Heslo" onkeydown="if(event.key==='Enter')prihlasit()">
+  <button class="btn" style="width:100%" onclick="prihlasit()">Vstoupit</button>
+  <div id="login-err" class="msg err" style="margin-top:14px"></div>
+</div>
+
+<div id="app" class="hidden">
+  <div class="bar">
+    <h1>Správa akcí 🌿</h1>
+    <span class="tab on" id="tab-akce" onclick="prepni('akce')">Akce</span>
+    <span class="tab" id="tab-prihlasky" onclick="prepni('prihlasky')">Přihlášky</span>
+    <button class="btn ghost sm" onclick="odhlasit()">Odhlásit</button>
+  </div>
+
+  <div class="wrap">
+    <div id="msg" class="msg"></div>
+
+    <!-- AKCE -->
+    <div id="view-akce">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <h2 style="font-size:20px">Akce</h2>
+        <button class="btn" onclick="novaAkce()">+ Nová akce</button>
+      </div>
+      <div id="editor" class="card hidden"></div>
+      <div id="akce-list"></div>
+    </div>
+
+    <!-- PŘIHLÁŠKY -->
+    <div id="view-prihlasky" class="hidden">
+      <h2 style="font-size:20px;margin-bottom:14px">Přihlášky</h2>
+      <div class="field" style="max-width:320px">
+        <label>Filtr podle akce</label>
+        <select id="filtr-akce" onchange="nactiPrihlasky()"><option value="">— všechny —</option></select>
+      </div>
+      <div id="prihlasky-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let HESLO='';
+let AKCE=[];
+
+function api(action, extra={}){
+  return fetch('/api/akce-admin',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({heslo:HESLO, action, ...extra})}).then(async r=>{
+      const d=await r.json(); if(!r.ok) throw new Error(d.error||'Chyba'); return d; });
+}
+function flash(t,ok=true){const m=document.getElementById('msg');m.textContent=t;m.className='msg '+(ok?'ok':'err');setTimeout(()=>m.className='msg',3500);}
+
+async function prihlasit(){
+  HESLO=document.getElementById('heslo').value;
+  const e=document.getElementById('login-err'); e.style.display='none';
+  try{ await api('login'); sessionStorage.setItem('oaza_admin',HESLO);
+    document.getElementById('login').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden'); nactiAkce();
+  }catch(err){ e.textContent=err.message; e.style.display='block'; }
+}
+function odhlasit(){ sessionStorage.removeItem('oaza_admin'); location.reload(); }
+
+function prepni(v){
+  document.getElementById('view-akce').classList.toggle('hidden',v!=='akce');
+  document.getElementById('view-prihlasky').classList.toggle('hidden',v!=='prihlasky');
+  document.getElementById('tab-akce').classList.toggle('on',v==='akce');
+  document.getElementById('tab-prihlasky').classList.toggle('on',v==='prihlasky');
+  if(v==='prihlasky') nactiPrihlasky();
+}
+
+function fmt(n){return Number(n).toLocaleString('cs-CZ');}
+function stavLabel(a){ if(a.aktivni===false) return '<span class="pill skryta">Skrytá</span>'; return `<span class="pill ${a.stav}">${({otevrena:'Otevřená',obsazena:'Obsazená',zrusena:'Zrušená'})[a.stav]}</span>`; }
+
+async function nactiAkce(){
+  try{ const d=await api('list'); AKCE=d.akce;
+    const sel=document.getElementById('filtr-akce');
+    sel.innerHTML='<option value="">— všechny —</option>'+AKCE.map(a=>`<option value="${a.id}">${a.nazev}</option>`).join('');
+    const box=document.getElementById('akce-list');
+    if(!AKCE.length){ box.innerHTML='<div class="card hint">Zatím žádné akce. Vytvořte první tlačítkem „+ Nová akce".</div>'; return; }
+    box.innerHTML=AKCE.map(a=>`<div class="card akce-item">
+      ${a.obrazek_url?`<img class="thumb" src="${a.obrazek_url}">`:`<div class="thumb"></div>`}
+      <div class="grow">
+        <div class="name">${a.nazev} ${stavLabel(a)}</div>
+        <div class="sub">${a.datum_text||'—'} · ${({online:'Platba online (QR)',na_miste:'Platba na místě',zdarma:'Zdarma'})[a.platba_typ]} · /akce-detail.html?slug=${a.slug}</div>
+      </div>
+      <button class="btn ghost sm" onclick='upravit("${a.id}")'>Upravit</button>
+      <select class="btn ghost sm" style="padding:5px" onchange='setStav("${a.id}",this.value)'>
+        <option ${a.stav==='otevrena'?'selected':''} value="otevrena">Otevřená</option>
+        <option ${a.stav==='obsazena'?'selected':''} value="obsazena">Obsazená</option>
+        <option ${a.stav==='zrusena'?'selected':''} value="zrusena">Zrušená</option>
+      </select>
+      <button class="btn ghost sm" onclick='setAktivni("${a.id}",${a.aktivni===false})'>${a.aktivni===false?'Publikovat':'Skrýt'}</button>
+      <button class="btn danger sm" onclick='smazat("${a.id}","${a.nazev.replace(/"/g,'')}")'>Smazat</button>
+    </div>`).join('');
+  }catch(e){ flash(e.message,false); }
+}
+
+function novaAkce(){ otevritEditor({platba_typ:'online',stav:'otevrena',aktivni:true,poradi:0}); }
+function upravit(id){ const a=AKCE.find(x=>x.id===id); otevritEditor(a); }
+
+function otevritEditor(a){
+  const ed=document.getElementById('editor');
+  ed.classList.remove('hidden');
+  ed.innerHTML=`
+    <h3 style="margin-bottom:14px">${a.id?'Upravit akci':'Nová akce'}</h3>
+    <input type="hidden" id="f-id" value="${a.id||''}">
+    <div class="row">
+      <div class="field" style="flex:2"><label>Název *</label><input id="f-nazev" value="${a.nazev||''}"></div>
+      <div class="field"><label>Slug (URL)</label><input id="f-slug" value="${a.slug||''}" placeholder="vygeneruje se"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Datum (text) — zobrazí se návštěvníkovi</label><input id="f-datum_text" value="${a.datum_text||''}" placeholder="24.–29. 9. 2026"></div>
+      <div class="field"><label>Datum od (pro řazení)</label><input id="f-datum_od" type="date" value="${a.datum_od||''}"></div>
+      <div class="field"><label>Místo</label><input id="f-misto" value="${a.misto||''}" placeholder="Oáza, Halenkovice"></div>
+    </div>
+    <div class="field"><label>Popis (lze HTML: &lt;p&gt;, &lt;h3&gt;, &lt;ul&gt;&lt;li&gt;, &lt;b&gt;…)</label>
+      <textarea id="f-popis">${(a.popis||'').replace(/</g,'&lt;')}</textarea></div>
+    <div class="row">
+      <div class="field"><label>Typ platby</label>
+        <select id="f-platba">
+          <option value="online" ${a.platba_typ==='online'?'selected':''}>Online — QR v e-mailu</option>
+          <option value="na_miste" ${a.platba_typ==='na_miste'?'selected':''}>Na místě</option>
+          <option value="zdarma" ${a.platba_typ==='zdarma'?'selected':''}>Zdarma</option>
+        </select></div>
+      <div class="field"><label>Cena Kč / os.</label><input id="f-czk" type="number" value="${a.cena_czk??''}"></div>
+      <div class="field"><label>Cena € / os.</label><input id="f-eur" type="number" value="${a.cena_eur??''}"></div>
+      <div class="field"><label>Kapacita (prázdné = neomezeno)</label><input id="f-kapacita" type="number" value="${a.kapacita??''}"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Stav</label>
+        <select id="f-stav">
+          <option value="otevrena" ${a.stav==='otevrena'?'selected':''}>Otevřená</option>
+          <option value="obsazena" ${a.stav==='obsazena'?'selected':''}>Obsazená</option>
+          <option value="zrusena" ${a.stav==='zrusena'?'selected':''}>Zrušená</option>
+        </select></div>
+      <div class="field"><label>Pořadí (menší = výš)</label><input id="f-poradi" type="number" value="${a.poradi??0}"></div>
+      <div class="field"><label>Publikovat</label>
+        <select id="f-aktivni"><option value="true" ${a.aktivni!==false?'selected':''}>Ano (viditelná)</option><option value="false" ${a.aktivni===false?'selected':''}>Ne (koncept)</option></select></div>
+    </div>
+    <div class="field"><label>Leták / fotka</label>
+      <input id="f-obrazek" type="file" accept="image/*" onchange="nahled(this)">
+      ${a.obrazek_url?`<div><img class="preview" src="${a.obrazek_url}"><div class="hint">Nový soubor původní nahradí.</div></div>`:''}
+      <img id="f-preview" class="preview hidden">
+    </div>
+    <div style="display:flex;gap:10px;margin-top:6px">
+      <button class="btn" onclick="ulozit()">Uložit</button>
+      <button class="btn ghost" onclick="document.getElementById('editor').classList.add('hidden')">Zrušit</button>
+    </div>`;
+  ed.scrollIntoView({behavior:'smooth'});
+}
+
+function nahled(input){
+  const f=input.files[0]; if(!f) return;
+  const r=new FileReader(); r.onload=()=>{const p=document.getElementById('f-preview');p.src=r.result;p.classList.remove('hidden');}; r.readAsDataURL(f);
+}
+function fileToBase64(input){
+  return new Promise(res=>{ const f=input.files[0]; if(!f) return res(null);
+    const r=new FileReader(); r.onload=()=>res(r.result); r.readAsDataURL(f); });
+}
+
+async function ulozit(){
+  const akce={
+    id:document.getElementById('f-id').value||undefined,
+    nazev:document.getElementById('f-nazev').value.trim(),
+    slug:document.getElementById('f-slug').value.trim(),
+    datum_text:document.getElementById('f-datum_text').value.trim(),
+    datum_od:document.getElementById('f-datum_od').value||null,
+    misto:document.getElementById('f-misto').value.trim(),
+    popis:document.getElementById('f-popis').value,
+    platba_typ:document.getElementById('f-platba').value,
+    cena_czk:document.getElementById('f-czk').value,
+    cena_eur:document.getElementById('f-eur').value,
+    kapacita:document.getElementById('f-kapacita').value,
+    stav:document.getElementById('f-stav').value,
+    poradi:document.getElementById('f-poradi').value,
+    aktivni:document.getElementById('f-aktivni').value==='true'
+  };
+  if(!akce.nazev){ return flash('Vyplňte název.',false); }
+  const obrazek_base64=await fileToBase64(document.getElementById('f-obrazek'));
+  try{ await api('save',{akce,obrazek_base64}); flash('Uloženo ✓');
+    document.getElementById('editor').classList.add('hidden'); nactiAkce();
+  }catch(e){ flash(e.message,false); }
+}
+
+async function setStav(id,stav){ try{ await api('set_stav',{id,stav}); flash('Stav změněn ✓'); nactiAkce(); }catch(e){ flash(e.message,false);} }
+async function setAktivni(id,aktivni){ try{ await api('set_aktivni',{id,aktivni}); flash(aktivni?'Publikováno ✓':'Skryto ✓'); nactiAkce(); }catch(e){ flash(e.message,false);} }
+async function smazat(id,nazev){ if(!confirm('Opravdu smazat akci „'+nazev+'"? Přihlášky zůstanou zachované.')) return;
+  try{ await api('delete',{id}); flash('Smazáno ✓'); nactiAkce(); }catch(e){ flash(e.message,false);} }
+
+async function nactiPrihlasky(){
+  const akce_id=document.getElementById('filtr-akce').value||undefined;
+  try{ const d=await api('prihlasky',{akce_id});
+    const box=document.getElementById('prihlasky-list');
+    if(!d.prihlasky.length){ box.innerHTML='<div class="card hint">Zatím žádné přihlášky.</div>'; return; }
+    const stavTxt={ceka_na_platbu:'Čeká na platbu',zaplaceno:'Zaplaceno',na_miste:'Platí na místě',zdarma:'Zdarma',zruseno:'Zrušeno'};
+    box.innerHTML='<div class="card" style="padding:0;overflow-x:auto"><table><thead><tr><th>Datum</th><th>Jméno</th><th>Akce</th><th>Os.</th><th>Částka</th><th>VS</th><th>Stav</th><th></th></tr></thead><tbody>'+
+      d.prihlasky.map(p=>`<tr>
+        <td>${new Date(p.vytvoreno).toLocaleDateString('cs-CZ')}</td>
+        <td>${p.jmeno}<div class="hint">${p.email}${p.telefon?' · '+p.telefon:''}</div>${p.poznamka?`<div class="hint">📝 ${p.poznamka}</div>`:''}</td>
+        <td>${p.akce_nazev||'—'}</td>
+        <td>${p.pocet_osob}</td>
+        <td>${p.castka!=null?fmt(p.castka)+' '+(p.mena==='eur'?'€':'Kč'):'—'}</td>
+        <td>${p.vs}</td>
+        <td>${stavTxt[p.stav_platby]||p.stav_platby}</td>
+        <td style="white-space:nowrap">
+          ${p.stav_platby!=='zaplaceno'?`<button class="btn sm" onclick='mark("${p.id}","zaplaceno")'>Zaplaceno</button> `:''}
+          ${p.stav_platby!=='zruseno'?`<button class="btn danger sm" onclick='mark("${p.id}","zruseno")'>Zrušit</button>`:''}
+        </td></tr>`).join('')+'</tbody></table></div>';
+  }catch(e){ flash(e.message,false); }
+}
+async function mark(id,stav_platby){ try{ await api('mark',{id,stav_platby}); flash('Změněno ✓'); nactiPrihlasky(); }catch(e){ flash(e.message,false);} }
+
+// auto-login z session
+(function(){ const h=sessionStorage.getItem('oaza_admin'); if(h){ document.getElementById('heslo').value=h; prihlasit(); } })();
+</script>
+</body>
+</html>

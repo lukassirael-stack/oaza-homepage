@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akce | Oáza Adamanthea</title>
+<meta name="description" content="Přehled akcí, setkání a pobytů v Oáze Adamanthea — Crystal & Retreat centrum v Halenkovicích.">
+<meta property="og:title" content="Akce | Oáza Adamanthea">
+<meta property="og:description" content="Přehled akcí, setkání a pobytů v Oáze Adamanthea.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oaza-adamanthea.cz/akce">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fdfaf5; --cream-2:#f7f1e8; --line:#eadcc4;
+  --gold:#c9a14a; --gold-deep:#9a7628; --green:#6f7f5e; --rose:#b98a92;
+  --text:#4a3b33; --muted:#8a7d72;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.02em;margin:0}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:26px;
+  padding:14px 30px;background:rgba(253,250,245,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);font-size:14px;flex-wrap:wrap}
+nav .home{margin-right:auto;display:flex;align-items:center}
+nav .home svg{width:26px;height:26px;fill:none;stroke:var(--gold-deep);stroke-width:1.6}
+nav a{color:var(--text);transition:color .2s;letter-spacing:.03em}
+nav a:hover{color:var(--gold-deep)}
+nav a.active{color:var(--gold-deep);border-bottom:1.5px solid var(--gold)}
+
+/* HERO */
+.hero{text-align:center;padding:64px 24px 34px}
+.hero .eyebrow{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:clamp(30px,5vw,46px);color:var(--text);margin:14px 0 10px}
+.hero p{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--muted);max-width:620px;margin:0 auto}
+
+/* GRID */
+.wrap{max-width:1080px;margin:0 auto;padding:10px 24px 70px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(154,118,40,.12)}
+.thumb{aspect-ratio:16/10;background:linear-gradient(135deg,#efe4cd,#e7dcc4);position:relative;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;color:var(--gold-deep);opacity:.5;font-size:13px;letter-spacing:2px}
+.badge{position:absolute;top:12px;left:12px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  font-family:'Jost',sans-serif;padding:5px 11px;border-radius:20px;background:#fff;color:var(--green);border:1px solid var(--line)}
+.badge.full{color:#a06a34;background:#fbf2e3}
+.badge.cancel{color:#9a4a4a;background:#f7e9e9}
+.card .body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:20px;color:var(--text);line-height:1.25}
+.meta{font-size:13.5px;color:var(--muted);margin:9px 0 12px;display:flex;flex-direction:column;gap:3px}
+.meta span{display:flex;gap:7px;align-items:center}
+.excerpt{font-family:'Cormorant Garamond',serif;font-size:17px;color:#6a5c52;flex:1}
+.price{font-size:14px;color:var(--gold-deep);margin-top:12px;font-weight:400}
+.more{margin-top:16px;align-self:flex-start;font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--gold-deep);padding:10px 20px;border:1px solid var(--gold);border-radius:30px;
+  transition:background .2s,color .2s}
+.card:hover .more{background:var(--gold);color:#fff}
+.card.cancelled{opacity:.62}
+.empty,.loading{text-align:center;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--muted);padding:50px 0}
+
+/* FOOTER */
+footer{background:var(--cream-2);border-top:1px solid var(--line);padding:38px 24px;text-align:center;font-size:14px;color:var(--muted)}
+footer .soc{margin:12px 0}
+footer .soc a{margin:0 9px;color:var(--gold-deep)}
+footer .fine{font-size:12px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="home" href="/" aria-label="Domů">
+    <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+  </a>
+  <a href="/portalova-zahrada">Portálová zahrada</a>
+  <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+  <a href="/akce" class="active">Akce</a>
+  <a href="/nabidka-sluzeb">Služby</a>
+  <a href="/pronajem-prostor">Pronájem prostor</a>
+  <a href="/spirit-shop-1">Spirit Shop</a>
+  <a href="https://web.oaza-adamanthea.cz">O nás</a>
+  <a href="/kontakt">Kontakt</a>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Oáza Adamanthea</div>
+  <h1>Akce a setkání</h1>
+  <p>Pobyty, semináře, dny otevřených dveří a společné cesty. Vyberte si, co rezonuje — a přijďte.</p>
+</header>
+
+<main class="wrap">
+  <div id="grid" class="grid"></div>
+  <div id="loading" class="loading">Načítám akce…</div>
+</main>
+
+<footer>
+  Lukáš Hudeček · <a href="tel:+420737869752">+420 737 869 752</a> · <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
+  <div class="soc">
+    <a href="https://www.facebook.com/groups/1679547508831715">Facebook</a> ·
+    <a href="https://instagram.com/oazahalenkovice_healingcenter">Instagram</a> ·
+    <a href="https://wa.me/420737869752">WhatsApp</a>
+  </div>
+  <div class="fine">Oáza Adamanthea · Halenkovice 400, 763 63 · IČO 76564410 · <a href="https://web.oaza-adamanthea.cz/gdpr">Ochrana osobních údajů</a></div>
+</footer>
+
+<script>
+const STAVY = {
+  otevrena: {cls:'', txt:''},
+  obsazena: {cls:'full', txt:'Obsazeno'},
+  zrusena:  {cls:'cancel', txt:'Zrušeno'}
+};
+function cenaText(a){
+  if(a.platba_typ==='zdarma') return 'Vstup zdarma';
+  const c=[];
+  if(a.cena_czk!=null) c.push(Number(a.cena_czk).toLocaleString('cs-CZ')+' Kč');
+  if(a.cena_eur!=null) c.push(Number(a.cena_eur).toLocaleString('cs-CZ')+' €');
+  let t=c.join(' / ');
+  if(a.platba_typ==='na_miste' && t) t+=' (na místě)';
+  return t;
+}
+function zkrat(s,n){ if(!s) return ''; const txt=s.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim(); return txt.length>140?txt.slice(0,140)+'…':txt; }
+
+async function load(){
+  try{
+    const r = await fetch('/api/akce-list');
+    const {akce} = await r.json();
+    document.getElementById('loading').style.display='none';
+    const grid = document.getElementById('grid');
+    if(!akce || !akce.length){ grid.innerHTML='<div class="empty">Zatím nejsou vypsané žádné akce. Sledujte nás na Facebooku a Instagramu. 🌿</div>'; return; }
+    grid.innerHTML = akce.map(a=>{
+      const st = STAVY[a.stav] || STAVY.otevrena;
+      const badge = st.txt ? `<span class="badge ${st.cls}">${st.txt}</span>` : '';
+      const img = a.obrazek_url
+        ? `<img src="${a.obrazek_url}" alt="${(a.nazev||'').replace(/"/g,'')}" loading="lazy">`
+        : `<div class="ph">Oáza Adamanthea</div>`;
+      const cena = cenaText(a);
+      return `<a class="card ${a.stav==='zrusena'?'cancelled':''}" href="/akce-detail.html?slug=${encodeURIComponent(a.slug)}">
+        <div class="thumb">${img}${badge}</div>
+        <div class="body">
+          <h3>${a.nazev||''}</h3>
+          <div class="meta">
+            ${a.datum_text?`<span>📅 ${a.datum_text}</span>`:''}
+            ${a.misto?`<span>📍 ${a.misto}</span>`:''}
+          </div>
+          <div class="excerpt">${zkrat(a.popis)}</div>
+          ${cena?`<div class="price">${cena}</div>`:''}
+          <span class="more">Více o akci</span>
+        </div>
+      </a>`;
+    }).join('');
+  }catch(e){
+    document.getElementById('loading').textContent='Akce se nepodařilo načíst. Zkuste obnovit stránku.';
+  }
+}
+load();
+</script>
+</body>
+</html>

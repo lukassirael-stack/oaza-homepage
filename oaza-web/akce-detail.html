@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akce | Oáza Adamanthea</title>
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fdfaf5; --cream-2:#f7f1e8; --line:#eadcc4;
+  --gold:#c9a14a; --gold-deep:#9a7628; --green:#6f7f5e; --rose:#b98a92;
+  --text:#4a3b33; --muted:#8a7d72;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.02em;margin:0}
+
+nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:26px;
+  padding:14px 30px;background:rgba(253,250,245,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);font-size:14px;flex-wrap:wrap}
+nav .home{margin-right:auto;display:flex;align-items:center}
+nav .home svg{width:26px;height:26px;fill:none;stroke:var(--gold-deep);stroke-width:1.6}
+nav a{color:var(--text);transition:color .2s;letter-spacing:.03em}
+nav a:hover{color:var(--gold-deep)}
+nav a.active{color:var(--gold-deep);border-bottom:1.5px solid var(--gold)}
+
+.wrap{max-width:820px;margin:0 auto;padding:30px 24px 80px}
+.back{font-size:13px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;font-family:'Cinzel',serif}
+.back:hover{color:var(--gold-deep)}
+
+.portal{margin:22px 0 30px;border-radius:230px 230px 14px 14px;overflow:hidden;border:1px solid var(--line);
+  background:linear-gradient(135deg,#efe4cd,#e7dcc4);aspect-ratio:4/3;max-height:460px;position:relative}
+.portal img{width:100%;height:100%;object-fit:cover;display:block}
+.portal .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:var(--gold-deep);opacity:.5;letter-spacing:3px}
+
+.eyebrow{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-align:center}
+h1.title{font-size:clamp(28px,5vw,42px);color:var(--text);text-align:center;margin:12px 0 16px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px}
+.fact{background:#fff;border:1px solid var(--line);border-radius:30px;padding:8px 18px;font-size:14px;color:var(--text)}
+.fact b{color:var(--gold-deep);font-weight:400}
+
+.statusbar{text-align:center;margin:-6px 0 22px}
+.statuspill{display:inline-block;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  padding:7px 18px;border-radius:30px}
+.statuspill.full{color:#a06a34;background:#fbf2e3;border:1px solid #e6cfa0}
+.statuspill.cancel{color:#9a4a4a;background:#f7e9e9;border:1px solid #e6c5c5}
+
+.popis{font-family:'Cormorant Garamond',serif;font-size:20px;color:#574a42;line-height:1.85}
+.popis h2,.popis h3{font-family:'Cinzel',serif;color:var(--gold-deep);font-size:21px;margin:26px 0 8px}
+.popis p{margin:0 0 14px}
+.popis ul{padding-left:20px}
+.popis img{max-width:100%;border-radius:12px;margin:14px 0}
+
+.cta-wrap{text-align:center;margin:34px 0}
+.btn{display:inline-block;font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;
+  padding:15px 40px;border-radius:34px;background:var(--gold);color:#fff;border:1px solid var(--gold);cursor:pointer;transition:.2s}
+.btn:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
+.btn[disabled]{background:#d8cdbb;border-color:#d8cdbb;cursor:not-allowed}
+
+/* FORM */
+#form-sekce{display:none;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 28px}
+#form-sekce h2{font-size:23px;color:var(--text);text-align:center;margin-bottom:18px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13.5px;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+  font-family:'Jost',sans-serif;font-size:15px;background:var(--cream);color:var(--text)}
+.field textarea{min-height:70px;resize:vertical}
+.row{display:flex;gap:14px}
+.row .field{flex:1}
+.gdpr{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--muted);margin:6px 0 18px}
+.gdpr input{margin-top:3px}
+.msg{padding:14px 16px;border-radius:10px;font-size:14.5px;margin-bottom:14px;display:none}
+.msg.err{background:#f7e9e9;color:#9a4a4a;display:block}
+.cena-info{text-align:center;font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--gold-deep);margin-bottom:14px}
+
+/* DĚKOVNÁ OBRAZOVKA */
+#dik{display:none;text-align:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:36px 28px;margin-top:18px}
+#dik h2{font-size:26px;color:var(--green);margin-bottom:10px}
+#dik .qr{margin:18px auto;max-width:240px}
+#dik .qr img{width:100%;border:1px solid var(--line);border-radius:14px}
+#dik .platba{font-size:15px;color:var(--text);line-height:1.9;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:inline-block;text-align:left;margin-top:8px}
+#dik .platba b{color:var(--gold-deep)}
+
+footer{background:var(--cream-2);border-top:1px solid var(--line);padding:38px 24px;text-align:center;font-size:14px;color:var(--muted)}
+footer .soc{margin:12px 0}
+footer .soc a{margin:0 9px;color:var(--gold-deep)}
+footer .fine{font-size:12px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="home" href="/" aria-label="Domů"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></a>
+  <a href="/portalova-zahrada">Portálová zahrada</a>
+  <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+  <a href="/akce" class="active">Akce</a>
+  <a href="/nabidka-sluzeb">Služby</a>
+  <a href="/pronajem-prostor">Pronájem prostor</a>
+  <a href="/spirit-shop-1">Spirit Shop</a>
+  <a href="https://web.oaza-adamanthea.cz">O nás</a>
+  <a href="/kontakt">Kontakt</a>
+</nav>
+
+<main class="wrap" id="main">
+  <a class="back" href="/akce">← Zpět na akce</a>
+  <div id="content" style="padding:60px 0;text-align:center;color:var(--muted);font-family:'Cormorant Garamond',serif;font-size:20px">Načítám…</div>
+</main>
+
+<footer>
+  Lukáš Hudeček · <a href="tel:+420737869752">+420 737 869 752</a> · <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
+  <div class="soc">
+    <a href="https://www.facebook.com/groups/1679547508831715">Facebook</a> ·
+    <a href="https://instagram.com/oazahalenkovice_healingcenter">Instagram</a> ·
+    <a href="https://wa.me/420737869752">WhatsApp</a>
+  </div>
+  <div class="fine">Oáza Adamanthea · Halenkovice 400, 763 63 · IČO 76564410 · <a href="https://web.oaza-adamanthea.cz/gdpr">Ochrana osobních údajů</a></div>
+</footer>
+
+<script>
+const slug = new URLSearchParams(location.search).get('slug');
+let AKCE = null;
+
+function fmt(n){ return Number(n).toLocaleString('cs-CZ'); }
+function cenaJednotka(a, mena){ return mena==='eur'?a.cena_eur:a.cena_czk; }
+
+function cenaSouhrn(a){
+  if(a.platba_typ==='zdarma') return 'Vstup zdarma';
+  const c=[];
+  if(a.cena_czk!=null) c.push(fmt(a.cena_czk)+' Kč');
+  if(a.cena_eur!=null) c.push(fmt(a.cena_eur)+' €');
+  let t=c.join(' / ');
+  if(a.platba_typ==='na_miste'&&t) t+=' · platba na místě';
+  return t;
+}
+
+async function load(){
+  const box=document.getElementById('content');
+  if(!slug){ box.textContent='Chybí identifikátor akce.'; return; }
+  try{
+    const r=await fetch('/api/akce-list?slug='+encodeURIComponent(slug));
+    if(!r.ok){ box.textContent='Akce nenalezena.'; return; }
+    const {akce}=await r.json(); AKCE=akce;
+    document.title = akce.nazev+' | Oáza Adamanthea';
+    render(akce, box);
+  }catch(e){ box.textContent='Akci se nepodařilo načíst.'; }
+}
+
+function render(a, box){
+  const img = a.obrazek_url
+    ? `<img src="${a.obrazek_url}" alt="${(a.nazev||'').replace(/"/g,'')}">`
+    : `<div class="ph">Oáza Adamanthea</div>`;
+  const facts=[];
+  if(a.datum_text) facts.push(`<div class="fact">📅 <b>${a.datum_text}</b></div>`);
+  if(a.misto) facts.push(`<div class="fact">📍 ${a.misto}</div>`);
+  const cena=cenaSouhrn(a);
+  if(cena) facts.push(`<div class="fact">${cena}</div>`);
+  if(a.kapacita && a.volno!=null && a.stav==='otevrena') facts.push(`<div class="fact">Volných míst: <b>${a.volno}</b></div>`);
+
+  let statusbar='', cta='';
+  if(a.stav==='zrusena'){
+    statusbar=`<div class="statusbar"><span class="statuspill cancel">Akce zrušena</span></div>`;
+  }else if(a.stav==='obsazena'){
+    statusbar=`<div class="statusbar"><span class="statuspill full">Obsazeno</span></div>`;
+  }else{
+    cta=`<div class="cta-wrap"><button class="btn" onclick="otevritFormular()">Přihlásit se</button></div>`;
+  }
+
+  box.outerHTML = `<div id="content">
+    <div class="eyebrow">Akce v Oáze</div>
+    <h1 class="title">${a.nazev||''}</h1>
+    <div class="portal">${img}</div>
+    <div class="facts">${facts.join('')}</div>
+    ${statusbar}
+    <div class="popis">${a.popis||''}</div>
+    ${cta}
+    ${formularHTML(a)}
+    <div id="dik"></div>
+  </div>`;
+}
+
+function formularHTML(a){
+  if(a.stav!=='otevrena') return '';
+  // výběr měny jen když jsou obě ceny a platí se online/na místě
+  let menaField='';
+  if(a.platba_typ!=='zdarma' && a.cena_czk!=null && a.cena_eur!=null){
+    menaField=`<div class="field"><label>Měna platby</label>
+      <select id="mena" onchange="prepocet()">
+        <option value="czk">Kč (${fmt(a.cena_czk)} Kč / os.)</option>
+        <option value="eur">€ (${fmt(a.cena_eur)} € / os.)</option>
+      </select></div>`;
+  }
+  return `<div id="form-sekce">
+    <h2>Přihláška</h2>
+    <div id="cena-info" class="cena-info"></div>
+    <div id="form-err" class="msg err"></div>
+    <div class="field"><label>Jméno a příjmení *</label><input id="jmeno" autocomplete="name"></div>
+    <div class="row">
+      <div class="field"><label>E-mail *</label><input id="email" type="email" autocomplete="email"></div>
+      <div class="field"><label>Telefon</label><input id="telefon" type="tel" autocomplete="tel"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Počet osob</label><input id="pocet" type="number" min="1" value="1" onchange="prepocet()" oninput="prepocet()"></div>
+      ${menaField}
+    </div>
+    <div class="field"><label>Poznámka (nepovinné)</label><textarea id="poznamka" placeholder="Dotaz, dietní omezení, cokoli…"></textarea></div>
+    <label class="gdpr"><input type="checkbox" id="souhlas"><span>Souhlasím se zpracováním osobních údajů pro účely přihlášky. <a href="https://web.oaza-adamanthea.cz/gdpr" target="_blank">Více</a></span></label>
+    <div style="text-align:center"><button class="btn" id="odeslat" onclick="odeslat()">Odeslat přihlášku</button></div>
+  </div>`;
+}
+
+function otevritFormular(){
+  const f=document.getElementById('form-sekce');
+  f.style.display='block'; prepocet();
+  f.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function prepocet(){
+  if(!AKCE || AKCE.platba_typ==='zdarma'){ const ci=document.getElementById('cena-info'); if(ci) ci.textContent=''; return; }
+  const pocet=Math.max(1,parseInt(document.getElementById('pocet')?.value,10)||1);
+  const menaEl=document.getElementById('mena');
+  const mena = menaEl ? menaEl.value : (AKCE.cena_czk!=null?'czk':'eur');
+  const jed=cenaJednotka(AKCE,mena);
+  if(jed==null) return;
+  const sym=mena==='eur'?'€':'Kč';
+  const txt = AKCE.platba_typ==='na_miste'
+    ? `Cena na místě: ${fmt(jed*pocet)} ${sym}`
+    : `Celkem k platbě: ${fmt(jed*pocet)} ${sym}`;
+  document.getElementById('cena-info').textContent=txt;
+}
+
+async function odeslat(){
+  const err=document.getElementById('form-err'); err.style.display='none';
+  const btn=document.getElementById('odeslat');
+  const data={
+    slug,
+    jmeno:document.getElementById('jmeno').value.trim(),
+    email:document.getElementById('email').value.trim(),
+    telefon:document.getElementById('telefon').value.trim(),
+    pocet_osob:document.getElementById('pocet').value,
+    mena:document.getElementById('mena')?document.getElementById('mena').value:undefined,
+    poznamka:document.getElementById('poznamka').value.trim(),
+    souhlas:document.getElementById('souhlas').checked
+  };
+  if(data.jmeno.length<2){ return chyba('Vyplňte prosím jméno.'); }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)){ return chyba('Zkontrolujte e-mail.'); }
+  if(!data.souhlas){ return chyba('Potřebujeme souhlas se zpracováním údajů.'); }
+
+  btn.disabled=true; btn.textContent='Odesílám…';
+  try{
+    const r=await fetch('/api/akce-prihlasit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    const out=await r.json();
+    if(!r.ok){ btn.disabled=false; btn.textContent='Odeslat přihlášku'; return chyba(out.error||'Něco se pokazilo.'); }
+    zobrazitDik(out, data);
+  }catch(e){ btn.disabled=false; btn.textContent='Odeslat přihlášku'; chyba('Spojení selhalo, zkuste to prosím znovu.'); }
+  function chyba(m){ err.textContent=m; err.style.display='block'; err.scrollIntoView({behavior:'smooth',block:'center'}); }
+}
+
+function zobrazitDik(out, data){
+  document.getElementById('form-sekce').style.display='none';
+  const cta=document.querySelector('.cta-wrap'); if(cta) cta.style.display='none';
+  const dik=document.getElementById('dik');
+  let platba='';
+  if(out.platba_typ==='online'){
+    const sym=out.mena==='eur'?'€':'Kč';
+    platba=`
+      ${out.qrUrl?`<div class="qr"><img src="${out.qrUrl}" alt="QR platba"></div><div style="font-size:13px;color:var(--muted);margin-bottom:6px">Naskenujte v mobilní bankovní aplikaci</div>`:''}
+      <div class="platba">
+        Částka: <b>${fmt(out.castka)} ${sym}</b><br>
+        Variabilní symbol: <b>${out.vs}</b><br>
+        Potvrzení i platební údaje jsme poslali na <b>${data.email}</b>.
+      </div>`;
+  }else if(out.platba_typ==='na_miste'){
+    const sym=out.mena==='eur'?'€':'Kč';
+    platba=`<div class="platba">${out.castka!=null?`Částku <b>${fmt(out.castka)} ${sym}</b> uhradíte <b>na místě</b>.<br>`:''}Potvrzení jsme poslali na <b>${data.email}</b>.</div>`;
+  }else{
+    platba=`<div class="platba">Potvrzení účasti jsme poslali na <b>${data.email}</b>. Těšíme se na vás 🌿</div>`;
+  }
+  dik.innerHTML=`<h2>Děkujeme za přihlášku!</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--muted)">${AKCE.nazev}</p>
+    ${platba}`;
+  dik.style.display='block';
+  dik.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+load();
+</script>
+</body>
+</html>

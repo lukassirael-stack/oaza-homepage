@@ -63,6 +63,7 @@ async function supaUpload(pathInBucket, buffer, contentType) {
     {
       method: 'POST',
       headers: {
+        apikey: SERVICE_KEY,
         Authorization: `Bearer ${SERVICE_KEY}`,
         'Content-Type': contentType,
         'x-upsert': 'true',

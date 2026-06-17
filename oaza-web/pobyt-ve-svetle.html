@@ -991,6 +991,7 @@ async function submitForm(){
       <em>Rezervace bude potvrzena po přijetí platby na náš účet.</em>
     `;
     document.getElementById('successMsg').style.display='block';
+    if(typeof oazaTrackRezervace==='function') oazaTrackRezervace(total);
     loadBookedDates();
 
   } catch(err){
@@ -1087,5 +1088,76 @@ const reviews = [
 <script>
 window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',window.scrollY>500);});
 </script>
+<!-- ===================================================================== -->
+<!--  COOKIE SOUHLAS + META PIXEL  —  Oáza Adamanthea                       -->
+<!--  Pixel se spustí AŽ po souhlasu (EU / GDPR).                            -->
+<!-- ===================================================================== -->
+<style>
+  #oaza-cookie{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);
+    z-index:9999;max-width:430px;width:calc(100% - 28px);
+    background:rgba(245,241,233,.97);color:#4c5247;
+    border:1px solid rgba(46,68,52,.18);
+    border-radius:12px;box-shadow:0 6px 22px rgba(46,68,52,.12);
+    padding:13px 16px;font-family:'Cormorant Garamond',serif;
+    font-size:15px;line-height:1.45;display:none;
+    backdrop-filter:blur(2px)}
+  #oaza-cookie.show{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  #oaza-cookie p{margin:0;flex:1 1 200px;color:#5a6052}
+  #oaza-cookie .row{display:flex;gap:8px;margin-left:auto}
+  #oaza-cookie button{font-family:inherit;font-size:14px;cursor:pointer;
+    border-radius:8px;padding:6px 14px;border:1px solid transparent;
+    transition:background .2s,opacity .2s;white-space:nowrap}
+  #oaza-cookie .ok{background:#b06a6c;color:#fdfaf5}
+  #oaza-cookie .ok:hover{background:#9c585a}
+  #oaza-cookie .no{background:transparent;color:#8a8478;
+    border-color:rgba(46,68,52,.2)}
+  #oaza-cookie .no:hover{opacity:.7}
+</style>
+
+<div id="oaza-cookie" role="dialog" aria-label="Souhlas s cookies">
+  <p>Aby pro vás bylo na našem webu příjemně, používáme cookies.</p>
+  <div class="row">
+    <button class="no" onclick="oazaCookie(false)">Odmítnout</button>
+    <button class="ok" onclick="oazaCookie(true)">Přijmout</button>
+  </div>
+</div>
+
+<script>
+  var OAZA_PIXEL_ID = '2701237003568248';
+
+  function oazaLoadPixel(){
+    if(window._oazaPixelLoaded) return;
+    window._oazaPixelLoaded = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', OAZA_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+
+  // Konverzní event – volá se po úspěšné rezervaci (viz výše v kódu formuláře).
+  function oazaTrackRezervace(hodnota){
+    if(window.fbq && window._oazaPixelLoaded){
+      fbq('track', 'Schedule', hodnota ? {value: hodnota, currency: 'CZK'} : {});
+    }
+  }
+
+  function oazaCookie(accepted){
+    localStorage.setItem('oaza_cookie', accepted ? 'yes' : 'no');
+    document.getElementById('oaza-cookie').classList.remove('show');
+    if(accepted) oazaLoadPixel();
+  }
+
+  (function(){
+    var c = localStorage.getItem('oaza_cookie');
+    if(c === 'yes'){ oazaLoadPixel(); }
+    else if(c !== 'no'){ document.getElementById('oaza-cookie').classList.add('show'); }
+  })();
+</script>
+<!-- ===================================================================== -->
+<!--  konec bloku pixel + cookie                                           -->
+<!-- ===================================================================== -->
 </body>
 </html>

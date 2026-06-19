@@ -15,18 +15,36 @@
       sessionStorage.setItem(KLIC, sid);
     }
 
+    var IDLE_MS = 30000;
     var aktivniMs = 0;
-    var zacatek = document.visibilityState === "visible" ? Date.now() : null;
+    var zacatek = null;
+    var idleTimer = null;
     var odeslano = false;
 
+    function viditelna() {
+      return document.visibilityState === "visible";
+    }
+    function start() {
+      if (zacatek === null && viditelna() && !odeslano) zacatek = Date.now();
+    }
     function zastav() {
       if (zacatek !== null) {
         aktivniMs += Date.now() - zacatek;
         zacatek = null;
       }
     }
+    function resetIdle() {
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(zastav, IDLE_MS);
+    }
+    function akce() {
+      if (odeslano || !viditelna()) return;
+      start();
+      resetIdle();
+    }
 
     function odesli() {
+      if (idleTimer) clearTimeout(idleTimer);
       zastav();
       if (odeslano) return;
       odeslano = true;
@@ -57,10 +75,21 @@
       } catch (e) {}
     }
 
+    if (viditelna()) {
+      start();
+      resetIdle();
+    }
+
+    ["mousemove", "mousedown", "keydown", "scroll", "wheel", "touchstart", "pointerdown", "click"]
+      .forEach(function (ev) {
+        window.addEventListener(ev, akce, { passive: true });
+      });
+
     document.addEventListener("visibilitychange", function () {
-      if (document.visibilityState === "visible") {
-        if (zacatek === null) zacatek = Date.now();
+      if (viditelna()) {
+        if (!odeslano) { start(); resetIdle(); }
       } else {
+        if (idleTimer) clearTimeout(idleTimer);
         zastav();
         odesli();
       }

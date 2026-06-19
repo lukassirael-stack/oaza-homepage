@@ -1,15 +1,6 @@
 /* =====================================================================
    Oáza Adamanthea — měření návštěvnosti (cookieless)
    Umístění v repu:  oaza-web/navstevnost.js
-
-   Na KAŽDOU stránku, kterou chceš měřit, přidej těsně před </body>:
-       <script defer src="/navstevnost.js"></script>
-
-   Co dělá:
-   • vytvoří anonymní ID relace (jen v sessionStorage, zmizí po zavření karty)
-   • počítá AKTIVNÍ dobu na stránce (když je karta vidět)
-   • při odchodu pošle jeden záznam přes sendBeacon na /api/analytika
-   Žádné cookies, žádná osobní data, žádná IP. GDPR-friendly.
    ===================================================================== */
 (function () {
   "use strict";
@@ -24,20 +15,19 @@
       sessionStorage.setItem(KLIC, sid);
     }
 
-    var aktivniMs = 0;          // nasčítaná viditelná doba
-    var posledni = Date.now();
+    var aktivniMs = 0;
+    var zacatek = document.visibilityState === "visible" ? Date.now() : null;
     var odeslano = false;
 
-    function tik() {
-      var ted = Date.now();
-      if (document.visibilityState === "visible") {
-        aktivniMs += ted - posledni;
+    function zastav() {
+      if (zacatek !== null) {
+        aktivniMs += Date.now() - zacatek;
+        zacatek = null;
       }
-      posledni = ted;
     }
 
     function odesli() {
-      tik();
+      zastav();
       if (odeslano) return;
       odeslano = true;
 
@@ -52,13 +42,11 @@
 
       var telo = JSON.stringify(data);
       try {
-        // text/plain → žádný CORS preflight, sendBeacon přežije i zavření karty
         var blob = new Blob([telo], { type: "text/plain" });
         if (navigator.sendBeacon && navigator.sendBeacon("/api/analytika", blob)) {
           return;
         }
       } catch (e) {}
-      // záloha
       try {
         fetch("/api/analytika", {
           method: "POST",
@@ -70,12 +58,14 @@
     }
 
     document.addEventListener("visibilitychange", function () {
-      tik();
-      if (document.visibilityState === "hidden") odesli();
+      if (document.visibilityState === "visible") {
+        if (zacatek === null) zacatek = Date.now();
+      } else {
+        zastav();
+        odesli();
+      }
     });
     window.addEventListener("pagehide", odesli);
     window.addEventListener("beforeunload", odesli);
-  } catch (e) {
-    /* tiše ignoruj — měření nikdy nesmí rozbít web */
-  }
+  } catch (e) {}
 })();

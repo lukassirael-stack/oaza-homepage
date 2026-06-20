@@ -2,803 +2,622 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oáza Adamanthea — Krystal & retreat centrum v srdci Moravy</title>
-<meta name="description" content="Oáza Adamanthea v Halenkovicích — krystal a retreat centrum. Pobyt ve světle, portálová zahrada, terapie, rituály, pronájem prostoru a Bali shop. Místo pro zastavení, ztišení a návrat k sobě.">
-<link rel="canonical" href="https://www.oaza-adamanthea.cz/">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/oaza-adamanthea-favicon-192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Oáza Adamanthea — Krystal & retreat centrum">
-<meta property="og:description" content="Místo pro zastavení, ztišení a návrat k sobě. Retreat centrum v srdci Moravy.">
-<meta property="og:url" content="https://www.oaza-adamanthea.cz/">
-<meta property="og:image" content="https://www.oaza-adamanthea.cz/img/hero.jpg">
-<meta property="og:locale" content="cs_CZ">
-<meta name="theme-color" content="#23352a">
-<link rel="preload" as="image" href="/img/hero.jpg">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Oáza Adamanthea",
-  "description": "Krystal a retreat centrum — pobyty, terapie, portálová zahrada, rituály a pronájem prostoru.",
-  "url": "https://www.oaza-adamanthea.cz",
-  "telephone": "+420737869752",
-  "email": "oaza.adamanthea@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Halenkovice 400",
-    "addressLocality": "Halenkovice",
-    "postalCode": "763 63",
-    "addressCountry": "CZ"
-  },
-  "image": "https://www.oaza-adamanthea.cz/img/hero.jpg"
-}
-</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#10211a">
+<title>Tatvy — co právě proudí</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tatvy">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#f5f1e9;
-    --cream-dark:#ede7db;
-    --green:#2e4434;
-    --rose:#b06a6c;
-    --rose-dark:#9c585a;
-    --ink:#3a3f38;
-    --line:#d8d0c2;
+    --ink:#10211a;
+    --ink-2:#173026;
+    --green:#5e8769;
+    --green-soft:#9bbfa3;
+    --rose:#c98b9e;
+    --rose-deep:#b06b80;
+    --cream:#f3efe7;
+    --cream-dim:#cfd6cd;
+    --gold:#d8b25e;
+    --line:rgba(243,239,231,.14);
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
   body{
-    font-family:'Cormorant Garamond',serif;
-    background:var(--cream);
-    color:var(--ink);
-    font-size:20px;
-    line-height:1.6;
-  }
-  h1,h2,h3{font-weight:500;color:var(--green)}
-  a{text-decoration:none;color:inherit}
-  img{max-width:100%;display:block}
-
-  .btn{
-    display:inline-block;
-    background:var(--rose);
-    color:#fdfaf5;
-    font-size:19px;
-    padding:13px 34px;
-    border-radius:6px;
-    transition:background .25s ease;
-  }
-  .btn:hover{background:var(--rose-dark)}
-
-  /* ===== HERO + NAV ===== */
-  .hero{
-    position:relative;
-    aspect-ratio:1535/1024;
-    display:flex;
-    flex-direction:column;
-    color:#fdfaf5;
+    font-family:'Cormorant Garamond',Georgia,serif;
     background:
-      url(/img/hero.jpg);
-    background-size:cover;
-    background-position:center;
+      radial-gradient(120% 80% at 50% -10%, #1c3a2c 0%, var(--ink) 55%, #0a1611 100%);
+    color:var(--cream);
+    -webkit-font-smoothing:antialiased;
+    padding:env(safe-area-inset-top) 18px calc(env(safe-area-inset-bottom) + 28px);
+    display:flex;justify-content:center;
   }
+  .app{width:100%;max-width:440px;padding-top:30px}
 
-  nav{
-    display:flex;align-items:center;justify-content:flex-end;gap:34px;
-    padding:26px 48px 60px;
-    background:linear-gradient(180deg,rgba(12,18,10,.62) 0%,rgba(12,18,10,.30) 55%,rgba(12,18,10,0) 100%);
-  }
-  nav .menu{display:flex;gap:26px;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}
-  .jen-mobil{display:none}
-  nav .menu a{position:relative;padding-bottom:3px}
-  nav .menu a::after{
-    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
-    background:#fdfaf5;transition:width .25s ease;
-  }
-  nav .menu a:hover::after{width:100%}
-  .nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
+  .eyebrow{display:block;font-family:'Jost',sans-serif;font-weight:400;font-size:11px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--green-soft);text-align:center;text-decoration:none}
+  h1{font-family:'Cinzel',serif;font-weight:500;font-size:23px;letter-spacing:.04em;
+    text-align:center;margin:6px 0 2px;color:var(--cream)}
+  .sub{text-align:center;font-size:16px;color:var(--cream-dim);font-style:italic;margin-bottom:26px}
+  .install{display:none;text-align:center;margin:-8px 0 24px}
+  .install-btn{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    background:linear-gradient(90deg,var(--green),#b06b80);color:#fff;border:none;border-radius:99px;
+    padding:12px 24px;cursor:pointer}
+  .install-btn:active{transform:translateY(1px)}
+  .install-ios{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--green-soft);
+    border:1px solid var(--line);border-radius:12px;padding:10px 14px;line-height:1.4}
+  .install-ios b{font-style:normal;color:var(--cream)}
 
-  /* pruh s textem pod hero fotkou */
-  .hero-pod{
-    background:#23352a;
-    color:#f3efe5;
-    text-align:center;
-    padding:54px 24px 60px;
-  }
-  .hero-pod .sub{
-    font-size:clamp(24px,3.4vw,32px);
-    margin-bottom:8px;
-  }
-  .hero-pod .sub-it{
-    font-style:italic;
-    font-size:clamp(19px,2.4vw,23px);
-    color:rgba(243,239,229,.85);
-    margin-bottom:32px;
-  }
-  .sr-only{
-    position:absolute;width:1px;height:1px;overflow:hidden;
-    clip:rect(0 0 0 0);white-space:nowrap;
-  }
+  /* signature: the living breath */
+  .stage{display:flex;flex-direction:column;align-items:center;margin-bottom:8px}
+  .glyph-wrap{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center}
+  .halo{position:absolute;inset:0;border-radius:50%;filter:blur(34px);opacity:.55;
+    transform:scale(.9);transition:background 1.2s ease}
+  .glyph{position:relative;width:128px;height:128px;display:flex;align-items:center;justify-content:center;
+    animation:breath 6s ease-in-out infinite}
+  .glyph svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 6px 22px rgba(0,0,0,.45))}
+  @keyframes breath{0%,100%{transform:scale(.96)}50%{transform:scale(1.06)}}
+  @media (prefers-reduced-motion:reduce){.glyph{animation:none}}
 
-  /* ===== ČTYŘI PILÍŘE ===== */
-  .pilire-wrap{max-width:1280px;margin:0 auto;padding:84px 32px 76px}
-  .pilire{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:0;
-    text-align:center;
-  }
-  .pilir{
-    padding:8px 30px;
-    opacity:0;transform:translateY(24px);
-    transition:opacity .7s ease, transform .7s ease;
-  }
-  .pilir.in{opacity:1;transform:none}
-  .pilir + .pilir{border-left:1px solid var(--line)}
-  .pilir .ikona{height:54px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-  .pilir h3{font-size:27px;margin-bottom:12px}
-  .pilir p{font-size:19px;margin-bottom:16px;color:#4c5247}
-  .pilire-dots{display:none;justify-content:center;gap:9px;margin-top:26px}
-  .pilire-dots span{
-    width:8px;height:8px;border-radius:50%;
-    background:var(--line);transition:background .25s;
-  }
-  .pilire-dots span.on{background:var(--rose)}
-  .vice{
-    color:var(--rose);font-size:18px;
-    display:inline-flex;align-items:center;gap:7px;
-    border-bottom:1px solid transparent;transition:border-color .25s;
-  }
-  .vice:hover{border-color:var(--rose)}
-  .vice svg{transition:transform .25s}
-  .vice:hover svg{transform:translateX(4px)}
+  .tname{font-family:'Cinzel',serif;font-size:30px;letter-spacing:.06em;margin-top:14px;text-align:center}
+  .tname small{display:block;font-family:'Jost',sans-serif;font-weight:300;font-size:12px;
+    letter-spacing:.28em;text-transform:uppercase;color:var(--green-soft);margin-top:7px}
 
-  /* ===== SEKCE NADPIS S ORNAMENTEM ===== */
-  .sekce-head{text-align:center;margin-bottom:46px}
-  .sekce-head h2{font-size:clamp(32px,4.5vw,42px);margin-bottom:14px}
-  .orn{display:flex;align-items:center;justify-content:center;gap:12px}
-  .orn::before,.orn::after{content:"";height:1px;width:54px;background:var(--line)}
+  .countdown{font-family:'Jost',sans-serif;font-weight:300;font-size:14px;letter-spacing:.05em;
+    color:var(--cream-dim);text-align:center;margin-top:14px}
+  .countdown b{color:var(--cream);font-weight:500}
+  .startnote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;
+    color:var(--green-soft);text-align:center;margin-top:10px;line-height:1.4}
+  .nextline{text-align:center;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream-dim);
+    margin:18px 8px 0;line-height:1.45;padding-top:16px;border-top:1px solid var(--line)}
+  .nextline b{font-family:'Cinzel',serif;font-weight:500;font-size:15px;letter-spacing:.03em;color:var(--cream)}
 
-  /* ===== AKCE ===== */
-  .akce{max-width:1240px;margin:0 auto;padding:30px 32px 90px}
-  .akce-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-  .akce-card{
-    background:#fbf8f2;
-    border:1px solid var(--line);
-    border-radius:8px;overflow:hidden;
-    transition:transform .3s ease, box-shadow .3s ease;
-  }
-  .akce-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(46,68,52,.10)}
-  .akce-foto{
-    width:100%;aspect-ratio:1/1;object-fit:cover;display:block;
-  }
-  .akce-vse{text-align:center;margin-top:40px}
-  .akce-vse .btn{background:var(--green)}
-  .akce-vse .btn:hover{background:#1f3024}
-  .akce-body{padding:24px 26px 28px}
-  .akce-body .datum{font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin-bottom:8px}
-  .akce-body h3{font-size:25px;margin-bottom:10px}
-  .akce-body p{font-size:18px;color:#4c5247;margin-bottom:14px}
+  .bar{height:5px;width:100%;border-radius:99px;background:rgba(243,239,231,.12);overflow:hidden;margin:16px 0 4px}
+  .bar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--rose));transition:width 1s linear}
 
-  /* ===== O OÁZE pruh ===== */
-  .o-oaze{
-    background:var(--green);
-    color:#f0ede4;
-    text-align:center;
-    padding:90px 32px;
-  }
-  .o-oaze h2{color:#f5f1e9;font-size:clamp(30px,4.5vw,40px);margin-bottom:20px}
-  .o-oaze p{max-width:640px;margin:0 auto 34px;font-size:21px;font-style:italic}
-  .o-oaze .btn{background:#f5f1e9;color:var(--green)}
-  .o-oaze .btn:hover{background:#e2dccd}
+  .fav{font-size:18px;line-height:1.5;text-align:center;margin:20px 4px 0;color:var(--cream)}
+  .fav .tag{display:inline-block;font-family:'Jost',sans-serif;font-size:10px;font-weight:500;
+    letter-spacing:.22em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+  .tag.good{background:rgba(94,135,105,.22);color:var(--green-soft);border:1px solid rgba(155,191,163,.4)}
+  .tag.neutral{background:rgba(216,178,94,.16);color:var(--gold);border:1px solid rgba(216,178,94,.35)}
+  .tag.poor{background:rgba(176,107,128,.18);color:var(--rose);border:1px solid rgba(201,139,158,.4)}
 
-  /* ===== FOOTER ===== */
-  footer{
-    background:var(--cream-dark);
-    text-align:center;
-    padding:64px 32px 40px;
-    border-top:1px solid var(--line);
-  }
-  footer .f-logo{font-size:26px;color:var(--green);margin-bottom:6px}
-  footer .f-tag{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#6f7468;margin-bottom:26px}
-  footer .kontakt{font-size:19px;line-height:2;color:#4c5247}
-  footer .kontakt a{color:var(--rose)}
-  .soc{display:flex;justify-content:center;gap:16px;margin-top:28px}
-  .soc a{
-    width:44px;height:44px;border:1px solid var(--rose);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    transition:background .25s, transform .25s;
-  }
-  .soc a:hover{background:var(--rose);transform:translateY(-2px)}
-  .soc a:hover svg path, .soc a:hover svg rect, .soc a:hover svg circle{stroke:#fdfaf5}
-  footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
+  /* oáza tip */
+  .tip{margin-top:24px;border:1px solid rgba(201,139,158,.38);border-radius:16px;padding:16px 18px;
+    background:rgba(201,139,158,.17)}
+  .tip .label{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--rose);margin-bottom:7px}
+  .tip-card{display:block;text-decoration:none;color:inherit}
+  .tip-nadpis{font-family:'Cinzel',serif;font-size:19px;letter-spacing:.03em;color:var(--cream);margin-bottom:5px}
+  .tip-text{font-size:17px;line-height:1.45;color:var(--cream-dim);margin-bottom:11px}
+  .tip-go{display:inline-block;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--rose);border:1px solid rgba(201,139,158,.45);
+    border-radius:99px;padding:7px 15px}
+  .tip-shuffle{margin-top:14px;background:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--green-soft);padding:4px 0}
+  .tip-shuffle:active{transform:translateY(1px)}
 
-  @media (max-width:900px){
+  /* cycle dots */
+  .cycle{display:flex;justify-content:space-between;gap:8px;margin-top:30px}
+  .cycle .seg{flex:1;text-align:center}
+  .cycle .dot{width:100%;height:30px;border-radius:9px;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;opacity:.4;transition:.4s}
+  .cycle .seg.on .dot{opacity:1;box-shadow:0 0 0 1px rgba(243,239,231,.5),0 6px 18px rgba(0,0,0,.4)}
+  .cycle .dot svg{width:15px;height:15px}
+  .cycle .seg small{display:block;font-family:'Jost',sans-serif;font-size:8.5px;letter-spacing:.1em;
+    text-transform:uppercase;margin-top:6px;color:var(--cream-dim)}
 
-    nav{padding:20px 22px;gap:20px}
-    nav .menu{
-      display:none;position:fixed;inset:0;
-      background:#15221a;flex-direction:column;
-      padding:96px 28px 40px;gap:0;text-align:left;z-index:50;
-      overflow-y:auto;
-    }
-    nav .menu.open{display:flex}
-    nav .menu a{
-      font-size:25px;color:#f3efe5;
-      padding:21px 4px;
-      border-bottom:1px solid rgba(243,239,229,.14);
-    }
-    nav .menu a::after{display:none}
-    .jen-mobil{display:block}
-    .nav-toggle{display:block;position:relative;z-index:60}
-    .hero-pod{padding:42px 20px 48px}
-    .pilire-wrap{padding:60px 0 56px}
-    .pilire{
-      display:flex;overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-      padding:0 10vw;gap:0;
-    }
-    .pilire::-webkit-scrollbar{display:none}
-    .pilir{
-      min-width:80vw;scroll-snap-align:center;
-      padding:10px 22px;
-    }
-    .pilir + .pilir{border-left:1px solid var(--line)}
-    .pilire-dots{display:flex}
-    .akce-grid{grid-template-columns:1fr}
-    .galerie{padding:60px 16px 56px}
-    .gal-grid{grid-template-columns:1fr 1fr;grid-auto-rows:150px;gap:10px}
-    .gal-item.velka{grid-column:span 2;grid-row:span 2}
-    .shop{padding:64px 20px}
-    .shop-grid{grid-template-columns:1fr 1fr;gap:14px}
-    .produkt-body{padding:14px 10px 18px}
-    .produkt-body h3{font-size:19px}
-  }
+  /* schedule */
+  h2{font-family:'Cinzel',serif;font-weight:500;font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--green-soft);margin:34px 0 12px;text-align:center}
+  .sched{border-top:1px solid var(--line)}
+  .srow{border-bottom:1px solid var(--line)}
+  .srow.now{background:rgba(94,135,105,.1);border-radius:10px;border-bottom-color:transparent}
+  .rowhead{width:100%;display:flex;align-items:center;gap:14px;padding:11px 4px;background:none;border:none;
+    cursor:pointer;text-align:left;color:inherit}
+  .srow.now .rowhead{padding-left:12px;padding-right:12px}
+  .rowhead .ic{width:20px;height:20px;flex:0 0 20px}
+  .rowhead .ic svg{width:100%;height:100%}
+  .rowhead .tm{font-family:'Jost',sans-serif;font-weight:400;font-size:13px;letter-spacing:.04em;flex:0 0 96px;color:var(--cream-dim)}
+  .rowhead .nm{font-family:'Cormorant Garamond',serif;font-size:19px;flex:1;color:var(--cream)}
+  .srow.now .rowhead .nm{color:#fff}
+  .rowhead .now-badge{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--green-soft)}
+  .rowhead .chev{color:var(--green-soft);font-size:12px;transition:transform .25s}
+  .rowhead.open .chev{transform:rotate(180deg)}
+  .rowdetail{display:none;padding:0 4px 12px 38px}
+  .rowdetail.open{display:block}
 
+  /* settings */
+  .settings{margin-top:30px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .settings summary{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--cream-dim);padding:15px 18px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .settings summary::-webkit-details-marker{display:none}
+  .settings summary::after{content:'+';font-size:18px;color:var(--green-soft)}
+  .settings[open] summary::after{content:'–'}
+  .settings .body{padding:4px 18px 20px}
+  .loc-line{font-size:16px;color:var(--cream-dim);margin-bottom:14px;font-style:italic}
+  .loc-note{font-size:16px;line-height:1.5;color:var(--cream-dim);margin-bottom:16px}
+  .loc-line b{color:var(--cream);font-style:normal}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green-soft);margin-bottom:5px}
+  .field input{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:9px;
+    padding:10px 12px;color:var(--cream);font-family:'Jost',sans-serif;font-size:14px}
+  .field input:focus{outline:none;border-color:var(--green-soft)}
+  .two{display:flex;gap:10px}
+  .two .field{flex:1}
+  .btn{width:100%;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.16em;
+    text-transform:uppercase;padding:13px;border-radius:99px;border:none;cursor:pointer;margin-top:6px}
+  .btn.primary{background:linear-gradient(90deg,var(--green),var(--rose-deep));color:#fff}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--cream-dim);margin-top:9px}
+  .btn:active{transform:translateY(1px)}
 
+  /* current-tattva detail */
+  .more{display:flex;align-items:center;justify-content:center;gap:9px;margin:18px auto 0;
+    background:rgba(243,239,231,.05);border:1px solid var(--green-soft);border-radius:99px;cursor:pointer;
+    font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--green-soft);padding:13px 24px}
+  .more:active{transform:translateY(1px)}
+  .more::after{content:'▾';font-size:13px}
+  .more.open::after{content:'▴'}
+  .detail{display:none;margin-top:8px;border:1px solid var(--line);border-radius:16px;padding:6px 18px 14px;
+    background:linear-gradient(180deg,rgba(243,239,231,.04),rgba(243,239,231,.01))}
+  .detail.open{display:block}
+  .drow{padding:12px 0;border-bottom:1px solid var(--line)}
+  .drow:last-child{border-bottom:none}
+  .drow .k{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--rose);margin-bottom:5px}
+  .drow .v{font-size:17px;line-height:1.45;color:var(--cream)}
+  .drow .dlist{margin:2px 0 0;padding-left:18px}
+  .drow .dlist li{margin-bottom:5px;line-height:1.4}
 
-  /* ===== GALERIE ===== */
-  .galerie{max-width:1240px;margin:0 auto;padding:90px 32px 80px}
-  .gal-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    grid-auto-rows:210px;
-    gap:14px;
-  }
-  .gal-item{
-    border-radius:8px;overflow:hidden;position:relative;
-    display:flex;align-items:flex-end;justify-content:center;
-    font-style:italic;font-size:14px;color:rgba(253,250,245,.8);
-    padding-bottom:10px;
-    transition:transform .35s ease, box-shadow .35s ease;
-  }
-  .gal-item:hover{transform:scale(1.02);box-shadow:0 14px 32px rgba(46,68,52,.16)}
-  .gal-item.velka{grid-column:span 2;grid-row:span 2}
-  .gal-item::after{
-    content:"";position:absolute;inset:auto 0 0 0;height:42%;
-    background:linear-gradient(0deg,rgba(20,28,18,.55),transparent);
-  }
-  .gal-item .popisek{z-index:1;
-    position:absolute;left:14px;bottom:12px;
-    font-family:'Cormorant Garamond',serif;font-style:normal;
-    font-size:17px;letter-spacing:.06em;color:#fdfaf5;
-    text-shadow:0 1px 10px rgba(0,0,0,.6);
-  }
-  .gal-item{background-size:cover;background-position:center}
-  .g1{background-image:url(/img/gal-1.jpg)}
-  .g2{background-image:url(/img/gal-2.jpg)}
-  .g6{background-image:url(/img/gal-3.jpg)}
-  .g3{background-image:url(/img/gal-4.jpg)}
-  .g5{background-image:url(/img/gal-5.jpg)}
-  /* ===== BALI SHOP ===== */
-  .shop{max-width:1240px;margin:0 auto;padding:90px 32px}
-  .shop .sekce-head p.pod{
-    font-size:20px;font-style:italic;color:#4c5247;
-    max-width:560px;margin:14px auto 0;
-  }
-  .shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-bottom:44px}
-  .produkt{
-    background:#fbf8f2;border:1px solid var(--line);border-radius:8px;
-    overflow:hidden;text-align:center;
-    transition:transform .3s ease, box-shadow .3s ease;
-  }
-  .produkt:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(46,68,52,.10)}
-  .produkt-foto{
-    width:100%;aspect-ratio:1/1;object-fit:cover;display:block;
-  }
-  .produkt-body{padding:20px 18px 24px}
-  .produkt-body h3{font-size:22px;margin-bottom:6px}
-  .produkt-body .cena{font-size:18px;color:var(--rose);letter-spacing:.04em}
-  .shop-cta{text-align:center}
-  .shop-cta .btn{background:var(--green)}
-  .shop-cta .btn:hover{background:#1f3024}
+  /* intro explainer */
+  .intro{margin-top:30px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .intro summary{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;
+    color:var(--cream);padding:16px 18px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .intro summary::-webkit-details-marker{display:none}
+  .intro summary::after{content:'+';font-size:18px;color:var(--green-soft)}
+  .intro[open] summary::after{content:'–'}
+  .intro .body{padding:0 18px 18px}
+  .intro p{font-size:17px;line-height:1.55;color:var(--cream-dim);margin-bottom:14px}
+  .intro .body em{font-style:normal;color:var(--cream)}
+  .legend{display:flex;flex-direction:column}
+  .lacc{border-top:1px solid var(--line)}
+  .lhead{width:100%;display:flex;align-items:center;gap:12px;padding:11px 0;background:none;border:none;
+    cursor:pointer;text-align:left;color:var(--cream)}
+  .lhead .ic{width:18px;height:18px;flex:0 0 18px}
+  .lhead .ic svg{width:100%;height:100%}
+  .lhead .nm{font-family:'Cinzel',serif;font-size:15px;flex:0 0 74px}
+  .lhead .ds{font-size:15px;color:var(--cream-dim);flex:1;line-height:1.3}
+  .lhead .chev{color:var(--green-soft);font-size:13px;transition:transform .25s}
+  .lhead.open .chev{transform:rotate(180deg)}
+  .ldetail{display:none;padding:0 0 6px 30px}
+  .ldetail.open{display:block}
 
-  /* ===== NEWSLETTER ===== */
-  .news{
-    background:var(--cream-dark, #EDE7DB);
-    border-top:1px solid var(--line);
-    text-align:center;
-    padding:84px 24px;
-  }
-  .news .pod{
-    font-size:20px;font-style:italic;color:#4c5247;
-    max-width:560px;margin:14px auto 34px;
-  }
-  .news-form{max-width:560px;margin:0 auto}
-  /* ===== ROZCESTNÍK „CHCI PŘIJET" ===== */
-  .modal-backdrop{
-    position:fixed;inset:0;background:rgba(20,26,18,.55);
-    display:none;align-items:flex-start;justify-content:center;
-    padding:7vh 18px 40px;z-index:100;overflow-y:auto;
-    backdrop-filter:blur(3px);
-  }
-  .modal-backdrop.open{display:flex}
-  .modal{
-    background:#fdf7ea;
-    border-radius:16px;
-    max-width:880px;width:100%;
-    padding:40px 44px 44px;
-    position:relative;
-    box-shadow:0 30px 80px rgba(0,0,0,.35);
-  }
-  .modal .eyebrow-m{
-    font-size:15px;letter-spacing:.3em;text-transform:uppercase;
-    color:var(--rose);margin-bottom:10px;
-  }
-  .modal h2{font-size:clamp(28px,4vw,38px);margin-bottom:30px}
-  .modal-close{
-    position:absolute;top:30px;right:32px;
-    width:48px;height:48px;
-    background:#fff;border:1px solid var(--line);border-radius:8px;
-    font-size:22px;color:var(--green);cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    transition:background .2s;
-  }
-  .modal-close:hover{background:var(--cream-dark)}
-  .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  .modal-card{
-    display:block;background:#fff;
-    border:1px solid var(--line);border-radius:10px;
-    padding:22px 26px;
-    transition:border-color .2s, transform .2s, box-shadow .2s;
-  }
-  .modal-card:hover{
-    border-color:var(--rose);transform:translateY(-2px);
-    box-shadow:0 10px 24px rgba(46,68,52,.10);
-  }
-  .modal-card h3{font-size:24px;font-weight:600;margin-bottom:6px}
-  .modal-card p{font-size:18px;color:#4c5247}
-  @media (max-width:680px){
-    .modal{padding:30px 22px 26px}
-    .modal-close{top:22px;right:20px}
-    .modal-grid{grid-template-columns:1fr}
-  }
-  @media (max-width:900px){
-    .shop-grid{grid-template-columns:repeat(2,1fr);gap:14px}
-    .produkt-body h3{font-size:17px}
-    .produkt-body .cena{font-size:15px}
-    .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;gap:10px}
-    .gal-velka{grid-column:span 2;grid-row:span 2}
-    .gal-item .popisek{font-size:13px;padding:8px 10px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{transition:none!important}
-  }
+  footer{text-align:center;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.12em;
+    color:rgba(243,239,231,.3);margin-top:30px;line-height:1.7}
+  .footlink{display:inline-block;margin-top:12px;color:var(--rose);text-decoration:none;
+    font-size:11px;letter-spacing:.18em}
 </style>
 </head>
 <body>
+<div class="app">
+  <a class="eyebrow" href="https://oaza-adamanthea.cz" target="_blank" rel="noopener">Oáza Adamanthea</a>
+  <h1>Tatvy</h1>
+  <div class="sub">Co právě proudí</div>
+  <div class="install" id="install"></div>
 
-<!-- ============ HERO ============ -->
-<header class="hero">
-  <nav>
-    <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
-    <div class="menu" id="menu">
-      <a href="/portalova-zahrada">Portálová zahrada</a>
-      <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
-      <a href="#oaza">Akce</a>
-      <a href="/nabidka-sluzeb">Služby</a>
-      <a href="/pronajem-prostor">Pronájem</a>
-      <a href="/spirit-shop-1">E-shop</a>
-      <a href="https://web.oaza-adamanthea.cz/">O nás</a>
-      <a href="/kontakt">Kontakt</a>
-      <a href="/kontakt" class="js-prijet jen-mobil">Chci přijet</a>
+  <div class="stage">
+    <div class="glyph-wrap">
+      <div class="halo" id="halo"></div>
+      <div class="glyph" id="glyph"></div>
     </div>
-    <a class="btn js-prijet" href="/kontakt">Chci přijet</a>
-  </nav>
+    <div class="tname" id="tname">—<small id="tmeaning"></small></div>
+    <div class="bar"><span id="prog" style="width:0%"></span></div>
+    <div class="countdown" id="cd">Načítám…</div>
+    <div class="startnote" id="startnote"></div>
+  </div>
 
-  <div style="flex:1"></div>
-</header>
+  <div class="fav" id="fav"></div>
 
-<!-- ============ PODTITUL POD FOTKOU ============ -->
-<section class="hero-pod">
-  <h1 class="sr-only">Oáza Adamanthea — krystal &amp; retreat centrum</h1>
-  <p class="sub">Místo pro zastavení, ztišení a návrat k sobě</p>
-  <p class="sub-it">Retreat centrum v srdci Moravy</p>
-  <a class="btn js-prijet" href="/kontakt">Chci přijet</a>
-</section>
+  <button class="more" id="moreBtn" aria-expanded="false">Více o tatvě</button>
+  <div class="detail" id="detail"></div>
 
-<!-- ============ ČTYŘI PILÍŘE ============ -->
-<div class="pilire-wrap">
-<section class="pilire" id="pilire">
-  <div class="pilir" id="pobyty">
-    <div class="ikona">
-      <!-- lotos -->
-      <svg width="46" height="40" viewBox="0 0 46 40" fill="none" aria-hidden="true">
-        <path d="M23 6 C27 12 27 20 23 26 C19 20 19 12 23 6Z" stroke="#b06a6c" stroke-width="1.2"/>
-        <path d="M10 14 C16 16 20 22 21 28 C14 27 10 21 10 14Z" stroke="#b06a6c" stroke-width="1.2"/>
-        <path d="M36 14 C30 16 26 22 25 28 C32 27 36 21 36 14Z" stroke="#b06a6c" stroke-width="1.2"/>
-        <path d="M4 26 C10 32 18 34 23 33 C28 34 36 32 42 26 C36 38 10 38 4 26Z" stroke="#b06a6c" stroke-width="1.2"/>
-      </svg>
-    </div>
-    <h3>Pobyt ve světle</h3>
-    <p>Lesní glamping v srdci portálové zahrady pro hluboký odpočinek a návrat k sobě.</p>
-    <a class="vice" href="/pobyt-ve-svetle">Zobrazit více
-      <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
+  <div class="nextline" id="nextline"></div>
+
+  <div class="tip">
+    <div class="label">Tip z Oázy</div>
+    <a class="tip-card" id="tipLink" href="#" target="_blank" rel="noopener">
+      <div class="tip-nadpis" id="tipNadpis">—</div>
+      <div class="tip-text" id="tipText"></div>
+      <span class="tip-go">Zobrazit →</span>
     </a>
+    <button class="tip-shuffle" id="tipShuffle">Jiný tip ↻</button>
   </div>
 
-  <div class="pilir" id="zahrada">
-    <div class="ikona">
-      <!-- portál -->
-      <svg width="42" height="46" viewBox="0 0 42 46" fill="none" aria-hidden="true">
-        <path d="M8 42 L8 22 C8 6 34 6 34 22 L34 42" stroke="#b06a6c" stroke-width="1.2"/>
-        <path d="M13 42 L13 23 C13 11 29 11 29 23 L29 42" stroke="#b06a6c" stroke-width=".8" opacity=".7"/>
-        <circle cx="21" cy="26" r="2" fill="#b06a6c"/>
-        <path d="M4 42 L38 42" stroke="#b06a6c" stroke-width="1.2"/>
-      </svg>
+  <div class="cycle" id="cycle"></div>
+
+  <h2>Nejbližší proudy</h2>
+  <div class="sched" id="sched"></div>
+
+  <details class="intro">
+    <summary>Co jsou tatvy?</summary>
+    <div class="body">
+      <p>Tatvy jsou univerzální energetické principy a základní stavební kameny reality, které představují mezistupně mezi čistým, neprojeveným vědomím a pevnou hmotou.</p>
+      <p>Vznikají procesem postupného „zahušťování" a zpomalování vibrací původní kosmické jednoty, která se skrze tvořivou sílu rozhodla prozkoumat samu sebe, přičemž tento sestup probíhá v kaskádě od nejjemnějšího prostoru (éteru) přes pohyb (vzduch), transformaci (oheň) a tekutost (vodu) až po nejhustší pevnou formu (zemi).</p>
+      <p>Podstata tatev spočívá v tom, že jsou to dynamické kvality a biorytmy, které tvoří jak vnější vesmír, tak vnitřní svět člověka (od našich čaker a smyslů až po buňky) – fungují jako zrcadla a nástroje, skrze které se vědomí projevuje, zažívá a skrze které se může vědomě vracet zpět ke svému zdroji.</p>
+      <p>V čase se střídají od východu slunce — každá vládne 24 minut, celý cyklus trvá 2 hodiny a opakuje se ve dne v noci. Když svůj čas sladíš s příznivou tatvou, věci jdou snáz.</p>
+      <div class="legend" id="legend"></div>
     </div>
-    <h3>Portálová zahrada</h3>
-    <p>Pyramida, portál Sirius a čakrová cesta — posvátný prostor, který léčí sám o sobě.</p>
-    <a class="vice" href="/portalova-zahrada">Zobrazit více
-      <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
-    </a>
-  </div>
+  </details>
 
-  <div class="pilir" id="sluzby">
-    <div class="ikona">
-      <!-- krystal -->
-      <svg width="40" height="46" viewBox="0 0 40 46" fill="none" aria-hidden="true">
-        <path d="M20 4 L29 14 L25 40 L15 40 L11 14 Z" stroke="#b06a6c" stroke-width="1.2"/>
-        <path d="M11 14 L29 14 M20 4 L20 40" stroke="#b06a6c" stroke-width=".8" opacity=".7"/>
-        <path d="M34 8 L34 13 M31.5 10.5 L36.5 10.5" stroke="#b06a6c" stroke-width="1"/>
-        <circle cx="6" cy="20" r="1" fill="#b06a6c"/>
-      </svg>
+  <details class="intro">
+    <summary>Jak s tatvami pracovat?</summary>
+    <div class="body">
+      <p>Nejdůležitější je, <em>v jaké tatvě činnost začneš</em>. Tatva, ve které něco zahájíš, tě tím úkonem provází celou dobu — i kdyby se mezitím hodiny přepnuly na další proud.</p>
+      <p>Jakmile tedy něco započneš, jede to ve vstupní tatvě, dokud to nedokončíš nebo nezačneš něco nového. Přepnutí tatvy uprostřed úkonu už na něj nemá vliv.</p>
+      <p>Proto důležité věci — telefonát, podpis, vyznání, zahájení práce či cesty — <em>spouštěj v příznivé tatvě</em> (Prithví nebo Apas). Když zrovna běží méně příznivá, vyplatí se počkat těch pár minut na změnu.</p>
     </div>
-    <h3>Služby a terapie</h3>
-    <p>Krystalové rituály, harmonizace a terapie pro tělo, mysl i duši. Osobně i na dálku.</p>
-    <a class="vice" href="/nabidka-sluzeb">Zobrazit více
-      <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
-    </a>
-  </div>
+  </details>
 
-  <div class="pilir" id="pronajem">
-    <div class="ikona">
-      <!-- altán -->
-      <svg width="46" height="42" viewBox="0 0 46 42" fill="none" aria-hidden="true">
-        <path d="M8 18 L23 6 L38 18" stroke="#b06a6c" stroke-width="1.2"/>
-        <path d="M11 18 L11 36 M35 18 L35 36 M8 36 L38 36" stroke="#b06a6c" stroke-width="1.2"/>
-        <path d="M19 36 L19 26 C19 23 27 23 27 26 L27 36" stroke="#b06a6c" stroke-width="1"/>
-      </svg>
-    </div>
-    <h3>Pronájem prostoru</h3>
-    <p>Klidné a inspirativní prostory pro vaše akce, kurzy a setkání.</p>
-    <a class="vice" href="/pronajem-prostor">Zobrazit více
-      <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
-    </a>
-  </div>
-</section>
-<div class="pilire-dots" id="pilire-dots" aria-hidden="true">
-  <span class="on"></span><span></span><span></span><span></span>
-</div>
-</div>
-
-<!-- ============ NADCHÁZEJÍCÍ AKCE ============ -->
-<section class="akce" id="oaza">
-  <div class="sekce-head">
-    <h2>Nadcházející akce</h2>
-    <div class="orn">
-      <svg width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
-        <path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#b06a6c" stroke-width="1"/>
-      </svg>
-    </div>
-  </div>
-
-  <div class="akce-grid" id="akce-grid">
-    <article class="akce-card">
-      <img class="akce-foto" src="/img/akce-1.jpg" alt="Sedm světelných impulzů" loading="lazy">
-      <div class="akce-body">
-        <p class="datum">15.–21. června · 21:00</p>
-        <h3>Sedm světelných impulzů</h3>
-        <p>Sedm večerů, sedm přenosů světla — 15minutová aktivace každý den až do slunovratu.</p>
-        <a class="vice" href="/akce/sedm-svetelnych-impulzu">Více o akci
-          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
-        </a>
+  <details class="settings">
+    <summary>Místo a východ slunce</summary>
+    <div class="body">
+      <p class="loc-note">Tatvy se počítají od východu slunce, který je na každém místě v trochu jiný čas. Proto zadej své místo — appka pak ukáže tatvy přesně pro tebe. Polohu zjistíme jen když na to klikneš, nebo ji vyplň ručně.</p>
+      <div class="loc-line" id="locLine">—</div>
+      <div class="two">
+        <div class="field"><label>Šířka</label><input id="lat" type="number" step="0.0001"></div>
+        <div class="field"><label>Délka</label><input id="lng" type="number" step="0.0001"></div>
       </div>
-    </article>
-
-    <article class="akce-card">
-      <img class="akce-foto" src="/img/akce-2.jpg" alt="Kakaová ceremonie a koncert léčivých písní" loading="lazy">
-      <div class="akce-body">
-        <p class="datum">sobota 27. června · 16:00</p>
-        <h3>Kakaová ceremonie a koncert léčivých písní</h3>
-        <p>Hudba, kakao a společný čas pro srdce v nové Shalle. Uvolnění, propojení a léčivé vibrace.</p>
-        <a class="vice" href="/akce/kakaova-ceremonie">Více o akci
-          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
-        </a>
-      </div>
-    </article>
-
-    <article class="akce-card">
-      <img class="akce-foto" src="/img/akce-3.jpg" alt="Den otevřených dveří v Oáze Adamanthea" loading="lazy">
-      <div class="akce-body">
-        <p class="datum">sobota 11. července</p>
-        <h3>Den otevřených dveří</h3>
-        <p>Přijďte nasát klid, harmonii a sílu tohoto místa — prohlídka prostor, setkání a sdílení.</p>
-        <a class="vice" href="/akce/den-otevrenych-dveri">Více o akci
-          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
-        </a>
-      </div>
-    </article>
-  </div>
-
-  <div class="akce-vse">
-    <a class="btn" href="/akce">Zobrazit všechny akce</a>
-  </div>
-</section>
-
-<!-- ============ O OÁZE ============ -->
-<section class="o-oaze" id="onas">
-  <h2>Místo, kde se propojují světy</h2>
-  <p>Kousek od Zlína i Uherského Hradiště, obklopeni přírodou, najdete prostor, který léčí sám o sobě. Portálová zahrada, krystaly a posvátný klid vás provedou zpět k vaší podstatě.</p>
-  <a class="btn" href="https://web.oaza-adamanthea.cz/">Poznat náš příběh</a>
-</section>
-
-
-<!-- ============ GALERIE OÁZY ============ -->
-<section class="galerie" id="galerie">
-  <div class="sekce-head">
-    <h2>Galerie Oázy</h2>
-    <div class="orn">
-      <svg width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
-        <path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#b06a6c" stroke-width="1"/>
-      </svg>
+      <div class="field"><label>Datum</label><input id="date" type="date"></div>
+      <div class="field"><label>Východ slunce ručně (nepovinné)</label><input id="sr" type="time"></div>
+      <button class="btn primary" id="apply">Přepočítat</button>
+      <button class="btn ghost" id="geo">Použít moji polohu</button>
     </div>
-  </div>
+  </details>
 
-  <div class="gal-grid">
-    <div class="gal-item velka g1"><span class="popisek">Portálová zahrada</span></div>
-    <div class="gal-item g2"><span class="popisek">Pyramida</span></div>
-    <div class="gal-item g6"><span class="popisek">Portál Sirius</span></div>
-    <div class="gal-item g3"><span class="popisek">Meditační místnost</span></div>
-    <div class="gal-item g5"><span class="popisek">Maloka</span></div>
-  </div>
-</section>
-
-<!-- ============ BALI SHOP ============ -->
-<section class="shop" id="eshop">
-  <div class="sekce-head">
-    <h2>Bali shop</h2>
-    <div class="orn">
-      <svg width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
-        <path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#b06a6c" stroke-width="1"/>
-      </svg>
-    </div>
-    <p class="pod">Krystaly, šaty, šperky a rituální předměty — vybírané osobně na cestách po Bali.</p>
-  </div>
-
-  <div class="shop-grid">
-    <a class="produkt" href="/product-page/flow-disc">
-      <img class="produkt-foto" src="/img/produkt-3.jpg" alt="Flow Disc" loading="lazy">
-      <div class="produkt-body">
-        <h3>Flow Disc</h3>
-        <p class="cena">12 000 Kč / 480 €</p>
-      </div>
-    </a>
-    <a class="produkt" href="/product-page/aura-sprej-narozen%C3%AD">
-      <img class="produkt-foto" src="/img/produkt-1.jpg" alt="Aura sprej – Zrození" loading="lazy">
-      <div class="produkt-body">
-        <h3>Aura sprej – Zrození</h3>
-        <p class="cena">690 Kč / 28 €</p>
-      </div>
-    </a>
-    <a class="produkt" href="/product-page/ceremoni%C3%A1ln%C3%AD-kakao-ubud-raw-120g">
-      <img class="produkt-foto" src="/img/produkt-2.jpg" alt="Ceremoniální kakao UBUD RAW" loading="lazy">
-      <div class="produkt-body">
-        <h3>Ceremoniální kakao UBUD RAW</h3>
-        <p class="cena">350 Kč / 14 €</p>
-      </div>
-    </a>
-    <a class="produkt" href="/product-page/%C5%A1aty-s-v%C3%BD%C5%A1ivkou-indie-1">
-      <img class="produkt-foto" src="/img/produkt-4.jpg" alt="Šaty s výšivkou Indie" loading="lazy">
-      <div class="produkt-body">
-        <h3>Šaty s výšivkou Indie</h3>
-        <p class="cena">1 550 Kč / 62 €</p>
-      </div>
-    </a>
-  </div>
-
-  <div class="shop-cta">
-    <a class="btn" href="/spirit-shop-1">Vstoupit do e-shopu</a>
-  </div>
-</section>
-
-
-<!-- ============ NEWSLETTER ============ -->
-<section class="news" id="newsletter">
-  <div class="sekce-head" style="margin-bottom:0">
-    <h2>Dopisy z Oázy</h2>
-    <div class="orn">
-      <svg width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
-        <path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#b06a6c" stroke-width="1"/>
-      </svg>
-    </div>
-  </div>
-  <p class="pod">Připojte se k více než 1 300 čtenářům. Jednou za čas vám pošleme pozvánky na akce, inspiraci a vhledy z portálové zahrady.</p>
-  <div class="news-form" style="text-align:center">
-    <a class="btn" href="https://ozas-newsletter.beehiiv.com/subscribe" target="_blank" rel="noopener">Přihlásit se k odběru →</a>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer id="kontakt">
-  <p class="f-logo">Oáza Adamanthea</p>
-  <p class="f-tag">Krystal &amp; retreat centrum</p>
-  <p class="kontakt">
-    Halenkovice 400, 763 63 Halenkovice<br>
-    <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
-    <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
-  </p>
-  <div class="soc">
-    <a href="https://www.facebook.com/groups/1679547508831715" aria-label="Facebook" target="_blank" rel="noopener">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M12.5 3.5 H10.8 C9.2 3.5 8.2 4.5 8.2 6.2 V8.2 H6.5 V10.8 H8.2 V16.5 H10.9 V10.8 H12.9 L13.3 8.2 H10.9 V6.5 C10.9 6 11.2 5.8 11.7 5.8 H13.4 Z" stroke="#b06a6c" stroke-width="1.2" fill="none"/>
-      </svg>
-    </a>
-    <a href="https://www.instagram.com/oazahalenkovice_healingcenter" aria-label="Instagram" target="_blank" rel="noopener">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <rect x="3" y="3" width="14" height="14" rx="4.2" stroke="#b06a6c" stroke-width="1.2"/>
-        <circle cx="10" cy="10" r="3.4" stroke="#b06a6c" stroke-width="1.2"/>
-        <circle cx="14.4" cy="5.6" r="0.9" fill="#b06a6c"/>
-      </svg>
-    </a>
-  </div>
-  <p class="drobne">Místo pro zastavení, ztišení a návrat k sobě.</p>
-  <p class="drobne" style="font-style:normal;font-size:14px;margin-top:14px">
-    © 2026 Oáza Adamanthea · IČ 76564410 · <a href="/gdpr" style="color:var(--rose)">Ochrana osobních údajů</a>
-  </p>
-</footer>
-
-
-<!-- ============ ROZCESTNÍK „CHCI PŘIJET" ============ -->
-<div class="modal-backdrop" id="prijet" role="dialog" aria-modal="true" aria-labelledby="prijet-h">
-  <div class="modal">
-    <button class="modal-close" aria-label="Zavřít" onclick="zavriPrijet()">✕</button>
-    <p class="eyebrow-m">Chci přijet</p>
-    <h2 id="prijet-h">Jak chcete Oázu navštívit?</h2>
-    <div class="modal-grid">
-      <a class="modal-card" href="/pobyt-ve-svetle" onclick="zavriPrijet()">
-        <h3>Na pobyt</h3>
-        <p>Navede na Pobyt ve Světle a další pobytové možnosti.</p>
-      </a>
-      <a class="modal-card" href="/akce" onclick="zavriPrijet()">
-        <h3>Na akci</h3>
-        <p>Přejde na kalendář a nejbližší události v Oáze.</p>
-      </a>
-      <a class="modal-card" href="/nabidka-sluzeb" onclick="zavriPrijet()">
-        <h3>Na sezení</h3>
-        <p>Otevře nabídku služeb, terapií a harmonizací.</p>
-      </a>
-      <a class="modal-card" href="/portalova-zahrada" onclick="zavriPrijet()">
-        <h3>Do zahrady</h3>
-        <p>Vede k Portálové zahradě jako samostatnému prožitku.</p>
-      </a>
-      <a class="modal-card" href="/pronajem-prostor" onclick="zavriPrijet()">
-        <h3>Pronajmout prostor</h3>
-        <p>Pro lektory, průvodce a pořadatele vlastních setkání.</p>
-      </a>
-      <a class="modal-card" href="/kontakt" onclick="zavriPrijet()">
-        <h3>Nejsem si jistá</h3>
-        <p>Vede rovnou na kontakt, kde se dá společně vybrat cesta.</p>
-      </a>
-    </div>
-  </div>
+  <footer>
+    Pět tatev se střídá od východu slunce, každá 24 minut · cyklus 2 h<br>
+    Pořadí: Akáša · Váju · Tejas · Prithví · Apas
+    <br><a class="footlink" href="https://oaza-adamanthea.cz" target="_blank" rel="noopener">oaza-adamanthea.cz →</a>
+  </footer>
 </div>
 
 <script>
+/* ---------- Sunrise (NOAA / SunCalc, offline) ---------- */
+const SunCalc=(function(){
+  const PI=Math.PI,sin=Math.sin,cos=Math.cos,tan=Math.tan,asin=Math.asin,
+        atan=Math.atan2,acos=Math.acos,rad=PI/180,dayMs=864e5,J1970=2440588,J2000=2451545;
+  const toJulian=d=>d.valueOf()/dayMs-0.5+J1970;
+  const fromJulian=j=>new Date((j+0.5-J1970)*dayMs);
+  const toDays=d=>toJulian(d)-J2000;
+  const e=rad*23.4397;
+  const M0=d=>rad*(357.5291+0.98560028*d);
+  const eclLong=M=>{const C=rad*(1.9148*sin(M)+0.02*sin(2*M)+0.0003*sin(3*M));return M+C+rad*102.9372+PI;};
+  const decl=(l)=>asin(sin(0)*cos(e)+cos(0)*sin(e)*sin(l));
+  const J0=0.0009;
+  const approxTransit=(Ht,lw,n)=>J0+(Ht+lw)/(2*PI)+n;
+  const solarTransitJ=(ds,M,L)=>J2000+ds+0.0053*sin(M)-0.0069*sin(2*L);
+  const hourAngle=(h,phi,d)=>acos((sin(h)-sin(phi)*sin(d))/(cos(phi)*cos(d)));
+  return{getSunrise(date,lat,lng){
+    const lw=rad*-lng,phi=rad*lat,d=toDays(date),
+      n=Math.round(d-J0-lw/(2*PI)),ds=approxTransit(0,lw,n),
+      M=M0(ds),L=eclLong(M),dec=decl(L),Jnoon=solarTransitJ(ds,M,L),
+      w=hourAngle(-0.833*rad,phi,dec),a=approxTransit(w,lw,n),
+      Jset=solarTransitJ(a,M,L),Jrise=Jnoon-(Jset-Jnoon);
+    return fromJulian(Jrise);
+  }};
+})();
 
-  // jemné objevení pilířů při scrollu
-  (function(){
-    const cards=document.querySelectorAll('.pilir');
-    if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches){
-      cards.forEach(c=>c.classList.add('in'));return;
-    }
-    const io=new IntersectionObserver(es=>{
-      es.forEach((e)=>{ if(e.isIntersecting){
-        const i=[...cards].indexOf(e.target);
-        setTimeout(()=>e.target.classList.add('in'), i*130);
-        io.unobserve(e.target);
-      }});
-    },{threshold:.2});
-    cards.forEach(c=>io.observe(c));
-  })();
+/* ---------- Tatvy data ---------- */
+const TATTVAS=[
+  {key:'akasa',cs:'Akáša',el:'éter · duch',shape:'oval',color:'#3a3460',glow:'#5a4f8f',
+   fav:'poor',favTxt:'Čas ticha. Meditace a modlitba ano — obchod, smlouvy a schůzky raději ne.',
+   tip:'Ideální okamžik ztišit se v portálové zahradě nebo na meditaci.',
+   planet:'Saturn',
+   desc:'Prazáklad a prostor, z něhož vystupují ostatní čtyři živly a do něhož se zase vracejí — lůno všeho. Éterický princip ducha, ticha a prázdnoty.',
+   good:['Meditace, modlitba, ticho','Vnitřní reflexe, naslouchání intuici','Ukončování a dokončování věcí','Propouštění starého, odpuštění','Půst, vyprazdňování, úklid a zbavování se přebytku'],
+   avoid:['Zahajovat obchod či podnikání','Podepisovat smlouvy','Domlouvat schůzky a vyznání','Začínat cokoli důležitého — podle tradice selže'],
+   symbol:'Černo-indigový ovál (vejce)',gist:'ztišení, meditaci a modlitbu'},
+  {key:'vayu',cs:'Váju',el:'vzduch',shape:'circle',color:'#3b6fb5',glow:'#5a8fd6',
+   fav:'poor',favTxt:'Krátké a jednoduché úkony, intelektuální práce. Nezačínej nic dlouhodobého.',
+   tip:'Dobrý čas začíst se do Průvodce světelnými rody.',
+   planet:'Merkur',
+   desc:'Éterický princip vzduchu — pohyb, lehkost a myšlenka. Vše se hýbe a proudí, nic nestojí na místě.',
+   good:['Krátké a rychlé úkony','Komunikace, telefonáty, e-maily','Intelektuální a duševní práce','Pohyb, chůze, krátké cesty'],
+   avoid:['Dlouhodobé a složité závazky','Zahajovat nic trvalého — bývá to nestálé'],
+   symbol:'Modrý kruh',gist:'rychlé a jednoduché úkony'},
+  {key:'tejas',cs:'Tejas',el:'oheň',shape:'triangle',color:'#c0392b',glow:'#e05543',
+   fav:'neutral',favTxt:'Síla a zápal pro intenzivní práci. Pozor na spory, unáhlenost a horko.',
+   tip:'Energie na rozhýbání prostoru — co takhle harmonizace prostoru?',
+   planet:'Mars',
+   desc:'Éterický princip ohně — žár, přeměna a syrová energie. Cítíme víc tepla i vnitřního napětí.',
+   good:['Intenzivní fyzická i tvůrčí práce','Úkoly, které žádají zápal a odvahu','Náročné a dynamické činnosti','Studená koupel (tradičně neuškodí)'],
+   avoid:['Hádky a spory','Unáhlená rozhodnutí','Sňatek a milostné sliby — vede k hádkám','Pozor na nehody a výbuchy'],
+   symbol:'Červený trojúhelník',gist:'intenzivní práci a odvahu'},
+  {key:'prithvi',cs:'Prithví',el:'země',shape:'square',color:'#d4a72c',glow:'#e8c45a',
+   fav:'good',favTxt:'Tatva úspěchu a stability. Příznivý čas pro vše důležité, obchod i rozhodnutí.',
+   tip:'Příznivý okamžik pro Terapii hojnosti nebo rezervaci pobytu.',
+   planet:'Slunce (a Jupiter)',
+   desc:'Éterický princip země — pevnost, zakotvení a hmotná manifestace. Nejstabilnější ze všech proudů. Tatva úspěchu.',
+   good:['Obchod, jednání, důležitá rozhodnutí','Podpisy a uzavírání smluv','Zakládání trvalých věcí a dlouhodobých záměrů','Uzemnění, zahradničení, pobyt v přírodě','Jídlo, spánek, regenerace'],
+   avoid:['Téměř nic — spolu s Apas nejpříznivější čas dne'],
+   symbol:'Žlutý čtverec',gist:'obchod, rozhodnutí a vše důležité'},
+  {key:'apas',cs:'Apas',el:'voda',shape:'crescent',color:'#dfe7ec',glow:'#aec6d6',
+   fav:'good',favTxt:'Voda, láska, tvořivost a péče. Skvělé pro vztahy, léčení a jemnou práci.',
+   tip:'Voda a péče ti teď sednou — focení aury či dálková harmonizace.',
+   planet:'Venuše a Měsíc',
+   desc:'Éterický princip vody — tok, cit a plodnost. Jemný, pečující a léčivý proud.',
+   good:['Vztahy, láska, setkání','Umění, hudba, tvořivost','Léčení a jemná pečující práce','Dobročinnost a péče o druhé','Dlouhé cesty, sázení, zahajování příznivých věcí','Koupel, pití vody, kontakt s vodou'],
+   avoid:['Tvrdé, agresivní jednání — voda žádá jemnost'],
+   symbol:'Stříbrný půlměsíc',gist:'vztahy, tvořivost a léčení'}
+];
+const FAV_TAG={good:'příznivá',neutral:'neutrální',poor:'méně příznivá'};
 
-  // tečky pro mobilní posouvání
-  (function(){
-    const strip=document.getElementById('pilire');
-    const dots=document.querySelectorAll('#pilire-dots span');
-    if(!strip||!dots.length) return;
-    strip.addEventListener('scroll',()=>{
-      const i=Math.round(strip.scrollLeft / (strip.scrollWidth/4 - 1));
-      dots.forEach((d,k)=>d.classList.toggle('on', k===Math.min(i,3)));
-    },{passive:true});
-  })();
-  function prepniMenu(btn){
-    const m=document.getElementById('menu');
-    const open=m.classList.toggle('open');
-    btn.textContent=open?'✕':'☰';
-    document.body.style.overflow=open?'hidden':'';
+function liList(v){
+  if(Array.isArray(v))return '<ul class="dlist">'+v.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+  return v;
+}
+function detailHTML(t){
+  return '<div class="drow"><div class="k">Co to je</div><div class="v">'+t.desc+'</div></div>'+
+    '<div class="drow"><div class="k">Planeta</div><div class="v">'+t.planet+'</div></div>'+
+    '<div class="drow"><div class="k">Vhodné pro</div><div class="v">'+liList(t.good)+'</div></div>'+
+    '<div class="drow"><div class="k">Čemu se vyhnout</div><div class="v">'+liList(t.avoid)+'</div></div>'+
+    '<div class="drow"><div class="k">Symbol</div><div class="v">'+t.symbol+'</div></div>';
+}
+
+function glyphSVG(t,size){
+  const c=t.color, s=size||128;
+  if(t.shape==='oval')   return `<svg viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="30" ry="42" fill="${c}" stroke="#7d76ad" stroke-width="1.5"/></svg>`;
+  if(t.shape==='circle') return `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="${c}"/></svg>`;
+  if(t.shape==='triangle')return `<svg viewBox="0 0 100 100"><polygon points="50,10 88,84 12,84" fill="${c}"/></svg>`;
+  if(t.shape==='square') return `<svg viewBox="0 0 100 100"><rect x="14" y="14" width="72" height="72" rx="4" fill="${c}"/></svg>`;
+  return `<svg viewBox="0 0 100 100"><path d="M70 50a30 30 0 1 1-21-28 23 23 0 1 0 21 28z" fill="${c}"/></svg>`;
+}
+
+/* ---------- State ---------- */
+let state={lat:49.197,lng:17.422,name:'Halenkovice',date:new Date(),manualSR:null};
+function saveLoc(){try{localStorage.setItem('tatvy_loc',JSON.stringify({lat:state.lat,lng:state.lng,name:state.name}));}catch(e){}}
+try{const s=JSON.parse(localStorage.getItem('tatvy_loc')||'null');if(s&&isFinite(s.lat)){state.lat=s.lat;state.lng=s.lng;state.name=s.name||'Uložené místo';}}catch(e){}
+
+function activeSunrise(now){
+  const d0=new Date(state.date.getFullYear(),state.date.getMonth(),state.date.getDate());
+  let sr=computeSR(d0);
+  if(now<sr){ // before today's sunrise → night cycle anchored on yesterday
+    const y=new Date(d0); y.setDate(y.getDate()-1);
+    sr=computeSR(y);
   }
-  document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{
-    const m=document.getElementById('menu');
-    if(m.classList.contains('open')){
-      m.classList.remove('open');
-      document.querySelector('.nav-toggle').textContent='☰';
-      document.body.style.overflow='';
+  return sr;
+}
+function computeSR(dayDate){
+  if(state.manualSR){
+    const [h,m]=state.manualSR.split(':').map(Number);
+    const d=new Date(dayDate); d.setHours(h,m,0,0); return d;
+  }
+  return SunCalc.getSunrise(dayDate,state.lat,state.lng);
+}
+
+function tattvaAt(elapsedMin){
+  const pos=((elapsedMin%120)+120)%120;
+  const idx=Math.floor(pos/24);
+  return{idx,into:pos-idx*24};
+}
+function fmt(d){return d.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});}
+
+/* ---------- Render ---------- */
+let lastSlotKey=null;
+let curT=null;
+function render(){
+  const now=new Date();
+  // if viewing a non-today date, anchor "now" to that date's noon for schedule but keep live clock for today
+  const isToday=now.toDateString()===state.date.toDateString();
+  const ref=isToday?now:new Date(state.date.getFullYear(),state.date.getMonth(),state.date.getDate(),12,0,0);
+
+  const sr=activeSunrise(ref);
+  const elapsed=(ref-sr)/60000;
+  const {idx,into}=tattvaAt(elapsed);
+  const t=TATTVAS[idx];
+
+  document.getElementById('glyph').innerHTML=glyphSVG(t);
+  document.getElementById('halo').style.background=t.glow;
+  document.getElementById('tname').innerHTML=t.cs+'<small>'+t.el+'</small>';
+  const remain=24-into;
+  document.getElementById('cd').innerHTML= isToday
+    ? 'zbývá <b>'+Math.floor(remain)+' min '+Math.floor((remain%1)*60)+' s</b> · další: '+TATTVAS[(idx+1)%5].cs
+    : 'v poledne · další: '+TATTVAS[(idx+1)%5].cs;
+  document.getElementById('prog').style.width=(into/24*100)+'%';
+  const sn=document.getElementById('startnote');
+  if(isToday){sn.style.display='block';sn.textContent='Co začneš teď, jede v tatvě '+t.cs+'.';}
+  else{sn.style.display='none';}
+  const nx=TATTVAS[(idx+1)%5];
+  document.getElementById('nextline').innerHTML=
+    (isToday?'Za '+Math.ceil(remain)+' min n':'N')+'ásleduje <b>'+nx.cs+'</b> — vhodná pro '+nx.gist+'.';
+
+  document.getElementById('fav').innerHTML=
+    '<span class="tag '+t.fav+'">'+FAV_TAG[t.fav]+'</span><br>'+t.favTxt;
+  document.getElementById('detail').innerHTML=detailHTML(t);
+  curT=t;
+  var mb=document.getElementById('moreBtn');
+  if(!document.getElementById('detail').classList.contains('open')) mb.textContent='Více o tatvě '+t.cs;
+
+  // cycle of 5
+  document.getElementById('cycle').innerHTML=TATTVAS.map((x,i)=>
+    `<div class="seg ${i===idx?'on':''}"><div class="dot" style="background:${i===idx?'rgba(243,239,231,.06)':'transparent'}">${glyphSVG(x)}</div><small>${x.cs}</small></div>`
+  ).join('');
+
+  // schedule: 12 slots from start of current cycle — rebuild only when slot changes
+  const cycleStart=new Date(sr.getTime()+Math.floor(elapsed/24)*24*60000);
+  const slotKey=cycleStart.getTime()+'|'+idx+'|'+isToday;
+  if(slotKey!==lastSlotKey){
+    lastSlotKey=slotKey;
+    let rows='';
+    for(let i=0;i<12;i++){
+      const slotStart=new Date(cycleStart.getTime()+i*24*60000);
+      const slotEnd=new Date(slotStart.getTime()+24*60000);
+      const ti=TATTVAS[(idx+i)%5];
+      const isNow=isToday&&i===0;
+      rows+=`<div class="srow ${isNow?'now':''}">
+        <button class="rowhead">
+          <span class="ic">${glyphSVG(ti)}</span>
+          <span class="tm">${fmt(slotStart)} – ${fmt(slotEnd)}</span>
+          <span class="nm">${ti.cs}</span>
+          ${isNow?'<span class="now-badge">teď</span>':''}
+          <span class="chev">▾</span>
+        </button>
+        <div class="rowdetail">${detailHTML(ti)}</div>
+      </div>`;
     }
-  }));
-  function otevriPrijet(e){
-    if(e) e.preventDefault();
-    document.getElementById('prijet').classList.add('open');
-    document.body.style.overflow='hidden';
+    document.getElementById('sched').innerHTML=rows;
+    document.querySelectorAll('#sched .rowhead').forEach(b=>{
+      b.onclick=()=>{b.classList.toggle('open', b.nextElementSibling.classList.toggle('open'));};
+    });
   }
-  function zavriPrijet(){
-    document.getElementById('prijet').classList.remove('open');
-    document.body.style.overflow='';
-  }
-  document.querySelectorAll('.js-prijet').forEach(b=>b.addEventListener('click',otevriPrijet));
-  document.getElementById('prijet').addEventListener('click',function(e){
-    if(e.target===this) zavriPrijet();
+
+  document.getElementById('locLine').innerHTML=
+    'Místo: <b>'+state.name+'</b> ('+state.lat.toFixed(3)+', '+state.lng.toFixed(3)+')<br>Východ slunce: <b>'+fmt(sr)+'</b>';
+}
+
+/* ---------- Controls ---------- */
+function syncInputs(){
+  document.getElementById('lat').value=state.lat.toFixed(4);
+  document.getElementById('lng').value=state.lng.toFixed(4);
+  const d=state.date;
+  document.getElementById('date').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+document.getElementById('apply').onclick=()=>{
+  state.lat=parseFloat(document.getElementById('lat').value)||state.lat;
+  state.lng=parseFloat(document.getElementById('lng').value)||state.lng;
+  const dv=document.getElementById('date').value;
+  if(dv){const[y,m,da]=dv.split('-').map(Number);state.date=new Date(y,m-1,da);}
+  state.manualSR=document.getElementById('sr').value||null;
+  state.name='Vlastní místo';
+  saveLoc();
+  render();
+};
+document.getElementById('geo').onclick=()=>{
+  if(!navigator.geolocation){alert('Geolokace není dostupná. Zadej polohu ručně.');return;}
+  navigator.geolocation.getCurrentPosition(p=>{
+    state.lat=p.coords.latitude;state.lng=p.coords.longitude;state.name='Moje poloha';state.manualSR=null;
+    document.getElementById('sr').value='';saveLoc();syncInputs();render();
+  },()=>alert('Polohu se nepodařilo zjistit. Zadej ji ručně.'));
+};
+
+document.getElementById('moreBtn').onclick=function(){
+  const d=document.getElementById('detail');
+  const open=d.classList.toggle('open');
+  this.classList.toggle('open',open);
+  this.setAttribute('aria-expanded',open);
+  this.textContent= open ? 'Skrýt detail' : ('Více o tatvě '+(curT?curT.cs:''));
+};
+document.getElementById('legend').innerHTML=TATTVAS.map((x,i)=>
+  `<div class="lacc">
+     <button class="lhead">
+       <span class="ic">${glyphSVG(x)}</span>
+       <span class="nm">${x.cs}</span>
+       <span class="ds">${x.el} — ${FAV_TAG[x.fav]}</span>
+       <span class="chev">▾</span>
+     </button>
+     <div class="ldetail">${detailHTML(x)}</div>
+   </div>`
+).join('');
+document.querySelectorAll('.lhead').forEach(b=>{
+  b.onclick=()=>{
+    const d=b.nextElementSibling;
+    b.classList.toggle('open', d.classList.toggle('open'));
+  };
+});
+
+/* ---------- Tip z Oázy: náhodná nabídka ---------- */
+const FALLBACK_NABIDKY=[
+  {nadpis:'Pobyt ve světle',text:'Vícedenní ztišení a obnova ve světle.',url:'https://oaza-adamanthea.cz/pobyt-ve-svetle.html'},
+  {nadpis:'Portálová zahrada',text:'Místo síly pod širým nebem.',url:'https://oaza-adamanthea.cz/portalova-zahrada.html'},
+  {nadpis:'Kraniosakrální terapie',text:'Jemné doteky, které vracejí tělo do rovnováhy.',url:'https://oaza-adamanthea.cz/kraniosakralni-terapie.html'},
+  {nadpis:'Rodové klíče',text:'Odemkni vzorce svého rodu a uvolni, co tě tíží.',url:'https://oaza-adamanthea.cz/rodove-klice.html'},
+  {nadpis:'Pronájem prostor',text:'Hledáš místo pro svůj kurz či setkání?',url:'https://oaza-adamanthea.cz/pronajem-prostor.html'},
+  {nadpis:'Vesmírný kód zrození',text:'Odhal svůj hvězdný původ v našem kvízu.',url:'https://kviz.oaza-adamanthea.cz'},
+  {nadpis:'Nabídka služeb',text:'Projdi si vše, co Oáza nabízí.',url:'https://oaza-adamanthea.cz/nabidka-sluzeb.html'}
+];
+let NABIDKY=FALLBACK_NABIDKY.slice();
+let lastTip=-1;
+function renderTip(){
+  if(!NABIDKY.length)return;
+  let i;do{i=Math.floor(Math.random()*NABIDKY.length);}while(NABIDKY.length>1&&i===lastTip);
+  lastTip=i;const n=NABIDKY[i];
+  document.getElementById('tipNadpis').textContent=n.nadpis;
+  document.getElementById('tipText').textContent=n.text||'';
+  const a=document.getElementById('tipLink');
+  if(n.url){a.href=n.url;a.style.pointerEvents='auto';}else{a.removeAttribute('href');a.style.pointerEvents='none';}
+}
+function loadNabidky(){
+  fetch('nabidky.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{
+    if(Array.isArray(d)&&d.length)NABIDKY=d;renderTip();
+  }).catch(()=>renderTip());
+}
+document.getElementById('tipShuffle').onclick=renderTip;
+loadNabidky();
+
+/* Poprvé rozbalit vysvětlující sekce, pak už ne */
+let onboarded=false;
+try{onboarded=!!localStorage.getItem('tatvy_onboarded');}catch(e){}
+if(!onboarded){
+  document.querySelectorAll('details.intro').forEach(d=>d.open=true);
+  try{localStorage.setItem('tatvy_onboarded','1');}catch(e){}
+}
+
+syncInputs();
+render();
+setInterval(()=>{ if(new Date().toDateString()===state.date.toDateString()) render(); },1000);
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+
+/* ---------- Instalace na plochu ---------- */
+(function(){
+  var el=document.getElementById('install');
+  var standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+  if(standalone)return; // už nainstalováno → nic nenabízíme
+  var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  var deferred=null;
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault();deferred=e;
+    el.innerHTML='<button class="install-btn" id="installBtn">Přidat na plochu</button>';
+    el.style.display='block';
+    document.getElementById('installBtn').onclick=function(){
+      el.style.display='none';deferred.prompt();
+      if(deferred.userChoice)deferred.userChoice.finally(function(){deferred=null;});
+    };
   });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape') zavriPrijet(); });
+  window.addEventListener('appinstalled',function(){el.style.display='none';});
+  if(isIOS){
+    el.innerHTML='<div class="install-ios">Chceš appku na ploše? Ťukni na <b>Sdílet</b> a pak <b>Přidat na plochu</b>.</div>';
+    el.style.display='block';
+  }
+})();
 
-  /* Živé načtení nejbližších akcí z databáze (přepíše statické karty níže) */
-  (function(){
-    var grid = document.getElementById('akce-grid');
-    if(!grid) return;
-    var arrow = '<svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>';
-    function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-    function teaser(s){ if(!s) return ''; var t=s.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim(); return t.length>105 ? t.slice(0,105)+'…' : t; }
-    fetch('/api/akce-list').then(function(r){return r.json();}).then(function(d){
-      var akce = (d && d.akce) || [];
-      var dnes = new Date(); dnes.setHours(0,0,0,0);
-      var nadchazejici = akce.filter(function(a){
-        if(a.stav === 'zrusena') return false;
-        if(!a.datum_od) return true;
-        return new Date(a.datum_od) >= dnes;
-      }).slice(0,3);
-      if(!nadchazejici.length) return; // ponech statické karty jako zálohu
-      grid.innerHTML = nadchazejici.map(function(a){
-        var foto = a.obrazek_url
-          ? '<img class="akce-foto" src="'+esc(a.obrazek_url)+'" alt="'+esc(a.nazev)+'" loading="lazy">'
-          : '<div class="akce-foto" style="display:flex;align-items:center;justify-content:center;background:#efe4cd;color:#9a7628;font-family:Cinzel,serif;letter-spacing:2px">OÁZA</div>';
-        return '<article class="akce-card">'+foto+
-          '<div class="akce-body">'+
-          (a.datum_text ? '<p class="datum">'+esc(a.datum_text)+'</p>' : '')+
-          '<h3>'+esc(a.nazev)+'</h3>'+
-          '<p>'+esc(teaser(a.popis))+'</p>'+
-          '<a class="vice" href="/akce/'+encodeURIComponent(a.slug)+'">Více o akci '+arrow+'</a>'+
-          '</div></article>';
-      }).join('');
-    }).catch(function(){ /* při chybě zůstanou statické karty */ });
-  })();
+/* ---------- Anonymní počítání použití ---------- */
+(function(){
+  try{
+    var SUPA_URL='https://myybuesoourgpbouwwst.supabase.co';
+    var SUPA_ANON='sb_publishable_v9E-GhERgU5JCvE0D-l65A_QB2S2yux';  // publishable (anon) klíč
+    if(SUPA_ANON==='VLOZ_ANON_KEY') return; // dokud není vyplněno, neměří se
+    var did=localStorage.getItem('tatvy_did');
+    if(!did){ did=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2); localStorage.setItem('tatvy_did',did); }
+    var mode=(window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true)?'standalone':'browser';
+    fetch(SUPA_URL+'/rest/v1/tatvy_navstevy',{
+      method:'POST',
+      headers:{apikey:SUPA_ANON,Authorization:'Bearer '+SUPA_ANON,'Content-Type':'application/json',Prefer:'return=minimal'},
+      body:JSON.stringify({device_id:did,mode:mode})
+    }).catch(function(){});
+  }catch(e){}
+})();
 </script>
-
-<script defer src="/navstevnost.js"></script>
 </body>
 </html>

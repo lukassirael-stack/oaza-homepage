@@ -1,10 +1,33 @@
 /* =====================================================================
    Oáza Adamanthea — měření návštěvnosti (cookieless)
    Umístění v repu:  oaza-web/navstevnost.js
+
+   Měří AKTIVNÍ dobu na stránce:
+   • počítá jen když je karta vidět (na pozadí se pauzuje)
+   • a zároveň jen když je návštěvník činný — po 30 s úplného klidu
+     (žádný pohyb myši / scroll / klik / dotek) se měření pozastaví
+     a naskočí znovu při první akci
+   Bez cookies, bez osobních dat, bez IP. Odesílá se při odchodu.
    ===================================================================== */
 (function () {
   "use strict";
   try {
+    // --- vyřazení vlastního zařízení z měření (opt-out) ---
+    // Na zařízení, které nechceš počítat, otevři web jednou s adresou:
+    //   https://oaza-adamanthea.cz/?nemerit=1   → vyřadí toto zařízení
+    //   https://oaza-adamanthea.cz/?nemerit=0   → zase zařadí
+    try {
+      var q = location.search || "";
+      if (/[?&]nemerit=1\b/.test(q)) {
+        localStorage.setItem("oaza_nemerit", "1");
+        alert("Toto zařízení je teď vyřazené z počítání návštěvnosti.");
+      } else if (/[?&]nemerit=0\b/.test(q)) {
+        localStorage.removeItem("oaza_nemerit");
+        alert("Toto zařízení se zase počítá do návštěvnosti.");
+      }
+      if (localStorage.getItem("oaza_nemerit") === "1") return; // neměř a neodesílej
+    } catch (e) {}
+
     var KLIC = "oaza_relace";
     var sid = sessionStorage.getItem(KLIC);
     if (!sid) {
@@ -15,9 +38,9 @@
       sessionStorage.setItem(KLIC, sid);
     }
 
-    var IDLE_MS = 30000;
+    var IDLE_MS = 30000;        // po 30 s klidu se měření pozastaví
     var aktivniMs = 0;
-    var zacatek = null;
+    var zacatek = null;          // běží-li právě měřený úsek (jinak null)
     var idleTimer = null;
     var odeslano = false;
 
@@ -35,12 +58,12 @@
     }
     function resetIdle() {
       if (idleTimer) clearTimeout(idleTimer);
-      idleTimer = setTimeout(zastav, IDLE_MS);
+      idleTimer = setTimeout(zastav, IDLE_MS); // klid → pozastav měření
     }
     function akce() {
       if (odeslano || !viditelna()) return;
-      start();
-      resetIdle();
+      start();       // byla-li pauza kvůli nečinnosti, znovu rozjeď
+      resetIdle();   // a posuň okno nečinnosti
     }
 
     function odesli() {
@@ -75,11 +98,13 @@
       } catch (e) {}
     }
 
+    // start, pokud je stránka při načtení vidět
     if (viditelna()) {
       start();
       resetIdle();
     }
 
+    // činnost návštěvníka
     ["mousemove", "mousedown", "keydown", "scroll", "wheel", "touchstart", "pointerdown", "click"]
       .forEach(function (ev) {
         window.addEventListener(ev, akce, { passive: true });
@@ -96,5 +121,7 @@
     });
     window.addEventListener("pagehide", odesli);
     window.addEventListener("beforeunload", odesli);
-  } catch (e) {}
+  } catch (e) {
+    /* tiše ignoruj — měření nikdy nesmí rozbít web */
+  }
 })();

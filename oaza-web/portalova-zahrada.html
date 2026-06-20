@@ -283,15 +283,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
             </div>
             <div class="field"><label>Telefon</label><input type="tel" id="telefon" placeholder="+420 777 000 000"></div>
 
-            <div class="cal-wrap">
-              <span class="cal-label">Preferovaný datum <span class="required">*</span></span>
-              <div class="cal-head">
-                <button type="button" class="cal-nav" onclick="resPrevMonth()">‹</button>
-                <span class="cal-month" id="resCalMonth"></span>
-                <button type="button" class="cal-nav" onclick="resNextMonth()">›</button>
-              </div>
-              <div class="cal-grid" id="resCalGrid"></div>
-            </div>
+            <div class="field"><label>Preferovaný den <span class="required">*</span></label><input type="date" id="datum" onchange="onDateChange()"></div>
 
             <div class="field-row">
               <div class="field"><label>Hodina příjezdu <span class="required">*</span></label>
@@ -300,16 +292,14 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
                   <option>8:00</option><option>9:00</option><option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option>
                 </select>
               </div>
-              <div class="field"><label>Předpokládaná délka</label>
-                <select id="delka_navstevy" onchange="updateSummary()">
-                  <option value="1">1 hodina</option>
-                  <option value="2" selected>2 hodiny</option>
-                  <option value="3">3 hodiny</option>
-                  <option value="4">Půlden (4 hod)</option>
-                  <option value="999">Celý den</option>
+              <div class="field"><label>Ubytování</label>
+                <select id="ubytovani" onchange="updateSummary()">
+                  <option value="ne">Nemám zájem o ubytování</option>
+                  <option value="ano">Mám zájem i o ubytování</option>
                 </select>
               </div>
             </div>
+            <div class="notes" style="margin-bottom:18px">🕯️ Návštěva probíhá ve <strong>dvouhodinovém cyklu</strong>. Pokud byste si přáli zahradu na delší dobu, napište nám to do poznámky. Zájem o ubytování upřesněte rovněž v poznámce.</div>
 
             <div class="field-row">
               <div class="field"><label>Dospělí (250 Kč/os.) <span class="required">*</span></label><input type="number" id="dospeli" min="1" max="30" value="1" oninput="calcPrice()"></div>
@@ -322,10 +312,10 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
               <div class="summary-title">📋 Shrnutí</div>
               <div class="summary-row"><span>Datum</span><span id="s-date">—</span></div>
               <div class="summary-row"><span>Čas příjezdu</span><span id="s-time">—</span></div>
-              <div class="summary-row"><span>Délka návštěvy</span><span id="s-duration">—</span></div>
+              <div class="summary-row"><span>Ubytování</span><span id="s-stay">—</span></div>
               <div class="summary-row"><span>Dospělí</span><span id="s-adults">—</span></div>
               <div class="summary-row"><span>Děti do 12 let</span><span id="s-children">—</span></div>
-              <div class="summary-total"><span>Celkem k úhradě</span><span id="s-price">—</span></div>
+              <div class="summary-total"><span>Orientační cena</span><span id="s-price">—</span></div>
             </div>
 
             <button type="button" class="btn-submit" id="submitBtn" onclick="submitForm()">🌿 Odeslat rezervaci</button>
@@ -470,30 +460,20 @@ async function removeClosedDate(ds){
 }
 
 // ══ REZERVACE ══
-let resYear=today.getFullYear(),resMonth=today.getMonth();
 let selectedDateStr='',selectedDateLabel='';
-function renderResCal(){
-  const closed=loadDates();
-  document.getElementById('resCalMonth').textContent=MONTHS[resMonth]+' '+resYear;
-  const grid=document.getElementById('resCalGrid');
-  grid.innerHTML=DAYS.map(d=>`<div class="cal-day-name">${d}</div>`).join('');
-  let s=new Date(resYear,resMonth,1).getDay();s=s===0?6:s-1;
-  for(let i=0;i<s;i++)grid.innerHTML+=`<div class="cal-day empty"></div>`;
-  const days=new Date(resYear,resMonth+1,0).getDate();
-  for(let d=1;d<=days;d++){
-    const date=new Date(resYear,resMonth,d);
-    const ds=`${resYear}-${String(resMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const isPast=date<today,isClosed=closed.includes(ds),isToday=date.getTime()===today.getTime(),isSel=selectedDateStr===ds;
-    let cls='cal-day';
-    if(isPast)cls+=' past';else if(isClosed)cls+=' closed';
-    if(isToday)cls+=' today';if(isSel)cls+=' selected';
-    const oc=(!isPast&&!isClosed)?`onclick="selectDate('${ds}','${d}. ${MONTHS_GEN[resMonth]} ${resYear}')"`:'';
-    grid.innerHTML+=`<div class="${cls}" ${oc}>${d}</div>`;
-  }
+function renderResCal(){} // měsíční kalendář nahrazen výběrem dne
+function todayISO(){return `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;}
+function onDateChange(){
+  const inp=document.getElementById('datum');
+  const ds=inp.value;
+  if(ds){
+    if(ds<todayISO()){showToast('⚠️ Tento den už uplynul, zvolte prosím jiný.');inp.value='';selectedDateStr='';selectedDateLabel='';updateSummary();return;}
+    if(loadDates().includes(ds)){showToast('⚠️ Tento den je bohužel obsazený — zvolte prosím jiný.');inp.value='';selectedDateStr='';selectedDateLabel='';updateSummary();return;}
+    const [y,m,d]=ds.split('-');
+    selectedDateStr=ds;selectedDateLabel=`${parseInt(d)}. ${MONTHS_GEN[parseInt(m)-1]} ${y}`;
+  }else{selectedDateStr='';selectedDateLabel='';}
+  updateSummary();
 }
-function selectDate(ds,label){selectedDateStr=ds;selectedDateLabel=label;document.getElementById('h_datum').value=ds;renderResCal();updateSummary();}
-function resPrevMonth(){resMonth--;if(resMonth<0){resMonth=11;resYear--;}renderResCal();}
-function resNextMonth(){resMonth++;if(resMonth>11){resMonth=0;resYear++;}renderResCal();}
 
 function calcPrice(){
   const a=parseInt(document.getElementById('dospeli').value)||0;
@@ -507,10 +487,10 @@ function calcPrice(){
 }
 function updateSummary(){
   const time=document.getElementById('cas_prijezdu').value;
-  const dur=document.getElementById('delka_navstevy');
-  if(time)document.getElementById('s-time').textContent=time;
-  if(dur)document.getElementById('s-duration').textContent=dur.options[dur.selectedIndex].text;
-  if(selectedDateLabel)document.getElementById('s-date').textContent=selectedDateLabel;
+  document.getElementById('s-time').textContent=time||'—';
+  document.getElementById('s-date').textContent=selectedDateLabel||'—';
+  const stay=document.getElementById('ubytovani');
+  if(stay)document.getElementById('s-stay').textContent=stay.value==='ano'?'Ano — zájem':'Ne';
   calcPrice();
 }
 function showSummary(){const show=selectedDateStr||document.getElementById('cas_prijezdu').value;document.getElementById('summary').style.display=show?'block':'none';}
@@ -526,16 +506,21 @@ async function submitForm(){
   const email=document.getElementById('email').value.trim();
   const telefon=document.getElementById('telefon').value.trim();
   const cas=document.getElementById('cas_prijezdu').value;
-  const delka=document.getElementById('delka_navstevy');
-  const delkaText=delka.options[delka.selectedIndex].text;
   const dospeli=parseInt(document.getElementById('dospeli').value)||1;
   const deti=parseInt(document.getElementById('deti').value)||0;
-  const poznamka=document.getElementById('poznamka').value;
+  const stay=document.getElementById('ubytovani').value;
+  const poznamkaText=document.getElementById('poznamka').value.trim();
   const cena=dospeli*250;
+  const delkaText='2 hodiny (základní cyklus)';
   if(!jmeno){alert('Prosím vyplňte jméno.');return;}
   if(!email){alert('Prosím vyplňte email.');return;}
-  if(!selectedDateStr){alert('Prosím vyberte datum.');return;}
+  if(!selectedDateStr){alert('Prosím vyberte preferovaný den.');return;}
   if(!cas){alert('Prosím vyberte čas příjezdu.');return;}
+  if(loadDates().includes(selectedDateStr)){alert('Vybraný den je obsazený, zvolte prosím jiný.');return;}
+  let poznamka='';
+  if(stay==='ano')poznamka+='🛏️ ZÁJEM O UBYTOVÁNÍ\n';
+  if(poznamkaText)poznamka+=poznamkaText;
+  poznamka=poznamka.trim();
   const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Odesílám...';
   try{
     await saveReservation({jmeno,email,telefon:telefon||'—',datum:selectedDateStr,cas_prijezdu:cas,delka_navstevy:delkaText,dospeli,deti,cena_celkem:cena,poznamka:poznamka||''});
@@ -609,6 +594,7 @@ function admPrevMonth(){admMonth--;if(admMonth<0){admMonth=11;admYear--;}renderA
 function admNextMonth(){admMonth++;if(admMonth>11){admMonth=0;admYear++;}renderAdmCal();}
 
 // ── START ──
+(function(){var di=document.getElementById('datum');if(di)di.min=todayISO();})();
 renderResCal();calcPrice();loadClosed();
 </script>
 <button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>

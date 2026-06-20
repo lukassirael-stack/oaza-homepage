@@ -133,6 +133,7 @@
     </div>
     <div class="controls">
       <div class="tabs" id="tabs">
+        <button data-dny="dnes">Dnes</button>
         <button data-dny="7">7 dní</button>
         <button data-dny="30" class="active">30 dní</button>
         <button data-dny="90">90 dní</button>
@@ -168,7 +169,7 @@ document.querySelectorAll("#tabs button").forEach(b=>{
   b.onclick = ()=>{
     document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("active"));
     b.classList.add("active");
-    dny = parseInt(b.dataset.dny,10);
+    dny = b.dataset.dny;
     nacti();
   };
 });
@@ -234,7 +235,7 @@ function vykresli(d){
 
   obsah.innerHTML = `
     <div class="cards">
-      <div class="card"><div class="label">Návštěvy</div><div class="num">${d.celkemNavstev}</div><div class="sub">za ${d.obdobiDnu} dní</div></div>
+      <div class="card"><div class="label">Návštěvy</div><div class="num">${d.celkemNavstev}</div><div class="sub">${d.obdobiPopis}</div></div>
       <div class="card"><div class="label">Unikátní relace</div><div class="num">${d.unikatnichRelaci}</div><div class="sub">jednotliví návštěvníci</div></div>
       <div class="card"><div class="label">Průměrná doba</div><div class="num">${fmtDoba(d.prumernaDoba)}</div><div class="sub">aktivní čas na stránce</div></div>
       <div class="card"><div class="label">Mobil / Desktop</div><div class="num">${mobilPct}%</div><div class="sub">${d.mobil} mobil · ${d.desktop} desktop</div></div>

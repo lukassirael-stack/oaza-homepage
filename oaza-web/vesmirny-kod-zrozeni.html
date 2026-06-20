@@ -166,9 +166,49 @@
     .nav.open .nav-toggle{position:absolute;right:18px;top:12px}
     .hero .blob,.blob{padding:36px 24px}
   }
+
+  /* ===== OŽIVENÍ — hvězdné pole, pohyb, světlo (přidáno) ===== */
+  @keyframes oazaTwinkle{0%,100%{opacity:.15}50%{opacity:.9}}
+  @keyframes oazaBreath{0%,100%{box-shadow:0 4px 32px rgba(201,162,39,.4),0 0 0 rgba(201,162,39,0)}50%{box-shadow:0 4px 40px rgba(201,162,39,.6),0 0 38px rgba(201,162,39,.28)}}
+  @keyframes oazaPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+  @keyframes oazaShoot{0%{transform:translate(0,0) rotate(35deg);opacity:0}8%{opacity:1}24%{opacity:1}40%{transform:translate(320px,224px) rotate(35deg);opacity:0}100%{opacity:0}}
+
+  .oaza-starfield{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .oaza-starfield i{position:absolute;display:block;width:2px;height:2px;border-radius:50%;
+    background:#fff;opacity:.2;animation:oazaTwinkle 4s ease-in-out infinite}
+  .oaza-starfield i.g{background:var(--gold-light);width:3px;height:3px}
+  .oaza-shoot{position:fixed;top:8%;left:-40px;width:2px;height:2px;border-radius:50%;
+    background:#fff;box-shadow:0 0 6px 2px rgba(255,255,255,.8),
+    -60px -42px 30px 1px rgba(255,255,255,.12);z-index:-1;pointer-events:none;
+    opacity:0;animation:oazaShoot 11s ease-in infinite}
+
+  .oaza-reveal{opacity:0;transform:translateY(26px);
+    transition:opacity .9s ease,transform .9s ease}
+  .oaza-reveal.in{opacity:1;transform:none}
+
+  .order .btn-pay{animation:oazaBreath 3.4s ease-in-out infinite}
+
+  .price-big{position:relative;display:inline-block}
+  .price-big::after{content:"";position:absolute;inset:-18px -34px;border-radius:50%;
+    background:radial-gradient(circle,rgba(201,162,39,.22),transparent 70%);
+    z-index:-1;animation:oazaPulse 4.2s ease-in-out infinite}
+
+  .oaza-sep{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px auto 30px;max-width:340px}
+  .oaza-sep .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  .oaza-sep .dot{width:5px;height:5px;border-radius:50%;background:var(--gold-light);
+    box-shadow:0 0 8px rgba(240,208,96,.7);animation:oazaTwinkle 3s ease-in-out infinite}
+  .oaza-sep .dot:nth-child(3){animation-delay:.6s}
+  .oaza-sep .dot:nth-child(4){animation-delay:1.2s}
+
+  @media (prefers-reduced-motion:reduce){
+    .oaza-starfield i,.oaza-shoot,.order .btn-pay,.price-big::after,.oaza-sep .dot{animation:none}
+    .oaza-reveal{opacity:1;transform:none;transition:none}
+  }
 </style>
 </head>
 <body>
+<div class="oaza-starfield" id="oazaStarfield" aria-hidden="true"></div>
+<div class="oaza-shoot" aria-hidden="true"></div>
 
 <nav class="nav" id="nav">
   <a class="nav-home" href="/" aria-label="Domů">
@@ -237,7 +277,7 @@
 
 <section>
   <div class="wrap">
-    <p class="stars center">✦ ✧ ✦</p>
+    <div class="oaza-sep" aria-hidden="true"><span class="ln"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ln"></span></div>
     <div class="blob specs">
       <ul>
         <li><b>36 otázek</b>, které tě vedou hluboko — 20 základních, 16 adaptabilních jen pro tebe</li>
@@ -247,7 +287,7 @@
         <li>Tohle tu ještě nebylo. Tohle je tvůj hvězdný otisk.</li>
       </ul>
     </div>
-    <p class="stars center" style="margin-top:18px">✦ ✧ ✦</p>
+    <div class="oaza-sep" aria-hidden="true" style="margin-top:18px"><span class="ln"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ln"></span></div>
   </div>
 </section>
 
@@ -316,6 +356,34 @@
 
 <script>
   function prepniMenu(){document.getElementById('nav').classList.toggle('open');}
+
+  /* ===== OŽIVENÍ — generování hvězd + scroll-reveal (přidáno) ===== */
+  (function(){
+    var sf = document.getElementById('oazaStarfield');
+    if(sf){
+      var n = window.innerWidth < 700 ? 60 : 110;
+      var html = '';
+      for(var i=0;i<n;i++){
+        var top = (Math.random()*100).toFixed(2);
+        var left = (Math.random()*100).toFixed(2);
+        var delay = (Math.random()*4).toFixed(2);
+        var dur = (3 + Math.random()*3).toFixed(2);
+        var gold = Math.random() < 0.18 ? ' class="g"' : '';
+        html += '<i'+gold+' style="top:'+top+'%;left:'+left+'%;animation-delay:'+delay+'s;animation-duration:'+dur+'s"></i>';
+      }
+      sf.innerHTML = html;
+    }
+    var reveal = document.querySelectorAll('section, .hero .blob, footer');
+    reveal.forEach(function(el){ el.classList.add('oaza-reveal'); });
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, {threshold:0.12});
+      reveal.forEach(function(el){ io.observe(el); });
+    } else {
+      reveal.forEach(function(el){ el.classList.add('in'); });
+    }
+  })();
 
   const PRICES = {
     czk: { label: '555 Kč', amount: 55500 },

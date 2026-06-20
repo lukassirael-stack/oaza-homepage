@@ -156,6 +156,32 @@ async function load(){
   }catch(e){ box.textContent='Akci se nepodařilo načíst.'; }
 }
 
+function mdToHtml(src){
+  if(!src) return '';
+  if(/<(p|ul|ol|li|h2|h3|br|div|strong|em)\b/i.test(src)) return src;
+  var t = String(src).replace(/\r\n?/g,'\n')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  function inline(x){
+    return x.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+            .replace(/\*([^*\n]+)\*/g,'<em>$1</em>');
+  }
+  var radky = t.split('\n');
+  var html='', p=[], li=[];
+  function flushP(){ if(p.length){ html+='<p>'+p.map(inline).join('<br>')+'</p>'; p=[]; } }
+  function flushUl(){ if(li.length){ html+='<ul>'+li.map(function(x){return '<li>'+inline(x)+'</li>';}).join('')+'</ul>'; li=[]; } }
+  for(var i=0;i<radky.length;i++){
+    var r=radky[i];
+    if(/^\s*$/.test(r)){ flushP(); flushUl(); continue; }
+    var h=r.match(/^(#{1,6})\s+(.*)$/);
+    if(h){ flushP(); flushUl(); var tag=h[1].length>=3?'h3':'h2'; html+='<'+tag+'>'+inline(h[2])+'</'+tag+'>'; continue; }
+    var b=r.match(/^\s*[-*]\s+(.*)$/);
+    if(b){ flushP(); li.push(b[1]); continue; }
+    flushUl(); p.push(r);
+  }
+  flushP(); flushUl();
+  return html;
+}
+
 function render(a, box){
   const img = a.obrazek_url
     ? `<img src="${a.obrazek_url}" alt="${(a.nazev||'').replace(/"/g,'')}">`
@@ -184,7 +210,7 @@ function render(a, box){
     <div class="portal">${img}</div>
     <div class="facts">${facts.join('')}</div>
     ${statusbar}
-    <div class="popis">${a.popis||''}</div>
+    <div class="popis">${mdToHtml(a.popis||'')}</div>
     ${cta}
     ${formularHTML(a)}
     <div id="dik"></div>

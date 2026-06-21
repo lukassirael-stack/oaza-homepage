@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O nás | Oáza Adamanthea</title>
+<meta name="description" content="Příběh Oázy Adamanthea — krystal a retreat centrum v srdci Moravy. Stránku s naším příběhem pro vás právě připravujeme.">
+<link rel="canonical" href="https://oaza-adamanthea.cz/o-nas">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/oaza-adamanthea-favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="O nás | Oáza Adamanthea">
+<meta property="og:description" content="Příběh Oázy Adamanthea — místo pro zastavení, ztišení a návrat k sobě.">
+<meta property="og:url" content="https://oaza-adamanthea.cz/o-nas">
+<meta property="og:image" content="https://oaza-adamanthea.cz/img/hero.jpg">
+<meta property="og:locale" content="cs_CZ">
+<meta name="theme-color" content="#23352a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f5f1e9;
+    --cream-dark:#ede7db;
+    --green:#2e4434;
+    --rose:#b06a6c;
+    --rose-dark:#9c585a;
+    --ink:#3a3f38;
+    --line:#d8d0c2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Cormorant Garamond',serif;
+    background:var(--cream);
+    color:var(--ink);
+    font-size:20px;
+    line-height:1.6;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  h1,h2,h3{font-weight:500;color:var(--green)}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
+
+  .btn{
+    display:inline-block;
+    background:var(--rose);
+    color:#fdfaf5;
+    font-size:19px;
+    padding:13px 34px;
+    border-radius:6px;
+    transition:background .25s ease;
+  }
+  .btn:hover{background:var(--rose-dark)}
+
+  /* ===== NAV ===== */
+  header.bar{
+    background:#23352a;
+  }
+  nav{
+    display:flex;align-items:center;justify-content:flex-end;gap:34px;
+    max-width:1280px;margin:0 auto;
+    padding:22px 48px;
+  }
+  nav .menu{display:flex;gap:26px;font-size:18px;color:#f3efe5}
+  nav .menu a{position:relative;padding-bottom:3px;color:#f3efe5}
+  nav .menu a.akt{color:#fff}
+  nav .menu a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:#fdfaf5;transition:width .25s ease;
+  }
+  nav .menu a:hover::after,nav .menu a.akt::after{width:100%}
+  .nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
+  .jen-mobil{display:none}
+
+  /* ===== HERO „PŘIPRAVUJEME" ===== */
+  main{flex:1;display:flex;flex-direction:column}
+  .uvod{
+    background:var(--green);
+    color:#f0ede4;
+    text-align:center;
+    padding:96px 24px 104px;
+  }
+  .uvod .eyebrow{
+    font-size:15px;letter-spacing:.3em;text-transform:uppercase;
+    color:rgba(243,239,229,.7);margin-bottom:18px;
+  }
+  .uvod h1{
+    color:#f5f1e9;
+    font-size:clamp(36px,6vw,56px);
+    margin-bottom:22px;
+  }
+  .uvod .orn{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:26px}
+  .uvod .orn::before,.uvod .orn::after{content:"";height:1px;width:54px;background:rgba(243,239,229,.35)}
+  .uvod p{
+    max-width:600px;margin:0 auto;
+    font-size:clamp(20px,2.6vw,23px);
+    font-style:italic;
+    color:rgba(243,239,229,.92);
+  }
+
+  /* ===== OBSAH ===== */
+  .obsah{
+    max-width:680px;margin:0 auto;
+    padding:80px 32px 90px;
+    text-align:center;
+  }
+  .obsah p{margin-bottom:24px;font-size:21px;color:#4c5247}
+  .obsah .cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .obsah .btn.ghost{background:transparent;color:var(--green);border:1px solid var(--green)}
+  .obsah .btn.ghost:hover{background:var(--green);color:#fdfaf5}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--cream-dark);
+    text-align:center;
+    padding:64px 32px 40px;
+    border-top:1px solid var(--line);
+  }
+  footer .f-logo{font-size:26px;color:var(--green);margin-bottom:6px}
+  footer .f-tag{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#6f7468;margin-bottom:26px}
+  footer .kontakt{font-size:19px;line-height:2;color:#4c5247}
+  footer .kontakt a{color:var(--rose)}
+  .soc{display:flex;justify-content:center;gap:16px;margin-top:28px}
+  .soc a{
+    width:44px;height:44px;border:1px solid var(--rose);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .25s, transform .25s;
+  }
+  .soc a:hover{background:var(--rose);transform:translateY(-2px)}
+  footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
+
+  @media (max-width:900px){
+    nav{padding:18px 22px;gap:20px}
+    nav .menu{
+      display:none;position:fixed;inset:0;
+      background:#15221a;flex-direction:column;
+      padding:96px 28px 40px;gap:0;text-align:left;z-index:50;
+      overflow-y:auto;
+    }
+    nav .menu.open{display:flex}
+    nav .menu a{
+      font-size:25px;color:#f3efe5;
+      padding:21px 4px;
+      border-bottom:1px solid rgba(243,239,229,.14);
+    }
+    nav .menu a::after{display:none}
+    .jen-mobil{display:block}
+    .nav-toggle{display:block;position:relative;z-index:60}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="bar">
+  <nav>
+    <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+    <div class="menu" id="menu">
+      <a href="/portalova-zahrada">Portálová zahrada</a>
+      <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+      <a href="/akce">Akce</a>
+      <a href="/nabidka-sluzeb">Služby</a>
+      <a href="/pronajem-prostor">Pronájem</a>
+      <a href="/spirit-shop-1">E-shop</a>
+      <a href="/o-nas" class="akt">O nás</a>
+      <a href="/kontakt">Kontakt</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- ============ PŘIPRAVUJEME ============ -->
+  <section class="uvod">
+    <p class="eyebrow">Oáza Adamanthea</p>
+    <h1>Náš příběh</h1>
+    <div class="orn"></div>
+    <p>Připravujeme pro vás stránku o tom, jak Oáza vznikla, kdo za ní stojí a co nás na téhle cestě vede.</p>
+  </section>
+
+  <!-- ============ OBSAH ============ -->
+  <section class="obsah">
+    <p>Kousek od Zlína i Uherského Hradiště, obklopeni přírodou, najdete prostor, který léčí sám o sobě. Portálová zahrada, krystaly a posvátný klid vás provedou zpět k vaší podstatě.</p>
+    <p>Celý náš příběh sem brzy doplníme. Než bude hotový, ozvěte se nám — rádi vás Oázou provedeme osobně.</p>
+    <div class="cta">
+      <a class="btn" href="/kontakt">Kontaktovat nás</a>
+      <a class="btn ghost" href="/nabidka-sluzeb">Naše služby</a>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer id="kontakt">
+  <p class="f-logo">Oáza Adamanthea</p>
+  <p class="f-tag">Krystal &amp; retreat centrum</p>
+  <p class="kontakt">
+    Halenkovice 400, 763 63 Halenkovice<br>
+    <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+    <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
+  </p>
+  <div class="soc">
+    <a href="https://www.facebook.com/groups/1679547508831715" aria-label="Facebook" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M12.5 3.5 H10.8 C9.2 3.5 8.2 4.5 8.2 6.2 V8.2 H6.5 V10.8 H8.2 V16.5 H10.9 V10.8 H12.9 L13.3 8.2 H10.9 V6.5 C10.9 6 11.2 5.8 11.7 5.8 H13.4 Z" stroke="#b06a6c" stroke-width="1.2" fill="none"/>
+      </svg>
+    </a>
+    <a href="https://www.instagram.com/oazahalenkovice_healingcenter" aria-label="Instagram" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <rect x="3" y="3" width="14" height="14" rx="4.2" stroke="#b06a6c" stroke-width="1.2"/>
+        <circle cx="10" cy="10" r="3.4" stroke="#b06a6c" stroke-width="1.2"/>
+        <circle cx="14.4" cy="5.6" r="0.9" fill="#b06a6c"/>
+      </svg>
+    </a>
+  </div>
+  <p class="drobne">Místo pro zastavení, ztišení a návrat k sobě.</p>
+  <p class="drobne" style="font-style:normal;font-size:14px;margin-top:14px">
+    © 2026 Oáza Adamanthea · IČ 76564410 · <a href="/gdpr" style="color:var(--rose)">Ochrana osobních údajů</a>
+  </p>
+</footer>
+
+<script>
+  function prepniMenu(btn){
+    const m=document.getElementById('menu');
+    const open=m.classList.toggle('open');
+    btn.textContent=open?'✕':'☰';
+    document.body.style.overflow=open?'hidden':'';
+  }
+  document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{
+    const m=document.getElementById('menu');
+    if(m.classList.contains('open')){
+      m.classList.remove('open');
+      document.querySelector('.nav-toggle').textContent='☰';
+      document.body.style.overflow='';
+    }
+  }));
+</script>
+
+<script defer src="/navstevnost.js"></script>
+</body>
+</html>

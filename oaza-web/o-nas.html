@@ -25,8 +25,7 @@
     font-family:'Cormorant Garamond',serif;
     background:var(--cream);
     color:var(--ink);
-    font-size:20px;
-    line-height:1.7;
+    font-size:20px;line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
 
@@ -35,8 +34,7 @@
     position:sticky;top:0;z-index:50;
     display:flex;align-items:center;gap:1.4rem;
     padding:.9rem 1.6rem;
-    background:rgba(247,243,234,.92);
-    backdrop-filter:blur(8px);
+    background:rgba(247,243,234,.92);backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
   .nav-home{display:flex;align-items:center;margin-right:auto;color:var(--green);text-decoration:none}
@@ -44,96 +42,75 @@
   .nav-links{display:flex;align-items:center;gap:1.6rem}
   .nav-links a{
     font-family:'Jost',sans-serif;font-weight:400;font-size:.86rem;
-    letter-spacing:.06em;text-transform:uppercase;
-    color:var(--green);text-decoration:none;transition:color .2s;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--green);text-decoration:none;transition:color .2s;
   }
   .nav-links a:hover{color:var(--rose)}
   .nav-cta{
     font-family:'Jost',sans-serif;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
-    padding:.55rem 1.2rem;border:1px solid var(--green);border-radius:999px;
-    color:var(--green);text-decoration:none;transition:.2s;
+    padding:.55rem 1.2rem;border:1px solid var(--green);border-radius:999px;color:var(--green);text-decoration:none;transition:.2s;
   }
   .nav-cta:hover{background:var(--green);color:var(--cream)}
   .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
   .hamburger span{width:24px;height:2px;background:var(--green);display:block;transition:.3s}
-
   @media(max-width:860px){
     .hamburger{display:flex}
     .nav-links{
-      position:absolute;top:100%;left:0;right:0;
-      flex-direction:column;align-items:flex-start;gap:1.1rem;
-      padding:1.4rem 1.6rem;
-      background:var(--cream);border-bottom:1px solid var(--line);
+      position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:1.1rem;
+      padding:1.4rem 1.6rem;background:var(--cream);border-bottom:1px solid var(--line);
       transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s;
     }
     .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
   }
 
-  /* ---------- HERO ---------- */
+  /* ---------- HERO (quiet green) ---------- */
   .hero{
-    position:relative;
-    min-height:74vh;
-    display:flex;align-items:flex-end;
-    background:url('img/o-nas-lukas-martina.jpg') center 28% / cover no-repeat;
+    background:var(--green);color:var(--cream);
+    text-align:center;padding:5.5rem 1.8rem 6rem;
   }
-  .hero::after{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(to top, rgba(44,42,38,.72) 0%, rgba(44,42,38,.18) 45%, rgba(44,42,38,.05) 100%);
-  }
-  .hero-inner{position:relative;z-index:2;padding:2.6rem 1.8rem 3rem;max-width:780px}
   .hero .eyebrow{
-    font-family:'Jost',sans-serif;font-weight:300;
-    letter-spacing:.34em;text-transform:uppercase;font-size:.72rem;
-    color:var(--rose-soft);margin-bottom:1rem;
+    font-style:italic;letter-spacing:.34em;text-transform:uppercase;font-size:.86rem;
+    color:var(--rose-soft);margin-bottom:1.6rem;
   }
   .hero h1{
-    font-family:'Cinzel',serif;font-weight:500;
-    color:var(--cream);
-    font-size:clamp(2.1rem,5.2vw,3.4rem);
-    line-height:1.15;letter-spacing:.02em;
-    text-shadow:0 2px 18px rgba(0,0,0,.4);
+    font-family:'Cormorant Garamond',serif;font-weight:500;
+    font-size:clamp(2.6rem,6vw,4rem);line-height:1.1;letter-spacing:.02em;color:var(--cream);
   }
-  .hero p{
-    color:var(--cream);font-size:clamp(1.15rem,2.4vw,1.4rem);
-    font-style:italic;margin-top:1rem;max-width:46ch;
-    text-shadow:0 1px 10px rgba(0,0,0,.45);
+  .hero .hr{display:flex;align-items:center;justify-content:center;gap:.7rem;margin:1.8rem auto}
+  .hero .hr span{width:46px;height:1px;background:var(--rose-soft);opacity:.7;display:block}
+  .hero .sub{
+    font-style:italic;font-size:clamp(1.15rem,2.6vw,1.45rem);color:rgba(247,243,234,.92);
+    max-width:46ch;margin:0 auto;
   }
 
   /* ---------- LAYOUT ---------- */
-  .wrap{max-width:820px;margin:0 auto;padding:0 1.8rem}
-  section{padding:5rem 0}
+  .wrap{max-width:780px;margin:0 auto;padding:0 1.8rem}
+  section{padding:4.6rem 0}
 
-  .lead{
-    text-align:center;max-width:680px;margin:0 auto;
-    font-size:1.32rem;font-style:italic;color:var(--green-soft);
+  .intro{text-align:center;max-width:640px;margin:0 auto;font-style:italic;font-size:1.3rem;color:var(--green-soft)}
+
+  /* ---------- PHOTO (decent, framed) ---------- */
+  .portrait{margin:3.4rem auto 0;max-width:520px;text-align:center}
+  .portrait img{
+    width:100%;height:auto;display:block;border-radius:10px;
+    box-shadow:0 14px 40px rgba(55,73,47,.18);
+    border:1px solid rgba(192,129,124,.25);
+  }
+  .portrait figcaption{
+    font-family:'Jost',sans-serif;font-weight:300;letter-spacing:.16em;text-transform:uppercase;
+    font-size:.72rem;color:var(--rose);margin-top:1rem;
   }
 
   /* ---------- DIVIDER ---------- */
   .divider{display:flex;align-items:center;justify-content:center;gap:1rem;margin:0 auto;max-width:420px;color:var(--rose)}
   .divider::before,.divider::after{content:"";height:1px;flex:1;background:linear-gradient(to right,transparent,var(--rose-soft),transparent)}
-  .divider svg{width:20px;height:20px;flex:none}
+  .divider svg{width:18px;height:18px;flex:none}
 
   /* ---------- BIO ---------- */
-  .bio{padding-top:4.4rem}
-  .bio-head{text-align:center;margin-bottom:2.4rem}
-  .bio-head .name{
-    font-family:'Cinzel',serif;font-weight:500;
-    font-size:clamp(1.7rem,4vw,2.3rem);color:var(--green);letter-spacing:.03em;
-  }
-  .bio-head .role{
-    font-family:'Jost',sans-serif;font-weight:300;
-    letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;
-    color:var(--rose);margin-top:.7rem;
-  }
-  .bio p{margin-bottom:1.25rem}
-  .bio p:first-of-type::first-letter{
-    font-family:'Cinzel',serif;font-size:3.4rem;line-height:.8;
-    float:left;margin:.18rem .6rem 0 0;color:var(--rose);font-weight:500;
-  }
-
-  /* ---------- CLOSING ---------- */
-  .closing{background:var(--cream-deep);text-align:center;padding:4.6rem 0}
-  .closing p{font-style:italic;font-size:1.4rem;color:var(--green-soft);max-width:600px;margin:0 auto}
+  .bio{padding-top:4rem}
+  .bio-head{text-align:center;margin-bottom:2.2rem}
+  .bio-head .name{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(1.6rem,3.6vw,2.1rem);color:var(--green);letter-spacing:.03em}
+  .bio-head .role{font-family:'Jost',sans-serif;font-weight:300;letter-spacing:.2em;text-transform:uppercase;font-size:.76rem;color:var(--rose);margin-top:.7rem}
+  .bio p{margin-bottom:1.2rem}
 
   /* ---------- FOOTER ---------- */
   footer{background:var(--green);color:var(--cream);text-align:center;padding:3rem 1.8rem}
@@ -159,22 +136,24 @@
     <a href="/kontakt.html">Kontakt</a>
     <a class="nav-cta" href="/kontakt.html">Napište nám</a>
   </div>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <header class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow">Oáza Adamanthea</div>
-    <h1>Místo klidu, vědomého setkávání a návratu k sobě</h1>
-    <p>Příběh lidí, kteří Oázu tvoří — a místa, které je vede.</p>
-  </div>
+  <div class="eyebrow">Oáza Adamanthea</div>
+  <h1>O nás</h1>
+  <div class="hr"><span></span><span></span></div>
+  <p class="sub">Příběh lidí, kteří Oázu tvoří — a místa, které je vede.</p>
 </header>
 
 <section>
   <div class="wrap">
-    <p class="lead">Místo, kde může každý na chvíli odložit vše, čím si myslí, že musí být, a jednoduše být tím, kým ve své podstatě je.</p>
+    <p class="intro">Místo, kde může každý na chvíli odložit vše, čím si myslí, že musí být, a jednoduše být tím, kým ve své podstatě je.</p>
+
+    <figure class="portrait">
+      <img src="img/o-nas-lukas-martina.jpg" alt="Lukáš a Martina, Oáza Adamanthea">
+      <figcaption>Martina &amp; Lukáš</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -192,27 +171,16 @@
     </div>
 
     <p>Už od dětství v sobě nesla hlubokou touhu tvořit život — a vše v něm — harmonickým, láskyplným a krásným. Zároveň cítila, že život skrývá mnohem víc, než co jí nabízelo tradiční vzdělání a běžný pohled západní společnosti.</p>
-
     <p>Mnoho let cestovala, podnikala a poznávala různé kouty světa. Setkávala se s odlišnými kulturami, filozofiemi, náboženstvími i způsoby vnímání reality. Dobrovolničila, pomáhala a poznávala úplně obyčejný, prostý život v Asii — lidi, kteří neměli nic, a přitom byli tak spokojení, naplnění, radostní a spojení s něčím, co je přesahovalo.</p>
-
     <p>Tyto zkušenosti jí otevřely nejen oči, ale především srdce a vědomí. Postupně v ní dozrávalo poznání, že skutečná změna začíná uvnitř každého z nás. Hluboké životní zkušenosti, které následovaly, v ní pak zcela vyjasnily směr, kterým chce kráčet — přinést druhým do života to, co sama objevila: vědomí, lásku, klid a prostor pro opravdové bytí, svobodu i krásno.</p>
-
     <p>S touto vizí v srdci se zrodila touha vytvořit místo, kde se lidé mohou zastavit, vydechnout, obrátit pozornost do svého nitra, uvolnit staré zátěže a znovu se propojit sami se sebou.</p>
-
     <p>Přesně v tu chvíli vzala do ruky telefon a napsala neznámému pánovi — Lukášovi do Centra péče o duši v Kroměříži — že ráda nabídne své dobrovolnické ruce pro cokoliv užitečného. Pár dní nato se setkali, den před jeho narozeninami. A byla to láska. ❤️</p>
-
     <p>Lukáš navíc nesl velmi podobný záměr. Dokonce zmínil, že pár dní předtím, než mu od Martiny přišla první zpráva, zrovna fantazíroval a kreslil podobu hlavní budovy budoucího centra.</p>
-
     <p>Vše do sebe začalo zapadat jako dílky puzzle a události se skládaly přirozeně a s lehkostí. Tvořili společně nové projekty, uspořádali první retreat na Bali... A během jediného roku — opět přesně na Lukášovy narozeniny — dostali klíče od malé chaloupky a velkého kusu ráje Matky Země.</p>
-
     <p>A tak začala vznikat Oáza ADAMANTHEA. Místo klidu, vědomého setkávání, inspirace a návratu k sobě. Místo, kde může každý na chvíli odložit vše, čím si myslí, že musí být, a jednoduše být tím, kým ve své podstatě je. ❤️</p>
-
     <p>Měli obrovskou podporu shora, vše šlo hladce a oba měli spoustu energie a elánu tvořit. Měsíce jen vyklízeli, odnášeli, pálili a přetvářeli — do Halenkovic jezdili každý den, ráno tam, navečer zase zpátky. Bez tekoucí vody, elektřiny, odpadu. Stačila jedna kadibudka a kamna na dřevo, kde se dalo něco malého ohřát. :)</p>
-
     <p>Z malé chaloupky vyrostla dvoupatrová budova. Martina už s velkým bříškem — a Willym v něm — tvořila Oázu společně s Lukášem. Legendární je i hláška tchána: „Martino, ty v těch gumákách snad pojedeš i do porodnice!" :)</p>
-
     <p>Zjara se na poli po bramborech začala rodit zahrada a postupně se ukazovat vize budoucích energetických míst, portálů... Vždy přišel nápad, kopa energie, začalo se kopnutím do země — a pak se přirozeně ukázalo, co přidat a jak to udělat. Přesně tak, aby to bylo to, co to být má. 🌈</p>
-
     <p>A takhle Oáza roste i nadále. Sám prostor ji vede. Posledními projekty byla balijská boho chatka na Pobyt ve světle a větší přírodní stavba ze slámy a hlíny pro setkávání — Shalla.</p>
   </div>
 </section>
@@ -231,20 +199,10 @@
     </div>
 
     <p>Lukášova motivace vždy vedla skrze jeho vlastní nitro — skrze poznávání vlastních emocí, hranic a zkoumání hlubokých nastavení, která si do tohoto života přinesl či přijal, ať už skrze rodovou linii, nebo své předešlé inkarnace. Z malého citlivého chlapce se silně rozvinutou empatií a intuicí se zrodila tvořivá bytost se zájmem o hudbu, malování, poezii, filozofii a psychologii.</p>
-
     <p>Přes svého otce získal první zkušenosti a vjemy práce s energií a touhu poznávat mimosmyslová a parapsychologická mystéria. Ve čtvrtém sedmiletém cyklu se dostal k prvním šamanským technikám a práci s energií a následně do Indie na Oneness University, kde získal vědomí, poznání a prožitky toho, jak lidská bytost funguje ve svých různých podobách. Během několika cest do Indie, absolvování trenérských kurzů i zasvěcení k němu začal promlouvat duch a vést ho o to silněji.</p>
-
     <p>V roce 2010 založil meditační centrum a jeho praxe nabírala na síle. Vedl terapie, meditace a učil druhé, jak se znovu spojit sami se sebou — aby si i oni mohli zlepšit život, vztahy, hojnost a být šťastní. Prošel také intenzivními zkušenostmi skrze šamanské medicíny Jižní Ameriky a Afriky a po hlubokém vnitřním propuštění získal schopnost vidět a vnímat rodové zátěže i minulé životy, nejen u sebe, ale i u druhých. Jedním z jeho darů je aktivace spirituálních portálů, napojení na hvězdné civilizace a systémy a komunikace s krystaly — což se promítlo i do zahrady v Oáze, kterou s Martinou a Willym tvoří.</p>
-
     <p>Setkání s jeho ženou bylo osudové spojení. Zjistili, že roky bydleli pár desítek metrů od sebe, a vůbec o tom nevěděli. Jakmile se poprvé uviděli, všechno do sebe zapadlo, jejich vize se spojily a nastartovali intenzivní tvoření centra v přírodě i svou společnou cestu. Nyní, v roce 2026, je to deset let od jejich prvního setkání — a Oáza je tu, v celé své kráse, se všemi dary, které spolu zhmotnili a vytvořili, nejen pro sebe, ale i pro druhé.</p>
-
     <p>Klíčem je, že začali poznávat všechny své části společně — vidět jeden druhého v sobě, propouštět další vrstvy a neustále nacházet sami sebe v touze růst.</p>
-  </div>
-</section>
-
-<section class="closing">
-  <div class="wrap">
-    <p>A pohádky má rád pořád. Vždyť jednu právě žije.</p>
   </div>
 </section>
 

@@ -32,34 +32,35 @@
   /* ---------- NAV ---------- */
   nav{
     position:sticky;top:0;z-index:50;
-    display:flex;align-items:center;gap:1.4rem;
-    padding:.9rem 1.6rem;
-    background:rgba(247,243,234,.92);backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:flex-end;
+    padding:1.1rem 2.2rem;
+    background:var(--green);
   }
-  .nav-home{display:flex;align-items:center;margin-right:auto;color:var(--green);text-decoration:none}
-  .nav-home svg{width:30px;height:30px;display:block}
-  .nav-links{display:flex;align-items:center;gap:1.6rem}
-  .nav-links a{
-    font-family:'Jost',sans-serif;font-weight:400;font-size:.86rem;
-    letter-spacing:.06em;text-transform:uppercase;color:var(--green);text-decoration:none;transition:color .2s;
+  .menu{display:flex;align-items:center;gap:2rem}
+  .menu a{
+    font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.16rem;
+    letter-spacing:.02em;color:var(--cream);text-decoration:none;position:relative;
+    padding-bottom:3px;transition:color .2s;
   }
-  .nav-links a:hover{color:var(--rose)}
-  .nav-cta{
-    font-family:'Jost',sans-serif;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
-    padding:.55rem 1.2rem;border:1px solid var(--green);border-radius:999px;color:var(--green);text-decoration:none;transition:.2s;
+  .menu a::after{
+    content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+    background:var(--rose-soft);transition:width .25s;
   }
-  .nav-cta:hover{background:var(--green);color:var(--cream)}
-  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
-  .hamburger span{width:24px;height:2px;background:var(--green);display:block;transition:.3s}
-  @media(max-width:860px){
-    .hamburger{display:flex}
-    .nav-links{
-      position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:1.1rem;
-      padding:1.4rem 1.6rem;background:var(--cream);border-bottom:1px solid var(--line);
-      transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s;
+  .menu a:hover{color:var(--rose-soft)}
+  .menu a:hover::after,.menu a.aktivni::after{width:100%}
+  .menu a.aktivni{color:#fff}
+  .nav-toggle{display:none;background:none;border:0;color:var(--cream);font-size:1.7rem;line-height:1;cursor:pointer}
+  @media(max-width:900px){
+    nav{justify-content:space-between;padding:1rem 1.6rem}
+    .nav-toggle{display:block;position:relative;z-index:60}
+    .menu{
+      display:none;position:fixed;inset:0;background:var(--green);
+      flex-direction:column;align-items:flex-start;justify-content:flex-start;
+      padding:5.6rem 2rem 2.6rem;gap:0;overflow-y:auto;z-index:50;
     }
-    .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .menu.open{display:flex}
+    .menu a{font-size:1.5rem;width:100%;padding:1.1rem 0;border-bottom:1px solid rgba(247,243,234,.16)}
+    .menu a::after{display:none}
   }
 
   /* ---------- HERO (quiet green) ---------- */
@@ -123,20 +124,17 @@
 <body>
 
 <nav>
-  <a class="nav-home" href="/" aria-label="Domů">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/>
-    </svg>
-  </a>
-  <div class="nav-links" id="navLinks">
-    <a href="/nabidka-sluzeb.html">Nabídka služeb</a>
-    <a href="/portalova-zahrada.html">Portálová zahrada</a>
-    <a href="/pobyt-ve-svetle.html">Pobyt ve světle</a>
-    <a href="/o-nas.html">O nás</a>
-    <a href="/kontakt.html">Kontakt</a>
-    <a class="nav-cta" href="/kontakt.html">Napište nám</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
+  <div class="menu" id="menu">
+    <a href="/portalova-zahrada">Portálová zahrada</a>
+    <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+    <a href="/akce">Akce</a>
+    <a href="/nabidka-sluzeb">Služby</a>
+    <a href="/pronajem-prostor">Pronájem</a>
+    <a href="/spirit-shop-1">E-shop</a>
+    <a href="/o-nas" class="aktivni">O nás</a>
+    <a href="/kontakt">Kontakt</a>
   </div>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <header class="hero">
@@ -152,7 +150,7 @@
 
     <figure class="portrait">
       <img src="img/o-nas-lukas-martina.jpg" alt="Lukáš a Martina, Oáza Adamanthea">
-      <figcaption>Martina &amp; Lukáš</figcaption>
+      <figcaption>Lukáš a Martina</figcaption>
     </figure>
   </div>
 </section>
@@ -214,9 +212,9 @@
 </footer>
 
 <script>
-  const h=document.getElementById('hamburger'),l=document.getElementById('navLinks');
-  h.addEventListener('click',()=>l.classList.toggle('open'));
-  l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+  const t=document.getElementById('navToggle'),m=document.getElementById('menu');
+  t.addEventListener('click',()=>m.classList.toggle('open'));
+  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>m.classList.remove('open')));
 </script>
 
 </body>

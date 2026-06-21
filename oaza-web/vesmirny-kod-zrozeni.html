@@ -69,7 +69,7 @@
   .nav a.active{color:var(--gold-light)}
   .nav-toggle{display:none;margin-left:auto;background:none;border:0;cursor:pointer;padding:8px;color:var(--cream)}
 
-  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
   .blob{
     background:var(--panel);backdrop-filter:blur(6px);
     border:1px solid rgba(201,162,39,.18);
@@ -78,7 +78,7 @@
   }
 
   .hero{padding:64px 22px 30px;text-align:center}
-  .hero .blob{border-radius:120px 120px 60px 60px;max-width:880px;margin:0 auto}
+  .hero .blob{border-radius:120px 120px 60px 60px;max-width:880px;margin:0 auto;position:relative;z-index:1}
   .title{font-size:clamp(2rem,6vw,3.2rem);letter-spacing:.04em;color:var(--gold-light);text-shadow:0 2px 30px rgba(0,0,0,.6)}
   .eyebrow{font-family:"Cinzel Decorative",serif;font-weight:700;font-size:.82rem;letter-spacing:.18em;color:var(--gold);margin:12px 0 0}
   .subtitle{font-style:italic;color:var(--mist);font-size:1.18rem;margin:18px 0 26px}
@@ -168,19 +168,21 @@
   }
 
   /* ===== OŽIVENÍ — hvězdné pole, pohyb, světlo (přidáno) ===== */
-  @keyframes oazaTwinkle{0%,100%{opacity:.15}50%{opacity:.9}}
+  @keyframes oazaTwinkle{0%,100%{opacity:.25}50%{opacity:1}}
   @keyframes oazaBreath{0%,100%{box-shadow:0 4px 32px rgba(201,162,39,.4),0 0 0 rgba(201,162,39,0)}50%{box-shadow:0 4px 40px rgba(201,162,39,.6),0 0 38px rgba(201,162,39,.28)}}
   @keyframes oazaPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
   @keyframes oazaShoot{0%{transform:translate(0,0) rotate(35deg);opacity:0}8%{opacity:1}24%{opacity:1}40%{transform:translate(320px,224px) rotate(35deg);opacity:0}100%{opacity:0}}
 
-  .oaza-starfield{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
-  .oaza-starfield i{position:absolute;display:block;width:2px;height:2px;border-radius:50%;
-    background:#fff;opacity:.2;animation:oazaTwinkle 4s ease-in-out infinite}
-  .oaza-starfield i.g{background:var(--gold-light);width:3px;height:3px}
-  .oaza-shoot{position:fixed;top:8%;left:-40px;width:2px;height:2px;border-radius:50%;
-    background:#fff;box-shadow:0 0 6px 2px rgba(255,255,255,.8),
-    -60px -42px 30px 1px rgba(255,255,255,.12);z-index:-1;pointer-events:none;
-    opacity:0;animation:oazaShoot 11s ease-in infinite}
+  .oaza-starfield{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .oaza-starfield i{position:absolute;display:block;width:2.5px;height:2.5px;border-radius:50%;
+    background:#fff;opacity:.5;box-shadow:0 0 4px 1px rgba(255,255,255,.6);
+    animation:oazaTwinkle 4s ease-in-out infinite}
+  .oaza-starfield i.g{background:var(--gold-light);width:4px;height:4px;
+    box-shadow:0 0 6px 2px rgba(240,208,96,.7)}
+  .oaza-shoot{position:fixed;top:8%;left:-40px;width:3px;height:3px;border-radius:50%;
+    background:#fff;box-shadow:0 0 8px 3px rgba(255,255,255,.9),
+    -70px -49px 36px 2px rgba(255,255,255,.18);z-index:0;pointer-events:none;
+    opacity:0;animation:oazaShoot 9s ease-in infinite}
 
   .oaza-reveal{opacity:0;transform:translateY(26px);
     transition:opacity .9s ease,transform .9s ease}

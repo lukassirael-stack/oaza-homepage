@@ -113,12 +113,18 @@
   .bio-head .role{font-family:'Jost',sans-serif;font-weight:300;letter-spacing:.2em;text-transform:uppercase;font-size:.76rem;color:var(--rose);margin-top:.7rem}
   .bio p{margin-bottom:1.2rem}
 
-  /* ---------- FOOTER ---------- */
-  footer{background:var(--green);color:var(--cream);text-align:center;padding:3rem 1.8rem}
-  footer .fname{font-family:'Cinzel',serif;letter-spacing:.12em;font-size:1.2rem;margin-bottom:.6rem}
-  footer a{color:var(--rose-soft);text-decoration:none}
-  footer a:hover{text-decoration:underline}
-  footer .fmeta{font-family:'Jost',sans-serif;font-size:.82rem;letter-spacing:.05em;opacity:.8;margin-top:1rem}
+  /* ---------- FOOTER (jako ostatní stránky) ---------- */
+  footer{background:#ede7db;text-align:center;padding:64px 32px 40px;border-top:1px solid #d8d0c2}
+  footer .f-logo{font-size:26px;color:#2e4434;margin-bottom:6px}
+  footer .f-tag{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#6f7468;margin-bottom:26px}
+  footer .kontakt{font-size:19px;line-height:2;color:#4c5247}
+  footer .kontakt a{color:#b06a6c;text-decoration:none}
+  footer .kontakt a:hover{text-decoration:underline}
+  footer .soc{display:flex;justify-content:center;gap:16px;margin-top:28px}
+  footer .soc a{width:44px;height:44px;border:1px solid #b06a6c;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .25s}
+  footer .soc a:hover{background:#b06a6c;transform:translateY(-2px)}
+  footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
+  footer .drobne a{color:#b06a6c;text-decoration:none}
 </style>
 </head>
 <body>
@@ -205,10 +211,23 @@
 </section>
 
 <footer>
-  <div class="fname">OÁZA ADAMANTHEA</div>
-  <div>Krystalové &amp; retreatové centrum · Halenkovice, Morava</div>
-  <div style="margin-top:.8rem"><a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a></div>
-  <div class="fmeta">© 2026 Oáza Adamanthea</div>
+  <p class="f-logo">Oáza Adamanthea</p>
+  <p class="f-tag">Krystal &amp; retreat centrum</p>
+  <p class="kontakt">
+    Halenkovice 400, 763 63 Halenkovice<br>
+    <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+    <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
+  </p>
+  <div class="soc">
+    <a href="https://www.facebook.com/groups/1679547508831715" aria-label="Facebook" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 3.5 H10.8 C9.2 3.5 8.2 4.5 8.2 6.2 V8.2 H6.5 V10.8 H8.2 V16.5 H10.9 V10.8 H12.9 L13.3 8.2 H10.9 V6.5 C10.9 6 11.2 5.8 11.7 5.8 H13.4 Z" stroke="#b06a6c" stroke-width="1.2"></path></svg>
+    </a>
+    <a href="https://www.instagram.com/oazahalenkovice_healingcenter" aria-label="Instagram" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="4.2" stroke="#b06a6c" stroke-width="1.2"></rect><circle cx="10" cy="10" r="3.4" stroke="#b06a6c" stroke-width="1.2"></circle><circle cx="14.4" cy="5.6" r="0.9" fill="#b06a6c"></circle></svg>
+    </a>
+  </div>
+  <p class="drobne">Místo, kde se propojují světy.</p>
+  <p class="drobne" style="font-style:normal;font-size:14px;margin-top:14px">© 2026 Oáza Adamanthea · IČ 76564410 · <a href="/gdpr">Ochrana osobních údajů</a></p>
 </footer>
 
 <script>

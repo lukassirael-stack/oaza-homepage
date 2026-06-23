@@ -55,6 +55,28 @@ export default async function handler(req, res) {
   }
 
   try {
+    const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+
+    // DIAGNOSTIKA: vrátí skutečné stavové kódy pro vzorek fotek
+    if (body.action === 'diag') {
+      const produkty = await restGET('produkty?select=id,fotky&order=id');
+      const potreba = produkty.filter(p => (p.fotky || []).some(jeWix));
+      const vzorek = [];
+      for (const p of potreba.slice(0, 3)) {
+        const url = (p.fotky || []).find(jeWix);
+        const pokusy = [];
+        for (const k of kandidati(url)) {
+          try {
+            const r = await fetch(k, { headers: UA });
+            pokusy.push({ url: k.slice(0, 110), status: r.status, ct: (r.headers.get('content-type') || '').slice(0, 30) });
+            if (r.ok) break;
+          } catch (e) { pokusy.push({ url: k.slice(0, 110), chyba: String(e.message || e).slice(0, 60) }); }
+        }
+        vzorek.push({ puvodni: url.slice(0, 90), pokusy });
+      }
+      return res.status(200).json({ diag: vzorek, zbyva: potreba.length });
+    }
+
     const produkty = await restGET('produkty?select=id,fotky&order=id');
     const potreba = produkty.filter(p => (p.fotky || []).some(jeWix));
     const celkemProduktu = potreba.length;

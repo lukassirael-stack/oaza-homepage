@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Administrace e-shopu — Oáza Adamanthea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=EB+Garamond:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --slonovina:#F6F1E7; --slonovina2:#ECE4D3; --namornicka:#1B2A41; --namornicka2:#2C4060;
+    --zlata:#B8924A; --zlata2:#D9BC7E; --zelena:#4E7C59; --cervena:#9C4A3C; --tlumeny:#6B6354;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--slonovina);color:var(--namornicka);font-family:'EB Garamond',Georgia,serif;line-height:1.5;padding:28px 18px 80px;background-image:radial-gradient(circle at 50% -10%,rgba(184,146,74,.10),transparent 55%);min-height:100vh}
+  .wrap{max-width:920px;margin:0 auto}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.01em}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--zlata)}
+  .delic{height:1px;background:linear-gradient(90deg,transparent,var(--zlata),transparent);margin:18px 0 24px}
+  button{font-family:'IBM Plex Mono',monospace;cursor:pointer;border-radius:2px}
+  .btn{background:var(--namornicka);color:var(--slonovina);border:none;padding:11px 18px;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+  .btn:hover{background:var(--namornicka2)}
+  .btn.ghost{background:none;border:1px solid var(--zlata);color:var(--namornicka)}
+  .btn.ghost:hover{background:var(--zlata);color:#fff}
+  .btn.mini{padding:6px 10px;font-size:.68rem}
+  .btn.danger{border-color:var(--cervena);color:var(--cervena)}
+  .btn.danger:hover{background:var(--cervena);color:#fff}
+  input,textarea,select{width:100%;padding:10px 12px;border:1px solid var(--slonovina2);background:#fff;color:var(--namornicka);font-family:'EB Garamond',serif;font-size:1rem;border-radius:2px}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--zlata)}
+  label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tlumeny);margin:14px 0 5px}
+  .karta{background:#FBF7EE;border:1px solid var(--slonovina2);border-radius:3px;padding:20px 22px;margin-bottom:18px}
+
+  /* login */
+  #login{max-width:360px;margin:14vh auto 0;text-align:center}
+  #login h1{font-size:2rem}#login p{color:var(--tlumeny);font-style:italic;margin:.3rem 0 1.4rem}
+  #login .err{color:var(--cervena);min-height:1.3em;margin-top:9px;font-style:italic}
+
+  /* taby */
+  .taby{display:flex;gap:8px;margin-bottom:18px}
+  .tab{padding:8px 16px;border:1px solid var(--slonovina2);background:#FBF7EE;font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tlumeny)}
+  .tab.akt{background:var(--namornicka);color:var(--slonovina);border-color:var(--namornicka)}
+
+  /* seznam produktů */
+  .radek{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--slonovina2);background:#fff;border-radius:3px;margin-bottom:10px}
+  .radek img{width:54px;height:54px;object-fit:cover;border-radius:3px;background:var(--slonovina2);flex:none}
+  .radek .info{flex:1;min-width:0}
+  .radek .nm{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600}
+  .radek .meta{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--tlumeny)}
+  .badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:2px;margin-left:6px;vertical-align:middle}
+  .badge.skladem{background:#E6EFE7;color:var(--zelena)}
+  .badge.prodano{background:#F0E0DC;color:var(--cervena)}
+  .badge.skryto{background:var(--slonovina2);color:var(--tlumeny)}
+  .badge.dop{background:var(--zlata2);color:#3a2c08}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.row2{grid-template-columns:1fr}}
+
+  /* tag input */
+  .tags{display:flex;flex-wrap:wrap;gap:6px;padding:8px;border:1px solid var(--slonovina2);background:#fff;border-radius:2px;min-height:42px}
+  .tags input{border:none;flex:1;min-width:90px;padding:2px;font-size:.95rem}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:var(--slonovina);border:1px solid var(--zlata);padding:3px 8px;border-radius:12px;font-size:.85rem}
+  .chip b{cursor:pointer;color:var(--cervena);font-weight:700}
+
+  /* média */
+  .media{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .thumb{position:relative;width:96px;height:96px;border:1px solid var(--slonovina2);border-radius:3px;overflow:hidden;background:var(--slonovina2)}
+  .thumb img,.thumb video{width:100%;height:100%;object-fit:cover}
+  .thumb .hl{position:absolute;top:2px;left:2px;background:var(--zlata);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.55rem;padding:1px 5px;border-radius:2px;letter-spacing:.06em}
+  .thumb .ctrl{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;background:rgba(27,42,65,.82)}
+  .thumb .ctrl button{background:none;border:none;color:#fff;font-size:.8rem;padding:3px 6px;cursor:pointer}
+  .upl{width:96px;height:96px;border:1px dashed var(--zlata);border-radius:3px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tlumeny);cursor:pointer;padding:4px}
+  .upl:hover{background:#fff}
+  .stav-upl{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--tlumeny);margin-top:6px}
+  .pozn{font-size:.85rem;color:var(--tlumeny);font-style:italic}
+  .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--namornicka);color:var(--slonovina);padding:11px 20px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:.8rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:50}
+  .toast.show{opacity:1}
+  .hidden{display:none}
+  .head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="eyebrow">Administrace</div>
+  <h1>E-shop Oáza</h1>
+  <p>Přihlášení</p>
+  <input id="heslo" type="password" placeholder="heslo" autocomplete="current-password">
+  <button class="btn" id="vstup" style="width:100%;margin-top:12px">Vstoupit</button>
+  <div class="err" id="loginErr"></div>
+</div>
+
+<div class="wrap hidden" id="app">
+  <div class="head">
+    <div><div class="eyebrow">Administrace</div><h1 style="font-size:2.1rem">E-shop Oáza</h1></div>
+  </div>
+  <div class="delic"></div>
+
+  <div class="taby">
+    <div class="tab akt" data-tab="produkty">Produkty</div>
+    <div class="tab" data-tab="kategorie">Kategorie</div>
+  </div>
+
+  <!-- PRODUKTY -->
+  <div id="tab-produkty">
+    <div id="seznam-view">
+      <div class="head" style="margin-bottom:14px">
+        <input id="hledat" placeholder="Hledat produkt…" style="max-width:280px">
+        <button class="btn" id="novy">+ Nový produkt</button>
+      </div>
+      <div id="seznam"></div>
+    </div>
+
+    <div id="form-view" class="hidden">
+      <div class="karta">
+        <div class="head"><h1 style="font-size:1.6rem" id="form-titulek">Nový produkt</h1>
+          <button class="btn ghost mini" id="zpet">← Zpět na seznam</button></div>
+        <div class="delic" style="margin:14px 0"></div>
+
+        <div class="row2">
+          <div><label>Název *</label><input id="f-nazev"></div>
+          <div><label>Kategorie *</label><select id="f-kategorie"></select></div>
+        </div>
+        <div class="row2">
+          <div><label>Cena (Kč) *</label><input id="f-cena" type="number" min="0" step="10"></div>
+          <div><label>Stav</label><select id="f-stav">
+            <option value="skladem">Skladem</option>
+            <option value="prodano">Prodáno</option>
+            <option value="skryto">Skryto</option>
+          </select></div>
+        </div>
+        <label>Popis</label><textarea id="f-popis" rows="4"></textarea>
+
+        <div class="row2">
+          <div><label>Štítek (cedulka)</label><select id="f-stitek">
+            <option value="">— žádný —</option>
+            <option value="novinka">novinka</option>
+            <option value="poslední kus">poslední kus</option>
+            <option value="akce">akce</option>
+            <option value="tip">tip</option>
+          </select></div>
+          <div><label>Doporučit (vypíchnout)</label>
+            <div style="padding-top:8px"><label style="display:inline;text-transform:none;letter-spacing:0;font-size:1rem;color:var(--namornicka)">
+              <input type="checkbox" id="f-doporucujeme" style="width:auto;margin-right:8px">Zobrazit nahoře / na homepage</label></div>
+          </div>
+        </div>
+
+        <label>Barva <span class="pozn">(Enter přidá)</span></label>
+        <div class="tags" data-tags="barva"><input placeholder="napiš a Enter…"></div>
+
+        <label>Velikost <span class="pozn">(u šatů apod. — Enter přidá)</span></label>
+        <div class="tags" data-tags="velikost"><input placeholder="napiš a Enter…"></div>
+
+        <label>Zaměření / účel <span class="pozn">(volitelné — Enter přidá)</span></label>
+        <div class="tags" data-tags="ucel"><input placeholder="napiš a Enter…"></div>
+
+        <label>Fotky <span class="pozn">(první = hlavní, zmenší se automaticky)</span></label>
+        <div class="media" id="fotky"></div>
+        <div class="stav-upl" id="stav-fotky"></div>
+
+        <label>Video <span class="pozn">(volitelné, krátké; max 50 MB)</span></label>
+        <div class="media" id="videa"></div>
+        <div class="stav-upl" id="stav-videa"></div>
+
+        <div class="delic" style="margin:20px 0 14px"></div>
+        <div style="display:flex;gap:10px">
+          <button class="btn" id="ulozit">Uložit produkt</button>
+          <button class="btn ghost" id="zrusit">Zrušit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KATEGORIE -->
+  <div id="tab-kategorie" class="hidden">
+    <div class="karta">
+      <h1 style="font-size:1.4rem">Kategorie</h1>
+      <p class="pozn">Pořadí určuje řazení v obchodě. Smazání kategorie nesmaže produkty, jen je odpojí.</p>
+      <div class="delic" style="margin:12px 0"></div>
+      <div id="kat-seznam"></div>
+      <div class="row2" style="margin-top:14px;align-items:end">
+        <div><label>Nová kategorie</label><input id="kat-nazev" placeholder="např. Svíčky"></div>
+        <div><button class="btn" id="kat-pridat" style="width:100%">+ Přidat kategorii</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let HESLO='';
+let PRODUKTY=[], KATEGORIE=[], EDIT=null;
+let FOTKY=[], VIDEA=[]; // pole URL aktuálně editovaného produktu
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2600);}
+
+async function api(action, extra={}){
+  const r=await fetch('/api/eshop-admin',{method:'POST',headers:{'Content-Type':'application/json','x-heslo':HESLO},
+    body:JSON.stringify({action,...extra})});
+  if(r.status===401){odhlas();throw new Error('Neplatné heslo');}
+  const j=await r.json();
+  if(!r.ok) throw new Error(j.error||('HTTP '+r.status));
+  return j;
+}
+
+/* ---------- přihlášení ---------- */
+function vstup(){
+  const h=$('#heslo').value.trim();
+  if(!h){$('#loginErr').textContent='Zadej heslo.';return;}
+  HESLO=h;
+  api('kategorie-list').then(()=>{
+    $('#login').classList.add('hidden');$('#app').classList.remove('hidden');
+    nactiVse();
+  }).catch(e=>{$('#loginErr').textContent=e.message;});
+}
+function odhlas(){HESLO='';$('#app').classList.add('hidden');$('#login').classList.remove('hidden');}
+$('#vstup').onclick=vstup;
+$('#heslo').addEventListener('keydown',e=>{if(e.key==='Enter')vstup();});
+
+/* ---------- taby ---------- */
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('akt'));
+  t.classList.add('akt');
+  $('#tab-produkty').classList.toggle('hidden',t.dataset.tab!=='produkty');
+  $('#tab-kategorie').classList.toggle('hidden',t.dataset.tab!=='kategorie');
+});
+
+async function nactiVse(){
+  const k=await api('kategorie-list'); KATEGORIE=k.kategorie||[];
+  const p=await api('list'); PRODUKTY=p.produkty||[];
+  renderSeznam(); renderKategorie(); naplnKategorieSelect();
+}
+
+/* ---------- seznam produktů ---------- */
+function renderSeznam(){
+  const q=($('#hledat').value||'').toLowerCase();
+  const list=PRODUKTY.filter(p=>!q||(p.nazev||'').toLowerCase().includes(q));
+  if(!list.length){$('#seznam').innerHTML='<p class="pozn">Žádné produkty. Klikni na „+ Nový produkt".</p>';return;}
+  $('#seznam').innerHTML=list.map(p=>{
+    const foto=(p.fotky&&p.fotky[0])||'';
+    const katNazev=(KATEGORIE.find(k=>k.slug===p.kategorie)||{}).nazev||p.kategorie||'—';
+    return `<div class="radek">
+      <img src="${esc(foto)}" alt="" onerror="this.style.visibility='hidden'">
+      <div class="info">
+        <div class="nm">${esc(p.nazev)}
+          <span class="badge ${p.stav}">${p.stav}</span>
+          ${p.doporucujeme?'<span class="badge dop">tip</span>':''}</div>
+        <div class="meta">${esc(katNazev)} · ${p.cena} Kč${p.stitek?' · '+esc(p.stitek):''}</div>
+      </div>
+      <button class="btn ghost mini" onclick="upravit('${p.id}')">Upravit</button>
+      <button class="btn ghost mini danger" onclick="smazat('${p.id}')">Smazat</button>
+    </div>`;
+  }).join('');
+}
+$('#hledat').addEventListener('input',renderSeznam);
+
+window.smazat=async id=>{
+  const p=PRODUKTY.find(x=>x.id===id); if(!p)return;
+  if(!confirm(`Smazat „${p.nazev}"? Nelze vrátit.`))return;
+  try{await api('delete',{id});PRODUKTY=PRODUKTY.filter(x=>x.id!==id);renderSeznam();toast('Smazáno.');}
+  catch(e){toast('Chyba: '+e.message);}
+};
+
+/* ---------- formulář ---------- */
+function naplnKategorieSelect(){
+  $('#f-kategorie').innerHTML='<option value="">— vyber —</option>'+
+    KATEGORIE.map(k=>`<option value="${esc(k.slug)}">${esc(k.nazev)}</option>`).join('');
+}
+function ukazForm(show){$('#form-view').classList.toggle('hidden',!show);$('#seznam-view').classList.toggle('hidden',show);}
+
+function getTags(name){return [...document.querySelectorAll(`.tags[data-tags="${name}"] .chip`)].map(c=>c.dataset.val);}
+function setTags(name,arr){
+  const box=document.querySelector(`.tags[data-tags="${name}"]`);
+  box.querySelectorAll('.chip').forEach(c=>c.remove());
+  const inp=box.querySelector('input');
+  (arr||[]).forEach(v=>box.insertBefore(chip(v),inp));
+}
+function chip(v){
+  const el=document.createElement('span');el.className='chip';el.dataset.val=v;
+  el.innerHTML=esc(v)+' <b>×</b>';el.querySelector('b').onclick=()=>el.remove();
+  return el;
+}
+document.querySelectorAll('.tags').forEach(box=>{
+  const inp=box.querySelector('input');
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){e.preventDefault();const v=inp.value.trim();if(v){box.insertBefore(chip(v),inp);inp.value='';}}
+    if(e.key==='Backspace'&&!inp.value){const ch=box.querySelectorAll('.chip');if(ch.length)ch[ch.length-1].remove();}
+  });
+});
+
+function novyForm(){
+  EDIT=null;FOTKY=[];VIDEA=[];
+  $('#form-titulek').textContent='Nový produkt';
+  $('#f-nazev').value='';$('#f-cena').value='';$('#f-popis').value='';
+  $('#f-kategorie').value='';$('#f-stav').value='skladem';$('#f-stitek').value='';
+  $('#f-doporucujeme').checked=false;
+  setTags('barva',[]);setTags('velikost',[]);setTags('ucel',[]);
+  renderMedia();ukazForm(true);
+}
+$('#novy').onclick=novyForm;
+$('#zpet').onclick=()=>ukazForm(false);
+$('#zrusit').onclick=()=>ukazForm(false);
+
+window.upravit=id=>{
+  const p=PRODUKTY.find(x=>x.id===id);if(!p)return;
+  EDIT=p;FOTKY=[...(p.fotky||[])];VIDEA=[...(p.videa||[])];
+  $('#form-titulek').textContent='Upravit produkt';
+  $('#f-nazev').value=p.nazev||'';$('#f-cena').value=p.cena||'';$('#f-popis').value=p.popis||'';
+  $('#f-kategorie').value=p.kategorie||'';$('#f-stav').value=p.stav||'skladem';$('#f-stitek').value=p.stitek||'';
+  $('#f-doporucujeme').checked=!!p.doporucujeme;
+  setTags('barva',p.barva);setTags('velikost',p.velikost);setTags('ucel',(p.vlastnosti&&p.vlastnosti.ucel)||[]);
+  renderMedia();ukazForm(true);
+};
+
+$('#ulozit').onclick=async()=>{
+  const nazev=$('#f-nazev').value.trim(),kategorie=$('#f-kategorie').value,cena=$('#f-cena').value;
+  if(!nazev||!kategorie||cena===''){toast('Vyplň název, kategorii a cenu.');return;}
+  const produkt={
+    id:EDIT?EDIT.id:undefined, slug:EDIT?EDIT.slug:undefined,
+    nazev,kategorie,cena,popis:$('#f-popis').value.trim(),
+    stav:$('#f-stav').value,stitek:$('#f-stitek').value,doporucujeme:$('#f-doporucujeme').checked,
+    barva:getTags('barva'),velikost:getTags('velikost'),
+    fotky:FOTKY,videa:VIDEA,
+    vlastnosti:{...(EDIT&&EDIT.vlastnosti||{}),ucel:getTags('ucel')},
+  };
+  try{await api('save',{produkt});toast('Uloženo.');await nactiVse();ukazForm(false);}
+  catch(e){toast('Chyba: '+e.message);}
+};
+
+/* ---------- média ---------- */
+function renderMedia(){
+  $('#fotky').innerHTML=FOTKY.map((u,i)=>`<div class="thumb">
+    ${i===0?'<span class="hl">hlavní</span>':''}<img src="${esc(u)}">
+    <div class="ctrl"><button onclick="mvFoto(${i},-1)">←</button>
+      <button onclick="rmFoto(${i})">✕</button><button onclick="mvFoto(${i},1)">→</button></div>
+  </div>`).join('')+`<div class="upl" onclick="document.getElementById('inp-foto').click()">+ fotka</div>
+    <input type="file" id="inp-foto" accept="image/*" multiple class="hidden">`;
+  $('#inp-foto').onchange=e=>nahrajFotky(e.target.files);
+
+  $('#videa').innerHTML=VIDEA.map((u,i)=>`<div class="thumb"><video src="${esc(u)}" muted></video>
+    <div class="ctrl"><span></span><button onclick="rmVideo(${i})">✕</button><span></span></div></div>`).join('')+
+    `<div class="upl" onclick="document.getElementById('inp-video').click()">+ video</div>
+     <input type="file" id="inp-video" accept="video/mp4,video/webm" class="hidden">`;
+  $('#inp-video').onchange=e=>nahrajVideo(e.target.files[0]);
+}
+window.rmFoto=i=>{FOTKY.splice(i,1);renderMedia();};
+window.rmVideo=i=>{VIDEA.splice(i,1);renderMedia();};
+window.mvFoto=(i,d)=>{const j=i+d;if(j<0||j>=FOTKY.length)return;[FOTKY[i],FOTKY[j]]=[FOTKY[j],FOTKY[i]];renderMedia();};
+
+// zmenšení obrázku v prohlížeči (max strana 1600px, JPEG ~0.82)
+function zmensi(file){
+  return new Promise((res,rej)=>{
+    const img=new Image();const url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const max=1600;let{width:w,height:h}=img;
+      if(w>max||h>max){if(w>h){h=Math.round(h*max/w);w=max;}else{w=Math.round(w*max/h);h=max;}}
+      const c=document.createElement('canvas');c.width=w;c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);URL.revokeObjectURL(url);
+      c.toBlob(b=>b?res(b):rej(new Error('Zmenšení selhalo')),'image/jpeg',0.82);
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);rej(new Error('Nelze načíst obrázek'));};
+    img.src=url;
+  });
+}
+async function uploadBlob(blob,slug,ext){
+  const {uploadUrl,publicUrl}=await api('upload-url',{slug,ext});
+  const r=await fetch(uploadUrl,{method:'PUT',headers:{'content-type':blob.type,'x-upsert':'true'},body:blob});
+  if(!r.ok)throw new Error('Upload selhal ('+r.status+')');
+  return publicUrl;
+}
+async function nahrajFotky(files){
+  const slug=($('#f-nazev').value.trim()||'produkt');
+  const st=$('#stav-fotky');let n=0;
+  for(const f of files){
+    n++;st.textContent=`Nahrávám fotku ${n}/${files.length}…`;
+    try{const b=await zmensi(f);const url=await uploadBlob(b,slug,'jpg');FOTKY.push(url);renderMedia();}
+    catch(e){st.textContent='Chyba: '+e.message;return;}
+  }
+  st.textContent='Hotovo.';setTimeout(()=>st.textContent='',2000);
+}
+async function nahrajVideo(file){
+  if(!file)return;const st=$('#stav-videa');
+  if(file.size>52428800){st.textContent='Video je větší než 50 MB.';return;}
+  st.textContent='Nahrávám video…';
+  try{const ext=file.type.includes('webm')?'webm':'mp4';const url=await uploadBlob(file,($('#f-nazev').value.trim()||'produkt'),ext);
+    VIDEA.push(url);renderMedia();st.textContent='Hotovo.';setTimeout(()=>st.textContent='',2000);}
+  catch(e){st.textContent='Chyba: '+e.message;}
+}
+
+/* ---------- kategorie ---------- */
+function renderKategorie(){
+  $('#kat-seznam').innerHTML=KATEGORIE.map(k=>`<div class="radek">
+    <div class="info"><div class="nm" style="font-size:1.1rem">${esc(k.nazev)}</div>
+      <div class="meta">slug: ${esc(k.slug)} · pořadí: ${k.poradi}</div></div>
+    <button class="btn ghost mini" onclick="katPoradi('${esc(k.slug)}',-1)">↑</button>
+    <button class="btn ghost mini" onclick="katPoradi('${esc(k.slug)}',1)">↓</button>
+    <button class="btn ghost mini danger" onclick="katSmaz('${esc(k.slug)}')">Smazat</button>
+  </div>`).join('');
+}
+$('#kat-pridat').onclick=async()=>{
+  const nazev=$('#kat-nazev').value.trim();if(!nazev){toast('Zadej název.');return;}
+  const poradi=(KATEGORIE.reduce((m,k)=>Math.max(m,k.poradi),0))+1;
+  try{await api('kategorie-save',{kategorie:{nazev,poradi}});$('#kat-nazev').value='';await nactiVse();toast('Kategorie přidána.');}
+  catch(e){toast('Chyba: '+e.message);}
+};
+window.katSmaz=async slug=>{
+  if(!confirm('Smazat kategorii? Produkty zůstanou, jen se odpojí.'))return;
+  try{await api('kategorie-delete',{slug});await nactiVse();toast('Smazáno.');}catch(e){toast('Chyba: '+e.message);}
+};
+window.katPoradi=async(slug,d)=>{
+  const k=KATEGORIE.find(x=>x.slug===slug);if(!k)return;
+  try{await api('kategorie-save',{kategorie:{slug:k.slug,nazev:k.nazev,poradi:k.poradi+d}});await nactiVse();}
+  catch(e){toast('Chyba: '+e.message);}
+};
+</script>
+</body>
+</html>

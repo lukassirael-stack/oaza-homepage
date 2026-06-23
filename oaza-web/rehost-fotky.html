@@ -70,23 +70,30 @@ $('#heslo').addEventListener('keydown',e=>{if(e.key==='Enter')$('#vstup').click(
 $('#start').onclick=async()=>{
   $('#start').disabled=true; $('#barwrap').classList.remove('hidden'); $('#cisla').classList.remove('hidden');
   $('#err').textContent='';
-  try{
-    while(true){
-      const r=await api('run');
-      hotovoFotek+=r.zpracovano||0;
-      if(BASE===null) BASE=r.celkem_produktu||r.zbyva_produktu||1;
-      const hotovoProd=BASE-r.zbyva_produktu;
-      const pct=BASE? Math.round(hotovoProd/BASE*100):100;
-      $('#bar').style.width=pct+'%';
-      $('#cisla').innerHTML='<span>Hotovo produktů: '+hotovoProd+' / '+BASE+'</span><span>fotek: '+hotovoFotek+'</span>';
-      if(r.zbyva_produktu===0){
-        $('#cisla').innerHTML='<span class="ok">✓ Přehostováno '+hotovoFotek+' fotek u '+BASE+' produktů.</span>';
-        $('#err').innerHTML='<a href="/admin-produkty" style="color:var(--namornicka)">→ Otevřít administraci</a>';
-        break;
-      }
-      if((r.zpracovano||0)===0 && (r.chyby||0)===0) break; // nic se nezpracovalo → konec
+  let chybyZasebou=0, stall=0, posledniZbyva=null, celkemChyb=0;
+  while(true){
+    let r;
+    try{ r=await api('run'); chybyZasebou=0; }
+    catch(e){
+      chybyZasebou++;
+      $('#err').textContent='Zaškobrtnutí ('+chybyZasebou+'/5): '+e.message+' — zkouším dál…';
+      if(chybyZasebou>=5){ $('#err').textContent='Zastaveno po opakované chybě: '+e.message+' — klidně spusť znovu, naváže.'; $('#start').disabled=false; break; }
+      await new Promise(z=>setTimeout(z,1800)); continue;
     }
-  }catch(e){ $('#err').textContent='Chyba: '+e.message+' — klidně spusť znovu, naváže tam, kde skončil.'; $('#start').disabled=false; }
+    hotovoFotek+=r.zpracovano||0; celkemChyb+=r.chyby||0;
+    if(BASE===null) BASE=r.celkem_produktu||r.zbyva_produktu||1;
+    const hotovoProd=BASE-r.zbyva_produktu;
+    $('#bar').style.width=(BASE?Math.round(hotovoProd/BASE*100):100)+'%';
+    $('#cisla').innerHTML='<span>Hotovo produktů: '+hotovoProd+' / '+BASE+'</span><span>fotek: '+hotovoFotek+(celkemChyb?' · chyb: '+celkemChyb:'')+'</span>';
+    if(r.zbyva_produktu===0){
+      $('#cisla').innerHTML='<span class="ok">✓ Přehostováno '+hotovoFotek+' fotek.</span>';
+      $('#err').innerHTML='<a href="/admin-produkty" style="color:var(--namornicka)">→ Otevřít administraci</a>';
+      break;
+    }
+    // detekce zaseknutí: zbyva se nehýbe
+    if(r.zbyva_produktu===posledniZbyva){ stall++; } else { stall=0; posledniZbyva=r.zbyva_produktu; }
+    if(stall>=6){ $('#err').textContent='Zbývá '+r.zbyva_produktu+' produktů, které se nedaří stáhnout (možná chybné odkazy). Zbytek vyřešíme zvlášť.'; $('#start').disabled=false; break; }
+  }
 };
 </script>
 </body>

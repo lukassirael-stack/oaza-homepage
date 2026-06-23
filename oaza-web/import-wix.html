@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Import z Wixu — Oáza Adamanthea</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=EB+Garamond&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{--slonovina:#F6F1E7;--slonovina2:#ECE4D3;--namornicka:#1B2A41;--namornicka2:#2C4060;--zlata:#B8924A;--zelena:#4E7C59;--cervena:#9C4A3C;--tlumeny:#6B6354}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--slonovina);color:var(--namornicka);font-family:'EB Garamond',Georgia,serif;line-height:1.55;padding:32px 18px 80px;min-height:100vh;background-image:radial-gradient(circle at 50% -10%,rgba(184,146,74,.10),transparent 55%)}
+  .wrap{max-width:640px;margin:0 auto}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--zlata);text-align:center}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2.2rem;text-align:center;margin:.1rem 0 .2rem}
+  .delic{height:1px;background:linear-gradient(90deg,transparent,var(--zlata),transparent);margin:20px 0 26px}
+  .karta{background:#FBF7EE;border:1px solid var(--slonovina2);border-radius:3px;padding:22px 24px;margin-bottom:18px}
+  input,button{font-family:'IBM Plex Mono',monospace;border-radius:2px}
+  input[type=password]{width:100%;padding:11px 13px;border:1px solid var(--zlata);background:#fff;font-size:1rem;text-align:center}
+  .btn{background:var(--namornicka);color:var(--slonovina);border:none;padding:12px 20px;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .btn:hover{background:var(--namornicka2)} .btn:disabled{opacity:.5;cursor:default}
+  .btn.ghost{background:none;border:1px solid var(--zlata);color:var(--namornicka)}
+  label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tlumeny);margin-bottom:8px}
+  .err{color:var(--cervena);font-style:italic;min-height:1.3em;margin-top:8px}
+  .ok{color:var(--zelena)}
+  .souhrn{font-family:'IBM Plex Mono',monospace;font-size:.82rem}
+  .souhrn div{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--slonovina2)}
+  .bar{height:12px;background:var(--slonovina2);border-radius:6px;overflow:hidden;margin:14px 0 6px}
+  .bar>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--zlata),#D9BC7E);transition:width .3s}
+  .pozn{font-style:italic;color:var(--tlumeny);font-size:.9rem}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Jednorázový import</div>
+  <h1>Import produktů z Wixu</h1>
+  <div class="delic"></div>
+
+  <div class="karta" id="krok-heslo">
+    <label>Heslo administrace</label>
+    <input id="heslo" type="password" placeholder="heslo" autocomplete="current-password">
+    <button class="btn" id="vstup" style="width:100%;margin-top:12px">Pokračovat</button>
+    <div class="err" id="errHeslo"></div>
+  </div>
+
+  <div class="karta hidden" id="krok-soubor">
+    <label>Soubor produkty-import.json</label>
+    <p class="pozn" style="margin-bottom:10px">Vyber soubor <b>produkty-import.json</b>, který sis stáhl.</p>
+    <input type="file" id="soubor" accept="application/json,.json" style="font-family:inherit">
+    <div id="souhrn" class="souhrn hidden" style="margin-top:16px"></div>
+    <button class="btn hidden" id="importuj" style="width:100%;margin-top:16px">Importovat do e-shopu</button>
+    <div class="err" id="errSoubor"></div>
+  </div>
+
+  <div class="karta hidden" id="krok-prubeh">
+    <label id="prubeh-popis">Importuji…</label>
+    <div class="bar"><span id="bar"></span></div>
+    <div class="souhrn" id="prubeh-cisla"></div>
+  </div>
+</div>
+
+<script>
+let HESLO='', DATA=[];
+const $=s=>document.querySelector(s);
+
+async function api(action,extra){
+  const r=await fetch('/api/eshop-admin',{method:'POST',headers:{'Content-Type':'application/json','x-heslo':HESLO},body:JSON.stringify({action,...extra})});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(j.error||('HTTP '+r.status));
+  return j;
+}
+
+$('#vstup').onclick=async()=>{
+  const h=$('#heslo').value.trim();
+  if(!h){$('#errHeslo').textContent='Zadej heslo.';return;}
+  HESLO=h;
+  try{ await api('kategorie-list',{});
+    $('#krok-heslo').classList.add('hidden'); $('#krok-soubor').classList.remove('hidden');
+  }catch(e){$('#errHeslo').textContent=e.message;}
+};
+$('#heslo').addEventListener('keydown',e=>{if(e.key==='Enter')$('#vstup').click();});
+
+$('#soubor').onchange=e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const rdr=new FileReader();
+  rdr.onload=()=>{
+    try{
+      DATA=JSON.parse(rdr.result);
+      if(!Array.isArray(DATA)||!DATA.length) throw new Error('Soubor je prázdný nebo nemá správný formát.');
+      const kat={}; DATA.forEach(p=>kat[p.kategorie||'— nezařazeno —']=(kat[p.kategorie||'— nezařazeno —']||0)+1);
+      $('#souhrn').innerHTML='<div><b>Celkem produktů</b><b>'+DATA.length+'</b></div>'+
+        Object.entries(kat).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div><span>${k}</span><span>${v}</span></div>`).join('');
+      $('#souhrn').classList.remove('hidden'); $('#importuj').classList.remove('hidden');
+      $('#errSoubor').textContent='';
+    }catch(err){$('#errSoubor').textContent=err.message;$('#importuj').classList.add('hidden');$('#souhrn').classList.add('hidden');}
+  };
+  rdr.readAsText(f);
+};
+
+$('#importuj').onclick=async()=>{
+  $('#importuj').disabled=true;
+  $('#krok-prubeh').classList.remove('hidden');
+  const DAVKA=40; let hotovo=0, vlozeno=0;
+  try{
+    for(let i=0;i<DATA.length;i+=DAVKA){
+      const cast=DATA.slice(i,i+DAVKA);
+      const r=await api('bulk-save',{produkty:cast});
+      vlozeno+=r.vlozeno||cast.length; hotovo+=cast.length;
+      const pct=Math.round(hotovo/DATA.length*100);
+      $('#bar').style.width=pct+'%';
+      $('#prubeh-cisla').innerHTML='<div><span>Zpracováno</span><span>'+hotovo+' / '+DATA.length+'</span></div>';
+    }
+    $('#prubeh-popis').innerHTML='<span class="ok">✓ Hotovo — nahráno '+vlozeno+' produktů.</span>';
+    $('#prubeh-cisla').innerHTML+='<div style="border:none;margin-top:8px"><a href="/admin-produkty" style="color:var(--namornicka)">→ Otevřít administraci produktů</a></div>';
+  }catch(e){
+    $('#prubeh-popis').innerHTML='<span style="color:var(--cervena)">Chyba: '+e.message+'</span>';
+    $('#importuj').disabled=false;
+  }
+};
+</script>
+</body>
+</html>

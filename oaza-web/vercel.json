@@ -10,7 +10,7 @@
       "permanent": true
     },
     {
-      "source": "/:path((?!img/|api/|favicon|oaza-adamanthea-favicon|robots\\.txt|sitemap\\.xml|index\\.html|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|o-nas|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|harmonizace-jmena-a-prijmeni|lemoare-krystaly|spoluprace|vesmirny-kod-zrozeni|akce|admin-akce|gdpr|kontakt|prehled-navstevnosti|zdravi|admin-produkty|import-wix|rehost-fotky|navstevnost\\.js).+)",
+      "source": "/:path((?!img/|api/|favicon|oaza-adamanthea-favicon|robots\\.txt|sitemap\\.xml|index\\.html|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|o-nas|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|harmonizace-jmena-a-prijmeni|lemoare-krystaly|spoluprace|vesmirny-kod-zrozeni|akce|admin-akce|gdpr|kontakt|prehled-navstevnosti|zdravi|admin-produkty|import-wix|rehost-fotky|obchod|navstevnost\\.js).+)",
       "has": [
         { "type": "host", "value": "oaza-adamanthea.cz" }
       ],

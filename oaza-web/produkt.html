@@ -32,6 +32,9 @@
   .info .eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--zlata)}
   .info h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2rem,4.5vw,2.9rem);line-height:1.08;margin:.18em 0 .12em}
   .cena{font-size:1.5rem;color:var(--namornicka2);font-family:'Cormorant Garamond',serif;margin:.1em 0 .2em}
+  .mena-prep{display:inline-flex;border:1px solid var(--linka);border-radius:30px;overflow:hidden}
+  .mena-prep button{border:none;background:transparent;padding:6px 12px;cursor:pointer;font-family:'Cinzel',serif;font-size:.74rem;color:var(--namornicka2)}
+  .mena-prep button.akt{background:var(--namornicka);color:var(--slonovina)}
   .delic{height:1px;background:linear-gradient(90deg,var(--zlata),transparent);margin:18px 0}
   .stitky{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 2px}
   .tag{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;
@@ -74,6 +77,8 @@ const KONTAKT='oaza.adamanthea@gmail.com';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const slug=new URLSearchParams(location.search).get('slug');
+let MENA=(localStorage.getItem('oaza_mena')==='eur')?'eur':'czk';
+const cenaFmt=p=> MENA==='eur' ? (p.cena_eur||0).toLocaleString('cs-CZ')+' €' : (p.cena||0).toLocaleString('cs-CZ')+' Kč';
 
 async function nacti(){
   if(!slug){$('#obsah').innerHTML='<div class="nacitam">Produkt nenalezen.</div>';return;}
@@ -94,8 +99,13 @@ function render(p){
   if((p.velikost||[]).length)vlast.push(`<div><b>Velikost:</b> ${esc(p.velikost.join(', '))}</div>`);
   if((p.ucel||[]).length)    vlast.push(`<div><b>Zaměření:</b> ${esc(p.ucel.join(', '))}</div>`);
 
+  const cenaText = (p.cena||0).toLocaleString('cs-CZ')+' Kč / '+(p.cena_eur||0).toLocaleString('cs-CZ')+' €';
   const predmet=encodeURIComponent('Zájem o produkt: '+p.nazev);
-  const telo=encodeURIComponent('Dobrý den,\n\nmám zájem o produkt „'+p.nazev+'" ('+p.cena+' Kč).\nProsím o informace k rezervaci.\n\nDěkuji.');
+  const telo=encodeURIComponent('Dobrý den,\n\nmám zájem o produkt „'+p.nazev+'" ('+cenaText+').\nProsím o informace.\n\nDěkuji.');
+  const cta = p.digitalni ? 'Mám zájem' : 'Mám zájem · rezervovat';
+  const pozn = p.digitalni
+    ? '✦ Digitální produkt — doručíme po zaplacení e-mailem.'
+    : '✦ Jediný kus — po prodeji už nebude k dispozici.';
 
   $('#obsah').innerHTML=`
   <div class="detail">
@@ -105,18 +115,27 @@ function render(p){
       ${(p.videa||[]).map(v=>`<video src="${esc(v)}" controls playsinline></video>`).join('')}
     </div>
     <div class="info">
-      <div class="eyebrow">${esc(kat)||'Spirit Shop'}</div>
+      <div class="eyebrow">${esc(kat)||'Bali Shop'}</div>
       <h1>${esc(p.nazev)}</h1>
-      <div class="cena">${p.cena.toLocaleString('cs-CZ')} Kč</div>
+      <div class="cena-radek" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <span class="cena" id="cenaText">${cenaFmt(p)}</span>
+        <span class="mena-prep" id="mena-prep"><button data-m="czk">Kč</button><button data-m="eur">€</button></span>
+      </div>
       ${p.stitek?`<div class="stitky"><span class="tag">${esc(p.stitek)}</span></div>`:''}
       <div class="delic"></div>
       ${p.popis?`<div class="popis">${esc(p.popis)}</div>`:''}
       ${vlast.length?`<div class="vlastnosti">${vlast.join('')}</div>`:''}
-      <a class="koupit" href="mailto:${KONTAKT}?subject=${predmet}&body=${telo}">Mám zájem · rezervovat</a>
-      <div class="jeden">✦ Jediný kus — po prodeji už nebude k dispozici.</div>
+      <a class="koupit" href="mailto:${KONTAKT}?subject=${predmet}&body=${telo}">${cta}</a>
+      <div class="jeden">${pozn}</div>
     </div>
   </div>`;
-  window.FOTKY=fotky;
+  window.FOTKY=fotky; window.PROD=p;
+  document.querySelectorAll('#mena-prep button').forEach(b=>{
+    b.classList.toggle('akt',b.dataset.m===MENA);
+    b.onclick=()=>{MENA=b.dataset.m;localStorage.setItem('oaza_mena',MENA);
+      document.querySelectorAll('#mena-prep button').forEach(x=>x.classList.toggle('akt',x.dataset.m===MENA));
+      $('#cenaText').textContent=cenaFmt(window.PROD);};
+  });
 }
 window.prepni=(i,el)=>{$('#hlavniFoto').src=window.FOTKY[i];
   document.querySelectorAll('.mini img').forEach(x=>x.classList.remove('akt'));el.classList.add('akt');};

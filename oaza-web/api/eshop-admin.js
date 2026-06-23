@@ -91,6 +91,36 @@ export default async function handler(req, res) {
         return res.status(200).json({ ok: true });
       }
 
+      case 'bulk-save': {
+        const vstup = Array.isArray(body.produkty) ? body.produkty : [];
+        if (!vstup.length) return res.status(400).json({ error: 'Prázdný seznam.' });
+        const radky = vstup.map(p => ({
+          slug: p.slug || (bezpecny(p.nazev) + '-' + Math.random().toString(36).slice(2, 8)),
+          nazev: p.nazev,
+          popis: p.popis ?? null,
+          cena: parseInt(p.cena, 10) || 0,
+          mena: 'CZK',
+          kategorie: p.kategorie ?? null,
+          barva: p.barva || [],
+          velikost: p.velikost || [],
+          material: p.material || [],
+          fotky: p.fotky || [],
+          videa: p.videa || [],
+          stav: p.stav || 'skladem',
+          doporucujeme: !!p.doporucujeme,
+          stitek: p.stitek || null,
+          poradi: parseInt(p.poradi, 10) || 0,
+          vlastnosti: p.vlastnosti || {},
+        }));
+        // upsert podle slug (slug má unique constraint)
+        const out = await rest('produkty?on_conflict=slug', {
+          method: 'POST',
+          prefer: 'return=representation,resolution=merge-duplicates',
+          body: JSON.stringify(radky),
+        });
+        return res.status(200).json({ vlozeno: Array.isArray(out) ? out.length : 0 });
+      }
+
       // ---------- KATEGORIE ----------
       case 'kategorie-list': {
         const data = await rest('kategorie?select=*&order=poradi.asc');

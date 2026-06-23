@@ -43,6 +43,8 @@
   <div class="karta hidden" id="krok-start">
     <p class="pozn" style="margin:0 0 14px">Stáhne fotky z Wixu, uloží je do tvého úložiště a přepíše odkazy. Necho běžet okno otevřené — poběží to po dávkách až do konce. Můžeš kdykoli zavřít a příště pokračovat (přeskočí hotové).</p>
     <button class="btn" id="start">Spustit přehostování</button>
+    <button class="btn" id="diag" style="background:none;border:1px solid var(--zlata);color:var(--namornicka);margin-top:8px">Diagnostika (zjistit příčinu chyb)</button>
+    <pre id="diag-out" style="white-space:pre-wrap;font-family:monospace;font-size:.72rem;color:var(--tlumeny);margin-top:10px"></pre>
     <div class="bar hidden" id="barwrap"><span id="bar"></span></div>
     <div class="cisla hidden" id="cisla"></div>
     <div class="err" id="err"></div>
@@ -67,6 +69,11 @@ $('#vstup').onclick=async()=>{
 };
 $('#heslo').addEventListener('keydown',e=>{if(e.key==='Enter')$('#vstup').click();});
 
+$('#diag').onclick=async()=>{
+  $('#diag-out').textContent='Zjišťuji…';
+  try{ const r=await api('diag'); $('#diag-out').textContent=JSON.stringify(r,null,1); }
+  catch(e){ $('#diag-out').textContent='Chyba: '+e.message; }
+};
 $('#start').onclick=async()=>{
   $('#start').disabled=true; $('#barwrap').classList.remove('hidden'); $('#cisla').classList.remove('hidden');
   $('#err').textContent='';

@@ -134,12 +134,20 @@
         </div>
         <div class="row2">
           <div><label>Cena (Kč) *</label><input id="f-cena" type="number" min="0" step="10"></div>
+          <div><label>Cena (€) <span class="pozn">— nech prázdné = spočítá se z kurzu</span></label><input id="f-cena-eur" type="number" min="0" step="1"></div>
+        </div>
+        <div class="row2">
           <div><label>Stav</label><select id="f-stav">
             <option value="skladem">Skladem</option>
             <option value="prodano">Prodáno</option>
             <option value="skryto">Skryto</option>
           </select></div>
+          <div><label>Typ produktu</label>
+            <div style="padding-top:8px"><label style="display:inline;text-transform:none;letter-spacing:0;font-size:1rem;color:var(--namornicka)">
+              <input type="checkbox" id="f-digitalni" style="width:auto;margin-right:8px">Digitální produkt (ke stažení)</label></div>
+          </div>
         </div>
+        <div id="f-soubor-wrap" class="hidden"><label>Odkaz / soubor ke stažení <span class="pozn">(URL souboru — pošle se po zaplacení)</span></label><input id="f-soubor" placeholder="https://…"></div>
         <label>Popis</label><textarea id="f-popis" rows="4"></textarea>
 
         <div class="row2">
@@ -184,6 +192,15 @@
 
   <!-- KATEGORIE -->
   <div id="tab-kategorie" class="hidden">
+    <div class="karta">
+      <h1 style="font-size:1.4rem">Kurz eura</h1>
+      <p class="pozn">Kolik Kč za 1 €. Použije se u produktů bez ručně zadané eurové ceny.</p>
+      <div class="delic" style="margin:12px 0"></div>
+      <div class="row2" style="align-items:end">
+        <div><label>Kč za 1 €</label><input id="kurz-eur" type="number" min="1" step="0.1"></div>
+        <div><button class="btn" id="kurz-ulozit" style="width:100%">Uložit kurz</button></div>
+      </div>
+    </div>
     <div class="karta">
       <h1 style="font-size:1.4rem">Kategorie</h1>
       <p class="pozn">Pořadí určuje řazení v obchodě. Smazání kategorie nesmaže produkty, jen je odpojí.</p>
@@ -242,8 +259,17 @@ document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
 async function nactiVse(){
   const k=await api('kategorie-list'); KATEGORIE=k.kategorie||[];
   const p=await api('list'); PRODUKTY=p.produkty||[];
+  try{const n=await api('nastaveni-get'); $('#kurz-eur').value=(n.nastaveni&&n.nastaveni.kurz_eur)||'25';}catch(e){}
   renderSeznam(); renderKategorie(); naplnKategorieSelect();
 }
+// přepínač digitální → odkaz ke stažení
+$('#f-digitalni').addEventListener('change',e=>{
+  $('#f-soubor-wrap').classList.toggle('hidden',!e.target.checked);
+});
+$('#kurz-ulozit').onclick=async()=>{
+  const v=$('#kurz-eur').value.trim(); if(!v){toast('Zadej kurz.');return;}
+  try{await api('nastaveni-save',{klic:'kurz_eur',hodnota:v});toast('Kurz uložen.');}catch(e){toast('Chyba: '+e.message);}
+};
 
 /* ---------- seznam produktů ---------- */
 function renderSeznam(){
@@ -305,9 +331,10 @@ document.querySelectorAll('.tags').forEach(box=>{
 function novyForm(){
   EDIT=null;FOTKY=[];VIDEA=[];
   $('#form-titulek').textContent='Nový produkt';
-  $('#f-nazev').value='';$('#f-cena').value='';$('#f-popis').value='';
+  $('#f-nazev').value='';$('#f-cena').value='';$('#f-cena-eur').value='';$('#f-popis').value='';
   $('#f-kategorie').value='';$('#f-stav').value='skladem';$('#f-stitek').value='';
   $('#f-doporucujeme').checked=false;
+  $('#f-digitalni').checked=false;$('#f-soubor').value='';$('#f-soubor-wrap').classList.add('hidden');
   setTags('barva',[]);setTags('velikost',[]);setTags('ucel',[]);
   renderMedia();ukazForm(true);
 }
@@ -319,9 +346,10 @@ window.upravit=id=>{
   const p=PRODUKTY.find(x=>x.id===id);if(!p)return;
   EDIT=p;FOTKY=[...(p.fotky||[])];VIDEA=[...(p.videa||[])];
   $('#form-titulek').textContent='Upravit produkt';
-  $('#f-nazev').value=p.nazev||'';$('#f-cena').value=p.cena||'';$('#f-popis').value=p.popis||'';
+  $('#f-nazev').value=p.nazev||'';$('#f-cena').value=p.cena||'';$('#f-cena-eur').value=(p.cena_eur??'');$('#f-popis').value=p.popis||'';
   $('#f-kategorie').value=p.kategorie||'';$('#f-stav').value=p.stav||'skladem';$('#f-stitek').value=p.stitek||'';
   $('#f-doporucujeme').checked=!!p.doporucujeme;
+  $('#f-digitalni').checked=!!p.digitalni;$('#f-soubor').value=p.soubor||'';$('#f-soubor-wrap').classList.toggle('hidden',!p.digitalni);
   setTags('barva',p.barva);setTags('velikost',p.velikost);setTags('ucel',(p.vlastnosti&&p.vlastnosti.ucel)||[]);
   renderMedia();ukazForm(true);
 };
@@ -331,8 +359,9 @@ $('#ulozit').onclick=async()=>{
   if(!nazev||!kategorie||cena===''){toast('Vyplň název, kategorii a cenu.');return;}
   const produkt={
     id:EDIT?EDIT.id:undefined, slug:EDIT?EDIT.slug:undefined,
-    nazev,kategorie,cena,popis:$('#f-popis').value.trim(),
+    nazev,kategorie,cena,cena_eur:$('#f-cena-eur').value,popis:$('#f-popis').value.trim(),
     stav:$('#f-stav').value,stitek:$('#f-stitek').value,doporucujeme:$('#f-doporucujeme').checked,
+    digitalni:$('#f-digitalni').checked,soubor:$('#f-soubor').value.trim(),
     barva:getTags('barva'),velikost:getTags('velikost'),
     fotky:FOTKY,videa:VIDEA,
     vlastnosti:{...(EDIT&&EDIT.vlastnosti||{}),ucel:getTags('ucel')},

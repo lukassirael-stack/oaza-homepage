@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Zdraví systému — Oáza Adamanthea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=EB+Garamond:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --slonovina:#F6F1E7;
+    --slonovina-tmava:#ECE4D3;
+    --namornicka:#1B2A41;
+    --namornicka-svetla:#2C4060;
+    --zlata:#B8924A;
+    --zlata-svetla:#D9BC7E;
+    --zelena:#4E7C59;
+    --jantar:#C08A2D;
+    --cervena:#9C4A3C;
+    --text-tlumeny:#6B6354;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--slonovina);
+    color:var(--namornicka);
+    font-family:'EB Garamond',Georgia,serif;
+    line-height:1.5;
+    padding:32px 20px 64px;
+    background-image:radial-gradient(circle at 50% -10%, rgba(184,146,74,.10), transparent 55%);
+    min-height:100vh;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+
+  /* --- přihlášení --- */
+  #login{max-width:380px;margin:14vh auto 0;text-align:center}
+  #login h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2.1rem;letter-spacing:.02em}
+  #login p{color:var(--text-tlumeny);margin:.4rem 0 1.6rem;font-style:italic}
+  #login input{
+    width:100%;padding:12px 14px;border:1px solid var(--zlata);
+    background:#fff;color:var(--namornicka);font-family:'EB Garamond',serif;font-size:1.05rem;border-radius:2px;text-align:center
+  }
+  #login button{
+    margin-top:12px;width:100%;padding:12px;border:none;cursor:pointer;
+    background:var(--namornicka);color:var(--slonovina);font-family:'Cormorant Garamond',serif;
+    font-size:1.1rem;letter-spacing:.06em;text-transform:uppercase;border-radius:2px
+  }
+  #login button:hover{background:var(--namornicka-svetla)}
+  #login .err{color:var(--cervena);min-height:1.4em;margin-top:10px;font-style:italic}
+
+  /* --- hlavička --- */
+  header{text-align:center;margin-bottom:8px}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
+  header h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2.5rem;letter-spacing:.01em;margin:.15rem 0}
+  .stav-radek{font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--text-tlumeny);margin-top:.3rem}
+  .stav-radek .tecka{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  .delic{height:1px;background:linear-gradient(90deg,transparent,var(--zlata),transparent);margin:22px 0 28px}
+
+  /* --- karty --- */
+  .karta{background:#FBF7EE;border:1px solid var(--slonovina-tmava);border-radius:3px;padding:22px 24px;margin-bottom:20px;box-shadow:0 1px 0 rgba(184,146,74,.12)}
+  .karta > h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.45rem;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .karta > h2 .mini{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-tlumeny)}
+
+  /* DB pruh */
+  .db-cisla{display:flex;align-items:baseline;gap:10px;margin:14px 0 6px}
+  .db-cisla .velke{font-family:'Cormorant Garamond',serif;font-size:2.6rem;line-height:1;font-weight:500}
+  .db-cisla .z{color:var(--text-tlumeny);font-size:1rem}
+  .bar{height:12px;background:var(--slonovina-tmava);border-radius:6px;overflow:hidden;margin-top:6px}
+  .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--zlata),var(--zlata-svetla));border-radius:6px;transition:width .8s ease}
+  .bar-popis{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--text-tlumeny);margin-top:6px}
+
+  /* tabulky */
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.95rem}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--slonovina-tmava)}
+  th{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tlumeny);font-weight:500}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  td .nazev{font-family:'IBM Plex Mono',monospace;font-size:.9rem}
+
+  /* cron řádky */
+  .cron{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--slonovina-tmava)}
+  .cron:last-child{border-bottom:none}
+  .cron .tecka{width:11px;height:11px;border-radius:50%;flex:none}
+  .cron .jm{font-family:'IBM Plex Mono',monospace;font-size:.92rem;font-weight:500}
+  .cron .det{color:var(--text-tlumeny);font-size:.82rem;font-family:'IBM Plex Mono',monospace}
+  .cron .vpravo{margin-left:auto;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--text-tlumeny)}
+
+  /* sloupcový graf návštěvnosti */
+  .graf{display:flex;align-items:flex-end;gap:10px;height:130px;margin-top:14px;padding-bottom:24px;position:relative}
+  .graf .sl{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+  .graf .sl .pruh{width:100%;max-width:46px;background:linear-gradient(180deg,var(--namornicka-svetla),var(--namornicka));border-radius:3px 3px 0 0;transition:height .7s ease}
+  .graf .sl .hod{font-family:'IBM Plex Mono',monospace;font-size:.75rem;margin-bottom:4px;color:var(--namornicka)}
+  .graf .sl .dt{position:absolute;bottom:-22px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--text-tlumeny);white-space:nowrap}
+
+  .pozn{font-style:italic;color:var(--text-tlumeny);font-size:.9rem;margin-top:10px}
+  .refresh{display:block;margin:6px auto 0;background:none;border:1px solid var(--zlata);color:var(--namornicka);font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:2px;cursor:pointer}
+  .refresh:hover{background:var(--zlata);color:#fff}
+  .hidden{display:none}
+  .nacitam{text-align:center;color:var(--text-tlumeny);font-style:italic;padding:40px}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <h1>Zdraví systému</h1>
+  <p>Oáza Adamanthea</p>
+  <input id="heslo" type="password" placeholder="heslo" autocomplete="current-password" />
+  <button id="vstup">Vstoupit</button>
+  <div class="err" id="loginErr"></div>
+</div>
+
+<div class="wrap hidden" id="panel">
+  <header>
+    <div class="eyebrow">Provozní přehled · Free tier</div>
+    <h1>Zdraví systému</h1>
+    <div class="stav-radek" id="celkovyStav">—</div>
+  </header>
+  <div class="delic"></div>
+  <div id="obsah"><div class="nacitam">Načítám data…</div></div>
+  <button class="refresh" id="refresh">↻ Aktualizovat</button>
+</div>
+
+<script>
+const LIMIT_DB = 524288000; // 500 MB
+let HESLO = '';
+
+function tecka(barva){return '<span class="tecka" style="background:'+barva+'"></span>';}
+function escapeHtml(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+function fmtCas(iso){
+  if(!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleString('cs-CZ',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+}
+
+async function nacti(){
+  document.getElementById('obsah').innerHTML = '<div class="nacitam">Načítám data…</div>';
+  let data;
+  try{
+    const r = await fetch('/api/zdravi', {headers:{'x-heslo':HESLO}});
+    if(r.status === 401){ odhlas('Neplatné heslo.'); return; }
+    if(!r.ok){ const e = await r.json().catch(()=>({})); throw new Error(e.error||('HTTP '+r.status)); }
+    data = await r.json();
+  }catch(e){
+    document.getElementById('obsah').innerHTML = '<div class="karta"><h2>Chyba</h2><p class="pozn">'+escapeHtml(e.message)+'</p></div>';
+    return;
+  }
+  render(data);
+}
+
+function render(d){
+  // celkový stav
+  const pct = d.db.pct;
+  const cronFail = (d.cron||[]).some(c => c.fail_24h > 0 || c.last_status !== 'succeeded' || !c.active);
+  const dbVarovani = pct > 70;
+  let barva = 'var(--zelena)', popis = 'Vše v pořádku';
+  if(cronFail || pct > 90){ barva='var(--cervena)'; popis='Vyžaduje pozornost'; }
+  else if(dbVarovani){ barva='var(--jantar)'; popis='Sledovat'; }
+  document.getElementById('celkovyStav').innerHTML =
+    tecka(barva) + popis + '  ·  aktualizováno ' + fmtCas(d.generated_at);
+
+  let h = '';
+
+  // --- Databáze ---
+  h += '<div class="karta"><h2>Databáze <span class="mini">Supabase · limit 500 MB</span></h2>';
+  h += '<div class="db-cisla"><span class="velke">'+d.db.pretty+'</span><span class="z">/ 500 MB · '+pct+' %</span></div>';
+  h += '<div class="bar"><span style="width:'+Math.min(pct,100)+'%"></span></div>';
+  h += '<div class="bar-popis">'+(pct<10?'zanedbatelné využití':(pct<70?'dostatek prostoru':(pct<90?'začít hlídat':'blízko limitu')))+'</div>';
+  // tabulky
+  h += '<table><thead><tr><th>Tabulka</th><th class="num">Řádků</th><th class="num">Velikost</th></tr></thead><tbody>';
+  (d.tables||[]).forEach(t=>{
+    h += '<tr><td><span class="nazev">'+escapeHtml(t.name)+'</span></td><td class="num">'+(t.rows||0).toLocaleString('cs-CZ')+'</td><td class="num">'+escapeHtml(t.pretty)+'</td></tr>';
+  });
+  h += '</tbody></table></div>';
+
+  // --- Cron ---
+  h += '<div class="karta"><h2>Automatické úlohy <span class="mini">pg_cron · posl. 24 h</span></h2>';
+  (d.cron||[]).forEach(c=>{
+    const ok = c.active && c.last_status==='succeeded' && c.fail_24h===0;
+    const b = ok ? 'var(--zelena)' : (c.fail_24h>0||c.last_status!=='succeeded' ? 'var(--cervena)' : 'var(--jantar)');
+    h += '<div class="cron">'+tecka(b)+
+         '<div><div class="jm">'+escapeHtml(c.name)+'</div>'+
+         '<div class="det">'+escapeHtml(c.schedule)+(c.active?'':' · NEAKTIVNÍ')+'</div></div>'+
+         '<div class="vpravo">posl. běh '+fmtCas(c.last_run)+'<br>'+
+         '✓ '+c.ok_24h+(c.fail_24h>0?'  ✗ '+c.fail_24h:'')+'</div></div>';
+  });
+  h += '</div>';
+
+  // --- Návštěvnost ---
+  const a = d.analytics||{};
+  const dny = (a.days||[]).slice().reverse(); // od nejstaršího vlevo
+  const max = Math.max(1, ...dny.map(x=>x.pocet));
+  h += '<div class="karta"><h2>Návštěvnost <span class="mini">posl. dny · celkem '+(a.total||0).toLocaleString('cs-CZ')+' záznamů</span></h2>';
+  h += '<div class="graf">';
+  dny.forEach(x=>{
+    const vyska = Math.round((x.pocet/max)*100);
+    const den = new Date(x.den).toLocaleDateString('cs-CZ',{day:'2-digit',month:'2-digit'});
+    h += '<div class="sl"><span class="hod">'+x.pocet+'</span><div class="pruh" style="height:'+vyska+'%"></div><span class="dt">'+den+'</span></div>';
+  });
+  h += '</div>';
+  h += '<p class="pozn">Tabulka navstevnost roste řádově o stovky řádků denně — proti limitu 500 MB zanedbatelné.</p>';
+  h += '</div>';
+
+  document.getElementById('obsah').innerHTML = h;
+}
+
+function odhlas(msg){
+  HESLO='';
+  document.getElementById('panel').classList.add('hidden');
+  document.getElementById('login').classList.remove('hidden');
+  document.getElementById('loginErr').textContent = msg||'';
+}
+
+function vstup(){
+  const h = document.getElementById('heslo').value.trim();
+  if(!h){ document.getElementById('loginErr').textContent='Zadej heslo.'; return; }
+  HESLO = h;
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('panel').classList.remove('hidden');
+  document.getElementById('loginErr').textContent='';
+  nacti();
+}
+
+document.getElementById('vstup').addEventListener('click', vstup);
+document.getElementById('heslo').addEventListener('keydown', e=>{ if(e.key==='Enter') vstup(); });
+document.getElementById('refresh').addEventListener('click', nacti);
+</script>
+</body>
+</html>

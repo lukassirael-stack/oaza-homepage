@@ -41,6 +41,12 @@
   .razeni select{border:1px solid var(--linka);background:var(--karta);padding:9px 12px;font-family:'EB Garamond',serif;
     font-size:.98rem;color:var(--namornicka);border-radius:2px}
   .razeni select:focus{outline:none;border-color:var(--zlata)}
+  .mena-prep{display:inline-flex;border:1px solid var(--linka);border-radius:30px;overflow:hidden}
+  .mena-prep button{border:none;background:transparent;padding:8px 14px;cursor:pointer;font-family:'Cinzel',serif;
+    font-size:.78rem;letter-spacing:.06em;color:var(--namornicka2)}
+  .mena-prep button.akt{background:var(--namornicka);color:var(--slonovina)}
+  .digi-tag{position:absolute;bottom:10px;left:10px;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;
+    text-transform:uppercase;background:var(--namornicka);color:var(--slonovina);padding:3px 8px;border-radius:2px;opacity:.92}
 
   /* kategorie – pilulky */
   .kategorie{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;padding:6px 0 4px}
@@ -102,7 +108,7 @@
 <div class="wrap">
   <header>
     <div class="eyebrow">Oáza Adamanthea</div>
-    <h1>Spirit&nbsp;Shop</h1>
+    <h1>Bali&nbsp;Shop</h1>
     <div class="hvezda"><span>✦</span></div>
     <p>Ručně vybírané poklady — krystaly, šaty, šperky a esence. Každý kousek je jediný.</p>
   </header>
@@ -115,6 +121,9 @@
       <input id="hledat" type="search" placeholder="Hledat v obchodě…">
     </div>
     <div class="razeni">
+      <div class="mena-prep" id="mena-prep">
+        <button data-m="czk" class="akt">Kč</button><button data-m="eur">€</button>
+      </div>
       <span>Řadit:</span>
       <select id="razeni">
         <option value="dop">Doporučené</option>
@@ -133,7 +142,7 @@
     <div class="filtr-skup">
       <label>Cena</label>
       <input class="cena-vstup" id="cena-min" type="number" min="0" placeholder="od"> –
-      <input class="cena-vstup" id="cena-max" type="number" min="0" placeholder="do"> Kč
+      <input class="cena-vstup" id="cena-max" type="number" min="0" placeholder="do"> <span id="mena-popis">Kč</span>
     </div>
     <button class="reset" id="reset">Zrušit filtry</button>
   </div>
@@ -147,8 +156,13 @@
 </footer>
 
 <script>
-let VSE=[], KATEGORIE=[], STAV={kat:'vse', q:'', barva:null, cmin:null, cmax:null, sort:'dop'};
+let VSE=[], KATEGORIE=[], KURZ=25, STAV={kat:'vse', q:'', barva:null, cmin:null, cmax:null, sort:'dop'};
+let MENA = (localStorage.getItem('oaza_mena')==='eur') ? 'eur' : 'czk';
 const $=s=>document.querySelector(s);
+const cenaPole=()=> MENA==='eur' ? 'cena_eur' : 'cena';
+const cenaFmt=p=> MENA==='eur'
+  ? (p.cena_eur||0).toLocaleString('cs-CZ')+' €'
+  : (p.cena||0).toLocaleString('cs-CZ')+' Kč';
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const bezDia=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 
@@ -162,8 +176,8 @@ async function nacti(){
   try{
     const r=await fetch('/api/produkty'); const j=await r.json();
     if(!r.ok)throw new Error(j.error||'chyba');
-    VSE=j.produkty||[]; KATEGORIE=j.kategorie||[];
-    renderKategorie(); renderBarvy(); render();
+    VSE=j.produkty||[]; KATEGORIE=j.kategorie||[]; KURZ=j.kurz||25;
+    syncMena(); renderKategorie(); renderBarvy(); render();
   }catch(e){ $('#mrizka').innerHTML='<div class="prazdno" style="grid-column:1/-1">Obchod se nepodařilo načíst.</div>'; }
 }
 
@@ -195,12 +209,13 @@ function render(){
   if(STAV.kat!=='vse') list=list.filter(p=>p.kategorie===STAV.kat);
   if(STAV.q){const q=bezDia(STAV.q);list=list.filter(p=>bezDia(p.nazev).includes(q)||(p.ucel||[]).some(u=>bezDia(u).includes(q)));}
   if(STAV.barva) list=list.filter(p=>(p.barva||[]).includes(STAV.barva));
-  if(STAV.cmin!=null) list=list.filter(p=>p.cena>=STAV.cmin);
-  if(STAV.cmax!=null) list=list.filter(p=>p.cena<=STAV.cmax);
+  const pole=cenaPole();
+  if(STAV.cmin!=null) list=list.filter(p=>(p[pole]||0)>=STAV.cmin);
+  if(STAV.cmax!=null) list=list.filter(p=>(p[pole]||0)<=STAV.cmax);
 
   const s=STAV.sort;
-  if(s==='levne')list.sort((a,b)=>a.cena-b.cena);
-  else if(s==='drahe')list.sort((a,b)=>b.cena-a.cena);
+  if(s==='levne')list.sort((a,b)=>(a[pole]||0)-(b[pole]||0));
+  else if(s==='drahe')list.sort((a,b)=>(b[pole]||0)-(a[pole]||0));
   else if(s==='az')list.sort((a,b)=>a.nazev.localeCompare(b.nazev,'cs'));
   else if(s==='nove')list.sort((a,b)=>new Date(b.vytvoreno)-new Date(a.vytvoreno));
   // 'dop' = pořadí z API (doporučené první)
@@ -219,9 +234,10 @@ function render(){
         <img class="druha ${chybi}" src="${esc(f2||f1)}" alt="" loading="lazy">
         ${p.stitek?`<span class="stitek">${esc(p.stitek)}</span>`:''}
         ${p.doporucujeme?'<span class="hvezdicka">✦</span>':''}
+        ${p.digitalni?'<span class="digi-tag">Digitální</span>':''}
       </div>
       <h3>${esc(p.nazev)}</h3>
-      <div class="cena">${p.cena.toLocaleString('cs-CZ')} Kč</div>
+      <div class="cena">${cenaFmt(p)}</div>
     </a>`;
   }).join('');
 }
@@ -234,6 +250,15 @@ window.resetuj=()=>{
   render();
 };
 $('#reset').onclick=window.resetuj;
+function syncMena(){
+  document.querySelectorAll('#mena-prep button').forEach(b=>b.classList.toggle('akt',b.dataset.m===MENA));
+  $('#mena-popis').textContent = MENA==='eur' ? '€' : 'Kč';
+}
+document.querySelectorAll('#mena-prep button').forEach(b=>b.onclick=()=>{
+  MENA=b.dataset.m; localStorage.setItem('oaza_mena',MENA);
+  // přepočítat zadané meze ceny mezi měnami, ať filtr sedí
+  syncMena(); render();
+});
 $('#hledat').addEventListener('input',e=>{STAV.q=e.target.value;render();});
 $('#razeni').addEventListener('change',e=>{STAV.sort=e.target.value;render();});
 $('#cena-min').addEventListener('input',e=>{STAV.cmin=e.target.value?+e.target.value:null;render();});

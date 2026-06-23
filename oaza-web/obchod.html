@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obchod — Oáza Adamanthea</title>
+<meta name="description" content="Krystaly, šaty, šperky, esence a poklady z Bali. Ručně vybírané kousky z Oázy Adamanthea.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --slonovina:#F6F1E7; --slonovina2:#EFE8D8; --karta:#FBF8F1;
+    --namornicka:#1B2A41; --namornicka2:#33486A; --zlata:#B8924A; --zlata2:#D9BC7E;
+    --tlumeny:#7A715F; --cervena:#9C4A3C; --linka:#E2D6BC;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--slonovina);color:var(--namornicka);font-family:'EB Garamond',Georgia,serif;line-height:1.6;
+       background-image:radial-gradient(circle at 50% -5%,rgba(184,146,74,.10),transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+  /* hlavička */
+  header{text-align:center;padding:46px 0 8px}
+  .eyebrow{font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.42em;text-transform:uppercase;color:var(--zlata)}
+  header h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.6rem,6vw,3.8rem);letter-spacing:.01em;line-height:1.05;margin:.1em 0}
+  header p{color:var(--tlumeny);font-style:italic;font-size:1.08rem;max-width:520px;margin:.2rem auto 0}
+  .hvezda{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px 0 6px;color:var(--zlata)}
+  .hvezda::before,.hvezda::after{content:"";height:1px;width:min(120px,22vw);background:linear-gradient(90deg,transparent,var(--zlata))}
+  .hvezda::after{transform:scaleX(-1)}
+  .hvezda span{font-size:.7rem;letter-spacing:.3em}
+
+  /* ovládání */
+  .ovladani{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin:30px 0 18px}
+  .hledat{position:relative;flex:1;min-width:220px;max-width:360px}
+  .hledat input{width:100%;padding:11px 14px 11px 38px;border:1px solid var(--linka);background:var(--karta);
+    font-family:'EB Garamond',serif;font-size:1.02rem;color:var(--namornicka);border-radius:2px}
+  .hledat input:focus{outline:none;border-color:var(--zlata)}
+  .hledat svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--tlumeny);fill:none;stroke-width:1.6}
+  .razeni{display:flex;align-items:center;gap:8px;color:var(--tlumeny);font-size:.92rem}
+  .razeni select{border:1px solid var(--linka);background:var(--karta);padding:9px 12px;font-family:'EB Garamond',serif;
+    font-size:.98rem;color:var(--namornicka);border-radius:2px}
+  .razeni select:focus{outline:none;border-color:var(--zlata)}
+
+  /* kategorie – pilulky */
+  .kategorie{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;padding:6px 0 4px}
+  .pill{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;
+    padding:9px 17px;border:1px solid var(--linka);border-radius:40px;color:var(--namornicka2);cursor:pointer;
+    background:transparent;transition:.18s;white-space:nowrap}
+  .pill:hover{border-color:var(--zlata)}
+  .pill.akt{background:var(--namornicka);color:var(--slonovina);border-color:var(--namornicka)}
+
+  .filtr-radek{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:center;justify-content:center;
+    margin:18px auto 4px;padding:14px 0;border-top:1px solid var(--linka);border-bottom:1px solid var(--linka);max-width:900px}
+  .filtr-skup{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .filtr-skup label{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tlumeny)}
+  .barva-chip{width:20px;height:20px;border-radius:50%;border:1px solid var(--linka);cursor:pointer;position:relative}
+  .barva-chip.akt{box-shadow:0 0 0 2px var(--slonovina),0 0 0 3px var(--zlata)}
+  .cena-vstup{width:78px;padding:6px 8px;border:1px solid var(--linka);background:var(--karta);border-radius:2px;
+    font-family:'EB Garamond',serif;color:var(--namornicka)}
+  .reset{font-size:.86rem;color:var(--zlata);cursor:pointer;font-style:italic;border:none;background:none}
+
+  .pocet{text-align:center;color:var(--tlumeny);font-style:italic;font-size:.92rem;margin:16px 0}
+
+  /* mřížka */
+  .mrizka{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:30px 24px;padding:8px 0 60px}
+  .karta-prod{cursor:pointer;display:flex;flex-direction:column}
+  .foto{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--slonovina2);border:1px solid var(--linka)}
+  .foto img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease,opacity .4s}
+  .foto img.druha{position:absolute;inset:0;opacity:0}
+  .karta-prod:hover .foto img.prvni{transform:scale(1.05);opacity:0}
+  .karta-prod:hover .foto img.druha{opacity:1;transform:scale(1.05)}
+  .karta-prod:hover .foto img.druha.chybi{opacity:0}
+  .karta-prod:hover .foto img.prvni.sama{opacity:1}
+  .stitek{position:absolute;top:10px;left:10px;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.14em;
+    text-transform:uppercase;background:var(--slonovina);color:var(--namornicka);padding:4px 9px;border:1px solid var(--zlata)}
+  .hvezdicka{position:absolute;top:9px;right:10px;color:var(--zlata);font-size:1rem;
+    text-shadow:0 1px 3px rgba(0,0,0,.25)}
+  .karta-prod h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.32rem;line-height:1.2;
+    margin:13px 0 3px;transition:.18s}
+  .karta-prod:hover h3{color:var(--zlata)}
+  .cena{font-size:1.02rem;color:var(--namornicka2);letter-spacing:.01em}
+  .cena::after{content:"";display:block;width:26px;height:1px;background:var(--zlata);margin-top:9px;transition:width .25s}
+  .karta-prod:hover .cena::after{width:54px}
+
+  .prazdno{text-align:center;padding:60px 0;color:var(--tlumeny)}
+  .prazdno .reset{font-size:1rem;margin-top:8px;display:inline-block}
+  .nacitam{text-align:center;padding:80px 0;color:var(--tlumeny);font-style:italic}
+
+  footer{text-align:center;padding:34px 0 50px;color:var(--tlumeny);font-size:.86rem;border-top:1px solid var(--linka)}
+  footer a{color:var(--zlata)}
+
+  @media(max-width:560px){
+    .mrizka{grid-template-columns:1fr 1fr;gap:20px 14px}
+    .karta-prod h3{font-size:1.12rem}
+    .ovladani{gap:10px}
+    header{padding:34px 0 6px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Oáza Adamanthea</div>
+    <h1>Spirit&nbsp;Shop</h1>
+    <div class="hvezda"><span>✦</span></div>
+    <p>Ručně vybírané poklady — krystaly, šaty, šperky a esence. Každý kousek je jediný.</p>
+  </header>
+
+  <div class="kategorie" id="kategorie"></div>
+
+  <div class="ovladani">
+    <div class="hledat">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input id="hledat" type="search" placeholder="Hledat v obchodě…">
+    </div>
+    <div class="razeni">
+      <span>Řadit:</span>
+      <select id="razeni">
+        <option value="dop">Doporučené</option>
+        <option value="nove">Nejnovější</option>
+        <option value="levne">Cena: nejnižší</option>
+        <option value="drahe">Cena: nejvyšší</option>
+        <option value="az">Název A–Z</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="filtr-radek" id="filtr-radek">
+    <div class="filtr-skup" id="filtr-barva-skup">
+      <label>Barva</label><div id="filtr-barva" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    </div>
+    <div class="filtr-skup">
+      <label>Cena</label>
+      <input class="cena-vstup" id="cena-min" type="number" min="0" placeholder="od"> –
+      <input class="cena-vstup" id="cena-max" type="number" min="0" placeholder="do"> Kč
+    </div>
+    <button class="reset" id="reset">Zrušit filtry</button>
+  </div>
+
+  <div class="pocet" id="pocet"></div>
+  <div class="mrizka" id="mrizka"><div class="nacitam" style="grid-column:1/-1">Načítám poklady…</div></div>
+</div>
+
+<footer>
+  <div class="wrap">Oáza Adamanthea · <a href="/kontakt">Kontakt</a> · <a href="/">Domů</a></div>
+</footer>
+
+<script>
+let VSE=[], KATEGORIE=[], STAV={kat:'vse', q:'', barva:null, cmin:null, cmax:null, sort:'dop'};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const bezDia=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+
+// české názvy barev → hex pro tečky filtru
+const BARVY={'bílá':'#fff','černá':'#222','šedá':'#9a9a9a','stříbrná':'#c8c8cc','zlatá':'#c9a44c',
+ 'žlutá':'#e7c84a','oranžová':'#d98a3a','červená':'#b14a3c','růžová':'#d98aa0','fialová':'#8a6fb0',
+ 'modrá':'#4a6fa5','tyrkysová':'#4ba5a0','zelená':'#5c8a5c','hnědá':'#8a6b4a','béžová':'#d8c6a0','čirá':'#eee'}; 
+function barvaHex(n){const k=bezDia(n);for(const[c,h]of Object.entries(BARVY))if(bezDia(c)===k||k.includes(bezDia(c)))return h;return '#cfc3a8';}
+
+async function nacti(){
+  try{
+    const r=await fetch('/api/produkty'); const j=await r.json();
+    if(!r.ok)throw new Error(j.error||'chyba');
+    VSE=j.produkty||[]; KATEGORIE=j.kategorie||[];
+    renderKategorie(); renderBarvy(); render();
+  }catch(e){ $('#mrizka').innerHTML='<div class="prazdno" style="grid-column:1/-1">Obchod se nepodařilo načíst.</div>'; }
+}
+
+function renderKategorie(){
+  const pocty={}; VSE.forEach(p=>pocty[p.kategorie]=(pocty[p.kategorie]||0)+1);
+  const dostupne=KATEGORIE.filter(k=>pocty[k.slug]);
+  $('#kategorie').innerHTML=
+    `<button class="pill akt" data-k="vse">Vše (${VSE.length})</button>`+
+    dostupne.map(k=>`<button class="pill" data-k="${esc(k.slug)}">${esc(k.nazev)} (${pocty[k.slug]})</button>`).join('');
+  document.querySelectorAll('.pill').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.pill').forEach(x=>x.classList.remove('akt'));
+    b.classList.add('akt'); STAV.kat=b.dataset.k; render();
+  });
+}
+function renderBarvy(){
+  const set=new Set(); VSE.forEach(p=>(p.barva||[]).forEach(b=>set.add(b)));
+  const barvy=[...set];
+  if(!barvy.length){$('#filtr-barva-skup').style.display='none';return;}
+  $('#filtr-barva').innerHTML=barvy.map(b=>`<div class="barva-chip" title="${esc(b)}" data-b="${esc(b)}" style="background:${barvaHex(b)}"></div>`).join('');
+  document.querySelectorAll('.barva-chip').forEach(c=>c.onclick=()=>{
+    const b=c.dataset.b; STAV.barva=(STAV.barva===b)?null:b;
+    document.querySelectorAll('.barva-chip').forEach(x=>x.classList.toggle('akt',x.dataset.b===STAV.barva));
+    render();
+  });
+}
+
+function render(){
+  let list=VSE.slice();
+  if(STAV.kat!=='vse') list=list.filter(p=>p.kategorie===STAV.kat);
+  if(STAV.q){const q=bezDia(STAV.q);list=list.filter(p=>bezDia(p.nazev).includes(q)||(p.ucel||[]).some(u=>bezDia(u).includes(q)));}
+  if(STAV.barva) list=list.filter(p=>(p.barva||[]).includes(STAV.barva));
+  if(STAV.cmin!=null) list=list.filter(p=>p.cena>=STAV.cmin);
+  if(STAV.cmax!=null) list=list.filter(p=>p.cena<=STAV.cmax);
+
+  const s=STAV.sort;
+  if(s==='levne')list.sort((a,b)=>a.cena-b.cena);
+  else if(s==='drahe')list.sort((a,b)=>b.cena-a.cena);
+  else if(s==='az')list.sort((a,b)=>a.nazev.localeCompare(b.nazev,'cs'));
+  else if(s==='nove')list.sort((a,b)=>new Date(b.vytvoreno)-new Date(a.vytvoreno));
+  // 'dop' = pořadí z API (doporučené první)
+
+  $('#pocet').textContent=list.length?`${list.length} ${list.length===1?'kousek':(list.length<5?'kousky':'kousků')}`:'';
+  if(!list.length){
+    $('#mrizka').innerHTML='<div class="prazdno" style="grid-column:1/-1">Žádný kousek neodpovídá výběru.<br><button class="reset" onclick="resetuj()">Zrušit filtry</button></div>';
+    return;
+  }
+  $('#mrizka').innerHTML=list.map(p=>{
+    const f1=p.fotky[0]||'', f2=p.fotky[1]||'';
+    const sama=!f2?'sama':'', chybi=!f2?'chybi':'';
+    return `<a class="karta-prod" href="/produkt?slug=${encodeURIComponent(p.slug)}">
+      <div class="foto">
+        <img class="prvni ${sama}" src="${esc(f1)}" alt="${esc(p.nazev)}" loading="lazy" onerror="this.style.visibility='hidden'">
+        <img class="druha ${chybi}" src="${esc(f2||f1)}" alt="" loading="lazy">
+        ${p.stitek?`<span class="stitek">${esc(p.stitek)}</span>`:''}
+        ${p.doporucujeme?'<span class="hvezdicka">✦</span>':''}
+      </div>
+      <h3>${esc(p.nazev)}</h3>
+      <div class="cena">${p.cena.toLocaleString('cs-CZ')} Kč</div>
+    </a>`;
+  }).join('');
+}
+
+window.resetuj=()=>{
+  STAV={kat:'vse',q:'',barva:null,cmin:null,cmax:null,sort:'dop'};
+  $('#hledat').value='';$('#cena-min').value='';$('#cena-max').value='';$('#razeni').value='dop';
+  document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('akt',x.dataset.k==='vse'));
+  document.querySelectorAll('.barva-chip').forEach(x=>x.classList.remove('akt'));
+  render();
+};
+$('#reset').onclick=window.resetuj;
+$('#hledat').addEventListener('input',e=>{STAV.q=e.target.value;render();});
+$('#razeni').addEventListener('change',e=>{STAV.sort=e.target.value;render();});
+$('#cena-min').addEventListener('input',e=>{STAV.cmin=e.target.value?+e.target.value:null;render();});
+$('#cena-max').addEventListener('input',e=>{STAV.cmax=e.target.value?+e.target.value:null;render();});
+
+nacti();
+</script>
+</body>
+</html>

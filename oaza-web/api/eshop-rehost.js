@@ -8,10 +8,26 @@ const DAVKA_FOTEK = 8;         // kolik fotek max za jedno volání
 
 const jeWix = u => typeof u === 'string' && u.includes('static.wixstatic.com');
 
-// z Wix originálu udělá zmenšenou variantu (max 1400 px, q80) – šetří úložiště
-function zmensenaWixUrl(u) {
-  const base = u.split('/v1/')[0]; // odřízne případnou existující transformaci
-  return base + '/v1/fit/w_1400,h_1400,al_c,q_80,enc_auto/file.jpg';
+// vrátí seřazený seznam adres ke zkoušení (pokryje ~mv2.jpg i holé id i jiné přípony)
+function kandidati(u) {
+  const base = u.split('/v1/')[0];
+  const T = '/v1/fit/w_1400,h_1400,al_c,q_80,enc_auto/file.jpg';
+  if (/~mv2\.\w+$/i.test(base)) return [base + T, base];           // už má příponu
+  return [                                                          // holé id – doplníme
+    base + '~mv2.jpg' + T, base + T, base + '~mv2.png' + T,
+    base + '~mv2.webp' + T, base + '~mv2.jpg', base,
+  ];
+}
+const UA = { 'User-Agent': 'Mozilla/5.0 (compatible; OazaRehost/1.0)' };
+async function stahni(u) {
+  for (const url of kandidati(u)) {
+    try {
+      const r = await fetch(url, { headers: UA });
+      const ct = r.headers.get('content-type') || '';
+      if (r.ok && ct.startsWith('image/')) return { r, ct };
+    } catch (e) { /* zkus další tvar */ }
+  }
+  return null;
 }
 
 export default async function handler(req, res) {
@@ -52,12 +68,11 @@ export default async function handler(req, res) {
       for (let i = 0; i < nove.length && budget > 0; i++) {
         if (!jeWix(nove[i])) continue;
         try {
-          let r = await fetch(zmensenaWixUrl(nove[i]));
-          if (!r.ok) r = await fetch(nove[i]); // fallback na originál
-          if (!r.ok) throw new Error('stažení ' + r.status);
-          const ct = r.headers.get('content-type') || 'image/jpeg';
+          const got = await stahni(nove[i]);
+          if (!got) throw new Error('nedostupné');
+          const ct = got.ct;
           const ext = ct.includes('webp') ? 'webp' : ct.includes('png') ? 'png' : 'jpg';
-          const buf = Buffer.from(await r.arrayBuffer());
+          const buf = Buffer.from(await got.r.arrayBuffer());
           const path = `${p.id}/${i}.${ext}`;
           const up = await fetch(`${URL}/storage/v1/object/${BUCKET}/${path}`, {
             method: 'POST',

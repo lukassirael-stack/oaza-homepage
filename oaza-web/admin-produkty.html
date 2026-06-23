@@ -55,7 +55,17 @@
   .badge.dop{background:var(--zlata2);color:#3a2c08}
 
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:560px){.row2{grid-template-columns:1fr}}
+  @media(max-width:560px){
+    .row2{grid-template-columns:1fr}
+    .head{gap:10px}
+    #hledat{max-width:none;width:100%}
+    #novy{width:100%}
+    .radek{flex-wrap:wrap;row-gap:10px}
+    .radek .info{flex-basis:calc(100% - 70px)}
+    .radek .btn.mini{flex:1;padding:10px 8px;font-size:.72rem}
+    .thumb,.upl{width:30vw;height:30vw;max-width:120px;max-height:120px}
+    .btn{padding:13px 18px}
+  }
 
   /* tag input */
   .tags{display:flex;flex-wrap:wrap;gap:6px;padding:8px;border:1px solid var(--slonovina2);background:#fff;border-radius:2px;min-height:42px}

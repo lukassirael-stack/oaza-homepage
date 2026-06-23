@@ -4,7 +4,9 @@
 export const maxDuration = 60; // sekund (Vercel)
 
 const BUCKET = 'eshop';
-const DAVKA_FOTEK = 8;         // kolik fotek max za jedno volání
+const DAVKA_FOTEK = 5;         // menší dávka – šetrnější k Wixu
+const PAUZA_MS = 1500;         // pauza mezi fotkami, ať nás Wix nebere jako bota
+const spi = ms => new Promise(r => setTimeout(r, ms));
 
 const jeWix = u => typeof u === 'string' && u.includes('static.wixstatic.com');
 
@@ -94,6 +96,7 @@ export default async function handler(req, res) {
       let zmena = false;
       for (let i = 0; i < nove.length && budget > 0; i++) {
         if (!jeWix(nove[i])) continue;
+        await spi(PAUZA_MS); // šetrná pauza před každým stažením
         try {
           const got = await stahni(nove[i]);
           if (!got) throw new Error('nedostupné');

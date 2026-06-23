@@ -18,7 +18,12 @@ function kandidati(u) {
     base + '~mv2.webp' + T, base + '~mv2.jpg', base,
   ];
 }
-const UA = { 'User-Agent': 'Mozilla/5.0 (compatible; OazaRehost/1.0)' };
+const UA = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+  'Accept-Language': 'cs,en;q=0.8',
+  'Referer': 'https://www.oaza-adamanthea.cz/',
+};
 async function stahni(u) {
   for (const url of kandidati(u)) {
     try {

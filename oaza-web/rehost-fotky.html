@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Přehostování fotek — Oáza Adamanthea</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=EB+Garamond&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{--slonovina:#F6F1E7;--slonovina2:#ECE4D3;--namornicka:#1B2A41;--namornicka2:#2C4060;--zlata:#B8924A;--zelena:#4E7C59;--cervena:#9C4A3C;--tlumeny:#6B6354}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--slonovina);color:var(--namornicka);font-family:'EB Garamond',Georgia,serif;line-height:1.55;padding:32px 18px 80px;min-height:100vh;background-image:radial-gradient(circle at 50% -10%,rgba(184,146,74,.10),transparent 55%)}
+  .wrap{max-width:600px;margin:0 auto}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--zlata);text-align:center}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2.2rem;text-align:center;margin:.1rem 0}
+  .delic{height:1px;background:linear-gradient(90deg,transparent,var(--zlata),transparent);margin:20px 0 26px}
+  .karta{background:#FBF7EE;border:1px solid var(--slonovina2);border-radius:3px;padding:24px}
+  input{width:100%;padding:11px 13px;border:1px solid var(--zlata);background:#fff;font-family:'IBM Plex Mono',monospace;font-size:1rem;text-align:center;border-radius:2px}
+  .btn{background:var(--namornicka);color:var(--slonovina);border:none;padding:13px 20px;font-family:'IBM Plex Mono',monospace;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:2px;width:100%}
+  .btn:hover{background:var(--namornicka2)} .btn:disabled{opacity:.5;cursor:default}
+  label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tlumeny);margin-bottom:8px}
+  .err{color:var(--cervena);font-style:italic;min-height:1.3em;margin-top:8px} .ok{color:var(--zelena)}
+  .bar{height:14px;background:var(--slonovina2);border-radius:7px;overflow:hidden;margin:16px 0 8px}
+  .bar>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--zlata),#D9BC7E);transition:width .4s}
+  .cisla{font-family:'IBM Plex Mono',monospace;font-size:.85rem;display:flex;justify-content:space-between;padding:5px 0}
+  .pozn{font-style:italic;color:var(--tlumeny);font-size:.9rem;margin-top:10px}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Jednorázová migrace</div>
+  <h1>Přehostování fotek z Wixu</h1>
+  <div class="delic"></div>
+
+  <div class="karta" id="krok-heslo">
+    <label>Heslo administrace</label>
+    <input id="heslo" type="password" placeholder="heslo" autocomplete="current-password">
+    <button class="btn" id="vstup" style="margin-top:12px">Pokračovat</button>
+    <div class="err" id="errHeslo"></div>
+  </div>
+
+  <div class="karta hidden" id="krok-start">
+    <p class="pozn" style="margin:0 0 14px">Stáhne fotky z Wixu, uloží je do tvého úložiště a přepíše odkazy. Necho běžet okno otevřené — poběží to po dávkách až do konce. Můžeš kdykoli zavřít a příště pokračovat (přeskočí hotové).</p>
+    <button class="btn" id="start">Spustit přehostování</button>
+    <div class="bar hidden" id="barwrap"><span id="bar"></span></div>
+    <div class="cisla hidden" id="cisla"></div>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<script>
+let HESLO='', BASE=null, hotovoFotek=0;
+const $=s=>document.querySelector(s);
+async function api(action){
+  const r=await fetch('/api/eshop-rehost',{method:'POST',headers:{'Content-Type':'application/json','x-heslo':HESLO},body:JSON.stringify({action})});
+  if(r.status===401) throw new Error('Neplatné heslo');
+  const j=await r.json(); if(!r.ok) throw new Error(j.error||('HTTP '+r.status)); return j;
+}
+$('#vstup').onclick=async()=>{
+  const h=$('#heslo').value.trim(); if(!h){$('#errHeslo').textContent='Zadej heslo.';return;}
+  HESLO=h;
+  try{ // ověření hesla rychlým dotazem
+    await fetch('/api/eshop-admin',{method:'POST',headers:{'Content-Type':'application/json','x-heslo':HESLO},body:JSON.stringify({action:'kategorie-list'})}).then(r=>{if(r.status===401)throw new Error('Neplatné heslo.');});
+    $('#krok-heslo').classList.add('hidden');$('#krok-start').classList.remove('hidden');
+  }catch(e){$('#errHeslo').textContent=e.message;}
+};
+$('#heslo').addEventListener('keydown',e=>{if(e.key==='Enter')$('#vstup').click();});
+
+$('#start').onclick=async()=>{
+  $('#start').disabled=true; $('#barwrap').classList.remove('hidden'); $('#cisla').classList.remove('hidden');
+  $('#err').textContent='';
+  try{
+    while(true){
+      const r=await api('run');
+      hotovoFotek+=r.zpracovano||0;
+      if(BASE===null) BASE=r.celkem_produktu||r.zbyva_produktu||1;
+      const hotovoProd=BASE-r.zbyva_produktu;
+      const pct=BASE? Math.round(hotovoProd/BASE*100):100;
+      $('#bar').style.width=pct+'%';
+      $('#cisla').innerHTML='<span>Hotovo produktů: '+hotovoProd+' / '+BASE+'</span><span>fotek: '+hotovoFotek+'</span>';
+      if(r.zbyva_produktu===0){
+        $('#cisla').innerHTML='<span class="ok">✓ Přehostováno '+hotovoFotek+' fotek u '+BASE+' produktů.</span>';
+        $('#err').innerHTML='<a href="/admin-produkty" style="color:var(--namornicka)">→ Otevřít administraci</a>';
+        break;
+      }
+      if((r.zpracovano||0)===0 && (r.chyby||0)===0) break; // nic se nezpracovalo → konec
+    }
+  }catch(e){ $('#err').textContent='Chyba: '+e.message+' — klidně spusť znovu, naváže tam, kde skončil.'; $('#start').disabled=false; }
+};
+</script>
+</body>
+</html>

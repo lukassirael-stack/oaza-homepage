@@ -63,6 +63,7 @@ export default async function handler(req, res) {
           nazev: p.nazev,
           popis: p.popis ?? null,
           cena: parseInt(p.cena, 10) || 0,
+          cena_eur: (p.cena_eur === '' || p.cena_eur == null) ? null : parseInt(p.cena_eur, 10),
           mena: 'CZK',
           kategorie: p.kategorie ?? null,
           barva: p.barva || [],
@@ -71,6 +72,8 @@ export default async function handler(req, res) {
           fotky: p.fotky || [],
           videa: p.videa || [],
           stav: p.stav || 'skladem',
+          digitalni: !!p.digitalni,
+          soubor: p.soubor || null,
           doporucujeme: !!p.doporucujeme,
           stitek: p.stitek || null,
           poradi: parseInt(p.poradi, 10) || 0,
@@ -99,6 +102,7 @@ export default async function handler(req, res) {
           nazev: p.nazev,
           popis: p.popis ?? null,
           cena: parseInt(p.cena, 10) || 0,
+          cena_eur: (p.cena_eur === '' || p.cena_eur == null) ? null : parseInt(p.cena_eur, 10),
           mena: 'CZK',
           kategorie: p.kategorie ?? null,
           barva: p.barva || [],
@@ -107,6 +111,8 @@ export default async function handler(req, res) {
           fotky: p.fotky || [],
           videa: p.videa || [],
           stav: p.stav || 'skladem',
+          digitalni: !!p.digitalni,
+          soubor: p.soubor || null,
           doporucujeme: !!p.doporucujeme,
           stitek: p.stitek || null,
           poradi: parseInt(p.poradi, 10) || 0,
@@ -119,6 +125,23 @@ export default async function handler(req, res) {
           body: JSON.stringify(radky),
         });
         return res.status(200).json({ vlozeno: Array.isArray(out) ? out.length : 0 });
+      }
+
+      // ---------- NASTAVENÍ (kurz EUR ap.) ----------
+      case 'nastaveni-get': {
+        const data = await rest('nastaveni?select=klic,hodnota');
+        const obj = {}; (data || []).forEach(r => obj[r.klic] = r.hodnota);
+        return res.status(200).json({ nastaveni: obj });
+      }
+      case 'nastaveni-save': {
+        const klic = body.klic, hodnota = String(body.hodnota ?? '');
+        if (!klic) return res.status(400).json({ error: 'Chybí klíč.' });
+        await rest('nastaveni', {
+          method: 'POST',
+          prefer: 'return=minimal,resolution=merge-duplicates',
+          body: JSON.stringify({ klic, hodnota }),
+        });
+        return res.status(200).json({ ok: true });
       }
 
       // ---------- KATEGORIE ----------

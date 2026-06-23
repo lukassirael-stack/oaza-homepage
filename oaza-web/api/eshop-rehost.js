@@ -4,7 +4,7 @@
 export const maxDuration = 60; // sekund (Vercel)
 
 const BUCKET = 'eshop';
-const DAVKA_FOTEK = 10;        // kolik fotek max za jedno volání
+const DAVKA_FOTEK = 8;         // kolik fotek max za jedno volání
 
 const jeWix = u => typeof u === 'string' && u.includes('static.wixstatic.com');
 
@@ -71,7 +71,10 @@ export default async function handler(req, res) {
           chyby++; budget--; // počítáme do budgetu, ať se nezasekneme na jedné vadné fotce
         }
       }
-      if (zmena) await restPATCH(`produkty?id=eq.${p.id}`, { fotky: nove });
+      if (zmena) {
+        try { await restPATCH(`produkty?id=eq.${p.id}`, { fotky: nove }); }
+        catch (e) { /* přeskoč, příště se zkusí znovu */ }
+      }
     }
 
     // kolik produktů ještě zbývá po této dávce

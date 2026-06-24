@@ -50,6 +50,8 @@ export default async function handler(req, res) {
 
   if (req.method !== 'POST') return res.status(405).json({ error: 'Použij POST.' });
 
+  const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+
   try {
     // --- nastavení (kurz + ceny dopravy) ---
     const nast = await rest('nastaveni?select=klic,hodnota');

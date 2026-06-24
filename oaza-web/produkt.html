@@ -102,7 +102,7 @@ function render(p){
   const cenaText = (p.cena||0).toLocaleString('cs-CZ')+' Kč / '+(p.cena_eur||0).toLocaleString('cs-CZ')+' €';
   const predmet=encodeURIComponent('Zájem o produkt: '+p.nazev);
   const telo=encodeURIComponent('Dobrý den,\n\nmám zájem o produkt „'+p.nazev+'" ('+cenaText+').\nProsím o informace.\n\nDěkuji.');
-  const cta = p.digitalni ? 'Mám zájem' : 'Mám zájem · rezervovat';
+  const cta = 'Do košíku';
   const pozn = p.digitalni
     ? '✦ Digitální produkt — doručíme po zaplacení e-mailem.'
     : '✦ Jediný kus — po prodeji už nebude k dispozici.';
@@ -125,11 +125,20 @@ function render(p){
       <div class="delic"></div>
       ${p.popis?`<div class="popis">${esc(p.popis)}</div>`:''}
       ${vlast.length?`<div class="vlastnosti">${vlast.join('')}</div>`:''}
-      <a class="koupit" href="mailto:${KONTAKT}?subject=${predmet}&body=${telo}">${cta}</a>
+      <button class="koupit" id="doKosiku">${cta}</button>
       <div class="jeden">${pozn}</div>
     </div>
   </div>`;
   window.FOTKY=fotky; window.PROD=p;
+  const btn=document.getElementById('doKosiku');
+  function syncBtn(){ if(window.Kosik && Kosik.obsahuje(p.slug)){btn.textContent='✓ V košíku — zobrazit';} else {btn.textContent=cta;} }
+  syncBtn();
+  btn.onclick=()=>{
+    if(!window.Kosik) return;
+    if(Kosik.obsahuje(p.slug)) Kosik.otevri();
+    else Kosik.pridej({slug:p.slug,nazev:p.nazev,cena:p.cena,cena_eur:p.cena_eur,fotka:(p.fotky||[])[0]||'',digitalni:p.digitalni});
+    syncBtn();
+  };
   document.querySelectorAll('#mena-prep button').forEach(b=>{
     b.classList.toggle('akt',b.dataset.m===MENA);
     b.onclick=()=>{MENA=b.dataset.m;localStorage.setItem('oaza_mena',MENA);
@@ -155,5 +164,6 @@ async function nactiPodobne(p){
 }
 nacti();
 </script>
+<script src="/kosik.js"></script>
 </body>
 </html>

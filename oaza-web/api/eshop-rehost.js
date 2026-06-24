@@ -5,29 +5,28 @@ export const maxDuration = 60; // sekund (Vercel)
 
 const BUCKET = 'eshop';
 const DAVKA_FOTEK = 5;         // menší dávka – šetrnější k Wixu
-const PAUZA_MS = 1500;         // pauza mezi fotkami, ať nás Wix nebere jako bota
+const PAUZA_MS = 400;         // mírná pauza – proxy zvládne víc
 const spi = ms => new Promise(r => setTimeout(r, ms));
 
 const jeWix = u => typeof u === 'string' && u.includes('static.wixstatic.com');
 
-// vrátí seřazený seznam adres ke zkoušení (pokryje ~mv2.jpg i holé id i jiné přípony)
-function kandidati(u) {
+// zdrojové (Wix) adresy ke zkoušení – pokryje ~mv2.jpg, holé id i jiné přípony
+function zdroje(u) {
   const base = u.split('/v1/')[0];
-  const T = '/v1/fit/w_1400,h_1400,al_c,q_80,enc_auto/file.jpg';
-  if (/~mv2\.\w+$/i.test(base)) return [base + T, base];           // už má příponu
-  return [                                                          // holé id – doplníme
-    base + '~mv2.jpg' + T, base + T, base + '~mv2.png' + T,
-    base + '~mv2.webp' + T, base + '~mv2.jpg', base,
-  ];
+  if (/~mv2\.\w+$/i.test(base)) return [base];
+  return [base + '~mv2.jpg', base + '~mv2.png', base + '~mv2.webp', base];
+}
+// přes proxy wsrv.nl: ta stáhne z Wixu (Wix ji neblokuje), zmenší a vrátí
+function pokusUrls(u) {
+  return zdroje(u).map(src =>
+    'https://wsrv.nl/?url=' + encodeURIComponent(src) + '&w=1400&we&output=jpg&q=80');
 }
 const UA = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-  'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
-  'Accept-Language': 'cs,en;q=0.8',
-  'Referer': 'https://www.oaza-adamanthea.cz/',
+  'Accept': 'image/*,*/*;q=0.8',
 };
 async function stahni(u) {
-  for (const url of kandidati(u)) {
+  for (const url of pokusUrls(u)) {
     try {
       const r = await fetch(url, { headers: UA });
       const ct = r.headers.get('content-type') || '';
@@ -72,7 +71,7 @@ export default async function handler(req, res) {
       for (const p of potreba.slice(0, 3)) {
         const url = (p.fotky || []).find(jeWix);
         const pokusy = [];
-        for (const k of kandidati(url)) {
+        for (const k of pokusUrls(url)) {
           try {
             const r = await fetch(k, { headers: UA });
             pokusy.push({ url: k.slice(0, 110), status: r.status, ct: (r.headers.get('content-type') || '').slice(0, 30) });

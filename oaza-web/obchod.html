@@ -68,8 +68,8 @@
 
   .pocet{text-align:center;color:var(--tlumeny);font-style:italic;font-size:.92rem;margin:16px 0}
 
-  .filtry-toggle{display:none;width:100%;margin:4px 0 6px;padding:12px;border:1px solid var(--zlata);
-    background:var(--karta);color:var(--namornicka);font-family:'Cinzel',serif;font-size:.78rem;
+  .filtry-toggle{display:none;width:fit-content;margin:2px auto 8px;padding:9px 22px;border:1px solid var(--zlata);
+    background:var(--karta);color:var(--namornicka);font-family:'Cinzel',serif;font-size:.7rem;
     letter-spacing:.12em;text-transform:uppercase;border-radius:30px;cursor:pointer}
   .filtry-toggle #toggle-sip{display:inline-block;transition:transform .2s}
   .filtry-toggle.otevreno #toggle-sip{transform:rotate(180deg)}
@@ -105,9 +105,16 @@
   @media(max-width:560px){
     .mrizka{grid-template-columns:1fr 1fr;gap:20px 14px}
     .karta-prod h3{font-size:1.12rem}
-    .ovladani{gap:10px}
-    header{padding:34px 0 6px}
-    .filtry-toggle{display:block}
+    header{padding:26px 0 4px}
+    header h1{font-size:2.4rem}
+    header p{font-size:.96rem;max-width:340px}
+    .hvezda{margin:14px 0 4px}
+    .ovladani{gap:8px;margin:18px 0 10px}
+    .hledat{max-width:none}
+    .hledat input{padding:7px 10px 7px 30px;font-size:.86rem}
+    .hledat svg{width:13px;height:13px;left:9px}
+    .razeni{font-size:.86rem}
+    .filtry-toggle{display:block;font-size:.66rem;padding:8px 18px}
     #filtry-obal.sbaleno{display:none}
     .foto{border-radius:12px}
   }

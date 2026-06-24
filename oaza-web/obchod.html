@@ -72,9 +72,9 @@
     text-transform:uppercase;background:var(--namornicka);color:var(--slonovina);padding:3px 8px;border-radius:2px;opacity:.92}
 
   /* kategorie – pilulky */
-  .kategorie{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;padding:6px 0 4px}
-  .pill{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;
-    padding:9px 17px;border:1px solid var(--linka);border-radius:40px;color:var(--namornicka2);cursor:pointer;
+  .kategorie{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:6px 0 4px}
+  .pill{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;
+    padding:8px 13px;border:1px solid var(--linka);border-radius:40px;color:var(--namornicka2);cursor:pointer;
     background:transparent;transition:.18s;white-space:nowrap}
   .pill:hover{border-color:var(--zlata)}
   .pill.akt{background:var(--namornicka);color:var(--slonovina);border-color:var(--namornicka)}
@@ -269,7 +269,8 @@ function render(){
   else if(s==='nove')list.sort((a,b)=>new Date(b.vytvoreno)-new Date(a.vytvoreno));
   // 'dop' = pořadí z API (doporučené první)
 
-  $('#pocet').textContent=list.length?`${list.length} ${list.length===1?'kousek':(list.length<5?'kousky':'kousků')}`:'';
+  const filtrAktivni = STAV.kat!=='vse' || STAV.q || STAV.barva || STAV.cmin!=null || STAV.cmax!=null;
+  $('#pocet').textContent=(filtrAktivni && list.length)?`${list.length} ${list.length===1?'kousek':(list.length<5?'kousky':'kousků')}`:'';
   if(!list.length){
     $('#mrizka').innerHTML='<div class="prazdno" style="grid-column:1/-1">Žádný kousek neodpovídá výběru.<br><button class="reset" onclick="resetuj()">Zrušit filtry</button></div>';
     return;

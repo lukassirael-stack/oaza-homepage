@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 
       // ---------- PRODUKTY ----------
       case 'list': {
-        const data = await rest('produkty?select=*&order=poradi.desc,vytvoreno.desc');
+        const data = await rest('produkty?select=*&order=poradi.asc,vytvoreno.desc');
         return res.status(200).json({ produkty: data });
       }
 

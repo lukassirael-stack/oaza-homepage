@@ -44,6 +44,11 @@
 
   /* seznam produktů */
   .radek{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--slonovina2);background:#fff;border-radius:3px;margin-bottom:10px}
+  .radek[draggable]{cursor:default}
+  .radek.taha{opacity:.4}
+  .radek.nad{border-color:var(--zlata);box-shadow:0 -2px 0 var(--zlata) inset}
+  .tahatko{cursor:grab;color:var(--tlumeny);font-size:1.2rem;line-height:1;user-select:none;flex:none;padding:0 2px}
+  .tahatko:active{cursor:grabbing}
   .radek img{width:54px;height:54px;object-fit:contain;border-radius:3px;background:var(--slonovina);flex:none}
   .radek .info{flex:1;min-width:0}
   .radek .nm{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600}
@@ -281,10 +286,13 @@ function renderSeznam(){
   const q=($('#hledat').value||'').toLowerCase();
   const list=PRODUKTY.filter(p=>!q||(p.nazev||'').toLowerCase().includes(q));
   if(!list.length){$('#seznam').innerHTML='<p class="pozn">Žádné produkty. Klikni na „+ Nový produkt".</p>';return;}
-  $('#seznam').innerHTML=list.map(p=>{
+  const lzeTahat=!q; // drag jen bez vyhledávání
+  $('#seznam').innerHTML=(lzeTahat?'<p class="pozn" style="margin-bottom:8px">Chyť produkt za ⠿ a přetáhni, kam ho chceš mít. (Na mobilu použij šipky ↑↓.)</p>':'')+
+  list.map(p=>{
     const foto=(p.fotky&&p.fotky[0])||'';
     const katNazev=(KATEGORIE.find(k=>k.slug===p.kategorie)||{}).nazev||p.kategorie||'—';
-    return `<div class="radek">
+    return `<div class="radek" data-id="${p.id}" ${lzeTahat?'draggable="true"':''}>
+      ${lzeTahat?'<span class="tahatko" title="Přetáhni">⠿</span>':''}
       <img src="${esc(foto)}" alt="" onerror="this.style.visibility='hidden'">
       <div class="info">
         <div class="nm">${esc(p.nazev)}
@@ -298,6 +306,31 @@ function renderSeznam(){
       <button class="btn ghost mini danger" onclick="smazat('${p.id}')">Smazat</button>
     </div>`;
   }).join('');
+  if(lzeTahat) wireDnd();
+}
+
+/* drag & drop řazení (desktop) */
+let dragId=null;
+function wireDnd(){
+  document.querySelectorAll('#seznam .radek[draggable]').forEach(row=>{
+    row.addEventListener('dragstart',()=>{dragId=row.dataset.id;row.classList.add('taha');});
+    row.addEventListener('dragend',()=>{dragId=null;row.classList.remove('taha');
+      document.querySelectorAll('.radek').forEach(r=>r.classList.remove('nad'));});
+    row.addEventListener('dragover',e=>{e.preventDefault();
+      document.querySelectorAll('.radek').forEach(r=>r.classList.remove('nad'));row.classList.add('nad');});
+    row.addEventListener('drop',e=>{e.preventDefault();row.classList.remove('nad');pustit(row.dataset.id);});
+  });
+}
+async function pustit(cilId){
+  if(!dragId||dragId===cilId)return;
+  const from=PRODUKTY.findIndex(p=>p.id===dragId); if(from<0)return;
+  const [item]=PRODUKTY.splice(from,1);
+  const to=PRODUKTY.findIndex(p=>p.id===cilId);
+  PRODUKTY.splice(to,0,item);
+  PRODUKTY.forEach((p,i)=>p.poradi=(PRODUKTY.length-i)*10); // přečíslovat (vyšší = výše)
+  renderSeznam();
+  try{ await api('bulk-save',{produkty:PRODUKTY}); toast('Pořadí uloženo.'); }
+  catch(e){ toast('Chyba ukládání: '+e.message); }
 }
 $('#hledat').addEventListener('input',renderSeznam);
 

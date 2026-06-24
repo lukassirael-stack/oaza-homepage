@@ -85,27 +85,36 @@ export default async function handler(req, res) {
 
     // --- doprava ---
     const vseDigital = polozky.every(p => p.digitalni);
-    let doprava, doprava_cena = 0, adresa = null;
+    let doprava, doprava_cena = 0, adresa = null, packeta_point = null;
     const zeme = (body.zeme === 'SK') ? 'SK' : 'CZ';
 
     if (vseDigital) {
       doprava = 'digital';
     } else {
-      doprava = (body.doprava === 'vydejni_misto') ? 'vydejni_misto'
-              : (body.doprava === 'adresa') ? 'adresa' : null;
+      doprava = ['mezi_nami', 'vydejni_misto', 'adresa'].includes(body.doprava) ? body.doprava : null;
       if (!doprava) return res.status(400).json({ error: 'Zvol způsob dopravy.' });
 
-      const klic = (doprava === 'vydejni_misto' ? 'doprava_box_' : 'doprava_adresa_') + mena.toLowerCase();
-      doprava_cena = parseInt(N[klic], 10) || 0;
-      const prah = parseInt(N['doprava_zdarma_od_' + mena.toLowerCase()], 10) || 0;
-      if (prah > 0 && cena_zbozi >= prah) doprava_cena = 0;
+      if (doprava === 'mezi_nami') {
+        // zákazník si zásilku vytvoří ve své aplikaci a pošle nám podací kód; dopravu neúčtujeme
+        doprava_cena = 0;
+        const kod = String(body.podaci_kod || '').trim().slice(0, 40);
+        packeta_point = { typ: 'mezi_nami', kod: kod || null };
+      } else {
+        const klic = (doprava === 'vydejni_misto' ? 'doprava_box_' : 'doprava_adresa_') + mena.toLowerCase();
+        doprava_cena = parseInt(N[klic], 10) || 0;
+        const prah = parseInt(N['doprava_zdarma_od_' + mena.toLowerCase()], 10) || 0;
+        if (prah > 0 && cena_zbozi >= prah) doprava_cena = 0;
 
-      if (doprava === 'adresa') {
-        const a = body.adresa || {};
-        if (!a.ulice || !a.mesto || !a.psc) return res.status(400).json({ error: 'Vyplň ulici, město a PSČ.' });
-        adresa = { ulice: String(a.ulice).slice(0, 120), mesto: String(a.mesto).slice(0, 80), psc: String(a.psc).slice(0, 12) };
+        if (doprava === 'adresa') {
+          const a = body.adresa || {};
+          if (!a.ulice || !a.mesto || !a.psc) return res.status(400).json({ error: 'Vyplň ulici, město a PSČ.' });
+          adresa = { ulice: String(a.ulice).slice(0, 120), mesto: String(a.mesto).slice(0, 80), psc: String(a.psc).slice(0, 12) };
+        } else {
+          const vm = String(body.vydejni_misto || '').trim().slice(0, 200);
+          if (!vm) return res.status(400).json({ error: 'Napiš výdejní místo Zásilkovny.' });
+          packeta_point = { typ: 'vydejni_misto', text: vm }; // po napojení Packeta API doplníme id pobočky
+        }
       }
-      // vydejni_misto: plná integrace Zásilkovny přijde později (zatím bez výběru pobočky)
     }
 
     // --- zákazník ---
@@ -124,7 +133,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         stav: 'ceka_platba', zpusob_platby: 'qr',
         jmeno, email, telefon, zeme,
-        doprava, doprava_cena, adresa,
+        doprava, doprava_cena, adresa, packeta_point,
         polozky, mena, cena_zbozi, cena_celkem, poznamka,
       }),
     });

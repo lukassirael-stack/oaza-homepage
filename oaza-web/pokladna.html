@@ -115,7 +115,7 @@ const fmt=v=> MENA==='eur' ? v.toLocaleString('cs-CZ')+' €' : v.toLocaleString
 const zbozi=()=> polozky().reduce((s,p)=>s+cenaPol(p),0);
 
 function dopravaCena(){
-  if(vseDigital() || !STAV.doprava || !SHIP) return 0;
+  if(vseDigital() || !STAV.doprava || STAV.doprava==='mezi_nami' || !SHIP) return 0;
   let c = STAV.doprava==='vydejni_misto' ? SHIP['box_'+MENA] : SHIP['adresa_'+MENA];
   const prah = SHIP['zdarma_od_'+MENA]||0;
   if(prah>0 && zbozi()>=prah) c=0;
@@ -162,11 +162,23 @@ function renderFormular(){
           </div>
         </div>
         <div class="pole"><label>Způsob dopravy (Zásilkovna)</label>
-          <div class="volby" id="dop-volby">
-            <div class="volba" data-dop="vydejni_misto"><div class="nadpis">Výdejní místo</div><div class="pod" id="cena-box"></div></div>
-            <div class="volba" data-dop="adresa"><div class="nadpis">Na adresu</div><div class="pod" id="cena-adresa"></div></div>
+          <div class="volby" id="dop-volby" style="flex-direction:column">
+            <div class="volba" data-dop="mezi_nami"><div class="nadpis">Mezi námi — pošlete nám podací kód</div><div class="pod">Zásilku si vytvoříš ve své aplikaci Zásilkovna a pošleš nám kód · dopravu neúčtujeme</div></div>
+            <div class="volba" data-dop="vydejni_misto"><div class="nadpis">Klasická Zásilkovna — výdejní místo</div><div class="pod" id="cena-box"></div></div>
+            <div class="volba" data-dop="adresa"><div class="nadpis">Klasická Zásilkovna — na adresu</div><div class="pod" id="cena-adresa"></div></div>
           </div>
-          <div class="pozn-doprava" id="pozn-box" style="display:none">Konkrétní výdejní místo s tebou doladíme po objednávce (plný výběr poboček Zásilkovny dopojujeme).</div>
+          <div id="mezinami-pole" style="display:none">
+            <div class="pole" style="margin-top:12px"><label>Podací kód (nepovinné)</label>
+              <input id="f-kod" placeholder="6místný kód, pokud už ho máš">
+              <div class="pozn-doprava">Zásilku vytvoříš v aplikaci Zásilkovna („Mezi námi"), dopravu zaplatíš tam a získáš podací kód. Můžeš ho vyplnit teď, nebo nám ho pošli e-mailem po objednávce — kód napíšeme na balík.</div>
+            </div>
+          </div>
+          <div id="vydejni-pole" style="display:none">
+            <div class="pole" style="margin-top:12px"><label>Výdejní místo Zásilkovny</label>
+              <input id="f-vydejni" placeholder="Název nebo adresa pobočky / Z-BOXu">
+              <div class="pozn-doprava">Vyber si pobočku nebo Z-BOX na <a href="https://www.zasilkovna.cz/pobocky" target="_blank" rel="noopener">zasilkovna.cz/pobocky</a> a napiš sem její název nebo adresu — zásilku ti pošleme přesně tam.</div>
+            </div>
+          </div>
         </div>
         <div id="adresa-pole" style="display:none">
           <div class="pole"><label>Ulice a číslo</label><input id="f-ulice" autocomplete="street-address"></div>
@@ -207,8 +219,9 @@ function renderFormular(){
   if(dv) dv.querySelectorAll('.volba').forEach(v=>v.onclick=()=>{
     dv.querySelectorAll('.volba').forEach(x=>x.classList.remove('akt')); v.classList.add('akt');
     STAV.doprava=v.dataset.dop;
-    $('#adresa-pole').style.display = STAV.doprava==='adresa' ? 'block':'none';
-    $('#pozn-box').style.display = STAV.doprava==='vydejni_misto' ? 'block':'none';
+    $('#mezinami-pole').style.display = STAV.doprava==='mezi_nami' ? 'block':'none';
+    $('#adresa-pole').style.display   = STAV.doprava==='adresa' ? 'block':'none';
+    $('#vydejni-pole').style.display  = STAV.doprava==='vydejni_misto' ? 'block':'none';
     renderSouhrn();
   });
 
@@ -224,7 +237,10 @@ function renderSouhrn(){
   const dc=dopravaCena();
   let dopravaHtml = `<div class="radek"><span>Mezisoučet</span><span>${fmt(zbozi())}</span></div>`;
   if(!dig){
-    const text = !STAV.doprava ? '<span style="font-style:italic">zvol dopravu</span>' : (dc===0?'zdarma':fmt(dc));
+    let text;
+    if(!STAV.doprava) text='<span style="font-style:italic">zvol dopravu</span>';
+    else if(STAV.doprava==='mezi_nami') text='platíš v aplikaci';
+    else text = (dc===0?'zdarma':fmt(dc));
     dopravaHtml += `<div class="radek"><span>Doprava</span><span>${text}</span></div>`;
   }
   $('#souhrn-doprava').innerHTML=dopravaHtml;
@@ -248,13 +264,18 @@ async function odeslat(){
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return chyba('Vyplň platný e-mail.');
 
   const dig=vseDigital();
-  let adresa=null;
+  let adresa=null, vydejni=null, podaciKod=null;
   if(!dig){
     if(!STAV.doprava) return chyba('Zvol způsob dopravy.');
     if(STAV.doprava==='adresa'){
       const ulice=$('#f-ulice').value.trim(), mesto=$('#f-mesto').value.trim(), psc=$('#f-psc').value.trim();
       if(!ulice||!mesto||!psc) return chyba('Vyplň ulici, město a PSČ.');
       adresa={ulice,mesto,psc};
+    } else if(STAV.doprava==='vydejni_misto'){
+      vydejni=$('#f-vydejni').value.trim();
+      if(!vydejni) return chyba('Napiš výdejní místo Zásilkovny.');
+    } else if(STAV.doprava==='mezi_nami'){
+      podaciKod=$('#f-kod').value.trim(); // nepovinné
     }
   }
 
@@ -264,6 +285,7 @@ async function odeslat(){
       body:JSON.stringify({
         jmeno,email,telefon, zeme:STAV.zeme,
         doprava: dig?null:STAV.doprava, adresa,
+        vydejni_misto: vydejni, podaci_kod: podaciKod,
         polozky: polozky().map(p=>({slug:p.slug})),
         mena: MENA==='eur'?'EUR':'CZK',
         poznamka: $('#f-poznamka').value.trim(),
@@ -296,9 +318,13 @@ function potvrzeni(j){
       <div><span class="k">Variabilní symbol</span><span class="v">${esc(j.vs)}</span></div>
       <div><span class="k">Zpráva</span><span class="v">OAZA OBCHOD ${esc(j.cislo)}</span></div>
     </div>
-    <p style="color:var(--tlumeny);font-style:italic;max-width:420px;margin:14px auto">
-      Po přijetí platby ti potvrdíme objednávku${j.vseDigital?' a zašleme digitální obsah e-mailem':' a odešleme zboží'}.
-      Potvrzení jsme poslali i na tvůj e-mail.</p>
+    <p style="color:var(--tlumeny);font-style:italic;max-width:440px;margin:14px auto">
+      ${j.vseDigital
+        ? 'Po přijetí platby ti zašleme digitální obsah e-mailem.'
+        : (j.doprava==='mezi_nami'
+            ? 'Vytvoř si prosím zásilku ve své aplikaci Zásilkovna a pošli nám <b>podací kód</b> na oaza.adamanthea@gmail.com (pokud jsi ho nevyplnil). Po přijetí platby a kódu balík předáme.'
+            : 'Po přijetí platby ti potvrdíme objednávku a odešleme zboží.')}
+      </p>
     <a class="tlac" style="max-width:260px;margin:6px auto" href="/obchod">Zpět do obchodu</a>
   </div>`;
   try{ new QRCode(document.getElementById('qr'), { text:j.spayd, width:220, height:220, correctLevel:QRCode.CorrectLevel.M }); }

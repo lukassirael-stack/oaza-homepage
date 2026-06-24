@@ -68,10 +68,16 @@
 
   .pocet{text-align:center;color:var(--tlumeny);font-style:italic;font-size:.92rem;margin:16px 0}
 
+  .filtry-toggle{display:none;width:100%;margin:4px 0 6px;padding:12px;border:1px solid var(--zlata);
+    background:var(--karta);color:var(--namornicka);font-family:'Cinzel',serif;font-size:.78rem;
+    letter-spacing:.12em;text-transform:uppercase;border-radius:30px;cursor:pointer}
+  .filtry-toggle #toggle-sip{display:inline-block;transition:transform .2s}
+  .filtry-toggle.otevreno #toggle-sip{transform:rotate(180deg)}
+
   /* mřížka */
   .mrizka{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:30px 24px;padding:8px 0 60px}
   .karta-prod{cursor:pointer;display:flex;flex-direction:column}
-  .foto{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--slonovina2);border:1px solid var(--linka)}
+  .foto{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--slonovina2);border:1px solid var(--linka);border-radius:10px}
   .foto img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease,opacity .4s}
   .foto img.druha{position:absolute;inset:0;opacity:0}
   .karta-prod:hover .foto img.prvni{transform:scale(1.05);opacity:0}
@@ -101,6 +107,9 @@
     .karta-prod h3{font-size:1.12rem}
     .ovladani{gap:10px}
     header{padding:34px 0 6px}
+    .filtry-toggle{display:block}
+    #filtry-obal.sbaleno{display:none}
+    .foto{border-radius:8px}
   }
 </style>
 </head>
@@ -112,8 +121,6 @@
     <div class="hvezda"><span>✦</span></div>
     <p>Ručně vybírané poklady — krystaly, šaty, šperky a esence. Každý kousek je jediný.</p>
   </header>
-
-  <div class="kategorie" id="kategorie"></div>
 
   <div class="ovladani">
     <div class="hledat">
@@ -135,16 +142,21 @@
     </div>
   </div>
 
-  <div class="filtr-radek" id="filtr-radek">
-    <div class="filtr-skup" id="filtr-barva-skup">
-      <label>Barva</label><div id="filtr-barva" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+  <button class="filtry-toggle" id="filtry-toggle">Kategorie a filtry <span id="toggle-sip">⌄</span></button>
+
+  <div id="filtry-obal" class="sbaleno">
+    <div class="kategorie" id="kategorie"></div>
+    <div class="filtr-radek" id="filtr-radek">
+      <div class="filtr-skup" id="filtr-barva-skup">
+        <label>Barva</label><div id="filtr-barva" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+      </div>
+      <div class="filtr-skup">
+        <label>Cena</label>
+        <input class="cena-vstup" id="cena-min" type="number" min="0" placeholder="od"> –
+        <input class="cena-vstup" id="cena-max" type="number" min="0" placeholder="do"> <span id="mena-popis">Kč</span>
+      </div>
+      <button class="reset" id="reset">Zrušit filtry</button>
     </div>
-    <div class="filtr-skup">
-      <label>Cena</label>
-      <input class="cena-vstup" id="cena-min" type="number" min="0" placeholder="od"> –
-      <input class="cena-vstup" id="cena-max" type="number" min="0" placeholder="do"> <span id="mena-popis">Kč</span>
-    </div>
-    <button class="reset" id="reset">Zrušit filtry</button>
   </div>
 
   <div class="pocet" id="pocet"></div>
@@ -190,6 +202,8 @@ function renderKategorie(){
   document.querySelectorAll('.pill').forEach(b=>b.onclick=()=>{
     document.querySelectorAll('.pill').forEach(x=>x.classList.remove('akt'));
     b.classList.add('akt'); STAV.kat=b.dataset.k; render();
+    if(jeMobil()){ $('#filtry-obal').classList.add('sbaleno'); $('#filtry-toggle').classList.remove('otevreno');
+      window.scrollTo({top:0,behavior:'smooth'}); }
   });
 }
 function renderBarvy(){
@@ -250,6 +264,11 @@ window.resetuj=()=>{
   render();
 };
 $('#reset').onclick=window.resetuj;
+const jeMobil=()=>window.matchMedia('(max-width:560px)').matches;
+$('#filtry-toggle').onclick=()=>{
+  const o=$('#filtry-obal'); o.classList.toggle('sbaleno');
+  $('#filtry-toggle').classList.toggle('otevreno',!o.classList.contains('sbaleno'));
+};
 function syncMena(){
   document.querySelectorAll('#mena-prep button').forEach(b=>b.classList.toggle('akt',b.dataset.m===MENA));
   $('#mena-popis').textContent = MENA==='eur' ? '€' : 'Kč';

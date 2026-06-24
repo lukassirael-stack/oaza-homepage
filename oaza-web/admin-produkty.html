@@ -164,6 +164,11 @@
           </div>
         </div>
 
+        <div class="row2">
+          <div><label>Pořadí <span class="pozn">(vyšší = výše v obchodě; 0 = běžné)</span></label><input id="f-poradi" type="number" step="1" value="0"></div>
+          <div></div>
+        </div>
+
         <label>Barva <span class="pozn">(Enter přidá)</span></label>
         <div class="tags" data-tags="barva"><input placeholder="napiš a Enter…"></div>
 
@@ -285,14 +290,28 @@ function renderSeznam(){
         <div class="nm">${esc(p.nazev)}
           <span class="badge ${p.stav}">${p.stav}</span>
           ${p.doporucujeme?'<span class="badge dop">tip</span>':''}</div>
-        <div class="meta">${esc(katNazev)} · ${p.cena} Kč${p.stitek?' · '+esc(p.stitek):''}</div>
+        <div class="meta">${esc(katNazev)} · ${p.cena} Kč${p.stitek?' · '+esc(p.stitek):''}${p.poradi?' · pořadí '+p.poradi:''}</div>
       </div>
+      <button class="btn ghost mini" title="Nahoru" onclick="posun('${p.id}',-1)">↑</button>
+      <button class="btn ghost mini" title="Dolů" onclick="posun('${p.id}',1)">↓</button>
       <button class="btn ghost mini" onclick="upravit('${p.id}')">Upravit</button>
       <button class="btn ghost mini danger" onclick="smazat('${p.id}')">Smazat</button>
     </div>`;
   }).join('');
 }
 $('#hledat').addEventListener('input',renderSeznam);
+
+// posun pořadí: nastaví poradi relativně k sousedovi (vyšší = výše)
+window.posun=async(id,smer)=>{
+  const idx=PRODUKTY.findIndex(x=>x.id===id); if(idx<0)return;
+  const soused=PRODUKTY[idx+smer]; if(!soused){toast('Už je na kraji.');return;}
+  const p=PRODUKTY[idx];
+  const novePoradi=(soused.poradi||0)+(smer<0?1:-1);
+  try{
+    await api('save',{produkt:{...p,poradi:novePoradi}});
+    await nactiVse();
+  }catch(e){toast('Chyba: '+e.message);}
+};
 
 window.smazat=async id=>{
   const p=PRODUKTY.find(x=>x.id===id); if(!p)return;
@@ -335,6 +354,7 @@ function novyForm(){
   $('#f-kategorie').value='';$('#f-stav').value='skladem';$('#f-stitek').value='';
   $('#f-doporucujeme').checked=false;
   $('#f-digitalni').checked=false;$('#f-soubor').value='';$('#f-soubor-wrap').classList.add('hidden');
+  $('#f-poradi').value='0';
   setTags('barva',[]);setTags('velikost',[]);setTags('ucel',[]);
   renderMedia();ukazForm(true);
 }
@@ -350,6 +370,7 @@ window.upravit=id=>{
   $('#f-kategorie').value=p.kategorie||'';$('#f-stav').value=p.stav||'skladem';$('#f-stitek').value=p.stitek||'';
   $('#f-doporucujeme').checked=!!p.doporucujeme;
   $('#f-digitalni').checked=!!p.digitalni;$('#f-soubor').value=p.soubor||'';$('#f-soubor-wrap').classList.toggle('hidden',!p.digitalni);
+  $('#f-poradi').value=p.poradi||0;
   setTags('barva',p.barva);setTags('velikost',p.velikost);setTags('ucel',(p.vlastnosti&&p.vlastnosti.ucel)||[]);
   renderMedia();ukazForm(true);
 };
@@ -362,6 +383,7 @@ $('#ulozit').onclick=async()=>{
     nazev,kategorie,cena,cena_eur:$('#f-cena-eur').value,popis:$('#f-popis').value.trim(),
     stav:$('#f-stav').value,stitek:$('#f-stitek').value,doporucujeme:$('#f-doporucujeme').checked,
     digitalni:$('#f-digitalni').checked,soubor:$('#f-soubor').value.trim(),
+    poradi:$('#f-poradi').value,
     barva:getTags('barva'),velikost:getTags('velikost'),
     fotky:FOTKY,videa:VIDEA,
     vlastnosti:{...(EDIT&&EDIT.vlastnosti||{}),ucel:getTags('ucel')},

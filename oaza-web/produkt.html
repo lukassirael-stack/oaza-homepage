@@ -22,11 +22,11 @@
   .detail{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;padding:8px 0 50px}
   @media(max-width:780px){.detail{grid-template-columns:1fr;gap:28px}}
 
-  .galerie .hlavni{aspect-ratio:4/5;background:var(--slonovina2);border:1px solid var(--linka);overflow:hidden}
+  .galerie .hlavni{aspect-ratio:4/5;background:var(--slonovina2);border:1px solid var(--linka);overflow:hidden;border-radius:10px}
   .galerie .hlavni img{width:100%;height:100%;object-fit:cover;display:block}
   .galerie video{width:100%;border:1px solid var(--linka);margin-top:12px;background:#000}
   .mini{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-  .mini img{width:66px;height:82px;object-fit:cover;border:1px solid var(--linka);cursor:pointer;opacity:.62;transition:.18s}
+  .mini img{width:66px;height:82px;object-fit:cover;border:1px solid var(--linka);cursor:pointer;opacity:.62;transition:.18s;border-radius:6px}
   .mini img.akt,.mini img:hover{opacity:1;border-color:var(--zlata)}
 
   .info .eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--zlata)}
@@ -53,7 +53,7 @@
   .podobne h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.9rem;text-align:center;margin-bottom:6px}
   .podobne .eyebrow{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--zlata);text-align:center;display:block}
   .pmrizka{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:24px 20px;margin-top:24px}
-  .pkarta .pfoto{aspect-ratio:4/5;overflow:hidden;background:var(--slonovina2);border:1px solid var(--linka)}
+  .pkarta .pfoto{aspect-ratio:4/5;overflow:hidden;background:var(--slonovina2);border:1px solid var(--linka);border-radius:10px}
   .pkarta .pfoto img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
   .pkarta:hover .pfoto img{transform:scale(1.05)}
   .pkarta h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.16rem;margin:10px 0 2px}

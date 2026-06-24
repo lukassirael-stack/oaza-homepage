@@ -190,6 +190,48 @@ export default async function handler(req, res) {
         });
       }
 
+      // ---------- OBJEDNÁVKY ----------
+      case 'objednavky-list': {
+        const data = await rest('objednavky?select=*&order=cislo.desc');
+        return res.status(200).json({ objednavky: data });
+      }
+
+      case 'objednavka-stav': {
+        const { id, stav } = body;
+        const platne = ['nova', 'ceka_platba', 'zaplaceno', 'odeslano', 'zruseno'];
+        if (!id || !platne.includes(stav)) return res.status(400).json({ error: 'Chybí id nebo neplatný stav.' });
+
+        const got = await rest(`objednavky?id=eq.${encodeURIComponent(id)}&select=id,polozky`);
+        const obj = got && got[0];
+        if (!obj) return res.status(404).json({ error: 'Objednávka nenalezena.' });
+
+        const patch = { stav };
+        if (stav === 'zaplaceno') patch.zaplaceno_kdy = new Date().toISOString();
+        await rest(`objednavky?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify(patch), prefer: 'return=minimal' });
+
+        // produkty: zaplaceno -> prodano (zmizí z obchodu); zruseno -> zpět na skladem (jen co bylo prodáno)
+        const slugy = (obj.polozky || []).map(p => p && p.slug).filter(Boolean);
+        if (slugy.length) {
+          const inList = slugy.join(',');
+          if (stav === 'zaplaceno') {
+            await rest(`produkty?slug=in.(${inList})`, { method: 'PATCH', body: JSON.stringify({ stav: 'prodano' }), prefer: 'return=minimal' });
+          } else if (stav === 'zruseno') {
+            await rest(`produkty?slug=in.(${inList})&stav=eq.prodano`, { method: 'PATCH', body: JSON.stringify({ stav: 'skladem' }), prefer: 'return=minimal' });
+          }
+        }
+        return res.status(200).json({ ok: true });
+      }
+
+      case 'objednavka-kod': {
+        const { id } = body;
+        if (!id) return res.status(400).json({ error: 'Chybí id.' });
+        const got = await rest(`objednavky?id=eq.${encodeURIComponent(id)}&select=packeta_point`);
+        const pp = (got && got[0] && got[0].packeta_point) || {};
+        pp.kod = String(body.kod || '').trim().slice(0, 40) || null;
+        await rest(`objednavky?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify({ packeta_point: pp }), prefer: 'return=minimal' });
+        return res.status(200).json({ ok: true });
+      }
+
       default:
         return res.status(400).json({ error: 'Neznámá akce: ' + action });
     }

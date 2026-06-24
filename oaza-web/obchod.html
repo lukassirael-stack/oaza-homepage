@@ -20,6 +20,21 @@
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
 
+  /* hero */
+  .hero{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;
+    min-height:clamp(330px,44vh,540px);
+    background:#1B2A41 url('/img/hero-obchod.jpg') center 38%/cover no-repeat}
+  .hero::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(27,42,65,.34),rgba(27,42,65,.5))}
+  .hero-obsah{position:relative;z-index:1;padding:34px 22px;max-width:700px}
+  .hero-obsah .eyebrow{color:#EBD29A}
+  .hero-obsah h1{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.01em;line-height:1.02;
+    font-size:clamp(2.9rem,7vw,4.6rem);color:#FCF8EF;margin:.06em 0;text-shadow:0 2px 22px rgba(0,0,0,.4)}
+  .hero-obsah p{color:#F4EDDE;font-style:italic;font-size:clamp(1rem,2.1vw,1.18rem);max-width:540px;
+    margin:.3rem auto 0;text-shadow:0 1px 12px rgba(0,0,0,.45)}
+  .hero-obsah .hvezda{color:#EBD29A}
+  .hero-obsah .hvezda::before,.hero-obsah .hvezda::after{background:linear-gradient(90deg,transparent,#EBD29A)}
+
   /* hlavička */
   header{text-align:center;padding:46px 0 8px}
   .eyebrow{font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.42em;text-transform:uppercase;color:var(--zlata)}
@@ -31,7 +46,7 @@
   .hvezda span{font-size:.7rem;letter-spacing:.3em}
 
   /* ovládání */
-  .ovladani{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin:30px 0 18px}
+  .ovladani{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin:30px 0 18px;padding-top:8px}
   .hledat{position:relative;flex:1;min-width:180px;max-width:300px}
   .hledat input{width:100%;padding:8px 12px 8px 32px;border:1px solid var(--linka);background:var(--karta);
     font-family:'EB Garamond',serif;font-size:.92rem;color:var(--namornicka);border-radius:2px}
@@ -105,10 +120,10 @@
   @media(max-width:560px){
     .mrizka{grid-template-columns:1fr 1fr;gap:20px 14px}
     .karta-prod h3{font-size:1.12rem}
-    header{padding:26px 0 4px}
-    header h1{font-size:2.4rem}
-    header p{font-size:.96rem;max-width:340px}
-    .hvezda{margin:14px 0 4px}
+    .hero{min-height:clamp(260px,40vh,420px);background-position:center 40%}
+    .hero-obsah{padding:24px 18px}
+    .hero-obsah h1{font-size:2.9rem}
+    .hero-obsah p{font-size:.98rem;max-width:340px}
     .ovladani{gap:8px;margin:18px 0 10px}
     .hledat{max-width:none}
     .hledat input{padding:7px 10px 7px 30px;font-size:.86rem}
@@ -121,14 +136,16 @@
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
+<div class="hero">
+  <div class="hero-obsah">
     <div class="eyebrow">Oáza Adamanthea</div>
     <h1>Bali&nbsp;Shop</h1>
     <div class="hvezda"><span>✦</span></div>
     <p>Poklady, které přinášejí krásu, harmonii a inspiraci. Objevte jedinečné krystaly, šperky, šaty i esence vybrané srdcem.</p>
-  </header>
+  </div>
+</div>
 
+<div class="wrap">
   <div class="ovladani">
     <div class="hledat">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>

@@ -170,7 +170,7 @@
         </div>
 
         <div class="row2">
-          <div><label>Pořadí <span class="pozn">(vyšší = výše v obchodě; 0 = běžné)</span></label><input id="f-poradi" type="number" step="1" value="0"></div>
+          <div><label>Pořadí <span class="pozn">(1 = první v obchodě; nech, nevíš-li)</span></label><input id="f-poradi" type="number" step="1" value="0"></div>
           <div></div>
         </div>
 
@@ -298,7 +298,7 @@ function renderSeznam(){
         <div class="nm">${esc(p.nazev)}
           <span class="badge ${p.stav}">${p.stav}</span>
           ${p.doporucujeme?'<span class="badge dop">tip</span>':''}</div>
-        <div class="meta">${esc(katNazev)} · ${p.cena} Kč${p.stitek?' · '+esc(p.stitek):''}${p.poradi?' · pořadí '+p.poradi:''}</div>
+        <div class="meta">${esc(katNazev)} · ${p.cena} Kč${p.stitek?' · '+esc(p.stitek):''}</div>
       </div>
       <button class="btn ghost mini" title="Nahoru" onclick="posun('${p.id}',-1)">↑</button>
       <button class="btn ghost mini" title="Dolů" onclick="posun('${p.id}',1)">↓</button>
@@ -327,23 +327,24 @@ async function pustit(cilId){
   const [item]=PRODUKTY.splice(from,1);
   const to=PRODUKTY.findIndex(p=>p.id===cilId);
   PRODUKTY.splice(to,0,item);
-  PRODUKTY.forEach((p,i)=>p.poradi=(PRODUKTY.length-i)*10); // přečíslovat (vyšší = výše)
+  PRODUKTY.forEach((p,i)=>p.poradi=i+1); // přečíslovat 1..N (1 = první)
   renderSeznam();
   try{ await api('bulk-save',{produkty:PRODUKTY}); toast('Pořadí uloženo.'); }
   catch(e){ toast('Chyba ukládání: '+e.message); }
 }
 $('#hledat').addEventListener('input',renderSeznam);
 
-// posun pořadí: nastaví poradi relativně k sousedovi (vyšší = výše)
+// posun pořadí: prohodí pořadí se sousedem (nahoru = dřív)
 window.posun=async(id,smer)=>{
   const idx=PRODUKTY.findIndex(x=>x.id===id); if(idx<0)return;
-  const soused=PRODUKTY[idx+smer]; if(!soused){toast('Už je na kraji.');return;}
-  const p=PRODUKTY[idx];
-  const novePoradi=(soused.poradi||0)+(smer<0?1:-1);
-  try{
-    await api('save',{produkt:{...p,poradi:novePoradi}});
-    await nactiVse();
-  }catch(e){toast('Chyba: '+e.message);}
+  const j=idx+smer; if(j<0||j>=PRODUKTY.length){toast('Už je na kraji.');return;}
+  const a=PRODUKTY[idx], b=PRODUKTY[j];
+  const t=a.poradi; a.poradi=b.poradi; b.poradi=t; // prohození
+  // lokálně přerovnat a vykreslit
+  PRODUKTY.sort((x,y)=>(x.poradi||0)-(y.poradi||0));
+  renderSeznam();
+  try{ await api('bulk-save',{produkty:[a,b]}); }
+  catch(e){ toast('Chyba: '+e.message); }
 };
 
 window.smazat=async id=>{
@@ -387,7 +388,7 @@ function novyForm(){
   $('#f-kategorie').value='';$('#f-stav').value='skladem';$('#f-stitek').value='';
   $('#f-doporucujeme').checked=false;
   $('#f-digitalni').checked=false;$('#f-soubor').value='';$('#f-soubor-wrap').classList.add('hidden');
-  $('#f-poradi').value='0';
+  $('#f-poradi').value=(PRODUKTY.reduce((m,p)=>Math.max(m,p.poradi||0),0)+1);
   setTags('barva',[]);setTags('velikost',[]);setTags('ucel',[]);
   renderMedia();ukazForm(true);
 }

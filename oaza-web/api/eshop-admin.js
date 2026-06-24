@@ -1,8 +1,56 @@
 // api/eshop-admin.js — backend administrace e-shopu Oázy
 // Vše chráněno heslem (env ESHOP_HESLO). Service key zůstává na serveru.
-// Akce: list, save, delete, kategorie-list, kategorie-save, kategorie-delete, upload-url
+// Akce: produkty, kategorie, nastaveni, upload, objednávky (+ faktura PDF e-mailem při zaplacení)
+
+import { vytvorFakturaPDF } from '../lib/faktura.js';
 
 const BUCKET = 'eshop';
+const DODAVATEL = {
+  jmeno: 'Lukáš Hudeček',
+  adresa: 'Halenkovice 400',
+  psc_mesto: '763 63 Halenkovice',
+  ico: '76564410',
+  dph: 'Neplátce DPH',
+};
+
+// Odeslání faktury zákazníkovi přes Brevo (PDF v příloze). Best-effort.
+async function posliFakturuEmail(o, fc, pdfB64) {
+  const API = process.env.BREVO_API_KEY;
+  if (!API || !o.email) return false;
+  const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const symb = o.mena === 'EUR' ? '€' : 'Kč';
+  const total = `${Number(o.cena_celkem || 0).toLocaleString('cs-CZ')} ${symb}`;
+  const dalsi = o.doprava === 'digital'
+    ? 'Digitální obsah ti pošleme e-mailem.'
+    : (o.doprava === 'mezi_nami'
+        ? 'Jakmile vytvoříš zásilku v aplikaci Zásilkovna, pošli nám podací kód (pokud jsi tak ještě neučinil).'
+        : 'Objednávku co nejdříve odešleme.');
+  const html = `
+    <div style="font-family:Georgia,serif;color:#1B2A41;background:#F6F1E7;padding:26px">
+      <div style="max-width:560px;margin:0 auto;background:#FBF8F1;border:1px solid #E2D6BC;border-radius:12px;padding:26px">
+        <div style="text-align:center;color:#B8924A;letter-spacing:.3em;font-size:12px;text-transform:uppercase">Oáza Adamanthea</div>
+        <h1 style="text-align:center;font-weight:500;font-size:23px;margin:8px 0 4px">Platba přijata, děkujeme!</h1>
+        <div style="text-align:center;color:#B8924A;margin-bottom:14px">✦</div>
+        <p>Tvá platba za objednávku <b>#${o.cislo}</b> (${total}) dorazila. V příloze najdeš fakturu <b>${esc(fc)}</b>.</p>
+        <p>${dalsi}</p>
+        <p style="color:#7A715F;font-size:13px;margin-top:18px">Jakákoli otázka? Stačí odpovědět na tento e-mail.</p>
+        <p style="color:#7A715F;font-size:13px;text-align:center;margin-top:18px">Oáza Adamanthea · oaza.adamanthea@gmail.com</p>
+      </div>
+    </div>`;
+  const r = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'api-key': API, 'content-type': 'application/json', accept: 'application/json' },
+    body: JSON.stringify({
+      sender: { name: 'Oáza Adamanthea', email: 'info@oaza-adamanthea.cz' },
+      to: [{ email: o.email }],
+      replyTo: { email: 'oaza.adamanthea@gmail.com' },
+      subject: `Faktura ${fc} — Oáza Adamanthea`,
+      htmlContent: html,
+      attachment: [{ content: pdfB64, name: `faktura-${fc}.pdf` }],
+    }),
+  });
+  return r.ok;
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -201,12 +249,12 @@ export default async function handler(req, res) {
         const platne = ['nova', 'ceka_platba', 'zaplaceno', 'odeslano', 'zruseno'];
         if (!id || !platne.includes(stav)) return res.status(400).json({ error: 'Chybí id nebo neplatný stav.' });
 
-        const got = await rest(`objednavky?id=eq.${encodeURIComponent(id)}&select=id,polozky`);
+        const got = await rest(`objednavky?id=eq.${encodeURIComponent(id)}&select=*`);
         const obj = got && got[0];
         if (!obj) return res.status(404).json({ error: 'Objednávka nenalezena.' });
 
         const patch = { stav };
-        if (stav === 'zaplaceno') patch.zaplaceno_kdy = new Date().toISOString();
+        if (stav === 'zaplaceno' && !obj.zaplaceno_kdy) patch.zaplaceno_kdy = new Date().toISOString();
         await rest(`objednavky?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify(patch), prefer: 'return=minimal' });
 
         // produkty: zaplaceno -> prodano (zmizí z obchodu); zruseno -> zpět na skladem (jen co bylo prodáno)
@@ -219,7 +267,21 @@ export default async function handler(req, res) {
             await rest(`produkty?slug=in.(${inList})&stav=eq.prodano`, { method: 'PATCH', body: JSON.stringify({ stav: 'skladem' }), prefer: 'return=minimal' });
           }
         }
-        return res.status(200).json({ ok: true });
+
+        // faktura — jen při prvním přechodu na zaplaceno (best-effort)
+        let faktura_ok = null;
+        if (stav === 'zaplaceno' && !obj.faktura_cislo) {
+          const rok = new Date().getFullYear();
+          const fc = `${rok}-${String(obj.cislo).padStart(4, '0')}`;
+          try {
+            const objF = { ...obj, faktura_cislo: fc, zaplaceno_kdy: patch.zaplaceno_kdy || obj.zaplaceno_kdy };
+            const pdf = await vytvorFakturaPDF(objF, DODAVATEL);
+            const b64 = Buffer.from(pdf).toString('base64');
+            faktura_ok = await posliFakturuEmail(objF, fc, b64);
+          } catch (e) { faktura_ok = false; }
+          await rest(`objednavky?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify({ faktura_cislo: fc }), prefer: 'return=minimal' });
+        }
+        return res.status(200).json({ ok: true, faktura_ok });
       }
 
       case 'objednavka-kod': {

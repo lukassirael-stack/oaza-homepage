@@ -324,6 +324,7 @@ function potvrzeni(j){
         : (j.doprava==='mezi_nami'
             ? 'Vytvoř si prosím zásilku ve své aplikaci Zásilkovna a pošli nám <b>podací kód</b> na oaza.adamanthea@gmail.com (pokud jsi ho nevyplnil). Po přijetí platby a kódu balík předáme.'
             : 'Po přijetí platby ti potvrdíme objednávku a odešleme zboží.')}
+      ${j.email_sent ? '<br>Potvrzení jsme poslali i na tvůj e-mail.' : ''}
       </p>
     <a class="tlac" style="max-width:260px;margin:6px auto" href="/obchod">Zpět do obchodu</a>
   </div>`;

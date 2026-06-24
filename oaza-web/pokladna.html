@@ -100,7 +100,6 @@
 <footer><div class="wrap">Oáza Adamanthea · <a href="/kontakt">Kontakt</a> · <a href="/gdpr">Ochrana údajů</a></div></footer>
 
 <script src="/kosik.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -310,7 +309,7 @@ function potvrzeni(j){
     <div class="znak">✦</div>
     <h2>Objednávka přijata</h2>
     <p style="color:var(--tlumeny);font-style:italic">Číslo objednávky #${esc(j.cislo)}. Zaplať prosím QR kódem nebo převodem níže.</p>
-    <div class="qr-box"><div id="qr"></div></div>
+    <div class="qr-box"><img src="${esc(j.qr_url)}" alt="QR platba" width="220" height="220" style="display:block" onerror="this.parentNode.style.display='none'"></div>
     <div class="platdetail">
       ${ucet}
       <div><span class="k">IBAN</span><span class="v">${esc(j.iban)}</span></div>
@@ -328,8 +327,6 @@ function potvrzeni(j){
       </p>
     <a class="tlac" style="max-width:260px;margin:6px auto" href="/obchod">Zpět do obchodu</a>
   </div>`;
-  try{ new QRCode(document.getElementById('qr'), { text:j.spayd, width:220, height:220, correctLevel:QRCode.CorrectLevel.M }); }
-  catch(e){ document.getElementById('qr').textContent='QR se nepodařilo vykreslit — použij údaje níže.'; }
   window.scrollTo({top:0,behavior:'smooth'});
 }
 

@@ -150,13 +150,99 @@ export default async function handler(req, res) {
     const iban = mena === 'EUR' ? IBAN_EUR : IBAN_CZK;
     const am = `${cena_celkem}.00`;
     const spayd = `SPD*1.0*ACC:${iban}*AM:${am}*CC:${mena}*X-VS:${vs}*MSG:OAZA OBCHOD ${cislo}`;
+    const symb = mena === 'EUR' ? '€' : 'Kč';
+    const ucet = mena === 'EUR'
+      ? { popis: 'Fio banka (EUR)', iban: IBAN_EUR }
+      : { popis: 'Raiffeisenbank', cislo: '8159854004/5500', iban: IBAN_CZK };
+
+    // --- e-mail (best-effort, nesmí shodit objednávku) ---
+    let email_sent = false;
+    try { email_sent = await posliMaily(); } catch (e) { email_sent = false; }
+
+    async function posliMaily() {
+      const API = process.env.BREVO_API_KEY;
+      if (!API) return false;
+      const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+      const cena = v => `${Number(v).toLocaleString('cs-CZ')} ${symb}`;
+
+      const radkyPolozek = polozky.map(p =>
+        `<tr><td style="padding:6px 0;border-bottom:1px solid #E2D6BC">${esc(p.nazev)}${p.digitalni ? ' · digitální' : ''}</td>
+         <td style="padding:6px 0;border-bottom:1px solid #E2D6BC;text-align:right;white-space:nowrap">${cena(mena === 'EUR' ? p.cena_eur : p.cena)}</td></tr>`).join('');
+
+      let dopravaText;
+      if (doprava === 'digital') dopravaText = 'Digitální obsah zašleme e-mailem po zaplacení.';
+      else if (doprava === 'mezi_nami') dopravaText = (packeta_point && packeta_point.kod)
+        ? `Zásilkovna „Mezi námi“ — podací kód: <b>${esc(packeta_point.kod)}</b>.`
+        : 'Zásilkovna „Mezi námi“ — vytvoř zásilku ve své aplikaci Zásilkovna a pošli nám podací kód na oaza.adamanthea@gmail.com.';
+      else if (doprava === 'vydejni_misto') dopravaText = `Zásilkovna — výdejní místo: ${esc(packeta_point && packeta_point.text || '')}.`;
+      else dopravaText = `Doručení na adresu: ${esc(adresa ? `${adresa.ulice}, ${adresa.psc} ${adresa.mesto}` : '')}.`;
+
+      const platBlok = `
+        <table style="width:100%;border-collapse:collapse;margin:6px 0 0">
+          ${ucet.cislo ? `<tr><td style="color:#7A715F;padding:3px 0">Účet</td><td style="text-align:right">${ucet.cislo}</td></tr>` : `<tr><td style="color:#7A715F;padding:3px 0">Banka</td><td style="text-align:right">${ucet.popis}</td></tr>`}
+          <tr><td style="color:#7A715F;padding:3px 0">IBAN</td><td style="text-align:right">${ucet.iban}</td></tr>
+          <tr><td style="color:#7A715F;padding:3px 0">Částka</td><td style="text-align:right"><b>${cena(cena_celkem)}</b></td></tr>
+          <tr><td style="color:#7A715F;padding:3px 0">Variabilní symbol</td><td style="text-align:right"><b>${vs}</b></td></tr>
+          <tr><td style="color:#7A715F;padding:3px 0">Zpráva</td><td style="text-align:right">OAZA OBCHOD ${cislo}</td></tr>
+        </table>`;
+
+      const obal = (nadpis, telo) => `
+        <div style="font-family:Georgia,'Times New Roman',serif;color:#1B2A41;background:#F6F1E7;padding:26px">
+          <div style="max-width:560px;margin:0 auto;background:#FBF8F1;border:1px solid #E2D6BC;border-radius:12px;padding:26px">
+            <div style="text-align:center;color:#B8924A;letter-spacing:.3em;font-size:12px;text-transform:uppercase">Oáza Adamanthea</div>
+            <h1 style="text-align:center;font-weight:500;font-size:24px;margin:8px 0 4px">${nadpis}</h1>
+            <div style="text-align:center;color:#B8924A;margin-bottom:14px">✦</div>
+            ${telo}
+            <p style="color:#7A715F;font-size:13px;text-align:center;margin-top:22px">Oáza Adamanthea · oaza.adamanthea@gmail.com</p>
+          </div>
+        </div>`;
+
+      // ---- zákazník ----
+      const teloZak = `
+        <p>Děkujeme za tvou objednávku <b>#${cislo}</b>. Níže najdeš souhrn a údaje k platbě.</p>
+        <table style="width:100%;border-collapse:collapse;margin:10px 0">${radkyPolozek}
+          <tr><td style="padding:8px 0">Doprava</td><td style="padding:8px 0;text-align:right">${doprava_cena ? cena(doprava_cena) : (doprava === 'mezi_nami' ? 'platíš v aplikaci' : 'zdarma')}</td></tr>
+          <tr><td style="padding:8px 0;font-size:18px"><b>Celkem</b></td><td style="padding:8px 0;text-align:right;font-size:18px"><b>${cena(cena_celkem)}</b></td></tr>
+        </table>
+        <p style="margin:4px 0 2px"><b>Doprava:</b> ${dopravaText}</p>
+        <h3 style="margin:18px 0 4px;font-weight:500">Platba převodem / QR</h3>
+        ${platBlok}
+        <p style="color:#7A715F;font-size:13px;margin-top:14px">Po přijetí platby objednávku potvrdíme${doprava === 'digital' ? ' a zašleme digitální obsah' : ''}. Jakákoli otázka? Stačí odpovědět na tento e-mail.</p>`;
+
+      // ---- interní ----
+      const teloNas = `
+        <p><b>Nová objednávka #${cislo}</b> — ${esc(jmeno)} (${esc(email)}${telefon ? ', ' + esc(telefon) : ''}), ${zeme}.</p>
+        <table style="width:100%;border-collapse:collapse;margin:10px 0">${radkyPolozek}
+          <tr><td style="padding:8px 0">Doprava</td><td style="padding:8px 0;text-align:right">${doprava_cena ? cena(doprava_cena) : (doprava === 'mezi_nami' ? '0 (Mezi námi)' : 'zdarma')}</td></tr>
+          <tr><td style="padding:8px 0"><b>Celkem</b></td><td style="padding:8px 0;text-align:right"><b>${cena(cena_celkem)}</b></td></tr>
+        </table>
+        <p><b>Doprava:</b> ${dopravaText}</p>
+        ${poznamka ? `<p><b>Poznámka:</b> ${esc(poznamka)}</p>` : ''}
+        <p style="color:#7A715F;font-size:13px">VS ${vs} · stav: čeká na platbu</p>`;
+
+      async function send(to, subject, html, replyTo) {
+        const r = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: { 'api-key': API, 'content-type': 'application/json', accept: 'application/json' },
+          body: JSON.stringify({
+            sender: { name: 'Oáza Adamanthea', email: 'info@oaza-adamanthea.cz' },
+            to: [{ email: to }],
+            replyTo: replyTo ? { email: replyTo } : undefined,
+            subject, htmlContent: html,
+          }),
+        });
+        return r.ok;
+      }
+
+      const okZak = await send(email, `Objednávka #${cislo} — Oáza Adamanthea`, obal('Objednávka přijata', teloZak), 'oaza.adamanthea@gmail.com');
+      // interní upozornění (neblokuje výsledek zákaznického mailu)
+      try { await send('oaza.adamanthea@gmail.com', `Nová objednávka #${cislo} (${cena(cena_celkem)})`, obal('Nová objednávka', teloNas), email); } catch (e) {}
+      return okZak;
+    }
 
     return res.status(200).json({
       ok: true, cislo, vs, mena, cena_zbozi, doprava_cena, cena_celkem,
-      doprava, vseDigital, spayd, iban,
-      ucet: mena === 'EUR'
-        ? { popis: 'Fio banka (EUR)', iban: IBAN_EUR }
-        : { popis: 'Raiffeisenbank', cislo: '8159854004/5500', iban: IBAN_CZK },
+      doprava, vseDigital, spayd, iban, ucet, email_sent,
       polozky,
     });
   } catch (e) {

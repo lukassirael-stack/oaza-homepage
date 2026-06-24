@@ -54,12 +54,15 @@
   .ovladani{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin:30px 0 18px;padding-top:8px}
   .hledat{position:relative;flex:1;min-width:180px;max-width:300px}
   .hledat input{width:100%;padding:8px 12px 8px 32px;border:1px solid var(--linka);background:var(--karta);
-    font-family:'EB Garamond',serif;font-size:.92rem;color:var(--namornicka);border-radius:2px}
+    font-family:'EB Garamond',serif;font-size:.92rem;color:var(--namornicka);border-radius:9px}
   .hledat input:focus{outline:none;border-color:var(--zlata)}
   .hledat svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--tlumeny);fill:none;stroke-width:1.6}
   .razeni{display:flex;align-items:center;gap:8px;color:var(--tlumeny);font-size:.92rem}
-  .razeni select{border:1px solid var(--linka);background:var(--karta);padding:9px 12px;font-family:'EB Garamond',serif;
-    font-size:.98rem;color:var(--namornicka);border-radius:2px}
+  .razeni select{appearance:none;-webkit-appearance:none;-moz-appearance:none;
+    border:1px solid var(--linka);background:var(--karta);padding:8px 30px 8px 12px;font-family:'EB Garamond',serif;
+    font-size:.92rem;color:var(--namornicka);border-radius:9px;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231B2A41' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center}
   .razeni select:focus{outline:none;border-color:var(--zlata)}
   .mena-prep{display:inline-flex;border:1px solid var(--linka);border-radius:30px;overflow:hidden}
   .mena-prep button{border:none;background:transparent;padding:8px 14px;cursor:pointer;font-family:'Cinzel',serif;
@@ -82,7 +85,7 @@
   .filtr-skup label{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tlumeny)}
   .barva-chip{width:20px;height:20px;border-radius:50%;border:1px solid var(--linka);cursor:pointer;position:relative}
   .barva-chip.akt{box-shadow:0 0 0 2px var(--slonovina),0 0 0 3px var(--zlata)}
-  .cena-vstup{width:78px;padding:6px 8px;border:1px solid var(--linka);background:var(--karta);border-radius:2px;
+  .cena-vstup{width:78px;padding:6px 8px;border:1px solid var(--linka);background:var(--karta);border-radius:8px;
     font-family:'EB Garamond',serif;color:var(--namornicka)}
   .reset{font-size:.86rem;color:var(--zlata);cursor:pointer;font-style:italic;border:none;background:none}
 

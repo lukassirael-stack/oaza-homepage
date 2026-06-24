@@ -155,6 +155,12 @@ export default async function handler(req, res) {
       ? { popis: 'Fio banka (EUR)', iban: IBAN_EUR }
       : { popis: 'Raiffeisenbank', cislo: '8159854004/5500', iban: IBAN_CZK };
 
+    // QR obrázek (generátor českých QR plateb) — funguje v prohlížeči i v e-mailu, bez JS knihovny
+    const qrMsg = encodeURIComponent(`OAZA OBCHOD ${cislo}`);
+    const qr_url = mena === 'EUR'
+      ? `https://api.paylibo.com/paylibo/generator/czech/image?accountNumber=2500144501&bankCode=2010&amount=${cena_celkem}&currency=EUR&vs=${vs}&message=${qrMsg}&size=240&branding=false`
+      : `https://api.paylibo.com/paylibo/generator/czech/image?accountNumber=8159854004&bankCode=5500&amount=${cena_celkem}&currency=CZK&vs=${vs}&message=${qrMsg}&size=240&branding=false`;
+
     // --- e-mail (best-effort, nesmí shodit objednávku) ---
     let email_sent = false;
     try { email_sent = await posliMaily(); } catch (e) { email_sent = false; }
@@ -206,6 +212,7 @@ export default async function handler(req, res) {
         </table>
         <p style="margin:4px 0 2px"><b>Doprava:</b> ${dopravaText}</p>
         <h3 style="margin:18px 0 4px;font-weight:500">Platba převodem / QR</h3>
+        <div style="text-align:center;margin:8px 0"><img src="${qr_url}" alt="QR platba" width="200" height="200" style="border:1px solid #E2D6BC;border-radius:10px;padding:8px;background:#fff"></div>
         ${platBlok}
         <p style="color:#7A715F;font-size:13px;margin-top:14px">Po přijetí platby objednávku potvrdíme${doprava === 'digital' ? ' a zašleme digitální obsah' : ''}. Jakákoli otázka? Stačí odpovědět na tento e-mail.</p>`;
 
@@ -242,7 +249,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       ok: true, cislo, vs, mena, cena_zbozi, doprava_cena, cena_celkem,
-      doprava, vseDigital, spayd, iban, ucet, email_sent,
+      doprava, vseDigital, spayd, iban, ucet, email_sent, qr_url,
       polozky,
     });
   } catch (e) {

@@ -535,15 +535,38 @@ async function nahrajVideo(file){
 }
 
 /* ---------- kategorie ---------- */
+let EDIT_KAT=null;
 function renderKategorie(){
-  $('#kat-seznam').innerHTML=KATEGORIE.map(k=>`<div class="radek">
-    <div class="info"><div class="nm" style="font-size:1.1rem">${esc(k.nazev)}</div>
-      <div class="meta">slug: ${esc(k.slug)} · pořadí: ${k.poradi}</div></div>
-    <button class="btn ghost mini" onclick="katPoradi('${esc(k.slug)}',-1)">↑</button>
-    <button class="btn ghost mini" onclick="katPoradi('${esc(k.slug)}',1)">↓</button>
-    <button class="btn ghost mini danger" onclick="katSmaz('${esc(k.slug)}')">Smazat</button>
-  </div>`).join('');
+  $('#kat-seznam').innerHTML=KATEGORIE.map(k=>{
+    if(EDIT_KAT===k.slug){
+      return `<div class="radek">
+        <input id="kat-edit-input" value="${esc(k.nazev)}" style="flex:1;min-width:120px"
+          onkeydown="if(event.key==='Enter')katUloz('${esc(k.slug)}');if(event.key==='Escape')katZrus()">
+        <button class="btn ghost mini" onclick="katUloz('${esc(k.slug)}')">Uložit</button>
+        <button class="btn ghost mini" onclick="katZrus()">Zrušit</button>
+      </div>`;
+    }
+    return `<div class="radek">
+      <div class="info"><div class="nm" style="font-size:1.1rem">${esc(k.nazev)}</div>
+        <div class="meta">slug: ${esc(k.slug)} · pořadí: ${k.poradi}</div></div>
+      <button class="btn ghost mini" onclick="katPoradi('${esc(k.slug)}',-1)">↑</button>
+      <button class="btn ghost mini" onclick="katPoradi('${esc(k.slug)}',1)">↓</button>
+      <button class="btn ghost mini" onclick="katUprav('${esc(k.slug)}')">Upravit</button>
+      <button class="btn ghost mini danger" onclick="katSmaz('${esc(k.slug)}')">Smazat</button>
+    </div>`;
+  }).join('');
+  if(EDIT_KAT){const i=$('#kat-edit-input');if(i){i.focus();i.select();}}
 }
+window.katUprav=slug=>{EDIT_KAT=slug;renderKategorie();};
+window.katZrus=()=>{EDIT_KAT=null;renderKategorie();};
+window.katUloz=async slug=>{
+  const k=KATEGORIE.find(x=>x.slug===slug);if(!k)return;
+  const nazev=($('#kat-edit-input').value||'').trim();
+  if(!nazev){toast('Zadej název.');return;}
+  EDIT_KAT=null;
+  try{await api('kategorie-save',{kategorie:{slug:k.slug,nazev,poradi:k.poradi}});await nactiVse();toast('Uloženo.');}
+  catch(e){toast('Chyba: '+e.message);}
+};
 $('#kat-pridat').onclick=async()=>{
   const nazev=$('#kat-nazev').value.trim();if(!nazev){toast('Zadej název.');return;}
   const poradi=(KATEGORIE.reduce((m,k)=>Math.max(m,k.poradi),0))+1;

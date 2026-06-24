@@ -66,21 +66,23 @@ export default async function handler(req, res) {
     // DIAGNOSTIKA: vrátí skutečné stavové kódy pro vzorek fotek
     if (body.action === 'diag') {
       const produkty = await restGET('produkty?select=id,fotky&order=id');
-      const potreba = produkty.filter(p => (p.fotky || []).some(jeWix));
+      const vsechnyWix = [];
+      produkty.forEach(p => (p.fotky || []).forEach(f => { if (jeWix(f)) vsechnyWix.push(f); }));
+      const sMv2 = vsechnyWix.filter(f => /~mv2/.test(f)).slice(0, 2);   // běžné (702)
+      const bezMv2 = vsechnyWix.filter(f => !/~mv2/.test(f)).slice(0, 1); // holá id (22)
       const vzorek = [];
-      for (const p of potreba.slice(0, 3)) {
-        const url = (p.fotky || []).find(jeWix);
+      for (const url of [...sMv2, ...bezMv2]) {
         const pokusy = [];
         for (const k of pokusUrls(url)) {
           try {
             const r = await fetch(k, { headers: UA });
-            pokusy.push({ url: k.slice(0, 110), status: r.status, ct: (r.headers.get('content-type') || '').slice(0, 30) });
+            pokusy.push({ status: r.status, ct: (r.headers.get('content-type') || '').slice(0, 24) });
             if (r.ok) break;
-          } catch (e) { pokusy.push({ url: k.slice(0, 110), chyba: String(e.message || e).slice(0, 60) }); }
+          } catch (e) { pokusy.push({ chyba: String(e.message || e).slice(0, 50) }); }
         }
-        vzorek.push({ puvodni: url.slice(0, 90), pokusy });
+        vzorek.push({ typ: /~mv2/.test(url) ? 'běžná (~mv2)' : 'holé id', puvodni: url.slice(0, 75), pokusy });
       }
-      return res.status(200).json({ diag: vzorek, zbyva: potreba.length });
+      return res.status(200).json({ diag: vzorek, zbyva_wix_fotek: vsechnyWix.length });
     }
 
     const produkty = await restGET('produkty?select=id,fotky&order=id');

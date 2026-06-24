@@ -94,9 +94,11 @@ export default async function handler(req, res) {
     for (const p of potreba) {
       if (budget <= 0) break;
       const nove = [...(p.fotky || [])];
+      const zahodit = new Set();   // indexy neplatných holých ID
       let zmena = false;
       for (let i = 0; i < nove.length && budget > 0; i++) {
         if (!jeWix(nove[i])) continue;
+        const hole = !/~mv2/.test(nove[i].split('/v1/')[0]); // holé ID bez ~mv2 = nejspíš neplatné
         await spi(PAUZA_MS); // šetrná pauza před každým stažením
         try {
           const got = await stahni(nove[i]);
@@ -114,11 +116,15 @@ export default async function handler(req, res) {
           nove[i] = `${URL}/storage/v1/object/public/${BUCKET}/${path}`;
           zmena = true; budget--; zpracovano++;
         } catch (e) {
-          chyby++; budget--; // počítáme do budgetu, ať se nezasekneme na jedné vadné fotce
+          budget--;
+          if (hole) { zahodit.add(i); zmena = true; }  // neplatné holé ID → zahodit
+          else { chyby++; }                            // ~mv2 selhání → nech na příště
         }
       }
       if (zmena) {
-        try { await restPATCH(`produkty?id=eq.${p.id}`, { fotky: nove }); }
+        let vysledek = nove.filter((_, i) => !zahodit.has(i));
+        if (vysledek.length === 0) vysledek = nove; // kdyby zbyly jen holé, nech původní
+        try { await restPATCH(`produkty?id=eq.${p.id}`, { fotky: vysledek }); }
         catch (e) { /* přeskoč, příště se zkusí znovu */ }
       }
     }

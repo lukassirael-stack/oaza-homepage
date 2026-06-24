@@ -44,6 +44,11 @@
 
   /* seznam produktů */
   .radek{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--slonovina2);background:#fff;border-radius:3px;margin-bottom:10px}
+  .radek.vybrano{background:#FBF3DF;border-color:var(--zlata)}
+  .vyber-check{width:18px;height:18px;flex:none;margin:0;cursor:pointer;accent-color:var(--zlata)}
+  #vyber-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:5;
+    background:var(--slonovina);border:1px solid var(--zlata);border-radius:8px;padding:10px 14px;margin-bottom:12px}
+  #vyber-bar .pocet{color:var(--namornicka);font-size:.95rem}
   .radek[draggable]{cursor:default}
   .radek.taha{opacity:.4}
   .radek.nad{border-color:var(--zlata);box-shadow:0 -2px 0 var(--zlata) inset}
@@ -124,6 +129,7 @@
         <input id="hledat" placeholder="Hledat produkt…" style="max-width:280px">
         <button class="btn" id="novy">+ Nový produkt</button>
       </div>
+      <div id="vyber-bar" class="hidden"></div>
       <div id="seznam"></div>
     </div>
 
@@ -269,9 +275,13 @@ document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
 async function nactiVse(){
   const k=await api('kategorie-list'); KATEGORIE=k.kategorie||[];
   const p=await api('list'); PRODUKTY=p.produkty||[];
+  serad();
   try{const n=await api('nastaveni-get'); $('#kurz-eur').value=(n.nastaveni&&n.nastaveni.kurz_eur)||'25';}catch(e){}
   renderSeznam(); renderKategorie(); naplnKategorieSelect();
 }
+// neskladem (prodáno/skryto) řadíme na konec, jinak podle pořadí
+const stavRank=p=>p.stav==='skladem'?0:1;
+function serad(){ PRODUKTY.sort((a,b)=> stavRank(a)-stavRank(b) || (a.poradi||0)-(b.poradi||0)); }
 // přepínač digitální → odkaz ke stažení
 $('#f-digitalni').addEventListener('change',e=>{
   $('#f-soubor-wrap').classList.toggle('hidden',!e.target.checked);
@@ -282,16 +292,19 @@ $('#kurz-ulozit').onclick=async()=>{
 };
 
 /* ---------- seznam produktů ---------- */
+let VYBRANE=new Set();
 function renderSeznam(){
   const q=($('#hledat').value||'').toLowerCase();
   const list=PRODUKTY.filter(p=>!q||(p.nazev||'').toLowerCase().includes(q));
-  if(!list.length){$('#seznam').innerHTML='<p class="pozn">Žádné produkty. Klikni na „+ Nový produkt".</p>';return;}
+  if(!list.length){$('#seznam').innerHTML='<p class="pozn">Žádné produkty. Klikni na „+ Nový produkt".</p>';renderVyberBar();return;}
   const lzeTahat=!q; // drag jen bez vyhledávání
-  $('#seznam').innerHTML=(lzeTahat?'<p class="pozn" style="margin-bottom:8px">Chyť produkt za ⠿ a přetáhni, kam ho chceš mít. (Na mobilu použij šipky ↑↓.)</p>':'')+
+  $('#seznam').innerHTML=(lzeTahat?'<p class="pozn" style="margin-bottom:8px">Zaškrtni produkty a přesuň je naráz (přetažením nebo tlačítky nahoře). Jednotlivě chyť za ⠿ a přetáhni. Na mobilu šipky ↑↓.</p>':'')+
   list.map(p=>{
     const foto=(p.fotky&&p.fotky[0])||'';
     const katNazev=(KATEGORIE.find(k=>k.slug===p.kategorie)||{}).nazev||p.kategorie||'—';
-    return `<div class="radek" data-id="${p.id}" ${lzeTahat?'draggable="true"':''}>
+    const vyb=VYBRANE.has(p.id);
+    return `<div class="radek${vyb?' vybrano':''}" data-id="${p.id}" ${lzeTahat?'draggable="true"':''}>
+      <input type="checkbox" class="vyber-check" ${vyb?'checked':''} title="Vybrat" onclick="event.stopPropagation()" onchange="prepniVyber('${p.id}',this.checked)">
       ${lzeTahat?'<span class="tahatko" title="Přetáhni">⠿</span>':''}
       <img src="${esc(foto)}" alt="" onerror="this.style.visibility='hidden'">
       <div class="info">
@@ -306,10 +319,30 @@ function renderSeznam(){
       <button class="btn ghost mini danger" onclick="smazat('${p.id}')">Smazat</button>
     </div>`;
   }).join('');
+  renderVyberBar();
   if(lzeTahat) wireDnd();
 }
 
-/* drag & drop řazení (desktop) */
+/* výběr produktů */
+function renderVyberBar(){
+  const bar=$('#vyber-bar'), n=VYBRANE.size;
+  if(!n){bar.classList.add('hidden');bar.innerHTML='';return;}
+  bar.classList.remove('hidden');
+  bar.innerHTML=`<span class="pocet"><b>${n}</b> vybráno</span>
+    <button class="btn ghost mini" onclick="presunVyber('start')">↑ Na začátek</button>
+    <button class="btn ghost mini" onclick="presunVyber('end')">↓ Na konec</button>
+    <button class="btn ghost mini" onclick="zrusVyber()">Zrušit výběr</button>
+    <span class="pozn">…nebo chyť vybraný produkt a přetáhni, kam chceš</span>`;
+}
+window.prepniVyber=(id,on)=>{
+  if(on)VYBRANE.add(id); else VYBRANE.delete(id);
+  const row=document.querySelector(`.radek[data-id="${id}"]`); if(row)row.classList.toggle('vybrano',on);
+  renderVyberBar();
+};
+window.zrusVyber=()=>{VYBRANE.clear();renderSeznam();};
+window.presunVyber=t=>{ if(VYBRANE.size) provedPresun([...VYBRANE],t); };
+
+/* drag & drop řazení (desktop) – umí přesunout i celý výběr */
 let dragId=null;
 function wireDnd(){
   document.querySelectorAll('#seznam .radek[draggable]').forEach(row=>{
@@ -321,27 +354,42 @@ function wireDnd(){
     row.addEventListener('drop',e=>{e.preventDefault();row.classList.remove('nad');pustit(row.dataset.id);});
   });
 }
-async function pustit(cilId){
-  if(!dragId||dragId===cilId)return;
-  const from=PRODUKTY.findIndex(p=>p.id===dragId); if(from<0)return;
-  const [item]=PRODUKTY.splice(from,1);
-  const to=PRODUKTY.findIndex(p=>p.id===cilId);
-  PRODUKTY.splice(to,0,item);
-  PRODUKTY.forEach((p,i)=>p.poradi=i+1); // přečíslovat 1..N (1 = první)
+function pustit(cilId){
+  if(!dragId) return;
+  // když táhnu jeden z vybraných, přesunu celý výběr; jinak jen ten jeden
+  const ids=(VYBRANE.size && VYBRANE.has(dragId)) ? [...VYBRANE] : [dragId];
+  provedPresun(ids, cilId);
+}
+// přesune skupinu id na cíl ('start' | 'end' | id cílového produktu), přečísluje a uloží
+function provedPresun(ids, cil){
+  if(!ids.length) return;
+  const set=new Set(ids);
+  if(typeof cil==='string' && set.has(cil)) return; // cíl je ve výběru → nedává smysl
+  const presouvane=PRODUKTY.filter(p=>set.has(p.id)); // zachová vzájemné pořadí
+  const zbytek=PRODUKTY.filter(p=>!set.has(p.id));
+  let idx = cil==='start' ? 0 : cil==='end' ? zbytek.length : zbytek.findIndex(p=>p.id===cil);
+  if(idx<0) idx=zbytek.length;
+  const nove=[...zbytek.slice(0,idx),...presouvane,...zbytek.slice(idx)];
+  nove.forEach((p,i)=>p.poradi=i+1);
+  PRODUKTY.length=0; PRODUKTY.push(...nove);
+  serad();
+  VYBRANE.clear();
   renderSeznam();
+  ulozPoradi();
+}
+async function ulozPoradi(){
   try{ await api('bulk-save',{produkty:PRODUKTY}); toast('Pořadí uloženo.'); }
   catch(e){ toast('Chyba ukládání: '+e.message); }
 }
 $('#hledat').addEventListener('input',renderSeznam);
 
-// posun pořadí: prohodí pořadí se sousedem (nahoru = dřív)
+// posun pořadí šipkou: prohodí pořadí se sousedem (nahoru = dřív)
 window.posun=async(id,smer)=>{
   const idx=PRODUKTY.findIndex(x=>x.id===id); if(idx<0)return;
   const j=idx+smer; if(j<0||j>=PRODUKTY.length){toast('Už je na kraji.');return;}
   const a=PRODUKTY[idx], b=PRODUKTY[j];
   const t=a.poradi; a.poradi=b.poradi; b.poradi=t; // prohození
-  // lokálně přerovnat a vykreslit
-  PRODUKTY.sort((x,y)=>(x.poradi||0)-(y.poradi||0));
+  serad();
   renderSeznam();
   try{ await api('bulk-save',{produkty:[a,b]}); }
   catch(e){ toast('Chyba: '+e.message); }

@@ -26,8 +26,9 @@
     }
     var st = document.createElement("style");
     st.textContent =
-      "nav .menu,nav .menu a{font-family:'Jost',sans-serif !important}" +
-      "nav .menu{text-transform:uppercase !important;letter-spacing:.06em;font-size:.82rem}";
+      "nav .menu,nav .menu a,nav>a:not(.home):not(.nav-home):not(.btn){font-family:'Jost',sans-serif !important}" +
+      "nav .menu a,nav>a:not(.home):not(.nav-home):not(.btn){text-transform:uppercase !important;letter-spacing:.06em !important;font-size:.82rem !important}" +
+      "nav .menu{text-transform:uppercase !important}";
     document.head.appendChild(st);
   } catch (e) {}
 })();

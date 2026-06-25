@@ -34,9 +34,11 @@ module.exports = async (req, res) => {
       return res.status(200).json({ akce });
     }
 
-    // seznam publikovaných akcí, seřazeno: nejdřív otevřené, pak podle pořadí a data
+    // seznam publikovaných akcí — jen ty, které ještě neproběhly
+    // (datum_konec = koncové datum, jinak začátek; akce bez data se ponechá)
+    const dnes = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }); // YYYY-MM-DD
     const rows = await supaRest(
-      `akce?aktivni=eq.true&select=${cols}&order=poradi.asc,datum_od.asc`
+      `akce?aktivni=eq.true&or=(datum_konec.gte.${dnes},datum_konec.is.null)&select=${cols}&order=poradi.asc,datum_od.asc`
     );
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
     return res.status(200).json({ akce: rows || [] });

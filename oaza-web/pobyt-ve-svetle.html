@@ -329,7 +329,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       <a href="/akce">Akce</a>
       <a href="/nabidka-sluzeb">Služby</a>
       <a href="/pronajem-prostor">Pronájem</a>
-      <a href="/spirit-shop-1">E-shop</a>
+      <a href="/bali-shop">E-shop</a>
       <a href="/o-nas">O nás</a>
       <a href="/kontakt">Kontakt</a>
       <a href="/kontakt" class="js-prijet jen-mobil">Chci přijet</a>
@@ -394,7 +394,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       <li>Chatku prosíme zanechte po odjezdu tak, jak jste ji našli</li>
     </ul>
 
-    <div class="pvs2-services">Doplňkové služby: Focení aury a čaker · terapie · energetická očista · Spirit Shop</div>
+    <div class="pvs2-services">Doplňkové služby: Focení aury a čaker · terapie · energetická očista · E-shop</div>
 
     <p class="pvs2-closing">Pobyt berte jako čas pro svou duši.<br>Přijeďte, jak jste — odjeďte lehčí. 🌿</p>
 
@@ -940,7 +940,7 @@ async function submitForm(){
 
   const svcList = Object.keys(selectedServices).length
     ? Object.keys(selectedServices).map(k=>{
-        const names={aura:'Focení aury a čaker',terapie:'Terapie',ocista:'Energetická očista',shop:'Spirit Shop'};
+        const names={aura:'Focení aury a čaker',terapie:'Terapie',ocista:'Energetická očista',shop:'E-shop'};
         return names[k]||k;
       }).join(', ')
     : 'Žádné';

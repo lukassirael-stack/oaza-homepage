@@ -49,6 +49,7 @@ module.exports = async (req, res) => {
         prihlaska_url: a.prihlaska_url || null,
         datum_text: a.datum_text || null,
         datum_od: a.datum_od || null,
+        datum_do: a.datum_do || null,
         misto: a.misto || null,
         platba_typ: a.platba_typ || 'online',
         cena_czk: a.cena_czk === '' || a.cena_czk == null ? null : Number(a.cena_czk),

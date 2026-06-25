@@ -4,31 +4,56 @@
     {
       "source": "/:path*",
       "has": [
-        { "type": "host", "value": "www.oaza-adamanthea.cz" }
+        {
+          "type": "host",
+          "value": "www.oaza-adamanthea.cz"
+        }
       ],
       "destination": "https://oaza-adamanthea.cz/:path*",
       "permanent": true
     },
     {
-      "source": "/:path((?!img/|api/|favicon|oaza-adamanthea-favicon|robots\\.txt|sitemap\\.xml|index\\.html|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|o-nas|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|harmonizace-jmena-a-prijmeni|lemoare-krystaly|spoluprace|vesmirny-kod-zrozeni|akce|admin-akce|gdpr|kontakt|prehled-navstevnosti|zdravi|admin-produkty|import-wix|rehost-fotky|obchod|produkt|pokladna|admin-objednavky|kosik\\.js|navstevnost\\.js).+)",
+      "source": "/obchod",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/spirit-shop-1",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/:path((?!img/|api/|favicon|oaza-adamanthea-favicon|robots\\.txt|sitemap\\.xml|index\\.html|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|o-nas|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|harmonizace-jmena-a-prijmeni|lemoare-krystaly|spoluprace|vesmirny-kod-zrozeni|akce|admin-akce|gdpr|kontakt|prehled-navstevnosti|zdravi|admin-produkty|import-wix|rehost-fotky|obchod|produkt|pokladna|bali-shop|admin-objednavky|kosik\\.js|navstevnost\\.js).+)",
       "has": [
-        { "type": "host", "value": "oaza-adamanthea.cz" }
+        {
+          "type": "host",
+          "value": "oaza-adamanthea.cz"
+        }
       ],
       "destination": "https://web.oaza-adamanthea.cz/:path",
       "permanent": false
     }
   ],
   "rewrites": [
-    { "source": "/akce/:slug", "destination": "/akce-detail?slug=:slug" }
+    {
+      "source": "/akce/:slug",
+      "destination": "/akce-detail?slug=:slug"
+    }
   ],
   "crons": [
-    { "path": "/api/akce-denni-souhrn", "schedule": "0 6 * * *" }
+    {
+      "path": "/api/akce-denni-souhrn",
+      "schedule": "0 6 * * *"
+    }
   ],
   "headers": [
     {
       "source": "/img/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     }
   ]

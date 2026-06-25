@@ -21,18 +21,51 @@
     if (!document.querySelector('link[href*="family=Jost"]')) {
       var lf = document.createElement("link");
       lf.rel = "stylesheet";
-      lf.href = "https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap";
+      lf.href = "https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap";
       document.head.appendChild(lf);
     }
-    var st = document.createElement("style");
-    st.textContent =
+
+    // Změř barvu písma v menu → poznáme světlou vs tmavou lištu (desktop vzhled).
+    function lum(c) {
+      var m = (c || "").match(/\d+(\.\d+)?/g);
+      if (!m) return 0;
+      var r = m[0] / 255, g = m[1] / 255, b = m[2] / 255;
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    }
+    var probe = document.querySelector(
+      "nav:not(.nav) .menu a:not(.aktivni):not(.active):not(.btn)," +
+      "nav:not(.nav)>a:not(.home):not(.nav-home):not(.btn):not(.active):not(.aktivni)"
+    );
+    // světlé písmo (vysoký jas) = tmavá lišta/fotka pod ní
+    var tmava = probe ? lum(getComputedStyle(probe).color) > 0.5 : false;
+
+    var HOVER = "nav:not(.nav) .menu a:not(.btn):hover,nav:not(.nav)>a:not(.home):not(.nav-home):not(.btn):hover";
+    var AKTIV = "nav:not(.nav) .menu a.active,nav:not(.nav) .menu a.aktivni,nav:not(.nav)>a.active:not(.home):not(.nav-home):not(.btn)";
+    var VSE   = "nav:not(.nav) .menu a:not(.btn),nav:not(.nav)>a:not(.home):not(.nav-home):not(.btn)";
+
+    var css =
+      // font
       "nav .menu,nav .menu a,nav>a:not(.home):not(.nav-home):not(.btn){font-family:'Jost',sans-serif !important}" +
       "nav .menu a,nav>a:not(.home):not(.nav-home):not(.btn){text-transform:uppercase !important;letter-spacing:.06em !important;font-size:.82rem !important}" +
       "nav .menu{text-transform:uppercase !important}" +
-      // sjednocené efekty (jako Terapie hojnosti): hover prosvětlí do zlata, aktivní lehce tučně, bez podtržení
-      "nav:not(.nav) .menu a:hover,nav:not(.nav)>a:not(.home):not(.nav-home):not(.btn):hover{color:#9c6a16 !important}" +
-      "nav:not(.nav) .menu a.active,nav:not(.nav) .menu a.aktivni,nav:not(.nav)>a.active:not(.home):not(.nav-home):not(.btn){color:#9c6a16 !important;font-weight:500 !important;border-bottom:none !important}" +
+      // zruš podtržení (hover i aktivní)
       "nav:not(.nav) .menu a::after,nav:not(.nav) .menu a.active::after,nav:not(.nav) .menu a.aktivni::after{display:none !important}";
+
+    if (tmava) {
+      // TMAVÁ lišta (světlé písmo přes fotku): čitelné světlé odstíny + jemný stín
+      css +=
+        VSE   + "{text-shadow:0 1px 4px rgba(0,0,0,.5) !important}" +
+        HOVER + "{color:#fdeecb !important}" +                                                          // hover: jasnější (světlejší)
+        AKTIV + "{color:#dcb878 !important;font-weight:500 !important;border-bottom:none !important}";   // aktivní: teplá zlatá (tmavší)
+    } else {
+      // SVĚTLÁ lišta (tmavé písmo na krému): zlatá sada
+      css +=
+        HOVER + "{color:#b8893a !important}" +                                                          // hover: světlejší zlatá
+        AKTIV + "{color:#9c6a16 !important;font-weight:500 !important;border-bottom:none !important}";   // aktivní: sytá zlatá (tmavší)
+    }
+
+    var st = document.createElement("style");
+    st.textContent = css;
     document.head.appendChild(st);
   } catch (e) {}
 })();

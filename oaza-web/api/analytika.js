@@ -7,10 +7,10 @@
 //                       &dny=dnes   → dnešní den (po hodinách, čas ČR)
 //                       &dny=7|30|90 → posledních N dní (výchozí 30)
 //
-//  Env Variables ve Vercel projektu:
-//    SUPABASE_URL          (výchozí: https://myybuesoourgpbouwwst.supabase.co)
-//    SUPABASE_SERVICE_KEY  (service_role klíč)
-//    ANALYTIKA_HESLO       (heslo k přehledu)
+//  Souhrn se počítá v databázi (funkce analytika_souhrn) — žádný limit
+//  1000 řádků, počítá vždy přes všechna data v období.
+//
+//  Env Variables: SUPABASE_URL, SUPABASE_SERVICE_KEY, ANALYTIKA_HESLO
 //  Bez npm závislostí — nativní fetch (Node 18+).
 // =====================================================================
 
@@ -34,7 +34,6 @@ function cors(res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
-// posun českého času oproti UTC v ms (řeší letní/zimní čas)
 function offsetCR(d) {
   const utc = new Date(d.toLocaleString("en-US", { timeZone: "UTC" }));
   const cr = new Date(d.toLocaleString("en-US", { timeZone: TZ }));
@@ -125,28 +124,30 @@ module.exports = async (req, res) => {
         odUtc = new Date(Date.now() - dny * 86400000);
       }
 
-      const dotaz =
-        `${SUPABASE_URL}/rest/v1/${TABULKA}` +
-        `?select=stranka,session_id,zarizeni,referrer,doba_sekundy,created_at` +
-        `&created_at=gte.${encodeURIComponent(odUtc.toISOString())}` +
-        `&order=created_at.desc&limit=50000`;
-
-      const r = await fetch(dotaz, {
-        headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
+      // souhrn počítaný v databázi (bez limitu 1000)
+      const rpc = await fetch(`${SUPABASE_URL}/rest/v1/rpc/analytika_souhrn`, {
+        method: "POST",
+        headers: {
+          apikey: SERVICE_KEY,
+          Authorization: `Bearer ${SERVICE_KEY}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ p_od: odUtc.toISOString(), p_hodinove: jeDnes }),
       });
 
-      if (!r.ok) {
-        const t = await r.text();
+      if (!rpc.ok) {
+        const t = await rpc.text();
         res.statusCode = 502;
-        return res.end(JSON.stringify({ chyba: "Čtení selhalo", detail: t }));
+        return res.end(JSON.stringify({ chyba: "Souhrn selhal", detail: t }));
       }
 
-      const radky = await r.json();
-      const souhrn = agreguj(radky, { jeDnes, dny, off });
+      const s = await rpc.json();
+      const vystup = sestav(s, { jeDnes, dny, off });
 
       res.setHeader("Content-Type", "application/json; charset=utf-8");
       res.statusCode = 200;
-      return res.end(JSON.stringify(souhrn));
+      return res.end(JSON.stringify(vystup));
     } catch (e) {
       res.statusCode = 500;
       return res.end(JSON.stringify({ chyba: "Chyba serveru", detail: String(e) }));
@@ -158,83 +159,60 @@ module.exports = async (req, res) => {
 };
 
 // --------------------------------------------------------------------
-function agreguj(radky, opt) {
-  const relace = new Set();
-  const stranky = {};
-  const referrery = {};
-  let mobil = 0, desktop = 0, soucetDoby = 0, pocetSDobou = 0;
+function sestav(s, opt) {
+  s = s || {};
 
-  for (const x of radky) {
-    relace.add(x.session_id);
+  const podleStranky = (s.stranky || []).map((p) => ({
+    stranka: p.stranka,
+    navstev: p.navstev,
+    prumDoba: p.prum_doba || 0,
+    celkovaDoba: p.celkova_doba || 0,
+  }));
 
-    const s = x.stranka || "/";
-    if (!stranky[s]) stranky[s] = { stranka: s, navstev: 0, celkovaDoba: 0, sDobou: 0 };
-    stranky[s].navstev++;
-    if (x.doba_sekundy > 0) {
-      stranky[s].celkovaDoba += x.doba_sekundy;
-      stranky[s].sDobou++;
-      soucetDoby += x.doba_sekundy;
-      pocetSDobou++;
-    }
-
-    if (x.zarizeni === "mobil") mobil++; else desktop++;
-
-    const ref = normalizujReferrer(x.referrer);
-    referrery[ref] = (referrery[ref] || 0) + 1;
+  // referrery → kategorie
+  const ref = {};
+  for (const r of s.referrery || []) {
+    const cat = normalizujReferrer(r.referrer);
+    ref[cat] = (ref[cat] || 0) + r.pocet;
   }
-
-  const podleStranky = Object.values(stranky)
-    .map((s) => ({
-      stranka: s.stranka,
-      navstev: s.navstev,
-      prumDoba: s.sDobou ? Math.round(s.celkovaDoba / s.sDobou) : 0,
-      celkovaDoba: s.celkovaDoba,
-    }))
-    .sort((a, b) => b.navstev - a.navstev);
-
-  // časová řada: hodinová (dnes) nebo denní (N dní)
-  const podleDne = opt.jeDnes ? hodinovaRada(radky, opt.off) : denniRada(radky, opt.dny);
-
-  const topReferrery = Object.entries(referrery)
+  const topReferrery = Object.entries(ref)
     .map(([zdroj, pocet]) => ({ zdroj, pocet }))
     .sort((a, b) => b.pocet - a.pocet)
     .slice(0, 10);
 
+  // časová řada s vyplněnými prázdnými body
+  const podleDne = opt.jeDnes
+    ? radaHodinova(s.rada || [], opt.off)
+    : radaDenni(s.rada || [], opt.dny, opt.off);
+
   return {
     obdobiPopis: opt.jeDnes ? "dnes" : `za ${opt.dny} dní`,
     obdobiDnu: opt.jeDnes ? 0 : opt.dny,
-    celkemNavstev: radky.length,
-    unikatnichRelaci: relace.size,
-    prumernaDoba: pocetSDobou ? Math.round(soucetDoby / pocetSDobou) : 0,
-    mobil,
-    desktop,
+    celkemNavstev: s.celkem || 0,
+    unikatnichRelaci: s.relace || 0,
+    prumernaDoba: s.prum_doba || 0,
+    mobil: s.mobil || 0,
+    desktop: s.desktop || 0,
     podleStranky,
     podleDne,
     topReferrery,
   };
 }
 
-function denniRada(radky, dny) {
+function radaDenni(rada, dny, off) {
   const mapa = {};
-  for (const x of radky) {
-    const den = (x.created_at || "").slice(0, 10);
-    mapa[den] = (mapa[den] || 0) + 1;
-  }
+  for (const x of rada) mapa[x.k] = x.navstev;
   const out = [];
   for (let i = dny - 1; i >= 0; i--) {
-    const d = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
+    const d = new Date(Date.now() - i * 86400000 + off).toISOString().slice(0, 10);
     out.push({ den: d, navstev: mapa[d] || 0 });
   }
   return out;
 }
 
-function hodinovaRada(radky, off) {
+function radaHodinova(rada, off) {
   const mapa = {};
-  for (const x of radky) {
-    const t = new Date(new Date(x.created_at).getTime() + off);
-    const h = t.getUTCHours();
-    mapa[h] = (mapa[h] || 0) + 1;
-  }
+  for (const x of rada) mapa[x.k] = x.navstev;
   const aktHod = new Date(Date.now() + off).getUTCHours();
   const out = [];
   for (let h = 0; h <= aktHod; h++) {

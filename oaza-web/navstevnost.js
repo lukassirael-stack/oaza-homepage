@@ -28,7 +28,11 @@
     st.textContent =
       "nav .menu,nav .menu a,nav>a:not(.home):not(.nav-home):not(.btn){font-family:'Jost',sans-serif !important}" +
       "nav .menu a,nav>a:not(.home):not(.nav-home):not(.btn){text-transform:uppercase !important;letter-spacing:.06em !important;font-size:.82rem !important}" +
-      "nav .menu{text-transform:uppercase !important}";
+      "nav .menu{text-transform:uppercase !important}" +
+      // sjednocené efekty (jako Terapie hojnosti): hover prosvětlí do zlata, aktivní lehce tučně, bez podtržení
+      "nav:not(.nav) .menu a:hover,nav:not(.nav)>a:not(.home):not(.nav-home):not(.btn):hover{color:#9c6a16 !important}" +
+      "nav:not(.nav) .menu a.active,nav:not(.nav) .menu a.aktivni,nav:not(.nav)>a.active:not(.home):not(.nav-home):not(.btn){color:#9c6a16 !important;font-weight:500 !important;border-bottom:none !important}" +
+      "nav:not(.nav) .menu a::after,nav:not(.nav) .menu a.active::after,nav:not(.nav) .menu a.aktivni::after{display:none !important}";
     document.head.appendChild(st);
   } catch (e) {}
 })();

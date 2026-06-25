@@ -89,7 +89,7 @@
   <h1>Pokladna</h1>
   <div class="hvezda"><span>✦</span></div>
 </header>
-<a class="zpet" href="/obchod">← Zpět do obchodu</a>
+<a class="zpet" href="/bali-shop">← Zpět do obchodu</a>
 
 <div class="wrap">
   <div id="obsah">
@@ -127,7 +127,7 @@ async function init(){
     $('#obsah').innerHTML=`<div class="hotovo"><div class="znak">✦</div>
       <h2>Košík je prázdný</h2>
       <p style="color:var(--tlumeny);font-style:italic">Vyberte si nějaký poklad v obchodě.</p>
-      <a class="tlac" style="max-width:260px;margin:18px auto" href="/obchod">Do obchodu</a></div>`;
+      <a class="tlac" style="max-width:260px;margin:18px auto" href="/bali-shop">Do obchodu</a></div>`;
     return;
   }
   try{ const r=await fetch('/api/objednavka'); SHIP=(await r.json()).doprava; }catch(e){ SHIP=null; }
@@ -325,7 +325,7 @@ function potvrzeni(j){
             : 'Po přijetí platby ti potvrdíme objednávku a odešleme zboží.')}
       ${j.email_sent ? '<br>Potvrzení jsme poslali i na tvůj e-mail.' : ''}
       </p>
-    <a class="tlac" style="max-width:260px;margin:6px auto" href="/obchod">Zpět do obchodu</a>
+    <a class="tlac" style="max-width:260px;margin:6px auto" href="/bali-shop">Zpět do obchodu</a>
   </div>`;
   window.scrollTo({top:0,behavior:'smooth'});
 }

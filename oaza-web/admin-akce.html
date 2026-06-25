@@ -167,6 +167,7 @@ function otevritEditor(a){
     <div class="row">
       <div class="field"><label>Datum (text) — zobrazí se návštěvníkovi</label><input id="f-datum_text" value="${a.datum_text||''}" placeholder="24.–29. 9. 2026"></div>
       <div class="field"><label>Datum od (pro řazení)</label><input id="f-datum_od" type="date" value="${a.datum_od||''}"></div>
+      <div class="field"><label>Datum do (volitelné — konec vícedenní akce)</label><input id="f-datum_do" type="date" value="${a.datum_do||''}"></div>
       <div class="field"><label>Místo</label><input id="f-misto" value="${a.misto||''}" placeholder="Oáza, Halenkovice"></div>
     </div>
     <div class="field"><label>Popis (lze HTML: &lt;p&gt;, &lt;h3&gt;, &lt;ul&gt;&lt;li&gt;, &lt;b&gt;…)</label>
@@ -224,6 +225,7 @@ async function ulozit(){
     slug:document.getElementById('f-slug').value.trim(),
     datum_text:document.getElementById('f-datum_text').value.trim(),
     datum_od:document.getElementById('f-datum_od').value||null,
+    datum_do:document.getElementById('f-datum_do').value||null,
     misto:document.getElementById('f-misto').value.trim(),
     popis:document.getElementById('f-popis').value,
     prihlaska_url:document.getElementById('f-prihlaska_url').value.trim(),

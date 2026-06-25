@@ -9,6 +9,29 @@
      a naskočí znovu při první akci
    Bez cookies, bez osobních dat, bez IP. Odesílá se při odchodu.
    ===================================================================== */
+
+/* =====================================================================
+   Sjednocení písma navigace — Jost VERZÁLKY (jako na vesmírném kódu).
+   Mění POUZE font, velikost a prostrkání; barvy menu na každé stránce
+   zůstávají beze změny. Načte se na všech stránkách, kde běží tento skript.
+   ===================================================================== */
+(function () {
+  try {
+    // pojistka: na některých stránkách není Jost v Google Fonts – donačti
+    if (!document.querySelector('link[href*="family=Jost"]')) {
+      var lf = document.createElement("link");
+      lf.rel = "stylesheet";
+      lf.href = "https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap";
+      document.head.appendChild(lf);
+    }
+    var st = document.createElement("style");
+    st.textContent =
+      "nav .menu,nav .menu a{font-family:'Jost',sans-serif !important}" +
+      "nav .menu{text-transform:uppercase !important;letter-spacing:.06em;font-size:.82rem}";
+    document.head.appendChild(st);
+  } catch (e) {}
+})();
+
 (function () {
   "use strict";
   try {

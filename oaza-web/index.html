@@ -511,19 +511,7 @@
     </div>
   </div>
 
-  <div class="akce-grid">
-    <article class="akce-card">
-      <img class="akce-foto" src="/img/akce-1.jpg" alt="Sedm světelných impulzů" loading="lazy">
-      <div class="akce-body">
-        <p class="datum">15.–21. června · 21:00</p>
-        <h3>Sedm světelných impulzů</h3>
-        <p>Sedm večerů, sedm přenosů světla — 15minutová aktivace každý den až do slunovratu.</p>
-        <a class="vice" href="https://web.oaza-adamanthea.cz/event-details/sedm-svetelnych-impulzu">Více o akci
-          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
-        </a>
-      </div>
-    </article>
-
+  <div class="akce-grid" id="akce-grid">
     <article class="akce-card">
       <img class="akce-foto" src="/img/akce-2.jpg" alt="Kakaová ceremonie a koncert léčivých písní" loading="lazy">
       <div class="akce-body">
@@ -543,6 +531,18 @@
         <h3>Den otevřených dveří</h3>
         <p>Přijďte nasát klid, harmonii a sílu tohoto místa — prohlídka prostor, setkání a sdílení.</p>
         <a class="vice" href="https://web.oaza-adamanthea.cz/event-details/den-otevrenych-dveri-v-oaze">Více o akci
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <article class="akce-card">
+      <img class="akce-foto" src="/img/akce-1.jpg" alt="Sirius – meditace v portálu" loading="lazy">
+      <div class="akce-body">
+        <p class="datum">sobota 11. července · 17:00</p>
+        <h3>Sirius – meditace v portálu</h3>
+        <p>Vedená meditace a aktivace vědomí v Portálu Sirius — napojení na duši a stažení jejího jména.</p>
+        <a class="vice" href="https://web.oaza-adamanthea.cz/#medita%C4%8Dn%C3%AD-centrum-3">Více o akci
           <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>
         </a>
       </div>
@@ -767,4 +767,40 @@
   document.getElementById('prijet').addEventListener('click',function(e){
     if(e.target===this) zavriPrijet();
   });
-  document.addEventListener('keydown',e=>{ i
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') zavriPrijet(); });
+
+  /* Živé načtení nejbližších akcí z databáze (přepíše statické karty výše, proběhlé odfiltruje) */
+  (function(){
+    var grid=document.getElementById('akce-grid');
+    if(!grid) return;
+    var KALENDAR='https://web.oaza-adamanthea.cz/#medita%C4%8Dn%C3%AD-centrum-3';
+    var arrow='<svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>';
+    function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function teaser(s){if(!s)return'';var t=s.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();return t.length>105?t.slice(0,105)+'…':t;}
+    fetch('/api/akce-list').then(function(r){return r.json();}).then(function(d){
+      var akce=(d&&d.akce)||[];
+      var dnes=new Date();dnes.setHours(0,0,0,0);
+      var up=akce.filter(function(a){
+        if(a.stav==='zrusena')return false;
+        if(!a.datum_od)return true;
+        return new Date(a.datum_od)>=dnes;
+      }).slice(0,3);
+      if(!up.length)return;
+      grid.innerHTML=up.map(function(a){
+        var foto=a.obrazek_url
+          ?'<img class="akce-foto" src="'+esc(a.obrazek_url)+'" alt="'+esc(a.nazev)+'" loading="lazy">'
+          :'<div class="akce-foto" style="display:flex;align-items:center;justify-content:center;background:#efe4cd;color:#9a7628;font-family:Cinzel,serif;letter-spacing:2px">OÁZA</div>';
+        return '<article class="akce-card">'+foto+
+          '<div class="akce-body">'+
+          (a.datum_text?'<p class="datum">'+esc(a.datum_text)+'</p>':'')+
+          '<h3>'+esc(a.nazev)+'</h3>'+
+          '<p>'+esc(teaser(a.popis))+'</p>'+
+          '<a class="vice" href="'+KALENDAR+'">Více o akci '+arrow+'</a>'+
+          '</div></article>';
+      }).join('');
+    }).catch(function(){});
+  })();
+</script>
+
+</body>
+</html>

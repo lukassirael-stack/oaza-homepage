@@ -14,10 +14,10 @@
 <meta property="og:title" content="Oáza Adamanthea — Krystal & retreat centrum">
 <meta property="og:description" content="Místo pro zastavení, ztišení a návrat k sobě. Retreat centrum v srdci Moravy.">
 <meta property="og:url" content="https://www.oaza-adamanthea.cz/">
-<meta property="og:image" content="https://www.oaza-adamanthea.cz/img/hero-uvod-2026.jpg">
+<meta property="og:image" content="https://www.oaza-adamanthea.cz/img/hero-sirka-2026.jpg">
 <meta property="og:locale" content="cs_CZ">
 <meta name="theme-color" content="#23352a">
-<link rel="preload" as="image" href="/img/hero-uvod-2026.jpg">
+<link rel="preload" as="image" href="/img/hero-sirka-2026.jpg">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -34,12 +34,12 @@
     "postalCode": "763 63",
     "addressCountry": "CZ"
   },
-  "image": "https://www.oaza-adamanthea.cz/img/hero-uvod-2026.jpg"
+  "image": "https://www.oaza-adamanthea.cz/img/hero-sirka-2026.jpg"
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#f5f1e9;
@@ -77,12 +77,12 @@
   /* ===== HERO + NAV ===== */
   .hero{
     position:relative;
-    aspect-ratio:1535/1024;
+    aspect-ratio:1942/809;
     display:flex;
     flex-direction:column;
     color:#fdfaf5;
     background:
-      url(/img/hero-uvod-2026.jpg);
+      url(/img/hero-sirka-2026.jpg);
     background-size:cover;
     background-position:center;
   }
@@ -92,12 +92,13 @@
     padding:26px 48px 60px;
     background:linear-gradient(180deg,rgba(12,18,10,.62) 0%,rgba(12,18,10,.30) 55%,rgba(12,18,10,0) 100%);
   }
-  nav .menu{display:flex;gap:26px;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}
+  nav .menu{display:flex;gap:30px;font-family:'Jost',sans-serif;font-size:15px;font-weight:400;text-transform:uppercase;letter-spacing:.14em;text-shadow:0 1px 8px rgba(0,0,0,.55)}
   .jen-mobil{display:none}
-  nav .menu a{position:relative;padding-bottom:3px}
+  nav .menu a{position:relative;padding-bottom:3px;transition:color .25s ease}
+  nav .menu a:hover{color:#e3c485}
   nav .menu a::after{
     content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
-    background:#fdfaf5;transition:width .25s ease;
+    background:#e3c485;transition:width .25s ease;
   }
   nav .menu a:hover::after{width:100%}
   .nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
@@ -228,7 +229,7 @@
     }
     nav .menu.open{display:flex}
     nav .menu a{
-      font-size:25px;color:#f3efe5;
+      font-size:22px;color:#f3efe5;
       padding:21px 4px;
       border-bottom:1px solid rgba(243,239,229,.14);
     }

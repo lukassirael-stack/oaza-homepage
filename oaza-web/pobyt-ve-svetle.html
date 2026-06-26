@@ -165,6 +165,8 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .rez .cal-day.checkout{background:rgba(200,120,60,0.2);border-color:rgba(200,120,60,0.5);color:#8a4010;font-weight:500}
 .rez .cal-day.inrange{background:rgba(160,130,80,0.1);border-color:rgba(160,130,80,0.15);color:#6a4e2a}
 .rez .cal-day.booked{background:rgba(200,60,60,0.1);color:#c06060;cursor:not-allowed;text-decoration:line-through}
+.rez .cal-day.booked.co-ok{cursor:pointer;color:#a06850;text-decoration:none;border-color:rgba(200,120,60,0.45)}
+.rez .cal-day.booked.co-ok:hover{background:rgba(200,120,60,0.18)}
 .rez .cal-day.disabled{color:#d0c0a0;cursor:not-allowed}
 .rez .cal-day.empty{cursor:default}
 .rez .cal-day.today{border-color:rgba(160,130,80,0.4);color:#8a6030}
@@ -834,7 +836,12 @@ function renderCal(){
     if(ciStr===ds) cls+=' checkin';
     else if(coStr===ds) cls+=' checkout';
     else if(checkIn&&checkOut&&ds>ciStr&&ds<coStr) cls+=' inrange';
-    const oc=(!isPast&&!booked)?`onclick="selectDay('${ds}')"`:'' ;
+    // Obsazeny den smi byt vybran jako ODJEZD (turnus), pokud je predchozi noc volna
+    const prevFree = !isBooked(new Date(date.getTime()-86400000));
+    const canCheckout = !!checkIn && !checkOut && !!ciStr && ds>ciStr && prevFree;
+    if(booked && canCheckout && !isPast) cls+=' co-ok';
+    const clickable = !isPast && (!booked || canCheckout);
+    const oc=clickable?`onclick="selectDay('${ds}')"`:'' ;
     grid.innerHTML+=`<div class="${cls}" ${oc}>${d}</div>`;
   }
 }
@@ -848,6 +855,12 @@ function selectDay(ds){
     else {
       const diff=(date-checkIn)/(1000*60*60*24);
       if(diff<2){ alert('Minimální délka pobytu jsou 2 noci.'); return; }
+      // Pojistka: mezi prijezdem a odjezdem nesmi byt zadna obsazena noc
+      let cur=new Date(checkIn);
+      while(cur<date){
+        if(isBooked(cur)){ alert('V tomto rozmezi je obsazeny termin. Vyberte prosim jiny odjezd.'); return; }
+        cur.setDate(cur.getDate()+1);
+      }
       checkOut=date;
     }
   }

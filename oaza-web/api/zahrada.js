@@ -42,7 +42,7 @@ module.exports = async function handler(req, res) {
       const closed = (data.records || [])
         .filter((x) => x.fields && x.fields.datum)
         .map((x) => ({ id: x.id, datum: x.fields.datum }));
-      res.setHeader('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=600');
+      res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
       return res.status(200).json({ closed });
     }
 

@@ -70,6 +70,26 @@
     var st = document.createElement("style");
     st.textContent = css;
     document.head.appendChild(st);
+
+    // POJISTKA: na mobilu sjednoť velikost položek menu přes inline styl,
+    // který přebije i cizí !important na jednotlivých podstránkách.
+    var sjednotMobilMenu = function () {
+      var mob = window.matchMedia("(max-width:900px)").matches;
+      var odkazy = document.querySelectorAll("nav a:not(.home):not(.nav-home):not(.btn):not(.nav-toggle)");
+      for (var i = 0; i < odkazy.length; i++) {
+        var a = odkazy[i];
+        if (mob) {
+          a.style.setProperty("font-size", "16px", "important");
+          a.style.setProperty("letter-spacing", ".08em", "important");
+        } else {
+          a.style.removeProperty("font-size");
+          a.style.removeProperty("letter-spacing");
+        }
+      }
+    };
+    sjednotMobilMenu();
+    window.addEventListener("resize", sjednotMobilMenu);
+    window.addEventListener("orientationchange", sjednotMobilMenu);
   } catch (e) {}
 })();
 

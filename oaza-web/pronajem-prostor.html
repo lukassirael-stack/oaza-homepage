@@ -226,6 +226,17 @@ section:nth-of-type(even){background:var(--cream-warm);}
 .btn-gold{background:var(--gold-deep);color:#fff;box-shadow:0 10px 24px -12px rgba(154,118,40,.7);}
 .btn-gold:hover{transform:translateY(-2px);}
 .btn-ghost{border:1px solid var(--gold);color:var(--gold-deep);}
+/* ---------- rozcestník služeb ---------- */
+html{scroll-behavior:smooth;}
+#retreat,#soukromy-pobyt{scroll-margin-top:84px;}
+.choose{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:780px;margin:1.6rem auto 0;}
+.choose-card{display:flex;flex-direction:column;text-decoration:none;background:var(--cream);border:1px solid var(--line);border-radius:13px;padding:28px 24px;text-align:center;color:var(--ink);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;}
+.choose-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px -18px rgba(74,57,66,.55);border-color:var(--gold);}
+.choose-ico{font-size:1.9rem;color:var(--gold);line-height:1;margin-bottom:.55rem;}
+.choose-card h3{font-size:1.32rem;letter-spacing:.03em;margin-bottom:.5rem;}
+.choose-card p{font-family:"Cormorant Garamond",serif;font-size:1.08rem;line-height:1.5;color:var(--ink);opacity:.85;margin:0 0 1.1rem;flex:1;}
+.choose-go{font-family:"Jost",sans-serif;font-weight:500;font-size:.84rem;letter-spacing:.07em;color:var(--gold-deep);}
+@media(max-width:600px){.choose{grid-template-columns:1fr;gap:14px;}}
 .btn-ghost:hover{background:rgba(201,161,74,.1);}
 
 /* ---------- Rules ---------- */
@@ -308,6 +319,23 @@ section:nth-of-type(even){background:var(--cream-warm);}
 <section>
   <div class="wrap">
     <p class="intro">Oáza je místem stvořeným s láskou a záměrem podporovat transformaci, klid a setkávání v srdci. Nabízíme k pronájmu prostory, které dýchají čistou energií a jsou připravené pojmout váš jedinečný program — i tiché pokoje pro váš osobní návrat k sobě.</p>
+
+    <p class="eyebrow" style="text-align:center;margin-top:1.8rem">✦ Co u nás hledáte? ✦</p>
+    <h2 style="text-align:center;font-size:1.55rem;margin:.15rem 0 0;">Vyberte si, co vás přivádí</h2>
+    <div class="choose">
+      <a class="choose-card" href="#retreat">
+        <span class="choose-ico" aria-hidden="true">✦</span>
+        <h3>Skupinový retreat</h3>
+        <p>Celý prostor pro váš seminář, kruh či workshop — meditační místnost i prostorný sál Shalla.</p>
+        <span class="choose-go">Zobrazit prostory →</span>
+      </a>
+      <a class="choose-card" href="#soukromy-pobyt">
+        <span class="choose-ico" aria-hidden="true">☾</span>
+        <h3>Soukromý pobyt</h3>
+        <p>Tiché pokoje jen pro vás — návrat k sobě, léčení a klidný odpočinek.</p>
+        <span class="choose-go">Zobrazit pokoje →</span>
+      </a>
+    </div>
   </div>
 </section>
 

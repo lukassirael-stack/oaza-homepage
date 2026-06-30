@@ -175,6 +175,10 @@ export default async function handler(req, res) {
         `<tr><td style="padding:6px 0;border-bottom:1px solid #E2D6BC">${esc(p.nazev)}${p.digitalni ? ' · digitální' : ''}</td>
          <td style="padding:6px 0;border-bottom:1px solid #E2D6BC;text-align:right;white-space:nowrap">${cena(mena === 'EUR' ? p.cena_eur : p.cena)}</td></tr>`).join('');
 
+      const nazvySouhrn = (polozky && polozky.length)
+        ? (polozky[0].nazev + (polozky.length > 1 ? ` +${polozky.length - 1} další` : ''))
+        : `objednávka #${cislo}`;
+
       let dopravaText;
       if (doprava === 'digital') dopravaText = 'Digitální obsah zašleme e-mailem po zaplacení.';
       else if (doprava === 'mezi_nami') dopravaText = (packeta_point && packeta_point.kod)
@@ -241,9 +245,9 @@ export default async function handler(req, res) {
         return r.ok;
       }
 
-      const okZak = await send(email, `Objednávka #${cislo} — Oáza Adamanthea`, obal('Objednávka přijata', teloZak), 'oaza.adamanthea@gmail.com');
+      const okZak = await send(email, `Objednávka #${cislo}: ${nazvySouhrn} — Oáza Adamanthea`, obal('Objednávka přijata', teloZak), 'oaza.adamanthea@gmail.com');
       // interní upozornění (neblokuje výsledek zákaznického mailu)
-      try { await send('oaza.adamanthea@gmail.com', `Nová objednávka #${cislo} (${cena(cena_celkem)})`, obal('Nová objednávka', teloNas), email); } catch (e) {}
+      try { await send('oaza.adamanthea@gmail.com', `Nová objednávka #${cislo}: ${nazvySouhrn} (${cena(cena_celkem)})`, obal('Nová objednávka', teloNas), email); } catch (e) {}
       return okZak;
     }
 

@@ -297,8 +297,9 @@ export default async function handler(req, res) {
         if (stav === 'zaplaceno' && !obj.zaplaceno_kdy) patch.zaplaceno_kdy = new Date().toISOString();
         await rest(`objednavky?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify(patch), prefer: 'return=minimal' });
 
-        // produkty: zaplaceno -> prodano (zmizí z obchodu); zruseno -> zpět na skladem (jen co bylo prodáno)
-        const slugy = (obj.polozky || []).map(p => p && p.slug).filter(Boolean);
+        // produkty: zaplaceno -> prodano (zmizí z obchodu); zruseno -> zpět na skladem.
+        // Digitální produkty se NEVYPRODÁVAJÍ (lze prodávat opakovaně) -> necháme skladem.
+        const slugy = (obj.polozky || []).filter(p => p && p.slug && !p.digitalni).map(p => p.slug);
         if (slugy.length) {
           const inList = slugy.join(',');
           if (stav === 'zaplaceno') {

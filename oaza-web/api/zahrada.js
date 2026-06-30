@@ -171,6 +171,21 @@ module.exports = async function handler(req, res) {
   try {
     // ── VEŘEJNÉ: načtení zavřených dnů (z cache) ─────────────
     if (req.method === 'GET') {
+      // Pobyt – dostupnost (obsazené termíny) z cron-cache booked_ranges_v3,
+      // ať funguje i když je Airtable/proxy na limitu. Tvar {start,end}→{from,to}.
+      if (req.query && req.query.ranges === 'pobyt') {
+        try {
+          const rows = await supaRest('airtable_cache?cache_key=eq.booked_ranges_v3&select=payload&limit=1');
+          const arr = (rows && rows[0] && Array.isArray(rows[0].payload)) ? rows[0].payload : [];
+          const ranges = arr
+            .map((r) => ({ from: r.from || r.start, to: r.to || r.end }))
+            .filter((r) => r.from && r.to);
+          res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=86400');
+          return res.status(200).json({ ranges });
+        } catch (e) {
+          return res.status(200).json({ ranges: [] }); // ať stránka nespadne (použije localStorage)
+        }
+      }
       let closed = null;
       try {
         closed = await cacheRead();

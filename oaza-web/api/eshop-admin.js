@@ -21,6 +21,15 @@ async function posliFakturuEmail(o, fc, pdfB64, downloads) {
   const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
   const symb = o.mena === 'EUR' ? '€' : 'Kč';
   const total = `${Number(o.cena_celkem || 0).toLocaleString('cs-CZ')} ${symb}`;
+  const nazvy = (o.polozky || []).map(p => p && p.nazev).filter(Boolean);
+  const souhrnNazvu = nazvy.length ? (nazvy[0] + (nazvy.length > 1 ? ` +${nazvy.length - 1} další` : '')) : `objednávka #${o.cislo}`;
+  const radkyPol = (o.polozky || []).map(p =>
+    `<tr><td style="padding:6px 0;border-bottom:1px solid #E2D6BC">${esc(p.nazev)}${p.digitalni ? ' · digitální' : ''}</td>
+     <td style="padding:6px 0;border-bottom:1px solid #E2D6BC;text-align:right;white-space:nowrap">${Number((o.mena === 'EUR' ? p.cena_eur : p.cena) || 0).toLocaleString('cs-CZ')} ${symb}</td></tr>`).join('');
+  const polozkyHtml = radkyPol ? `
+        <table style="width:100%;border-collapse:collapse;margin:6px 0 2px">${radkyPol}
+          <tr><td style="padding:8px 0;font-size:17px"><b>Celkem</b></td><td style="padding:8px 0;text-align:right;font-size:17px"><b>${total}</b></td></tr>
+        </table>` : '';
   const dl = Array.isArray(downloads) ? downloads.filter(d => d && d.url) : [];
   const dalsi = o.doprava === 'digital'
     ? (dl.length ? 'Tvůj digitální obsah je připravený — stáhni si ho tlačítkem níže.' : 'Digitální obsah ti pošleme e-mailem.')
@@ -39,10 +48,12 @@ async function posliFakturuEmail(o, fc, pdfB64, downloads) {
         <div style="text-align:center;color:#B8924A;letter-spacing:.3em;font-size:12px;text-transform:uppercase">Oáza Adamanthea</div>
         <h1 style="text-align:center;font-weight:500;font-size:23px;margin:8px 0 4px">Platba přijata, děkujeme!</h1>
         <div style="text-align:center;color:#B8924A;margin-bottom:14px">✦</div>
-        <p>Tvá platba za objednávku <b>#${o.cislo}</b> (${total}) dorazila. V příloze najdeš fakturu <b>${esc(fc)}</b>.</p>
-        <p>${dalsi}</p>
+        <p>Tvá platba za objednávku <b>#${o.cislo}</b> dorazila — děkujeme! 🌿</p>
+        <p style="margin:16px 0 2px;color:#7A715F;font-size:12px;text-transform:uppercase;letter-spacing:.1em">Co jsi zaplatil/a</p>
+        ${polozkyHtml}
+        <p style="margin:10px 0">${dalsi}</p>
         ${dlHtml}
-        <p style="color:#7A715F;font-size:13px;margin-top:18px">Jakákoli otázka? Stačí odpovědět na tento e-mail.</p>
+        <p style="color:#7A715F;font-size:13px;margin-top:14px">Fakturu <b>${esc(fc)}</b> najdeš v příloze. Jakákoli otázka? Stačí odpovědět na tento e-mail.</p>
         <p style="color:#7A715F;font-size:13px;text-align:center;margin-top:18px">Oáza Adamanthea · oaza.adamanthea@gmail.com</p>
       </div>
     </div>`;
@@ -53,7 +64,7 @@ async function posliFakturuEmail(o, fc, pdfB64, downloads) {
       sender: { name: 'Oáza Adamanthea', email: 'info@oaza-adamanthea.cz' },
       to: [{ email: o.email }],
       replyTo: { email: 'oaza.adamanthea@gmail.com' },
-      subject: `Faktura ${fc} — Oáza Adamanthea`,
+      subject: `Platba přijata: ${souhrnNazvu} — Oáza Adamanthea`,
       htmlContent: html,
       attachment: [{ content: pdfB64, name: `faktura-${fc}.pdf` }],
     }),

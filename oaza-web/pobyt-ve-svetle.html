@@ -787,7 +787,7 @@ async function loadBookedDates(){
 }
 
 async function saveToAirtable(data){
-  const res = await fetch(PROXY_URL, {
+  const res = await fetch('/api/pobyt-rezervace', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ fields: data })

@@ -104,18 +104,26 @@ export default async function handler(req, res) {
       .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'polozka';
   }
 
-  // podepsaný odkaz ke stažení z privátního bucketu; když je soubor zadán jako přímá URL, vrátí ji beze změny
-  async function signedUrl(soubor, expiresIn = 31536000) {
+  // podepsaný odkaz ke stažení z privátního bucketu; downloadName vynutí stažení (ne otevření v prohlížeči).
+  // Když je soubor zadán jako přímá URL, vrátí ji (s případným &download).
+  async function signedUrl(soubor, downloadName, expiresIn = 31536000) {
     if (!soubor) return null;
-    if (/^https?:\/\//i.test(soubor)) return soubor;
-    const r = await fetch(`${URL}/storage/v1/object/sign/${BUCKET_SOUBORY}/${soubor}`, {
-      method: 'POST',
-      headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ expiresIn }),
-    });
-    if (!r.ok) return null;
-    const j = await r.json().catch(() => null);
-    return j && j.signedURL ? `${URL}/storage/v1${j.signedURL}` : null;
+    let url;
+    if (/^https?:\/\//i.test(soubor)) {
+      url = soubor;
+    } else {
+      const r = await fetch(`${URL}/storage/v1/object/sign/${BUCKET_SOUBORY}/${soubor}`, {
+        method: 'POST',
+        headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ expiresIn }),
+      });
+      if (!r.ok) return null;
+      const j = await r.json().catch(() => null);
+      if (!(j && j.signedURL)) return null;
+      url = `${URL}/storage/v1${j.signedURL}`;
+    }
+    if (downloadName) url += (url.includes('?') ? '&' : '?') + 'download=' + encodeURIComponent(downloadName);
+    return url;
   }
 
   try {
@@ -324,7 +332,9 @@ export default async function handler(req, res) {
               for (const it of digit) {
                 const pr = (prods || []).find(x => x.slug === it.slug);
                 if (pr && pr.soubor) {
-                  const url = await signedUrl(pr.soubor);
+                  const ext = (String(pr.soubor).split('.').pop() || 'pdf').toLowerCase().replace(/[^a-z0-9]/g, '') || 'pdf';
+                  const fname = bezpecny(pr.nazev || it.nazev || 'soubor') + '.' + ext;
+                  const url = await signedUrl(pr.soubor, fname);
                   if (url) downloads.push({ nazev: pr.nazev || it.nazev || 'Soubor', url });
                 }
               }

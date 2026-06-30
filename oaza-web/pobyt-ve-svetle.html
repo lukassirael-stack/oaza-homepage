@@ -165,11 +165,18 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .rez .cal-day.checkout{background:rgba(200,120,60,0.2);border-color:rgba(200,120,60,0.5);color:#8a4010;font-weight:500}
 .rez .cal-day.inrange{background:rgba(160,130,80,0.1);border-color:rgba(160,130,80,0.15);color:#6a4e2a}
 .rez .cal-day.booked{background:rgba(200,60,60,0.1);color:#c06060;cursor:not-allowed;text-decoration:line-through}
-.rez .cal-day.booked.co-ok{cursor:pointer;color:#a06850;text-decoration:none;border-color:rgba(200,120,60,0.45)}
+.rez .cal-day.booked.co-ok{cursor:pointer;color:#8a4010;text-decoration:none;background:rgba(200,120,60,0.12);border:1.5px dashed rgba(200,120,60,0.75)}
 .rez .cal-day.booked.co-ok:hover{background:rgba(200,120,60,0.18)}
 .rez .cal-day.disabled{color:#d0c0a0;cursor:not-allowed}
 .rez .cal-day.empty{cursor:default}
 .rez .cal-day.today{border-color:rgba(160,130,80,0.4);color:#8a6030}
+.rez .cal-hint{display:none;margin:0 0 10px;padding:9px 12px;border-radius:10px;font-size:12.5px;line-height:1.4;text-align:center}
+.rez .cal-hint.show{display:block}
+.rez .cal-hint.step1{background:rgba(120,180,80,0.10);color:#4a7820;border:1px solid rgba(120,180,80,0.30);animation:calAppear .25s ease}
+.rez .cal-hint.step2{background:rgba(200,120,60,0.14);color:#8a4010;border:1px solid rgba(200,120,60,0.5);animation:calAppear .25s ease, calPulse 1.7s ease-in-out infinite .25s}
+.rez .cal-hint .ch-sub{display:block;margin-top:3px;font-size:11px;color:#a06850;opacity:.9}
+@keyframes calAppear{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes calPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,120,60,0)}50%{box-shadow:0 0 0 5px rgba(200,120,60,0.10)}}
 .rez .cal-legend{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
 .rez .leg{display:flex;align-items:center;gap:6px;font-size:11px;color:#9a8060}
 .rez .leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
@@ -486,6 +493,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
             <span class="cal-month" id="calMonth"></span>
             <button type="button" class="cal-nav" onclick="nextMonth()">›</button>
           </div>
+          <div class="cal-hint" id="calHint"></div>
           <div class="cal-grid" id="calGrid"></div>
           <div class="cal-legend">
             <div class="leg"><div class="leg-dot" style="background:rgba(120,180,80,0.3);border:1px solid rgba(120,180,80,0.6)"></div>Příjezd</div>
@@ -845,6 +853,24 @@ function renderCal(){
     const clickable = !isPast && (!booked || canCheckout);
     const oc=clickable?`onclick="selectDay('${ds}')"`:'' ;
     grid.innerHTML+=`<div class="${cls}" ${oc}>${d}</div>`;
+  }
+  updateCalHint();
+}
+
+// Bublina nad kalendářem: navádí, jaký krok výběru je na řadě.
+function updateCalHint(){
+  const el=document.getElementById('calHint');
+  if(!el) return;
+  if(checkIn && !checkOut){
+    el.className='cal-hint show step2';
+    el.innerHTML='✨ Nyní vyberte <b>datum odjezdu</b>'
+      +'<span class="ch-sub">I obsazený (oranžově orámovaný) den jde vybrat jako odjezd, pokud je předchozí noc volná.</span>';
+  } else if(!checkIn){
+    el.className='cal-hint show step1';
+    el.innerHTML='Začněte výběrem <b>data příjezdu</b> v kalendáři.';
+  } else {
+    el.className='cal-hint';
+    el.innerHTML='';
   }
 }
 

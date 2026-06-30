@@ -179,6 +179,10 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 @keyframes calPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,120,60,0)}50%{box-shadow:0 0 0 5px rgba(200,120,60,0.10)}}
 .rez .cal-day.notpick{color:#cfc3a8;cursor:not-allowed;opacity:.5}
 .rez .cal-day.notpick:hover{background:none;border-color:transparent}
+.rez .cal-reset-wrap{text-align:center;margin-top:10px}
+.rez .cal-reset{display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid rgba(160,130,80,.4);color:#8a6030;border-radius:999px;padding:7px 16px;font-size:12px;cursor:pointer;font-family:inherit;transition:background .2s}
+.rez .cal-reset:hover{background:rgba(160,130,80,.1)}
+.rez .cal-nav.nav-off{opacity:.25;cursor:not-allowed;pointer-events:none}
 .rez .cal-legend{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
 .rez .leg{display:flex;align-items:center;gap:6px;font-size:11px;color:#9a8060}
 .rez .leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
@@ -491,7 +495,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <div class="cal-wrap">
           <span class="cal-label">Datum příjezdu a odjezdu <span class="required">*</span></span>
           <div class="cal-header">
-            <button type="button" class="cal-nav" onclick="prevMonth()">‹</button>
+            <button type="button" class="cal-nav" id="calPrev" onclick="prevMonth()">‹</button>
             <span class="cal-month" id="calMonth"></span>
             <button type="button" class="cal-nav" onclick="nextMonth()">›</button>
           </div>
@@ -502,6 +506,9 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
             <div class="leg"><div class="leg-dot" style="background:rgba(200,120,60,0.3);border:1px solid rgba(200,120,60,0.6)"></div>Odjezd</div>
             <div class="leg"><div class="leg-dot" style="background:rgba(160,130,80,0.15);border:1px solid rgba(160,130,80,0.2)"></div>Vybraný pobyt</div>
             <div class="leg"><div class="leg-dot" style="background:rgba(200,60,60,0.15);border:1px solid rgba(200,60,60,0.3)"></div>Obsazeno</div>
+          </div>
+          <div class="cal-reset-wrap" id="calResetWrap" style="display:none">
+            <button type="button" class="cal-reset" onclick="resetSel()">↺ Zvolit jiný termín</button>
           </div>
         </div>
 
@@ -842,6 +849,8 @@ function isValidCheckout(date){
 
 function renderCal(){
   document.getElementById('calMonth').textContent = MONTHS[calMonth]+' '+calYear;
+  const _now=new Date(), _pv=document.getElementById('calPrev');
+  if(_pv) _pv.classList.toggle('nav-off', calYear<_now.getFullYear() || (calYear===_now.getFullYear() && calMonth<=_now.getMonth()));
   const grid = document.getElementById('calGrid');
   grid.innerHTML = DAYS.map(d=>`<div class="cal-day-name">${d}</div>`).join('');
   let startDay = new Date(calYear,calMonth,1).getDay();
@@ -882,6 +891,8 @@ function renderCal(){
 
 // Bublina nad kalendářem: navádí, jaký krok výběru je na řadě.
 function updateCalHint(){
+  const rw=document.getElementById('calResetWrap');
+  if(rw) rw.style.display = checkIn ? 'block' : 'none';
   const el=document.getElementById('calHint');
   if(!el) return;
   if(checkIn && !checkOut){
@@ -902,7 +913,8 @@ function selectDay(ds){
   if(!checkIn||( checkIn&&checkOut)){
     checkIn=date; checkOut=null;
   } else {
-    if(date<=checkIn){ checkIn=date; checkOut=null; }
+    if(+date===+checkIn){ checkIn=null; checkOut=null; }      // klik na příjezd = zrušit výběr
+    else if(date<checkIn){ checkIn=date; checkOut=null; }      // dřívější den = nový příjezd
     else {
       const diff=(date-checkIn)/(1000*60*60*24);
       if(diff<2){ alert('Minimální délka pobytu jsou 2 noci.'); return; }
@@ -975,8 +987,13 @@ function toggleService(el, key, price){
   calcPrice();
 }
 
-function prevMonth(){ calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCal(); }
+function prevMonth(){
+  const now=new Date();
+  if(calYear<now.getFullYear() || (calYear===now.getFullYear() && calMonth<=now.getMonth())) return; // žádné minulé měsíce
+  calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCal();
+}
 function nextMonth(){ calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCal(); }
+function resetSel(){ checkIn=null; checkOut=null; renderCal(); calcPrice(); }
 
 async function submitForm(){
   const name=document.getElementById('name').value.trim();
@@ -1026,9 +1043,12 @@ async function submitForm(){
       faktura: document.getElementById('checkFaktura').classList.contains('checked') ? 'Ano – ' + (document.getElementById('firmaName').value||'') + ', IČO: ' + (document.getElementById('ico').value||'') + (document.getElementById('dic').value ? ', DIČ: '+document.getElementById('dic').value : '') : 'Ne'
     });
 
+    var _spayd='SPD*1.0*ACC:CZ1655000000008159854004*AM:'+Number(total).toFixed(2)+'*CC:CZK*X-VS:'+vs+'*MSG:Pobyt ve svetle Oaza Adamanthea';
+    var _qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=0&data='+encodeURIComponent(_spayd);
     try {
       await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
         jmeno: name, email: email,
+        qr_url: _qrUrl,
         datum_prijezdu: dateLabel(checkIn),
         datum_odjezdu: dateLabel(checkOut),
         pocet_noci: nights, dospeli: adults, sluzby: svcList,

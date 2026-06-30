@@ -177,6 +177,8 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .rez .cal-hint .ch-sub{display:block;margin-top:3px;font-size:11px;color:#a06850;opacity:.9}
 @keyframes calAppear{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 @keyframes calPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,120,60,0)}50%{box-shadow:0 0 0 5px rgba(200,120,60,0.10)}}
+.rez .cal-day.notpick{color:#cfc3a8;cursor:not-allowed;opacity:.5}
+.rez .cal-day.notpick:hover{background:none;border-color:transparent}
 .rez .cal-legend{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
 .rez .leg{display:flex;align-items:center;gap:6px;font-size:11px;color:#9a8060}
 .rez .leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
@@ -801,7 +803,7 @@ async function saveToAirtable(data){
     body: JSON.stringify({ action: 'pobyt', fields: data })
   });
   const json = await res.json();
-  if(!res.ok) throw new Error('Rezervace selhala: ' + res.status + ' - ' + JSON.stringify(json));
+  if(!res.ok) throw new Error((json && json.error) ? json.error : 'Rezervaci se nepodařilo odeslat. Zkuste to prosím znovu.');
   invalidateAirtableCache();
   return json;
 }
@@ -824,6 +826,20 @@ function nightPrice(d){
   return (day===5||day===6) ? 2000 : 1700;
 }
 
+// Platný odjezd: po příjezdu, aspoň 2 noci a žádná obsazená noc mezi příjezdem a tímto dnem.
+function isValidCheckout(date){
+  if(!checkIn || checkOut) return false;
+  if(date <= checkIn) return false;
+  const nights = Math.round((date - checkIn)/86400000);
+  if(nights < 2) return false;
+  let cur = new Date(checkIn);
+  while(cur < date){
+    if(isBooked(cur)) return false;
+    cur.setDate(cur.getDate()+1);
+  }
+  return true;
+}
+
 function renderCal(){
   document.getElementById('calMonth').textContent = MONTHS[calMonth]+' '+calYear;
   const grid = document.getElementById('calGrid');
@@ -840,17 +856,24 @@ function renderCal(){
     const isToday = date.getTime()===today.getTime();
     const ciStr = checkIn?dateStr(checkIn):null;
     const coStr = checkOut?dateStr(checkOut):null;
+    const pickingCheckout = !!checkIn && !checkOut;
+    // Odjezd je platný jen když je CELÉ rozmezí od příjezdu volné (≥2 noci, žádná obsazená noc) – stejně jako to ověřuje selectDay.
+    const validCheckout = pickingCheckout && isValidCheckout(date);
     let cls='cal-day';
-    if(isPast||booked) cls+= booked?' booked':' disabled';
+    if(isPast) cls+=' disabled';
+    else if(booked) cls+= validCheckout ? ' booked co-ok' : ' booked';
     if(isToday) cls+=' today';
     if(ciStr===ds) cls+=' checkin';
     else if(coStr===ds) cls+=' checkout';
     else if(checkIn&&checkOut&&ds>ciStr&&ds<coStr) cls+=' inrange';
-    // Obsazeny den smi byt vybran jako ODJEZD (turnus), pokud je predchozi noc volna
-    const prevFree = !isBooked(new Date(date.getTime()-86400000));
-    const canCheckout = !!checkIn && !checkOut && !!ciStr && ds>ciStr && prevFree;
-    if(booked && canCheckout && !isPast) cls+=' co-ok';
-    const clickable = !isPast && (!booked || canCheckout);
+    // Klikatelnost přesně podle toho, co selectDay přijme bez chyby:
+    let clickable;
+    if(isPast) clickable=false;
+    else if(!checkIn || checkOut) clickable = !booked;        // výběr (nového) příjezdu
+    else if(date <= checkIn) clickable = !booked;             // klik na dřívější den = nový příjezd
+    else clickable = validCheckout;                           // výběr odjezdu
+    // Volný den, který v režimu výběru odjezdu nejde zvolit (za obsazenou nocí / <2 noci) → zašednit.
+    if(pickingCheckout && !isPast && !booked && date>checkIn && !validCheckout) cls+=' notpick';
     const oc=clickable?`onclick="selectDay('${ds}')"`:'' ;
     grid.innerHTML+=`<div class="${cls}" ${oc}>${d}</div>`;
   }
@@ -1037,7 +1060,7 @@ async function submitForm(){
 
   } catch(err){
     console.error(err);
-    alert('Nastala chyba při odesílání. Zkuste to prosím znovu nebo nás kontaktujte přímo.');
+    alert(err && err.message ? err.message : 'Nastala chyba při odesílání. Zkuste to prosím znovu nebo nás kontaktujte přímo.');
     btn.disabled=false; btn.textContent='🌿 Odeslat rezervaci';
   }
 }

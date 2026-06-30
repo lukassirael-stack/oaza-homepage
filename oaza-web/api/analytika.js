@@ -113,17 +113,18 @@ module.exports = async (req, res) => {
   if (req.method === "GET") {
     try {
       const url = new URL(req.url, "http://x");
+
+      // pomocník BEZ hesla: zjisti svou IP a jestli jsi vyřazený
+      if (url.searchParams.get("mojeip")) {
+        const ip = klientIP(req);
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.statusCode = 200;
+        return res.end(JSON.stringify({ moje_ip: ip, vyrazena: IGNORE_IPS.includes(ip) }));
+      }
       const heslo = url.searchParams.get("heslo") || "";
       if (!HESLO || heslo !== HESLO) {
         res.statusCode = 401;
         return res.end(JSON.stringify({ chyba: "Špatné heslo." }));
-      }
-
-      // pomocník: vrať mou IP (pro nastavení ANALYTIKA_IGNORE_IP)
-      if (url.searchParams.get("mojeip")) {
-        res.setHeader("Content-Type", "application/json; charset=utf-8");
-        res.statusCode = 200;
-        return res.end(JSON.stringify({ moje_ip: klientIP(req), ignorovane: IGNORE_IPS }));
       }
 
       const param = (url.searchParams.get("dny") || "30").toLowerCase();

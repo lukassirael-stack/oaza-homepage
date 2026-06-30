@@ -21,7 +21,8 @@
 //
 // Operace:
 //   GET                                  → veřejné: seznam zavřených dnů (z cache; fallback Airtable)
-//   POST {action:'reservation', fields}  → veřejné: zápis rezervace (Airtable → fallback Supabase buffer)
+//   POST {action:'reservation', fields}  → veřejné: zápis rezervace zahrady (Airtable → fallback Supabase buffer)
+//   POST {action:'pobyt', fields}        → veřejné: pobytová rezervace (proxy → fallback Supabase buffer)
 //   POST {action:'close', datum, heslo}  → admin: označí den jako zavřený
 //   POST {action:'open',  id, heslo}     → admin: zruší zavřený den
 
@@ -31,6 +32,20 @@ const BASE      = 'appRwBZ3wWbId3bTM';
 const T_REZ     = 'Rezervace_zahrada';
 const T_CLOSED  = 'Zavrete_dny_zahrada';
 const CACHE_KEY = 'closed_days_zahrada_v1';
+
+// ── Pobyt ve světle ───────────────────────────────────────────────
+// Tento endpoint hostí i odolný zápis POBYTOVÝCH rezervací (action:'pobyt'),
+// aby se projekt vešel do limitu 12 Vercel funkcí na Hobby plánu (jinak by
+// samostatný api/pobyt-rezervace.js byl 13. funkce a deploy by spadl).
+// Pobyt rezervaci jen přepošleme do její proxy; když je proxy/Airtable na
+// limitu, odložíme ji do Supabase bufferu a po obnově přehrajeme. VS dělá
+// stránka a posílá ho ve fields, takže odložená rezervace nese stejný VS.
+const POBYT_PROXY = 'https://rezervace-proxy.vercel.app/api/airtable';
+const POBYT_BUF   = 'rezervace_pobyt_buffer';
+function pobytOverlaps(aIn, aOut, bIn, bOut) {
+  if (!aIn || !aOut || !bIn || !bOut) return false;
+  return aIn < bOut && bIn < aOut; // [in, out) překryv
+}
 
 module.exports = async function handler(req, res) {
   const TOKEN = process.env.ZAHRADA_AIRTABLE_TOKEN;
@@ -121,6 +136,38 @@ module.exports = async function handler(req, res) {
     }
   }
 
+  // přehraje odložené POBYTOVÉ rezervace do proxy (volá se po úspěšném zápisu)
+  async function flushPobytBuffer() {
+    let rows;
+    try {
+      rows = await supaRest(`${POBYT_BUF}?synced=eq.false&order=created_at.asc&limit=25&select=id,payload`);
+    } catch (e) { return; }
+    if (!rows || !rows.length) return;
+    for (const row of rows) {
+      let r;
+      try {
+        r = await fetch(POBYT_PROXY, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fields: row.payload }),
+        });
+      } catch (e) { return; }
+      if (r.status === 429) return;
+      if (!r.ok) {
+        const txt = await r.text().catch(() => '');
+        await supaRest(`${POBYT_BUF}?id=eq.${row.id}`, {
+          method: 'PATCH', prefer: 'return=minimal',
+          body: { last_error: 'HTTP ' + r.status + ' ' + txt.slice(0, 200) },
+        }).catch(() => {});
+        continue;
+      }
+      await supaRest(`${POBYT_BUF}?id=eq.${row.id}`, {
+        method: 'PATCH', prefer: 'return=minimal',
+        body: { synced: true, synced_at: new Date().toISOString() },
+      }).catch(() => {});
+    }
+  }
+
   try {
     // ── VEŘEJNÉ: načtení zavřených dnů (z cache) ─────────────
     if (req.method === 'GET') {
@@ -142,6 +189,49 @@ module.exports = async function handler(req, res) {
     if (req.method === 'POST') {
       const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
       const action = body.action;
+
+      // ── VEŘEJNÉ: pobytová rezervace (obal proxy + buffer) ──
+      if (action === 'pobyt') {
+        const pf = body.fields || {};
+        if (!pf.jmeno || !pf.email || !pf.datum_prijezdu || !pf.datum_odjezdu) {
+          return res.status(400).json({ error: 'Chybí povinná pole rezervace.' });
+        }
+        // 1) přepošli do pobytové proxy (ta zapíše do Airtable jako vždy)
+        let ppr = null;
+        try {
+          ppr = await fetch(POBYT_PROXY, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fields: pf }),
+          });
+        } catch (netErr) { ppr = null; }
+
+        if (ppr && ppr.ok) {
+          const pj = await ppr.json().catch(() => ({ ok: true }));
+          try { await flushPobytBuffer(); } catch (e) {} // proxy jede → dožeň odložené
+          return res.status(200).json(pj);
+        }
+        // 2) jiná 4xx než limit (validace) → vrať reálnou chybu proxy
+        if (ppr && ppr.status >= 400 && ppr.status < 500 && ppr.status !== 429) {
+          const pj = await ppr.json().catch(() => ({ error: 'Rezervace odmítnuta' }));
+          return res.status(ppr.status).json(pj);
+        }
+        // 3) proxy/Airtable nedostupná (429/5xx/síť) → buffer, ať NEUTČE
+        let pending = [];
+        try { pending = await supaRest(`${POBYT_BUF}?synced=eq.false&select=payload`); } catch (e) { pending = []; }
+        const clash = (pending || []).some((p) =>
+          pobytOverlaps(pf.datum_prijezdu, pf.datum_odjezdu,
+                        p.payload && p.payload.datum_prijezdu, p.payload && p.payload.datum_odjezdu));
+        if (clash) {
+          return res.status(409).json({ error: 'Tento termín byl právě rezervován. Zvolte prosím jiný.' });
+        }
+        try {
+          await supaRest(POBYT_BUF, { method: 'POST', prefer: 'return=minimal', body: [{ payload: pf }] });
+          return res.status(200).json({ ok: true, buffered: true });
+        } catch (bufErr) {
+          return res.status(502).json({ error: 'Rezervaci se nepodařilo uložit', detail: String((bufErr && bufErr.message) || bufErr) });
+        }
+      }
 
       // ── VEŘEJNÉ: zápis rezervace ───────────────────────────
       if (action === 'reservation') {

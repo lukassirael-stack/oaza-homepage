@@ -26,12 +26,14 @@ h1,h2,h3{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.02em;margin:
 /* NAV */
 nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:26px;
   padding:24px 30px 16px;background:rgba(27,42,65,.94);backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(226,214,188,.18);font-size:14px;flex-wrap:wrap}
+  border-bottom:1px solid rgba(226,214,188,.18);font-size:14px}
 nav .home{margin-right:auto;display:flex;align-items:center}
 nav .home svg{width:26px;height:26px;fill:none;stroke:#F6F1E7;stroke-width:1.6}
+nav .menu{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
 nav a{color:#F6F1E7;transition:color .2s;letter-spacing:.06em;font-family:'Jost',sans-serif;font-size:.82rem;text-transform:uppercase}
 nav a:hover{color:#E2C77E}
 nav a.active{color:#E2C77E;border-bottom:1.5px solid #E2C77E}
+.nav-toggle{display:none;background:none;border:none;color:#F6F1E7;font-size:26px;line-height:1;cursor:pointer;margin-left:auto}
 
 /* HERO */
 .hero{text-align:center;padding:64px 24px 38px;position:relative;
@@ -77,6 +79,16 @@ footer{background:var(--cream-2);border-top:1px solid var(--line);padding:38px 2
 footer .soc{margin:12px 0}
 footer .soc a{margin:0 9px;color:var(--gold-deep)}
 footer .fine{font-size:12px;margin-top:10px}
+
+/* MOBIL — hamburger (rozbalovací v toku, nic nepřekrývá) */
+@media (max-width:900px){
+  nav{flex-wrap:wrap;gap:0;padding:14px 20px}
+  .nav-toggle{display:block;margin-left:auto}
+  nav .menu{display:none;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:8px}
+  nav .menu.open{display:flex}
+  nav .menu a{font-size:16px !important;color:#F6F1E7 !important;padding:14px 2px !important;width:100%;border-top:1px solid rgba(226,214,188,.18)}
+  nav .menu a::after{display:none}
+}
 </style>
 </head>
 <body>
@@ -85,14 +97,17 @@ footer .fine{font-size:12px;margin-top:10px}
   <a class="home" href="/" aria-label="Domů">
     <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
   </a>
-  <a href="/portalova-zahrada">Portálová zahrada</a>
-  <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
-  <a href="/akce" class="active">Akce</a>
-  <a href="/nabidka-sluzeb">Služby</a>
-  <a href="/pronajem-prostor">Pronájem</a>
-  <a href="/bali-shop">E-shop</a>
-  <a href="/o-nas">O nás</a>
-  <a href="/kontakt">Kontakt</a>
+  <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+  <div class="menu" id="menu">
+    <a href="/portalova-zahrada">Portálová zahrada</a>
+    <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+    <a href="/akce" class="active">Akce</a>
+    <a href="/nabidka-sluzeb">Služby</a>
+    <a href="/pronajem-prostor">Pronájem</a>
+    <a href="/bali-shop">E-shop</a>
+    <a href="/o-nas">O nás</a>
+    <a href="/kontakt">Kontakt</a>
+  </div>
 </nav>
 
 <header class="hero">
@@ -122,6 +137,20 @@ footer .fine{font-size:12px;margin-top:10px}
 </footer>
 
 <script>
+function prepniMenu(btn){
+  const m=document.getElementById('menu');
+  const open=m.classList.toggle('open');
+  btn.textContent=open?'✕':'☰';
+}
+document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{
+  const m=document.getElementById('menu');
+  if(m.classList.contains('open')){
+    m.classList.remove('open');
+    document.querySelector('.nav-toggle').textContent='☰';
+    document.body.style.overflow='';
+  }
+}));
+
 const STAVY = {
   otevrena: {cls:'', txt:''},
   obsazena: {cls:'full', txt:'Obsazeno'},

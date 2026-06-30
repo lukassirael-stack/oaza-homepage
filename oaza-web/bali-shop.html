@@ -166,7 +166,7 @@
   @media(max-width:820px){
     .nav{padding:11px 64px 11px 18px}
     .nav a:not(.nav-home){display:none}
-    .nav.open a:not(.nav-home){display:block;width:100%;text-align:center;padding:11px}
+    .nav.open a:not(.nav-home){display:block;width:100%;text-align:center;padding:13px;font-size:16px;letter-spacing:.08em}
     .nav-toggle{display:inline-flex}
     .nav.open{flex-direction:column;align-items:stretch}
     .nav.open .nav-home{margin:0 auto 6px}
@@ -259,12 +259,12 @@ const cenaFmt=p=> MENA==='eur'
   ? (p.cena_eur||0).toLocaleString('cs-CZ')+' €'
   : (p.cena||0).toLocaleString('cs-CZ')+' Kč';
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const bezDia=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const bezDia=s=>String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 
 // české názvy barev → hex pro tečky filtru
 const BARVY={'bílá':'#fff','černá':'#222','šedá':'#9a9a9a','stříbrná':'#c8c8cc','zlatá':'#c9a44c',
  'žlutá':'#e7c84a','oranžová':'#d98a3a','červená':'#b14a3c','růžová':'#d98aa0','fialová':'#8a6fb0',
- 'modrá':'#4a6fa5','tyrkysová':'#4ba5a0','zelená':'#5c8a5c','hnědá':'#8a6b4a','béžová':'#d8c6a0','čirá':'#eee'}; 
+ 'modrá':'#4a6fa5','tyrkysová':'#4ba5a0','zelená':'#5c8a5c','hnědá':'#8a6b4a','béžová':'#d8c6a0','čirá':'#eee'};
 function barvaHex(n){const k=bezDia(n);for(const[c,h]of Object.entries(BARVY))if(bezDia(c)===k||k.includes(bezDia(c)))return h;return '#cfc3a8';}
 
 async function nacti(){

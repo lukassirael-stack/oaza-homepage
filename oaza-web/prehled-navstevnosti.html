@@ -79,6 +79,10 @@
   .bar:hover{filter:brightness(1.25)}
   .bar.zero{background:var(--line-soft)}
   .axis{display:flex;justify-content:space-between;margin-top:10px;color:var(--muted2);font-size:.72rem}
+  .chart-read{margin-top:9px;text-align:center;color:var(--gold-soft);font-size:.82rem;min-height:1.2em;font-variant-numeric:tabular-nums}
+  .bar{cursor:pointer}
+  .bar.act{filter:brightness(1.45);outline:1px solid var(--gold);outline-offset:-1px}
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 
   /* ---- tabulka stránek ---- */
   table{width:100%;border-collapse:collapse;font-size:.92rem}
@@ -107,6 +111,10 @@
   @media(max-width:760px){
     .cards{grid-template-columns:repeat(2,1fr)}
     .grid2{grid-template-columns:1fr}
+    .panel{padding:18px 14px}
+    table{font-size:.8rem}
+    th,td{padding:8px 6px}
+    td .path{display:inline-block;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}
   }
 </style>
 </head>
@@ -203,14 +211,24 @@ async function nacti(tichy){
   }
 }
 
+function readBar(el){
+  const r=document.getElementById("chartRead"); if(!r) return;
+  r.textContent = el.dataset.l;
+  document.querySelectorAll(".bar.act").forEach(b=>b.classList.remove("act"));
+  el.classList.add("act");
+}
+
 function vykresli(d){
   const obsah = document.getElementById("obsah");
   const maxDen = Math.max(1, ...d.podleDne.map(x=>x.navstev));
   const bary = d.podleDne.map(x=>{
     const h = x.navstev ? Math.max(2, (x.navstev/maxDen)*100) : 0;
     const cls = x.navstev ? "bar" : "bar zero";
-    return `<div class="${cls}" style="height:${h||2}%" title="${x.den}: ${x.navstev} návštěv"></div>`;
+    const lbl = `${x.den}: ${x.navstev} návštěv`;
+    return `<div class="${cls}" style="height:${h||2}%" title="${lbl}" data-l="${esc(lbl)}" onclick="readBar(this)" onmouseenter="readBar(this)"></div>`;
   }).join("");
+  const _peak = d.podleDne.reduce((a,b)=> b.navstev>a.navstev?b:a, {den:"",navstev:0});
+  const chartDefault = _peak.navstev ? `Špička: ${_peak.den} — ${_peak.navstev} návštěv · klepni na sloupec` : "Klepni na sloupec pro detail";
   const prvni = d.podleDne[0]?.den || "";
   const posl = d.podleDne[d.podleDne.length-1]?.den || "";
 
@@ -218,6 +236,7 @@ function vykresli(d){
     <tr>
       <td><span class="path">${esc(s.stranka)}</span></td>
       <td class="num">${s.navstev}</td>
+      <td class="num">${s.unikatni}</td>
       <td class="num">${fmtDoba(s.prumDoba)}</td>
       <td class="num">${fmtDoba(s.celkovaDoba)}</td>
     </tr>`).join("");
@@ -245,6 +264,7 @@ function vykresli(d){
       <h2>Návštěvy v čase</h2>
       <div class="chart">${bary}</div>
       <div class="axis"><span>${prvni}</span><span>${posl}</span></div>
+      <div class="chart-read" id="chartRead">${chartDefault}</div>
     </div>
 
     <div class="grid2">
@@ -270,12 +290,12 @@ function vykresli(d){
 
     <div class="panel">
       <h2>Stránky podle návštěvnosti</h2>
-      ${d.podleStranky.length ? `<table>
+      ${d.podleStranky.length ? `<div class="tbl-wrap"><table>
         <thead><tr>
-          <th>Stránka</th><th class="num">Návštěv</th><th class="num">Prům. doba</th><th class="num">Celková doba</th>
+          <th>Stránka</th><th class="num">Návštěv</th><th class="num">Unik.</th><th class="num">Prům. doba</th><th class="num">Celková doba</th>
         </tr></thead>
         <tbody>${radky}</tbody>
-      </table>` : '<div class="empty">Zatím žádná data. Jakmile někdo navštíví web, objeví se tu.</div>'}
+      </table></div>` : '<div class="empty">Zatím žádná data. Jakmile někdo navštíví web, objeví se tu.</div>'}
     </div>
   `;
 }

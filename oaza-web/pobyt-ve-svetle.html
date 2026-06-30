@@ -1055,6 +1055,11 @@ async function submitForm(){
       <em>Rezervace bude potvrzena po přijetí platby na náš účet.</em>
     `;
     document.getElementById('successMsg').style.display='block';
+    // Plynule posuň pohled k potvrzení (s malým odstupem nad horní hranou).
+    setTimeout(function(){
+      var sm=document.getElementById('successMsg');
+      if(sm){ var y=sm.getBoundingClientRect().top + window.pageYOffset - 70; window.scrollTo({top: y<0?0:y, behavior:'smooth'}); }
+    }, 60);
     if(typeof oazaTrackRezervace==='function') oazaTrackRezervace(total);
     loadBookedDates();
 

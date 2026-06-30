@@ -5,6 +5,7 @@
 import { vytvorFakturaPDF } from '../lib/faktura.js';
 
 const BUCKET = 'eshop';
+const BUCKET_SOUBORY = 'produkty-soubory'; // privátní bucket pro digitální soubory (PDF apod.)
 const DODAVATEL = {
   jmeno: 'Lukáš Hudeček',
   adresa: 'Halenkovice 400',
@@ -14,17 +15,24 @@ const DODAVATEL = {
 };
 
 // Odeslání faktury zákazníkovi přes Brevo (PDF v příloze). Best-effort.
-async function posliFakturuEmail(o, fc, pdfB64) {
+async function posliFakturuEmail(o, fc, pdfB64, downloads) {
   const API = process.env.BREVO_API_KEY;
   if (!API || !o.email) return false;
   const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
   const symb = o.mena === 'EUR' ? '€' : 'Kč';
   const total = `${Number(o.cena_celkem || 0).toLocaleString('cs-CZ')} ${symb}`;
+  const dl = Array.isArray(downloads) ? downloads.filter(d => d && d.url) : [];
   const dalsi = o.doprava === 'digital'
-    ? 'Digitální obsah ti pošleme e-mailem.'
+    ? (dl.length ? 'Tvůj digitální obsah je připravený — stáhni si ho tlačítkem níže.' : 'Digitální obsah ti pošleme e-mailem.')
     : (o.doprava === 'mezi_nami'
         ? 'Jakmile vytvoříš zásilku v aplikaci Zásilkovna, pošli nám podací kód (pokud jsi tak ještě neučinil).'
         : 'Objednávku co nejdříve odešleme.');
+  const dlHtml = dl.length ? `
+        <div style="margin:16px 0;padding:16px;background:#F3EDDD;border:1px solid #E2D6BC;border-radius:10px;text-align:center">
+          <p style="margin:0 0 12px">Tvůj digitální obsah ke stažení:</p>
+          ${dl.map(d => `<a href="${d.url}" style="display:inline-block;margin:4px;padding:11px 22px;background:#1B2A41;color:#F6F1E7;text-decoration:none;border-radius:8px;font-size:15px">⬇&nbsp;${esc(d.nazev)}</a>`).join('')}
+          <p style="margin:12px 0 0;color:#7A715F;font-size:12px">Odkaz je platný 12 měsíců — doporučujeme si soubor uložit.</p>
+        </div>` : '';
   const html = `
     <div style="font-family:Georgia,serif;color:#1B2A41;background:#F6F1E7;padding:26px">
       <div style="max-width:560px;margin:0 auto;background:#FBF8F1;border:1px solid #E2D6BC;border-radius:12px;padding:26px">
@@ -33,6 +41,7 @@ async function posliFakturuEmail(o, fc, pdfB64) {
         <div style="text-align:center;color:#B8924A;margin-bottom:14px">✦</div>
         <p>Tvá platba za objednávku <b>#${o.cislo}</b> (${total}) dorazila. V příloze najdeš fakturu <b>${esc(fc)}</b>.</p>
         <p>${dalsi}</p>
+        ${dlHtml}
         <p style="color:#7A715F;font-size:13px;margin-top:18px">Jakákoli otázka? Stačí odpovědět na tento e-mail.</p>
         <p style="color:#7A715F;font-size:13px;text-align:center;margin-top:18px">Oáza Adamanthea · oaza.adamanthea@gmail.com</p>
       </div>
@@ -93,6 +102,20 @@ export default async function handler(req, res) {
       .toLowerCase()
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // diakritika pryč
       .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'polozka';
+  }
+
+  // podepsaný odkaz ke stažení z privátního bucketu; když je soubor zadán jako přímá URL, vrátí ji beze změny
+  async function signedUrl(soubor, expiresIn = 31536000) {
+    if (!soubor) return null;
+    if (/^https?:\/\//i.test(soubor)) return soubor;
+    const r = await fetch(`${URL}/storage/v1/object/sign/${BUCKET_SOUBORY}/${soubor}`, {
+      method: 'POST',
+      headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ expiresIn }),
+    });
+    if (!r.ok) return null;
+    const j = await r.json().catch(() => null);
+    return j && j.signedURL ? `${URL}/storage/v1${j.signedURL}` : null;
   }
 
   try {
@@ -238,6 +261,23 @@ export default async function handler(req, res) {
         });
       }
 
+      // ---------- UPLOAD digitálního souboru (privátní bucket, jen path) ----------
+      case 'upload-soubor-url': {
+        const slug = bezpecny(body.slug || 'soubor');
+        const ext = bezpecny(body.ext || 'pdf').replace(/-/g, '') || 'pdf';
+        const path = `${slug}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
+        const r = await fetch(`${URL}/storage/v1/object/upload/sign/${BUCKET_SOUBORY}/${path}`, {
+          method: 'POST',
+          headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        });
+        const j = await r.json();
+        if (!r.ok || !j.url) {
+          return res.status(502).json({ error: 'Nepodařilo se vytvořit upload URL', detail: JSON.stringify(j).slice(0, 200) });
+        }
+        return res.status(200).json({ uploadUrl: `${URL}/storage/v1${j.url}`, path });
+      }
+
       // ---------- OBJEDNÁVKY ----------
       case 'objednavky-list': {
         const data = await rest('objednavky?select=*&order=cislo.desc');
@@ -273,11 +313,27 @@ export default async function handler(req, res) {
         if (stav === 'zaplaceno' && !obj.faktura_cislo) {
           const rok = new Date().getFullYear();
           const fc = `${rok}-${String(obj.cislo).padStart(4, '0')}`;
+          // digitální položky -> bezpečné odkazy ke stažení
+          let downloads = [];
+          try {
+            const digit = (obj.polozky || []).filter(p => p && p.digitalni && p.slug);
+            if (digit.length) {
+              const slugs = [...new Set(digit.map(p => p.slug))].join(',');
+              const prods = await rest(`produkty?slug=in.(${slugs})&select=slug,nazev,soubor`);
+              for (const it of digit) {
+                const pr = (prods || []).find(x => x.slug === it.slug);
+                if (pr && pr.soubor) {
+                  const url = await signedUrl(pr.soubor);
+                  if (url) downloads.push({ nazev: pr.nazev || it.nazev || 'Soubor', url });
+                }
+              }
+            }
+          } catch (e) { downloads = []; }
           try {
             const objF = { ...obj, faktura_cislo: fc, zaplaceno_kdy: patch.zaplaceno_kdy || obj.zaplaceno_kdy };
             const pdf = await vytvorFakturaPDF(objF, DODAVATEL);
             const b64 = Buffer.from(pdf).toString('base64');
-            faktura_ok = await posliFakturuEmail(objF, fc, b64);
+            faktura_ok = await posliFakturuEmail(objF, fc, b64, downloads);
           } catch (e) { faktura_ok = false; }
           await rest(`objednavky?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify({ faktura_cislo: fc }), prefer: 'return=minimal' });
         }

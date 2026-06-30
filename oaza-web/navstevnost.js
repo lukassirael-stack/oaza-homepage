@@ -64,6 +64,9 @@
         AKTIV + "{color:#9c6a16 !important;font-weight:500 !important;border-bottom:none !important}";   // aktivní: sytá zlatá (tmavší)
     }
 
+    // MOBIL: sjednocená, mírně větší velikost položek menu na všech stránkách
+    css += "@media (max-width:900px){nav .menu a,nav>a:not(.home):not(.nav-home):not(.btn){font-size:16px !important;letter-spacing:.04em !important}}";
+
     var st = document.createElement("style");
     st.textContent = css;
     document.head.appendChild(st);

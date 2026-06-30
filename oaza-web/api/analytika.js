@@ -165,6 +165,7 @@ function sestav(s, opt) {
   const podleStranky = (s.stranky || []).map((p) => ({
     stranka: p.stranka,
     navstev: p.navstev,
+    unikatni: p.unikatni || 0,
     prumDoba: p.prum_doba || 0,
     celkovaDoba: p.celkova_doba || 0,
   }));

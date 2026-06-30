@@ -228,7 +228,7 @@ section:nth-of-type(even){background:var(--cream-warm);}
 .btn-ghost{border:1px solid var(--gold);color:var(--gold-deep);}
 /* ---------- rozcestník služeb ---------- */
 html{scroll-behavior:smooth;}
-#retreat,#soukromy-pobyt{scroll-margin-top:84px;}
+#retreat,#soukromy-pobyt{scroll-margin-top:0;}
 .choose{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:780px;margin:1.6rem auto 0;}
 .choose-card{display:flex;flex-direction:column;text-decoration:none;background:var(--cream);border:1px solid var(--line);border-radius:13px;padding:28px 24px;text-align:center;color:var(--ink);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;}
 .choose-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px -18px rgba(74,57,66,.55);border-color:var(--gold);}
@@ -532,9 +532,9 @@ document.addEventListener('click', function(e){
   e.preventDefault();
   // zavři mobilní menu, pokud je otevřené
   var m = document.getElementById('menu');
-  if(m && m.classList.contains('open')){ m.classList.remove('open'); document.body.style.overflow=''; var t=document.querySelector('nav .toggle'); if(t) t.textContent='☰'; }
+  if(m && m.classList.contains('open')){ m.classList.remove('open'); document.body.style.overflow=''; var t=document.querySelector('nav .nav-toggle'); if(t) t.textContent='☰'; }
   var go = function(){
-    var y = el.getBoundingClientRect().top + window.pageYOffset - 84;
+    var y = el.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({top: y < 0 ? 0 : y, behavior:'smooth'});
   };
   go();

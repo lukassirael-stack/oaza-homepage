@@ -65,7 +65,7 @@
     }
 
     // MOBIL: sjednocená, mírně větší velikost položek menu na všech stránkách
-    css += "@media (max-width:900px){nav .menu a,nav>a:not(.home):not(.nav-home):not(.btn){font-size:16px !important;letter-spacing:.04em !important}}";
+    css += "@media (max-width:900px){nav .menu a,nav>a:not(.home):not(.nav-home):not(.btn){font-size:16px !important;letter-spacing:.08em !important}}";
 
     var st = document.createElement("style");
     st.textContent = css;

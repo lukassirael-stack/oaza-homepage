@@ -775,7 +775,7 @@ function invalidateAirtableCache(){
 async function loadBookedDates(){
   const CACHE_KEY = 'booked_ranges_v4';
   try {
-    const res = await fetch(PROXY_URL, { method: 'GET' });
+    const res = await fetch('/api/zahrada?ranges=pobyt', { method: 'GET' });
     if(!res.ok){
       console.warn('⚠️ Proxy chyba:', res.status, res.statusText);
       const stale = getCached(CACHE_KEY, true);

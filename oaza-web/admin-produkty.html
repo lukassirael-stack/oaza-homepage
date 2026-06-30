@@ -158,7 +158,15 @@
               <input type="checkbox" id="f-digitalni" style="width:auto;margin-right:8px">Digitální produkt (ke stažení)</label></div>
           </div>
         </div>
-        <div id="f-soubor-wrap" class="hidden"><label>Odkaz / soubor ke stažení <span class="pozn">(URL souboru — pošle se po zaplacení)</span></label><input id="f-soubor" placeholder="https://…"></div>
+        <div id="f-soubor-wrap" class="hidden">
+          <label>Soubor ke stažení <span class="pozn">(PDF/zip — pošle se odkazem v e-mailu po zaplacení)</span></label>
+          <input id="f-soubor" placeholder="nahraj soubor níže, nebo vlož přímou URL…">
+          <div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <button type="button" class="btn ghost mini" onclick="document.getElementById('f-soubor-file').click()">Nahrát soubor (PDF)</button>
+            <input type="file" id="f-soubor-file" accept=".pdf,.zip,.epub" style="display:none" onchange="nahrajSoubor(this.files[0])">
+            <span id="stav-soubor" class="pozn"></span>
+          </div>
+        </div>
         <label>Popis</label><textarea id="f-popis" rows="4"></textarea>
 
         <div class="row2">
@@ -532,6 +540,20 @@ async function nahrajVideo(file){
   try{const ext=file.type.includes('webm')?'webm':'mp4';const url=await uploadBlob(file,($('#f-nazev').value.trim()||'produkt'),ext);
     VIDEA.push(url);renderMedia();st.textContent='Hotovo.';setTimeout(()=>st.textContent='',2000);}
   catch(e){st.textContent='Chyba: '+e.message;}
+}
+async function nahrajSoubor(file){
+  if(!file)return;const st=$('#stav-soubor');
+  if(file.size>104857600){st.textContent='Soubor je větší než 100 MB.';return;}
+  st.textContent='Nahrávám soubor…';
+  try{
+    const ext=(file.name.split('.').pop()||'pdf').toLowerCase().replace(/[^a-z0-9]/g,'')||'pdf';
+    const slug=($('#f-nazev').value.trim()||'soubor');
+    const {uploadUrl,path}=await api('upload-soubor-url',{slug,ext});
+    const r=await fetch(uploadUrl,{method:'PUT',headers:{'content-type':file.type||'application/octet-stream','x-upsert':'true'},body:file});
+    if(!r.ok)throw new Error('Upload selhal ('+r.status+')');
+    $('#f-soubor').value=path;
+    st.textContent='Nahráno ✓ ('+(file.size/1048576).toFixed(1)+' MB)';
+  }catch(e){st.textContent='Chyba: '+e.message;}
 }
 
 /* ---------- kategorie ---------- */

@@ -13,9 +13,15 @@
 //   ZAHRADA_ADMIN_HESLO             – heslo pro Správu (zavírání/otevírání dnů)
 //   SUPABASE_URL, SUPABASE_SERVICE_KEY – už nastavené, sdílené přes _lib.js
 //
+// ODOLNOST REZERVACÍ: zápis rezervace zkusí Airtable; když je nedostupné
+// (typicky 429 = překročený měsíční API limit), rezervace se uloží do Supabase
+// bufferu (tabulka rezervace_zahrada_buffer) a zákazníkovi to vyjde jako úspěch
+// (200) — potvrzovací e-mail odejde. Po obnově Airtable se buffer při příštím
+// úspěšném zápisu sám dosynchronizuje. Žádná rezervace se tak neztratí.
+//
 // Operace:
 //   GET                                  → veřejné: seznam zavřených dnů (z cache; fallback Airtable)
-//   POST {action:'reservation', fields}  → veřejné: zápis rezervace do Rezervace_zahrada
+//   POST {action:'reservation', fields}  → veřejné: zápis rezervace (Airtable → fallback Supabase buffer)
 //   POST {action:'close', datum, heslo}  → admin: označí den jako zavřený
 //   POST {action:'open',  id, heslo}     → admin: zruší zavřený den
 
@@ -77,6 +83,44 @@ module.exports = async function handler(req, res) {
       .map((x) => ({ id: x.id, datum: x.fields.datum }));
   }
 
+  // Dosynchronizace bufferu: zapíše do Airtable rezervace, které tam dřív
+  // nemohly (nedostupné Airtable / překročený limit). Volá se POUZE po
+  // úspěšném zápisu (tj. když víme, že Airtable jede), takže během výpadku
+  // se zbytečně nebombarduje. Best-effort, nikdy nehází.
+  async function flushBuffer() {
+    let rows;
+    try {
+      rows = await supaRest(
+        'rezervace_zahrada_buffer?synced=eq.false&order=created_at.asc&limit=25&select=id,payload'
+      );
+    } catch (e) { return; }
+    if (!rows || !rows.length) return;
+    for (const row of rows) {
+      let r;
+      try {
+        r = await at(encodeURIComponent(T_REZ), {
+          method: 'POST',
+          body: JSON.stringify({ fields: row.payload }),
+        });
+      } catch (e) { return; } // síťová chyba → zkus celé příště
+      if (r.status === 429) return; // limit zase aktivní → přeruš, zkus příště
+      if (!r.ok) {
+        // chyba jen u TÉTO rezervace → zaznamenej a přeskoč (neblokuj frontu)
+        const txt = await r.text().catch(() => '');
+        await supaRest(`rezervace_zahrada_buffer?id=eq.${row.id}`, {
+          method: 'PATCH', prefer: 'return=minimal',
+          body: { last_error: 'HTTP ' + r.status + ' ' + txt.slice(0, 200) },
+        }).catch(() => {});
+        continue;
+      }
+      const j = await r.json();
+      await supaRest(`rezervace_zahrada_buffer?id=eq.${row.id}`, {
+        method: 'PATCH', prefer: 'return=minimal',
+        body: { synced: true, synced_at: new Date().toISOString(), airtable_record_id: j.id },
+      }).catch(() => {});
+    }
+  }
+
   try {
     // ── VEŘEJNÉ: načtení zavřených dnů (z cache) ─────────────
     if (req.method === 'GET') {
@@ -105,13 +149,36 @@ module.exports = async function handler(req, res) {
         if (!f.jmeno || !f.email || !f.datum || !f.cas_prijezdu) {
           return res.status(400).json({ error: 'Chybí povinná pole (jméno, email, datum, čas).' });
         }
-        const r = await at(encodeURIComponent(T_REZ), {
-          method: 'POST',
-          body: JSON.stringify({ fields: f }),
-        });
-        const j = await r.json();
-        if (!r.ok) return res.status(502).json({ error: 'Zápis rezervace selhal', detail: j });
-        return res.status(200).json({ ok: true, id: j.id });
+        // 1) zkus zapsat do Airtable
+        let r = null;
+        try {
+          r = await at(encodeURIComponent(T_REZ), {
+            method: 'POST',
+            body: JSON.stringify({ fields: f }),
+          });
+        } catch (netErr) {
+          r = null; // síťová chyba → spadne do bufferu níže
+        }
+        if (r && r.ok) {
+          const j = await r.json();
+          // Airtable jede → dožeň zpožděné rezervace z bufferu (await, ať doběhne
+          // v rámci požadavku; při prázdném bufferu je to jen jedno rychlé čtení)
+          try { await flushBuffer(); } catch (e) {}
+          return res.status(200).json({ ok: true, id: j.id });
+        }
+        // 2) Airtable selhal (nejčastěji 429 = překročený měsíční limit) →
+        //    ulož rezervaci do Supabase bufferu, ať NEUTČE. Zákazníkovi to
+        //    vyjde jako úspěch (HTTP 200) a potvrzovací e-mail odejde.
+        try {
+          await supaRest('rezervace_zahrada_buffer', {
+            method: 'POST', prefer: 'return=minimal',
+            body: [{ payload: f }],
+          });
+          return res.status(200).json({ ok: true, buffered: true });
+        } catch (bufErr) {
+          // i buffer selhal → teprve teď vrať chybu (nemáme kam uložit)
+          return res.status(502).json({ error: 'Rezervaci se nepodařilo uložit', detail: String((bufErr && bufErr.message) || bufErr) });
+        }
       }
 
       // ── ADMIN (na heslo): zavřít / otevřít den ─────────────

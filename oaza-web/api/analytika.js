@@ -26,6 +26,17 @@ const SERVICE_KEY =
 
 const HESLO = process.env.ANALYTIKA_HESLO || "";
 const TABULKA = "navstevnost";
+
+// IP adresy, ze kterých se návštěvy NEzapisují (vlastní zařízení).
+// Nastav ve Vercel env proměnné ANALYTIKA_IGNORE_IP, oddělené čárkou.
+const IGNORE_IPS = (process.env.ANALYTIKA_IGNORE_IP || "")
+  .split(",").map((x) => x.trim()).filter(Boolean);
+
+function klientIP(req) {
+  const xff = req.headers["x-forwarded-for"] || "";
+  const prvni = String(xff).split(",")[0].trim();
+  return prvni || req.headers["x-real-ip"] || "";
+}
 const TZ = "Europe/Prague";
 
 function cors(res) {
@@ -56,6 +67,11 @@ module.exports = async (req, res) => {
   // ---------- POST: zápis návštěvy ----------
   if (req.method === "POST") {
     try {
+      // vlastní zařízení podle IP → nezapisuj (nic se neukládá)
+      if (IGNORE_IPS.includes(klientIP(req))) {
+        res.statusCode = 204;
+        return res.end();
+      }
       let body = req.body;
       if (typeof body === "string") body = JSON.parse(body || "{}");
       if (!body || typeof body !== "object") body = {};
@@ -101,6 +117,13 @@ module.exports = async (req, res) => {
       if (!HESLO || heslo !== HESLO) {
         res.statusCode = 401;
         return res.end(JSON.stringify({ chyba: "Špatné heslo." }));
+      }
+
+      // pomocník: vrať mou IP (pro nastavení ANALYTIKA_IGNORE_IP)
+      if (url.searchParams.get("mojeip")) {
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.statusCode = 200;
+        return res.end(JSON.stringify({ moje_ip: klientIP(req), ignorovane: IGNORE_IPS }));
       }
 
       const param = (url.searchParams.get("dny") || "30").toLowerCase();
@@ -165,7 +188,6 @@ function sestav(s, opt) {
   const podleStranky = (s.stranky || []).map((p) => ({
     stranka: p.stranka,
     navstev: p.navstev,
-    unikatni: p.unikatni || 0,
     prumDoba: p.prum_doba || 0,
     celkovaDoba: p.celkova_doba || 0,
   }));

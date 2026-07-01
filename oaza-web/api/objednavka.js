@@ -161,23 +161,52 @@ export default async function handler(req, res) {
     const cena_celkem = cena_zbozi - sleva_castka + doprava_cena;
     const poznamka = String(body.poznamka || '').slice(0, 1000);
 
-    // --- vlož objednávku ---
-    const vlozeno = await rest('objednavky', {
-      method: 'POST',
-      body: JSON.stringify({
-        stav: 'ceka_platba', zpusob_platby: 'qr',
-        jmeno, email, telefon, zeme,
-        doprava, doprava_cena, adresa, packeta_point,
-        polozky, mena, cena_zbozi, cena_celkem, poznamka,
-        sleva_kod, sleva_castka,
-      }),
-    });
-    const obj = Array.isArray(vlozeno) ? vlozeno[0] : vlozeno;
-    const cislo = obj.cislo;
-    const vs = String(VS_BASE + Number(cislo));
+    // --- 24h rezervace unikátů (digitální produkty se nerezervují) ---
+    // Podmíněný zápis: zabereme jen kusy, které jsou skladem a nejsou právě rezervované.
+    // Když se vrátí míň kusů, než chceme, někdo nás předběhl -> uvolníme a odmítneme.
+    const rezSlugy = polozky.filter(p => !p.digitalni).map(p => p.slug);
+    let rezervovano = [];
+    if (rezSlugy.length) {
+      const nowIso = new Date().toISOString();
+      const doIso = new Date(Date.now() + 24 * 3600 * 1000).toISOString();
+      const filtr = `slug=in.(${rezSlugy.join(',')})&stav=eq.skladem`
+        + `&or=(rezervovano_do.is.null,rezervovano_do.lt.${encodeURIComponent(nowIso)})`;
+      const zabrano = await rest(`produkty?${filtr}`, {
+        method: 'PATCH', body: JSON.stringify({ rezervovano_do: doIso }),
+      });
+      rezervovano = Array.isArray(zabrano) ? zabrano.map(x => x.slug) : [];
+      if (rezervovano.length < rezSlugy.length) {
+        const nedostupne = rezSlugy.filter(s => !rezervovano.includes(s));
+        if (rezervovano.length) {
+          try { await rest(`produkty?slug=in.(${rezervovano.join(',')})`, { method: 'PATCH', body: JSON.stringify({ rezervovano_do: null }), prefer: 'return=minimal' }); } catch (e) {}
+        }
+        return res.status(409).json({ error: 'Některé položky si právě rezervoval někdo jiný. Zkontroluj košík.', nedostupne });
+      }
+    }
 
-    // doplň VS
-    await rest(`objednavky?id=eq.${obj.id}`, { method: 'PATCH', body: JSON.stringify({ vs }) });
+    // --- vlož objednávku (při chybě uvolníme rezervaci) ---
+    let obj, cislo, vs;
+    try {
+      const vlozeno = await rest('objednavky', {
+        method: 'POST',
+        body: JSON.stringify({
+          stav: 'ceka_platba', zpusob_platby: 'qr',
+          jmeno, email, telefon, zeme,
+          doprava, doprava_cena, adresa, packeta_point,
+          polozky, mena, cena_zbozi, cena_celkem, poznamka,
+          sleva_kod, sleva_castka,
+        }),
+      });
+      obj = Array.isArray(vlozeno) ? vlozeno[0] : vlozeno;
+      cislo = obj.cislo;
+      vs = String(VS_BASE + Number(cislo));
+      await rest(`objednavky?id=eq.${obj.id}`, { method: 'PATCH', body: JSON.stringify({ vs }) });
+    } catch (e) {
+      if (rezervovano.length) {
+        try { await rest(`produkty?slug=in.(${rezervovano.join(',')})`, { method: 'PATCH', body: JSON.stringify({ rezervovano_do: null }), prefer: 'return=minimal' }); } catch (_) {}
+      }
+      throw e;
+    }
 
     // zvýšení počtu použití slevového kódu
     if (sleva_kod && sleva_castka > 0) {

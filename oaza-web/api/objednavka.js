@@ -289,6 +289,7 @@ export default async function handler(req, res) {
         <h3 style="margin:18px 0 4px;font-weight:500">Platba převodem / QR</h3>
         <div style="text-align:center;margin:8px 0"><img src="${qr_url}" alt="QR platba" width="200" height="200" style="border:1px solid #E2D6BC;border-radius:10px;padding:8px;background:#fff"></div>
         ${platBlok}
+        ${!vseDigital ? `<p style="background:#F3ECD9;border:1px solid #E2D6BC;border-radius:8px;padding:11px 13px;color:#7A6A2E;font-size:13px;margin-top:14px">✦ Zboží pro tebe držíme <b>rezervované 24 hodin</b>. Zaplať prosím do té doby, ať o svůj kousek nepřijdeš — po připsání platby objednávku potvrdíme.</p>` : ''}
         <p style="color:#7A715F;font-size:13px;margin-top:14px">Po přijetí platby objednávku potvrdíme${doprava === 'digital' ? ' a zašleme digitální obsah' : ''}. Jakákoli otázka? Stačí odpovědět na tento e-mail.</p>`;
 
       // ---- interní ----

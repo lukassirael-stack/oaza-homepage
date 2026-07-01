@@ -322,9 +322,12 @@ export default async function handler(req, res) {
         if (slugy.length) {
           const inList = slugy.join(',');
           if (stav === 'zaplaceno') {
-            await rest(`produkty?slug=in.(${inList})`, { method: 'PATCH', body: JSON.stringify({ stav: 'prodano' }), prefer: 'return=minimal' });
+            await rest(`produkty?slug=in.(${inList})`, { method: 'PATCH', body: JSON.stringify({ stav: 'prodano', rezervovano_do: null }), prefer: 'return=minimal' });
           } else if (stav === 'zruseno') {
+            // prodané kusy zpět na sklad
             await rest(`produkty?slug=in.(${inList})&stav=eq.prodano`, { method: 'PATCH', body: JSON.stringify({ stav: 'skladem' }), prefer: 'return=minimal' });
+            // zrušit případnou 24h rezervaci nezaplacené objednávky (kus se hned vrátí do obchodu)
+            await rest(`produkty?slug=in.(${inList})&stav=eq.skladem`, { method: 'PATCH', body: JSON.stringify({ rezervovano_do: null }), prefer: 'return=minimal' });
           }
         }
 

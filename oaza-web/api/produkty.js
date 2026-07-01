@@ -32,6 +32,7 @@ export default async function handler(req, res) {
       const rows = await rest(`produkty?slug=eq.${encodeURIComponent(slug)}&stav=neq.skryto&limit=1`);
       if (!rows.length) return res.status(404).json({ error: 'Produkt nenalezen.' });
       const p = rows[0];
+      const rezervovano = !!(p.rezervovano_do && new Date(p.rezervovano_do) > new Date());
       res.setHeader('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=600');
       return res.status(200).json({ kurz, produkt: {
         id: p.id, slug: p.slug, nazev: p.nazev, popis: p.popis, cena: p.cena,
@@ -39,16 +40,20 @@ export default async function handler(req, res) {
         kategorie: p.kategorie, barva: p.barva, velikost: p.velikost,
         ucel: (p.vlastnosti && p.vlastnosti.ucel) || [],
         fotky: p.fotky || [], videa: p.videa || [], stav: p.stav, stitek: p.stitek,
+        rezervovano,
       }});
     }
 
     // seznam – jen dostupné, bez popisů (lehké)
     const [produkty, kategorie] = await Promise.all([
-      rest('produkty?stav=eq.skladem&select=id,slug,nazev,cena,cena_eur,digitalni,kategorie,fotky,doporucujeme,stitek,barva,velikost,vlastnosti,vytvoreno&order=doporucujeme.desc,poradi.asc,vytvoreno.desc'),
+      rest('produkty?stav=eq.skladem&select=id,slug,nazev,cena,cena_eur,digitalni,kategorie,fotky,doporucujeme,stitek,barva,velikost,vlastnosti,vytvoreno,rezervovano_do&order=doporucujeme.desc,poradi.asc,vytvoreno.desc'),
       rest('kategorie?select=slug,nazev,poradi&order=poradi.asc'),
     ]);
 
-    const lehke = produkty.map(p => ({
+    const ted = new Date();
+    const dostupne = produkty.filter(p => !(p.rezervovano_do && new Date(p.rezervovano_do) > ted));
+
+    const lehke = dostupne.map(p => ({
       slug: p.slug, nazev: p.nazev, cena: p.cena, cena_eur: eur(p.cena, p.cena_eur, kurz),
       digitalni: !!p.digitalni, kategorie: p.kategorie,
       fotky: (p.fotky || []).slice(0, 2), doporucujeme: p.doporucujeme, stitek: p.stitek,

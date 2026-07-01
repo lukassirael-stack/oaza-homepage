@@ -27,8 +27,24 @@ export default async function handler(req, res) {
     return data;
   }
 
-  // GET = ceny dopravy + kurz (pro pokladnu)
+  // GET = ceny dopravy + kurz (pro pokladnu), nebo živé ověření slevového kódu
   if (req.method === 'GET') {
+    // ?overit_kod=SVETLO10&mezisoucet=1000&mena=CZK  → { platny, sleva, duvod }
+    if (req.query && req.query.overit_kod) {
+      try {
+        const ov = await rest('rpc/overit_slevovy_kod', {
+          method: 'POST',
+          body: JSON.stringify({
+            p_kod: String(req.query.overit_kod),
+            p_mezisoucet: parseInt(req.query.mezisoucet, 10) || 0,
+            p_mena: req.query.mena === 'EUR' ? 'EUR' : 'CZK',
+          }),
+        });
+        return res.status(200).json(ov || { platny: false, sleva: 0, duvod: 'Neznámý kód' });
+      } catch (e) {
+        return res.status(200).json({ platny: false, sleva: 0, duvod: 'Ověření se nezdařilo' });
+      }
+    }
     try {
       const nast = await rest('nastaveni?select=klic,hodnota');
       const N = Object.fromEntries((nast || []).map(x => [x.klic, x.hodnota]));
@@ -126,7 +142,23 @@ export default async function handler(req, res) {
     if (!jmeno) return res.status(400).json({ error: 'Vyplň jméno.' });
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return res.status(400).json({ error: 'Vyplň platný e-mail.' });
 
-    const cena_celkem = cena_zbozi + doprava_cena;
+    // --- slevový kód (ověření na serveru; klientovi se nevěří) ---
+    let sleva_kod = null, sleva_castka = 0;
+    const kodInput = String(body.sleva_kod || '').trim().slice(0, 40);
+    if (kodInput) {
+      try {
+        const ov = await rest('rpc/overit_slevovy_kod', {
+          method: 'POST',
+          body: JSON.stringify({ p_kod: kodInput, p_mezisoucet: cena_zbozi, p_mena: mena }),
+        });
+        if (ov && ov.platny) { sleva_kod = ov.kod || kodInput.toUpperCase(); sleva_castka = ov.sleva || 0; }
+        else return res.status(409).json({ error: (ov && ov.duvod) || 'Slevový kód neplatí.', sleva_neplatna: true });
+      } catch (e) {
+        return res.status(400).json({ error: 'Slevový kód se nepodařilo ověřit.' });
+      }
+    }
+
+    const cena_celkem = cena_zbozi - sleva_castka + doprava_cena;
     const poznamka = String(body.poznamka || '').slice(0, 1000);
 
     // --- vlož objednávku ---
@@ -137,6 +169,7 @@ export default async function handler(req, res) {
         jmeno, email, telefon, zeme,
         doprava, doprava_cena, adresa, packeta_point,
         polozky, mena, cena_zbozi, cena_celkem, poznamka,
+        sleva_kod, sleva_castka,
       }),
     });
     const obj = Array.isArray(vlozeno) ? vlozeno[0] : vlozeno;
@@ -145,6 +178,11 @@ export default async function handler(req, res) {
 
     // doplň VS
     await rest(`objednavky?id=eq.${obj.id}`, { method: 'PATCH', body: JSON.stringify({ vs }) });
+
+    // zvýšení počtu použití slevového kódu
+    if (sleva_kod && sleva_castka > 0) {
+      try { await rest('rpc/pouzij_slevovy_kod', { method: 'POST', body: JSON.stringify({ p_kod: sleva_kod }) }); } catch (e) {}
+    }
 
     // --- QR / SPAYD ---
     const iban = mena === 'EUR' ? IBAN_EUR : IBAN_CZK;
@@ -174,6 +212,10 @@ export default async function handler(req, res) {
       const radkyPolozek = polozky.map(p =>
         `<tr><td style="padding:6px 0;border-bottom:1px solid #E2D6BC">${esc(p.nazev)}${p.digitalni ? ' · digitální' : ''}</td>
          <td style="padding:6px 0;border-bottom:1px solid #E2D6BC;text-align:right;white-space:nowrap">${cena(mena === 'EUR' ? p.cena_eur : p.cena)}</td></tr>`).join('');
+
+      const slevaRadek = sleva_castka > 0
+        ? `<tr><td style="padding:8px 0">Sleva${sleva_kod ? ` (${esc(sleva_kod)})` : ''}</td><td style="padding:8px 0;text-align:right">−${cena(sleva_castka)}</td></tr>`
+        : '';
 
       const nazvySouhrn = (polozky && polozky.length)
         ? (polozky[0].nazev + (polozky.length > 1 ? ` +${polozky.length - 1} další` : ''))
@@ -210,7 +252,7 @@ export default async function handler(req, res) {
       // ---- zákazník ----
       const teloZak = `
         <p>Děkujeme za tvou objednávku <b>#${cislo}</b>. Níže najdeš souhrn a údaje k platbě.</p>
-        <table style="width:100%;border-collapse:collapse;margin:10px 0">${radkyPolozek}
+        <table style="width:100%;border-collapse:collapse;margin:10px 0">${radkyPolozek}${slevaRadek}
           <tr><td style="padding:8px 0">Doprava</td><td style="padding:8px 0;text-align:right">${doprava_cena ? cena(doprava_cena) : (doprava === 'mezi_nami' ? 'platíš v aplikaci' : 'zdarma')}</td></tr>
           <tr><td style="padding:8px 0;font-size:18px"><b>Celkem</b></td><td style="padding:8px 0;text-align:right;font-size:18px"><b>${cena(cena_celkem)}</b></td></tr>
         </table>
@@ -223,7 +265,7 @@ export default async function handler(req, res) {
       // ---- interní ----
       const teloNas = `
         <p><b>Nová objednávka #${cislo}</b> — ${esc(jmeno)} (${esc(email)}${telefon ? ', ' + esc(telefon) : ''}), ${zeme}.</p>
-        <table style="width:100%;border-collapse:collapse;margin:10px 0">${radkyPolozek}
+        <table style="width:100%;border-collapse:collapse;margin:10px 0">${radkyPolozek}${slevaRadek}
           <tr><td style="padding:8px 0">Doprava</td><td style="padding:8px 0;text-align:right">${doprava_cena ? cena(doprava_cena) : (doprava === 'mezi_nami' ? '0 (Mezi námi)' : 'zdarma')}</td></tr>
           <tr><td style="padding:8px 0"><b>Celkem</b></td><td style="padding:8px 0;text-align:right"><b>${cena(cena_celkem)}</b></td></tr>
         </table>
@@ -253,6 +295,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       ok: true, cislo, vs, mena, cena_zbozi, doprava_cena, cena_celkem,
+      sleva_kod, sleva_castka,
       doprava, vseDigital, spayd, iban, ucet, email_sent, qr_url,
       polozky,
     });

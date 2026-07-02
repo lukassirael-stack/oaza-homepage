@@ -150,13 +150,13 @@
   }
 
   /* ===== navigační lišta (jako vesmírný kód) ===== */
-  .nav{display:flex;align-items:center;gap:26px;flex-wrap:wrap;padding:26px 72px 16px 48px;background:#FCF5E0;border-bottom:1px solid rgba(120,86,42,.20);position:sticky;top:0;z-index:60}
+  .nav{display:flex;align-items:center;gap:26px;flex-wrap:wrap;padding:26px 48px 16px 48px;background:#FCF5E0;border-bottom:1px solid rgba(120,86,42,.20);position:sticky;top:0;z-index:60}
   .nav-home{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(74,58,40,.32);color:#4A3A28;margin-right:auto;transition:.2s;text-decoration:none;flex-shrink:0}
   .nav-home:hover{color:#8A5A22;border-color:#8A5A22}
   .nav a:not(.nav-home){font-family:'Jost',sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:#4A3A28;padding:0 0 3px;line-height:21px;border-radius:6px;white-space:nowrap;text-decoration:none;transition:color .2s}
   .nav a:not(.nav-home):hover{color:#b8893a}
   .nav a.active{color:#9c6a16;font-weight:500}
-  .nav .btn{display:inline-block;background:#b06a6c;color:#fdfaf5;font-family:'Cormorant Garamond',serif;font-size:18px;line-height:29px;text-transform:none;letter-spacing:0;padding:11px 26px;margin:0;border-radius:6px;transition:background .25s}
+  .nav .btn{display:inline-block;background:#b06a6c;color:#fdfaf5;font-family:'Cormorant Garamond',serif;font-size:18px;line-height:29px;width:150px;text-align:center;box-sizing:border-box;text-transform:none;letter-spacing:0;padding:11px 0;margin:0;border-radius:6px;transition:background .25s}
   .nav .btn:hover{background:#9c585a}
   .nav-toggle{display:none;margin-left:auto;background:none;border:0;cursor:pointer;padding:8px;color:#4A3A28}
   @media(max-width:900px){
@@ -171,6 +171,8 @@
   }
   /* košík na světlé liště — kávový kroužek, aby zlatá ikona vynikla */
   .kosik-btn{background:rgba(70,53,33,.95) !important;border:1px solid rgba(70,53,33,.6) !important}
+  /* na desktopu košík těsně pod lištou, ať nekoliduje s tlačítkem */
+  @media(min-width:901px){.kosik-btn{top:100px !important}}
   .kosik-btn svg{stroke:#F0DAA6 !important}
 </style>
 </head>

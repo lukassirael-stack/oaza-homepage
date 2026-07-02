@@ -7,6 +7,12 @@
 <meta name="description" content="Příběh Oázy Adamanthea a lidí, kteří ji tvoří — Martiny a Lukáše. Místo klidu, vědomého setkávání a návratu k sobě.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73ord4iYl.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73oTd4g.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-htM8Efs.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-iNM8.woff2">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -31,13 +37,13 @@
 
   /* ---------- NAV (sjednoceno s webem) ---------- */
   nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px;background:linear-gradient(180deg,rgba(247,243,234,.85) 0%,rgba(247,243,234,.35) 62%,rgba(247,243,234,0) 100%)}
-  nav .menu{display:flex;gap:26px;font-size:18px;font-family:'Cormorant Garamond',serif;color:var(--green)}
+  nav .menu{display:flex;gap:26px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;font-family:'Jost',sans-serif;color:var(--green)}
   .jen-mobil{display:none}
   nav .menu a{position:relative;padding-bottom:3px;color:var(--green);text-decoration:none}
-  nav .menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--rose);transition:width .25s}
+  nav .menu a::after{display:none}
   nav .menu a:hover::after{width:100%}
   nav .menu a.aktivni::after{width:100%}
-  nav .menu a.aktivni{font-weight:600}
+  nav .menu a:hover{color:#b8893a}nav .menu a.aktivni{color:#9c6a16;font-weight:500}
   .nav-toggle{display:none;background:none;border:none;color:var(--green);font-size:30px;cursor:pointer}
   nav .nav-home{margin-right:auto;display:flex;align-items:center;color:var(--green);transition:color .25s}
   nav .nav-home:hover{color:var(--rose-soft)}

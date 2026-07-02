@@ -64,6 +64,11 @@
         AKTIV + "{color:#9c6a16 !important;font-weight:500 !important;border-bottom:none !important}";   // aktivní: sytá zlatá (tmavší)
     }
 
+    // GEOMETRIE: jednotné usazení lišty na všech stránkách (jako Pobyt/Portálová)
+    css +=
+      "@media (min-width:901px){nav:not(.nav){padding-top:26px !important;padding-left:48px !important;padding-right:48px !important;gap:34px !important}nav:not(.nav) .menu{gap:26px !important}}" +
+      "@media (max-width:900px){nav:not(.nav){padding-top:20px !important;padding-left:22px !important;padding-right:22px !important}.nav-toggle{font-size:30px !important}}";
+
     // MOBIL: sjednocená, mírně větší velikost položek menu na všech stránkách
     css += "@media (max-width:900px){nav a:not(.home):not(.nav-home):not(.btn){font-size:16px !important;letter-spacing:.08em !important}}";
 

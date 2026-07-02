@@ -7,6 +7,12 @@
 <meta name="robots" content="index,follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73ord4iYl.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73oTd4g.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-htM8Efs.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-iNM8.woff2">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -19,16 +25,18 @@ body{margin:0;background:var(--cream);color:var(--text);font-family:'Jost',sans-
 a{color:inherit;text-decoration:none}
 h1,h2,h3{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.02em;margin:0}
 
-nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:26px;
-  padding:14px 30px;background:rgba(253,250,245,.92);backdrop-filter:blur(8px);
+nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:34px;
+  padding:26px 48px 16px;background:rgba(253,250,245,.92);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);font-size:14px}
 nav .home{margin-right:auto;display:flex;align-items:center}
-nav .home svg{width:26px;height:26px;fill:none;stroke:var(--gold-deep);stroke-width:1.6}
+nav .home svg{width:24px;height:24px;fill:none;stroke:var(--gold-deep);stroke-width:1.6}
 nav .menu{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
-nav a{color:var(--text);transition:color .2s;letter-spacing:.02em;font-family:'Cormorant Garamond',serif;font-size:18px}
-nav a:hover{color:var(--gold-deep)}
-nav a.active{color:var(--gold-deep);border-bottom:1.5px solid var(--gold)}
-.nav-toggle{display:none;background:none;border:none;color:var(--gold-deep);font-size:26px;line-height:1;cursor:pointer;margin-left:auto}
+nav a{color:var(--text);transition:color .2s;letter-spacing:.06em;font-family:'Jost',sans-serif;font-size:.82rem;text-transform:uppercase}
+nav a:hover{color:#b8893a}
+nav a.active{color:#9c6a16;font-weight:500}
+nav .btn{display:inline-block;background:#b06a6c;color:#fdfaf5 !important;font-family:'Cormorant Garamond',serif;font-size:18px;text-transform:none;letter-spacing:0;padding:11px 26px;border-radius:6px;transition:background .25s}
+nav .btn:hover{background:#9c585a;color:#fdfaf5}
+.nav-toggle{display:none;background:none;border:none;color:var(--gold-deep);font-size:30px;line-height:1;cursor:pointer;margin-left:auto}
 
 .wrap{max-width:820px;margin:0 auto;padding:30px 24px 80px}
 .back{font-size:13px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;font-family:'Cinzel',serif}
@@ -99,7 +107,8 @@ footer .fine{font-size:12px;margin-top:10px}
 
 /* MOBIL — hamburger (rozbalovací v toku, nic nepřekrývá) */
 @media(max-width:900px){
-  nav{flex-wrap:wrap;gap:0;padding:12px 20px}
+  nav{flex-wrap:wrap;gap:0;padding:20px 22px}
+  nav .btn{font-size:14px;padding:9px 18px}
   .nav-toggle{display:block;margin-left:auto}
   nav .menu{display:none;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:8px}
   nav .menu.open{display:flex}
@@ -123,6 +132,7 @@ footer .fine{font-size:12px;margin-top:10px}
     <a href="/o-nas">O nás</a>
     <a href="/kontakt">Kontakt</a>
   </div>
+  <a class="btn" href="/kontakt">Chci přijet</a>
 </nav>
 
 <main class="wrap" id="main">

@@ -66,7 +66,7 @@
 
     // GEOMETRIE: jednotné usazení lišty na všech stránkách (jako Pobyt/Portálová)
     css +=
-      "@media (min-width:901px){nav:not(.nav){padding-top:26px !important;padding-left:48px !important;padding-right:48px !important;gap:34px !important}nav:not(.nav) .menu{gap:26px !important;line-height:21px !important}nav:not(.nav) .menu a{line-height:21px !important}nav:not(.nav) .btn{font-size:18px !important;line-height:29px !important;padding:11px 26px !important;margin:0 !important}}" +
+      "@media (min-width:901px){nav:not(.nav){padding-top:26px !important;padding-left:48px !important;padding-right:48px !important;gap:34px !important}nav:not(.nav) .menu{gap:26px !important;line-height:21px !important}nav:not(.nav) .menu a{line-height:21px !important}nav:not(.nav) .btn{font-size:18px !important;line-height:29px !important;width:150px !important;padding:11px 0 !important;text-align:center !important;box-sizing:border-box !important;margin:0 !important}}" +
       "@media (max-width:900px){nav:not(.nav){padding-top:20px !important;padding-left:22px !important;padding-right:22px !important}.nav-toggle{font-size:30px !important}}";
 
     // MOBIL: sjednocená, mírně větší velikost položek menu na všech stránkách

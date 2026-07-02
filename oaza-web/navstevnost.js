@@ -66,7 +66,7 @@
 
     // GEOMETRIE: jednotné usazení lišty na všech stránkách (jako Pobyt/Portálová)
     css +=
-      "@media (min-width:901px){nav:not(.nav){padding-top:26px !important;padding-left:48px !important;padding-right:48px !important;gap:34px !important}nav:not(.nav) .menu{gap:26px !important;line-height:21px !important}nav:not(.nav) .menu a{line-height:21px !important}nav:not(.nav) .btn{font-size:18px !important;line-height:29px !important;width:150px !important;padding:11px 0 !important;text-align:center !important;box-sizing:border-box !important;margin:0 !important}}" +
+      "@media (min-width:901px){nav:not(.nav){padding-top:26px !important;padding-left:48px !important;padding-right:48px !important;gap:34px !important}nav:not(.nav) .menu{gap:26px !important;line-height:21px !important}nav:not(.nav) .menu a{line-height:21px !important;font-weight:400 !important}nav:not(.nav) .btn{font-size:18px !important;line-height:29px !important;width:150px !important;padding:11px 0 !important;text-align:center !important;box-sizing:border-box !important;margin:0 !important}}" +
       "@media (max-width:900px){nav:not(.nav){padding-top:20px !important;padding-left:22px !important;padding-right:22px !important}.nav-toggle{font-size:30px !important}}";
 
     // MOBIL: sjednocená, mírně větší velikost položek menu na všech stránkách
@@ -80,6 +80,21 @@
     // který přebije i cizí !important na jednotlivých podstránkách.
     var sjednotMobilMenu = function () {
       var mob = window.matchMedia("(max-width:900px)").matches;
+      var btny = document.querySelectorAll("nav:not(.nav) .btn");
+      for (var j = 0; j < btny.length; j++) {
+        var b = btny[j];
+        if (!mob) {
+          b.style.setProperty("width", "150px", "important");
+          b.style.setProperty("padding", "11px 0", "important");
+          b.style.setProperty("font-size", "18px", "important");
+          b.style.setProperty("line-height", "29px", "important");
+          b.style.setProperty("text-align", "center", "important");
+          b.style.setProperty("box-sizing", "border-box", "important");
+          b.style.setProperty("margin", "0", "important");
+        } else {
+          ["width","padding","font-size","line-height","text-align","box-sizing","margin"].forEach(function(p){b.style.removeProperty(p);});
+        }
+      }
       var odkazy = document.querySelectorAll("nav a:not(.home):not(.nav-home):not(.btn):not(.nav-toggle)");
       for (var i = 0; i < odkazy.length; i++) {
         var a = odkazy[i];

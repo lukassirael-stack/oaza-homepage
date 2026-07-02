@@ -110,6 +110,10 @@
     sjednotMobilMenu();
     window.addEventListener("resize", sjednotMobilMenu);
     window.addEventListener("orientationchange", sjednotMobilMenu);
+    // některé stránky (Služby) si menu dostavují později — doběhni znovu
+    window.addEventListener("load", sjednotMobilMenu);
+    setTimeout(sjednotMobilMenu, 1000);
+    setTimeout(sjednotMobilMenu, 3000);
   } catch (e) {}
 })();
 

@@ -134,7 +134,14 @@ function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInf
     : '';
 
   let platebniSekce = '';
-  if (platba === 'online') {
+  if (platba === 'online' && !bankaInfo) {
+    // online akce bez vyplněné ceny — platební údaje nejsou k dispozici, e-mail nesmí spadnout
+    platebniSekce = `
+      <tr><td style="padding:24px 0 8px;font-family:Georgia,serif;font-size:18px;color:${G};">Platba</td></tr>
+      <tr><td style="font-family:Arial,sans-serif;font-size:15px;color:${TXT};line-height:1.7;">
+        Platební údaje vám zašleme v samostatném e-mailu.
+      </td></tr>`;
+  } else if (platba === 'online') {
     platebniSekce = `
       <tr><td style="padding:24px 0 8px;font-family:Georgia,serif;font-size:18px;color:${G};">Platební údaje</td></tr>
       <tr><td style="font-family:Arial,sans-serif;font-size:15px;color:${TXT};line-height:1.7;">

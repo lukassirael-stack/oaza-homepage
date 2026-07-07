@@ -20,13 +20,24 @@
  * zapečený obsah, takže /akce nikdy nezůstane prázdné.
  */
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const KOREN   = dirname(fileURLToPath(import.meta.url));
-const SOUBOR  = join(KOREN, 'oaza-web', 'akce.html');
+// akce.html hledáme buď ve vlastní složce (když skript leží v oaza-web/),
+// nebo v podsložce oaza-web/ (když skript leží v kořeni repa) — funguje v obou případech
+const KANDIDATI = [
+  join(KOREN, 'akce.html'),
+  join(KOREN, 'oaza-web', 'akce.html')
+];
+const SOUBOR  = KANDIDATI.find(existsSync);
 const API_URL = 'https://oaza-adamanthea.cz/api/akce-list';
+
+if(!SOUBOR){
+  console.error('Nenašel jsem akce.html (hledal jsem: ' + KANDIDATI.join(', ') + '). Generování zastaveno.');
+  process.exit(1);
+}
 
 /* ------------------------------------------------------------------ */
 /*  Načtení akcí z živého API                                          */

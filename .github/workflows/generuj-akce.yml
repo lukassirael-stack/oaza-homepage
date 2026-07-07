@@ -1,1 +1,39 @@
+name: Generování akcí
+
+# Každou noc zapeče aktuální akce do oaza-web/akce.html, aby je viděly
+# vyhledávače i AI nástroje. Proběhlé akce samy zmizí, nové přibydou.
+# Ruční spuštění: záložka Actions → tento workflow → „Run workflow".
+
+on:
+  schedule:
+    - cron: '20 2 * * *'   # ~04:20 ráno pražského času
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generuj-akce
+  cancel-in-progress: false
+
+jobs:
+  generuj:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node oaza-web/generuj-akce.mjs
+      - name: Commit změn (jen pokud nějaké jsou)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Žádné změny — akce jsou aktuální."
+          else
+            git commit -m "🤖 Aktualizace akcí"
+            git push
+          fi
 

@@ -23,6 +23,16 @@
       "permanent": true
     },
     {
+      "source": "/product-page/:cesta*",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/event-details/:cesta*",
+      "destination": "/akce",
+      "permanent": true
+    },
+    {
       "source": "/:path((?!img/|api/|favicon|oaza-adamanthea-favicon|robots\\.txt|sitemap\\.xml|index\\.html|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|o-nas|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|harmonizace-jmena-a-prijmeni|lemoare-krystaly|spoluprace|vesmirny-kod-zrozeni|akce|admin-akce|gdpr|kontakt|prehled-navstevnosti|zdravi|admin-produkty|import-wix|rehost-fotky|obchod|produkt|pokladna|bali-shop|admin-objednavky|kosik\\.js|navstevnost\\.js).+)",
       "has": [
         {
@@ -35,6 +45,28 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/akce/:slug",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest).*"
+        }
+      ],
+      "destination": "https://rezervace-proxy.vercel.app/api/og?type=akce&slug=:slug"
+    },
+    {
+      "source": "/produkt",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest).*"
+        }
+      ],
+      "destination": "https://rezervace-proxy.vercel.app/api/og?type=produkt"
+    },
     {
       "source": "/akce/:slug",
       "destination": "/akce-detail?slug=:slug"

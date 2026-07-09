@@ -51,7 +51,7 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest).*"
+          "value": ".*(facebookexternalhit|meta-externalagent|facebookcatalog|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest).*"
         }
       ],
       "destination": "https://rezervace-proxy.vercel.app/api/og?type=akce&slug=:slug"
@@ -62,7 +62,7 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(facebookexternalhit|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest).*"
+          "value": ".*(facebookexternalhit|meta-externalagent|facebookcatalog|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest).*"
         }
       ],
       "destination": "https://rezervace-proxy.vercel.app/api/og?type=produkt"

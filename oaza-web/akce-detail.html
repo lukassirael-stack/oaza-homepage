@@ -4,7 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Akce | Oáza Adamanthea</title>
-<meta name="robots" content="index,follow">
+<meta name="description" content="Přehled akcí, setkání a pobytů v Oáze Adamanthea — Crystal & Retreat centrum v Halenkovicích.">
+<meta property="og:title" content="Akce | Oáza Adamanthea">
+<meta property="og:description" content="Přehled akcí, setkání a pobytů v Oáze Adamanthea.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oaza-adamanthea.cz/akce">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73ord4iYl.woff2">
@@ -21,106 +25,94 @@
   --text:#4a3b33; --muted:#8a7d72;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--cream);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--cream);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 h1,h2,h3{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.02em;margin:0}
 
+/* NAV */
 nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:34px;
-  padding:26px 48px 16px;background:rgba(253,250,245,.92);backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line);font-size:14px}
+  padding:26px 48px 16px;background:rgba(27,42,65,.94);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(226,214,188,.18);font-size:14px}
 nav .home{margin-right:auto;display:flex;align-items:center}
-nav .home svg{width:24px;height:24px;fill:none;stroke:var(--gold-deep);stroke-width:1.6}
+nav .home svg{width:24px;height:24px;fill:none;stroke:#F6F1E7;stroke-width:1.6}
 nav .menu{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
-nav a{color:var(--text);transition:color .2s;letter-spacing:.06em;font-family:'Jost',sans-serif;font-size:.82rem;text-transform:uppercase}
-nav a:hover{color:#b8893a}
-nav a.active{color:#9c6a16;font-weight:500}
+nav a{color:#F6F1E7;transition:color .2s;letter-spacing:.06em;font-family:'Jost',sans-serif;font-size:.82rem;text-transform:uppercase}
+nav a:hover{color:#fdeecb}
+nav a.active{color:#dcb878;font-weight:500}
 nav .btn{display:inline-block;background:#b06a6c;color:#fdfaf5 !important;font-family:'Cormorant Garamond',serif;font-size:18px;text-transform:none;letter-spacing:0;padding:11px 26px;border-radius:6px;transition:background .25s}
 nav .btn:hover{background:#9c585a;color:#fdfaf5}
-.nav-toggle{display:none;background:none;border:none;color:var(--gold-deep);font-size:30px;line-height:1;cursor:pointer;margin-left:auto}
+.nav-toggle{display:none;background:none;border:none;color:#F6F1E7;font-size:30px;line-height:1;cursor:pointer;margin-left:auto}
 
-.wrap{max-width:820px;margin:0 auto;padding:30px 24px 80px}
-.back{font-size:13px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;font-family:'Cinzel',serif}
-.back:hover{color:var(--gold-deep)}
-.back-btn{display:inline-block;font-family:'Cinzel',serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--gold-deep);padding:13px 30px;border:1px solid var(--gold);border-radius:30px;transition:.2s}
-.back-btn:hover{background:var(--gold);color:#fff}
-.back-bottom{text-align:center;margin:46px 0 6px}
+/* HERO */
+.hero{text-align:center;padding:64px 24px 38px;position:relative;
+  background:radial-gradient(ellipse 70% 90% at 50% -10%, rgba(201,161,74,.13), transparent 72%)}
+.hero .eyebrow{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:clamp(30px,5vw,46px);color:var(--text);margin:14px 0 10px}
+.hero p{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--muted);max-width:620px;margin:0 auto}
+.hero-orn{display:flex;align-items:center;justify-content:center;gap:16px;margin:26px auto 0;max-width:300px}
+.hero-orn .line{height:1px;flex:1}
+.hero-orn .line.l{background:linear-gradient(90deg,transparent,#dcc89a)}
+.hero-orn .line.r{background:linear-gradient(90deg,#dcc89a,transparent)}
+.hero-orn svg{flex:none}
 
-.portal{margin:22px auto 30px;border-radius:18px;overflow:hidden;border:1px solid var(--line);
-  background:linear-gradient(135deg,#f4ecdc,#ece1c9);aspect-ratio:1/1;max-width:520px;width:100%;
-  position:relative;display:flex;align-items:center;justify-content:center}
-.portal img{width:100%;height:100%;object-fit:contain;display:block}
-.portal .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:var(--gold-deep);opacity:.5;letter-spacing:3px}
+/* GRID */
+.wrap{max-width:1080px;margin:0 auto;padding:10px 24px 70px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(154,118,40,.12)}
+.thumb{aspect-ratio:1/1;background:linear-gradient(135deg,#f4ecdc,#ece1c9);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.thumb img{width:100%;height:100%;object-fit:contain;display:block}
+.thumb .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;color:var(--gold-deep);opacity:.5;font-size:13px;letter-spacing:2px}
+.badge{position:absolute;top:12px;left:12px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  font-family:'Jost',sans-serif;padding:5px 11px;border-radius:20px;background:#fff;color:var(--green);border:1px solid var(--line)}
+.badge.full{color:#a06a34;background:#fbf2e3}
+.badge.cancel{color:#9a4a4a;background:#f7e9e9}
+.card .body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:20px;color:var(--text);line-height:1.25}
+.meta{font-size:13.5px;color:var(--muted);margin:9px 0 12px;display:flex;flex-direction:column;gap:3px}
+.meta span{display:flex;gap:7px;align-items:center}
+.excerpt{font-family:'Cormorant Garamond',serif;font-size:17px;color:#6a5c52;flex:1}
+.price{font-size:14px;color:var(--gold-deep);margin-top:12px;font-weight:400}
+.more{margin-top:16px;align-self:flex-start;font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--gold-deep);padding:10px 20px;border:1px solid var(--gold);border-radius:30px;
+  transition:background .2s,color .2s}
+.card:hover .more{background:var(--gold);color:#fff}
+.card.cancelled{opacity:.62}
+.empty,.loading{text-align:center;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--muted);padding:50px 0}
 
-.eyebrow{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-align:center}
-h1.title{font-size:clamp(28px,5vw,42px);color:var(--text);text-align:center;margin:12px 0 16px}
-.facts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:26px}
-.fact{background:#fff;border:1px solid var(--line);border-radius:30px;padding:8px 18px;font-size:14px;color:var(--text)}
-.fact b{color:var(--gold-deep);font-weight:400}
-
-.statusbar{text-align:center;margin:-6px 0 22px}
-.statuspill{display:inline-block;font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;
-  padding:7px 18px;border-radius:30px}
-.statuspill.full{color:#a06a34;background:#fbf2e3;border:1px solid #e6cfa0}
-.statuspill.cancel{color:#9a4a4a;background:#f7e9e9;border:1px solid #e6c5c5}
-
-.popis{font-family:'Cormorant Garamond',serif;font-size:20px;color:#574a42;line-height:1.85}
-.popis h2,.popis h3{font-family:'Cinzel',serif;color:var(--gold-deep);font-size:21px;margin:26px 0 8px}
-.popis p{margin:0 0 14px}
-.popis ul{padding-left:20px}
-.popis img{max-width:100%;border-radius:12px;margin:14px 0}
-
-.cta-wrap{text-align:center;margin:34px 0}
-.btn{display:inline-block;font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;
-  padding:15px 40px;border-radius:34px;background:var(--gold);color:#fff;border:1px solid var(--gold);cursor:pointer;transition:.2s}
-.btn:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
-.btn[disabled]{background:#d8cdbb;border-color:#d8cdbb;cursor:not-allowed}
-
-/* FORM */
-#form-sekce{display:none;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 28px}
-#form-sekce h2{font-size:23px;color:var(--text);text-align:center;margin-bottom:18px}
-.field{margin-bottom:16px}
-.field label{display:block;font-size:13.5px;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
-  font-family:'Jost',sans-serif;font-size:15px;background:var(--cream);color:var(--text)}
-.field textarea{min-height:70px;resize:vertical}
-.row{display:flex;gap:14px}
-.row .field{flex:1}
-.gdpr{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--muted);margin:6px 0 18px}
-.gdpr input{margin-top:3px}
-.msg{padding:14px 16px;border-radius:10px;font-size:14.5px;margin-bottom:14px;display:none}
-.msg.err{background:#f7e9e9;color:#9a4a4a;display:block}
-.cena-info{text-align:center;font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--gold-deep);margin-bottom:14px}
-
-/* DĚKOVNÁ OBRAZOVKA */
-#dik{display:none;text-align:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:36px 28px;margin-top:18px}
-#dik h2{font-size:26px;color:var(--green);margin-bottom:10px}
-#dik .qr{margin:18px auto;max-width:240px}
-#dik .qr img{width:100%;border:1px solid var(--line);border-radius:14px}
-#dik .platba{font-size:15px;color:var(--text);line-height:1.9;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:inline-block;text-align:left;margin-top:8px}
-#dik .platba b{color:var(--gold-deep)}
-
+/* FOOTER */
 footer{background:var(--cream-2);border-top:1px solid var(--line);padding:38px 24px;text-align:center;font-size:14px;color:var(--muted)}
 footer .soc{margin:12px 0}
 footer .soc a{margin:0 9px;color:var(--gold-deep)}
 footer .fine{font-size:12px;margin-top:10px}
 
 /* MOBIL — hamburger (rozbalovací v toku, nic nepřekrývá) */
-@media(max-width:900px){
+@media (max-width:900px){
   nav{flex-wrap:wrap;gap:0;padding:20px 22px}
   nav .btn{font-size:14px;padding:9px 18px}
   .nav-toggle{display:block;margin-left:auto}
   nav .menu{display:none;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:8px}
   nav .menu.open{display:flex}
-  nav .menu a{font-size:16px !important;color:var(--text) !important;padding:14px 2px !important;width:100%;border-top:1px solid var(--line)}
-  nav .menu a.active{color:var(--gold-deep) !important}
+  nav .menu a{font-size:16px !important;color:#F6F1E7 !important;padding:14px 2px !important;width:100%;border-top:1px solid rgba(226,214,188,.18)}
+  nav .menu a::after{display:none}
 }
 </style>
+  <link rel="canonical" href="https://oaza-adamanthea.cz/akce">
+  <meta property="og:site_name" content="Oáza Adamanthea">
+  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:image" content="https://oaza-adamanthea.cz/img/og-nahled.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
 <nav>
-  <a class="home" href="/" aria-label="Domů"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></a>
+  <a class="home" href="/" aria-label="Domů">
+    <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+  </a>
   <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
   <div class="menu" id="menu">
     <a href="/portalova-zahrada">Portálová zahrada</a>
@@ -135,9 +127,124 @@ footer .fine{font-size:12px;margin-top:10px}
   <a class="btn" href="/kontakt">Chci přijet</a>
 </nav>
 
-<main class="wrap" id="main">
-  <a class="back" href="/akce">← Zpět na akce</a>
-  <div id="content" style="padding:60px 0;text-align:center;color:var(--muted);font-family:'Cormorant Garamond',serif;font-size:20px">Načítám…</div>
+<header class="hero">
+  <div class="eyebrow">Oáza Adamanthea</div>
+  <h1>Akce a setkání</h1>
+  <p>Prostor pro společné sdílení, inspiraci, odpočinek i vnitřní růst. Objevte semináře, pobyty, ceremonie a další setkání, která vznikají v Oáze Adamanthea.</p>
+  <div class="hero-orn" aria-hidden="true">
+    <span class="line l"></span>
+    <svg width="15" height="21" viewBox="0 0 16 22" fill="none"><path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#c9a14a" stroke-width="1"/></svg>
+    <span class="line r"></span>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="grid" class="grid"><!-- AKCE:START -->
+<a class="card " href="/akce/den-otevrenych-dveri">
+        <div class="thumb"><img src="https://oaza-adamanthea.cz/img/akce-3.jpg" alt="Den otevřených dveří v Oáze" loading="lazy"></div>
+        <div class="body">
+          <h3>Den otevřených dveří v Oáze</h3>
+          <div class="meta">
+            <span>📅 sobota 11. července 2026 · 10:00–16:30</span>
+            <span>📍 Oáza Adamanthea, Halenkovice 400</span>
+          </div>
+          <div class="excerpt">Srdečně vás zveme do Oázy Adamanthea na den otevřených dveří. Přijďte se projít naším areálem, nasát atmosféru tohoto místa a zažít, jaké to…</div>
+          <div class="price">200 Kč / 8 € (na místě)</div>
+          <span class="more">Více o akci</span>
+        </div>
+      </a>
+      <a class="card " href="/akce/sirius-meditace-v-portalu">
+        <div class="thumb"><img src="https://static.wixstatic.com/media/d991d3_aa35e5c4d6dc46c097e5e50763ebaa9c~mv2.png/v1/fill/w_1080,h_1080,al_c/d991d3_aa35e5c4d6dc46c097e5e50763ebaa9c~mv2.png" alt="Sirius – meditace v portálu" loading="lazy"></div>
+        <div class="body">
+          <h3>Sirius – meditace v portálu</h3>
+          <div class="meta">
+            <span>📅 sobota 11. července 2026 · 17:00–19:00</span>
+            <span>📍 Oáza Adamanthea, Halenkovice 400</span>
+          </div>
+          <div class="excerpt">Čeká nás vedená meditace, aktivace vědomí, propojování se svou duší a možnost přijmout své duševní jméno či osobní vhledy a poselství. Napoj…</div>
+          <div class="price">500 Kč / 20 € (na místě)</div>
+          <span class="more">Více o akci</span>
+        </div>
+      </a>
+      <a class="card " href="/akce/v-oaze-spolu">
+        <div class="thumb"><img src="https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/akce/letaky/v-oaze-spolu-1781957330754.png" alt="V Oáze SPOLU" loading="lazy"></div>
+        <div class="body">
+          <h3>V Oáze SPOLU</h3>
+          <div class="meta">
+            <span>📅 17.,18.,19.7.2026</span>
+            <span>📍 Oáza Adamanthea, Halenkovice 400</span>
+          </div>
+          <div class="excerpt">Zveme vás do Oázy na setkání, které nemá žádný pevný řád, žádná „musíš“ ani „mělo by se“. Chceme prostě na chvíli zpomalit a vytvořit prosto…</div>
+          
+          <span class="more">Více o akci</span>
+        </div>
+      </a>
+      <a class="card " href="/akce/ocistny-ritual">
+        <div class="thumb"><img src="https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/akce/letaky/ocistny-ritual-1781958755189.png" alt="Očistný rituál" loading="lazy"></div>
+        <div class="body">
+          <h3>Očistný rituál</h3>
+          <div class="meta">
+            <span>📅 sobota 18. července 2026 · 14:00–17:00</span>
+            <span>📍 Oáza Adamanthea, Halenkovice 400</span>
+          </div>
+          <div class="excerpt">Odpoledne hlubokého očištění, uvolnění a návratu k sobě. Prostor, kde můžeš nechat odejít staré nánosy, těžké emoce, únavu i to, co už s teb…</div>
+          <div class="price">800 Kč / 32 € (na místě)</div>
+          <span class="more">Více o akci</span>
+        </div>
+      </a>
+      <a class="card " href="/akce/lehkost-byti">
+        <div class="thumb"><img src="https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/akce/letaky/lehkost-byti-1781631026817.jpg" alt="LEHKOST BYTÍ" loading="lazy"></div>
+        <div class="body">
+          <h3>LEHKOST BYTÍ</h3>
+          <div class="meta">
+            <span>📅 25.7.2026, 10:00 - 18:00</span>
+            <span>📍 Oáza Adamanthea, Halenkovice 400</span>
+          </div>
+          <div class="excerpt">Lehkost bytí je transformační celodenní ceremonie zaměřená na uvolnění starých vzorců, nalezení vnitřní harmonie a otevření prostoru pro nov…</div>
+          <div class="price">2 220 Kč / 88,8 €</div>
+          <span class="more">Více o akci</span>
+        </div>
+      </a>
+      <a class="card " href="/akce/lvi-brana">
+        <div class="thumb"><img src="https://static.wixstatic.com/media/d991d3_a928973abdee480ca785cce2250497f2~mv2.png/v1/fill/w_1080,h_1080,al_c/d991d3_a928973abdee480ca785cce2250497f2~mv2.png" alt="Lví brána" loading="lazy"></div>
+        <div class="body">
+          <h3>Lví brána</h3>
+          <div class="meta">
+            <span>📅 sobota 8. srpna 2026 · 17:00–19:00</span>
+            <span>📍 Oáza Adamanthea, Halenkovice 400</span>
+          </div>
+          <div class="excerpt">Meditace a aktivace v pyramidě v Portálové zahradě v čase Lví brány — silné energetické brány 8/8. Přijď se napojit a aktivovat ve sdíleném …</div>
+          <div class="price">500 Kč / 20 € (na místě)</div>
+          <span class="more">Více o akci</span>
+        </div>
+      </a>
+      <a class="card " href="/akce/aktivace-bosenske-pyramidy-zari-2026">
+        <div class="thumb"><img src="https://static.wixstatic.com/media/d991d3_0caed313736848b899108e5d640cc5c7~mv2.png/v1/fill/w_1536,h_1024,al_c/d991d3_0caed313736848b899108e5d640cc5c7~mv2.png" alt="Aktivace na Bosenských pyramidách" loading="lazy"></div>
+        <div class="body">
+          <h3>Aktivace na Bosenských pyramidách</h3>
+          <div class="meta">
+            <span>📅 24.–29. září 2026</span>
+            <span>📍 Visoko, Bosna a Hercegovina · odjezd z Kroměříže</span>
+          </div>
+          <div class="excerpt">„Tato výprava je určena těm, kteří nehledají jen turistické cíle, ale volají po skutečném vnitřním prožitku.&quot; Zveme vás na transformační ces…</div>
+          <div class="price">12 900 Kč / 516 €</div>
+          <span class="more">Více o akci</span>
+        </div>
+      </a>
+      <a class="card cancelled" href="/akce/test">
+        <div class="thumb"><div class="ph">Oáza Adamanthea</div><span class="badge cancel">Zrušeno</span></div>
+        <div class="body">
+          <h3>test2</h3>
+          <div class="meta">
+            
+            <span>📍 oáza</span>
+          </div>
+          <div class="excerpt"></div>
+          <div class="price">100 Kč</div>
+          <span class="more">Více o akci</span>
+        </div>
+      </a>
+<!-- AKCE:END --></div>
 </main>
 
 <footer>
@@ -152,217 +259,66 @@ footer .fine{font-size:12px;margin-top:10px}
 
 <script>
 function prepniMenu(btn){
-  var m=document.getElementById('menu');
-  var o=m.classList.toggle('open');
-  btn.textContent=o?'✕':'☰';
+  const m=document.getElementById('menu');
+  const open=m.classList.toggle('open');
+  btn.textContent=open?'✕':'☰';
 }
-document.addEventListener('click',function(e){
-  if(e.target.closest && e.target.closest('#menu a')){
-    var m=document.getElementById('menu');
-    if(m && m.classList.contains('open')){
-      m.classList.remove('open');
-      var b=document.querySelector('.nav-toggle');
-      if(b){ b.textContent='☰'; }
-    }
+document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{
+  const m=document.getElementById('menu');
+  if(m.classList.contains('open')){
+    m.classList.remove('open');
+    document.querySelector('.nav-toggle').textContent='☰';
+    document.body.style.overflow='';
   }
-});
+}));
 
-const params = new URLSearchParams(location.search);
-let slug = params.get('slug');
-if(!slug){ const m = location.pathname.match(/\/akce\/([^\/]+)\/?$/); if(m) slug = decodeURIComponent(m[1]); }
-let AKCE = null;
-
-function fmt(n){ return Number(n).toLocaleString('cs-CZ'); }
-function cenaJednotka(a, mena){ return mena==='eur'?a.cena_eur:a.cena_czk; }
-
-function cenaSouhrn(a){
+const STAVY = {
+  otevrena: {cls:'', txt:''},
+  obsazena: {cls:'full', txt:'Obsazeno'},
+  zrusena:  {cls:'cancel', txt:'Zrušeno'}
+};
+function cenaText(a){
   if(a.platba_typ==='zdarma') return 'Vstup zdarma';
   const c=[];
-  if(a.cena_czk!=null) c.push(fmt(a.cena_czk)+' Kč');
-  if(a.cena_eur!=null) c.push(fmt(a.cena_eur)+' €');
+  if(a.cena_czk!=null) c.push(Number(a.cena_czk).toLocaleString('cs-CZ')+' Kč');
+  if(a.cena_eur!=null) c.push(Number(a.cena_eur).toLocaleString('cs-CZ')+' €');
   let t=c.join(' / ');
-  if(a.platba_typ==='na_miste'&&t) t+=' · platba na místě';
+  if(a.platba_typ==='na_miste' && t) t+=' (na místě)';
   return t;
 }
+function zkrat(s,n){ if(!s) return ''; const txt=s.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim(); return txt.length>140?txt.slice(0,140)+'…':txt; }
 
 async function load(){
-  const box=document.getElementById('content');
-  if(!slug){ box.textContent='Chybí identifikátor akce.'; return; }
   try{
-    const r=await fetch('/api/akce-list?slug='+encodeURIComponent(slug));
-    if(!r.ok){ box.textContent='Akce nenalezena.'; return; }
-    const {akce}=await r.json(); AKCE=akce;
-    document.title = akce.nazev+' | Oáza Adamanthea';
-    render(akce, box);
-  }catch(e){ box.textContent='Akci se nepodařilo načíst.'; }
+    const r = await fetch('/api/akce-list');
+    if(!r.ok) return; // ponecháme předgenerovaný statický obsah
+    const {akce} = await r.json();
+    if(!Array.isArray(akce)) return;
+    const grid = document.getElementById('grid');
+    if(!akce.length){ grid.innerHTML='<div class="empty">Zatím nejsou vypsané žádné akce. Sledujte nás na Facebooku a Instagramu. 🌿</div>'; return; }
+    grid.innerHTML = akce.map(a=>{
+      const st = STAVY[a.stav] || STAVY.otevrena;
+      const badge = st.txt ? `<span class="badge ${st.cls}">${st.txt}</span>` : '';
+      const img = a.obrazek_url
+        ? `<img src="${a.obrazek_url}" alt="${(a.nazev||'').replace(/"/g,'')}" loading="lazy">`
+        : `<div class="ph">Oáza Adamanthea</div>`;
+      const cena = cenaText(a);
+      return `<a class="card ${a.stav==='zrusena'?'cancelled':''}" href="/akce/${encodeURIComponent(a.slug)}">
+        <div class="thumb">${img}${badge}</div>
+        <div class="body">
+          <h3>${a.nazev||''}</h3>
+          <div class="meta">
+            ${a.datum_text?`<span>📅 ${a.datum_text}</span>`:''}
+            ${a.misto?`<span>📍 ${a.misto}</span>`:''}
+          </div>
+          <div class="excerpt">${zkrat(a.popis)}</div>
+          ${cena?`<div class="price">${cena}</div>`:''}
+          <span class="more">Více o akci</span>
+        </div>
+      </a>`;
+    }).join('');
+  }catch(e){ /* ponecháme předgenerovaný statický obsah */ }
 }
-
-function mdToHtml(src){
-  if(!src) return '';
-  if(/<(p|ul|ol|li|h2|h3|br|div|strong|em)\b/i.test(src)) return src;
-  var t = String(src).replace(/\r\n?/g,'\n')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  function inline(x){
-    return x.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
-            .replace(/\*([^*\n]+)\*/g,'<em>$1</em>');
-  }
-  var radky = t.split('\n');
-  var html='', p=[], li=[];
-  function flushP(){ if(p.length){ html+='<p>'+p.map(inline).join('<br>')+'</p>'; p=[]; } }
-  function flushUl(){ if(li.length){ html+='<ul>'+li.map(function(x){return '<li>'+inline(x)+'</li>';}).join('')+'</ul>'; li=[]; } }
-  for(var i=0;i<radky.length;i++){
-    var r=radky[i];
-    if(/^\s*$/.test(r)){ flushP(); flushUl(); continue; }
-    var h=r.match(/^(#{1,6})\s+(.*)$/);
-    if(h){ flushP(); flushUl(); var tag=h[1].length>=3?'h3':'h2'; html+='<'+tag+'>'+inline(h[2])+'</'+tag+'>'; continue; }
-    var b=r.match(/^\s*[-*]\s+(.*)$/);
-    if(b){ flushP(); li.push(b[1]); continue; }
-    flushUl(); p.push(r);
-  }
-  flushP(); flushUl();
-  return html;
-}
-
-function render(a, box){
-  const img = a.obrazek_url
-    ? `<img src="${a.obrazek_url}" alt="${(a.nazev||'').replace(/"/g,'')}">`
-    : `<div class="ph">Oáza Adamanthea</div>`;
-  const facts=[];
-  if(a.datum_text) facts.push(`<div class="fact">📅 <b>${a.datum_text}</b></div>`);
-  if(a.misto) facts.push(`<div class="fact">📍 ${a.misto}</div>`);
-  const cena=cenaSouhrn(a);
-  if(cena) facts.push(`<div class="fact">${cena}</div>`);
-  if(a.kapacita && a.volno!=null && a.stav==='otevrena') facts.push(`<div class="fact">Volných míst: <b>${a.volno}</b></div>`);
-
-  let statusbar='', cta='';
-  if(a.stav==='zrusena'){
-    statusbar=`<div class="statusbar"><span class="statuspill cancel">Akce zrušena</span></div>`;
-  }else if(a.stav==='obsazena'){
-    statusbar=`<div class="statusbar"><span class="statuspill full">Obsazeno</span></div>`;
-  }else if(a.prihlaska_url){
-    cta=`<div class="cta-wrap"><a class="btn" href="${a.prihlaska_url}" target="_blank" rel="noopener">Přihlásit se</a></div>`;
-  }else{
-    cta=`<div class="cta-wrap"><button class="btn" onclick="otevritFormular()">Přihlásit se</button></div>`;
-  }
-
-  box.outerHTML = `<div id="content">
-    <div class="eyebrow">Akce v Oáze</div>
-    <h1 class="title">${a.nazev||''}</h1>
-    <div class="portal">${img}</div>
-    <div class="facts">${facts.join('')}</div>
-    ${statusbar}
-    <div class="popis">${mdToHtml(a.popis||'')}</div>
-    ${cta}
-    ${formularHTML(a)}
-    <div id="dik"></div>
-    <div class="back-bottom"><a class="back-btn" href="/akce">← Zpět na všechny akce</a></div>
-  </div>`;
-}
-
-function formularHTML(a){
-  if(a.stav!=='otevrena' || a.prihlaska_url) return '';
-  // výběr měny jen když jsou obě ceny a platí se online/na místě
-  let menaField='';
-  if(a.platba_typ!=='zdarma' && a.cena_czk!=null && a.cena_eur!=null){
-    menaField=`<div class="field"><label>Měna platby</label>
-      <select id="mena" onchange="prepocet()">
-        <option value="czk">Kč (${fmt(a.cena_czk)} Kč / os.)</option>
-        <option value="eur">€ (${fmt(a.cena_eur)} € / os.)</option>
-      </select></div>`;
-  }
-  return `<div id="form-sekce">
-    <h2>Přihláška</h2>
-    <div id="cena-info" class="cena-info"></div>
-    <div id="form-err" class="msg err"></div>
-    <div class="field"><label>Jméno a příjmení *</label><input id="jmeno" autocomplete="name"></div>
-    <div class="row">
-      <div class="field"><label>E-mail *</label><input id="email" type="email" autocomplete="email"></div>
-      <div class="field"><label>Telefon</label><input id="telefon" type="tel" autocomplete="tel"></div>
-    </div>
-    <div class="row">
-      <div class="field"><label>Počet osob</label><input id="pocet" type="number" min="1" value="1" onchange="prepocet()" oninput="prepocet()"></div>
-      ${menaField}
-    </div>
-    <div class="field"><label>Poznámka (nepovinné)</label><textarea id="poznamka" placeholder="Dotaz, dietní omezení, cokoli…"></textarea></div>
-    <label class="gdpr"><input type="checkbox" id="souhlas"><span>Souhlasím se zpracováním osobních údajů pro účely přihlášky. <a href="/gdpr" target="_blank">Více</a></span></label>
-    <div style="text-align:center"><button class="btn" id="odeslat" onclick="odeslat()">Odeslat přihlášku</button></div>
-  </div>`;
-}
-
-function otevritFormular(){
-  const f=document.getElementById('form-sekce');
-  f.style.display='block'; prepocet();
-  f.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-function prepocet(){
-  if(!AKCE || AKCE.platba_typ==='zdarma'){ const ci=document.getElementById('cena-info'); if(ci) ci.textContent=''; return; }
-  const pocet=Math.max(1,parseInt(document.getElementById('pocet')?.value,10)||1);
-  const menaEl=document.getElementById('mena');
-  const mena = menaEl ? menaEl.value : (AKCE.cena_czk!=null?'czk':'eur');
-  const jed=cenaJednotka(AKCE,mena);
-  if(jed==null) return;
-  const sym=mena==='eur'?'€':'Kč';
-  const txt = AKCE.platba_typ==='na_miste'
-    ? `Cena na místě: ${fmt(jed*pocet)} ${sym}`
-    : `Celkem k platbě: ${fmt(jed*pocet)} ${sym}`;
-  document.getElementById('cena-info').textContent=txt;
-}
-
-async function odeslat(){
-  const err=document.getElementById('form-err'); err.style.display='none';
-  const btn=document.getElementById('odeslat');
-  const data={
-    slug,
-    jmeno:document.getElementById('jmeno').value.trim(),
-    email:document.getElementById('email').value.trim(),
-    telefon:document.getElementById('telefon').value.trim(),
-    pocet_osob:document.getElementById('pocet').value,
-    mena:document.getElementById('mena')?document.getElementById('mena').value:undefined,
-    poznamka:document.getElementById('poznamka').value.trim(),
-    souhlas:document.getElementById('souhlas').checked
-  };
-  if(data.jmeno.length<2){ return chyba('Vyplňte prosím jméno.'); }
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)){ return chyba('Zkontrolujte e-mail.'); }
-  if(!data.souhlas){ return chyba('Potřebujeme souhlas se zpracováním údajů.'); }
-
-  btn.disabled=true; btn.textContent='Odesílám…';
-  try{
-    const r=await fetch('/api/akce-prihlasit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    const out=await r.json();
-    if(!r.ok){ btn.disabled=false; btn.textContent='Odeslat přihlášku'; return chyba(out.error||'Něco se pokazilo.'); }
-    zobrazitDik(out, data);
-  }catch(e){ btn.disabled=false; btn.textContent='Odeslat přihlášku'; chyba('Spojení selhalo, zkuste to prosím znovu.'); }
-  function chyba(m){ err.textContent=m; err.style.display='block'; err.scrollIntoView({behavior:'smooth',block:'center'}); }
-}
-
-function zobrazitDik(out, data){
-  document.getElementById('form-sekce').style.display='none';
-  const cta=document.querySelector('.cta-wrap'); if(cta) cta.style.display='none';
-  const dik=document.getElementById('dik');
-  let platba='';
-  if(out.platba_typ==='online'){
-    const sym=out.mena==='eur'?'€':'Kč';
-    platba=`
-      ${out.qrUrl?`<div class="qr"><img src="${out.qrUrl}" alt="QR platba"></div><div style="font-size:13px;color:var(--muted);margin-bottom:6px">Naskenujte v mobilní bankovní aplikaci</div>`:''}
-      <div class="platba">
-        Částka: <b>${fmt(out.castka)} ${sym}</b><br>
-        Variabilní symbol: <b>${out.vs}</b><br>
-        Potvrzení i platební údaje jsme poslali na <b>${data.email}</b>.
-      </div>`;
-  }else if(out.platba_typ==='na_miste'){
-    const sym=out.mena==='eur'?'€':'Kč';
-    platba=`<div class="platba">${out.castka!=null?`Částku <b>${fmt(out.castka)} ${sym}</b> uhradíte <b>na místě</b>.<br>`:''}Potvrzení jsme poslali na <b>${data.email}</b>.</div>`;
-  }else{
-    platba=`<div class="platba">Potvrzení účasti jsme poslali na <b>${data.email}</b>. Těšíme se na vás 🌿</div>`;
-  }
-  dik.innerHTML=`<h2>Děkujeme za přihlášku!</h2>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--muted)">${AKCE.nazev}</p>
-    ${platba}`;
-  dik.style.display='block';
-  dik.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
 load();
 </script>
 <script defer src="/navstevnost.js"></script>

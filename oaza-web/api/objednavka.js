@@ -130,7 +130,9 @@ export default async function handler(req, res) {
         } else {
           const vm = String(body.vydejni_misto || '').trim().slice(0, 200);
           if (!vm) return res.status(400).json({ error: 'Napiš výdejní místo Zásilkovny.' });
-          packeta_point = { typ: 'vydejni_misto', text: vm }; // po napojení Packeta API doplníme id pobočky
+          const ppId = (body.packeta_id != null && body.packeta_id !== '') ? String(body.packeta_id).trim().slice(0, 40) : null;
+          const ppPsc = body.packeta_psc ? String(body.packeta_psc).replace(/\s+/g, ' ').trim().slice(0, 12) : null;
+          packeta_point = { typ: 'vydejni_misto', text: vm, id: ppId, psc: ppPsc };
         }
       }
     }
@@ -190,9 +192,10 @@ export default async function handler(req, res) {
       const vlozeno = await rest('objednavky', {
         method: 'POST',
         body: JSON.stringify({
-          stav: 'ceka_platba', zpusob_platby: 'qr',
+          stav: 'nova', zpusob_platby: 'qr',
           jmeno, email, telefon, zeme,
           doprava, doprava_cena, adresa, packeta_point,
+          packeta_id: (packeta_point && packeta_point.id) ? packeta_point.id : null,
           polozky, mena, cena_zbozi, cena_celkem, poznamka,
           sleva_kod, sleva_castka,
         }),

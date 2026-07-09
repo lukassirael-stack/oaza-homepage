@@ -43,6 +43,10 @@
   .volba .nadpis{font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
   .volba .pod{color:var(--tlumeny);font-size:.9rem;font-style:italic}
   .pozn-doprava{color:var(--tlumeny);font-size:.9rem;font-style:italic;margin-top:8px}
+  .btn-vybrat{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--zlata);background:#fff;color:var(--namornicka2);border-radius:10px;padding:11px 16px;cursor:pointer;font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;transition:.15s}
+  .btn-vybrat:hover{background:var(--zlata);color:#fff}
+  .packeta-vybrano{margin-top:10px;padding:10px 14px;border-radius:10px;background:#f3f7f1;border:1px solid #cfe0c8;color:var(--namornicka2);font-size:.95rem}
+  .packeta-vybrano b{color:#3f6b46}
 
   .mena-prep{display:inline-flex;border:1px solid var(--linka);border-radius:30px;overflow:hidden;float:right}
   .mena-prep button{border:none;background:transparent;padding:6px 13px;cursor:pointer;font-family:'Cinzel',serif;font-size:.76rem;color:var(--namornicka2)}
@@ -111,12 +115,14 @@
 <footer><div class="wrap">Oáza Adamanthea · <a href="/kontakt">Kontakt</a> · <a href="/gdpr">Ochrana údajů</a></div></footer>
 
 <script src="/kosik.js"></script>
+<script src="https://widget.packeta.com/v6/www/js/library.js"></script>
 <script>
+const PACKETA_API_KEY='54841ac0ac111e66'; // veřejný klíč widgetu (klientská strana)
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let MENA=(localStorage.getItem('oaza_mena')==='eur')?'eur':'czk';
 let SHIP=null; // ceny dopravy ze serveru
-const STAV={zeme:'CZ', doprava:null, sleva:null}; // doprava: 'vydejni_misto' | 'adresa'; sleva: {kod,typ,hodnota}
+const STAV={zeme:'CZ', doprava:null, sleva:null, packetaPoint:null}; // doprava: 'vydejni_misto' | 'adresa'; sleva: {kod,typ,hodnota}
 
 const polozky=()=> (window.Kosik?Kosik.polozky():[]);
 const vseDigital=()=> { const p=polozky(); return p.length>0 && p.every(x=>x.digitalni); };
@@ -210,8 +216,12 @@ function renderFormular(){
           </div>
           <div id="vydejni-pole" style="display:none">
             <div class="pole" style="margin-top:12px"><label>Výdejní místo Zásilkovny</label>
-              <input id="f-vydejni" placeholder="Název nebo adresa pobočky / Z-BOXu">
-              <div class="pozn-doprava">Vyber si pobočku nebo Z-BOX na <a href="https://www.zasilkovna.cz/pobocky" target="_blank" rel="noopener">zasilkovna.cz/pobocky</a> a napiš sem její název nebo adresu — zásilku ti pošleme přesně tam.</div>
+              <button type="button" id="packeta-btn" class="btn-vybrat">📍 Vybrat výdejní místo / Z-BOX</button>
+              <div id="packeta-vybrano" class="packeta-vybrano" style="display:none"></div>
+              <div class="pole" style="margin-top:12px"><label style="font-size:.82rem;text-transform:none;letter-spacing:0">…nebo napiš pobočku ručně (kdyby se mapa nenačetla)</label>
+                <input id="f-vydejni" placeholder="Název nebo adresa pobočky / Z-BOXu">
+              </div>
+              <div class="pozn-doprava">Tlačítko otevře mapu Zásilkovny s vyhledáváním podle obce či PSČ. Pokud se mapa nenačte (třeba kvůli blokování reklam), vyber si pobočku na <a href="https://www.zasilkovna.cz/pobocky" target="_blank" rel="noopener">zasilkovna.cz/pobocky</a> a napiš ji do pole výše.</div>
             </div>
           </div>
         </div>
@@ -271,6 +281,12 @@ function renderFormular(){
 
   $('#odeslat').onclick=odeslat;
 
+  // Zásilkovna widget: výběr pobočky + ruční fallback
+  const pb=$('#packeta-btn'); if(pb) pb.onclick=otevritPacketu;
+  const vf=$('#f-vydejni'); if(vf) vf.addEventListener('input',()=>{ // ruční úprava ruší vybranou pobočku z widgetu (aby ID nesedělo k jinému textu)
+    if(STAV.packetaPoint){ STAV.packetaPoint=null; const d=$('#packeta-vybrano'); if(d) d.style.display='none'; }
+  });
+
   // slevový kód
   const kb=$('#kod-pouzit'); if(kb) kb.onclick=overitKod;
   const ki=$('#f-slevakod'); if(ki) ki.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); overitKod(); } });
@@ -279,6 +295,27 @@ function renderFormular(){
 }
 
 function syncMena(){ document.querySelectorAll('#mena-prep button').forEach(b=>b.classList.toggle('akt',b.dataset.m===MENA)); }
+
+function otevritPacketu(){
+  $('#chyba').style.display='none';
+  if(!(window.Packeta && Packeta.Widget && typeof Packeta.Widget.pick==='function')){
+    // widget se nenačetl (nejčastěji kvůli blokování reklam) → nasměruj na ruční pole
+    const vf=$('#f-vydejni'); if(vf) vf.focus();
+    return chyba('Mapu Zásilkovny se nepodařilo načíst (možná ji blokuje rozšíření prohlížeče). Napiš prosím pobočku ručně do pole níže.');
+  }
+  const opts={ language:'cs', country:(STAV.zeme||'CZ').toLowerCase() };
+  Packeta.Widget.pick(PACKETA_API_KEY, function(point){
+    if(!point) return; // zavřeno bez výběru
+    STAV.packetaPoint=point;
+    const nazev=point.name||'';
+    const psc=point.zip?String(point.zip).replace(/\s+/g,' ').trim():'';
+    const adr=[point.street, psc, point.city].filter(Boolean).join(', ');
+    const text=point.formatedValue || [nazev,adr].filter(Boolean).join(' · ') || nazev;
+    const vf=$('#f-vydejni'); if(vf) vf.value=text; // programové nastavení nespustí 'input', takže vybraný bod zůstane
+    const d=$('#packeta-vybrano');
+    if(d){ d.style.display='block'; d.innerHTML='✓ Vybráno: <b>'+esc(nazev||text)+'</b>'+(adr?('<br>'+esc(adr)):''); }
+  }, opts);
+}
 
 function renderSouhrn(){
   $('#souhrn-polozky').innerHTML = polozky().map(p=>`<div class="souhrn-pol"><span class="n">${esc(p.nazev)}${p.digitalni?' · digitální':''}</span><span class="c">${fmt(cenaPol(p))}</span></div>`).join('');
@@ -339,6 +376,8 @@ async function odeslat(){
         jmeno,email,telefon, zeme:STAV.zeme,
         doprava: dig?null:STAV.doprava, adresa,
         vydejni_misto: vydejni, podaci_kod: podaciKod,
+        packeta_id: (STAV.doprava==='vydejni_misto' && STAV.packetaPoint) ? STAV.packetaPoint.id : null,
+        packeta_psc: (STAV.doprava==='vydejni_misto' && STAV.packetaPoint && STAV.packetaPoint.zip) ? String(STAV.packetaPoint.zip).replace(/\s+/g,' ').trim() : null,
         polozky: polozky().map(p=>({slug:p.slug})),
         mena: MENA==='eur'?'EUR':'CZK',
         poznamka: $('#f-poznamka').value.trim(),

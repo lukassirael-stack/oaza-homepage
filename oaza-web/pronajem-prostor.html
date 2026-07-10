@@ -183,7 +183,7 @@ section:nth-of-type(even){background:var(--cream-warm);}
 }
 .room-inner{
   border:1px solid var(--gold);border-radius:5px;padding:30px 28px;height:100%;
-  position:relative;
+  position:relative;display:flex;flex-direction:column;
 }
 .room-inner::before{
   content:"";position:absolute;inset:6px;border:1px solid rgba(201,161,74,.35);
@@ -194,6 +194,8 @@ section:nth-of-type(even){background:var(--cream-warm);}
 .room h3{font-size:1.2rem;letter-spacing:.03em;margin-bottom:.3rem;}
 .room .energy{font-style:italic;color:var(--gold-deep);margin:.7rem 0 0;}
 .room p{margin:.5rem 0 0;}
+.room-cta{margin-top:auto;padding-top:22px;}
+.room-cta .btn{display:block;width:100%;text-align:center;}
 
 /* ---------- Reasons ---------- */
 .reasons{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;max-width:880px;margin:0 auto;}
@@ -449,6 +451,7 @@ html{scroll-behavior:smooth;}
         <h3>Pokoj Zen</h3>
         <p>Čistota a ticho mysli, spojení se Zemí. Jednoduchost a minimalismus pro hluboké ztišení a návrat do přítomného okamžiku.</p>
         <p class="energy">Kapacita: 2× jednolůžko · Energie: klid, spočinutí, ticho</p>
+        <div class="room-cta"><a class="btn btn-gold" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Pokoj%20Zen&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Pokoj%20Zen%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Rezervovat termín →</a></div>
       </div></div>
 
       <div class="room"><div class="room-inner">
@@ -457,6 +460,7 @@ html{scroll-behavior:smooth;}
         <h3>Egyptský pokoj</h3>
         <p>Mystika a vnitřní síla. Přenese vás do země pyramid a pradávné moudrosti.</p>
         <p class="energy">Kapacita: dvoulůžko · Energie: uzemnění, pevnost, sebevědomí, intuice</p>
+        <div class="room-cta"><a class="btn btn-gold" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Egyptsk%C3%BD%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Egyptsk%C3%BD%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Rezervovat termín →</a></div>
       </div></div>
 
       <div class="room"><div class="room-inner">
@@ -465,6 +469,7 @@ html{scroll-behavior:smooth;}
         <h3>Andělský pokoj</h3>
         <p>Jemnost, světelná ochrana a bezpečí. Oáza jemnosti a světla — bezpečný přístav pro jemné duše a klidný spánek.</p>
         <p class="energy">Kapacita: 1× jednolůžko · Energie: čistota, bezpečí, světelná péče</p>
+        <div class="room-cta"><a class="btn btn-gold" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20And%C4%9Blsk%C3%BD%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28And%C4%9Blsk%C3%BD%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Rezervovat termín →</a></div>
       </div></div>
 
       <div class="room"><div class="room-inner">
@@ -473,6 +478,7 @@ html{scroll-behavior:smooth;}
         <h3>Boho pokoj</h3>
         <p>Oslava svobody, inspirace, kreativity i hojnosti.</p>
         <p class="energy">Kapacita: dvoulůžko + jednolůžko (2 osoby) · Energie: opečování, volnost, tvůrčí flow</p>
+        <div class="room-cta"><a class="btn btn-gold" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Boho%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Boho%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Rezervovat termín →</a></div>
       </div></div>
     </div>
 

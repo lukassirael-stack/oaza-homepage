@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Přijeďte na pobyt | Oáza Adamanthea</title>
+<meta name="description" content="Přijeďte na pobyt do Oázy Adamanthea — vyberte si mezi Pobytem ve světle v lesní chatce a soukromými tematickými pokoji. Klid a čistá energie v srdci Moravy.">
+<link rel="canonical" href="https://oaza-adamanthea.cz/pobyt">
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/oaza-adamanthea-favicon-192.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Oáza Adamanthea">
+<meta property="og:title" content="Přijeďte na pobyt | Oáza Adamanthea">
+<meta property="og:description" content="Vyberte si, jak chcete v Oáze spočinout — Pobyt ve světle nebo soukromé tematické pokoje.">
+<meta property="og:url" content="https://oaza-adamanthea.cz/pobyt">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73ord4iYl.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73oTd4g.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-htM8Efs.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-iNM8.woff2">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --gold:#c9a14a;
+  --gold-deep:#9a7628;
+  --ink:#4a3942;
+  --ink-soft:#6b4a55;
+  --cream:#faf6ee;
+  --cream-warm:#f4ead8;
+  --line:#e7dcc8;
+  --shadow:0 18px 50px -28px rgba(74,57,66,.35);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink-soft);
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:1.18rem;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:"Cinzel",serif;color:var(--ink);font-weight:600;line-height:1.25;margin:0;letter-spacing:.02em;}
+a{color:inherit;}
+img{max-width:100%;display:block;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+/* ---------- Eyebrow ---------- */
+.eyebrow{
+  font-family:"Jost",sans-serif;
+  font-weight:500;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-size:.78rem;
+  color:var(--gold-deep);
+  margin:0 0 .7rem;
+}
+
+/* ---------- Navigation (sjednoceno s webem) ---------- */
+nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px;background:linear-gradient(180deg,rgba(12,18,10,.55) 0%,rgba(12,18,10,.25) 55%,rgba(12,18,10,0) 100%)}
+nav .menu{display:flex;gap:26px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;text-shadow:0 1px 8px rgba(0,0,0,.55);font-family:'Jost',sans-serif;color:#fdfaf5}
+.jen-mobil{display:none}
+nav .menu a{position:relative;padding-bottom:3px;color:#fdfaf5;text-decoration:none}
+nav .menu a::after{display:none}
+nav .menu a:hover::after{width:100%}
+nav .menu a.aktivni::after{width:100%}
+nav .menu a:hover{color:#fdeecb}nav .menu a.aktivni{color:#dcb878;font-weight:500}
+.nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
+nav .nav-home{margin-right:auto;display:flex;align-items:center;color:#fdfaf5;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:color .25s}
+nav .nav-home:hover{color:#d8bd83}
+nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px;display:inline-block;background:#b06a6c;color:#fdfaf5;border-radius:6px;text-decoration:none;transition:background .25s}
+nav .btn:hover{background:#9c585a}
+@media(max-width:900px){
+  nav{padding:20px 22px;gap:20px}
+  nav .menu{display:none;position:fixed;inset:0;background:#15221a;flex-direction:column;padding:96px 28px 40px;gap:0;text-align:left;z-index:50;overflow-y:auto}
+  nav .menu.open{display:flex}
+  nav .menu a{font-size:25px;color:#f3efe5;padding:21px 4px;border-bottom:1px solid rgba(243,239,229,.14)}
+  nav .menu a::after{display:none}
+  .jen-mobil{display:block}
+  .nav-toggle{display:block;position:relative;z-index:60}
+  nav .btn:not(.jen-mobil){display:none}
+}
+
+/* ---------- Hero ---------- */
+.oa-hero{
+  position:relative;overflow:hidden;text-align:center;
+  padding:112px 24px 104px;
+  background:
+    url('/img/shalla.jpg') center 42%/cover no-repeat;
+}
+/* jemná zlatá záře za portálem */
+.oa-hero::after{
+  content:"";position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+  width:720px;height:720px;max-width:128%;
+  background:radial-gradient(circle, rgba(201,161,74,.20), transparent 60%);
+  pointer-events:none;z-index:1;
+}
+.oa-hero .portal{
+  position:relative;z-index:2;max-width:600px;margin:0 auto;
+  background:rgba(252,249,243,.9);backdrop-filter:blur(4px);
+  border:1px solid var(--gold);
+  border-radius:150px 150px 12px 12px;
+  padding:62px 48px 48px;
+  box-shadow:0 32px 74px -34px rgba(74,57,66,.6);
+}
+.oa-hero .portal::before{
+  content:"";position:absolute;inset:11px;
+  border:1px solid rgba(201,161,74,.42);
+  border-radius:140px 140px 7px 7px;pointer-events:none;
+}
+/* zlatý klenák na vrcholu oblouku */
+.oa-hero .keystone{
+  position:absolute;top:-16px;left:50%;transform:translateX(-50%) rotate(45deg);
+  width:30px;height:30px;background:var(--cream);
+  border:1px solid var(--gold);
+  box-shadow:0 8px 18px -9px rgba(154,118,40,.65);
+}
+.oa-hero .keystone::after{
+  content:"";position:absolute;inset:5px;border:1px solid rgba(201,161,74,.55);
+}
+.oa-hero h1{font-family:"Cinzel",serif;font-weight:600;font-size:clamp(2.2rem,5.6vw,3.3rem);letter-spacing:.06em;color:var(--ink);margin:.1rem 0 .55rem;}
+.oa-hero .lead{font-size:1.3rem;font-style:italic;color:var(--ink-soft);margin:0 auto;max-width:32ch;display:inline-block;padding:.5em 1.8em;background:radial-gradient(ellipse at center, rgba(0,0,0,.22), rgba(0,0,0,0) 70%);}
+/* ornamentální oddělovač */
+.oa-hero .divider{display:flex;align-items:center;justify-content:center;gap:16px;margin:1.5rem auto 1.1rem;color:var(--gold);}
+.oa-hero .divider::before,.oa-hero .divider::after{content:"";height:1px;width:62px;}
+.oa-hero .divider::before{background:linear-gradient(90deg,transparent,var(--gold));}
+.oa-hero .divider::after{background:linear-gradient(90deg,var(--gold),transparent);}
+.oa-hero .divider span{font-size:.9rem;letter-spacing:.2em;}
+.oa-hero .offer{
+  margin:0 auto;max-width:38ch;
+  font-family:"Jost",sans-serif;font-weight:400;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold-deep);font-size:.78rem;line-height:2;
+}
+
+/* ---------- Sections ---------- */
+section{padding:66px 0;}
+section:nth-of-type(even){background:var(--cream-warm);}
+.sec-head{text-align:center;max-width:46ch;margin:0 auto 44px;}
+.sec-head h2{font-size:clamp(1.8rem,3.8vw,2.5rem);letter-spacing:.03em;margin-bottom:.5rem;}
+.sec-head p{margin:.4rem 0 0;}
+.intro{max-width:60ch;margin:0 auto 40px;text-align:center;}
+
+/* ---------- Cards ---------- */
+.grid{display:grid;gap:28px;}
+.grid.two{grid-template-columns:repeat(2,1fr);}
+.grid.rooms{grid-template-columns:repeat(2,1fr);}
+@media(max-width:760px){.grid.two,.grid.rooms{grid-template-columns:1fr;}}
+
+.card{
+  background:#fffdf8;border:1px solid var(--line);border-radius:8px;
+  padding:34px 30px;box-shadow:var(--shadow);position:relative;
+}
+.card h3{font-size:1.3rem;letter-spacing:.03em;margin-bottom:.35rem;}
+.card-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;margin-bottom:20px;display:block;box-shadow:0 8px 20px -14px rgba(74,57,66,.5);}
+.wide-photo{width:100%;aspect-ratio:16/7;max-height:460px;object-fit:cover;object-position:center;border-radius:8px;display:block;box-shadow:var(--shadow);}
+.photo-cap{text-align:center;font-style:italic;font-size:1rem;color:var(--ink-soft);opacity:.85;margin:10px 0 0;}
+.card .tag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.12rem;color:var(--gold-deep);margin:0 0 1rem;}
+.card ul{list-style:none;margin:1rem 0 0;padding:0;}
+.card ul li{position:relative;padding:5px 0 5px 26px;border-bottom:1px dashed var(--line);}
+.card ul li:last-child{border-bottom:none;}
+.card ul li::before{content:"◈";position:absolute;left:0;top:5px;color:var(--gold);font-size:.85rem;}
+
+/* room card — double gold frame signature */
+.room{
+  background:#fffdf8;border-radius:8px;padding:6px;
+  box-shadow:var(--shadow);
+  background-image:linear-gradient(#fffdf8,#fffdf8);
+}
+.room-inner{
+  border:1px solid var(--gold);border-radius:5px;padding:30px 28px;height:100%;
+  position:relative;
+}
+.room-inner::before{
+  content:"";position:absolute;inset:6px;border:1px solid rgba(201,161,74,.35);
+  border-radius:3px;pointer-events:none;
+}
+.room-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;margin-bottom:18px;display:block;box-shadow:0 8px 20px -14px rgba(74,57,66,.5);}
+.room .glyph{font-size:1.9rem;line-height:1;margin-bottom:.5rem;}
+.room h3{font-size:1.2rem;letter-spacing:.03em;margin-bottom:.3rem;}
+.room .energy{font-style:italic;color:var(--gold-deep);margin:.7rem 0 0;}
+.room p{margin:.5rem 0 0;}
+
+/* ---------- Reasons ---------- */
+.reasons{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;max-width:880px;margin:0 auto;}
+@media(max-width:680px){.reasons{grid-template-columns:1fr;}}
+.reason{padding:22px 24px;border-left:2px solid var(--gold);background:rgba(255,253,248,.6);}
+.reason h4{font-size:1.05rem;letter-spacing:.03em;margin-bottom:.4rem;color:var(--gold-deep);}
+.reason p{margin:0;}
+
+/* ---------- Price list ---------- */
+.prices{max-width:760px;margin:40px auto 0;background:#fffdf8;border:1px solid var(--line);border-radius:8px;padding:14px 30px;box-shadow:var(--shadow);}
+.prices .row{display:flex;justify-content:space-between;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:baseline;}
+.prices .row:last-child{border-bottom:none;}
+.prices .row .name{flex:1;}
+.prices .row .name small{display:block;font-size:.9rem;color:var(--ink-soft);opacity:.8;font-style:italic;}
+.prices .row .amount{font-family:"Jost",sans-serif;font-weight:500;color:var(--gold-deep);font-size:1.02rem;white-space:nowrap;text-align:right;}
+.prices .note{font-size:1rem;font-style:italic;text-align:center;padding-top:14px;color:var(--ink-soft);}
+
+/* ---------- Lists & quote ---------- */
+.softlist{max-width:60ch;margin:0 auto;list-style:none;padding:0;}
+.softlist li{position:relative;padding:9px 0 9px 30px;border-bottom:1px solid var(--line);}
+.softlist li:last-child{border-bottom:none;}
+.softlist li::before{content:"✦";position:absolute;left:0;top:9px;color:var(--gold);}
+.softlist strong{color:var(--ink);font-family:"Jost",sans-serif;font-weight:500;}
+
+.quote{max-width:50ch;margin:40px auto 0;text-align:center;font-size:1.32rem;font-style:italic;color:var(--ink);}
+.quote::before,.quote::after{content:"❦";display:block;color:var(--gold);font-style:normal;font-size:1.1rem;margin:.4rem 0;}
+
+/* ---------- CTA ---------- */
+.cta-band{text-align:center;margin-top:48px;}
+.btn{
+  display:inline-block;text-decoration:none;
+  font-family:"Jost",sans-serif;font-weight:500;letter-spacing:.08em;font-size:.95rem;
+  padding:14px 34px;border-radius:4px;margin:6px;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.btn-gold{background:var(--gold-deep);color:#fff;box-shadow:0 10px 24px -12px rgba(154,118,40,.7);}
+.btn-gold:hover{transform:translateY(-2px);}
+.btn-ghost{border:1px solid var(--gold);color:var(--gold-deep);}
+/* ---------- rozcestník služeb ---------- */
+html{scroll-behavior:smooth;}
+#retreat,#soukromy-pobyt{scroll-margin-top:0;}
+.choose{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:780px;margin:1.6rem auto 0;}
+.choose-card{display:flex;flex-direction:column;text-decoration:none;background:var(--cream);border:1px solid var(--line);border-radius:13px;padding:28px 24px;text-align:center;color:var(--ink);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;}
+.choose-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px -18px rgba(74,57,66,.55);border-color:var(--gold);}
+.choose-ico{font-size:1.9rem;color:var(--gold);line-height:1;margin-bottom:.55rem;}
+.choose-card h3{font-size:1.32rem;letter-spacing:.03em;margin-bottom:.5rem;}
+.choose-card p{font-family:"Cormorant Garamond",serif;font-size:1.08rem;line-height:1.5;color:var(--ink);opacity:.85;margin:0 0 1.1rem;flex:1;}
+.choose-go{font-family:"Jost",sans-serif;font-weight:500;font-size:.84rem;letter-spacing:.07em;color:var(--gold-deep);}
+@media(max-width:600px){.choose{grid-template-columns:1fr;gap:14px;}}
+.btn-ghost:hover{background:rgba(201,161,74,.1);}
+
+/* ---------- Rules ---------- */
+.rules{max-width:62ch;margin:0 auto;}
+.rules .r{padding:18px 0;border-bottom:1px solid var(--line);}
+.rules .r:last-child{border-bottom:none;}
+.rules .r strong{font-family:"Jost",sans-serif;font-weight:500;letter-spacing:.02em;color:var(--ink);display:block;margin-bottom:.3rem;}
+
+.place{max-width:58ch;margin:40px auto 0;text-align:center;font-style:italic;}
+
+/* ---------- Footer ---------- */
+.oa-footer{background:var(--cream-warm);border-top:1px solid var(--gold);padding:50px 24px 30px;text-align:center;}
+.oa-footer .fbrand{font-family:"Cinzel",serif;font-weight:600;font-size:1.25rem;color:var(--ink);letter-spacing:.06em;}
+.oa-footer .fcontact{margin:14px 0;}
+.oa-footer a{color:var(--gold-deep);text-decoration:none;}
+.oa-footer a:hover{text-decoration:underline;}
+.oa-footer .fsocial{margin:18px 0;display:flex;gap:18px;justify-content:center;}
+.oa-footer .fsocial a{font-family:"Jost",sans-serif;font-weight:500;letter-spacing:.06em;font-size:.95rem;}
+.oa-footer-note{font-size:.95rem;color:var(--ink-soft);opacity:.85;margin-top:18px;line-height:1.5;}
+.oa-footer-note a{text-decoration:underline;}
+
+  /* ===== Hero: odlehčený portál – fotka dominuje, text se stínem ===== */
+  .hero,.oa-hero{position:relative;}
+  /* žádné ztmavení fotky – čitelnost řeší jen stín textu */
+  .hero .portal,.oa-hero .portal{
+    position:relative;z-index:2;
+    background:transparent !important;backdrop-filter:none !important;
+    border-color:transparent !important;box-shadow:none !important;
+  }
+  .hero .portal::before,.oa-hero .portal::before{display:none !important;}
+  .hero h1,.oa-hero h1{
+    color:#fff !important;
+    text-shadow:0 1px 2px rgba(0,0,0,.85),0 2px 10px rgba(0,0,0,.7),0 0 28px rgba(0,0,0,.45) !important;
+  }
+  .hero .eyebrow,.oa-hero .eyebrow{
+    color:#fff !important;opacity:.95;
+    text-shadow:0 1px 2px rgba(0,0,0,.9),0 1px 8px rgba(0,0,0,.65) !important;
+  }
+  .hero .lead,.oa-hero .lead,.oa-hero .offer{
+    color:#fff !important;
+    text-shadow:0 1px 2px rgba(0,0,0,.85),0 1px 10px rgba(0,0,0,.6) !important;
+  }
+  .hero .rule,.oa-hero .divider span,.oa-hero .keystone{filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));}
+
+.price-kind{font-family:'Jost',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;color:var(--gold-deep);text-align:center;margin:2px 0 16px}
+</style>
+  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:image" content="https://oaza-adamanthea.cz/img/og-nahled.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+</head>
+<body>
+
+<!-- ===== NAVIGATION (sjednoceno s webem) ===== -->
+<nav>
+  <a class="nav-home" href="/" aria-label="Domů — hlavní stránka"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></a>
+  <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+  <div class="menu" id="menu">
+    <a href="/portalova-zahrada">Portálová zahrada</a>
+    <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+    <a href="/akce">Akce</a>
+    <a href="/nabidka-sluzeb">Služby</a>
+    <a href="/pronajem-prostor">Pronájem</a>
+    <a href="/bali-shop">E-shop</a>
+    <a href="/o-nas">O nás</a>
+    <a href="/kontakt">Kontakt</a>
+    <a href="/kontakt" class="jen-mobil">Napište nám</a>
+  </div>
+  <a class="btn" href="/kontakt">Napište nám</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="oa-hero" style="background:url('/img/pobyt-1.jpg') center 50%/cover no-repeat;">
+  <div class="portal">
+    <span class="keystone" aria-hidden="true"></span>
+    <p class="eyebrow">✦ Chci přijet ✦</p>
+    <h1>Přijeďte na pobyt</h1>
+    <p class="lead">Vyberte si, jak chcete v Oáze spočinout.</p>
+    <div class="divider" aria-hidden="true"><span>✦</span></div>
+    <p class="offer">Pobyt ve světle · Soukromé pokoje · Klid v srdci Moravy</p>
+  </div>
+</header>
+
+<!-- ===== ROZCESTNÍK POBYTU ===== -->
+<section>
+  <div class="wrap">
+    <p class="intro">V Oáze si můžete dopřát čas jen pro sebe. Ať už toužíte po samotě v lesní chatce, nebo po tichém pokoji pro svůj vnitřní návrat — vyberte si cestu, která vás volá.</p>
+
+    <div class="grid two" style="margin-top:8px">
+
+      <!-- Karta 1 — Pobyt ve světle -->
+      <div class="card">
+        <img class="card-photo" src="/img/pobyt-2.jpg" alt="Balijská boho chatka Pobyt ve světle — terasa s výhledem do lesa" loading="lazy">
+        <h3>Pobyt ve světle</h3>
+        <p class="tag">Lesní chatka jen pro vás — hluboký vnitřní ponor</p>
+        <p>Místo uprostřed lesa, kde na chvíli utichne svět. V balijské boho chatce vás doprovází příroda a mistrovský krystal — prostor pro meditaci, tvoření a hluboký odpočinek.</p>
+        <ul>
+          <li>Soukromí a ticho v srdci přírody</li>
+          <li>Mistrovský krystal pro napojení na sebe</li>
+          <li>Meditace, tvorba i návrat k vlastnímu středu</li>
+        </ul>
+        <div class="cta-band" style="margin-top:26px">
+          <a class="btn btn-gold" href="/pobyt-ve-svetle">Zobrazit Pobyt ve světle →</a>
+        </div>
+      </div>
+
+      <!-- Karta 2 — Pronájem pokoje -->
+      <div class="card">
+        <img class="card-photo" src="/img/pokoj-andelsky.jpg" alt="Tematický pokoj v Oáze — soukromý pobyt pro váš vnitřní návrat" loading="lazy">
+        <h3>Pronájem pokoje</h3>
+        <p class="tag">Andělský · Boho · Egyptský · Zen</p>
+        <p>Tiché tematické pokoje pro váš vnitřní návrat. Nejste tu hostem v hotelu, ale poutníkem ve vlastní krajině — s volným přístupem do Portálové zahrady.</p>
+        <ul>
+          <li>Čtyři pokoje, každý s vlastní energií a atmosférou</li>
+          <li>Soukromý pobyt pro jednotlivce i dvojice</li>
+          <li>Portálová zahrada, meditační pyramida a koupací jezírko</li>
+        </ul>
+        <div class="cta-band" style="margin-top:26px">
+          <a class="btn btn-gold" href="/pronajem-prostor#soukromy-pobyt">Zobrazit pokoje →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="place">Nevíte, co si vybrat? <a href="/kontakt" style="color:var(--gold-deep)">Napište nám</a> a společně najdeme, co vám nejvíc sedne.</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="oa-footer">
+  <div class="fbrand">Oáza Adamanthea</div>
+  <div class="fcontact">
+    Halenkovice, Zlínský kraj ·
+    <a href="tel:+420608828996">+420 608 828 996</a> ·
+    <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>
+  </div>
+  <div class="fsocial">
+    <a href="https://www.facebook.com/groups/1679547508831715" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://instagram.com/oazahalenkovice_healingcenter" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="oa-footer-note">
+    © 2025 Oáza Halenkovice · peace — love — happiness<br>
+    <a href="/gdpr">Ochrana osobních údajů</a>
+  </div>
+</footer>
+
+<script>
+function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}
+
+// Přesné doskočení na kotvy (#...) i po dorovnání layoutu (obrázky/fonty).
+document.addEventListener('click', function(e){
+  var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+  if(!a) return;
+  var id = a.getAttribute('href').slice(1);
+  if(!id) return;
+  var el = document.getElementById(id);
+  if(!el) return;
+  e.preventDefault();
+  var m = document.getElementById('menu');
+  if(m && m.classList.contains('open')){ m.classList.remove('open'); document.body.style.overflow=''; var t=document.querySelector('nav .nav-toggle'); if(t) t.textContent='☰'; }
+  var go = function(){
+    var y = el.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({top: y < 0 ? 0 : y, behavior:'smooth'});
+  };
+  go();
+  setTimeout(go, 500);
+  if(history.replaceState) history.replaceState(null, '', '#'+id);
+});
+</script>
+
+<script defer src="/navstevnost.js"></script>
+</body>
+</html>

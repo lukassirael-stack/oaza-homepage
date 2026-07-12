@@ -10,6 +10,7 @@
 //   set_aktivni   -> publikovat/skrýt (id, aktivni)
 //   prihlasky     -> přihlášky (volitelně akce_id)
 //   mark          -> změň stav platby přihlášky (id, stav_platby)
+//   delete_prihlaska -> trvale smaž přihlášku (id)
 
 const { supaRest, supaUpload, asciiClean, cors } = require('./_lib');
 
@@ -115,6 +116,12 @@ module.exports = async (req, res) => {
       if (!body.id || !stavy.includes(body.stav_platby))
         return res.status(400).json({ error: 'Neplatný stav platby.' });
       await supaRest(`prihlasky_akce?id=eq.${body.id}`, { method: 'PATCH', body: { stav_platby: body.stav_platby } });
+      return res.status(200).json({ ok: true });
+    }
+
+    if (action === 'delete_prihlaska') {
+      if (!body.id) return res.status(400).json({ error: 'Chybí id.' });
+      await supaRest(`prihlasky_akce?id=eq.${body.id}`, { method: 'DELETE' });
       return res.status(200).json({ ok: true });
     }
 

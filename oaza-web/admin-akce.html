@@ -266,11 +266,17 @@ async function nactiPrihlasky(){
         <td>${stavTxt[p.stav_platby]||p.stav_platby}</td>
         <td style="white-space:nowrap">
           ${p.stav_platby!=='zaplaceno'?`<button class="btn sm" onclick='mark("${p.id}","zaplaceno")'>Zaplaceno</button> `:''}
-          ${p.stav_platby!=='zruseno'?`<button class="btn danger sm" onclick='mark("${p.id}","zruseno")'>Zrušit</button>`:''}
+          ${p.stav_platby!=='zruseno'?`<button class="btn danger sm" onclick='mark("${p.id}","zruseno")'>Zrušit</button> `:''}
+          <button class="btn danger sm" onclick='smazatPrihlasku("${p.id}","${(p.jmeno||'').replace(/["'\\]/g,'')}")'>Smazat</button>
         </td></tr>`).join('')+'</tbody></table></div>';
   }catch(e){ flash(e.message,false); }
 }
 async function mark(id,stav_platby){ try{ await api('mark',{id,stav_platby}); flash('Změněno ✓'); nactiPrihlasky(); }catch(e){ flash(e.message,false);} }
+async function smazatPrihlasku(id,jmeno){
+  if(!confirm('Trvale smazat přihlášku od „'+jmeno+'"?\n\nZáznam zmizí z databáze a nelze ho vrátit.')) return;
+  try{ await api('delete_prihlaska',{id}); flash('Přihláška smazána ✓'); nactiPrihlasky(); }
+  catch(e){ flash(e.message,false); }
+}
 
 // auto-login z session
 (function(){ const h=sessionStorage.getItem('oaza_admin'); if(h){ document.getElementById('heslo').value=h; prihlasit(); } })();

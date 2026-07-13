@@ -333,7 +333,7 @@ function render(){
   $('#mrizka').innerHTML=list.map(p=>{
     const f1=p.fotky[0]||'', f2=p.fotky[1]||'';
     const sama=!f2?'sama':'', chybi=!f2?'chybi':'';
-    return `<a class="karta-prod" href="/produkt?slug=${encodeURIComponent(p.slug)}">
+    return `<a class="karta-prod" href="/produkt/${encodeURIComponent(p.slug)}">
       <div class="foto">
         <img class="prvni ${sama}" src="${esc(f1)}" alt="${esc(p.nazev)}" loading="lazy" onerror="this.style.visibility='hidden'">
         <img class="druha ${chybi}" src="${esc(f2||f1)}" alt="" loading="lazy">

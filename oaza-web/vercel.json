@@ -33,7 +33,19 @@
       "permanent": true
     },
     {
-      "source": "/:path((?!img/|api/|favicon|oaza-adamanthea-favicon|robots\\.txt|sitemap\\.xml|index\\.html|pobyt|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|o-nas|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|harmonizace-jmena-a-prijmeni|lemoare-krystaly|spoluprace|vesmirny-kod-zrozeni|akce|admin-akce|gdpr|kontakt|prehled-navstevnosti|zdravi|admin-produkty|import-wix|rehost-fotky|obchod|produkt|pokladna|bali-shop|admin-objednavky|kosik\\.js|navstevnost\\.js).+)",
+      "source": "/produkt",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "(?<slug>.+)"
+        }
+      ],
+      "destination": "/produkt/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/:path((?!img/|api/|favicon|oaza-adamanthea-favicon|robots\\.txt|sitemap\\.xml|sitemap-produkty\\.xml|feed-google\\.xml|feed-zbozi\\.xml|feed-heureka\\.xml|index\\.html|pobyt|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|o-nas|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|harmonizace-jmena-a-prijmeni|lemoare-krystaly|spoluprace|vesmirny-kod-zrozeni|akce|admin-akce|gdpr|kontakt|prehled-navstevnosti|zdravi|admin-produkty|import-wix|rehost-fotky|obchod|produkt|pokladna|bali-shop|admin-objednavky|kosik\\.js|navstevnost\\.js).+)",
       "has": [
         {
           "type": "host",
@@ -66,6 +78,37 @@
         }
       ],
       "destination": "https://rezervace-proxy.vercel.app/api/og?type=produkt"
+    },
+    {
+      "source": "/produkt/:slug",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(Googlebot|Google-InspectionTool|Storebot-Google|bingbot|SeznamBot|DuckDuckBot|Applebot|YandexBot|facebookexternalhit|meta-externalagent|facebookcatalog|Facebot|WhatsApp|Twitterbot|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest).*"
+        }
+      ],
+      "destination": "/api/produkt-render?slug=:slug"
+    },
+    {
+      "source": "/produkt/:slug",
+      "destination": "/produkt"
+    },
+    {
+      "source": "/sitemap-produkty.xml",
+      "destination": "/api/sitemap-produkty"
+    },
+    {
+      "source": "/feed-google.xml",
+      "destination": "/api/feedy?typ=google"
+    },
+    {
+      "source": "/feed-zbozi.xml",
+      "destination": "/api/feedy?typ=zbozi"
+    },
+    {
+      "source": "/feed-heureka.xml",
+      "destination": "/api/feedy?typ=heureka"
     },
     {
       "source": "/akce/:slug",

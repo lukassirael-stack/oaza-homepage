@@ -1,8 +1,10 @@
 User-agent: *
 Allow: /
 
-# Administrační stránky – mimo vyhledávače
+# Administrační a interní stránky – mimo vyhledávače
 Disallow: /admin-akce
 Disallow: /prehled-navstevnosti
+Disallow: /pokladna
 
 Sitemap: https://oaza-adamanthea.cz/sitemap.xml
+Sitemap: https://oaza-adamanthea.cz/sitemap-produkty.xml

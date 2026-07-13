@@ -88,7 +88,7 @@
 const KONTAKT='oaza.adamanthea@gmail.com';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const slug=new URLSearchParams(location.search).get('slug');
+const slug=(()=>{const m=location.pathname.match(/^\/produkt\/([^\/?#]+)/);return m?decodeURIComponent(m[1]):new URLSearchParams(location.search).get('slug');})();
 let MENA=(localStorage.getItem('oaza_mena')==='eur')?'eur':'czk';
 const cenaFmt=p=> MENA==='eur' ? (p.cena_eur||0).toLocaleString('cs-CZ')+' €' : (p.cena||0).toLocaleString('cs-CZ')+' Kč';
 
@@ -102,8 +102,30 @@ async function nacti(){
   }catch(e){$('#obsah').innerHTML='<div class="nacitam">Produkt se nepodařilo načíst.</div>';}
 }
 
+function seoAktualizace(p){
+  const url='https://oaza-adamanthea.cz/produkt/'+encodeURIComponent(p.slug);
+  const desc=((p.popis||'').replace(/\s+/g,' ').trim()||('Ručně vybraný kus z Bali Shopu Oázy Adamanthea — '+p.nazev+'.')).slice(0,158);
+  const set=(sel,attr,val)=>{const el=document.querySelector(sel);if(el)el.setAttribute(attr,val);};
+  set('meta[name="description"]','content',desc);
+  set('link[rel="canonical"]','href',url);
+  set('meta[property="og:title"]','content',p.nazev+' — Oáza Adamanthea');
+  set('meta[property="og:description"]','content',desc);
+  set('meta[property="og:url"]','content',url);
+  if((p.fotky||[])[0])set('meta[property="og:image"]','content',p.fotky[0]);
+  if(!location.pathname.startsWith('/produkt/'))history.replaceState(null,'','/produkt/'+encodeURIComponent(p.slug));
+  const dostupny=(p.stav==='skladem')&&!p.rezervovano;
+  const ld={'@context':'https://schema.org','@type':'Product','name':p.nazev,'image':p.fotky||[],
+    'description':desc,'sku':String(p.id||p.slug),'url':url,
+    'offers':{'@type':'Offer','url':url,'priceCurrency':'CZK','price':String(p.cena||0),
+      'availability':dostupny?'https://schema.org/InStock':'https://schema.org/OutOfStock',
+      'itemCondition':'https://schema.org/NewCondition',
+      'seller':{'@type':'Organization','name':'Oáza Adamanthea'}}};
+  const s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(ld);document.head.appendChild(s);
+}
+
 function render(p){
   document.title=p.nazev+' — Oáza Adamanthea';
+  seoAktualizace(p);
   const fotky=p.fotky||[];
   const kat=(p.kategorie||'').replace(/-/g,' ');
   const vlast=[];
@@ -176,7 +198,7 @@ async function nactiPodobne(p){
     const kat=(p.kategorie||'').replace(/-/g,' ');
     $('#obsah').insertAdjacentHTML('beforeend',
     `<div class="podobne"><span class="eyebrow">Mohlo by se hodit</span><h2>Z kategorie ${esc(kat)}</h2>
-      <div class="pmrizka">${pod.map(x=>`<a class="pkarta" href="/produkt?slug=${encodeURIComponent(x.slug)}">
+      <div class="pmrizka">${pod.map(x=>`<a class="pkarta" href="/produkt/${encodeURIComponent(x.slug)}">
         <div class="pfoto"><img src="${esc(x.fotky[0]||'')}" alt="${esc(x.nazev)}" loading="lazy"></div>
         <h3>${esc(x.nazev)}</h3><div class="pcena">${x.cena.toLocaleString('cs-CZ')} Kč</div></a>`).join('')}</div></div>`);
   }catch(e){}

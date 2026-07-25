@@ -53,8 +53,12 @@
   ],
   "rewrites": [
     {
-      "source": "/product-page/:slug*",
-      "destination": "/api/stary-produkt?slug=:slug*"
+      "source": "/product-page/:slug",
+      "destination": "/api/produkty?stary=:slug"
+    },
+    {
+      "source": "/product-page/:slug/:zbytek*",
+      "destination": "/api/produkty?stary=:slug"
     },
     {
       "source": "/akce/:slug",

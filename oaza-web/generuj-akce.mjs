@@ -32,6 +32,15 @@ const KANDIDATI = [
   join(KOREN, 'oaza-web', 'akce.html')
 ];
 const SOUBOR  = KANDIDATI.find(existsSync);
+
+// titulka: stejná logika hledání jako u akce.html
+const KANDIDATI_INDEX = [
+  join(KOREN, 'index.html'),
+  join(KOREN, 'oaza-web', 'index.html')
+];
+const TITULKA = KANDIDATI_INDEX.find(existsSync);
+const POCET_NA_TITULCE = 3;
+
 const API_URL = 'https://oaza-adamanthea.cz/api/akce-list';
 
 if(!SOUBOR){
@@ -112,6 +121,28 @@ function kartaAkce(a){
 }
 
 /* ------------------------------------------------------------------ */
+/*  Karta pro titulku — musí odpovídat značkování v index.html         */
+/*  a tomu, co po načtení dokresluje JavaScript na stránce.            */
+/* ------------------------------------------------------------------ */
+
+const SIPKA = '<svg width="18" height="12" viewBox="0 0 18 12" fill="none">'
+            + '<path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>';
+
+function kartaTitulka(a){
+  const foto = a.obrazek_url
+    ? `<img class="akce-foto" src="${esc(a.obrazek_url)}" alt="${esc(a.nazev)}" loading="lazy">`
+    : `<div class="akce-foto" style="display:flex;align-items:center;justify-content:center;background:#efe4cd;color:#9a7628;font-family:Cinzel,serif;letter-spacing:2px">OÁZA</div>`;
+  return `<article class="akce-card">${foto}
+      <div class="akce-body">
+        ${a.datum_text ? `<p class="datum">${esc(a.datum_text)}</p>` : ''}
+        <h3>${esc(a.nazev || '')}</h3>
+        <p>${esc(zkrat(a.popis, 105))}</p>
+        <a class="vice" href="/akce/${encodeURIComponent(a.slug)}">Více o akci ${SIPKA}</a>
+      </div>
+    </article>`;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Samoinstalace: při prvním běhu vloží značky do akce.html           */
 /* ------------------------------------------------------------------ */
 
@@ -160,9 +191,19 @@ function pripravSoubor(html){
 /*  Hlavní běh                                                         */
 /* ------------------------------------------------------------------ */
 
+function nahradMeziZnackami(html, start, konec, obsah, kde){
+  const i = html.indexOf(start);
+  const j = html.indexOf(konec);
+  if(i === -1 || j === -1 || j < i){
+    throw new Error(`Značky ${start} / ${konec} se v ${kde} nepodařilo najít — nic nebylo zapsáno.`);
+  }
+  return html.slice(0, i + start.length) + '\n' + obsah + '\n' + html.slice(j);
+}
+
 const akce = await nactiAkce();
 console.log(`Načteno ${akce.length} akcí.`);
 
+/* --- /akce ---------------------------------------------------------- */
 let html = readFileSync(SOUBOR, 'utf8');
 html = pripravSoubor(html);
 
@@ -170,14 +211,31 @@ const grid = akce.length
   ? akce.map(kartaAkce).join('\n      ')
   : `<div class="empty">Zatím nejsou vypsané žádné akce. Sledujte nás na Facebooku a Instagramu. 🌿</div>`;
 
-const start = '<!-- AKCE:START -->';
-const konec = '<!-- AKCE:END -->';
-const i = html.indexOf(start);
-const j = html.indexOf(konec);
-if(i === -1 || j === -1 || j < i){
-  throw new Error('Značky v akce.html se nepodařilo najít — nic nebylo zapsáno.');
-}
-html = html.slice(0, i + start.length) + '\n' + grid + '\n' + html.slice(j);
+html = nahradMeziZnackami(html, '<!-- AKCE:START -->', '<!-- AKCE:END -->', grid, 'akce.html');
 
+/* --- titulka -------------------------------------------------------- */
+// API už proběhlé akce nevrací, takže bereme prostě první tři.
+// Zrušené na titulku nepatří — ty ať si člověk najde v kalendáři.
+let htmlTitulka = null;
+if(TITULKA){
+  const nejblizsi = akce.filter(a => a.stav !== 'zrusena').slice(0, POCET_NA_TITULCE);
+  const karty = nejblizsi.length
+    ? nejblizsi.map(kartaTitulka).join('\n\n    ')
+    : `<p class="datum" style="text-align:center;grid-column:1/-1">Právě chystáme další setkání. Sledujte nás na Facebooku a Instagramu. 🌿</p>`;
+  htmlTitulka = nahradMeziZnackami(
+    readFileSync(TITULKA, 'utf8'),
+    '<!-- AKCE-TITULKA:START -->', '<!-- AKCE-TITULKA:END -->',
+    karty, 'index.html'
+  );
+}
+
+/* --- zápis až na konci: když cokoli selže, nezmění se nic ----------- */
 writeFileSync(SOUBOR, html);
-console.log(`✓ Zapečeno ${akce.length} akcí do oaza-web/akce.html. Hotovo.`);
+console.log(`✓ Zapečeno ${akce.length} akcí do akce.html.`);
+if(htmlTitulka){
+  writeFileSync(TITULKA, htmlTitulka);
+  console.log(`✓ Zapečeny nejbližší akce (max ${POCET_NA_TITULCE}) do index.html.`);
+} else {
+  console.warn('! index.html jsem nenašel — titulka nebyla aktualizována.');
+}
+console.log('Hotovo.');

@@ -1,10 +1,50 @@
 // api/produkty.js — veřejné API katalogu (jen čtení). Klíč zůstává na serveru.
 // GET /api/produkty         → seznam dostupných produktů (bez popisů) + kategorie
 // GET /api/produkty?slug=X  → jeden produkt v plném detailu
+// GET /api/produkty?stary=X → stará wixová adresa /product-page/X, přesměruje na nový produkt
+//
+// Poznámka: přesměrování starých adres tu sedí jako přívažek proto, že Hobby plán
+// Vercelu dovolí jen 12 Serverless Functions a jsme na hraně. Vlastní soubor by nasazení shodil.
 
 export default async function handler(req, res) {
   const URL = process.env.SUPABASE_URL;
   const KEY = process.env.SUPABASE_SERVICE_KEY;
+
+  // --- staré wixové adresy ------------------------------------------------
+  // Ať se stane cokoli, návštěvník skončí v obchodě, ne na chybové stránce.
+  if (req.query && req.query.stary != null) {
+    const naObchod = () => {
+      res.setHeader('Cache-Control', 'public, max-age=300');
+      res.writeHead(302, { Location: '/bali-shop' });
+      return res.end();
+    };
+    try {
+      if (!URL || !KEY) return naObchod();
+
+      let stary = req.query.stary;
+      if (Array.isArray(stary)) stary = stary.join('-');
+      try { stary = decodeURIComponent(stary); } catch { /* ponecháme jak přišlo */ }
+      stary = String(stary).trim();
+      if (stary.length < 6) return naObchod();
+
+      const r = await fetch(`${URL}/rest/v1/rpc/najdi_stary_produkt`, {
+        method: 'POST',
+        headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ p_slug: stary }),
+      });
+      if (!r.ok) return naObchod();
+
+      const nalezeny = await r.json();
+      if (!nalezeny || typeof nalezeny !== 'string') return naObchod();
+
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+      res.writeHead(301, { Location: `/produkt/${encodeURIComponent(nalezeny)}` });
+      return res.end();
+    } catch {
+      return naObchod();
+    }
+  }
+
   if (!URL || !KEY) return res.status(500).json({ error: 'Chybí SUPABASE_URL / SUPABASE_SERVICE_KEY.' });
 
   async function rest(path) {

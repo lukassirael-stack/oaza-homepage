@@ -55,25 +55,25 @@ header{text-align:center;padding:1.4rem 1.2rem 1.2rem}
    všechno ostatní začíná až pod ním. Prstenec tak nikdy neprotne text. */
 .kruhBlok{
   position:relative;isolation:isolate;margin:0 auto;
-  height:clamp(250px,34vw,340px);
+  height:clamp(300px,40vw,400px);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;
 }
 /* Kruh je větší než rezervovaný blok a smí přes něj měkce přetékat —
    prstenec tak obejme i široký nadpis, aniž by hlavička narostla do výšky. */
 .kruhBlok::before{
   content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:clamp(500px,86vw,820px);aspect-ratio:1;z-index:-1;pointer-events:none;
+  width:clamp(460px,80vw,730px);aspect-ratio:1;z-index:-1;pointer-events:none;
   background:url("https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp") center/contain no-repeat;
   /* spodní záře se rozpustí, aby nevymývala odstavec pod kruhem */
-  -webkit-mask-image:linear-gradient(to bottom,#000 72%,rgba(0,0,0,.45) 88%,transparent 100%);
-  mask-image:linear-gradient(to bottom,#000 72%,rgba(0,0,0,.45) 88%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 52%,rgba(0,0,0,.5) 74%,rgba(0,0,0,.12) 88%,transparent 97%);
+  mask-image:linear-gradient(to bottom,#000 52%,rgba(0,0,0,.5) 74%,rgba(0,0,0,.12) 88%,transparent 97%);
 }
 /* texty uvnitř záře potřebují víc kontrastu */
 .kruhBlok .znacka{color:#6f5522}
 .kruhBlok .podtitul{color:#4e6156}
 @media(max-width:560px){
-  .kruhBlok{height:min(52vw,270px)}
-  .kruhBlok::before{width:min(112vw,540px)}
+  .kruhBlok{height:min(66vw,330px)}
+  .kruhBlok::before{width:min(104vw,500px)}
 }
 .znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
 h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3rem);letter-spacing:.09em;margin:.7rem 0 .45rem}
@@ -168,8 +168,8 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 }
 .cena{
   font-family:'Cinzel',serif;font-size:2.7rem;letter-spacing:.02em;line-height:1.15;
-  background:linear-gradient(100deg,#a8813a 0%,#e6c67f 34%,#fff4d9 50%,#e0bd72 64%,#a8813a 100%);
-  background-size:220% 100%;
+  background:linear-gradient(100deg,#8a6626 0%,#a8813a 30%,#c9a14a 50%,#a8813a 70%,#8a6626 100%);
+  background-size:230% 100%;
   -webkit-background-clip:text;background-clip:text;color:transparent;
   animation:lesknuti 7s ease-in-out infinite;
 }

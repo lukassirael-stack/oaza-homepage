@@ -210,17 +210,51 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 .krok p{color:var(--sed);font-size:1rem}
 
 .platba{
-  display:flex;gap:1.8rem;align-items:center;justify-content:center;flex-wrap:wrap;
-  border-radius:16px;padding:1.5rem;margin-top:1.4rem;
-  background-image:linear-gradient(163deg,rgba(255,255,255,.95) 0%,transparent 70%);
-  background-color:var(--plocha);
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  border:1px solid var(--linka);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 16px 32px -22px rgba(29,59,48,.4);
+  position:relative;isolation:isolate;
+  display:flex;gap:2rem;align-items:center;justify-content:center;flex-wrap:wrap;
+  border-radius:20px;padding:1.9rem 1.7rem;margin-top:1.8rem;
+  background-image:
+    radial-gradient(120% 85% at 50% -12%, rgba(240,217,164,.42) 0%, rgba(255,253,247,0) 64%),
+    linear-gradient(163deg,rgba(255,255,255,.97) 0%,rgba(255,252,243,.8) 45%,rgba(255,249,236,.62) 100%);
+  background-color:rgba(255,253,247,.86);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 -24px 44px -34px rgba(201,161,74,.45),
+    0 26px 52px -30px rgba(29,59,48,.4),
+    0 0 52px -16px rgba(201,161,74,.28);
 }
-.platba img{width:176px;height:176px;border-radius:10px;background:#fff;padding:6px}
-.platba .udaje{font-size:1rem;line-height:1.85}
-.platba .udaje b{font-family:'Jost',sans-serif;font-weight:500;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sed);display:block}
+.platba::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;z-index:-1;
+  background:linear-gradient(150deg,#f4e2b8,#c9a14a 32%,#f7ecd2 55%,#b8903f 78%,#f4e2b8);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+}
+/* QR v zlatém rámečku se září — ať nepůsobí jako nalepený obrázek */
+.platba .qr{position:relative;flex:none}
+.platba .qr::after{
+  content:"";position:absolute;inset:-14px;z-index:-1;border-radius:22px;
+  background:radial-gradient(closest-side,rgba(240,217,164,.6),rgba(240,217,164,0) 74%);
+}
+.platba img{
+  display:block;width:176px;height:176px;border-radius:14px;background:#fff;padding:9px;
+  border:1px solid rgba(201,161,74,.45);
+  box-shadow:0 12px 26px -16px rgba(29,59,48,.4), inset 0 1px 0 #fff;
+}
+.platba .qrPopis{
+  margin-top:.6rem;text-align:center;font-family:'Jost',sans-serif;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--zlata);
+}
+.platba .udaje{font-size:1.02rem;line-height:1.55;text-align:left}
+.platba .udaje > div{
+  padding:.42rem 0;border-bottom:1px solid rgba(201,161,74,.18);
+}
+.platba .udaje > div:last-child{border-bottom:none}
+.platba .udaje b{
+  font-family:'Jost',sans-serif;font-weight:500;font-size:.68rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--zlata);display:block;margin-bottom:.05rem;
+}
 
 .upozorneni{font-style:italic;color:var(--sed);text-align:center;font-size:.95rem;margin-top:2.4rem}
 footer{margin-top:2.6rem;padding:2.4rem 1.2rem 3rem;text-align:center;border-top:1px solid var(--linka)}
@@ -330,13 +364,16 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
   </div>
 
   <div class="platba">
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQAAAAAefbjOAAADVElEQVR4nO2cTW7jMAxGH8cCsrSBHiBHkW82Z5ob2EfpDaxlARmchSRLKWbTBuOkCg00SOI8VAIY/nykIsqXr/XX1xkwyCCDfigUJF8zIDO7QBCB4NJLmYOjfMidvTyDzoUcMEQAhDBRg4jkP9D1GsEvAOHt1OUZ9CAof/fHiMzhoiLXiOo2KOsEMgdH8iXzQ5Zn0KMh1Q2qWejy3/6TQc8NBYcu7MI6Af7dIXMQkd8an2F5Bp0BZS+gqorXCD49U4UxoguDwpjfyy7jyfdk0L3QnqoICBeFlDM48O8Xld8byVuwiojIdP7yDDoVQm8v/EbyDLqMEUgPN58xH9EzlEsKvw05LixjedBtSKGjDRijWUTnkANA1wlRwlvEv7ucRq5z1iMgTACInr08g06HqN99/AbAoKpaksrkN8qzdNd8RM9QyiNSXZFtI/LPqFFvmEX0DCU1SlUj2UeMsVgJgNdIyjF9yTfMIrqGmqjRPtNSYSxAtRKrNfqHknsoBcfNyxpJshtRzVby5Hsy6B4oR42FwxiSRZDCRDaVomKbZvkaUPYHItPR7GRQ1mvpZqwTKanMgtUP2JNB34XaPGKhSJgLUPKItvdpeUT/UIkQ2lYT6Y4vokTWI9INixqdQw5GTdqkrtMAjB+C/zOh67QpfpuKcMkuajNU3UNNDdHoEUnC1NhmD4cbMR/RNdTMR7SqJDl0NJXIcnRBzSJ6hhrFITkFPSrNdlgm3ljOk+/JoDuhMSLzoU+u4ihZ5C5pWIZUjH5Inqd5/j0Z9G2oxIVRmzBRC0+obU/rdL0EdHS1PiUTkdrSSJe3qPESUDsfQc0nq5VsbTKB6RHdQ00jvNYVpRgdmlhRR7PNIrqGbmqN+lBnqEpTNF+WR/QOuWPaGghJuMzHQL2CQizv1VOhT74ng+6BSnEBNE3vY+wy55LVUZiP6B26ORsOyQuI33aX/Qa703QjgBJcfPo9GXQ/lM+Gh4vKDLDKpfxsQLgkrSpPT1xtPuKVoPFDgD03O9dpl6RUrlM5Lz4/cnkGnQG59kWY0FUGlSRgL6j4DRWvuyN3wy1qdA59PhteRyxzD3w72p6l8WWZZdfQTa1RRm2TTFUnbynKNqZZdg+Vo5xfuezXCw0y6HWgv2AXH6hIzVH4AAAAAElFTkSuQmCC" alt="Platební QR kód — 349 Kč na účet Oázy Adamanthea, variabilní symbol 349001" width="176" height="176">
+    <div class="qr">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQAAAAAefbjOAAADVElEQVR4nO2cTW7jMAxGH8cCsrSBHiBHkW82Z5ob2EfpDaxlARmchSRLKWbTBuOkCg00SOI8VAIY/nykIsqXr/XX1xkwyCCDfigUJF8zIDO7QBCB4NJLmYOjfMidvTyDzoUcMEQAhDBRg4jkP9D1GsEvAOHt1OUZ9CAof/fHiMzhoiLXiOo2KOsEMgdH8iXzQ5Zn0KMh1Q2qWejy3/6TQc8NBYcu7MI6Af7dIXMQkd8an2F5Bp0BZS+gqorXCD49U4UxoguDwpjfyy7jyfdk0L3QnqoICBeFlDM48O8Xld8byVuwiojIdP7yDDoVQm8v/EbyDLqMEUgPN58xH9EzlEsKvw05LixjedBtSKGjDRijWUTnkANA1wlRwlvEv7ucRq5z1iMgTACInr08g06HqN99/AbAoKpaksrkN8qzdNd8RM9QyiNSXZFtI/LPqFFvmEX0DCU1SlUj2UeMsVgJgNdIyjF9yTfMIrqGmqjRPtNSYSxAtRKrNfqHknsoBcfNyxpJshtRzVby5Hsy6B4oR42FwxiSRZDCRDaVomKbZvkaUPYHItPR7GRQ1mvpZqwTKanMgtUP2JNB34XaPGKhSJgLUPKItvdpeUT/UIkQ2lYT6Y4vokTWI9INixqdQw5GTdqkrtMAjB+C/zOh67QpfpuKcMkuajNU3UNNDdHoEUnC1NhmD4cbMR/RNdTMR7SqJDl0NJXIcnRBzSJ6hhrFITkFPSrNdlgm3ljOk+/JoDuhMSLzoU+u4ihZ5C5pWIZUjH5Inqd5/j0Z9G2oxIVRmzBRC0+obU/rdL0EdHS1PiUTkdrSSJe3qPESUDsfQc0nq5VsbTKB6RHdQ00jvNYVpRgdmlhRR7PNIrqGbmqN+lBnqEpTNF+WR/QOuWPaGghJuMzHQL2CQizv1VOhT74ng+6BSnEBNE3vY+wy55LVUZiP6B26ORsOyQuI33aX/Qa703QjgBJcfPo9GXQ/lM+Gh4vKDLDKpfxsQLgkrSpPT1xtPuKVoPFDgD03O9dpl6RUrlM5Lz4/cnkGnQG59kWY0FUGlSRgL6j4DRWvuyN3wy1qdA59PhteRyxzD3w72p6l8WWZZdfQTa1RRm2TTFUnbynKNqZZdg+Vo5xfuezXCw0y6HWgv2AXH6hIzVH4AAAAAElFTkSuQmCC" alt="Platební QR kód — 349 Kč na účet Oázy Adamanthea, variabilní symbol 349001" width="176" height="176">
+      <p class="qrPopis">Načti bankovní aplikací</p>
+    </div>
     <div class="udaje">
-      <b>účet</b> 8159854004 / 5500
-      <b>částka</b> 349 Kč / 14 €
-      <b>variabilní symbol</b> 349001
-      <b>IBAN</b> CZ16 5500 0000 0081 5985 4004
-      <b>zpráva</b> VYLADĚNÍ + tvůj e-mail
+      <div><b>účet</b>8159854004 / 5500</div>
+      <div><b>částka</b>349 Kč / 14 €</div>
+      <div><b>variabilní symbol</b>349001</div>
+      <div><b>IBAN</b>CZ16 5500 0000 0081 5985 4004</div>
+      <div><b>zpráva</b>VYLADĚNÍ + tvůj e-mail</div>
     </div>
   </div>
 

@@ -50,21 +50,21 @@ a{color:var(--zlata);text-decoration:none}
 .obal{max-width:900px;margin:0 auto;padding:0 1.2rem}
 
 /* hlavička */
-header{position:relative;text-align:center;padding:3.4rem 1.2rem 2.6rem}
-/* světelný kruh — obepíná nadpis, ne celou hlavičku */
-header::before{
-  content:"";position:absolute;left:50%;top:1.2rem;transform:translateX(-50%);
-  width:clamp(290px,58vw,470px);aspect-ratio:1;
+header{position:relative;text-align:center;padding:5.2rem 1.2rem 2.6rem}
+/* světelný kruh — ukotvený přímo k nadpisu, aby ho vždy obepínal */
+h1{position:relative;isolation:isolate}
+h1::before{
+  content:"";position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-38%);
+  width:clamp(300px,60vw,460px);aspect-ratio:1;
   background:url("https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp") center/contain no-repeat;
-  opacity:.85;pointer-events:none;z-index:0;
-  /* okraje jemně vymizí, ať kruh nekončí ostrým švem */
-  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 62%, rgba(0,0,0,.6) 78%, transparent 96%);
-  mask-image:radial-gradient(circle at 50% 50%, #000 62%, rgba(0,0,0,.6) 78%, transparent 96%);
+  opacity:.8;pointer-events:none;z-index:-1;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,.55) 78%, transparent 96%);
+  mask-image:radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,.55) 78%, transparent 96%);
 }
-header > *{position:relative;z-index:1}
 @media(max-width:560px){
-  header{padding-top:2.6rem}
-  header::before{top:.6rem;width:clamp(250px,74vw,340px)}
+  header{padding-top:4rem}
+  h1::before{width:clamp(260px,78vw,360px)}
 }
 .znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
 h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3rem);letter-spacing:.09em;margin:.7rem 0 .45rem}

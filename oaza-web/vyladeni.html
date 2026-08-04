@@ -4,127 +4,157 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vyladění — zvukový průvodce ke klidu, spánku a soustředění · Oáza Adamanthea</title>
-<meta name="description" content="Vyladění: 8 zvukových programů pro zklidnění, spánek, meditaci i soustředění. Mluvený průvodce, dech, krystaly a záměr. Ochutnávka zdarma, plná verze 349 Kč jednou provždy.">
+<meta name="description" content="Vyladění: 8 zvukových programů pro zklidnění, spánek, meditaci i soustředění. Rytmus, dech a mluvený průvodce v telefonu. Ochutnávka zdarma, plná verze 349 Kč jednou provždy.">
 <link rel="canonical" href="https://oaza-adamanthea.cz/vyladeni">
 <meta property="og:title" content="Vyladění · zvukový průvodce Oázy Adamanthea">
 <meta property="og:description" content="8 programů pro klid, spánek, meditaci a soustředění. Ochutnávka zdarma, plná verze 349 Kč jednou provždy.">
 <meta property="og:image" content="https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oaza-adamanthea.cz/vyladeni">
+<meta property="og:locale" content="cs_CZ">
+<meta name="theme-color" content="#f6f0e2">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "Vyladění — plná verze",
-  "description": "Zvuková aplikace Oázy Adamanthea: 8 programů pro klid, spánek, meditaci a soustředění, mluvený průvodce, funguje offline.",
-  "brand": { "@type": "Brand", "name": "Oáza Adamanthea" },
-  "offers": {
-    "@type": "Offer",
-    "price": "349",
-    "priceCurrency": "CZK",
-    "url": "https://oaza-adamanthea.cz/vyladeni",
-    "availability": "https://schema.org/InStock"
-  }
-}
+{"@context":"https://schema.org","@type":"Product","name":"Vyladění — plná verze",
+"description":"Zvuková aplikace Oázy Adamanthea: 8 programů pro klid, spánek, meditaci a soustředění, mluvený průvodce, funguje offline.",
+"brand":{"@type":"Brand","name":"Oáza Adamanthea"},
+"offers":{"@type":"Offer","price":"349","priceCurrency":"CZK","url":"https://oaza-adamanthea.cz/vyladeni","availability":"https://schema.org/InStock"}}
 </script>
 <style>
 :root{
-  --les:#1f3129; --les-hluboka:#16241d;
-  --krem:#fbf7ef; --slonovina:#f6f0e2;
-  --zlata:#c9a14a; --zlata-tmava:#a8813a;
-  --sed:#6e8076; --linka:rgba(168,129,58,.26);
+  --les:#f6f0e2; --krem:#1d3b30; --sed:#6e8076;
+  --zlata:#a8813a; --lesk:#f0d9a4;
+  --plocha:rgba(255,255,255,.90);
+  --linka:rgba(168,129,58,.24);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;background:var(--les)}
 body{
-  background:var(--krem);color:var(--les);
-  font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background:transparent;color:var(--krem);
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.6;
+  min-height:100vh;-webkit-font-smoothing:antialiased;
 }
-a{color:var(--zlata-tmava)}
-.obal{max-width:880px;margin:0 auto;padding:0 1.2rem}
-
-/* ---------- hlavička ---------- */
-header{
-  text-align:center;padding:4.2rem 1.2rem 3rem;
+/* krystalové pozadí — stejné jako v aplikaci */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;
   background:
-    radial-gradient(760px 420px at 50% -10%, rgba(201,161,74,.16) 0%, transparent 65%),
-    var(--krem);
+    linear-gradient(to bottom, rgba(246,240,226,0) 0%, rgba(246,240,226,0) 42%,
+      rgba(246,240,226,.22) 64%, rgba(246,240,226,.5) 84%, rgba(246,240,226,.7) 100%),
+    url("https://ladeni.oaza-adamanthea.cz/hero-svetly.webp") center top/cover no-repeat,
+    var(--les);
 }
-.znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata-tmava)}
-h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.1rem,6vw,3.1rem);letter-spacing:.08em;margin:.7rem 0 .5rem}
-.podtitul{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--sed)}
-.hero-cta{margin-top:2rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+a{color:var(--zlata);text-decoration:none}
+.obal{max-width:900px;margin:0 auto;padding:0 1.2rem}
 
+/* hlavička */
+header{text-align:center;padding:4.4rem 1.2rem 2.6rem}
+.znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
+h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3rem);letter-spacing:.09em;margin:.7rem 0 .45rem}
+.podtitul{font-style:italic;font-size:1.14rem;color:var(--sed)}
+.uvodni{max-width:36rem;margin:1.5rem auto 0}
+.cta{margin-top:2.1rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+
+/* tlačítka s leskem jako v aplikaci */
 .tl{
   display:inline-block;font-family:'Jost',sans-serif;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;
-  padding:.95rem 2rem;border-radius:999px;text-decoration:none;transition:transform .25s,background .25s,box-shadow .25s;
+  padding:1rem 2.1rem;border-radius:999px;cursor:pointer;
+  background-repeat:no-repeat;background-size:210% 100%,100% 100%;background-position:-75% 0,0 0;
+  transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s,background-position 1.9s cubic-bezier(.22,.6,.25,1),background-color .4s;
 }
-.tl-plna{background:var(--les);color:var(--krem);border:1px solid var(--les)}
-.tl-plna:hover{transform:translateY(-2px);box-shadow:0 14px 28px -16px rgba(31,49,41,.55)}
-.tl-obrys{background:none;color:var(--zlata-tmava);border:1px solid var(--zlata)}
-.tl-obrys:hover{background:rgba(201,161,74,.1);transform:translateY(-2px)}
+.tl-plna{
+  background-image:
+    linear-gradient(104deg,transparent 32%,rgba(240,217,164,.30) 46%,rgba(240,217,164,.55) 50%,rgba(240,217,164,.30) 54%,transparent 68%),
+    linear-gradient(163deg,rgba(255,255,255,.12) 0%,transparent 60%);
+  background-color:#1d3b30;color:#fbf7ef;border:1px solid #1d3b30;
+  box-shadow:0 14px 30px -18px rgba(29,59,48,.6);
+}
+.tl-obrys{
+  background-image:
+    linear-gradient(104deg,transparent 32%,color-mix(in srgb,var(--lesk) 55%,transparent) 45%,color-mix(in srgb,var(--lesk) 88%,transparent) 50%,color-mix(in srgb,var(--lesk) 55%,transparent) 55%,transparent 68%),
+    linear-gradient(163deg,rgba(255,255,255,.9) 0%,transparent 62%);
+  background-color:var(--plocha);color:var(--zlata);border:1px solid var(--zlata);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 26px -18px rgba(29,59,48,.4);
+}
+.tl:hover{transform:translateY(-3px);background-position:175% 0,0 0}
+.tl-obrys:hover{background-color:color-mix(in srgb,var(--lesk) 26%,#fffdf7)}
+.tl:active{transform:translateY(-1px)}
 
-/* ---------- sekce ---------- */
-section{padding:3rem 0}
-h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.45rem;letter-spacing:.07em;margin-bottom:1.1rem;text-align:center}
-.stred{text-align:center}
-.pruh-oddel{height:1px;background:linear-gradient(90deg,transparent,var(--linka),transparent);max-width:520px;margin:0 auto}
+section{padding:2.8rem 0}
+h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.07em;margin-bottom:.9rem;text-align:center}
+.stred{text-align:center;max-width:38rem;margin:0 auto;color:var(--sed)}
+.oddel{height:1px;background:linear-gradient(90deg,transparent,var(--linka),transparent);max-width:520px;margin:0 auto}
 
-/* programy */
-.programy{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.9rem;margin-top:1.6rem}
+/* karty programů — plastické jako v aplikaci */
+.programy{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1rem;margin-top:1.8rem}
 .program{
-  background:#fff;border:1px solid var(--linka);border-radius:14px;padding:1.1rem 1.15rem;
-  box-shadow:0 10px 24px -18px rgba(31,49,41,.35), inset 0 1px 0 rgba(255,255,255,.9);
+  position:relative;overflow:hidden;border-radius:14px;padding:1.45rem 1.3rem 1.3rem;
+  background-image:
+    linear-gradient(104deg,transparent 32%,color-mix(in srgb,var(--lesk) 55%,transparent) 45%,color-mix(in srgb,var(--lesk) 88%,transparent) 50%,color-mix(in srgb,var(--lesk) 55%,transparent) 55%,transparent 68%),
+    linear-gradient(163deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.55) 38%,transparent 72%);
+  background-color:var(--plocha);
+  background-repeat:no-repeat;background-size:210% 100%,100% 100%;background-position:-75% 0,0 0;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  border:1px solid color-mix(in srgb,var(--zlata) 30%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 16px 30px -20px rgba(29,59,48,.45),0 4px 10px -6px rgba(29,59,48,.14);
+  transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s,background-position 1.9s cubic-bezier(.22,.6,.25,1),background-color .4s;
 }
-.program h3{font-family:'Jost',sans-serif;font-weight:500;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.3rem}
-.program p{font-size:.98rem;color:var(--sed);line-height:1.5}
-.program .fr{font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.14em;color:var(--zlata-tmava);text-transform:uppercase;display:block;margin-bottom:.35rem}
+.program:hover{
+  transform:translateY(-5px);background-position:175% 0,0 0;
+  background-color:color-mix(in srgb,var(--lesk) 26%,#fffdf7);
+  box-shadow:inset 0 1px 0 #fff,0 28px 46px -22px rgba(29,59,48,.5),0 6px 16px -8px rgba(29,59,48,.18);
+}
+.pruh{position:absolute;top:0;left:0;right:0;height:4px;z-index:1;opacity:.92}
+.pruh::after{content:"";position:absolute;left:-6%;right:-6%;top:0;height:30px;background:inherit;filter:blur(13px);opacity:.5}
+.program .fr{font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--zlata);display:block;margin-bottom:.3rem}
+.program h3{font-family:'Cinzel',serif;font-weight:500;font-size:1.08rem;letter-spacing:.04em;margin-bottom:.4rem}
+.program p{font-size:1rem;color:var(--sed);line-height:1.5}
 
-/* cena */
+/* cenovka */
 .cenovka{
-  max-width:34rem;margin:1.6rem auto 0;background:#fff;border:1px solid var(--linka);border-radius:18px;
-  padding:2rem 1.8rem;text-align:center;
-  box-shadow:0 22px 44px -26px rgba(31,49,41,.4), inset 0 1px 0 rgba(255,255,255,.95);
+  max-width:34rem;margin:1.8rem auto 0;border-radius:18px;padding:2.1rem 1.9rem;text-align:center;
+  background-image:linear-gradient(163deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.6) 40%,transparent 75%);
+  background-color:var(--plocha);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  border:1px solid color-mix(in srgb,var(--zlata) 32%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 24px 46px -26px rgba(29,59,48,.45);
 }
-.cena{font-family:'Cinzel',serif;font-size:2.3rem;color:var(--zlata-tmava)}
+.cena{font-family:'Cinzel',serif;font-size:2.3rem;color:var(--zlata)}
 .cena small{font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sed);display:block;margin-top:.35rem}
-.cenovka ul{list-style:none;margin:1.3rem 0 0;text-align:left;display:inline-block}
+.cenovka ul{list-style:none;margin:1.35rem 0 0;text-align:left;display:inline-block}
 .cenovka li{margin:.5rem 0;padding-left:1.5rem;position:relative}
 .cenovka li::before{content:"✦";position:absolute;left:0;top:.28em;color:var(--zlata);font-size:.8em}
 
-/* postup koupě */
-.kroky{max-width:620px;margin:1.4rem auto 0;counter-reset:krok}
-.krok{
-  display:flex;gap:1.1rem;align-items:flex-start;margin:1.2rem 0;
-}
+/* kroky */
+.kroky{max-width:620px;margin:1.6rem auto 0;counter-reset:krok}
+.krok{display:flex;gap:1.1rem;align-items:flex-start;margin:1.2rem 0}
 .krok::before{
   counter-increment:krok;content:counter(krok);
-  font-family:'Cinzel',serif;font-size:1rem;color:var(--krem);
-  background:var(--zlata-tmava);min-width:2.1rem;height:2.1rem;border-radius:50%;
+  font-family:'Cinzel',serif;font-size:1rem;color:#fbf7ef;background:var(--zlata);
+  min-width:2.1rem;height:2.1rem;border-radius:50%;
   display:inline-flex;align-items:center;justify-content:center;flex:none;margin-top:.15rem;
+  box-shadow:0 6px 14px -8px rgba(29,59,48,.5);
 }
 .krok b{font-family:'Jost',sans-serif;font-weight:500;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:.2rem}
 .krok p{color:var(--sed);font-size:1rem}
-.platba{
-  display:flex;gap:1.6rem;align-items:center;justify-content:center;flex-wrap:wrap;
-  background:#fff;border:1px solid var(--linka);border-radius:16px;padding:1.4rem;margin-top:1.2rem;
-  box-shadow:0 14px 30px -22px rgba(31,49,41,.35);
-}
-.platba img{width:172px;height:172px;image-rendering:pixelated;border-radius:8px}
-.platba .udaje{font-size:1rem;line-height:1.8}
-.platba .udaje b{font-family:'Jost',sans-serif;font-weight:500;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sed);display:block}
 
-/* patička */
-footer{
-  margin-top:3rem;padding:2.4rem 1.2rem 2.8rem;text-align:center;
-  background:var(--les-hluboka);color:var(--slonovina);
+.platba{
+  display:flex;gap:1.8rem;align-items:center;justify-content:center;flex-wrap:wrap;
+  border-radius:16px;padding:1.5rem;margin-top:1.4rem;
+  background-image:linear-gradient(163deg,rgba(255,255,255,.95) 0%,transparent 70%);
+  background-color:var(--plocha);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  border:1px solid var(--linka);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 16px 32px -22px rgba(29,59,48,.4);
 }
-footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-spacing:.16em}
-footer a{color:var(--zlata)}
-.upozorneni{font-style:italic;color:var(--sed);text-align:center;font-size:.95rem;margin-top:2.2rem}
+.platba img{width:176px;height:176px;border-radius:10px;background:#fff;padding:6px}
+.platba .udaje{font-size:1rem;line-height:1.85}
+.platba .udaje b{font-family:'Jost',sans-serif;font-weight:500;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sed);display:block}
+
+.upozorneni{font-style:italic;color:var(--sed);text-align:center;font-size:.95rem;margin-top:2.4rem}
+footer{margin-top:2.6rem;padding:2.4rem 1.2rem 3rem;text-align:center;border-top:1px solid var(--linka)}
+footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-spacing:.16em;color:var(--sed)}
+@media(max-width:560px){.platba{gap:1rem}}
 </style>
 </head>
 <body>
@@ -132,13 +162,13 @@ footer a{color:var(--zlata)}
 <header>
   <p class="znacka">Oáza Adamanthea</p>
   <h1>Vyladění</h1>
-  <p class="podtitul">frekvence · dech · krystaly · záměr</p>
-  <p style="max-width:36rem;margin:1.4rem auto 0">
+  <p class="podtitul">frekvence · dech · záměr</p>
+  <p class="uvodni">
     Zvukový průvodce, který tě rytmem, dechem a hlasem provede ke klidu, spánku,
-    meditaci i soustředění. Otevřeš ho v telefonu, přidáš na plochu — a máš ho navždy u sebe,
-    i bez internetu.
+    meditaci i soustředění. Otevřeš ho v telefonu, přidáš na plochu — a máš ho navždy
+    u sebe, i bez internetu.
   </p>
-  <div class="hero-cta">
+  <div class="cta">
     <a class="tl tl-plna" href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyzkoušet zdarma</a>
     <a class="tl tl-obrys" href="#koupit">Plná verze · 349 Kč</a>
   </div>
@@ -148,30 +178,67 @@ footer a{color:var(--zlata)}
 
 <section>
   <h2>Osm programů, jeden záměr</h2>
-  <p class="stred" style="max-width:38rem;margin:0 auto;color:var(--sed)">
-    Každé sezení pracuje s jiným rytmem — od bdělého soustředění po hlubokou noc.
-    Vedou tě dechový kruh a klidný mluvený hlas.
-  </p>
+  <p class="stred">Každé sezení pracuje s jiným rytmem — od bdělého soustředění po hlubokou noc.
+  Vedou tě dechový kruh a klidný mluvený hlas.</p>
   <div class="programy">
-    <div class="program"><span class="fr">alfa · 10 Hz</span><h3>Zklidnění</h3><p>Uvolnění po náročném dni, ztišení vnitřního hluku.</p></div>
-    <div class="program"><span class="fr">delta · 3 Hz</span><h3>Hluboký odpočinek</h3><p>Hluboká regenerace a odevzdání tíhy dne.</p></div>
-    <div class="program"><span class="fr">sestup · 10 → 2,5 Hz</span><h3>Usnutí</h3><p>Když spánek nepřichází. Rytmus klesá s tebou a sám se ztiší.</p></div>
-    <div class="program"><span class="fr">théta · 6 Hz</span><h3>Meditace a vhled</h3><p>Vnitřní obrazy, intuice, práce se záměrem.</p></div>
-    <div class="program"><span class="fr">SMR · 14 Hz</span><h3>Jasná mysl</h3><p>Klidné soustředění při práci a tvorbě.</p></div>
-    <div class="program"><span class="fr">dech · 5,5 s</span><h3>Srdeční koherence</h3><p>Sladění dechu a srdečního rytmu, návrat do středu.</p></div>
-    <div class="program"><span class="fr">iso princip</span><h3>Přeladění emocí</h3><p>Od napětí, smutku či neklidu ke klidu, měkkosti nebo bdělosti.</p></div>
-    <div class="program"><span class="fr">solfeggio · planetární tóny</span><h3>Sedm čaker</h3><p>Jedno centrum, nebo celá cesta od kořene ke koruně — s hlasem, který každé centrum ohlásí.</p></div>
+    <article class="program">
+      <span class="pruh" style="background:#a978db"></span>
+      <span class="fr">alfa · 10 Hz</span>
+      <h3>Zklidnění</h3>
+      <p>Uvolnění po náročném dni, ztišení vnitřního hluku.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#5a6ec4"></span>
+      <span class="fr">delta · 3 Hz</span>
+      <h3>Hluboký odpočinek</h3>
+      <p>Hluboká regenerace a odevzdání tíhy dne.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#4f9ae0"></span>
+      <span class="fr">sestup · 10 → 2,5 Hz</span>
+      <h3>Usnutí</h3>
+      <p>Když spánek nepřichází. Rytmus klesá s tebou a sám se ztiší.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#3fc2d8"></span>
+      <span class="fr">théta · 6 Hz</span>
+      <h3>Meditace a vhled</h3>
+      <p>Vnitřní obrazy, intuice, práce se záměrem.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#48c07e"></span>
+      <span class="fr">SMR · 14 Hz</span>
+      <h3>Jasná mysl</h3>
+      <p>Klidné soustředění při práci a tvorbě.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#ef8098"></span>
+      <span class="fr">dech · 5,5 s</span>
+      <h3>Srdeční koherence</h3>
+      <p>Sladění dechu a srdečního rytmu, návrat do středu.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:linear-gradient(90deg,#e0554a,#7fa0bd,#56c481)"></span>
+      <span class="fr">iso princip</span>
+      <h3>Přeladění emocí</h3>
+      <p>Od napětí, smutku či neklidu ke klidu, měkkosti nebo bdělosti.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:linear-gradient(90deg,#e04a3f,#f5c42e,#4cc072,#33aadd,#b46fdb)"></span>
+      <span class="fr">solfeggio · planetární tóny</span>
+      <h3>Sedm čaker</h3>
+      <p>Jedno centrum, nebo celá cesta od kořene ke koruně — s hlasem, který každé ohlásí.</p>
+    </article>
   </div>
 </section>
 
-<div class="pruh-oddel"></div>
+<div class="oddel"></div>
 
 <section id="koupit">
   <h2>Ochutnej zdarma, odemkni jednou provždy</h2>
-  <p class="stred" style="max-width:38rem;margin:0 auto;color:var(--sed)">
-    Zdarma si vybereš jeden program a naladíš se na tři minuty.
-    Plná verze pak otevře všechno — bez předplatného, bez reklam, bez registrace.
-  </p>
+  <p class="stred">Zdarma si vybereš jeden program a naladíš se na tři minuty.
+  Plná verze pak otevře všechno — bez předplatného, bez reklam, bez registrace.</p>
+
   <div class="cenovka">
     <div class="cena">349 Kč<small>jednou provždy</small></div>
     <ul>
@@ -185,12 +252,12 @@ footer a{color:var(--zlata)}
 
   <div class="kroky">
     <div class="krok"><div><b>Zaplať 349 Kč</b><p>Načti QR kód bankovní aplikací, nebo pošli převod ručně. Variabilní symbol 349001.</p></div></div>
-    <div class="krok"><div><b>Napiš nám</b><p>Po platbě pošli krátkou zprávu na <a href="mailto:oaza.adamanthea@gmail.com?subject=Vyladění%20—%20plná%20verze">oaza.adamanthea@gmail.com</a>. Obratem ti přijde odemykací kód.</p></div></div>
-    <div class="krok"><div><b>Zadej kód v appce</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Hotovo — navždy.</p></div></div>
+    <div class="krok"><div><b>Napiš nám</b><p>Po platbě pošli krátkou zprávu na <a href="mailto:oaza.adamanthea@gmail.com?subject=Vyladeni%20-%20plna%20verze">oaza.adamanthea@gmail.com</a>. Obratem ti přijde odemykací kód.</p></div></div>
+    <div class="krok"><div><b>Zadej kód v aplikaci</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Hotovo — navždy.</p></div></div>
   </div>
 
   <div class="platba">
-    <img src="img/qr-vyladeni.png" alt="Platební QR kód — 349 Kč na účet Oázy Adamanthea, VS 349001" width="172" height="172">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQAAAAAefbjOAAADVElEQVR4nO2cTW7jMAxGH8cCsrSBHiBHkW82Z5ob2EfpDaxlARmchSRLKWbTBuOkCg00SOI8VAIY/nykIsqXr/XX1xkwyCCDfigUJF8zIDO7QBCB4NJLmYOjfMidvTyDzoUcMEQAhDBRg4jkP9D1GsEvAOHt1OUZ9CAof/fHiMzhoiLXiOo2KOsEMgdH8iXzQ5Zn0KMh1Q2qWejy3/6TQc8NBYcu7MI6Af7dIXMQkd8an2F5Bp0BZS+gqorXCD49U4UxoguDwpjfyy7jyfdk0L3QnqoICBeFlDM48O8Xld8byVuwiojIdP7yDDoVQm8v/EbyDLqMEUgPN58xH9EzlEsKvw05LixjedBtSKGjDRijWUTnkANA1wlRwlvEv7ucRq5z1iMgTACInr08g06HqN99/AbAoKpaksrkN8qzdNd8RM9QyiNSXZFtI/LPqFFvmEX0DCU1SlUj2UeMsVgJgNdIyjF9yTfMIrqGmqjRPtNSYSxAtRKrNfqHknsoBcfNyxpJshtRzVby5Hsy6B4oR42FwxiSRZDCRDaVomKbZvkaUPYHItPR7GRQ1mvpZqwTKanMgtUP2JNB34XaPGKhSJgLUPKItvdpeUT/UIkQ2lYT6Y4vokTWI9INixqdQw5GTdqkrtMAjB+C/zOh67QpfpuKcMkuajNU3UNNDdHoEUnC1NhmD4cbMR/RNdTMR7SqJDl0NJXIcnRBzSJ6hhrFITkFPSrNdlgm3ljOk+/JoDuhMSLzoU+u4ihZ5C5pWIZUjH5Inqd5/j0Z9G2oxIVRmzBRC0+obU/rdL0EdHS1PiUTkdrSSJe3qPESUDsfQc0nq5VsbTKB6RHdQ00jvNYVpRgdmlhRR7PNIrqGbmqN+lBnqEpTNF+WR/QOuWPaGghJuMzHQL2CQizv1VOhT74ng+6BSnEBNE3vY+wy55LVUZiP6B26ORsOyQuI33aX/Qa703QjgBJcfPo9GXQ/lM+Gh4vKDLDKpfxsQLgkrSpPT1xtPuKVoPFDgD03O9dpl6RUrlM5Lz4/cnkGnQG59kWY0FUGlSRgL6j4DRWvuyN3wy1qdA59PhteRyxzD3w72p6l8WWZZdfQTa1RRm2TTFUnbynKNqZZdg+Vo5xfuezXCw0y6HWgv2AXH6hIzVH4AAAAAElFTkSuQmCC" alt="Platební QR kód — 349 Kč na účet Oázy Adamanthea, variabilní symbol 349001" width="176" height="176">
     <div class="udaje">
       <b>účet</b> 8159854004 / 5500
       <b>částka</b> 349 Kč

@@ -50,26 +50,27 @@ a{color:var(--zlata);text-decoration:none}
 .obal{max-width:900px;margin:0 auto;padding:0 1.2rem}
 
 /* hlavička */
-header{position:relative;text-align:center;padding:5.2rem 1.2rem 2.6rem}
-/* světelný kruh — ukotvený přímo k nadpisu, aby ho vždy obepínal */
-h1{position:relative;isolation:isolate}
-h1::before{
-  content:"";position:absolute;left:50%;top:50%;
-  transform:translate(-50%,-50%);
-  width:clamp(300px,58vw,430px);aspect-ratio:1;
-  background:url("https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp") center/contain no-repeat;
-  opacity:.8;pointer-events:none;z-index:-1;
-  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,.55) 78%, transparent 96%);
-  mask-image:radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,.55) 78%, transparent 96%);
+header{text-align:center;padding:2.2rem 1.2rem 2.4rem}
+/* Světelný kruh má vlastní blok: značka, název a podtitul sedí uvnitř,
+   všechno ostatní začíná až pod ním. Prstenec tak nikdy neprotne text. */
+.kruhBlok{
+  position:relative;isolation:isolate;
+  width:min(60vw,440px);min-width:300px;aspect-ratio:1;
+  margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;
 }
+.kruhBlok::before{
+  content:"";position:absolute;inset:-5%;z-index:-1;pointer-events:none;
+  background:url("https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp") center/contain no-repeat;
+}
+.kruhBlok .znacka{color:#8a6a30}
 @media(max-width:560px){
-  header{padding-top:4rem}
-  h1::before{width:clamp(260px,78vw,360px)}
+  .kruhBlok{width:min(80vw,340px);min-width:0}
 }
 .znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
 h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3rem);letter-spacing:.09em;margin:.7rem 0 .45rem}
 .podtitul{font-style:italic;font-size:1.14rem;color:var(--sed)}
-.uvodni{max-width:36rem;margin:1.5rem auto 0}
+.uvodni{max-width:36rem;margin:.9rem auto 0}
 .cta{margin-top:2.1rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
 
 /* tlačítka s leskem jako v aplikaci */
@@ -177,9 +178,11 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
 <body>
 
 <header>
-  <p class="znacka">Oáza Adamanthea</p>
-  <h1>Vyladění</h1>
-  <p class="podtitul">frekvence · dech · záměr</p>
+  <div class="kruhBlok">
+    <p class="znacka">Oáza Adamanthea</p>
+    <h1>Vyladění</h1>
+    <p class="podtitul">frekvence · dech · záměr</p>
+  </div>
   <p class="uvodni">
     Zvukový průvodce, který tě rytmem, dechem a hlasem provede ke klidu, spánku,
     meditaci i soustředění. Otevřeš ho v telefonu, přidáš na plochu — a máš ho navždy

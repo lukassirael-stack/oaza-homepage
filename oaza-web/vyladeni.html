@@ -3,2348 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vyladění · Oáza Adamanthea</title>
-<meta name="description" content="Vyladění — zvukový rytmus, dech a záměr. Relaxační a meditační pomůcka Oázy Adamanthea.">
-<meta name="theme-color" content="#f6f0e2">
-<meta property="og:title" content="Vyladění · Oáza Adamanthea">
-<meta property="og:description" content="Vyladění — zvukový rytmus, dech a záměr.">
-<meta property="og:image" content="https://ladeni.oaza-adamanthea.cz/hero-kruh.webp">
+<title>Vyladění — zvukový průvodce ke klidu, spánku a soustředění · Oáza Adamanthea</title>
+<meta name="description" content="Vyladění: 8 zvukových programů pro zklidnění, spánek, meditaci i soustředění. Rytmus, dech a mluvený průvodce v telefonu. Ochutnávka zdarma, plná verze 349 Kč jednou provždy.">
+<link rel="canonical" href="https://oaza-adamanthea.cz/vyladeni">
+<meta property="og:title" content="Vyladění · zvukový průvodce Oázy Adamanthea">
+<meta property="og:description" content="8 programů pro klid, spánek, meditaci a soustředění. Ochutnávka zdarma, plná verze 349 Kč jednou provždy.">
+<meta property="og:image" content="https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://ladeni.oaza-adamanthea.cz/">
-<link rel="preload" as="image" href="hero.webp">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="ikona-192.png">
-<link rel="apple-touch-icon" href="ikona-192.png">
-<script>try{if(JSON.parse(localStorage.getItem("oazaLadeni")||"{}").tema!=="tmave")document.documentElement.dataset.tema="svetle";}catch(e){}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta property="og:url" content="https://oaza-adamanthea.cz/vyladeni">
+<meta property="og:locale" content="cs_CZ">
+<meta name="theme-color" content="#f6f0e2">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Product","name":"Vyladění — plná verze",
+"description":"Zvuková aplikace Oázy Adamanthea: 8 programů pro klid, spánek, meditaci a soustředění, mluvený průvodce, funguje offline.",
+"brand":{"@type":"Brand","name":"Oáza Adamanthea"},
+"offers":{"@type":"Offer","price":"349","priceCurrency":"CZK","url":"https://oaza-adamanthea.cz/vyladeni","availability":"https://schema.org/InStock"}}
+</script>
 <style>
 :root{
-  --les:#0f231c;        /* hluboká lesní zeleň — pozadí */
-  --les-svetla:#1a382d; /* světlejší zeleň — záře */
-  --krem:#f2e9d8;       /* krémová — text */
-  --zlata:#c8a45c;      /* zlatá — akcenty, linky */
-  --ruze:#c99191;       /* růžová — teplý akcent */
-  --sed:#9db4a8;        /* tlumená šalvěj — vedlejší text */
-  --plocha:rgba(255,255,255,.03);  /* povrch karet a polí */
-  --lesk:#e3c07d;       /* světlá zlatá — jen odlesky, ne text */
-}
-:root[data-tema="svetle"]{
-  --les:#f6f0e2;        /* slonovinová — pozadí */
-  --les-svetla:#efe7d3;
-  --krem:#1d3b30;       /* text = hluboká zeleň */
-  --zlata:#a8813a;      /* tmavší zlatá kvůli čitelnosti */
-  --ruze:#b06f6f;
-  --sed:#6e8076;
-  --plocha:rgba(255,255,255,.90);  /* pevnější, karty leží nad fotkou */
-  --lesk:#f0d9a4;       /* světlá zlatá — jen odlesky, ne text */
+  --les:#f6f0e2; --krem:#1d3b30; --sed:#6e8076;
+  --zlata:#a8813a; --lesk:#f0d9a4;
+  --plocha:rgba(255,255,255,.90);
+  --linka:rgba(168,129,58,.24);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background-color:var(--les)}
+html{scroll-behavior:smooth;background:var(--les)}
 body{
-  background-color:transparent;
-  color:var(--krem);
-  font-family:'Cormorant Garamond',serif;
-  font-size:19px;
-  line-height:1.55;
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  -webkit-font-smoothing:antialiased;
+  background:transparent;color:var(--krem);
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.6;
+  min-height:100vh;-webkit-font-smoothing:antialiased;
 }
+/* krystalové pozadí — stejné jako v aplikaci */
 body::before{
   content:"";position:fixed;inset:0;z-index:-1;
   background:
-    radial-gradient(1100px 700px at 50% -8%, rgba(26,56,45,.45) 0%, rgba(15,35,28,0) 60%),
-    linear-gradient(to bottom,
-      rgba(15,35,28,0)   0%,
-      rgba(15,35,28,.10) 50%,
-      rgba(15,35,28,.42) 74%,
-      rgba(15,35,28,.68) 100%),
-    var(--les) url("pozadi.webp") center top/cover no-repeat;
-}
-:root[data-tema="svetle"] body::before{
-  background:
-    /* závoj: nahoře průhledný, dole plná slonovina, aby text zůstal čitelný */
-    linear-gradient(to bottom,
-      rgba(246,240,226,0)   0%,
-      rgba(246,240,226,0)   48%,
-      rgba(246,240,226,.18) 68%,
-      rgba(246,240,226,.42) 85%,
-      rgba(246,240,226,.62) 100%),
-    url("hero-svetly.webp") center top/cover no-repeat,
+    linear-gradient(to bottom, rgba(246,240,226,0) 0%, rgba(246,240,226,0) 42%,
+      rgba(246,240,226,.22) 64%, rgba(246,240,226,.5) 84%, rgba(246,240,226,.7) 100%),
+    url("https://ladeni.oaza-adamanthea.cz/hero-svetly.webp") center top/cover no-repeat,
     var(--les);
 }
+a{color:var(--zlata);text-decoration:none}
+.obal{max-width:900px;margin:0 auto;padding:0 1.2rem}
 
-/* ---------- hlavička ---------- */
-header{
-  position:relative;
-  text-align:center;
-  color:#f2e9d8;
-  display:flex;flex-direction:column;justify-content:center;
-  min-height:clamp(380px, 61vw, 490px);
-  padding:5.2rem 1.2rem 5.2rem;
-  background:
-    linear-gradient(rgba(10,24,18,.32), rgba(12,28,22,.5)),
-    url("hero-kruh.webp") center/auto clamp(750px, 120vw, 966px) no-repeat,
-    url("hero.webp") center 30%/cover no-repeat;
-  -webkit-mask-image:linear-gradient(#000 92%, transparent 100%);
-  mask-image:linear-gradient(#000 92%, transparent 100%);
-  text-shadow:0 1px 14px rgba(4,12,9,.6);
+/* hlavička */
+header{text-align:center;padding:4.4rem 1.2rem 2.6rem}
+.znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
+h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3rem);letter-spacing:.09em;margin:.7rem 0 .45rem}
+.podtitul{font-style:italic;font-size:1.14rem;color:var(--sed)}
+.uvodni{max-width:36rem;margin:1.5rem auto 0}
+.cta{margin-top:2.1rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+
+/* tlačítka s leskem jako v aplikaci */
+.tl{
+  display:inline-block;font-family:'Jost',sans-serif;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:1rem 2.1rem;border-radius:999px;cursor:pointer;
+  background-repeat:no-repeat;background-size:210% 100%,100% 100%;background-position:-75% 0,0 0;
+  transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s,background-position 1.9s cubic-bezier(.22,.6,.25,1),background-color .4s;
 }
-.znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;color:#c8a45c}
-header .pod{color:#b9c7bd}
-header .terapeutStitek{color:#c99191}
-.temaPrepinac{
-  position:absolute;top:14px;right:14px;z-index:2;
-  font-family:'Jost',sans-serif;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
-  color:#f2e9d8;background:rgba(10,24,18,.38);border:1px solid rgba(200,164,92,.45);border-radius:2px;
-  padding:.45rem .7rem;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
-  text-shadow:none;transition:border-color .2s;
-}
-.temaPrepinac:hover{border-color:#c8a45c}
-h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(1.95rem,5.3vw,2.65rem);letter-spacing:.14em;margin:.5rem 0 .2rem}
-.pod{font-style:italic;color:var(--sed);font-size:1.05rem}
-
-main{flex:1;width:100%;max-width:880px;margin:0 auto;padding:0 1.2rem 3rem}
-
-/* ---------- výběr sezení ---------- */
-.uvod{text-align:center;max-width:34rem;margin:0 auto 2rem;color:var(--krem);font-size:1.12rem}
-.mrizka{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:1rem}
-.karta{
-  text-align:left;
+.tl-plna{
   background-image:
-    linear-gradient(104deg, transparent 32%,
-      color-mix(in srgb, var(--lesk) 30%, transparent) 46%,
-      color-mix(in srgb, var(--lesk) 52%, transparent) 50%,
-      color-mix(in srgb, var(--lesk) 30%, transparent) 54%, transparent 68%),
-    linear-gradient(163deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.02) 42%, transparent 70%);
+    linear-gradient(104deg,transparent 32%,rgba(240,217,164,.30) 46%,rgba(240,217,164,.55) 50%,rgba(240,217,164,.30) 54%,transparent 68%),
+    linear-gradient(163deg,rgba(255,255,255,.12) 0%,transparent 60%);
+  background-color:#1d3b30;color:#fbf7ef;border:1px solid #1d3b30;
+  box-shadow:0 14px 30px -18px rgba(29,59,48,.6);
+}
+.tl-obrys{
+  background-image:
+    linear-gradient(104deg,transparent 32%,color-mix(in srgb,var(--lesk) 55%,transparent) 45%,color-mix(in srgb,var(--lesk) 88%,transparent) 50%,color-mix(in srgb,var(--lesk) 55%,transparent) 55%,transparent 68%),
+    linear-gradient(163deg,rgba(255,255,255,.9) 0%,transparent 62%);
+  background-color:var(--plocha);color:var(--zlata);border:1px solid var(--zlata);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 26px -18px rgba(29,59,48,.4);
+}
+.tl:hover{transform:translateY(-3px);background-position:175% 0,0 0}
+.tl-obrys:hover{background-color:color-mix(in srgb,var(--lesk) 26%,#fffdf7)}
+.tl:active{transform:translateY(-1px)}
+
+section{padding:2.8rem 0}
+h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.07em;margin-bottom:.9rem;text-align:center}
+.stred{text-align:center;max-width:38rem;margin:0 auto;color:var(--sed)}
+.oddel{height:1px;background:linear-gradient(90deg,transparent,var(--linka),transparent);max-width:520px;margin:0 auto}
+
+/* karty programů — plastické jako v aplikaci */
+.programy{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1rem;margin-top:1.8rem}
+.program{
+  position:relative;overflow:hidden;border-radius:14px;padding:1.45rem 1.3rem 1.3rem;
+  background-image:
+    linear-gradient(104deg,transparent 32%,color-mix(in srgb,var(--lesk) 55%,transparent) 45%,color-mix(in srgb,var(--lesk) 88%,transparent) 50%,color-mix(in srgb,var(--lesk) 55%,transparent) 55%,transparent 68%),
+    linear-gradient(163deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.55) 38%,transparent 72%);
+  background-color:var(--plocha);
+  background-repeat:no-repeat;background-size:210% 100%,100% 100%;background-position:-75% 0,0 0;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  border:1px solid color-mix(in srgb,var(--zlata) 30%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 16px 30px -20px rgba(29,59,48,.45),0 4px 10px -6px rgba(29,59,48,.14);
+  transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s,background-position 1.9s cubic-bezier(.22,.6,.25,1),background-color .4s;
+}
+.program:hover{
+  transform:translateY(-5px);background-position:175% 0,0 0;
+  background-color:color-mix(in srgb,var(--lesk) 26%,#fffdf7);
+  box-shadow:inset 0 1px 0 #fff,0 28px 46px -22px rgba(29,59,48,.5),0 6px 16px -8px rgba(29,59,48,.18);
+}
+.pruh{position:absolute;top:0;left:0;right:0;height:4px;z-index:1;opacity:.92}
+.pruh::after{content:"";position:absolute;left:-6%;right:-6%;top:0;height:30px;background:inherit;filter:blur(13px);opacity:.5}
+.program .fr{font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--zlata);display:block;margin-bottom:.3rem}
+.program h3{font-family:'Cinzel',serif;font-weight:500;font-size:1.08rem;letter-spacing:.04em;margin-bottom:.4rem}
+.program p{font-size:1rem;color:var(--sed);line-height:1.5}
+
+/* cenovka */
+.cenovka{
+  max-width:34rem;margin:1.8rem auto 0;border-radius:18px;padding:2.1rem 1.9rem;text-align:center;
+  background-image:linear-gradient(163deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.6) 40%,transparent 75%);
   background-color:var(--plocha);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  border:1px solid color-mix(in srgb, var(--zlata) 30%, transparent);
-  border-radius:14px;
-  padding:1.45rem 1.3rem 1.3rem;cursor:pointer;color:var(--krem);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.12),
-    0 12px 26px -16px rgba(0,0,0,.6),
-    0 3px 8px -5px rgba(0,0,0,.4);
-  transition:border-color .3s,transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s,background .3s;
-  font-family:inherit;
+  border:1px solid color-mix(in srgb,var(--zlata) 32%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 24px 46px -26px rgba(29,59,48,.45);
 }
-.karta:hover,.karta:focus-visible{
-  border-color:color-mix(in srgb, var(--zlata) 65%, transparent);
-  transform:translateY(-5px);outline:none;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.16),
-    0 22px 40px -18px rgba(0,0,0,.66),
-    0 5px 14px -8px rgba(0,0,0,.45);
-}
-.karta:active{transform:translateY(-2px)}
-.karta h3{font-family:'Cinzel',serif;font-weight:500;font-size:1.02rem;letter-spacing:.08em;margin-bottom:.3rem}
-.karta .pasmo{font-family:'Jost',sans-serif;font-weight:400;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--zlata);margin-bottom:.55rem}
-.karta p{font-size:.98rem;color:var(--sed);line-height:1.45}
-.kartaObraz:hover,.kartaObraz:focus-visible,.kartaObraz:active{background-image:inherit}
-.kartaObraz{background-size:cover !important;background-position:center 35% !important;border-color:color-mix(in srgb, var(--zlata) 50%, transparent);-webkit-backdrop-filter:none;backdrop-filter:none}
-.kartaObraz h3,.kartaObraz p{color:#f2e9d8}
-.karta{position:relative;overflow:hidden}
-.kartaPruh{
-  position:absolute;top:0;left:0;right:0;height:4px;z-index:1;
-  opacity:.92;pointer-events:none;
-}
-/* měkká záře pod hranou — dává kartě hloubku */
-.kartaPruh::after{
-  content:"";position:absolute;left:-6%;right:-6%;top:0;height:30px;
-  background:inherit;filter:blur(13px);opacity:.5;
-}
+.cena{font-family:'Cinzel',serif;font-size:2.3rem;color:var(--zlata)}
+.cena small{font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sed);display:block;margin-top:.35rem}
+.cenovka ul{list-style:none;margin:1.35rem 0 0;text-align:left;display:inline-block}
+.cenovka li{margin:.5rem 0;padding-left:1.5rem;position:relative}
+.cenovka li::before{content:"✦";position:absolute;left:0;top:.28em;color:var(--zlata);font-size:.8em}
 
-/* Lesk je vrstvou POZADÍ, ne překryvem — jinak ho rozostření karty schová
-   pod výplň a ze zlaté zbude šedý stín. Posouvá se změnou background-position. */
-.karta,.uvodVolba,.volba{position:relative;overflow:hidden}
-.karta,.uvodVolba,.volba{
-  background-repeat:no-repeat;
-  background-size:210% 100%, 100% 100%;
-  background-position:-75% 0, 0 0;
-  transition:border-color .3s, transform .3s cubic-bezier(.2,.8,.3,1), box-shadow .3s,
-             background-color .4s, background-position 1.9s cubic-bezier(.22,.6,.25,1);
+/* kroky */
+.kroky{max-width:620px;margin:1.6rem auto 0;counter-reset:krok}
+.krok{display:flex;gap:1.1rem;align-items:flex-start;margin:1.2rem 0}
+.krok::before{
+  counter-increment:krok;content:counter(krok);
+  font-family:'Cinzel',serif;font-size:1rem;color:#fbf7ef;background:var(--zlata);
+  min-width:2.1rem;height:2.1rem;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;flex:none;margin-top:.15rem;
+  box-shadow:0 6px 14px -8px rgba(29,59,48,.5);
 }
-.karta:hover,.karta:focus-visible,
-.uvodVolba:hover,.uvodVolba:focus-visible,
-.volba:hover,.volba:focus-visible{
-  background-position:175% 0, 0 0;
-  background-color:color-mix(in srgb, var(--lesk) 16%, var(--plocha));
-}
-.karta:active,.uvodVolba:active,.volba:active{
-  background-color:color-mix(in srgb, var(--lesk) 26%, var(--plocha));
-}
-@media (prefers-reduced-motion:reduce){
-  .karta,.uvodVolba,.volba{transition:border-color .3s,box-shadow .3s,background-color .4s}
-}
+.krok b{font-family:'Jost',sans-serif;font-weight:500;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+.krok p{color:var(--sed);font-size:1rem}
 
-/* ---------- úvod a průvodce ---------- */
-.uvodVolby{display:grid;gap:1rem;max-width:30rem;margin:2.2rem auto 0}
-.uvodVolba{
-  background-image:
-    linear-gradient(104deg, transparent 32%,
-      color-mix(in srgb, var(--lesk) 30%, transparent) 46%,
-      color-mix(in srgb, var(--lesk) 52%, transparent) 50%,
-      color-mix(in srgb, var(--lesk) 30%, transparent) 54%, transparent 68%),
-    linear-gradient(163deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.02) 42%, transparent 70%);
+.platba{
+  display:flex;gap:1.8rem;align-items:center;justify-content:center;flex-wrap:wrap;
+  border-radius:16px;padding:1.5rem;margin-top:1.4rem;
+  background-image:linear-gradient(163deg,rgba(255,255,255,.95) 0%,transparent 70%);
   background-color:var(--plocha);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  border:1px solid color-mix(in srgb, var(--zlata) 30%, transparent);
-  border-radius:16px;
-  padding:1.75rem 1.5rem;cursor:pointer;color:var(--krem);text-align:center;font-family:inherit;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.12),
-    0 12px 26px -16px rgba(0,0,0,.6),
-    0 3px 8px -5px rgba(0,0,0,.4);
-  transition:border-color .3s,transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s;
+  border:1px solid var(--linka);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 16px 32px -22px rgba(29,59,48,.4);
 }
-.uvodVolba:hover,.uvodVolba:focus-visible{
-  border-color:color-mix(in srgb, var(--zlata) 65%, transparent);
-  transform:translateY(-5px);outline:none;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.16),
-    0 24px 44px -18px rgba(0,0,0,.66),
-    0 5px 14px -8px rgba(0,0,0,.45);
-}
-.uvodVolba:active{transform:translateY(-2px)}
-.uvodVolba h3{font-family:'Cinzel',serif;font-weight:500;font-size:1.05rem;letter-spacing:.08em;margin-bottom:.35rem}
-.uvodVolba p{color:var(--sed);font-size:1rem}
-#pruvodce{text-align:center;max-width:34rem;margin:0 auto}
-.otazka{font-family:'Cinzel',serif;font-weight:500;font-size:1.45rem;letter-spacing:.08em;margin:1.2rem 0 .4rem}
-.otazkaPod{font-style:italic;color:var(--sed);margin-bottom:1.6rem}
-.volby{display:grid;gap:.8rem}
-.volba{
-  background-image:
-    linear-gradient(104deg, transparent 32%,
-      color-mix(in srgb, var(--lesk) 30%, transparent) 46%,
-      color-mix(in srgb, var(--lesk) 52%, transparent) 50%,
-      color-mix(in srgb, var(--lesk) 30%, transparent) 54%, transparent 68%),
-    linear-gradient(163deg, rgba(255,255,255,.09) 0%, transparent 60%);
-  background-color:var(--plocha);
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  border:1px solid color-mix(in srgb, var(--zlata) 30%, transparent);
-  border-radius:12px;
-  padding:1.05rem 1.2rem;cursor:pointer;color:var(--krem);font-family:'Cormorant Garamond',serif;
-  font-size:1.12rem;text-align:center;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.10), 0 8px 20px -14px rgba(0,0,0,.55);
-  transition:border-color .25s,transform .25s,box-shadow .25s;
-}
-.volba:hover,.volba:focus-visible{
-  border-color:color-mix(in srgb, var(--zlata) 65%, transparent);
-  transform:translateY(-3px);outline:none;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14), 0 16px 30px -16px rgba(0,0,0,.6);
-}
-.doporuceni{
-  font-style:italic;color:var(--krem);font-size:1.02rem;max-width:28rem;
-  margin:1rem auto 0;padding:.7rem 1rem;border:1px solid color-mix(in srgb, var(--zlata) 28%, transparent);border-radius:2px;
-}
-.doporuceni::before{content:"průvodce · ";font-family:'Jost',sans-serif;font-style:normal;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--zlata)}
-.terapeutStitek{font-family:'Jost',sans-serif;font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ruze);margin-top:.5rem}
+.platba img{width:176px;height:176px;border-radius:10px;background:#fff;padding:6px}
+.platba .udaje{font-size:1rem;line-height:1.85}
+.platba .udaje b{font-family:'Jost',sans-serif;font-weight:500;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sed);display:block}
 
-/* ---------- sezení ---------- */
-#sezeni{text-align:center}
-/* návrat — lepivý pruh, ať je tlačítko po ruce i po odrolování */
-.zpetPruh{
-  position:sticky;top:0;z-index:8;
-  margin:0 0 1.2rem;padding:.5rem 0;
-  background:none;border:none;      /* žádná plocha, jen tlačítko */
-  pointer-events:none;              /* pruh sám nechytá klikání */
-}
-.zpetPruh > .zpet{pointer-events:auto}
-.zpet{
-  display:inline-flex;align-items:center;gap:.55rem;
-  min-height:44px;padding:.5rem 1.1rem;
-  background:color-mix(in srgb, var(--les) 88%, transparent);
-  -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
-  border:1px solid color-mix(in srgb, var(--zlata) 45%, transparent);
-  border-radius:999px;
-  box-shadow:0 2px 12px -4px rgba(29,59,48,.18);
-  color:var(--zlata);
-  font-family:'Jost',sans-serif;font-size:.8rem;font-weight:400;
-  letter-spacing:.16em;text-transform:uppercase;
-  cursor:pointer;-webkit-tap-highlight-color:transparent;
-  transition:background .25s,border-color .25s,color .25s,transform .2s;
-}
-.zpet .sipka{font-size:1.05rem;line-height:1;margin-top:-1px}
-.zpet:hover{background:color-mix(in srgb, var(--zlata) 15%, transparent);border-color:var(--zlata);color:var(--krem)}
-.zpet:active{transform:scale(.97)}
-.zpet:focus-visible{outline:2px solid var(--zlata);outline-offset:3px}
-#sNazev{font-family:'Cinzel',serif;font-weight:500;font-size:1.7rem;letter-spacing:.1em}
-#sPasmo{font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--zlata);margin:.45rem 0 1rem}
-#sZamer{font-style:italic;font-size:1.22rem;max-width:30rem;margin:0 auto .35rem}
-
-/* dechový kruh — srdce aplikace */
-.kruhObal{display:flex;justify-content:center;align-items:center;height:250px;margin:1.6rem 0 .4rem}
-#kruh{
-  --zare:#c8a45c;
-  width:182px;height:182px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
-  cursor:pointer;-webkit-tap-highlight-color:transparent;
-  border:1px solid color-mix(in srgb, var(--zare) 55%, transparent);
-  background:
-    radial-gradient(circle at 32% 26%, rgba(255,255,255,.26) 0%, rgba(255,255,255,.05) 18%, transparent 42%),
-    radial-gradient(circle at 68% 80%, color-mix(in srgb, var(--zare) 32%, transparent) 0%, transparent 55%),
-    radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--zare) 52%, #10261e) 0%, color-mix(in srgb, var(--zare) 26%, #0c1e17) 62%, color-mix(in srgb, var(--zare) 10%, #0a1a13) 100%);
-  box-shadow:
-    0 18px 40px -12px rgba(0,0,0,.55),
-    0 0 46px color-mix(in srgb, var(--zare) 15%, transparent),
-    inset 0 -14px 26px rgba(0,0,0,.35),
-    inset 0 10px 22px color-mix(in srgb, var(--zare) 22%, transparent);
-  transition:box-shadow 1.4s, border-color 1.4s, background 1.4s, transform .25s;
-}
-#kruh:not(.ziva):hover{transform:scale(1.04)}
-#kruh:not(.ziva):active{transform:scale(.97)}
-#kruh:focus-visible{outline:1px solid var(--zlata);outline-offset:6px}
-#kruhText{
-  position:relative;z-index:1;
-  font-family:'Jost',sans-serif;font-size:.72rem;font-weight:400;
-  letter-spacing:.34em;text-transform:uppercase;padding-left:.34em;
-  color:color-mix(in srgb, var(--zare) 70%, #f2e9d8);
-  text-shadow:0 1px 8px rgba(0,0,0,.45);pointer-events:none;
-}
-#kruh.ziva{box-shadow:0 22px 48px -12px rgba(0,0,0,.6), 0 0 72px color-mix(in srgb, var(--zare) 26%, transparent), inset 0 -14px 26px rgba(0,0,0,.35), inset 0 10px 24px color-mix(in srgb, var(--zare) 30%, transparent)}
-
-/* vnitřní život koule — dvě vrstvy proudění, jako vítr uvnitř */
-#kruh::before,#kruh::after{content:"";position:absolute;inset:-18%;border-radius:50%;pointer-events:none;mix-blend-mode:screen;transition:opacity 1.4s}
-#kruh::before{
-  background:
-    radial-gradient(circle at 30% 35%, color-mix(in srgb, var(--zare) 55%, transparent) 0%, transparent 42%),
-    radial-gradient(circle at 72% 66%, color-mix(in srgb, var(--ruze) 45%, transparent) 0%, transparent 40%),
-    radial-gradient(circle at 55% 20%, rgba(242,233,216,.20) 0%, transparent 30%);
-  filter:blur(16px);
-  opacity:.42;
-  animation:proudeni 13s ease-in-out infinite;
-}
-#kruh::after{
-  background:conic-gradient(from 0deg,
-    transparent 0deg,
-    color-mix(in srgb, var(--zare) 30%, transparent) 40deg,
-    transparent 95deg,
-    color-mix(in srgb, var(--zare) 18%, transparent) 150deg,
-    transparent 205deg,
-    color-mix(in srgb, var(--ruze) 22%, transparent) 262deg,
-    transparent 320deg);
-  filter:blur(14px);
-  opacity:.28;
-  animation:zavan 27s linear infinite;
-}
-#kruh.ziva::before{opacity:.72;animation-duration:9s}
-#kruh.ziva::after{opacity:.48;animation-duration:18s}
-@keyframes proudeni{
-  0%{transform:rotate(0deg) translate(0,0) scale(1)}
-  33%{transform:rotate(120deg) translate(4%,-3%) scale(1.09)}
-  66%{transform:rotate(240deg) translate(-3%,4%) scale(.95)}
-  100%{transform:rotate(360deg) translate(0,0) scale(1)}
-}
-@keyframes zavan{
-  0%{transform:rotate(0deg)}
-  100%{transform:rotate(-360deg)}
-}
-@media (prefers-reduced-motion:reduce){#kruh::before,#kruh::after{animation:none}}
-.dechInfo{font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--zlata);margin-top:.6rem}
-.navod{font-size:1.06rem;color:var(--krem);max-width:30rem;margin:1rem auto 0;line-height:1.6}
-.dechSlovo{font-style:italic;font-size:1.35rem;letter-spacing:.14em;color:var(--krem);margin-bottom:.25rem}
-.konecText{font-style:italic;font-size:1.12rem;color:var(--krem);max-width:26rem;margin:0 auto .4rem}
-.cas{font-family:'Cinzel',serif;font-size:2.5rem;font-weight:400;letter-spacing:.16em;margin:.5rem 0 1.6rem;color:var(--krem)}
-
-/* ---------- ovládání ---------- */
-.ovladace{max-width:32rem;margin:0 auto;text-align:left}
-.radek{display:flex;align-items:center;gap:1rem;padding:.62rem 0;border-bottom:1px solid color-mix(in srgb, var(--zlata) 14%, transparent);flex-wrap:wrap}
-.stitek{font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--sed);width:6.4rem;flex-shrink:0}
-.pilulky{display:flex;gap:.5rem;flex-wrap:wrap}
-.pil{
-  font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-  background:none;border:1px solid color-mix(in srgb, var(--zlata) 35%, transparent);border-radius:2px;
-  color:var(--krem);padding:.42rem .8rem;cursor:pointer;transition:all .2s;
-}
-.pil.aktivni{background:color-mix(in srgb, var(--zlata) 16%, transparent);border-color:var(--zlata);color:var(--zlata)}
-.pil:hover{border-color:var(--zlata)}
-.tecka{width:.62rem;height:.62rem;border-radius:50%;display:inline-block;margin-right:.42rem;vertical-align:-1px}
-select,input[type=number]{
-  background:var(--plocha);border:1px solid color-mix(in srgb, var(--zlata) 35%, transparent);border-radius:2px;
-  color:var(--krem);font-family:'Jost',sans-serif;font-size:.85rem;padding:.4rem .55rem;
-}
-select:focus,input:focus{outline:1px solid var(--zlata)}
-select option{background:var(--les);color:var(--krem)}
-label{font-family:'Jost',sans-serif;font-size:.82rem;letter-spacing:.04em;color:var(--krem);display:inline-flex;align-items:center;gap:.45rem}
-input[type=number]{width:5.4rem}
-input[type=checkbox]{accent-color:var(--zlata);width:1rem;height:1rem}
-input[type=range]{flex:1;min-width:9rem;accent-color:var(--zlata)}
-.casPozn{flex-basis:100%;font-style:italic;color:var(--sed);font-size:.92rem;line-height:1.4;margin:.15rem 0 0}
-/* upozornění na ochutnávku — musí být vidět DŘÍV, než člověk vybírá délku */
-.ochutnavkaInfo{
-  flex-basis:100%;order:-1;margin:0 0 .7rem;padding:.75rem .95rem;
-  border:1px solid color-mix(in srgb, var(--zlata) 45%, transparent);
-  border-radius:12px;
-  background:color-mix(in srgb, var(--lesk) 12%, var(--plocha));
-  color:var(--krem);font-size:.98rem;line-height:1.45;
-}
-.ochutnavkaInfo b{font-family:'Jost',sans-serif;font-weight:500;font-size:.74rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--zlata);display:block;margin-bottom:.25rem}
-#delka option:disabled{color:var(--sed)}
-.statistika{font-family:'Jost',sans-serif;font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--zlata);text-align:center;margin:-.7rem auto 1.7rem}
-.checkin{margin-top:1.1rem}
-.checkinOtazka{font-style:italic;color:var(--sed);font-size:1.02rem;margin-bottom:.55rem}
-.checkin .pilulky{justify-content:center}
-.napoveda{font-style:italic;color:var(--sed);font-size:.95rem;margin:1rem 0 1.3rem;text-align:center}
-.hlavni{
-  display:block;width:100%;max-width:20rem;margin:0 auto;
-  font-family:'Jost',sans-serif;font-weight:500;font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;
-  background:none;border:1px solid var(--zlata);border-radius:2px;color:var(--zlata);
-  padding:.95rem 1rem;cursor:pointer;transition:all .25s;
-}
-.hlavni:hover{background:color-mix(in srgb, var(--zlata) 14%, transparent)}
-.hlavni.bezi{border-color:var(--ruze);color:var(--ruze)}
-.hlavni.bezi:hover{background:color-mix(in srgb, var(--ruze) 12%, transparent)}
-
-footer{text-align:center;padding:1.6rem 1.2rem 2.2rem;color:var(--sed);font-size:.92rem;font-style:italic}
-footer p+p{margin-top:.3rem;font-style:normal;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase}
-
-/* ---------- doladění světlého tématu ---------- */
-:root[data-tema="svetle"] header{
-  color:var(--krem);
-  text-shadow:none;
-  background:
-    url("hero-svetly-kruh.webp") center/auto clamp(558px, 89vw, 718px) no-repeat;
-  -webkit-mask-image:none;
-  mask-image:none;
-}
-:root[data-tema="svetle"] .znacka{color:var(--zlata)}
-:root[data-tema="svetle"] header .pod{color:var(--sed)}
-:root[data-tema="svetle"] header .terapeutStitek{color:var(--ruze)}
-:root[data-tema="svetle"] .temaPrepinac{
-  color:var(--krem);
-  background:rgba(246,240,226,.55);
-  border-color:color-mix(in srgb, var(--zlata) 50%, transparent);
-}
-:root[data-tema="svetle"] .karta,
-:root[data-tema="svetle"] .uvodVolba{
-  background-image:
-    linear-gradient(104deg, transparent 32%,
-      color-mix(in srgb, var(--lesk) 55%, transparent) 45%,
-      color-mix(in srgb, var(--lesk) 88%, transparent) 50%,
-      color-mix(in srgb, var(--lesk) 55%, transparent) 55%, transparent 68%),
-    linear-gradient(163deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.55) 38%, transparent 72%);
-  background-color:var(--plocha);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.95),
-    inset 0 -1px 0 rgba(29,59,48,.05),
-    0 16px 30px -20px rgba(29,59,48,.45),
-    0 4px 10px -6px rgba(29,59,48,.14);
-}
-:root[data-tema="svetle"] .volba{
-  background-image:
-    linear-gradient(104deg, transparent 32%,
-      color-mix(in srgb, var(--lesk) 55%, transparent) 45%,
-      color-mix(in srgb, var(--lesk) 88%, transparent) 50%,
-      color-mix(in srgb, var(--lesk) 55%, transparent) 55%, transparent 68%),
-    linear-gradient(163deg, rgba(255,255,255,.9) 0%, transparent 62%);
-  background-color:var(--plocha);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 10px 22px -16px rgba(29,59,48,.4);
-}
-:root[data-tema="svetle"] .karta:hover,
-:root[data-tema="svetle"] .karta:focus-visible,
-:root[data-tema="svetle"] .uvodVolba:hover,
-:root[data-tema="svetle"] .uvodVolba:focus-visible,
-:root[data-tema="svetle"] .volba:hover,
-:root[data-tema="svetle"] .volba:focus-visible{
-  background-color:color-mix(in srgb, var(--lesk) 26%, #fffdf7);
-}
-:root[data-tema="svetle"] .karta:active,
-:root[data-tema="svetle"] .uvodVolba:active,
-:root[data-tema="svetle"] .volba:active{
-  background-color:color-mix(in srgb, var(--lesk) 40%, #fffdf7);
-}
-:root[data-tema="svetle"] .karta:hover,
-:root[data-tema="svetle"] .karta:focus-visible,
-:root[data-tema="svetle"] .uvodVolba:hover,
-:root[data-tema="svetle"] .uvodVolba:focus-visible{
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,1),
-    0 28px 46px -22px rgba(29,59,48,.5),
-    0 6px 16px -8px rgba(29,59,48,.18);
-}
-:root[data-tema="svetle"] .volba:hover,
-:root[data-tema="svetle"] .volba:focus-visible{
-  box-shadow:inset 0 1px 0 rgba(255,255,255,1), 0 18px 32px -18px rgba(29,59,48,.45);
-}
-:root[data-tema="svetle"] .karta .pasmo{filter:brightness(.68) saturate(1.3)}
-:root[data-tema="svetle"] .kartaObraz{
-  background-image:linear-gradient(120deg,
-    rgba(181,84,76,.14) 0%, rgba(199,123,69,.13) 17%, rgba(201,169,79,.13) 33%,
-    rgba(111,160,124,.13) 50%, rgba(107,147,176,.13) 67%, rgba(122,116,168,.13) 83%,
-    rgba(161,132,181,.15) 100%) !important;
-}
-:root[data-tema="svetle"] .kartaObraz h3{color:var(--krem)}
-:root[data-tema="svetle"] .kartaObraz p{color:var(--sed)}
-:root[data-tema="svetle"] .kartaObraz .pasmo{color:var(--zlata) !important}
-:root[data-tema="svetle"] #kruh{
-  border-color:color-mix(in srgb, var(--zare) 62%, transparent);
-  background:
-    radial-gradient(circle at 32% 26%, rgba(255,255,255,.92) 0%, rgba(255,255,255,.45) 20%, transparent 48%),
-    radial-gradient(circle at 70% 78%, color-mix(in srgb, var(--zare) 46%, transparent) 0%, transparent 60%),
-    radial-gradient(circle at 50% 45%,
-      color-mix(in srgb, var(--zare) 46%, #ffffff) 0%,
-      color-mix(in srgb, var(--zare) 24%, #fdfaf2) 60%,
-      color-mix(in srgb, var(--zare) 8%, #f7f1e2) 100%);
-  box-shadow:
-    0 18px 44px -14px rgba(29,59,48,.26),
-    0 0 46px color-mix(in srgb, var(--zare) 26%, transparent),
-    inset 0 -14px 26px color-mix(in srgb, var(--zare) 26%, transparent),
-    inset 0 10px 22px rgba(255,255,255,.65);
-}
-:root[data-tema="svetle"] #kruh.ziva{
-  box-shadow:
-    0 22px 50px -14px rgba(29,59,48,.32),
-    0 0 78px color-mix(in srgb, var(--zare) 40%, transparent),
-    inset 0 -14px 26px color-mix(in srgb, var(--zare) 34%, transparent),
-    inset 0 10px 24px rgba(255,255,255,.7);
-}
-/* ve světlém motivu barva ztmavuje, jinak by se vrstvy proudění vybílily */
-:root[data-tema="svetle"] #kruh::before,
-:root[data-tema="svetle"] #kruh::after{mix-blend-mode:multiply}
-:root[data-tema="svetle"] #kruh::before{opacity:.30}
-:root[data-tema="svetle"] #kruh::after{opacity:.20}
-:root[data-tema="svetle"] #kruh.ziva::before{opacity:.48}
-:root[data-tema="svetle"] #kruh.ziva::after{opacity:.32}
-:root[data-tema="svetle"] #kruhText{
-  color:color-mix(in srgb, var(--zare) 55%, #2c4438);
-  text-shadow:0 1px 6px rgba(255,255,255,.75);
-}
-
-[hidden]{display:none !important}
-
-/* ---------- ochutnávka a odemknutí ---------- */
-.zamekStitek{
-  position:absolute;top:.65rem;right:.7rem;z-index:2;
-  font-family:'Jost',sans-serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--zlata);border:1px solid color-mix(in srgb, var(--zlata) 50%, transparent);
-  border-radius:999px;padding:.22rem .6rem;
-  background:color-mix(in srgb, var(--les) 55%, transparent);
-  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
-}
-:root[data-tema="svetle"] .zamekStitek{background:rgba(255,253,247,.75)}
-#odemknuti{max-width:34rem;margin:0 auto;text-align:center}
-#odemknuti h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.06em;margin-bottom:.6rem}
-#odemknuti .pod2{color:var(--sed);line-height:1.6;margin-bottom:1.4rem}
-#odemknuti ul{list-style:none;margin:0 0 1.5rem;text-align:left;display:inline-block}
-#odemknuti li{margin:.45rem 0;padding-left:1.5rem;position:relative;line-height:1.5}
-#odemknuti li::before{content:"✦";position:absolute;left:0;color:var(--zlata);font-size:.8em;top:.25em}
-#odemkCena{font-family:'Cinzel',serif;font-size:1.7rem;color:var(--zlata);margin:.2rem 0 1.2rem}
-#odemkCena small{font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sed);display:block;margin-top:.3rem}
-.odemkTlacitko{
-  display:inline-block;font-family:'Jost',sans-serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;
-  padding:.95rem 2.2rem;border-radius:999px;cursor:pointer;
-  background:color-mix(in srgb, var(--lesk) 22%, transparent);
-  border:1px solid var(--zlata);color:var(--zlata);
-  transition:background .25s,transform .25s;
-}
-.odemkTlacitko:hover{background:color-mix(in srgb, var(--lesk) 36%, transparent);transform:translateY(-2px)}
-#kodRadek{margin-top:1.8rem;padding-top:1.4rem;border-top:1px solid color-mix(in srgb, var(--zlata) 18%, transparent)}
-#kodRadek p{font-family:'Jost',sans-serif;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sed);margin-bottom:.6rem}
-#kodPole{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
-#odemkKod{
-  font-family:ui-monospace,monospace;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;
-  padding:.7rem 1rem;width:14rem;text-align:center;
-  background:var(--plocha);border:1px solid color-mix(in srgb, var(--zlata) 35%, transparent);
-  border-radius:12px;color:var(--krem);
-}
-#odemkKod:focus{outline:none;border-color:var(--zlata)}
-#kodStav{margin-top:.6rem;font-size:.95rem;min-height:1.4em}
-#kodStav.ok{color:#5eba8f}
-#kodStav.chyba{color:var(--ruze)}
-#ochutnavkaPozn{
-  font-family:'Jost',sans-serif;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--sed);text-align:center;margin:.9rem 0 0;
-}
-
-/* ---------- výzva k instalaci na plochu ---------- */
-#instalace{
-  position:fixed;left:50%;transform:translateX(-50%) translateY(140%);
-  bottom:max(1rem, env(safe-area-inset-bottom));
-  width:min(30rem, calc(100% - 1.6rem));z-index:20;
-  background:
-    linear-gradient(163deg, rgba(255,255,255,.12) 0%, transparent 60%),
-    color-mix(in srgb, var(--les) 94%, transparent);
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  border:1px solid color-mix(in srgb, var(--zlata) 38%, transparent);
-  border-radius:18px;padding:1.15rem 1.2rem 1rem;
-  box-shadow:0 24px 50px -22px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.14);
-  transition:transform .5s cubic-bezier(.2,.8,.3,1),opacity .4s;opacity:0;
-}
-#instalace.vidno{transform:translateX(-50%) translateY(0);opacity:1}
-:root[data-tema="svetle"] #instalace{
-  background:
-    linear-gradient(163deg, rgba(255,255,255,.9) 0%, transparent 65%),
-    color-mix(in srgb, #fffdf7 92%, transparent);
-  box-shadow:0 24px 50px -24px rgba(29,59,48,.45), inset 0 1px 0 rgba(255,255,255,.95);
-}
-#instalace h4{font-family:'Cinzel',serif;font-weight:500;font-size:1rem;letter-spacing:.07em;margin-bottom:.3rem}
-#instalace p{color:var(--sed);font-size:.98rem;line-height:1.45}
-#instalace ol{margin:.55rem 0 .2rem 1.15rem;color:var(--krem);font-size:.98rem;line-height:1.6}
-#instalace .ikonka{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:1.35em;height:1.35em;vertical-align:-.3em;margin:0 .12em;
-  border:1px solid color-mix(in srgb, var(--zlata) 55%, transparent);border-radius:5px;
-  color:var(--zlata);font-family:'Jost',sans-serif;font-size:.82em;line-height:1;
-}
-#instalace .tlacitka{display:flex;gap:.6rem;align-items:center;margin-top:.9rem;flex-wrap:wrap}
-#instalace button{
-  font-family:'Jost',sans-serif;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
-  padding:.62rem 1.2rem;border-radius:999px;cursor:pointer;transition:background .25s,border-color .25s;
-}
-#instalujTed{background:color-mix(in srgb, var(--lesk) 20%, transparent);border:1px solid var(--zlata);color:var(--zlata)}
-#instalujTed:hover{background:color-mix(in srgb, var(--lesk) 34%, transparent)}
-#instalaciPozdeji{background:none;border:1px solid transparent;color:var(--sed);margin-left:auto}
-#instalaciPozdeji:hover{color:var(--krem)}
-
-/* ztmavení obrazovky u nočních sezení (Usnutí) */
-#tlumeni{
-  position:fixed;inset:0;background:#000;opacity:0;
-  pointer-events:none;z-index:9;transition:opacity 12s ease-in;
-}
-#tlumeni.aktivni{opacity:.55}
+.upozorneni{font-style:italic;color:var(--sed);text-align:center;font-size:.95rem;margin-top:2.4rem}
+footer{margin-top:2.6rem;padding:2.4rem 1.2rem 3rem;text-align:center;border-top:1px solid var(--linka)}
+footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-spacing:.16em;color:var(--sed)}
+@media(max-width:560px){.platba{gap:1rem}}
 </style>
 </head>
 <body>
 
-<div id="tlumeni" aria-hidden="true"></div>
-
-<div id="instalace" role="dialog" aria-labelledby="instalaceNadpis" hidden>
-  <h4 id="instalaceNadpis">Měj Vyladění po ruce</h4>
-  <p id="instalaceText">Přidej si ho na plochu telefonu — otevře se na jedno klepnutí, funguje i bez internetu.</p>
-  <div id="instalaceKroky" hidden></div>
-  <div class="tlacitka">
-    <button id="instalujTed" type="button">Přidat na plochu</button>
-    <button id="instalaciPozdeji" type="button">teď ne</button>
-  </div>
-</div>
-
 <header>
-  <button id="tema" class="temaPrepinac" type="button" aria-label="Přepnout světlý a tmavý vzhled">světlá</button>
-  <div class="znacka" id="znacka">Oáza Adamanthea</div>
+  <p class="znacka">Oáza Adamanthea</p>
   <h1>Vyladění</h1>
-  <p class="pod">frekvence · dech · záměr</p>
-  <p class="terapeutStitek" id="terapeutStitek" hidden>režim terapeuta</p>
+  <p class="podtitul">frekvence · dech · záměr</p>
+  <p class="uvodni">
+    Zvukový průvodce, který tě rytmem, dechem a hlasem provede ke klidu, spánku,
+    meditaci i soustředění. Otevřeš ho v telefonu, přidáš na plochu — a máš ho navždy
+    u sebe, i bez internetu.
+  </p>
+  <div class="cta">
+    <a class="tl tl-plna" href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyzkoušet zdarma</a>
+    <a class="tl tl-obrys" href="#koupit">Plná verze · 349 Kč</a>
+  </div>
 </header>
 
-<main>
+<div class="obal">
 
-  <section id="uvod" hidden>
-    <p class="uvod">Vítej. Můžeš se nechat provést krátkým naladěním, nebo si rovnou vybrat sezení.</p>
-    <div class="uvodVolby">
-      <button class="uvodVolba" id="chciPruvodce" type="button">
-        <h3>Nech se provést</h3>
-        <p>Pár otázek ti pomůže ujasnit, co dnes potřebuješ harmonizovat.</p>
-      </button>
-      <button class="uvodVolba" id="chciSam" type="button">
-        <h3>Vím, co potřebuji</h3>
-        <p>Přejdi rovnou na výběr sezení.</p>
-      </button>
+<section>
+  <h2>Osm programů, jeden záměr</h2>
+  <p class="stred">Každé sezení pracuje s jiným rytmem — od bdělého soustředění po hlubokou noc.
+  Vedou tě dechový kruh a klidný mluvený hlas.</p>
+  <div class="programy">
+    <article class="program">
+      <span class="pruh" style="background:#a978db"></span>
+      <span class="fr">alfa · 10 Hz</span>
+      <h3>Zklidnění</h3>
+      <p>Uvolnění po náročném dni, ztišení vnitřního hluku.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#5a6ec4"></span>
+      <span class="fr">delta · 3 Hz</span>
+      <h3>Hluboký odpočinek</h3>
+      <p>Hluboká regenerace a odevzdání tíhy dne.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#4f9ae0"></span>
+      <span class="fr">sestup · 10 → 2,5 Hz</span>
+      <h3>Usnutí</h3>
+      <p>Když spánek nepřichází. Rytmus klesá s tebou a sám se ztiší.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#3fc2d8"></span>
+      <span class="fr">théta · 6 Hz</span>
+      <h3>Meditace a vhled</h3>
+      <p>Vnitřní obrazy, intuice, práce se záměrem.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#48c07e"></span>
+      <span class="fr">SMR · 14 Hz</span>
+      <h3>Jasná mysl</h3>
+      <p>Klidné soustředění při práci a tvorbě.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:#ef8098"></span>
+      <span class="fr">dech · 5,5 s</span>
+      <h3>Srdeční koherence</h3>
+      <p>Sladění dechu a srdečního rytmu, návrat do středu.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:linear-gradient(90deg,#e0554a,#7fa0bd,#56c481)"></span>
+      <span class="fr">iso princip</span>
+      <h3>Přeladění emocí</h3>
+      <p>Od napětí, smutku či neklidu ke klidu, měkkosti nebo bdělosti.</p>
+    </article>
+    <article class="program">
+      <span class="pruh" style="background:linear-gradient(90deg,#e04a3f,#f5c42e,#4cc072,#33aadd,#b46fdb)"></span>
+      <span class="fr">solfeggio · planetární tóny</span>
+      <h3>Sedm čaker</h3>
+      <p>Jedno centrum, nebo celá cesta od kořene ke koruně — s hlasem, který každé ohlásí.</p>
+    </article>
+  </div>
+</section>
+
+<div class="oddel"></div>
+
+<section id="koupit">
+  <h2>Ochutnej zdarma, odemkni jednou provždy</h2>
+  <p class="stred">Zdarma si vybereš jeden program a naladíš se na tři minuty.
+  Plná verze pak otevře všechno — bez předplatného, bez reklam, bez registrace.</p>
+
+  <div class="cenovka">
+    <div class="cena">349 Kč<small>jednou provždy</small></div>
+    <ul>
+      <li>všech 8 programů v plné délce 15–60 minut</li>
+      <li>mluvený průvodce každým sezením</li>
+      <li>celá cesta sedmi čakrami ve dvou soustavách ladění</li>
+      <li>Usnutí — sestupný rytmus pro bezesné noci</li>
+      <li>funguje offline, přímo z plochy telefonu</li>
+    </ul>
+  </div>
+
+  <div class="kroky">
+    <div class="krok"><div><b>Zaplať 349 Kč</b><p>Načti QR kód bankovní aplikací, nebo pošli převod ručně. Variabilní symbol 349001.</p></div></div>
+    <div class="krok"><div><b>Napiš nám</b><p>Po platbě pošli krátkou zprávu na <a href="mailto:oaza.adamanthea@gmail.com?subject=Vyladeni%20-%20plna%20verze">oaza.adamanthea@gmail.com</a>. Obratem ti přijde odemykací kód.</p></div></div>
+    <div class="krok"><div><b>Zadej kód v aplikaci</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Hotovo — navždy.</p></div></div>
+  </div>
+
+  <div class="platba">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQAAAAAefbjOAAADVElEQVR4nO2cTW7jMAxGH8cCsrSBHiBHkW82Z5ob2EfpDaxlARmchSRLKWbTBuOkCg00SOI8VAIY/nykIsqXr/XX1xkwyCCDfigUJF8zIDO7QBCB4NJLmYOjfMidvTyDzoUcMEQAhDBRg4jkP9D1GsEvAOHt1OUZ9CAof/fHiMzhoiLXiOo2KOsEMgdH8iXzQ5Zn0KMh1Q2qWejy3/6TQc8NBYcu7MI6Af7dIXMQkd8an2F5Bp0BZS+gqorXCD49U4UxoguDwpjfyy7jyfdk0L3QnqoICBeFlDM48O8Xld8byVuwiojIdP7yDDoVQm8v/EbyDLqMEUgPN58xH9EzlEsKvw05LixjedBtSKGjDRijWUTnkANA1wlRwlvEv7ucRq5z1iMgTACInr08g06HqN99/AbAoKpaksrkN8qzdNd8RM9QyiNSXZFtI/LPqFFvmEX0DCU1SlUj2UeMsVgJgNdIyjF9yTfMIrqGmqjRPtNSYSxAtRKrNfqHknsoBcfNyxpJshtRzVby5Hsy6B4oR42FwxiSRZDCRDaVomKbZvkaUPYHItPR7GRQ1mvpZqwTKanMgtUP2JNB34XaPGKhSJgLUPKItvdpeUT/UIkQ2lYT6Y4vokTWI9INixqdQw5GTdqkrtMAjB+C/zOh67QpfpuKcMkuajNU3UNNDdHoEUnC1NhmD4cbMR/RNdTMR7SqJDl0NJXIcnRBzSJ6hhrFITkFPSrNdlgm3ljOk+/JoDuhMSLzoU+u4ihZ5C5pWIZUjH5Inqd5/j0Z9G2oxIVRmzBRC0+obU/rdL0EdHS1PiUTkdrSSJe3qPESUDsfQc0nq5VsbTKB6RHdQ00jvNYVpRgdmlhRR7PNIrqGbmqN+lBnqEpTNF+WR/QOuWPaGghJuMzHQL2CQizv1VOhT74ng+6BSnEBNE3vY+wy55LVUZiP6B26ORsOyQuI33aX/Qa703QjgBJcfPo9GXQ/lM+Gh4vKDLDKpfxsQLgkrSpPT1xtPuKVoPFDgD03O9dpl6RUrlM5Lz4/cnkGnQG59kWY0FUGlSRgL6j4DRWvuyN3wy1qdA59PhteRyxzD3w72p6l8WWZZdfQTa1RRm2TTFUnbynKNqZZdg+Vo5xfuezXCw0y6HWgv2AXH6hIzVH4AAAAAElFTkSuQmCC" alt="Platební QR kód — 349 Kč na účet Oázy Adamanthea, variabilní symbol 349001" width="176" height="176">
+    <div class="udaje">
+      <b>účet</b> 8159854004 / 5500
+      <b>částka</b> 349 Kč
+      <b>variabilní symbol</b> 349001
+      <b>zpráva</b> VYLADĚNÍ + tvůj e-mail
     </div>
-  </section>
+  </div>
 
-  <section id="pruvodce" hidden>
-    <div class="zpetPruh"><button class="zpet" id="pruvodceZpet" type="button"><span class="sipka" aria-hidden="true">←</span> o krok zpět</button></div>
-    <h2 class="otazka" id="pOtazka"></h2>
-    <p class="otazkaPod" id="pPod"></p>
-    <div class="volby" id="pVolby"></div>
-  </section>
+  <p class="upozorneni">Vyladění je relaxační a meditační pomůcka. Nenahrazuje lékařskou ani psychoterapeutickou péči.</p>
+</section>
 
-  <section id="vyber">
-    <div class="zpetPruh"><button class="zpet" id="vyberZpet" type="button"><span class="sipka" aria-hidden="true">←</span> na úvod</button></div>
-    <p class="uvod">Vyber, co chceš dnes naladit. Každé sezení spojuje zvukový rytmus, vedený dech a jednoduchý záměr, který si neseš s sebou.</p>
-    <p class="uvod" id="uvodOchutnavka" hidden>Jeden program si můžeš zdarma vyzkoušet na tři minuty. Plná sezení trvají 15 až 60 minut.</p>
-    <p class="statistika" id="statistika" hidden></p>
-    <div class="mrizka" id="mrizka"></div>
-  </section>
-
-  <section id="odemk" hidden>
-    <div class="zpetPruh"><button class="zpet" id="odemkZpet" type="button"><span class="sipka" aria-hidden="true">←</span> zpět na výběr sezení</button></div>
-    <div id="odemknuti">
-      <h2>Odemkni si Vyladění celé</h2>
-      <p class="pod2" id="odemkUvod">Ochutnal jsi začátek. Celá sezení trvají 15 až 60 minut, vedou tě hlasem a jdou mnohem hlouběji.</p>
-      <ul>
-        <li>všech 8 programů v plné délce, bez omezení</li>
-        <li>mluvený průvodce každým sezením</li>
-        <li>celá cesta sedmi čakrami s ohlášením center</li>
-        <li>Usnutí — sestupný rytmus pro noci, kdy spánek nepřichází</li>
-        <li>funguje offline, navždy, bez předplatného</li>
-      </ul>
-      <div id="odemkCena">349 Kč<small>jednou provždy · žádné předplatné</small></div>
-      <a class="odemkTlacitko" id="odemkKoupit" href="https://oaza-adamanthea.cz/vyladeni" target="_blank" rel="noopener">Získat plnou verzi</a>
-      <div id="kodRadek">
-        <p>Už máš odemykací kód z e-mailu?</p>
-        <div id="kodPole">
-          <input id="odemkKod" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="LADENI-XXXXX">
-          <button class="odemkTlacitko" id="odemkPotvrdit" type="button">Odemknout</button>
-        </div>
-        <div id="kodStav" aria-live="polite"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="sezeni" hidden>
-    <div class="zpetPruh"><button class="zpet" id="zpet" type="button"><span class="sipka" aria-hidden="true">←</span> zpět na výběr sezení</button></div>
-    <h2 id="sNazev"></h2>
-    <p id="sPasmo"></p>
-    <p id="sZamer"></p>
-    <p class="dechInfo" id="dechInfo"></p>
-    <p class="doporuceni" id="doporuceni" hidden></p>
-    <p class="navod" id="navod"></p>
-
-    <div class="kruhObal"><div id="kruh" role="button" tabindex="0" aria-label="Zahájit nebo ukončit ladění"><span id="kruhText">zahájit</span></div></div>
-    <p class="dechSlovo" id="dechSlovo" hidden></p>
-    <p class="konecText" id="konecText" hidden></p>
-    <div class="checkin" id="checkin" hidden>
-      <p class="checkinOtazka" id="checkinOtazka">Jak ti teď je?</p>
-      <div class="pilulky" id="checkinPil">
-        <button class="pil" type="button" data-pocit="lehceji">lehčeji</button>
-        <button class="pil" type="button" data-pocit="stejne">stejně</button>
-        <button class="pil" type="button" data-pocit="doznivam">ještě doznívám</button>
-      </div>
-    </div>
-    <div class="cas" id="cas">20:00</div>
-
-    <div class="ovladace">
-      <div class="radek" id="hlasRadek">
-        <span class="stitek">Hlas</span>
-        <label><input type="checkbox" id="hlasPrepinac"> <span id="hlasPopisek">chci mluveného průvodce</span></label>
-      </div>
-      <div class="radek" id="odkudRadek" hidden>
-        <span class="stitek">Odkud</span>
-        <div class="pilulky" id="odkudPilulky"></div>
-      </div>
-      <div class="radek" id="kamRadek" hidden>
-        <span class="stitek">Kam</span>
-        <div class="pilulky" id="kamPilulky"></div>
-      </div>
-      <div class="radek" id="cakraRadek" hidden>
-        <span class="stitek">Centrum</span>
-        <div class="pilulky" id="cakraPilulky"></div>
-      </div>
-      <div class="radek" id="ladeniRadek" hidden>
-        <span class="stitek">Ladění</span>
-        <div class="pilulky">
-          <button class="pil aktivni" type="button" data-sys="sol">solfeggio</button>
-          <button class="pil" type="button" data-sys="pla">planetární · Cousto</button>
-        </div>
-      </div>
-      <div class="radek" id="rezimRadek">
-        <span class="stitek">Režim</span>
-        <div class="pilulky">
-          <button class="pil aktivni" type="button" data-rezim="bin">binaurální · sluchátka</button>
-          <button class="pil" type="button" data-rezim="izo">izochronní · reproduktor</button>
-        </div>
-      </div>
-      <div class="radek" id="nosnaRadek">
-        <span class="stitek">Nosný tón</span>
-        <select id="nosna">
-          <option value="110">110 Hz · hluboký</option>
-          <option value="136.1">136,1 Hz · tón Óm</option>
-          <option value="220">220 Hz</option>
-          <option value="432" selected>432 Hz</option>
-          <option value="528">528 Hz</option>
-        </select>
-      </div>
-      <div class="radek" id="vlastniRadek" hidden>
-        <span class="stitek">Vlastní</span>
-        <label>nosná <input type="number" id="vNosna" value="220" min="60" max="1000" step="1"> Hz</label>
-        <label>rytmus <input type="number" id="vBeat" value="7.83" min="0.5" max="40" step="0.01"> Hz</label>
-      </div>
-      <div class="radek">
-        <span class="stitek">Délka</span>
-        <p class="ochutnavkaInfo" id="ochutnavkaInfo" hidden></p>
-        <select id="delka" aria-label="Délka sezení"></select>
-        <p class="casPozn" id="casPozn"></p>
-      </div>
-      <div class="radek">
-        <span class="stitek">Podkres</span>
-        <select id="podkres" aria-label="Zvukový podkres">
-          <option value="ticho" selected>ticho</option>
-          <option value="sum">jemný šum</option>
-          <option value="dest">déšť</option>
-          <option value="vlny">vlny oceánu</option>
-          <option value="vitr">vítr</option>
-          <option value="souzvuk">tichý souzvuk</option>
-          <option value="misy">zpívající mísy</option>
-        </select>
-      </div>
-      <div class="radek">
-        <span class="stitek">Zvon</span>
-        <label><input type="checkbox" id="zvon" checked> tibetská mísa na začátku a na konci</label>
-      </div>
-      <div class="radek" id="vibraceRadek" hidden>
-        <span class="stitek">Vibrace</span>
-        <label><input type="checkbox" id="vibrace"> jemné tepy do dechu</label>
-      </div>
-      <div class="radek" id="tlumRadek" hidden>
-        <span class="stitek">Tma</span>
-        <label><input type="checkbox" id="tlumPrepinac" checked> ztmavit obrazovku (klepnutím kdykoli zrušíš)</label>
-      </div>
-      <div class="radek">
-        <span class="stitek">Hlasitost</span>
-        <input type="range" id="hlasitost" min="0" max="1" step="0.01" value="0.4" aria-label="Hlasitost">
-      </div>
-      <p class="napoveda" id="napoveda">Pro binaurální režim si nasaď sluchátka — rozdílový rytmus vzniká teprve složením obou uší.</p>
-      <button id="hlavni" class="hlavni" type="button">Zahájit ladění</button>
-    </div>
-  </section>
-
-</main>
+</div>
 
 <footer>
-  <p>Relaxační a meditační pomůcka. Nenahrazuje lékařskou ani psychoterapeutickou péči.</p>
-  <p>Oáza Adamanthea · Halenkovice · verze 55</p>
+  <p>Oáza Adamanthea · Halenkovice · <a href="https://oaza-adamanthea.cz">oaza-adamanthea.cz</a></p>
 </footer>
 
-<script>
-/* =====================================================================
-   SEZENÍ — uprav volně texty a rytmy (beat v Hz).
-   Pole "krystaly" se zatím nikde nezobrazuje, ponecháno pro pozdější verzi.
-   dech:true  → sezení řízené dechem (kruh 5,5 s nádech / 5,5 s výdech)
-   vlastni:true → ruční nastavení nosné i rytmu
-   ===================================================================== */
-const SEZENI = {
-  zklidneni: {
-    nazev: "Zklidnění",
-    beat: 10,
-    pasmo: "alfa · 10 Hz",
-    barva: "#a978db",
-    krystaly: "ametyst · celestýn",
-    zamer: "Dovol tělu vydechnout a myšlenkám zpomalit.",
-    popis: "Uvolnění po náročném dni, ztišení vnitřního hluku.",
-    delky: [10, 15, 20, 30], vychozi: 20,
-    casPozn: "Měřitelné zklidnění nastupuje po 15–30 minutách; 20 minut je osvědčené optimum.",
-    dechVzor: { nadech: 4, vydech: 6 },
-    navod: "Pohodlně se usaď a uvolni se. Dýchej s kruhem na obrazovce — nádech, když roste, dlouhý výdech, když se stahuje. Až rytmus najdeš, můžeš zavřít oči. Zvuk tě ponese dál. Když myšlenky odběhnou, nic se neděje. Vrať se k výdechu."
-  },
-  odpocinek: {
-    nazev: "Hluboký odpočinek",
-    beat: 3,
-    pasmo: "delta · 3 Hz",
-    barva: "#5a6ec4",
-    krystaly: "lepidolit · měsíční kámen",
-    zamer: "Odevzdej tíhu dne. Tělo ví, jak se obnovit.",
-    popis: "Hluboká regenerace a odevzdání tíhy dne.",
-    delky: [15, 30, 45, 60], vychozi: 30,
-    casPozn: "Odpolední restart i příprava na noc. Když spánek nepřichází, sáhni po sezení Usnutí — to rytmus postupně snižuje.",
-    dechVzor: { nadech: 4, vydech: 8 },
-    navod: "Lehni si nebo se pohodlně opři. Krátký nádech, dlouhý pomalý výdech. Oči nech zavřené. Nemusíš nic dělat, zvuk na konci dozní.",
-    konec: "Zvuk doznil. Nech oči ještě chvíli zavřené a vracej se pomalu.",
-    konecTicho: true
-  },
-  usnuti: {
-    nazev: "Usnutí",
-    beat: 10,
-    rampa: [10, 6, 4, 2.5],
-    pasmo: "sestup · 10 → 2,5 Hz",
-    barva: "#4f9ae0",
-    krystaly: "lepidolit · howlit",
-    zamer: "Nemusíš usnout. Stačí odpočívat.",
-    popis: "Když spánek nepřichází. Rytmus klesá s tebou a sám se ztiší.",
-    izo: true,
-    tlum: true,
-    dojezdPodil: 0.5,
-    delky: [20, 30, 45, 60], vychozi: 30,
-    casPozn: "Rytmus klesá z bdělé alfy přes thétu do delty a zvuk se od poloviny sám ztišuje do ticha. Pusť si ho z reproduktoru vedle postele — se sluchátky se špatně leží.",
-    dechVzor: { nadech: 4, vydech: 8 },
-    navod: "Pohodlně si lehni. Telefon polož vedle sebe. Dlouhý pomalý výdech a nech tělo těžknout. Zvuk bude klesat s tebou a sám se ztiší. Nemusíš usnout. Stačí odpočívat.",
-    konec: "Zvuk doznil.",
-    konecTicho: true
-  },
-  meditace: {
-    nazev: "Meditace a vhled",
-    beat: 6,
-    pasmo: "théta · 6 Hz",
-    barva: "#3fc2d8",
-    krystaly: "křišťál · labradorit",
-    zamer: "Sestup pod hladinu myšlenek a naslouchej.",
-    popis: "Vnitřní obrazy, intuice, práce se záměrem.",
-    delky: [15, 20, 30, 45], vychozi: 20,
-    casPozn: "Začni s 15–20 minutami, zkušenější jdou na 30–45.",
-    dechVzor: { nadech: 5, vydech: 5 },
-    navod: "Sedni si pohodlně s rovnou páteří. Prvních pár nádechů veď s kruhem na obrazovce a pak se nechej přirozeně vést. Co přichází, nech přicházet."
-  },
-  soustredeni: {
-    nazev: "Jasná mysl",
-    beat: 14,
-    pasmo: "smr · 14 Hz",
-    barva: "#48c07e",
-    krystaly: "fluorit · záhněda",
-    zamer: "Jedna věc. Teď.",
-    popis: "Klidné soustředění při práci a tvorbě.",
-    delky: [25, 30, 45, 60], vychozi: 30,
-    casPozn: "Soustředění se usazuje pomaleji — počítej s 30–60 minutami. 25 minut = jedno pomodoro.",
-    dechVzor: { nadech: 4, vydrz: 4, vydech: 4, pauza: 4 },
-    navod: "Seď vzpřímeně. Dýchej ve čtverci: nádech, zadržení, výdech, zadržení. Po pár minutách nech dech být a vrať se k práci. Zvuk nech znít na okraji pozornosti.",
-    konec: "Doznělo. Pokračuj dál svým vlastním tempem, pozornost už drží sama."
-  },
-  srdce: {
-    nazev: "Srdeční koherence",
-    beat: 1/11,
-    pasmo: "dech · 5,5 s nádech / 5,5 s výdech",
-    barva: "#ef8098",
-    krystaly: "růženín · zelený avanturín",
-    zamer: "Dýchej srdcem. Vše ostatní počká.",
-    popis: "Sladění dechu a srdečního rytmu, návrat do středu.",
-    dech: true,
-    delky: [3, 5, 10, 15], vychozi: 5,
-    casPozn: "Metoda 365: pět minut, ideálně třikrát denně. Tělo reaguje už od tří minut.",
-    dechVzor: { nadech: 5.5, vydech: 5.5 },
-    navod: "Ruce polož doprostřed hrudi. Nádech, když se kruh rozevírá, výdech, když se stahuje. Představ si, že dech proudí přímo srdcem, tam a zpět, v jednom klidném rytmu.",
-    konec: "Doznělo. Ruce nechej na hrudi ještě pár nádechů. Kdykoli se k tomuto rytmu můžeš vrátit."
-  },
-  emoce: {
-    nazev: "Přeladění emocí",
-    beat: 10,
-    pasmo: "iso princip · setkání → přechod → usazení",
-    krystaly: "podle cíle",
-    zamer: "Zvuk tě nejdřív potká tam, kde jsi, a teprve pak vede dál.",
-    popis: "Vyber, odkud vycházíš a kam chceš dojít. Rytmus tě převede po krocích.",
-    emoce: true,
-    delky: [5, 10, 15, 20, 30], vychozi: 15,
-    casPozn: "Iso princip z muzikoterapie: čtvrtina času na setkání s tvým stavem, polovina na přechod, čtvrtina na usazení. Posun nálady je měřitelný už od pěti minut.",
-    navod: "Zvědom si, jak se cítíš. A spoj se s tou emocí, kterou vnímáš. Dýchej s kruhem na obrazovce a dovol rytmu, aby tě pomalu vedl. Nechej vše, aby vyšlo ven, a pak nechej odejít.",
-    konec: "Přechod je dokončen. Uvědom si své pocity, novou frekvenci a pomalu se můžeš vrátit zpět do života."
-  },
-  cakry: {
-    nazev: "Sedm čaker",
-    beat: 6,
-    pasmo: "solfeggio · planetární tóny",
-    krystaly: "podle zvoleného centra",
-    zamer: "Nalaď centrum, které dnes volá.",
-    popis: "Jedno centrum, nebo celá cesta od kořene ke koruně. Dvě soustavy ladění.",
-    obraz: "cakry.webp",
-    cakry: true,
-    delky: [5, 10, 15, 20], vychozi: 10,
-    casPozn: "Jednomu centru stačí 10–15 minut v théta rytmu.",
-    delkyCesta: [14, 21, 28, 35], vychoziCesta: 21,
-    casPoznCesta: "Dvě až pět minut na každé ze sedmi center; doporučené tři.",
-    dechVzor: { nadech: 5, vydech: 5 },
-    navod: "Pohodlně si sedni nebo lehni. Dýchej klidně a pozornost polož do místa, které právě zní. Při této cestě nech svoji pozornost stoupat s barvou, od země ke světlu.",
-    konecCesta: "Cesta je završena. Chvíli ještě zůstaň v celku, v proudu od země ke světlu."
-  },
-  vlastni: {
-    nazev: "Vlastní ladění",
-    beat: 7.83,
-    pasmo: "nastav si nosnou i rytmus",
-    barva: "#c8a45c",
-    krystaly: "dle tvého záměru",
-    zamer: "Ty víš, co dnes potřebuješ naladit.",
-    popis: "Ruční nastavení nosného tónu i rytmu.",
-    vlastni: true,
-    delky: [10, 20, 30, 45, 60], vychozi: 20,
-    casPozn: "Pod 10 minut se rytmus nestihne usadit — dej mu čas.",
-    dechVzor: { nadech: 5, vydech: 5 },
-    navod: "Nastav si tón i rytmus a dýchej s kruhem. Tohle je tvůj prostor pro hledání."
-  }
-};
-
-/* Čakry — dvě soustavy nosných tónů:
-   sol = solfeggio · pla = planetární tóny podle Hanse Cousta (Kosmická oktáva) */
-const CAKRY = [
-  { klic:"koren",  nazev:"Kořenová čakra", kratky:"kořen",     sanskrt:"Múládhára",    sol:396, pla:194.18, planeta:"den Země",        barva:"#e04a3f", krystaly:"granát · černý turmalín", zamer:"Stojím pevně. Země mě nese.", ohlas:"Kořenová čakra. Ukotvení, uzemnění, stabilita a kořeny. Pozornost nech klesnout na nejspodnější část páteře. Máš pevnou zem pod svýma nohama." },
-  { klic:"sakral", nazev:"Sakrální čakra", kratky:"sakrál",    sanskrt:"Svádhišthána", sol:417, pla:210.42, planeta:"synodický Měsíc", barva:"#f0842f", krystaly:"karneol · měsíční kámen", zamer:"Dovoluji životu proudit.", ohlas:"Sakrální čakra, tvůj podbříšek. Radost, vitalita, sexualita, tvořivost. Nechej vše plynout, jako řeku." },
-  { klic:"solar",  nazev:"Solar plexus",   kratky:"solar",     sanskrt:"Manipúra",     sol:528, pla:126.22, planeta:"Slunce",          barva:"#f5c42e", krystaly:"citrín · tygří oko",      zamer:"Má vůle je klidná a jasná.", ohlas:"Solar plexus. Tvůj oheň, síla, sebevědomí a vůle. Nechej své vnitřní slunce v břiše zářit." },
-  { klic:"srdce",  nazev:"Srdeční čakra",  kratky:"srdce",     sanskrt:"Anáhata",      sol:639, pla:136.1,  planeta:"rok Země · Óm",   barva:"#4cc072", krystaly:"růženín · malachit",      zamer:"Otevírám se a přijímám.", ohlas:"Srdeční čakra. Láska, harmonie, rovnováha a klid. Pozornost do středu hrudi. S každým nádechem se prostor rozšiřuje a tvůj květ rozkvétá, vnímej to." },
-  { klic:"krk",    nazev:"Krční čakra",    kratky:"krk",       sanskrt:"Višuddha",     sol:741, pla:141.27, planeta:"Merkur",          barva:"#33aadd", krystaly:"sodalit · akvamarín",     zamer:"Mluvím svou pravdu.", ohlas:"Krční čakra. Komunikace a vyjádření. Pozornost do hrdla, do místa hlasu a pravdy." },
-  { klic:"oko",    nazev:"Třetí oko",      kratky:"třetí oko", sanskrt:"Ádžňá",        sol:852, pla:221.23, planeta:"Venuše",          barva:"#6a63dc", krystaly:"ametyst · lapis lazuli",  zamer:"Vidím jasně.", ohlas:"Třetí oko. Jasná vize a intuice. Pozornost mezi obočí, do klidného vnitřního zraku." },
-  { klic:"koruna", nazev:"Korunní čakra",  kratky:"koruna",    sanskrt:"Sahasrára",    sol:963, pla:172.06, planeta:"platónský rok",   barva:"#b46fdb", krystaly:"křišťál · selenit",       zamer:"Jsem součástí celku.", ohlas:"Korunní čakra. Napojení na tvé vyšší já. Pozornost k temeni hlavy a nad něj, do otevřeného prostoru." }
-];
-
-/* Přeladění emocí — iso princip z muzikoterapie:
-   rytmus nejdřív potká aktuální stav (odkud) a pak plyne k cíli (kam).
-   beat = startovní/cílový rytmus podle míry nabuzení, ne "frekvence emoce". */
-const EMOCE = {
-  odkud: [
-    { klic:"napeti",  nazev:"napětí · stres",   beat:16, barva:"#e0554a" },
-    { klic:"hnev",    nazev:"hněv",             beat:18, barva:"#d94a3d" },
-    { klic:"uzkost",  nazev:"úzkost · strach",  beat:15, barva:"#c99a5c" },
-    { klic:"rozteka", nazev:"roztěkanost",      beat:13, barva:"#d8bf68" },
-    { klic:"smutek",  nazev:"smutek",           beat:5,  barva:"#7fa0bd" },
-    { klic:"tiha",    nazev:"tíha · otupělost", beat:4,  barva:"#97a08f" }
-  ],
-  kam: [
-    { klic:"klid",    nazev:"klid",            beat:10, barva:"#56c481", krystaly:"ametyst · celestýn",  zamer:"Vydechni. Už nikam nemusíš.",            dechVzor:{ nadech:4, vydech:6 } },
-    { klic:"mekko",   nazev:"měkké spočinutí", beat:6,  barva:"#9c90e0", krystaly:"lepidolit · růženín", zamer:"Dovol si změknout a odevzdat tíhu.",     dechVzor:{ nadech:4, vydech:8 } },
-    { klic:"bdelost", nazev:"jasná bdělost",   beat:12, barva:"#f0c766", krystaly:"fluorit · křišťál",   zamer:"Hlava se čistí jako nebe po dešti.",     dechVzor:{ nadech:4, vydrz:2, vydech:4, pauza:2 } }
-  ]
-};
-
-/* výchozí závěrečný text po doznění sezení */
-const KONEC_VYCHOZI = "Sezení doznělo. Ještě chvíli poseď v tichu a nech vše usadit. Pak se zlehka protáhni, napij se vody a pokračuj dál na své cestě.";
-
-/* co hlas řekne, když po úvodních cyklech předává vedení dechu člověku */
-const HLAS_POKRACUJ = "Teď už tě povede dech sám. Pokračuj stejným tempem, nebo si najdi vlastní rytmus. Zvuk tě ponese dál.";
-
-/* Předání se skloňovaným tempem podle dechového vzoru sezení.
-   Vlastní znění pro konkrétní sezení: přidej mu do dat pole pokracuj: "…". */
-const CISLA = { 1: "jednu", 2: "dvě", 3: "tři", 4: "čtyři", 5: "pět", 6: "šest", 7: "sedm", 8: "osm", 9: "devět", 10: "deset" };
-
-function slovoDoby(n) {
-  if (n % 1 !== 0) return (CISLA[Math.floor(n)] || Math.floor(n)) + " a půl doby";
-  if (n === 1) return "jednu dobu";
-  return (CISLA[n] || n) + (n <= 4 ? " doby" : " dob");
-}
-
-function popisTempa(v) {
-  const c = ["nádech na " + slovoDoby(v.nadech)];
-  if (v.vydrz) c.push("zadržení na " + slovoDoby(v.vydrz));
-  c.push("výdech na " + slovoDoby(v.vydech));
-  if (v.pauza) c.push("uvolnění na " + slovoDoby(v.pauza));
-  return c.length > 1 ? c.slice(0, -1).join(", ") + " a " + c[c.length - 1] : c[0];
-}
-
-function textPokracovani() {
-  const s = SEZENI[aktivni];
-  if (s && s.pokracuj) return s.pokracuj;
-  const v = aktualniVzor();
-  if (!v) return HLAS_POKRACUJ;
-  return "Teď už tě povede dech sám. Pokračuj ve stejném tempu — " + popisTempa(v) + ". Nebo si najdi vlastní rytmus. Zvuk tě ponese dál.";
-}
-
-/* ---------- prvky ---------- */
-const $ = id => document.getElementById(id);
-const vyber = $("vyber"), sezeni = $("sezeni"), mrizka = $("mrizka");
-const kruh = $("kruh"), cas = $("cas"), hlavni = $("hlavni");
-let aktivni = null;          // klíč zvoleného sezení
-let rezim = "bin";           // bin | izo
-let sys = "sol";             // sol | pla — soustava ladění čaker
-let vybranaCakra = "cesta";  // "cesta" nebo klíč čakry
-let vybranaOdkud = "napeti"; // výchozí emoční stav
-let vybranaKam = "klid";     // cílový stav
-let bezi = false;
-
-/* ---------- vykreslení karet ---------- */
-function postavMrizku() {
-  // věta o ochutnávce jen pro toho, kdo ji ještě má k dispozici
-  const u = $("uvodOchutnavka");
-  if (u) u.hidden = terapeut || odemceno() || ochutnavkaVyuzita();
-  mrizka.innerHTML = "";
-  for (const [klic, s] of Object.entries(SEZENI)) {
-    if (s.vlastni && !terapeut) continue;   // vlastní ladění jen pro terapeuty
-    const k = document.createElement("button");
-    k.type = "button";
-    k.className = "karta";
-    const barvy = s.cakry ? CAKRY.map(c => c.barva)
-                : s.emoce ? [EMOCE.odkud[0].barva, "#c8a45c", EMOCE.kam[0].barva]
-                : [s.barva || "#c8a45c"];
-    const pruh = barvy.length > 1 ? `linear-gradient(90deg, ${barvy.join(",")})` : barvy[0];
-    const pasmoBarva = s.obraz ? "#c8a45c" : (barvy.length === 1 ? barvy[0] : "var(--zlata)");
-    const zamek = (!terapeut && !odemceno() && (s.rampa || s.cakry || ochutnavkaVyuzita()))
-      ? '<span class="zamekStitek">plná verze</span>' : "";
-    k.innerHTML = `<span class="kartaPruh" style="background:${pruh}"></span>${zamek}`
-                + `<h3>${s.nazev}</h3><div class="pasmo" style="color:${pasmoBarva}">${s.pasmo}</div><p>${s.popis}</p>`;
-    if (s.obraz) {
-      k.classList.add("kartaObraz");
-      k.style.backgroundImage = `linear-gradient(rgba(13,29,23,.72), rgba(13,29,23,.86)), url("${s.obraz}")`;
-    }
-    k.addEventListener("click", () => otevri(klic));
-    mrizka.appendChild(k);
-  }
-}
-
-function otevri(klic) {
-  const p = pristup(klic);
-  if (p === "zamceno") {
-    ukazOdemknuti(SEZENI[klic] && (SEZENI[klic].rampa || SEZENI[klic].cakry) ? "zamceno-program" : "zamceno");
-    return;
-  }
-  aktivni = klic;
-  const s = SEZENI[klic];
-  $("sNazev").textContent = s.nazev;
-  $("sPasmo").textContent = s.pasmo;
-  $("sZamer").textContent = s.zamer;
-  $("vlastniRadek").hidden = !s.vlastni;
-  $("nosnaRadek").hidden = !!s.vlastni || !!s.cakry;
-  $("cakraRadek").hidden = !s.cakry;
-  $("ladeniRadek").hidden = !s.cakry;
-  $("odkudRadek").hidden = !s.emoce;
-  $("kamRadek").hidden = !s.emoce;
-  $("rezimRadek").hidden = !!s.dech || !!s.izo;
-  $("tlumRadek").hidden = !s.tlum;
-  $("napoveda").hidden = !!s.dech || !!s.izo || rezim !== "bin";
-  $("navod").textContent = s.navod || "";
-  $("navod").hidden = !s.navod;
-  $("dechSlovo").hidden = true;
-  $("konecText").hidden = true;
-  $("checkin").hidden = true;
-  if (s.cakry) aktualizujCakru();
-  else if (s.emoce) aktualizujEmoce();
-  else {
-    kruh.style.setProperty("--zare", s.barva || "#c8a45c");
-    naplnDelky(s.delky, s.vychozi, s.casPozn);
-  }
-  nastavDechInfo();
-  $("doporuceni").hidden = true;
-  ukazSekci("sezeni");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-$("zpet").addEventListener("click", () => {
-  if (bezi) zastav();
-  ukazSekci("vyber");
-});
-
-function nastavRezim(r) {
-  rezim = r;
-  document.querySelectorAll("#rezimRadek .pil").forEach(x => x.classList.toggle("aktivni", x.dataset.rezim === r));
-  $("napoveda").hidden = r !== "bin";
-}
-document.querySelectorAll("#rezimRadek .pil").forEach(p => p.addEventListener("click", () => nastavRezim(p.dataset.rezim)));
-
-document.querySelectorAll("#ladeniRadek .pil").forEach(p => p.addEventListener("click", () => {
-  if (bezi) return;
-  document.querySelectorAll("#ladeniRadek .pil").forEach(x => x.classList.remove("aktivni"));
-  p.classList.add("aktivni");
-  sys = p.dataset.sys;
-  aktualizujCakru();
-}));
-
-/* pilulky center — celá cesta + sedm čaker */
-(function () {
-  const obal = $("cakraPilulky");
-  const cesta = document.createElement("button");
-  cesta.type = "button";
-  cesta.className = "pil aktivni";
-  cesta.dataset.cakra = "cesta";
-  cesta.textContent = "celá cesta";
-  obal.appendChild(cesta);
-  CAKRY.forEach(c => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "pil";
-    b.dataset.cakra = c.klic;
-    b.innerHTML = `<span class="tecka" style="background:${c.barva}"></span>${c.kratky}`;
-    obal.appendChild(b);
-  });
-  obal.addEventListener("click", e => {
-    if (bezi) return;
-    const b = e.target.closest(".pil");
-    if (!b) return;
-    obal.querySelectorAll(".pil").forEach(x => x.classList.remove("aktivni"));
-    b.classList.add("aktivni");
-    vybranaCakra = b.dataset.cakra;
-    aktualizujCakru();
-  });
-})();
-
-/* pilulky přeladění emocí — odkud a kam */
-(function () {
-  const skupiny = { odkud: "odkudPilulky", kam: "kamPilulky" };
-  for (const [skupina, id] of Object.entries(skupiny)) {
-    const obal = $(id);
-    EMOCE[skupina].forEach((e, i) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "pil" + (i === 0 ? " aktivni" : "");
-      b.dataset.klic = e.klic;
-      b.innerHTML = `<span class="tecka" style="background:${e.barva}"></span>${e.nazev}`;
-      obal.appendChild(b);
-    });
-    obal.addEventListener("click", ev => {
-      if (bezi) return;
-      const b = ev.target.closest(".pil");
-      if (!b) return;
-      obal.querySelectorAll(".pil").forEach(x => x.classList.remove("aktivni"));
-      b.classList.add("aktivni");
-      if (skupina === "odkud") vybranaOdkud = b.dataset.klic;
-      else vybranaKam = b.dataset.klic;
-      aktualizujEmoce();
-    });
-  }
-})();
-
-function aktualizujEmoce() {
-  const s = SEZENI.emoce;
-  const o = EMOCE.odkud.find(x => x.klic === vybranaOdkud);
-  const k = EMOCE.kam.find(x => x.klic === vybranaKam);
-  $("sNazev").textContent = "Přeladění emocí";
-  $("sPasmo").textContent = `${o.nazev} → ${k.nazev} · ${o.beat} → ${k.beat} Hz`;
-  $("sZamer").textContent = k.zamer;
-  kruh.style.setProperty("--zare", o.barva);
-  naplnDelky(s.delky, s.vychozi, s.casPozn);
-  nastavDechInfo();
-}
-
-function frek(c) { return sys === "sol" ? c.sol : c.pla; }
-function hz(f) { return String(f).replace(".", ",") + " Hz"; }
-
-function aktualizujCakru() {
-  const s = SEZENI.cakry;
-  if (vybranaCakra === "cesta") {
-    $("sNazev").textContent = "Cesta čakrami";
-    $("sPasmo").textContent = "od kořene ke koruně · 7 fází · rytmus théta 6 Hz";
-    $("sZamer").textContent = "Projdi vzestupně všemi centry, u každého chvíli spočiň.";
-    kruh.style.setProperty("--zare", "#c8a45c");
-    naplnDelky(s.delkyCesta, s.vychoziCesta, s.casPoznCesta);
-  } else {
-    ukazFazi(CAKRY.find(x => x.klic === vybranaCakra));
-    naplnDelky(s.delky, s.vychozi, s.casPozn);
-  }
-}
-
-function minSlovo(n) { return n === 1 ? "minuta" : (n >= 2 && n <= 4 ? "minuty" : "minut"); }
-
-/* naplní výběr délek; drží uživatelovu volbu, pokud v nové nabídce existuje */
-function naplnDelky(delky, vychozi, pozn) {
-  const jeOchutnavka = pristup(aktivni) === "ochutnavka";
-  const plne = delky.slice();          // skutečné délky programu
-  const info = $("ochutnavkaInfo");
-
-  if (jeOchutnavka) {
-    info.innerHTML = "<b>Ochutnávka zdarma</b>Zdarma si vyzkoušíš <b style='display:inline;font-size:1em;"
-      + "letter-spacing:0;text-transform:none;font-family:inherit;color:inherit'>jeden</b> program na "
-      + OCHUTNAVKA_MIN + " minuty. Tenhle program má ve skutečnosti "
-      + plne[0] + " až " + plne[plne.length - 1] + " minut — plné délky odemkne plná verze.";
-    info.hidden = false;
-    vychozi = OCHUTNAVKA_MIN;
-  } else {
-    info.hidden = true;
-  }
-
-  const sel = $("delka");
-  const puvodni = parseInt(sel.value, 10);
-  sel.innerHTML = "";
-
-  if (jeOchutnavka) {
-    const o = document.createElement("option");
-    o.value = OCHUTNAVKA_MIN;
-    o.textContent = OCHUTNAVKA_MIN + " " + minSlovo(OCHUTNAVKA_MIN) + " · ochutnávka zdarma";
-    o.selected = true;
-    sel.appendChild(o);
-    // zamčené délky zůstanou vidět, ať je zřejmý celý rozsah programu
-    plne.forEach(d => {
-      const z = document.createElement("option");
-      z.value = d; z.disabled = true;
-      z.textContent = `${d} ${minSlovo(d)} — jen v plné verzi`;
-      sel.appendChild(z);
-    });
-    $("casPozn").textContent = "";
-    $("casPozn").hidden = true;
-    if (!bezi) ukazCas(OCHUTNAVKA_MIN * 60);
-    return;
-  }
-
-  const cil = plne.includes(puvodni) ? puvodni : vychozi;
-  plne.forEach(d => {
-    const o = document.createElement("option");
-    o.value = d;
-    o.textContent = `${d} ${minSlovo(d)}` + (d === vychozi ? " · doporučeno" : "");
-    if (d === cil) o.selected = true;
-    sel.appendChild(o);
-  });
-  $("casPozn").textContent = pozn || "";
-  $("casPozn").hidden = !pozn;
-  if (!bezi) ukazCas(cil * 60);
-}
-
-function ukazFazi(c) {
-  $("sNazev").textContent = c.nazev;
-  const zdroj = sys === "pla" ? ` · ${c.planeta}` : "";
-  $("sPasmo").textContent = `${c.sanskrt} · ${hz(frek(c))}${zdroj} · rytmus théta 6 Hz`;
-  $("sZamer").textContent = c.zamer;
-  kruh.style.setProperty("--zare", c.barva);
-}
-
-$("delka").addEventListener("change", () => {
-  if (!bezi) ukazCas(parseInt($("delka").value, 10) * 60);
-});
-
-/* =====================================================================
-   PRŮVODCE — krátké naladění: pár otázek k doporučenému sezení.
-   Otázky, odpovědi i zdůvodnění uprav volně zde.
-   ===================================================================== */
-const PRUVODCE = {
-  start: {
-    otazka: "Co je teď nejhlasitější?",
-    pod: "Zastav se na jeden nádech a poslouchej.",
-    moznosti: [
-      { text: "Tělo — napětí, neklid nebo únava", dalsi: "telo" },
-      { text: "Mysl — příliš mnoho myšlenek", dalsi: "mysl" },
-      { text: "Emoce — něco mě svírá nebo tíží", dalsi: "emoceOdkud" },
-      { text: "Nic konkrétního — chci se jen naladit", dalsi: "volne" }
-    ]
-  },
-  telo: {
-    otazka: "Jak se tělo cítí?",
-    moznosti: [
-      { text: "Nabuzené a napjaté", cil: { sezeni: "emoce", odkud: "napeti", kam: "klid", duvod: "Napjaté tělo nejdřív potkáme v jeho tempu a pak ho pomalu svedeme do klidu." } },
-      { text: "Těžké a vyčerpané", cil: { sezeni: "odpocinek", duvod: "Vyčerpání volá po hloubce delta — dovolit tělu, aby se obnovilo samo." } },
-      { text: "Neklidné před spaním", cil: { sezeni: "odpocinek", duvod: "Pomalý delta rytmus připraví tělo na spánek a na konci sám dozní." } }
-    ]
-  },
-  mysl: {
-    otazka: "Co mysl potřebuje?",
-    moznosti: [
-      { text: "Zpomalit a ztišit se", cil: { sezeni: "zklidneni", duvod: "Alfa je přirozené pásmo klidné bdělosti — myšlenky v něm řídnou samy." } },
-      { text: "Soustředit se na jednu věc", cil: { sezeni: "soustredeni", duvod: "Rytmus SMR drží pozornost klidnou a u jedné věci." } },
-      { text: "Jít do hloubky, k vhledu", cil: { sezeni: "meditace", duvod: "Théta otevírá vnitřní obrazy a naslouchání." } }
-    ]
-  },
-  emoceOdkud: { otazka: "Odkud vycházíš?", dynamicke: "odkud" },
-  emoceKam:   { otazka: "Kam chceš dojít?", dynamicke: "kam" },
-  volne: {
-    otazka: "Co tě dnes láká?",
-    moznosti: [
-      { text: "Projít postupně celým tělem", cil: { sezeni: "cakry", cakra: "cesta", duvod: "Cesta čakrami projde vzestupně všemi sedmi centry." } },
-      { text: "Spočinout v srdci", cil: { sezeni: "srdce", duvod: "Pět minut dechu se srdcem je nejrychlejší návrat do středu." } },
-      { text: "Prostě klid", cil: { sezeni: "zklidneni", duvod: "Alfa klid. Víc dnes není potřeba." } }
-    ]
-  },
-  sluchatka: {
-    otazka: "Máš teď sluchátka?",
-    pod: "Binaurální rytmus vzniká jen ve sluchátkách. Přes reproduktor použijeme pulzující tón.",
-    moznosti: [
-      { text: "Ano, mám sluchátka", rezimVolba: "bin" },
-      { text: "Ne, poslouchám z reproduktoru", rezimVolba: "izo" }
-    ]
-  }
-};
-
-let pKrok = "start", pHistorie = [], pCil = null;
-
-function spustPruvodce() {
-  pKrok = "start"; pHistorie = []; pCil = null;
-  vykresliKrok();
-  ukazSekci("pruvodce");
-}
-
-function vykresliKrok() {
-  const k = PRUVODCE[pKrok];
-  $("pOtazka").textContent = k.otazka;
-  $("pPod").textContent = k.pod || "";
-  $("pPod").hidden = !k.pod;
-  const obal = $("pVolby");
-  obal.innerHTML = "";
-  let moznosti = k.moznosti;
-  if (k.dynamicke) {
-    moznosti = EMOCE[k.dynamicke].map(e => ({
-      text: e.nazev,
-      barva: e.barva,
-      volbaEmoce: { skupina: k.dynamicke, klic: e.klic }
-    }));
-  }
-  moznosti.forEach(m => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "volba";
-    b.innerHTML = m.barva ? `<span class="tecka" style="background:${m.barva}"></span>${m.text}` : m.text;
-    b.addEventListener("click", () => zvolMoznost(m));
-    obal.appendChild(b);
-  });
-}
-
-function zvolMoznost(m) {
-  if (m.volbaEmoce) {
-    if (m.volbaEmoce.skupina === "odkud") {
-      vybranaOdkud = m.volbaEmoce.klic;
-      prejdiNa("emoceKam");
-    } else {
-      vybranaKam = m.volbaEmoce.klic;
-      pCil = { sezeni: "emoce", duvod: "Zvuk tě nejdřív potká ve tvém stavu a pak tě pomalým přechodem převede tam, kam míříš." };
-      prejdiNa("sluchatka");
-    }
-    return;
-  }
-  if (m.dalsi) { prejdiNa(m.dalsi); return; }
-  if (m.cil) {
-    pCil = m.cil;
-    if (SEZENI[pCil.sezeni].dech) dokonciPruvodce(null);   // dechové sezení režim nepotřebuje
-    else prejdiNa("sluchatka");
-    return;
-  }
-  if (m.rezimVolba) dokonciPruvodce(m.rezimVolba);
-}
-
-function prejdiNa(krok) {
-  pHistorie.push(pKrok);
-  pKrok = krok;
-  vykresliKrok();
-}
-
-$("pruvodceZpet").addEventListener("click", () => {
-  if (pHistorie.length === 0) { ukazSekci("uvod"); return; }
-  pKrok = pHistorie.pop();
-  vykresliKrok();
-});
-
-function dokonciPruvodce(rezimVolba) {
-  const c = pCil;
-  if (c.odkud) vybranaOdkud = c.odkud;
-  if (c.kam) vybranaKam = c.kam;
-  if (c.cakra) vybranaCakra = c.cakra;
-  if (rezimVolba) nastavRezim(rezimVolba);
-  otevri(c.sezeni);
-  synchronizujPilulky();
-  $("doporuceni").textContent = c.duvod;
-  $("doporuceni").hidden = false;
-}
-
-/* srovná zvýraznění pilulek se stavem (po doporučení průvodcem) */
-function synchronizujPilulky() {
-  $("odkudPilulky").querySelectorAll(".pil").forEach(x => x.classList.toggle("aktivni", x.dataset.klic === vybranaOdkud));
-  $("kamPilulky").querySelectorAll(".pil").forEach(x => x.classList.toggle("aktivni", x.dataset.klic === vybranaKam));
-  $("cakraPilulky").querySelectorAll(".pil").forEach(x => x.classList.toggle("aktivni", x.dataset.cakra === vybranaCakra));
-}
-
-/* =====================================================================
-   PAMĚŤ PRAXE A VOLEB — ukládá se jen do tohoto prohlížeče (localStorage).
-   Pozn.: v náhledech bez úložiště tiše přeskočí, na webu funguje.
-   ===================================================================== */
-function nactiStat() {
-  try { return JSON.parse(localStorage.getItem("oazaLadeni") || "{}"); } catch (e) { return {}; }
-}
-function ulozStat(s) {
-  try { localStorage.setItem("oazaLadeni", JSON.stringify(s)); } catch (e) {}
-}
-function mistniDen(d) {
-  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-}
-
-function zapisPraxi(minuty) {
-  if (!minuty || minuty < 3) return;
-  const s = nactiStat();
-  const dnes = mistniDen(new Date());
-  s.minuty = (s.minuty || 0) + minuty;
-  s.pocet = (s.pocet || 0) + 1;
-  if (s.posledniDen !== dnes) {
-    const vcera = mistniDen(new Date(Date.now() - 864e5));
-    s.serie = (s.posledniDen === vcera) ? (s.serie || 0) + 1 : 1;
-    s.posledniDen = dnes;
-  }
-  ulozStat(s);
-  ukazStat();
-  if (s.pocet >= 2) setTimeout(zobrazInstalaci, 2500);   // až si to člověk vyzkoušel
-}
-
-function zapisPocit(pocit) {
-  const s = nactiStat();
-  s.pocity = s.pocity || {};
-  s.pocity[pocit] = (s.pocity[pocit] || 0) + 1;
-  ulozStat(s);
-}
-
-function ukazStat() {
-  const el = $("statistika");
-  if (!el) return;
-  const s = nactiStat();
-  if (!s.pocet) { el.hidden = true; return; }
-  const d = s.serie === 1 ? "den" : (s.serie <= 4 ? "dny" : "dní");
-  el.textContent = `tvoje praxe · ${s.serie} ${d} v řadě · ${s.minuty} minut`;
-  el.hidden = false;
-}
-
-function ulozVolby() {
-  const s = nactiStat();
-  s.volby = {
-    rezim,
-    podkres: $("podkres").value,
-    hlas: $("hlasPrepinac").checked,
-    zvon: $("zvon").checked,
-    tlum: $("tlumPrepinac").checked,
-    hlasitost: $("hlasitost").value
-  };
-  ulozStat(s);
-}
-function nactiVolby() {
-  const v = nactiStat().volby;
-  if (!v) return;
-  if (v.rezim) nastavRezim(v.rezim);
-  if (v.podkres) $("podkres").value = v.podkres;
-  $("hlasPrepinac").checked = !!v.hlas;
-  $("zvon").checked = v.zvon !== false;
-  $("tlumPrepinac").checked = v.tlum !== false;
-  if (v.hlasitost) $("hlasitost").value = v.hlasitost;
-}
-
-/* ---------- ztmavení obrazovky ---------- */
-/* Pojistka: po načtení appky nikdy nezůstat ve tmě, ať sezení skončilo jakkoli. */
-$("tlumeni").classList.remove("aktivni");
-function zrusTmu() { $("tlumeni").classList.remove("aktivni"); }
-["pointerdown", "keydown"].forEach(u =>
-  document.addEventListener(u, () => {
-    if ($("tlumeni").classList.contains("aktivni")) zrusTmu();
-  }, true)
-);
-document.addEventListener("visibilitychange", () => { if (document.visibilityState !== "visible") zrusTmu(); });
-
-/* ---------- udržení obrazovky během sezení ---------- */
-let zamekObrazovky = null;
-async function drzObrazovku() {
-  try {
-    if ("wakeLock" in navigator) zamekObrazovky = await navigator.wakeLock.request("screen");
-  } catch (e) {}
-}
-function pustObrazovku() {
-  if (zamekObrazovky) { try { zamekObrazovky.release(); } catch (e) {} zamekObrazovky = null; }
-}
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible" && bezi) drzObrazovku();
-});
-
-/* =====================================================================
-   HLASOVÝ PRŮVODCE — mluvené vedení sezení.
-   Výchozí je hlasová syntéza prohlížeče. Jakmile doplníš cesty
-   k nahrávkám (Martina / AI) do HLAS_SOUBORY, mají přednost.
-   Klíče: "nadech","zadrz","vydech","uvolni","pokracuj" (či "pokracuj-<sezeni>"),
-          "intro-<sezeni>", "konec-<sezeni>" (jen u sezení s vlastním závěrem),
-          "konec-vychozi" (sdílený závěr ostatních), "konec-cakry-cesta",
-          "cakra-<klic>" (koren, sakral, solar, srdce, krk, oko, koruna).
-   ===================================================================== */
-const HLAS_SOUBORY = {
-  "nadech": "nadech.mp3",
-  "zadrz": "zadrz.mp3",
-  "vydech": "vydech.mp3",
-  "uvolni": "uvolni.mp3",
-  "pokracuj": "pokracuj.mp3",
-  "intro-zklidneni": "intro-zklidneni.mp3",
-  "intro-odpocinek": "intro-odpocinek.mp3",
-  "intro-usnuti": "intro-usnuti.mp3",
-  "intro-meditace": "intro-meditace.mp3",
-  "intro-soustredeni": "intro-soustredeni.mp3",
-  "intro-srdce": "intro-srdce.mp3",
-  "intro-emoce": "intro-emoce.mp3",
-  "intro-cakry": "intro-cakry.mp3",
-  "cakra-koren": "cakra-koren.mp3",
-  "cakra-sakral": "cakra-sakral.mp3",
-  "cakra-solar": "cakra-solar.mp3",
-  "cakra-srdce": "cakra-srdce.mp3",
-  "cakra-krk": "cakra-krk.mp3",
-  "cakra-oko": "cakra-oko.mp3",
-  "cakra-koruna": "cakra-koruna.mp3",
-  "konec-soustredeni": "konec-soustredeni.mp3",
-  "konec-srdce": "konec-srdce.mp3",
-  "konec-emoce": "konec-emoce.mp3",
-  "konec-cakry-cesta": "konec-cakry-cesta.mp3",
-  "konec-vychozi": "konec-vychozi.mp3",
-};
-const KLIC_SLOVA = { "nádech": "nadech", "zadrž": "zadrz", "výdech": "vydech", "uvolni": "uvolni" };
-const hlasCache = {};
-let hlasUvodBezi = false;
-let duck = null;             // ztlumení tónu během mluveného úvodu
-/* =====================================================================
-   MLUVENÝ PRŮVODCE
-   Používají se výhradně nahrané soubory z HLAS_SOUBORY (viz výše).
-   Hlas syntézy prohlížeče se záměrně nepoužívá — na každém zařízení
-   zní jinak a často komolí češtinu.
-   ===================================================================== */
-
-function hlasZapnuty() {
-  const p = $("hlasPrepinac");
-  return !!(p && p.checked && Object.keys(HLAS_SOUBORY).length > 0);
-}
-
-/* Načte metadata všech nahrávek, ať známe jejich skutečnou délku dřív,
-   než je poprvé přehrajeme. Bez toho se časování řídí odhadem z textu. */
-function nactiDelky() {
-  for (const [klic, cesta] of Object.entries(HLAS_SOUBORY)) {
-    if (hlasCache[klic]) continue;
-    const a = new Audio();
-    a.preload = "metadata";
-    a.src = cesta;
-    hlasCache[klic] = a;
-  }
-}
-
-nactiDelky();
-
-/* Okamžitě umlčí všechny nahrávky (konec sezení, přechod, nové mluvení). */
-function zastavHlas() {
-  for (const a of Object.values(hlasCache)) {
-    if (!a) continue;
-    if (a._pojistka) { clearTimeout(a._pojistka); a._pojistka = null; }
-    a.onended = null;
-    try { a.pause(); a.currentTime = 0; } catch (e) {}
-  }
-}
-
-/* Kolik milisekund mluvení čekat: podle nahrávky, jinak odhad z délky textu. */
-function delkaHlasu(klic, text) {
-  const a = hlasCache[klic];
-  if (a && isFinite(a.duration) && a.duration > 0) return a.duration * 1000 + 600;
-  return Math.min(60000, Math.max(8000, (text || "").length * 95));
-}
-
-function prehrajHlas(klic, text, volby = {}) {
-  const cesta = HLAS_SOUBORY[klic];
-  if (cesta) {
-    let a = hlasCache[klic];
-    if (!a) { a = new Audio(cesta); a.preload = "auto"; hlasCache[klic] = a; }
-    a.currentTime = 0;
-    a.volume = 0.9;
-    if (a._pojistka) { clearTimeout(a._pojistka); a._pojistka = null; }
-    a.onended = () => { if (a._pojistka) clearTimeout(a._pojistka); if (volby.onend) volby.onend(); };
-    // pojistka pro případ, že událost "ended" nedorazí (např. při přepnutí karty)
-    const nastavPojistku = () => {
-      if (!volby.onend) return;
-      const ms = isFinite(a.duration) && a.duration > 0 ? a.duration * 1000 + 1200 : 70000;
-      a._pojistka = setTimeout(volby.onend, ms);
-    };
-    if (a.readyState >= 1) nastavPojistku();
-    else a.addEventListener("loadedmetadata", nastavPojistku, { once: true });
-    a.play().catch(() => { if (volby.onend) volby.onend(); });
-    return;
-  }
-  // pro tenhle klíč nahrávka neexistuje — průvodce mlčí a jede se dál
-  if (volby.onend) volby.onend();
-}
-
-/* Co se má stát, až doopravdy dozní mluvený úvod sezení.
-   Používá cesta čakrami: první centrum se ohlásí až po úvodu, ne podle odhadu. */
-let poUvodu = null;
-
-/* konec mluveného úseku — tón se teprve teď rozezní naplno */
-function poIntru() {
-  if (!hlasUvodBezi) return;
-  hlasUvodBezi = false;
-  if (duck && ctx) duck.gain.setTargetAtTime(1, ctx.currentTime, 1.2);
-  if (poUvodu) {
-    const dalsi = poUvodu;
-    poUvodu = null;
-    fazeCasovace.push(setTimeout(dalsi, 2200));   // krátké ticho mezi úvodem a centrem
-  }
-}
-
-/* Mluvený úsek uprostřed sezení (např. ohlášení čakry).
-   Ztlumí tón, promluví, pak tón vrátí. Dechová slova mezitím mlčí. */
-function mluvUsek(klic, text) {
-  if (!bezi || !hlasZapnuty() || !text) return;
-  hlasUvodBezi = true;
-  zastavHlas();
-  if (duck && ctx) duck.gain.setTargetAtTime(0.14, ctx.currentTime, 0.5);
-  prehrajHlas(klic, text, { rate: .9, onend: poIntru });
-  fazeCasovace.push(setTimeout(poIntru, delkaHlasu(klic, text) + 900));
-}
-
-/* =====================================================================
-   DECHOVÝ MOTOR — kruh a slovo vedou dech podle vzoru sezení.
-   Vzor: { nadech, vydrz?, vydech, pauza? } v sekundách.
-   ===================================================================== */
-let dechCasovac = null, dechAnim = null;
-
-function aktualniVzor() {
-  const s = SEZENI[aktivni];
-  if (!s) return null;
-  if (s.emoce) return EMOCE.kam.find(x => x.klic === vybranaKam).dechVzor;
-  return s.dechVzor || null;
-}
-
-function cz(n) { return String(n).replace(".", ","); }
-
-function dechText(v) {
-  const c = [`nádech ${cz(v.nadech)} s`];
-  if (v.vydrz) c.push(`zadrž ${cz(v.vydrz)} s`);
-  c.push(`výdech ${cz(v.vydech)} s`);
-  if (v.pauza) c.push(`uvolnění ${cz(v.pauza)} s`);
-  return c.join(" · ");
-}
-
-function nastavDechInfo() {
-  const v = aktualniVzor();
-  $("dechInfo").textContent = v ? "dech · " + dechText(v) : "";
-  $("dechInfo").hidden = !v;
-}
-
-function fazeVzoru(v) {
-  const f = [];
-  if (v.nadech) f.push({ text: "nádech", s: v.nadech, kruh: 1.34 });
-  if (v.vydrz)  f.push({ text: "zadrž",  s: v.vydrz,  kruh: 1.34 });
-  if (v.vydech) f.push({ text: "výdech", s: v.vydech, kruh: 1 });
-  if (v.pauza)  f.push({ text: "uvolni", s: v.pauza,  kruh: 1 });
-  return f;
-}
-
-function spustDech(vzor) {
-  if (!vzor) return;
-  const faze = fazeVzoru(vzor);
-  const T = faze.reduce((a, f) => a + f.s, 0) * 1000;
-
-  // kruh — křivka přesně podle vzoru (včetně zádrží)
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const kf = [{ transform: "scale(1)", offset: 0, easing: "ease-in-out" }];
-    let t = 0;
-    for (const f of faze) {
-      t += f.s * 1000;
-      kf.push({ transform: `scale(${f.kruh})`, offset: Math.min(t / T, 1), easing: "ease-in-out" });
-    }
-    kf[kf.length - 1].offset = 1;
-    dechAnim = kruh.animate(kf, { duration: T, iterations: Infinity });
-  }
-  kruh.classList.add("ziva");
-
-  // slovo — pulzuje s každou fází
-  const slovo = $("dechSlovo");
-  slovo.hidden = false;
-  let i = 0;
-  let prechodReceno = false;
-  const limit = faze.length * 8;
-  const dalsi = () => {
-    const f = faze[i % faze.length];
-    slovo.textContent = f.text;
-    slovo.animate(
-      [{ opacity: .25 }, { opacity: 1, offset: .35 }, { opacity: .55 }],
-      { duration: f.s * 1000, easing: "ease-in-out" }
-    );
-    if ($("vibrace").checked && "vibrate" in navigator) {
-      try { navigator.vibrate(f.text === "nádech" ? 26 : 13); } catch (e) {}
-    }
-    if (hlasZapnuty() && !hlasUvodBezi) {
-      if (i < limit) {
-        prehrajHlas(KLIC_SLOVA[f.text], f.text, { rate: .85 });
-      } else if (!prechodReceno) {
-        prechodReceno = true;
-        const klic = HLAS_SOUBORY["pokracuj-" + aktivni] ? "pokracuj-" + aktivni : "pokracuj";
-        prehrajHlas(klic, textPokracovani(), { rate: .9 });
-      }
-    }
-    i++;
-    dechCasovac = setTimeout(dalsi, f.s * 1000);
-  };
-  dalsi();
-}
-
-function zastavDech() {
-  clearTimeout(dechCasovac); dechCasovac = null;
-  if (dechAnim) { dechAnim.cancel(); dechAnim = null; }
-  kruh.classList.remove("ziva");
-  $("dechSlovo").hidden = true;
-}
-
-/* =====================================================================
-   ZVUKOVÝ MOTOR — Web Audio API
-   binaurální: dva sinusové tóny (L = nosná, P = nosná + rytmus)
-   izochronní: jeden tón, jehož hlasitost pulzuje v rytmu
-   ===================================================================== */
-let ctx = null, master = null, sess = null;
-let uzly = [];               // oscilátory a zdroje k zastavení
-let konecTimeout = null, tik = null, konecMs = 0;
-let fazeCasovace = [];       // časovače přepínání fází cesty čakrami
-let startMs = 0;             // začátek běžícího sezení (pro zápis praxe)
-
-function zajistiCtx() {
-  if (!ctx) {
-    ctx = new (window.AudioContext || window.webkitAudioContext)();
-    master = ctx.createGain();
-    const v = parseFloat($("hlasitost").value);
-    master.gain.value = v * v;
-    master.connect(ctx.destination);
-  }
-  if (ctx.state === "suspended") ctx.resume();
-}
-
-$("hlasitost").addEventListener("input", e => {
-  if (master) {
-    const v = parseFloat(e.target.value);
-    master.gain.setTargetAtTime(v * v, ctx.currentTime, 0.05);
-  }
-});
-
-function hnedySum() {
-  const delka = ctx.sampleRate * 4;
-  const buf = ctx.createBuffer(1, delka, ctx.sampleRate);
-  const d = buf.getChannelData(0);
-  let posl = 0;
-  for (let i = 0; i < delka; i++) {
-    const bily = Math.random() * 2 - 1;
-    posl = (posl + 0.02 * bily) / 1.02;
-    d[i] = posl * 3.5;
-  }
-  return buf;
-}
-
-function bilySum() {
-  const delka = ctx.sampleRate * 2;
-  const buf = ctx.createBuffer(1, delka, ctx.sampleRate);
-  const d = buf.getChannelData(0);
-  for (let i = 0; i < delka; i++) d[i] = Math.random() * 2 - 1;
-  return buf;
-}
-
-/* pomalé „dýchání" parametru — dvě sinusovky v neracionálním poměru,
-   takže se vzor nikdy přesně neopakuje */
-function lfoNaParam(t0, tKonec, frekvence, hloubka, param, zaklad) {
-  param.setValueAtTime(zaklad, t0);
-  frekvence.forEach(f => {
-    const o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = f;
-    const g = ctx.createGain(); g.gain.value = hloubka / frekvence.length;
-    o.connect(g); g.connect(param);
-    o.start(t0); o.stop(tKonec + 0.2);
-    uzly.push(o);
-  });
-}
-
-/* zvukové krajiny — vše generované, nic se nestahuje ani neopakuje ve smyčce */
-function spustPodkres(typ, t0, tKonec, nosna, nosice, nosnaVcase) {
-  if (!typ || typ === "ticho") return;
-  const ven = ctx.createGain(); ven.gain.value = 1; ven.connect(sess);
-  const zdroj = buf => {
-    const z = ctx.createBufferSource(); z.buffer = buf; z.loop = true;
-    z.start(t0); z.stop(tKonec + 0.2); uzly.push(z); return z;
-  };
-
-  if (typ === "sum") {
-    const g = ctx.createGain(); g.gain.value = 0.10;
-    zdroj(hnedySum()).connect(g); g.connect(ven);
-  }
-
-  if (typ === "dest") {           // šumění kapek + hlubší bubnování
-    const kapky = ctx.createBiquadFilter(); kapky.type = "bandpass"; kapky.frequency.value = 2800; kapky.Q.value = 0.4;
-    const g1 = ctx.createGain();
-    zdroj(bilySum()).connect(kapky); kapky.connect(g1); g1.connect(ven);
-    lfoNaParam(t0, tKonec, [0.9, 1.31], 0.03, g1.gain, 0.065);
-    const bubny = ctx.createBiquadFilter(); bubny.type = "lowpass"; bubny.frequency.value = 650;
-    const g2 = ctx.createGain(); g2.gain.value = 0.05;
-    zdroj(hnedySum()).connect(bubny); bubny.connect(g2); g2.connect(ven);
-  }
-
-  if (typ === "vlny") {           // pomalé nájezdy a ústupy, pěna nahoře
-    const telo = ctx.createBiquadFilter(); telo.type = "lowpass"; telo.frequency.value = 480;
-    const g1 = ctx.createGain();
-    zdroj(hnedySum()).connect(telo); telo.connect(g1); g1.connect(ven);
-    lfoNaParam(t0, tKonec, [0.07, 0.113], 0.12, g1.gain, 0.13);
-    const pena = ctx.createBiquadFilter(); pena.type = "bandpass"; pena.frequency.value = 1600; pena.Q.value = 0.5;
-    const g2 = ctx.createGain();
-    zdroj(bilySum()).connect(pena); pena.connect(g2); g2.connect(ven);
-    lfoNaParam(t0, tKonec, [0.071, 0.109], 0.05, g2.gain, 0.04);
-  }
-
-  if (typ === "vitr") {           // toulavé pásmo + poryvy
-    const pasmo = ctx.createBiquadFilter(); pasmo.type = "bandpass"; pasmo.Q.value = 0.9;
-    lfoNaParam(t0, tKonec, [0.05, 0.087], 260, pasmo.frequency, 430);
-    const g = ctx.createGain();
-    zdroj(hnedySum()).connect(pasmo); pasmo.connect(g); g.connect(ven);
-    lfoNaParam(t0, tKonec, [0.11, 0.063], 0.10, g.gain, 0.16);
-  }
-
-  if (typ === "souzvuk") {        // ambientní plocha zamčená na nosný tón (oktáva pod, kvinta, oktáva nad)
-    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 1300;
-    lp.connect(ven);
-    [
-      { pomer: 0.5, g: 0.075, dych: 0.031 },
-      { pomer: 1.5, g: 0.05,  dych: 0.047 },
-      { pomer: 2,   g: 0.028, dych: 0.071 }
-    ].forEach(h => {
-      [0.9985, 1.0015].forEach(rozlad => {
-        const o = ctx.createOscillator(); o.type = "sine";
-        o.frequency.value = nosna * h.pomer * rozlad;
-        const g = ctx.createGain();
-        lfoNaParam(t0, tKonec, [h.dych, h.dych * 1.618], h.g * 0.8, g.gain, h.g);
-        o.connect(g); g.connect(lp);
-        o.start(t0); o.stop(tKonec + 0.2);
-        uzly.push(o);
-        nosice.push({ o: o, pomer: h.pomer * rozlad });   // pluje s přelaďováním čaker
-      });
-    });
-  }
-
-  if (typ === "misy") {           // tichá zvuková lázeň — občasné rozeznění v tónu sezení
-    const token = sess;
-    const rozezni = (odT) => {
-      if (sess !== token) return;
-      const cas = ctx.currentTime + 0.05;
-      const p = [1, 1.5, 1, 2][Math.floor(odT / 20) % 4];
-      zpevMisky(cas, Math.min(880, nosnaVcase(odT) * p), ven);
-      const dalsi = 16 + Math.random() * 16;
-      if (odT + dalsi < (tKonec - t0) - 10)
-        fazeCasovace.push(setTimeout(() => rozezni(odT + dalsi), dalsi * 1000));
-    };
-    fazeCasovace.push(setTimeout(() => rozezni(7), 7000));
-  }
-}
-
-/* tiché rozeznění mísy v dané výšce — pro podkres zpívajících mís */
-function zpevMisky(cas, f, ven) {
-  [{ pomer: 1, g: 0.05, trvani: 8 }, { pomer: 2.756, g: 0.018, trvani: 5.5 }].forEach(c => {
-    [1, 1.004].forEach(rozlad => {
-      const o = ctx.createOscillator(); o.type = "sine";
-      o.frequency.value = f * c.pomer * rozlad;
-      const g = ctx.createGain();
-      g.gain.setValueAtTime(0.0001, cas);
-      g.gain.exponentialRampToValueAtTime(c.g, cas + 1.4);
-      g.gain.exponentialRampToValueAtTime(0.0001, cas + c.trvani);
-      o.connect(g); g.connect(ven);
-      o.start(cas); o.stop(cas + c.trvani + 0.1);
-    });
-  });
-}
-
-/* tibetská mísa — úder s neharmonickými částkami a dlouhým dozvukem */
-function miska(cas, zisk) {
-  const zakl = 196;
-  const castky = [
-    { pomer: 1,     g: 1,    trvani: 9   },
-    { pomer: 2.756, g: 0.5,  trvani: 6.5 },
-    { pomer: 5.404, g: 0.24, trvani: 4.5 },
-    { pomer: 8.933, g: 0.1,  trvani: 3   }
-  ];
-  const ven = ctx.createGain(); ven.gain.value = zisk || 0.45; ven.connect(master);
-  castky.forEach(c => {
-    [1, 1.0035].forEach(rozlad => {        // lehké chvění dvou blízkých tónů
-      const o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = zakl * c.pomer * rozlad;
-      const g = ctx.createGain();
-      g.gain.setValueAtTime(0.0001, cas);
-      g.gain.exponentialRampToValueAtTime(c.g * 0.4, cas + 0.025);
-      g.gain.exponentialRampToValueAtTime(0.0001, cas + c.trvani);
-      o.connect(g); g.connect(ven);
-      o.start(cas); o.stop(cas + c.trvani + 0.1);
-      uzly.push(o);
-    });
-  });
-}
-
-function spust() {
-  zajistiCtx();
-  const s = SEZENI[aktivni];
-  const cesta = !!s.cakry && vybranaCakra === "cesta";
-  const cakra = s.cakry ? (cesta ? CAKRY[0] : CAKRY.find(x => x.klic === vybranaCakra)) : null;
-  const em = s.emoce ? {
-    od: EMOCE.odkud.find(x => x.klic === vybranaOdkud),
-    kam: EMOCE.kam.find(x => x.klic === vybranaKam)
-  } : null;
-  const nosna = s.cakry ? frek(cakra)
-              : s.vlastni ? Math.min(1000, Math.max(60, parseFloat($("vNosna").value) || 220))
-              : parseFloat($("nosna").value);
-  const beat  = s.emoce ? em.od.beat
-              : s.vlastni ? Math.min(40, Math.max(0.5, parseFloat($("vBeat").value) || 7.83))
-              : s.beat;
-  const trvani = parseInt($("delka").value, 10) * 60;   // sekundy
-  const t0 = ctx.currentTime;
-  const tKonec = t0 + trvani;
-
-  sess = ctx.createGain();
-  sess.gain.setValueAtTime(0.0001, t0);
-  sess.gain.linearRampToValueAtTime(1, t0 + 6);                        // nájezd 6 s
-  if (s.dojezdPodil) {
-    // dlouhý ztišující dojezd (Usnutí) — zvuk se vytrácí od poloviny sezení
-    sess.gain.setValueAtTime(1, t0 + trvani * s.dojezdPodil);
-    sess.gain.linearRampToValueAtTime(0.3, t0 + trvani * 0.85);
-    sess.gain.linearRampToValueAtTime(0.0001, tKonec);
-  } else {
-    sess.gain.setValueAtTime(1, Math.max(t0 + 6, tKonec - 15));
-    sess.gain.linearRampToValueAtTime(0.0001, tKonec);                 // dojezd 15 s
-  }
-  duck = ctx.createGain();
-  duck.gain.value = 1;
-  sess.connect(duck).connect(master);
-  uzly = [];
-
-  const pouzitIzo = s.dech || s.izo || rezim === "izo";
-  const nosice = [];   // oscilátory nosné + jejich ofset (pro přelaďování)
-  let rytmusOsc = null, rytmusZaklad = 0;   // nositel rytmu (pro přeladění emocí)
-
-  if (!pouzitIzo) {
-    // binaurální — každé ucho svůj tón
-    const gL = ctx.createGain(); gL.gain.value = 0.5;
-    const gR = ctx.createGain(); gR.gain.value = 0.5;
-    const pL = ctx.createStereoPanner(); pL.pan.value = -1;
-    const pR = ctx.createStereoPanner(); pR.pan.value = 1;
-    const oL = ctx.createOscillator(); oL.type = "sine"; oL.frequency.value = nosna;
-    const oR = ctx.createOscillator(); oR.type = "sine"; oR.frequency.value = nosna + beat;
-    oL.connect(gL).connect(pL).connect(sess);
-    oR.connect(gR).connect(pR).connect(sess);
-    oL.start(t0); oR.start(t0);
-    oL.stop(tKonec + 0.2); oR.stop(tKonec + 0.2);
-    uzly.push(oL, oR);
-    nosice.push({ o: oL, ofs: 0 }, { o: oR, ofs: beat });
-    rytmusOsc = oR; rytmusZaklad = nosna;
-  } else {
-    // izochronní / dechový — hlasitost tónu vlní v rytmu
-    const o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = nosna;
-    const g = ctx.createGain(); g.gain.value = 0.45;
-    const lfo = ctx.createOscillator(); lfo.type = "sine"; lfo.frequency.value = beat;
-    const hloubka = ctx.createGain(); hloubka.gain.value = 0.45;
-    lfo.connect(hloubka).connect(g.gain);
-    o.connect(g).connect(sess);
-    o.start(t0); lfo.start(t0);
-    o.stop(tKonec + 0.2); lfo.stop(tKonec + 0.2);
-    uzly.push(o, lfo);
-    nosice.push({ o: o, ofs: 0 });
-    rytmusOsc = lfo; rytmusZaklad = 0;
-  }
-
-  const nosnaVcase = cesta
-    ? (odT) => frek(CAKRY[Math.min(CAKRY.length - 1, Math.floor(odT / (trvani / CAKRY.length)))])
-    : () => nosna;
-  spustPodkres($("podkres").value, t0, tKonec, nosna, nosice, nosnaVcase);
-
-  if ($("zvon").checked) {
-    miska(t0 + 0.05, 0.45);
-    if (!s.konecTicho) miska(tKonec - 0.6, 0.4);   // koncová mísa dozní do ticha
-  }
-
-  // přeladění emocí — iso princip: setkání (25 %) → přechod (50 %) → usazení (25 %)
-  if (s.emoce) {
-    const t1 = t0 + trvani * 0.25;
-    const t2 = t0 + trvani * 0.75;
-    rytmusOsc.frequency.setValueAtTime(rytmusZaklad + em.od.beat, t1);
-    rytmusOsc.frequency.linearRampToValueAtTime(rytmusZaklad + em.kam.beat, t2);
-    kruh.style.setProperty("--zare", em.od.barva);
-    fazeCasovace.push(setTimeout(() => kruh.style.setProperty("--zare", "#c8a45c"), trvani * 250));
-    fazeCasovace.push(setTimeout(() => kruh.style.setProperty("--zare", em.kam.barva), trvani * 750));
-  }
-
-  // sestupná rampa rytmu (Usnutí) — z bdělé alfy plynule přes thétu do delty
-  if (s.rampa && s.rampa.length > 1) {
-    const krok = trvani / (s.rampa.length - 1);
-    rytmusOsc.frequency.setValueAtTime(rytmusZaklad + s.rampa[0], t0);
-    for (let i = 1; i < s.rampa.length; i++) {
-      rytmusOsc.frequency.linearRampToValueAtTime(rytmusZaklad + s.rampa[i], t0 + krok * i);
-    }
-  }
-
-  // odhad délky mluveného úvodu — ohlášení čaker na něj navazuje
-  const introOdhad = (hlasZapnuty() && s.navod)
-    ? delkaHlasu("intro-" + aktivni, s.navod) : 0;
-
-  // cesta čakrami — sedm fází, nosná plyne 4 s mezi centry
-  if (s.cakry) {
-    ukazFazi(cakra);
-    const ohlas = (c, kdy) => {
-      if (!c || !c.ohlas) return;
-      fazeCasovace.push(setTimeout(() => mluvUsek("cakra-" + c.klic, c.ohlas), kdy));
-    };
-    // první centrum: navázat na skutečný konec úvodu (poIntru), jinak hned
-    if (hlasZapnuty() && s.navod && cakra && cakra.ohlas) {
-      poUvodu = () => mluvUsek("cakra-" + cakra.klic, cakra.ohlas);
-    } else {
-      ohlas(cakra, 2500);
-    }
-    if (cesta) {
-      const usek = trvani / CAKRY.length;
-      for (let i = 1; i < CAKRY.length; i++) {
-        const tZ = t0 + usek * i;
-        const zF = frek(CAKRY[i - 1]);
-        const naF = frek(CAKRY[i]);
-        nosice.forEach(n => {
-          const p = n.pomer || 1, posun = n.ofs || 0;
-          n.o.frequency.setValueAtTime(zF * p + posun, tZ);
-          n.o.frequency.linearRampToValueAtTime(naF * p + posun, tZ + 4);
-        });
-        fazeCasovace.push(setTimeout(() => ukazFazi(CAKRY[i]), usek * i * 1000));
-        ohlas(CAKRY[i], usek * i * 1000 + 4500);   // až doplyne přeladění nosné
-      }
-    }
-  }
-
-  // vizuál + odpočet
-  if (s.tlum && $("tlumPrepinac").checked) requestAnimationFrame(() => $("tlumeni").classList.add("aktivni"));
-  drzObrazovku();
-  ulozVolby();
-  startMs = Date.now();
-  $("kruhText").hidden = true;
-  hlasUvodBezi = false;
-  if (hlasZapnuty() && s.navod) {
-    hlasUvodBezi = true;
-    zastavHlas();
-    duck.gain.setValueAtTime(0.12, t0);
-    fazeCasovace.push(setTimeout(() => {
-      prehrajHlas("intro-" + aktivni, s.navod, { rate: .9, onend: poIntru });
-    }, 260));
-    fazeCasovace.push(setTimeout(poIntru, introOdhad));
-  }
-  spustDech(s.emoce ? em.kam.dechVzor : s.dechVzor);
-  $("navod").hidden = true;
-  $("konecText").hidden = true;
-  konecMs = Date.now() + trvani * 1000;
-  tik = setInterval(() => {
-    const zbyva = Math.max(0, Math.round((konecMs - Date.now()) / 1000));
-    ukazCas(zbyva);
-    if (zbyva <= 0) doznelo();
-  }, 250);
-  konecTimeout = setTimeout(doznelo, trvani * 1000 + 400);
-
-  bezi = true;
-  hlavni.textContent = "Ukončit ladění";
-  hlavni.classList.add("bezi");
-}
-
-function uklid() {
-  clearInterval(tik); tik = null;
-  clearTimeout(konecTimeout); konecTimeout = null;
-  fazeCasovace.forEach(clearTimeout); fazeCasovace = [];
-  uzly = []; sess = null; duck = null;
-  poUvodu = null;
-  zastavDech();
-  zastavHlas();
-  Object.values(hlasCache).forEach(a => { try { a.pause(); } catch (e) {} });
-  hlasUvodBezi = false;
-  pustObrazovku();
-  $("tlumeni").classList.remove("aktivni");
-  $("kruhText").hidden = false;
-  bezi = false;
-  hlavni.textContent = pristup(aktivni) === "ochutnavka"
-    ? "Spustit " + OCHUTNAVKA_MIN + "minutovou ochutnávku" : "Zahájit ladění";
-  hlavni.classList.remove("bezi");
-  if (SEZENI[aktivni] && SEZENI[aktivni].cakry) aktualizujCakru();
-  else if (SEZENI[aktivni] && SEZENI[aktivni].emoce) aktualizujEmoce();
-  $("navod").hidden = !(SEZENI[aktivni] && SEZENI[aktivni].navod);
-  ukazCas(parseInt($("delka").value, 10) * 60);
-}
-
-function doznelo() {          // přirozený konec — zvuk už dojel sám
-  if (!bezi) return;
-  if (pristup(aktivni) === "ochutnavka") {
-    zapisOchutnavku(aktivni);
-    zapisPraxi(OCHUTNAVKA_MIN);
-    uklid();
-    postavMrizku();
-    ukazOdemknuti("po-ochutnavce");
-    return;
-  }
-  const s = SEZENI[aktivni];
-  const cestaCakrami = !!(s && s.cakry) && vybranaCakra === "cesta";
-  const kon = (cestaCakrami && s.konecCesta) || (s && s.konec) || KONEC_VYCHOZI;
-  const klicKonce = (cestaCakrami && s.konecCesta) ? "konec-cakry-cesta"
-                  : (s && s.konec) ? "konec-" + aktivni
-                  : "konec-vychozi";   // sezení bez vlastního závěru sdílejí jednu nahrávku
-  zapisPraxi(Math.round((Date.now() - startMs) / 60000));
-  uklid();
-  $("konecText").textContent = kon;
-  $("konecText").hidden = false;
-  $("checkinOtazka").textContent = "Jak ti teď je?";
-  $("checkinPil").hidden = false;
-  $("checkin").hidden = false;
-  if (hlasZapnuty() && !(s && s.konecTicho)) prehrajHlas(klicKonce, kon, { rate: .9 });
-}
-
-function zastav() {           // ruční ukončení — krátký dojezd
-  if (!bezi) return;
-  zapisPraxi(Math.round((Date.now() - startMs) / 60000));
-  const t = ctx.currentTime;
-  try {
-    sess.gain.cancelScheduledValues(t);
-    sess.gain.setValueAtTime(sess.gain.value, t);
-    sess.gain.linearRampToValueAtTime(0.0001, t + 0.7);
-    uzly.forEach(u => { try { u.stop(t + 0.8); } catch (e) {} });
-  } catch (e) {}
-  uklid();
-}
-
-hlavni.addEventListener("click", () => bezi ? zastav() : spust());
-kruh.addEventListener("click", () => bezi ? zastav() : spust());
-kruh.addEventListener("keydown", e => {
-  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); bezi ? zastav() : spust(); }
-});
-
-function ukazCas(sek) {
-  const m = Math.floor(sek / 60), s = sek % 60;
-  cas.textContent = `${m}:${String(s).padStart(2, "0")}`;
-}
-
-/* =====================================================================
-   REŽIMY — klientská verze s průvodcem × verze pro terapeuty.
-   Terapeutský režim: ?terapeut v adrese, nebo 5× klepnutí na značku.
-   ===================================================================== */
-let terapeut = new URLSearchParams(location.search).has("terapeut");
-
-if (Object.keys(HLAS_SOUBORY).length === 0) {
-  $("hlasPrepinac").checked = false;
-  $("hlasPrepinac").disabled = true;
-  $("hlasPopisek").textContent = "mluvený průvodce — nahrávky nejsou k dispozici";
-}
-
-$("checkinPil").addEventListener("click", e => {
-  const b = e.target.closest(".pil");
-  if (!b) return;
-  zapisPocit(b.dataset.pocit);
-  $("checkinPil").hidden = true;
-  $("checkinOtazka").textContent = "Zaznamenáno. Díky.";
-});
-
-if ("vibrate" in navigator) $("vibraceRadek").hidden = false;
-nactiVolby();
-ukazStat();
-
-/* ---------- světlé × tmavé téma ---------- */
-function nastavTema(svetle, uloz) {
-  if (svetle) document.documentElement.dataset.tema = "svetle";
-  else delete document.documentElement.dataset.tema;
-  $("tema").textContent = svetle ? "tmavá" : "světlá";
-  const m = document.querySelector('meta[name="theme-color"]');
-  if (m) m.content = svetle ? "#f6f0e2" : "#0f231c";
-  if (uloz) { const st = nactiStat(); st.tema = svetle ? "svetle" : "tmave"; ulozStat(st); }
-}
-$("tema").addEventListener("click", () => nastavTema(document.documentElement.dataset.tema !== "svetle", true));
-nastavTema(document.documentElement.dataset.tema === "svetle", false);
-
-if ("serviceWorker" in navigator && location.protocol === "https:") {
-  navigator.serviceWorker.register("sw.js").then(reg => reg.update()).catch(() => {});
-  let uzObnoveno = false;
-  navigator.serviceWorker.addEventListener("controllerchange", () => {
-    if (uzObnoveno || bezi) return;   // během sezení nikdy neobnovovat
-    uzObnoveno = true;
-    location.reload();
-  });
-}
-
-/* =====================================================================
-   INSTALACE NA PLOCHU
-   Android/Chrome umí vyvolat systémové okno. iOS ne — tam ukážeme návod.
-   Výzva přijde až po druhém dokončeném sezení, ne hned při první návštěvě.
-   ===================================================================== */
-let instalacePripravena = null;   // odchycená událost Chromu
-
-function jeNainstalovano() {
-  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
-}
-function jeIOS() {
-  return /iphone|ipad|ipod/i.test(navigator.userAgent)
-      || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-}
-
-window.addEventListener("beforeinstallprompt", e => {
-  e.preventDefault();
-  instalacePripravena = e;
-});
-
-function skryjInstalaci(natrvalo) {
-  const el = $("instalace");
-  el.classList.remove("vidno");
-  setTimeout(() => { el.hidden = true; }, 500);
-  if (natrvalo) { const st = nactiStat(); st.instalaceSkryta = Date.now(); ulozStat(st); }
-}
-
-function zobrazInstalaci() {
-  const el = $("instalace");
-  if (jeNainstalovano() || !el.hidden) return;
-  const st = nactiStat();
-  if (st.instalovano) return;
-  // po odmítnutí se ozveme nejdřív za dva týdny
-  if (st.instalaceSkryta && Date.now() - st.instalaceSkryta < 14 * 864e5) return;
-  if (!instalacePripravena && !jeIOS()) return;   // jiné prohlížeče neotravujeme
-
-  if (jeIOS()) {
-    $("instalaceText").textContent = "Přidej si ho na plochu — otevře se na jedno klepnutí a funguje i bez internetu.";
-    $("instalaceKroky").innerHTML =
-      '<ol><li>Klepni dole na <span class="ikonka">&#8593;</span> Sdílet.</li>'
-      + '<li>Sjeď níž a zvol <b>Přidat na plochu</b>.</li>'
-      + '<li>Potvrď <b>Přidat</b>.</li></ol>';
-    $("instalaceKroky").hidden = false;
-    $("instalujTed").textContent = "rozumím";
-  }
-  el.hidden = false;
-  requestAnimationFrame(() => el.classList.add("vidno"));
-}
-
-$("instalujTed").addEventListener("click", async () => {
-  if (instalacePripravena) {
-    instalacePripravena.prompt();
-    const v = await instalacePripravena.userChoice.catch(() => ({ outcome: "dismissed" }));
-    instalacePripravena = null;
-    if (v.outcome === "accepted") { const st = nactiStat(); st.instalovano = true; ulozStat(st); }
-    skryjInstalaci(v.outcome !== "accepted");
-  } else {
-    skryjInstalaci(true);      // iOS — návod si přečetl
-  }
-});
-$("instalaciPozdeji").addEventListener("click", () => skryjInstalaci(true));
-
-window.addEventListener("appinstalled", () => {
-  const st = nactiStat(); st.instalovano = true; ulozStat(st);
-  skryjInstalaci(false);
-});
-
-/* =====================================================================
-   OCHUTNÁVKA A ODEMKNUTÍ
-   Zdarma: jeden program dle výběru, 3 minuty, jednou.
-   Plná verze: kód LADENI-XXXXX (ověření zatím místní, Stripe přijde).
-   Usnutí a celá cesta čakrami jsou jen v plné verzi.
-   ===================================================================== */
-const OCHUTNAVKA_MIN = 3;
-
-function odemceno() { return !!nactiStat().odemceno; }
-function ochutnavkaVyuzita() { return !!nactiStat().ochutnavka; }
-
-function zapisOchutnavku(klic) {
-  const st = nactiStat(); st.ochutnavka = { klic, kdy: Date.now() }; ulozStat(st);
-}
-
-/* Kontrolní součet kódu — stejně jako u kvízu: formát LADENI-XXXXX. */
-function kodPlatny(kod) {
-  const m = /^LADENI-([A-Z0-9]{5})$/.exec(kod.trim().toUpperCase());
-  if (!m) return false;
-  const t = m[1];
-  const AB = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let h = 7;
-  for (let i = 0; i < 4; i++) h = (h * 31 + t.charCodeAt(i)) % 1000003;
-  return AB[h % 32] === t[4];
-}
-
-function odemkni(kod) {
-  const st = nactiStat();
-  st.odemceno = { kod: kod.trim().toUpperCase(), kdy: Date.now() };
-  ulozStat(st);
-}
-
-/* Smí se tohle sezení spustit? Vrací "ano" | "ochutnavka" | "zamceno". */
-function pristup(klic) {
-  if (terapeut || odemceno()) return "ano";
-  const s = SEZENI[klic];
-  if (s && (s.rampa || s.cakry)) return "zamceno";        // Usnutí a čakry jen v plné verzi
-  if (ochutnavkaVyuzita()) return "zamceno";
-  return "ochutnavka";
-}
-
-function ukazOdemknuti(duvod) {
-  $("odemkUvod").textContent = duvod === "po-ochutnavce"
-    ? "Tohle byly 3 minuty. Celá sezení trvají 15 až 60 minut, vedou tě hlasem a jdou mnohem hlouběji."
-    : duvod === "zamceno-program"
-    ? "Tento program je součástí plné verze. Ochutnávku si můžeš pustit u ostatních sezení — jednou, na 3 minuty."
-    : "Ochutnávku už jsi využil. Celé Vyladění získáš jednou provždy, bez předplatného.";
-  ukazSekci("odemk");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-$("odemkZpet").addEventListener("click", () => ukazSekci("vyber"));
-$("odemkPotvrdit").addEventListener("click", () => {
-  const kod = $("odemkKod").value;
-  const st = $("kodStav");
-  if (kodPlatny(kod)) {
-    odemkni(kod);
-    st.textContent = "Odemčeno. Celé Vyladění je tvoje — ať dobře slouží.";
-    st.className = "ok";
-    postavMrizku();
-    setTimeout(() => ukazSekci("vyber"), 1600);
-  } else {
-    st.textContent = "Tenhle kód nesedí. Zkontroluj překlepy — má tvar LADENI-XXXXX.";
-    st.className = "chyba";
-  }
-});
-$("odemkKod").addEventListener("keydown", e => { if (e.key === "Enter") $("odemkPotvrdit").click(); });
-
-function ukazSekci(id) {
-  ["uvod", "pruvodce", "vyber", "sezeni", "odemk"].forEach(s => { $(s).hidden = (s !== id); });
-}
-
-function aplikujRezim() {
-  postavMrizku();
-  $("terapeutStitek").hidden = !terapeut;
-  ukazSekci(terapeut ? "vyber" : "uvod");
-}
-
-let tapZnacka = 0, tapCas = 0;
-$("znacka").addEventListener("click", () => {
-  const ted = Date.now();
-  if (ted - tapCas > 2500) tapZnacka = 0;
-  tapCas = ted;
-  if (++tapZnacka >= 5) {
-    tapZnacka = 0;
-    terapeut = !terapeut;
-    if (bezi) zastav();
-    aplikujRezim();
-  }
-});
-
-$("chciSam").addEventListener("click", () => ukazSekci("vyber"));
-$("chciPruvodce").addEventListener("click", spustPruvodce);
-$("vyberZpet").addEventListener("click", () => ukazSekci("uvod"));
-
-aplikujRezim();
-</script>
 </body>
 </html>

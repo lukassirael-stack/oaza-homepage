@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vyladění — zvukový průvodce ke klidu, spánku a soustředění · Oáza Adamanthea</title>
-<meta name="description" content="Vyladění: 8 zvukových programů pro zklidnění, spánek, meditaci i soustředění. Rytmus, dech a mluvený průvodce v telefonu. Ochutnávka zdarma, plná verze 349 Kč jednou provždy.">
+<meta name="description" content="Vyladění: 8 zvukových programů pro zklidnění, spánek, meditaci i soustředění. Rytmus, dech a mluvený průvodce v telefonu. Ochutnávka zdarma, plná verze 349 Kč / 14 € jednou provždy.">
 <link rel="canonical" href="https://oaza-adamanthea.cz/vyladeni">
 <meta property="og:title" content="Vyladění · zvukový průvodce Oázy Adamanthea">
-<meta property="og:description" content="8 programů pro klid, spánek, meditaci a soustředění. Ochutnávka zdarma, plná verze 349 Kč jednou provždy.">
+<meta property="og:description" content="8 programů pro klid, spánek, meditaci a soustředění. Ochutnávka zdarma, plná verze 349 Kč / 14 € jednou provždy.">
 <meta property="og:image" content="https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oaza-adamanthea.cz/vyladeni">
@@ -19,7 +19,9 @@
 {"@context":"https://schema.org","@type":"Product","name":"Vyladění — plná verze",
 "description":"Zvuková aplikace Oázy Adamanthea: 8 programů pro klid, spánek, meditaci a soustředění, mluvený průvodce, funguje offline.",
 "brand":{"@type":"Brand","name":"Oáza Adamanthea"},
-"offers":{"@type":"Offer","price":"349","priceCurrency":"CZK","url":"https://oaza-adamanthea.cz/vyladeni","availability":"https://schema.org/InStock"}}
+"offers":[
+ {"@type":"Offer","price":"349","priceCurrency":"CZK","url":"https://oaza-adamanthea.cz/vyladeni","availability":"https://schema.org/InStock"},
+ {"@type":"Offer","price":"14","priceCurrency":"EUR","url":"https://oaza-adamanthea.cz/vyladeni","availability":"https://schema.org/InStock"}]}
 </script>
 <style>
 :root{
@@ -48,7 +50,15 @@ a{color:var(--zlata);text-decoration:none}
 .obal{max-width:900px;margin:0 auto;padding:0 1.2rem}
 
 /* hlavička */
-header{text-align:center;padding:4.4rem 1.2rem 2.6rem}
+header{position:relative;text-align:center;padding:4.4rem 1.2rem 2.6rem;overflow:hidden}
+/* světelný kruh — stejný jako v aplikaci */
+header::before{
+  content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-52%);
+  width:clamp(340px,86vw,700px);aspect-ratio:1;
+  background:url("https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp") center/contain no-repeat;
+  pointer-events:none;z-index:0;
+}
+header > *{position:relative;z-index:1}
 .znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
 h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3rem);letter-spacing:.09em;margin:.7rem 0 .45rem}
 .podtitul{font-style:italic;font-size:1.14rem;color:var(--sed)}
@@ -170,7 +180,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
   </p>
   <div class="cta">
     <a class="tl tl-plna" href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyzkoušet zdarma</a>
-    <a class="tl tl-obrys" href="#koupit">Plná verze · 349 Kč</a>
+    <a class="tl tl-obrys" href="#koupit">Plná verze · 349 Kč / 14 €</a>
   </div>
 </header>
 
@@ -240,7 +250,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
   Plná verze pak otevře všechno — bez předplatného, bez reklam, bez registrace.</p>
 
   <div class="cenovka">
-    <div class="cena">349 Kč<small>jednou provždy</small></div>
+    <div class="cena">349 Kč / 14 €<small>jednou provždy</small></div>
     <ul>
       <li>všech 8 programů v plné délce 15–60 minut</li>
       <li>mluvený průvodce každým sezením</li>
@@ -251,7 +261,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
   </div>
 
   <div class="kroky">
-    <div class="krok"><div><b>Zaplať 349 Kč</b><p>Načti QR kód bankovní aplikací, nebo pošli převod ručně. Variabilní symbol 349001.</p></div></div>
+    <div class="krok"><div><b>Zaplať 349 Kč / 14 €</b><p>Načti QR kód bankovní aplikací, nebo pošli převod ručně. Variabilní symbol 349001. Ze zahraničí použij IBAN níže.</p></div></div>
     <div class="krok"><div><b>Napiš nám</b><p>Po platbě pošli krátkou zprávu na <a href="mailto:oaza.adamanthea@gmail.com?subject=Vyladeni%20-%20plna%20verze">oaza.adamanthea@gmail.com</a>. Obratem ti přijde odemykací kód.</p></div></div>
     <div class="krok"><div><b>Zadej kód v aplikaci</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Hotovo — navždy.</p></div></div>
   </div>
@@ -260,8 +270,9 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQAAAAAefbjOAAADVElEQVR4nO2cTW7jMAxGH8cCsrSBHiBHkW82Z5ob2EfpDaxlARmchSRLKWbTBuOkCg00SOI8VAIY/nykIsqXr/XX1xkwyCCDfigUJF8zIDO7QBCB4NJLmYOjfMidvTyDzoUcMEQAhDBRg4jkP9D1GsEvAOHt1OUZ9CAof/fHiMzhoiLXiOo2KOsEMgdH8iXzQ5Zn0KMh1Q2qWejy3/6TQc8NBYcu7MI6Af7dIXMQkd8an2F5Bp0BZS+gqorXCD49U4UxoguDwpjfyy7jyfdk0L3QnqoICBeFlDM48O8Xld8byVuwiojIdP7yDDoVQm8v/EbyDLqMEUgPN58xH9EzlEsKvw05LixjedBtSKGjDRijWUTnkANA1wlRwlvEv7ucRq5z1iMgTACInr08g06HqN99/AbAoKpaksrkN8qzdNd8RM9QyiNSXZFtI/LPqFFvmEX0DCU1SlUj2UeMsVgJgNdIyjF9yTfMIrqGmqjRPtNSYSxAtRKrNfqHknsoBcfNyxpJshtRzVby5Hsy6B4oR42FwxiSRZDCRDaVomKbZvkaUPYHItPR7GRQ1mvpZqwTKanMgtUP2JNB34XaPGKhSJgLUPKItvdpeUT/UIkQ2lYT6Y4vokTWI9INixqdQw5GTdqkrtMAjB+C/zOh67QpfpuKcMkuajNU3UNNDdHoEUnC1NhmD4cbMR/RNdTMR7SqJDl0NJXIcnRBzSJ6hhrFITkFPSrNdlgm3ljOk+/JoDuhMSLzoU+u4ihZ5C5pWIZUjH5Inqd5/j0Z9G2oxIVRmzBRC0+obU/rdL0EdHS1PiUTkdrSSJe3qPESUDsfQc0nq5VsbTKB6RHdQ00jvNYVpRgdmlhRR7PNIrqGbmqN+lBnqEpTNF+WR/QOuWPaGghJuMzHQL2CQizv1VOhT74ng+6BSnEBNE3vY+wy55LVUZiP6B26ORsOyQuI33aX/Qa703QjgBJcfPo9GXQ/lM+Gh4vKDLDKpfxsQLgkrSpPT1xtPuKVoPFDgD03O9dpl6RUrlM5Lz4/cnkGnQG59kWY0FUGlSRgL6j4DRWvuyN3wy1qdA59PhteRyxzD3w72p6l8WWZZdfQTa1RRm2TTFUnbynKNqZZdg+Vo5xfuezXCw0y6HWgv2AXH6hIzVH4AAAAAElFTkSuQmCC" alt="Platební QR kód — 349 Kč na účet Oázy Adamanthea, variabilní symbol 349001" width="176" height="176">
     <div class="udaje">
       <b>účet</b> 8159854004 / 5500
-      <b>částka</b> 349 Kč
+      <b>částka</b> 349 Kč / 14 €
       <b>variabilní symbol</b> 349001
+      <b>IBAN</b> CZ16 5500 0000 0081 5985 4004
       <b>zpráva</b> VYLADĚNÍ + tvůj e-mail
     </div>
   </div>

@@ -50,19 +50,19 @@ a{color:var(--zlata);text-decoration:none}
 .obal{max-width:900px;margin:0 auto;padding:0 1.2rem}
 
 /* hlavička */
-header{text-align:center;padding:2.2rem 1.2rem 2.4rem}
+header{text-align:center;padding:1.4rem 1.2rem 1.2rem}
 /* Světelný kruh má vlastní blok: značka, název a podtitul sedí uvnitř,
    všechno ostatní začíná až pod ním. Prstenec tak nikdy neprotne text. */
 .kruhBlok{
   position:relative;isolation:isolate;margin:0 auto;
-  height:clamp(300px,44vw,430px);
+  height:clamp(250px,34vw,340px);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;
 }
 /* Kruh je větší než rezervovaný blok a smí přes něj měkce přetékat —
    prstenec tak obejme i široký nadpis, aniž by hlavička narostla do výšky. */
 .kruhBlok::before{
   content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:clamp(430px,74vw,660px);aspect-ratio:1;z-index:-1;pointer-events:none;
+  width:clamp(500px,86vw,820px);aspect-ratio:1;z-index:-1;pointer-events:none;
   background:url("https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp") center/contain no-repeat;
   /* spodní záře se rozpustí, aby nevymývala odstavec pod kruhem */
   -webkit-mask-image:linear-gradient(to bottom,#000 72%,rgba(0,0,0,.45) 88%,transparent 100%);
@@ -72,14 +72,14 @@ header{text-align:center;padding:2.2rem 1.2rem 2.4rem}
 .kruhBlok .znacka{color:#6f5522}
 .kruhBlok .podtitul{color:#4e6156}
 @media(max-width:560px){
-  .kruhBlok{height:min(62vw,330px)}
-  .kruhBlok::before{width:min(97vw,480px)}
+  .kruhBlok{height:min(52vw,270px)}
+  .kruhBlok::before{width:min(112vw,540px)}
 }
 .znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
 h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3rem);letter-spacing:.09em;margin:.7rem 0 .45rem}
 .podtitul{font-style:italic;font-size:1.14rem;color:var(--sed)}
-.uvodni{max-width:36rem;margin:.9rem auto 0}
-.cta{margin-top:2.1rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+.uvodni{max-width:36rem;margin:.2rem auto 0}
+.cta{margin-top:1.4rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
 
 /* tlačítka s leskem jako v aplikaci */
 .tl{
@@ -106,7 +106,7 @@ h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3re
 .tl-obrys:hover{background-color:color-mix(in srgb,var(--lesk) 26%,#fffdf7)}
 .tl:active{transform:translateY(-1px)}
 
-section{padding:2.8rem 0}
+section{padding:2rem 0}
 h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.07em;margin-bottom:.9rem;text-align:center}
 .stred{text-align:center;max-width:38rem;margin:0 auto;color:var(--sed)}
 .oddel{height:1px;background:linear-gradient(90deg,transparent,var(--linka),transparent);max-width:520px;margin:0 auto}

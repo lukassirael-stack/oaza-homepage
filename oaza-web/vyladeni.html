@@ -54,18 +54,26 @@ header{text-align:center;padding:2.2rem 1.2rem 2.4rem}
 /* Světelný kruh má vlastní blok: značka, název a podtitul sedí uvnitř,
    všechno ostatní začíná až pod ním. Prstenec tak nikdy neprotne text. */
 .kruhBlok{
-  position:relative;isolation:isolate;
-  width:min(60vw,440px);min-width:300px;aspect-ratio:1;
-  margin:0 auto;
+  position:relative;isolation:isolate;margin:0 auto;
+  height:clamp(300px,44vw,430px);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;
 }
+/* Kruh je větší než rezervovaný blok a smí přes něj měkce přetékat —
+   prstenec tak obejme i široký nadpis, aniž by hlavička narostla do výšky. */
 .kruhBlok::before{
-  content:"";position:absolute;inset:-5%;z-index:-1;pointer-events:none;
+  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:clamp(430px,74vw,660px);aspect-ratio:1;z-index:-1;pointer-events:none;
   background:url("https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp") center/contain no-repeat;
+  /* spodní záře se rozpustí, aby nevymývala odstavec pod kruhem */
+  -webkit-mask-image:linear-gradient(to bottom,#000 72%,rgba(0,0,0,.45) 88%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 72%,rgba(0,0,0,.45) 88%,transparent 100%);
 }
-.kruhBlok .znacka{color:#8a6a30}
+/* texty uvnitř záře potřebují víc kontrastu */
+.kruhBlok .znacka{color:#6f5522}
+.kruhBlok .podtitul{color:#4e6156}
 @media(max-width:560px){
-  .kruhBlok{width:min(80vw,340px);min-width:0}
+  .kruhBlok{height:min(62vw,330px)}
+  .kruhBlok::before{width:min(97vw,480px)}
 }
 .znacka{font-family:'Jost',sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
 h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3rem);letter-spacing:.09em;margin:.7rem 0 .45rem}

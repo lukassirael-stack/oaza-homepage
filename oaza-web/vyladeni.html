@@ -190,6 +190,26 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 .program h3{font-family:'Cinzel',serif;font-weight:500;font-size:1.08rem;letter-spacing:.04em;margin-bottom:.4rem}
 .program p{font-size:1rem;color:var(--sed);line-height:1.5}
 
+/* střídmý výčet programů */
+.vypis{list-style:none;margin:1.7rem 0 0;padding:0;
+  border-top:1px solid color-mix(in srgb,var(--zlata) 18%,transparent)}
+.vypis li{
+  display:grid;grid-template-columns:.7rem minmax(9rem,auto) minmax(8rem,auto) 1fr;
+  gap:.5rem 1rem;align-items:baseline;
+  padding:.85rem .2rem;border-bottom:1px solid color-mix(in srgb,var(--zlata) 16%,transparent);
+}
+.vypis .tec{width:.6rem;height:.6rem;border-radius:50%;align-self:center;
+  box-shadow:0 0 8px 1px rgba(0,0,0,.06)}
+.vypis b{font-family:'Cinzel',serif;font-weight:500;font-size:1.02rem;letter-spacing:.03em}
+.vypis i{font-family:'Jost',sans-serif;font-style:normal;font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--zlata)}
+.vypis span:last-child{color:var(--sed);font-size:.98rem;line-height:1.4}
+@media(max-width:660px){
+  .vypis li{grid-template-columns:.7rem 1fr;gap:.25rem .8rem}
+  .vypis i{grid-column:2}
+  .vypis span:last-child{grid-column:2}
+}
+
 /* cenovka */
 .cenovka{
   position:relative;isolation:isolate;
@@ -341,8 +361,10 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     <b style="font-weight:600">Usni dřív. Zklidni hlavu. Vrať se k sobě.</b>
   </p>
   <p class="uvodni">
-    Zvukový průvodce, který tě rytmem, dechem a hlasem provede ke klidu, spánku,
-    meditaci i soustředění. Stačí telefon a pár minut — funguje i bez internetu.
+    Vyladění je tvůj osobní prostor pro zklidnění a obnovu. Každý zvukový průvodce propojuje
+    speciální frekvence, vědomý dech a hlasové vedení, které ti pomohou uvolnit tělo, ztišit mysl
+    a vrátit se do svého středu. Otevři ho jedním dotykem, přidej na plochu telefonu
+    a měj ho vždy s sebou — i bez internetu.
   </p>
   <div class="rychle">
     <span>5 až 60 minut</span><span>funguje offline</span><span>bez předplatného</span>
@@ -373,8 +395,16 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
       <span><b>Hledáš nápad</b><span class="p">Na rozhraní bdění a snění, kde nápady přicházejí. Ke konci vlna energie do tvoření. <em>Tvořivý průtok</em></span></span></div>
     <div class="situ" style="--tb:#5a6ec4"><span class="situTecka"></span>
       <span><b>Jsi vyčerpaný</b><span class="p">Hluboká regenerace a odevzdání tíhy dne. <em>Hluboký odpočinek</em></span></span></div>
+    <div class="situ" style="--tb:#3fc2d8"><span class="situTecka"></span>
+      <span><b>Chceš meditovat s vedením</b><span class="p">Vnitřní obrazy, intuice, práce se záměrem. <em>Meditace a vhled</em></span></span></div>
+    <div class="situ" style="--tb:#ef8098"><span class="situTecka"></span>
+      <span><b>Potřebuješ se vrátit do středu</b><span class="p">Sladění dechu a srdečního rytmu. Pět minut, ideálně třikrát denně. <em>Srdeční koherence</em></span></span></div>
+    <div class="situ" style="--tb:#e0554a"><span class="situTecka"></span>
+      <span><b>Něco tě svírá nebo tíží</b><span class="p">Vyber, odkud vycházíš a kam chceš dojít. Rytmus tě převede po krocích. <em>Přeladění emocí</em></span></span></div>
+    <div class="situ" style="--tb:#b46fdb"><span class="situTecka"></span>
+      <span><b>Chceš pracovat s centry</b><span class="p">Jedno centrum, nebo celá cesta od kořene ke koruně, s hlasem u každého přechodu. <em>Sedm čaker</em></span></span></div>
     <div class="situ" style="--tb:#9b7fe8"><span class="situTecka"></span>
-      <span><b>Chceš jít hlouběji</b><span class="p">Meditace, cesta sedmi čakrami, prostor nad korunou. <em>a další</em></span></span></div>
+      <span><b>Hledáš přesah</b><span class="p">Vzestup do gama pásma a návrat. Prostor nad korunou, spojení s celkem. <em>Hvězda duše</em></span></span></div>
   </div>
 </section>
 
@@ -416,82 +446,21 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
 
 <section>
   <h2>12 programů, jeden záměr</h2>
-  <p class="stred">Každé sezení pracuje s jiným rytmem — od ranního nastartování přes tvořivost a soustředění až po hlubokou noc.
-  Vedou tě dechový kruh a klidný mluvený hlas.</p>
-  <div class="programy">
-    <article class="program">
-      <span class="pruh" style="background:#a978db"></span>
-      <span class="fr">alfa · 10 Hz</span>
-      <h3>Zklidnění</h3>
-      <p>Uvolnění po náročném dni, ztišení vnitřního hluku.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:#e0a24a"></span>
-      <span class="fr">vzestup · 8 → 16 Hz</span>
-      <h3>Probuzení a aktivace</h3>
-      <p>Ranní nastartování. Rytmus stoupá z alfy do bdělé bety.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:#5a6ec4"></span>
-      <span class="fr">delta · 3 Hz</span>
-      <h3>Hluboký odpočinek</h3>
-      <p>Hluboká regenerace a odevzdání tíhy dne.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:#4f9ae0"></span>
-      <span class="fr">sestup · 10 → 2,5 Hz</span>
-      <h3>Usnutí</h3>
-      <p>Když spánek nepřichází. Rytmus klesá s tebou a sám se ztiší.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:#3fc2d8"></span>
-      <span class="fr">théta · 6 Hz</span>
-      <h3>Meditace a vhled</h3>
-      <p>Vnitřní obrazy, intuice, práce se záměrem.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:#54b39a"></span>
-      <span class="fr">théta–alfa · 7,8 Hz</span>
-      <h3>Tvořivý průtok</h3>
-      <p>Nápady na rozhraní bdění a snění. Ke konci vlna energie, která je převede do tvoření.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:#48c07e"></span>
-      <span class="fr">SMR · 14 Hz</span>
-      <h3>Jasná mysl</h3>
-      <p>Klidné soustředění při práci a tvorbě.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:#ef8098"></span>
-      <span class="fr">dech · 5,5 s</span>
-      <h3>Srdeční koherence</h3>
-      <p>Sladění dechu a srdečního rytmu, návrat do středu.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:#b0865e"></span>
-      <span class="fr">alfa · 8 Hz · dech 4–7</span>
-      <h3>Ukotvení</h3>
-      <p>Když přijde neklid, úzkost nebo zahlcení. Dlouhý výdech vrací tělo do klidu.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:linear-gradient(90deg,#e0554a,#7fa0bd,#56c481)"></span>
-      <span class="fr">iso princip</span>
-      <h3>Přeladění emocí</h3>
-      <p>Od napětí, smutku či neklidu ke klidu, měkkosti nebo bdělosti.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:linear-gradient(90deg,#e04a3f,#f5c42e,#4cc072,#33aadd,#b46fdb)"></span>
-      <span class="fr">solfeggio · planetární tóny</span>
-      <h3>Sedm čaker</h3>
-      <p>Jedno centrum, nebo celá cesta od kořene ke koruně — s hlasem, který každé ohlásí.</p>
-    </article>
-    <article class="program">
-      <span class="pruh" style="background:#9b7fe8"></span>
-      <span class="fr">gama · vzestup ke 40 Hz</span>
-      <h3>Hvězda duše</h3>
-      <p>Vzestup do gama pásma a návrat. Prostor nad korunou, spojení s celkem.</p>
-    </article>
-  </div>
+  <p class="stred">Každé pracuje s jiným rytmem — od ranního nastartování přes tvořivost a soustředění až po hlubokou noc.</p>
+  <ul class="vypis">
+    <li><span class="tec" style="background:#a978db"></span><b>Zklidnění</b><i>alfa · 10 Hz</i><span>Uvolnění po náročném dni, ztišení vnitřního hluku.</span></li>
+    <li><span class="tec" style="background:#e0a24a"></span><b>Probuzení a aktivace</b><i>vzestup · 8 → 16 Hz</i><span>Ranní nastartování, rytmus stoupá do bdělé bety.</span></li>
+    <li><span class="tec" style="background:#5a6ec4"></span><b>Hluboký odpočinek</b><i>delta · 3 Hz</i><span>Hluboká regenerace a odevzdání tíhy dne.</span></li>
+    <li><span class="tec" style="background:#4f9ae0"></span><b>Usnutí</b><i>sestup · 10 → 2,5 Hz</i><span>Rytmus klesá s tebou a sám se ztiší.</span></li>
+    <li><span class="tec" style="background:#3fc2d8"></span><b>Meditace a vhled</b><i>théta · 6 Hz</i><span>Vnitřní obrazy, intuice, práce se záměrem.</span></li>
+    <li><span class="tec" style="background:#54b39a"></span><b>Tvořivý průtok</b><i>théta–alfa · 7,8 Hz</i><span>Nápady na rozhraní bdění a snění, ke konci vlna energie.</span></li>
+    <li><span class="tec" style="background:#48c07e"></span><b>Jasná mysl</b><i>SMR · 14 Hz</i><span>Klidné soustředění při práci a tvorbě.</span></li>
+    <li><span class="tec" style="background:#ef8098"></span><b>Srdeční koherence</b><i>dech · 5,5 s</i><span>Sladění dechu a srdečního rytmu, návrat do středu.</span></li>
+    <li><span class="tec" style="background:#b0865e"></span><b>Ukotvení</b><i>alfa · 8 Hz · dech 4–7</i><span>Při neklidu a úzkosti. Dlouhý výdech vrací tělo do klidu.</span></li>
+    <li><span class="tec" style="background:linear-gradient(90deg,#e0554a,#7fa0bd,#56c481)"></span><b>Přeladění emocí</b><i>iso princip</i><span>Od napětí či smutku ke klidu, měkkosti nebo bdělosti.</span></li>
+    <li><span class="tec" style="background:linear-gradient(90deg,#e04a3f,#f5c42e,#4cc072,#33aadd,#b46fdb)"></span><b>Sedm čaker</b><i>solfeggio · planetární tóny</i><span>Jedno centrum, nebo celá cesta od kořene ke koruně.</span></li>
+    <li><span class="tec" style="background:#9b7fe8"></span><b>Hvězda duše</b><i>gama · vzestup ke 40 Hz</i><span>Vzestup do gama pásma a návrat. Prostor nad korunou.</span></li>
+  </ul>
 </section>
 
 <div class="oddel"></div>

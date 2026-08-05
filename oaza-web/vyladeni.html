@@ -111,32 +111,14 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 .stred{text-align:center;max-width:38rem;margin:0 auto;color:var(--sed)}
 .oddel{height:1px;background:linear-gradient(90deg,transparent,var(--linka),transparent);max-width:520px;margin:0 auto}
 
-/* hlavní heslo — nejsilnější věta stránky */
+/* hlavní heslo — stejná velikost jako text, jen s uvozovkami */
 .heslo{
-  position:relative;display:block;max-width:26rem;margin:1.6rem auto 0;
-  font-family:'Cormorant Garamond',serif;font-weight:600;font-style:italic;
-  font-size:clamp(1.35rem,3.4vw,1.72rem);line-height:1.4;letter-spacing:.01em;
-  color:#16302a;
-  text-shadow:0 1px 0 rgba(255,253,247,.75);
+  max-width:34rem;margin:1.4rem auto 0;
+  font-style:italic;color:#2a4a3e;
+  text-shadow:0 1px 0 rgba(255,253,247,.7);
 }
-/* dekorativní uvozovky — jemné, aby nekřičely */
-.heslo::before,.heslo::after{
-  font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:600;
-  color:color-mix(in srgb,var(--zlata) 46%,transparent);
-  font-size:2.6em;line-height:0;position:absolute;
-}
-.heslo::before{content:"\201E";left:-.55em;top:.52em}
-.heslo::after{content:"\201C";right:-.5em;bottom:-.02em}
-/* zlatá vlásečnice pod heslem */
-.hesloLinka{
-  width:clamp(90px,22vw,150px);height:1px;margin:1.1rem auto 0;
-  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--zlata) 65%,transparent),transparent);
-}
-@media(max-width:520px){
-  .heslo{max-width:18rem}
-  .heslo::before{left:-.34em}
-  .heslo::after{right:-.3em}
-}
+.heslo q{quotes:"\201E" "\201C"}
+.heslo q::before,.heslo q::after{color:color-mix(in srgb,var(--zlata) 70%,transparent)}
 
 /* rychlé odrážky pod hero */
 .rychle{
@@ -384,9 +366,8 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     <h1>Vyladění</h1>
     <p class="podtitul">frekvence · dech · záměr</p>
   </div>
-  <p class="heslo">Usni dřív. Zklidni hlavu. Vrať se k sobě.</p>
-  <div class="hesloLinka"></div>
-  <p class="uvodni">
+  <p class="heslo"><q>Usni dřív. Zklidni hlavu. Vrať se k sobě.</q></p>
+  <p class="uvodni" style="font-weight:600">
     Tvůj osobní průvodce ke klidu, hlubšímu spánku a meditaci. Pomocí speciálních frekvencí,
     vědomého dechu a hlasového vedení tě jemně provede tam, kde se budeš cítit lépe.
     Vždy po ruce — i bez internetu.

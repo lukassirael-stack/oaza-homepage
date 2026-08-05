@@ -111,6 +111,35 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 .stred{text-align:center;max-width:38rem;margin:0 auto;color:var(--sed)}
 .oddel{height:1px;background:linear-gradient(90deg,transparent,var(--linka),transparent);max-width:520px;margin:0 auto}
 
+/* rychlé odrážky pod hero */
+.rychle{
+  display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;
+  font-family:'Jost',sans-serif;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--zlata);
+}
+.rychle span{
+  border:1px solid color-mix(in srgb,var(--zlata) 30%,transparent);border-radius:999px;
+  padding:.38rem .95rem;background:rgba(255,252,245,.6);
+  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+}
+/* kdy pomůže */
+.situace{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:.9rem;margin-top:1.9rem}
+.situ{
+  display:flex;gap:.9rem;align-items:flex-start;
+  border-radius:14px;padding:1.15rem 1.2rem;
+  background-image:linear-gradient(163deg,rgba(255,252,244,.92) 0%,transparent 74%);
+  background-color:rgba(255,252,245,.88);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  border:1px solid color-mix(in srgb,var(--zlata) 26%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,253,247,.9),0 12px 24px -18px rgba(45,60,45,.4);
+}
+.situTecka{
+  flex:none;width:.6rem;height:.6rem;border-radius:50%;margin-top:.55rem;
+  background:var(--tb,#c9a14a);box-shadow:0 0 10px 1px color-mix(in srgb,var(--tb,#c9a14a) 55%,transparent);
+}
+.situ b{display:block;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.08rem;margin-bottom:.15rem}
+.situ span.p{color:var(--sed);font-size:.98rem;line-height:1.45}
+.situ span.p em{font-style:normal;color:var(--zlata)}
+
 /* tři pilíře */
 .pilire{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;margin-top:2rem}
 .pilir{
@@ -135,13 +164,6 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
   margin-top:2rem;text-align:center;max-width:40rem;margin-left:auto;margin-right:auto;
   font-style:italic;color:var(--sed);font-size:1.05rem;line-height:1.6;
 }
-.ctvrty{
-  max-width:40rem;margin:2rem auto 0;padding:1.5rem 1.6rem;border-radius:16px;text-align:center;
-  background:color-mix(in srgb,var(--lesk) 12%,rgba(255,252,245,.7));
-  border:1px solid color-mix(in srgb,var(--zlata) 26%,transparent);
-}
-.ctvrty h3{font-family:'Jost',sans-serif;font-weight:500;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--zlata);margin-bottom:.6rem}
-.ctvrty p{color:var(--sed);line-height:1.6}
 
 /* karty programů — plastické jako v aplikaci */
 .programy{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1rem;margin-top:1.8rem}
@@ -315,18 +337,48 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     <h1>Vyladění</h1>
     <p class="podtitul">frekvence · dech · záměr</p>
   </div>
+  <p class="uvodni" style="font-size:1.24rem;line-height:1.5;max-width:30rem">
+    <b style="font-weight:600">Usni dřív. Zklidni hlavu. Vrať se k sobě.</b>
+  </p>
   <p class="uvodni">
     Zvukový průvodce, který tě rytmem, dechem a hlasem provede ke klidu, spánku,
-    meditaci i soustředění. Otevřeš ho v telefonu, přidáš na plochu — a máš ho navždy
-    u sebe, i bez internetu.
+    meditaci i soustředění. Stačí telefon a pár minut — funguje i bez internetu.
   </p>
+  <div class="rychle">
+    <span>5 až 60 minut</span><span>funguje offline</span><span>bez předplatného</span>
+  </div>
   <div class="cta">
-    <a class="tl tl-plna" href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyzkoušet zdarma</a>
+    <a class="tl tl-plna" href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Začít své Vyladění</a>
     <a class="tl tl-obrys" href="#koupit">Plná verze · zaváděcích 349 Kč</a>
   </div>
 </header>
 
 <div class="obal">
+
+<section>
+  <h2>Kdy ti Vyladění pomůže</h2>
+  <p class="stred">Nemusíš vědět nic o frekvencích. Stačí vědět, co teď potřebuješ.</p>
+  <div class="situace">
+    <div class="situ" style="--tb:#4f9ae0"><span class="situTecka"></span>
+      <span><b>Nemůžeš usnout</b><span class="p">Rytmus klesá s tebou, ztiší se sám a nechá tě odejít. <em>Usnutí</em></span></span></div>
+    <div class="situ" style="--tb:#ef8098"><span class="situTecka"></span>
+      <span><b>Cítíš napětí nebo úzkost</b><span class="p">Dlouhý výdech vrátí tělo z poplachu do klidu. Pět minut stačí. <em>Ukotvení</em></span></span></div>
+    <div class="situ" style="--tb:#a978db"><span class="situTecka"></span>
+      <span><b>Máš v hlavě příliš hlučno</b><span class="p">Ztišení vnitřního hluku po náročném dni. <em>Zklidnění</em></span></span></div>
+    <div class="situ" style="--tb:#e0a24a"><span class="situTecka"></span>
+      <span><b>Ráno se nemůžeš rozjet</b><span class="p">Rytmus stoupá z alfy do bdělé bety. Dvanáct minut místo druhé kávy. <em>Probuzení a aktivace</em></span></span></div>
+    <div class="situ" style="--tb:#48c07e"><span class="situTecka"></span>
+      <span><b>Potřebuješ se soustředit</b><span class="p">Klidná pozornost při práci a tvorbě, bez roztěkanosti. <em>Jasná mysl</em></span></span></div>
+    <div class="situ" style="--tb:#54b39a"><span class="situTecka"></span>
+      <span><b>Hledáš nápad</b><span class="p">Na rozhraní bdění a snění, kde nápady přicházejí. Ke konci vlna energie do tvoření. <em>Tvořivý průtok</em></span></span></div>
+    <div class="situ" style="--tb:#5a6ec4"><span class="situTecka"></span>
+      <span><b>Jsi vyčerpaný</b><span class="p">Hluboká regenerace a odevzdání tíhy dne. <em>Hluboký odpočinek</em></span></span></div>
+    <div class="situ" style="--tb:#9b7fe8"><span class="situTecka"></span>
+      <span><b>Chceš jít hlouběji</b><span class="p">Meditace, cesta sedmi čakrami, prostor nad korunou. <em>a další</em></span></span></div>
+  </div>
+</section>
+
+<div class="oddel"></div>
 
 <section>
   <h2>Na čem Vyladění stojí</h2>
@@ -358,18 +410,12 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
   <p class="pilirZamer">A přes to všechno leží čtvrtá vrstva, kterou nevidíš ani neslyšíš — <b>záměr</b>.
   Každý program nese jednu větu, kterou si neseš s sebou i po skončení.</p>
 
-  <div class="ctvrty">
-    <h3>A nemusíš nic nastavovat</h3>
-    <p>Všechno je připravené tak, aby to fungovalo hned — vybereš program, zvolíš délku a spustíš.
-    Až budeš chtít jít dál, doladíš si podkres, nosný tón, režim pro sluchátka nebo reproduktor,
-    u čaker konkrétní centrum, u emocí odkud vycházíš a kam chceš dojít. Ale nic z toho nemusíš.</p>
-  </div>
 </section>
 
 <div class="oddel"></div>
 
 <section>
-  <h2>Dvanáct programů, jeden záměr</h2>
+  <h2>12 programů, jeden záměr</h2>
   <p class="stred">Každé sezení pracuje s jiným rytmem — od ranního nastartování přes tvořivost a soustředění až po hlubokou noc.
   Vedou tě dechový kruh a klidný mluvený hlas.</p>
   <div class="programy">

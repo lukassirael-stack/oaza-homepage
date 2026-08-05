@@ -111,6 +111,38 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 .stred{text-align:center;max-width:38rem;margin:0 auto;color:var(--sed)}
 .oddel{height:1px;background:linear-gradient(90deg,transparent,var(--linka),transparent);max-width:520px;margin:0 auto}
 
+/* tři pilíře */
+.pilire{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;margin-top:2rem}
+.pilir{
+  position:relative;border-radius:18px;padding:1.8rem 1.5rem 1.5rem;
+  background-image:linear-gradient(163deg,rgba(255,252,244,.95) 0%,rgba(255,250,240,.6) 42%,transparent 76%);
+  background-color:rgba(255,252,245,.9);
+  -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+  border:1px solid color-mix(in srgb,var(--zlata) 30%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,253,247,.95),0 18px 34px -22px rgba(45,60,45,.45),0 3px 8px -5px rgba(70,55,25,.14);
+}
+.pilirCislo{
+  display:inline-flex;align-items:center;justify-content:center;width:2.1rem;height:2.1rem;
+  border-radius:50%;margin-bottom:.8rem;
+  font-family:'Cinzel',serif;font-size:.95rem;color:#fffdf7;
+  background:linear-gradient(150deg,#c9a14a,#a8813a);
+  box-shadow:0 6px 14px -8px rgba(45,60,45,.5),inset 0 1px 0 rgba(255,255,255,.5);
+}
+.pilir h3{font-family:'Cinzel',serif;font-weight:500;font-size:1.2rem;letter-spacing:.05em;margin-bottom:.5rem}
+.pilir p{font-size:1.01rem;line-height:1.55;color:var(--sed)}
+.pilir p + p{margin-top:.6rem}
+.pilirZamer{
+  margin-top:2rem;text-align:center;max-width:40rem;margin-left:auto;margin-right:auto;
+  font-style:italic;color:var(--sed);font-size:1.05rem;line-height:1.6;
+}
+.ctvrty{
+  max-width:40rem;margin:2rem auto 0;padding:1.5rem 1.6rem;border-radius:16px;text-align:center;
+  background:color-mix(in srgb,var(--lesk) 12%,rgba(255,252,245,.7));
+  border:1px solid color-mix(in srgb,var(--zlata) 26%,transparent);
+}
+.ctvrty h3{font-family:'Jost',sans-serif;font-weight:500;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--zlata);margin-bottom:.6rem}
+.ctvrty p{color:var(--sed);line-height:1.6}
+
 /* karty programů — plastické jako v aplikaci */
 .programy{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1rem;margin-top:1.8rem}
 .program{
@@ -295,6 +327,46 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
 </header>
 
 <div class="obal">
+
+<section>
+  <h2>Na čem Vyladění stojí</h2>
+  <p class="stred">Tři věci, které pracují společně. Žádná z nich sama o sobě nestačí — teprve dohromady tvoří sezení.</p>
+
+  <div class="pilire">
+    <article class="pilir">
+      <span class="pilirCislo">I</span>
+      <h3>Frekvence</h3>
+      <p>Do každého ucha zní tón nepatrně jiné výšky. Mozek ten rozdíl slyší jako pomalý tep — a má sklon se k němu přiladit. Deset tepů za vteřinu odpovídá klidné bdělosti, tři hluboké regeneraci.</p>
+      <p>Tomu se říká binaurální rytmus. Ve Vyladění se mění podle toho, kam sezení míří: u Usnutí klesá, u Probuzení stoupá, u Hvězdy duše vystoupá ke čtyřiceti a zase se vrátí.</p>
+    </article>
+
+    <article class="pilir">
+      <span class="pilirCislo">II</span>
+      <h3>Dech</h3>
+      <p>Uprostřed obrazovky dýchá světelný kruh. Roste s nádechem, stahuje se s výdechem — nemusíš nic počítat, jen ho následovat očima, dokud rytmus nepřevezme tělo.</p>
+      <p>Každý program má vlastní vzorec. Ukotvení má výdech skoro dvakrát delší než nádech, protože právě dlouhý výdech tlumí poplach v těle. Srdeční koherence dýchá 5,5 vteřiny tam a 5,5 zpět.</p>
+    </article>
+
+    <article class="pilir">
+      <span class="pilirCislo">III</span>
+      <h3>Vedené slovo</h3>
+      <p>Klidný hlas tě na začátku usadí — jak sedět, jak dýchat, kam dát pozornost. Pak se odmlčí a nechá pracovat zvuk. Na konci se vrátí, aby tě přivedl zpátky.</p>
+      <p>U cesty sedmi čakrami ohlásí každé centrum, kterým procházíš. Průvodce si můžeš kdykoli vypnout jediným zaškrtnutím.</p>
+    </article>
+  </div>
+
+  <p class="pilirZamer">A přes to všechno leží čtvrtá vrstva, kterou nevidíš ani neslyšíš — <b>záměr</b>.
+  Každý program nese jednu větu, kterou si neseš s sebou i po skončení.</p>
+
+  <div class="ctvrty">
+    <h3>A nemusíš nic nastavovat</h3>
+    <p>Všechno je připravené tak, aby to fungovalo hned — vybereš program, zvolíš délku a spustíš.
+    Až budeš chtít jít dál, doladíš si podkres, nosný tón, režim pro sluchátka nebo reproduktor,
+    u čaker konkrétní centrum, u emocí odkud vycházíš a kam chceš dojít. Ale nic z toho nemusíš.</p>
+  </div>
+</section>
+
+<div class="oddel"></div>
 
 <section>
   <h2>Dvanáct programů, jeden záměr</h2>

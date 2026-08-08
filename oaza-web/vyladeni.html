@@ -56,9 +56,6 @@ nav .btn:hover{background:#9c585a}
   .nav-toggle{display:block;position:relative;z-index:60}
   nav .btn:not(.jen-mobil){display:none}
 }
-/* hero se nadechne pod absolutní lištou, ať kruh není pod přechodem */
-header{padding-top:168px}
-@media(max-width:900px){header{padding-top:118px}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;background:var(--les)}
 body{
@@ -79,7 +76,8 @@ a{color:var(--zlata);text-decoration:none}
 .obal{max-width:900px;margin:0 auto;padding:0 1.2rem}
 
 /* hlavička */
-header{text-align:center;padding:1.4rem 1.2rem 1.2rem}
+header{text-align:center;padding:168px 1.2rem 1.2rem}
+@media(max-width:900px){header{padding-top:118px}}
 /* Světelný kruh má vlastní blok: značka, název a podtitul sedí uvnitř,
    všechno ostatní začíná až pod ním. Prstenec tak nikdy neprotne text. */
 .kruhBlok{

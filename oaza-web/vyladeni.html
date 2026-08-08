@@ -34,50 +34,31 @@
   --linka:rgba(168,129,58,.24);
 }
 
-/* ---------- navigační lišta Oázy ---------- */
-.oazaNav{
-  position:sticky;top:0;z-index:80;
-  background:rgba(251,247,239,.94);
-  border-bottom:1px solid var(--linka);
-  font-family:'Jost',sans-serif;
+/* ---------- navigační lišta Oázy (převzatá 1:1 z ostatních stránek) ---------- */
+nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px;background:linear-gradient(180deg,rgba(12,18,10,.55) 0%,rgba(12,18,10,.25) 55%,rgba(12,18,10,0) 100%)}
+nav .menu{display:flex;gap:26px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;text-shadow:0 1px 8px rgba(0,0,0,.55);font-family:'Jost',sans-serif;color:#fdfaf5}
+nav .menu a{position:relative;padding-bottom:3px;color:#fdfaf5;text-decoration:none}
+nav .menu a::after{display:none}
+nav .menu a:hover{color:#fdeecb}
+nav .nav-home{margin-right:auto;display:flex;align-items:center;color:#fdfaf5;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:color .25s}
+nav .nav-home:hover{color:#d8bd83}
+.nav-toggle{display:none;background:none;border:none;color:#fdfaf5;font-size:30px;cursor:pointer}
+nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px;display:inline-block;background:#b06a6c;color:#fdfaf5;border-radius:6px;text-decoration:none;transition:background .25s}
+nav .btn:hover{background:#9c585a}
+.jen-mobil{display:none}
+@media(max-width:900px){
+  nav{padding:20px 22px;gap:20px}
+  nav .menu{display:none;position:fixed;inset:0;background:#15221a;flex-direction:column;padding:96px 28px 40px;gap:0;text-align:left;z-index:50;overflow-y:auto}
+  nav .menu.open{display:flex}
+  nav .menu a{font-size:25px;color:#f3efe5;padding:21px 4px;border-bottom:1px solid rgba(243,239,229,.14)}
+  nav .menu a::after{display:none}
+  .jen-mobil{display:block}
+  .nav-toggle{display:block;position:relative;z-index:60}
+  nav .btn:not(.jen-mobil){display:none}
 }
-.oazaNav .vnitrek{
-  max-width:1060px;margin:0 auto;padding:.65rem 1.1rem;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
-}
-.oazaNav .znak{
-  font-size:.72rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--zlata);text-decoration:none;white-space:nowrap;
-}
-.oazaNav .odkazy{display:flex;gap:1.15rem;flex-wrap:nowrap}
-.oazaNav .odkazy a{
-  font-size:.66rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--krem);text-decoration:none;white-space:nowrap;opacity:.85;
-  transition:opacity .25s,color .25s;
-}
-.oazaNav .odkazy a:hover{opacity:1;color:var(--zlata)}
-.oazaNav details{position:relative;display:none}
-.oazaNav summary{
-  list-style:none;cursor:pointer;font-size:1.15rem;color:var(--zlata);
-  padding:.1rem .4rem;border:1px solid var(--linka);border-radius:8px;line-height:1.4;
-  -webkit-tap-highlight-color:transparent;
-}
-.oazaNav summary::-webkit-details-marker{display:none}
-.oazaNav details[open] .panel{
-  position:absolute;right:0;top:calc(100% + .55rem);min-width:220px;
-  background:rgba(251,247,239,.98);border:1px solid var(--linka);border-radius:14px;
-  padding:.6rem 0;box-shadow:0 18px 40px -18px rgba(29,59,48,.35);
-  display:flex;flex-direction:column;
-}
-.oazaNav .panel a{
-  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--krem);
-  text-decoration:none;padding:.55rem 1.2rem;
-}
-.oazaNav .panel a:hover{color:var(--zlata);background:rgba(240,217,164,.25)}
-@media (max-width:900px){
-  .oazaNav .odkazy{display:none}
-  .oazaNav details{display:block}
-}
+/* hero se nadechne pod absolutní lištou, ať kruh není pod přechodem */
+header{padding-top:112px}
+@media(max-width:900px){header{padding-top:86px}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;background:var(--les)}
 body{
@@ -494,34 +475,24 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
 </head>
 <body>
 
-<nav class="oazaNav" aria-label="Oáza Adamanthea">
-  <div class="vnitrek">
-    <a class="znak" href="https://oaza-adamanthea.cz/">Oáza Adamanthea</a>
-    <div class="odkazy">
-      <a href="https://oaza-adamanthea.cz/portalova-zahrada">Portálová zahrada</a>
-      <a href="https://oaza-adamanthea.cz/pobyt-ve-svetle">Pobyt ve světle</a>
-      <a href="https://oaza-adamanthea.cz/akce">Akce</a>
-      <a href="https://oaza-adamanthea.cz/nabidka-sluzeb">Služby</a>
-      <a href="https://oaza-adamanthea.cz/pronajem-prostor">Pronájem</a>
-      <a href="https://oaza-adamanthea.cz/bali-shop">E-shop</a>
-      <a href="https://oaza-adamanthea.cz/o-nas">O nás</a>
-      <a href="https://oaza-adamanthea.cz/kontakt">Kontakt</a>
-    </div>
-    <details>
-      <summary aria-label="Menu">☰</summary>
-      <div class="panel">
-        <a href="https://oaza-adamanthea.cz/portalova-zahrada">Portálová zahrada</a>
-        <a href="https://oaza-adamanthea.cz/pobyt-ve-svetle">Pobyt ve světle</a>
-        <a href="https://oaza-adamanthea.cz/akce">Akce</a>
-        <a href="https://oaza-adamanthea.cz/nabidka-sluzeb">Služby</a>
-        <a href="https://oaza-adamanthea.cz/pronajem-prostor">Pronájem</a>
-        <a href="https://oaza-adamanthea.cz/bali-shop">E-shop</a>
-        <a href="https://oaza-adamanthea.cz/o-nas">O nás</a>
-        <a href="https://oaza-adamanthea.cz/kontakt">Kontakt</a>
-      </div>
-    </details>
+<nav>
+  <a class="nav-home" href="/" aria-label="Domů — hlavní stránka"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></a>
+  <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+  <div class="menu" id="menu">
+    <a href="/portalova-zahrada">Portálová zahrada</a>
+    <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+    <a href="/akce">Akce</a>
+    <a href="/nabidka-sluzeb">Služby</a>
+    <a href="/pronajem-prostor">Pronájem</a>
+    <a href="/bali-shop">E-shop</a>
+    <a href="/o-nas">O nás</a>
+    <a href="/kontakt">Kontakt</a>
+    <a href="/kontakt" class="jen-mobil">Napište nám</a>
   </div>
+  <a class="btn" href="/kontakt">Napište nám</a>
 </nav>
+<script>function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}</script>
+
 
 <header>
   <div class="kruhBlok">

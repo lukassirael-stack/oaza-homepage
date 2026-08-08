@@ -404,7 +404,41 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 .objPozn{font-size:.9rem;color:var(--sed);margin-top:.6rem;text-align:center}
 #objStav{margin-top:.8rem;text-align:center;font-size:.98rem;min-height:1.4em;color:var(--sed)}
 #objStav.chyba{color:#a8443a}
-#objQr svg{display:block;width:176px;height:176px}
+#objQr svg{display:block;width:200px;height:200px}
+
+/* výsledek objednávky — musí být jasně vidět, že se něco stalo */
+#objVysledek{margin-top:2.2rem;animation:objPrichod .5s cubic-bezier(.2,.8,.3,1)}
+@keyframes objPrichod{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#objVysledek{animation:none}}
+.objHlava{text-align:center;margin-bottom:1.4rem}
+.objHlava .odznak{
+  display:inline-block;margin-bottom:.7rem;
+  font-family:'Jost',sans-serif;font-size:.66rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+  color:#2f6b4f;padding:.4rem 1rem;border-radius:999px;
+  background:rgba(94,186,143,.16);border:1px solid rgba(94,186,143,.5);
+}
+.objHlava h3{font-family:'Cinzel',serif;font-weight:500;font-size:1.35rem;letter-spacing:.05em;margin-bottom:.4rem}
+.objHlava p{color:var(--sed);font-size:1rem}
+.vsBox{
+  margin:0 0 .9rem;padding:1rem 1.1rem;border-radius:14px;text-align:center;
+  background:linear-gradient(120deg,rgba(240,217,164,.45),rgba(255,249,232,.8));
+  border:1px solid rgba(201,161,74,.55);
+}
+.vsBox b{
+  display:block;font-family:'Jost',sans-serif;font-size:.64rem;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;color:#8a6626;margin-bottom:.35rem;
+}
+.vsBox .cislo{
+  font-family:ui-monospace,'SFMono-Regular',Menlo,monospace;
+  font-size:2rem;letter-spacing:.12em;color:#8a6626;display:block;
+}
+.kopie{
+  margin-top:.6rem;cursor:pointer;padding:.4rem 1rem;border-radius:999px;
+  font-family:'Jost',sans-serif;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  background:rgba(255,255,255,.75);color:#8a6626;border:1px solid rgba(201,161,74,.5);
+}
+.kopie:hover{background:#fffdf7}
+.objVsPozn{max-width:32rem;margin:1.1rem auto 0;text-align:center;font-size:.95rem;color:var(--sed)}
 .upozorneni{font-style:italic;color:var(--sed);text-align:center;font-size:.95rem;margin-top:2.4rem}
 footer{margin-top:2.6rem;padding:2.4rem 1.2rem 3rem;text-align:center;border-top:1px solid var(--linka)}
 footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-spacing:.16em;color:var(--sed)}
@@ -582,18 +616,35 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     <p class="objPozn">E-mail použijeme jen k odeslání odemykacího kódu a k připomenutí před koncem platnosti.</p>
   </div>
 
-  <div class="platba" id="objVysledek" hidden>
-    <div class="qr">
-      <div id="objQr"></div>
-      <p class="qrPopis">Načti bankovní aplikací</p>
+  <div id="objVysledek" hidden>
+    <div class="objHlava">
+      <span class="odznak">Hotovo</span>
+      <h3>Zde jsou tvoje platební údaje</h3>
+      <p id="objHlavaPodtext">Načti QR kód bankovní aplikací, nebo přepiš údaje ručně.</p>
     </div>
-    <div class="udaje">
-      <div><b>účet</b>8159854004 / 5500</div>
-      <div><b>částka</b><span id="objCastka"></span></div>
-      <div><b>variabilní symbol</b><span id="objVs"></span></div>
-      <div><b>IBAN</b>CZ16 5500 0000 0081 5985 4004</div>
-      <div><b>zpráva</b>VYLADĚNÍ</div>
+
+    <div class="vsBox">
+      <b>Tvůj variabilní symbol</b>
+      <span class="cislo" id="objVs"></span>
+      <button type="button" class="kopie" id="objKopie">Zkopírovat symbol</button>
     </div>
+
+    <div class="platba">
+      <div class="qr">
+        <div id="objQr"></div>
+        <p class="qrPopis">Načti bankovní aplikací</p>
+      </div>
+      <div class="udaje">
+        <div><b>částka</b><span id="objCastka"></span></div>
+        <div><b>účet</b>8159854004 / 5500</div>
+        <div><b>variabilní symbol</b><span id="objVs2"></span></div>
+        <div><b>IBAN</b>CZ16 5500 0000 0081 5985 4004</div>
+        <div><b>zpráva</b>VYLADĚNÍ</div>
+      </div>
+    </div>
+
+    <p class="objVsPozn">Tenhle symbol patří jen tvé objednávce — podle něj tvoji platbu poznáme.
+    Když se sem vrátíš se stejným e-mailem, dostaneš ten samý, nic se nezdvojí.</p>
   </div>
 
   <p style="text-align:center;margin-top:1.8rem" id="objMailRadek" hidden>
@@ -621,7 +672,7 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
   var IBAN = "CZ1655000000008159854004";
 
   var $ = function (id) { return document.getElementById(id); };
-  var vybrany = "pololetni", castka = 349, eur = 14;
+  var vybrany = "pololetni", castka = 349, eur = 14, posledniVs = null;
 
   $("varianty").addEventListener("click", function (e) {
     var b = e.target.closest(".var");
@@ -677,7 +728,12 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
       vykresliQr(o.vs);
       $("objCastka").textContent = castka + " Kč / " + eur + " €";
       $("objVs").textContent = o.vs;
+      $("objVs2").textContent = o.vs;
+      $("objHlavaPodtext").textContent = "Zaplať " + castka + " Kč"
+        + (vybrany === "rocni" ? " za rok" : " za půl roku")
+        + " — načti QR kód bankovní aplikací, nebo přepiš údaje ručně.";
       $("objVysledek").hidden = false;
+      posledniVs = o.vs;
 
       var predmet = "Vyladění — zaplaceno, prosím o kód";
       var telo = "Dobrý den,\r\n\r\nprávě odešla platba " + castka + " Kč (VS " + o.vs + ") za Vyladění"
@@ -687,8 +743,10 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
         + encodeURIComponent(predmet) + "&body=" + encodeURIComponent(telo);
       $("objMailRadek").hidden = false;
 
-      stav.textContent = "Hotovo. Načti QR kód bankovní aplikací, nebo pošli převod ručně.";
-      $("objVysledek").scrollIntoView({ behavior: "smooth", block: "center" });
+      stav.textContent = "";
+      setTimeout(function () {
+        $("objVysledek").scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
     } catch (e) {
       stav.textContent = "Nepodařilo se spojit se serverem. Zkus to prosím za chvíli, nebo nám napiš na oaza.adamanthea@gmail.com.";
       stav.className = "chyba";
@@ -699,6 +757,25 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
 
   $("objEmail").addEventListener("keydown", function (e) {
     if (e.key === "Enter") $("objTl").click();
+  });
+
+  $("objKopie").addEventListener("click", function () {
+    if (!posledniVs) return;
+    var b = this;
+    var hotovo = function () {
+      b.textContent = "Zkopírováno";
+      setTimeout(function () { b.textContent = "Zkopírovat symbol"; }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(posledniVs).then(hotovo, function () {});
+    } else {
+      var t = document.createElement("textarea");
+      t.value = posledniVs;
+      document.body.appendChild(t);
+      t.select();
+      try { document.execCommand("copy"); hotovo(); } catch (e) {}
+      document.body.removeChild(t);
+    }
   });
 })();
 </script>

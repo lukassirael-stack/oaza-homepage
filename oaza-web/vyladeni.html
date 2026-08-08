@@ -331,7 +331,8 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
   display:inline-flex;align-items:center;justify-content:center;flex:none;margin-top:.15rem;
   box-shadow:0 6px 14px -8px rgba(29,59,48,.5);
 }
-.krok b{font-family:'Jost',sans-serif;font-weight:500;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+.krok>div>b{font-family:'Jost',sans-serif;font-weight:500;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+.krok p b{font-weight:600}
 .krok p{color:var(--sed);font-size:1rem}
 
 .platba{
@@ -595,15 +596,15 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
   </div>
 
   <div class="kroky">
-    <div class="krok"><div><b>Vyber variantu</b><p>Zadej e-mail a nech si vygenerovat platební údaje. Dostaneš <b style="font-weight:600">vlastní variabilní symbol</b>, podle kterého platbu poznáme. Pak stačí načíst QR kód bankovní aplikací, nebo poslat převod ručně. Ze zahraničí použij IBAN.</p></div></div>
+    <div class="krok"><div><b>Vyber variantu</b><p>Zadej e-mail a nech si vygenerovat platební údaje. Dostaneš <b style="font-weight:600">vlastní variabilní symbol</b>, podle kterého platbu poznáme. Pak stačí načíst QR kód bankovní aplikací, nebo poslat převod ručně. Ze zahraničí použij IBAN.</p></div></div>
     <div class="krok"><div><b>Napiš nám</b><p>Klepni na „Zaplaceno — napsat si o kód" pod platebními údaji — zpráva se předvyplní sama. Kdyby tlačítko nešlo, napiš na <a href="mailto:oaza.adamanthea@gmail.com?subject=Vyladeni%20-%20plna%20verze">oaza.adamanthea@gmail.com</a>. Obratem ti přijde odemykací kód.</p></div></div>
     <div class="krok"><div><b>Zadej kód v aplikaci</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Stejný kód zadáš i na druhém zařízení.</p></div></div>
   </div>
 
   <div class="obj">
     <div class="varianty" id="varianty">
-      <button type="button" class="var aktivni" data-typ="pololetni" data-castka="349" data-eur="14">půl roku<b>349 Kč / 14 €</b></button>
-      <button type="button" class="var" data-typ="rocni" data-castka="499" data-eur="20">rok<b>499 Kč / 20 €</b></button>
+      <button type="button" class="var" data-typ="pololetni" data-castka="349" data-eur="14">půl roku<b>349 Kč / 14 €</b></button>
+      <button type="button" class="var aktivni" data-typ="rocni" data-castka="499" data-eur="20">rok<b>499 Kč / 20 €</b></button>
     </div>
 
     <div class="objPole">
@@ -673,7 +674,7 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
   var IBAN = "CZ1655000000008159854004";
 
   var $ = function (id) { return document.getElementById(id); };
-  var vybrany = "pololetni", castka = 349, eur = 14, posledniVs = null;
+  var vybrany = "rocni", castka = 499, eur = 20, posledniVs = null;
 
   $("varianty").addEventListener("click", function (e) {
     var b = e.target.closest(".var");

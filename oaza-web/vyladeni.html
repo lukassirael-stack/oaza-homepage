@@ -643,6 +643,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
       </div>
     </div>
 
+    <p class="objVsPozn" id="objMailPotvrzeni" hidden style="color:#2f6b4f"></p>
     <p class="objVsPozn">Tenhle symbol patří jen tvé objednávce — podle něj tvoji platbu poznáme.
     Když se sem vrátíš se stejným e-mailem, dostaneš ten samý, nic se nezdvojí.</p>
   </div>
@@ -747,6 +748,19 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
       setTimeout(function () {
         $("objVysledek").scrollIntoView({ behavior: "smooth", block: "start" });
       }, 80);
+
+      // Potvrzení na e-mail. Když endpoint ještě neběží, mlčky se přeskočí —
+      // platební údaje má člověk před sebou tak jako tak.
+      fetch("/api/vyladeni-objednavka", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ vs: o.vs })
+      }).then(function (odp) { return odp.json(); }).then(function (v) {
+        if (v && v.odeslano) {
+          $("objMailPotvrzeni").textContent = "Platební údaje jsme ti pro jistotu poslali i na " + email + ".";
+          $("objMailPotvrzeni").hidden = false;
+        }
+      }).catch(function () {});
     } catch (e) {
       stav.textContent = "Nepodařilo se spojit se serverem. Zkus to prosím za chvíli, nebo nám napiš na oaza.adamanthea@gmail.com.";
       stav.className = "chyba";

@@ -744,6 +744,7 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
     eur = parseInt(b.dataset.eur, 10);
     $("objVysledek").hidden = true;
     $("objMailRadek").hidden = true;
+    $("objMailPotvrzeni").hidden = true;
     $("objStav").textContent = "";
     $("objStav").className = "";
   });
@@ -808,18 +809,15 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
         $("objVysledek").scrollIntoView({ behavior: "smooth", block: "start" });
       }, 80);
 
-      // Potvrzení na e-mail. Když endpoint ještě neběží, mlčky se přeskočí —
-      // platební údaje má člověk před sebou tak jako tak.
-      fetch("/api/vyladeni-objednavka", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ vs: o.vs })
-      }).then(function (odp) { return odp.json(); }).then(function (v) {
-        if (v && v.odeslano) {
-          $("objMailPotvrzeni").textContent = "Platební údaje jsme ti pro jistotu poslali i na " + email + ".";
-          $("objMailPotvrzeni").hidden = false;
-        }
-      }).catch(function () {});
+      // Potvrzovací e-mail posílá databázový trigger při vzniku nové objednávky.
+      // Když se člověk vrátí se stejným e-mailem, dostane zpět původní objednávku
+      // a žádný e-mail už neodchází — hlášku proto ukazujeme jen u nové objednávky.
+      if (o.nove) {
+        $("objMailPotvrzeni").textContent = "Platební údaje jsme ti pro jistotu poslali i na " + email + ".";
+        $("objMailPotvrzeni").hidden = false;
+      } else {
+        $("objMailPotvrzeni").hidden = true;
+      }
     } catch (e) {
       stav.textContent = "Nepodařilo se spojit se serverem. Zkus to prosím za chvíli, nebo nám napiš na oaza.adamanthea@gmail.com.";
       stav.className = "chyba";

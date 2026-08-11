@@ -22,6 +22,9 @@
 <meta property="og:site_name" content="Oáza Adamanthea">
 <meta name="theme-color" content="#f6f0e2">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://ladeni.oaza-adamanthea.cz">
+<link rel="preload" as="image" href="https://ladeni.oaza-adamanthea.cz/hero-svetly.webp" fetchpriority="high">
+<link rel="preload" as="image" href="https://ladeni.oaza-adamanthea.cz/hero-svetly-kruh.webp">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"Vyladění — plná verze",
@@ -79,7 +82,7 @@ body{
 }
 /* krystalové pozadí — stejné jako v aplikaci */
 body::before{
-  content:"";position:fixed;inset:0;z-index:-1;
+  content:"";position:fixed;inset:0;z-index:-1;transform:translateZ(0);
   background:
     linear-gradient(to bottom, rgba(246,240,226,0) 0%, rgba(246,240,226,0) 42%,
       rgba(246,240,226,.22) 64%, rgba(246,240,226,.5) 84%, rgba(246,240,226,.7) 100%),
@@ -169,8 +172,7 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 }
 .rychle span{
   border:1px solid color-mix(in srgb,var(--zlata) 30%,transparent);border-radius:999px;
-  padding:.38rem .95rem;background:rgba(255,252,245,.6);
-  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  padding:.38rem .95rem;background:rgba(255,252,245,.82);
 }
 /* kdy pomůže */
 .situace{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:.9rem;margin-top:1.9rem}
@@ -178,8 +180,7 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
   display:flex;gap:.9rem;align-items:flex-start;
   border-radius:14px;padding:1.15rem 1.2rem;
   background-image:linear-gradient(163deg,rgba(255,252,244,.92) 0%,transparent 74%);
-  background-color:rgba(255,252,245,.88);
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  background-color:rgba(255,252,245,.97);
   border:1px solid color-mix(in srgb,var(--zlata) 26%,transparent);
   box-shadow:inset 0 1px 0 rgba(255,253,247,.9),0 12px 24px -18px rgba(45,60,45,.4);
 }
@@ -196,8 +197,7 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 .pilir{
   position:relative;border-radius:18px;padding:1.8rem 1.5rem 1.5rem;
   background-image:linear-gradient(163deg,rgba(255,252,244,.95) 0%,rgba(255,250,240,.6) 42%,transparent 76%);
-  background-color:rgba(255,252,245,.9);
-  -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+  background-color:rgba(255,252,245,.97);
   border:1px solid color-mix(in srgb,var(--zlata) 30%,transparent);
   box-shadow:inset 0 1px 0 rgba(255,253,247,.95),0 18px 34px -22px rgba(45,60,45,.45),0 3px 8px -5px rgba(70,55,25,.14);
 }
@@ -223,9 +223,8 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
   background-image:
     linear-gradient(104deg,transparent 32%,color-mix(in srgb,var(--lesk) 55%,transparent) 45%,color-mix(in srgb,var(--lesk) 88%,transparent) 50%,color-mix(in srgb,var(--lesk) 55%,transparent) 55%,transparent 68%),
     linear-gradient(163deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.55) 38%,transparent 72%);
-  background-color:var(--plocha);
+  background-color:rgba(255,255,255,.97);
   background-repeat:no-repeat;background-size:210% 100%,100% 100%;background-position:-75% 0,0 0;
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   border:1px solid color-mix(in srgb,var(--zlata) 30%,transparent);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 16px 30px -20px rgba(29,59,48,.45),0 4px 10px -6px rgba(29,59,48,.14);
   transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s,background-position 1.9s cubic-bezier(.22,.6,.25,1),background-color .4s;
@@ -268,8 +267,7 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
   background-image:
     radial-gradient(120% 80% at 50% -10%, rgba(240,217,164,.5) 0%, rgba(255,253,247,0) 62%),
     linear-gradient(163deg,rgba(255,255,255,.97) 0%,rgba(255,252,243,.78) 42%,rgba(255,249,236,.6) 100%);
-  background-color:rgba(255,253,247,.86);
-  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  background-color:rgba(255,253,247,.97);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,1),
     inset 0 -26px 46px -34px rgba(201,161,74,.5),
@@ -381,8 +379,7 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
   background-image:
     radial-gradient(120% 85% at 50% -12%, rgba(240,217,164,.42) 0%, rgba(255,253,247,0) 64%),
     linear-gradient(163deg,rgba(255,255,255,.97) 0%,rgba(255,252,243,.8) 45%,rgba(255,249,236,.62) 100%);
-  background-color:rgba(255,253,247,.86);
-  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  background-color:rgba(255,253,247,.97);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,1),
     inset 0 -24px 44px -34px rgba(201,161,74,.45),

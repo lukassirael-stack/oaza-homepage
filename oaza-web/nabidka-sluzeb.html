@@ -113,6 +113,11 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
 @media(max-width:860px){.svc-grid{grid-template-columns:repeat(2,1fr)}.svc-featured .row{flex-direction:column}.svc-featured .pic{flex:none;height:170px}}
 @media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
+/* Výřez úvodního obrázku Vyladění */
+#vyladeni-novinka .pic{background-position:center 35%}
+@media(max-width:860px){#vyladeni-novinka .pic{height:210px;background-position:center 22%}}
+
 @media(max-width:900px){
   nav{padding:20px 22px;gap:20px}
   nav .menu{display:none;position:fixed;inset:0;background:#15221a;flex-direction:column;padding:96px 28px 40px;gap:0;text-align:left;z-index:50;overflow-y:auto}
@@ -203,10 +208,11 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
 <div class="svc-wrap" id="sluzby">
   <p class="svc-lead">Každá z našich terapií je cestou k sobě — k uvolnění, rovnováze a hlubšímu porozumění. Vyberte si, co vás oslovuje, a ozvěte se nám.</p>
+
   <div class="svc-featured" id="vyladeni-novinka">
     <div class="topbar"></div>
     <div class="row">
-      <div class="pic has-photo" style="background:url('/img/vyladeni-sluzby.webp') center 35%/cover"><span class="badge">NOVÉ</span></div>
+      <div class="pic has-photo" style="background-image:url('/img/vyladeni-sluzby.webp');background-size:cover;background-repeat:no-repeat"><span class="badge">NOVÉ</span></div>
       <div class="info">
         <div class="eyebrow">Novinka · zvuková aplikace</div>
         <h2>Vyladění</h2>
@@ -219,6 +225,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   </div>
 
   <div class="svc-grid">
+
     <div class="svc-card" id="kranio">
       <div class="svc-img has-photo" style="background:url('/img/kranio.jpg') center/cover"></div>
       <div class="svc-body">
@@ -228,6 +235,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/kraniosakralni-terapie" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/aura-hero.jpg') center 30%/cover"></div>
       <div class="svc-body">
@@ -237,6 +245,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/foceni-aury-a-caker" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/hojnost-hero.jpg') center 38%/cover"></div>
       <div class="svc-body">
@@ -246,6 +255,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/terapie-hojnosti-a-prosperity" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/dalkova-hero.jpg') center 28%/cover"></div>
       <div class="svc-body">
@@ -255,6 +265,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/dalkova-harmonizace-aury" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/osobni-terapie.jpg') center/cover"></div>
       <div class="svc-body">
@@ -264,6 +275,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/terapie-v-oaze" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/rodove-klice.jpg') center/cover"></div>
       <div class="svc-body">
@@ -273,6 +285,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/rodove-klice" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/vesmirny-kod.jpg') center/cover"></div>
       <div class="svc-body">
@@ -282,6 +295,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/vesmirny-kod-zrozeni" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/karma-hero.jpg') center/cover"></div>
       <div class="svc-body">
@@ -291,6 +305,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/karma-minule-zivoty" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/harmonizace-hero.jpg?v=2') center/cover"></div>
       <div class="svc-body">
@@ -300,6 +315,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/harmonizace-a-ocista-prostoru" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/jmeno-hero.jpg') center 32%/cover"></div>
       <div class="svc-body">
@@ -309,6 +325,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/harmonizace-jmena-a-prijmeni" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/shamballa-hero.jpg') center 40%/cover"></div>
       <div class="svc-body">
@@ -318,6 +335,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/shamballa-zasveceni" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/lemoare-krystaly.jpg') center/cover"></div>
       <div class="svc-body">
@@ -327,6 +345,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/lemoare-krystaly" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/spoluprace.jpg') center/cover"></div>
       <div class="svc-body">
@@ -336,6 +355,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/spoluprace" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -360,11 +380,10 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 </footer>
 
 <button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <script>
 function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}
 function svcToggle(btn){const c=btn.parentElement;const open=c.classList.toggle('open');btn.textContent=open?'Méně informací':'Více informací';}
 window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',window.scrollY>500);});
 </script>
-
-
 </body></html>

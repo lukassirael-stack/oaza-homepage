@@ -275,6 +275,19 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
     0 0 60px -14px rgba(201,161,74,.34);
 }
 /* zlatý prstenec po obvodu — svítí, nekreslí tvrdou linku */
+.cenovka[data-typ]{cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s}
+.cenovka[data-typ]:hover,.cenovka[data-typ]:focus-visible{transform:translateY(-6px)}
+.cenovka[data-typ]:focus-visible{outline:2px solid #c9a14a;outline-offset:4px}
+.cenovkaVolba{
+  display:inline-block;margin-top:1.15rem;
+  font-family:'Jost',sans-serif;font-weight:500;font-size:.66rem;
+  letter-spacing:.2em;text-transform:uppercase;color:#a8813a;
+  border:1px solid rgba(201,161,74,.5);border-radius:999px;padding:.46rem 1rem;
+  transition:background .25s,border-color .25s,color .25s;
+}
+.cenovka[data-typ]:hover .cenovkaVolba,.cenovka[data-typ]:focus-visible .cenovkaVolba{
+  background:rgba(201,161,74,.14);border-color:#c9a14a;color:#8a6a2e;
+}
 .cenovka::before{
   content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;z-index:-1;
   background:linear-gradient(150deg,#f4e2b8,#c9a14a 32%,#f7ecd2 55%,#b8903f 78%,#f4e2b8);
@@ -621,17 +634,19 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
   Nic se samo neobnovuje.</p>
 
   <div class="tarify">
-    <div class="cenovka tlumena">
+    <div class="cenovka tlumena" data-typ="pololetni" role="button" tabindex="0" aria-label="Zvolit půl roku a přejít k objednávce">
       <span class="zavadeci">půl roku</span>
       <div class="cena">349 Kč / 14 €<small>na šest měsíců</small></div>
       <p class="podcena">58 Kč měsíčně</p>
       <p class="tarSpodek">Když si chceš nejdřív ověřit, že ti Vyladění sedne.</p>
+      <span class="cenovkaVolba">zvolit a přejít k platbě →</span>
     </div>
-    <div class="cenovka">
+    <div class="cenovka" data-typ="rocni" role="button" tabindex="0" aria-label="Zvolit rok a přejít k objednávce">
       <span class="zavadeci">rok · doporučeno</span>
       <div class="cena">499 Kč / 20 €<small>na dvanáct měsíců</small></div>
       <p class="podcena">42 Kč měsíčně — ušetříš 199 Kč</p>
       <p class="tarSpodek">Nejvýhodnější varianta. Rok je zároveň doba, za kterou se návyk usadí.</p>
+      <span class="cenovkaVolba">zvolit a přejít k platbě →</span>
     </div>
   </div>
 
@@ -656,7 +671,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     <div class="krok"><div><b>Zadej kód v aplikaci</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Stejný kód zadáš i na druhém zařízení.</p></div></div>
   </div>
 
-  <div class="obj">
+  <div class="obj" id="objednavka">
     <div class="varianty" id="varianty">
       <button type="button" class="var" data-typ="pololetni" data-castka="349" data-eur="14">půl roku<b>349 Kč / 14 €</b></button>
       <button type="button" class="var aktivni" data-typ="rocni" data-castka="499" data-eur="20">rok<b>499 Kč / 20 €</b></button>
@@ -730,6 +745,20 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
 
   var $ = function (id) { return document.getElementById(id); };
   var vybrany = "rocni", castka = 499, eur = 20, posledniVs = null;
+
+  // velké cenovky nahoře: klik předvolí variantu a dovede rovnou k objednávce
+  [].forEach.call(document.querySelectorAll(".cenovka[data-typ]"), function (k) {
+    function zvol() {
+      var cil = document.querySelector('#varianty .var[data-typ="' + k.getAttribute("data-typ") + '"]');
+      if (cil) cil.click();
+      var obj = $("objednavka");
+      if (obj) obj.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    k.addEventListener("click", zvol);
+    k.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); zvol(); }
+    });
+  });
 
   $("varianty").addEventListener("click", function (e) {
     var b = e.target.closest(".var");

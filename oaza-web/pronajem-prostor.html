@@ -210,6 +210,10 @@ section:nth-of-type(even){background:var(--cream-warm);}
 .prices .row .name{flex:1;}
 .prices .row .name small{display:block;font-size:.9rem;color:var(--ink-soft);opacity:.8;font-style:italic;}
 .prices .row .amount{font-family:"Jost",sans-serif;font-weight:500;color:var(--gold-deep);font-size:1.02rem;white-space:nowrap;text-align:right;}
+.prices .row.sub{padding:11px 0;border-bottom:1px dashed rgba(154,118,40,.22);}
+.prices .row.sub .name{padding-left:24px;position:relative;font-size:.97rem;}
+.prices .row.sub .name::before{content:"↳";position:absolute;left:3px;color:var(--gold-deep);opacity:.55;}
+.prices .row.sub .amount{font-size:.97rem;}
 @media(max-width:640px){
   .prices .row{flex-direction:column;align-items:flex-start;gap:4px;}
   .prices .row .name{flex:none;}
@@ -415,8 +419,9 @@ html{scroll-behavior:smooth;}
 
     <div class="prices">
       <p class="price-kind">Pronájem prostor — skupinové akce a retreaty</p>
-      <div class="row"><span class="name">Meditační místnost<small>den a noc — 24 hodin / za účastníka</small></span><span class="amount">800 Kč / 35 €</span></div>
-      <div class="row"><span class="name">Shalla + meditační místnost</span><span class="amount">1 000 Kč / 40 €</span></div>
+      <div class="row"><span class="name">Shalla + meditační místnost<small>den a noc — 24 hodin / za účastníka</small></span><span class="amount">1 000 Kč / 40 €</span></div>
+      <div class="row sub"><span class="name">Denní pronájem (bez noci)<small>za účastníka</small></span><span class="amount">600 Kč / 25 €</span></div>
+      <div class="row sub"><span class="name">Půldenní pronájem (do 4 hodin)<small>za účastníka</small></span><span class="amount">400 Kč / 16 €</span></div>
       <div class="row"><span class="name">Vegetariánská / veganská strava<small>snídaně, oběd, večeře</small></span><span class="amount">450 Kč / den</span></div>
       <div class="row"><span class="name">Soukromé pokoje se sdílenou koupelnou<small>aktuálně pro 7 osob · sdílení pokoje +200 Kč · příplatek během akce</small></span><span class="amount">+ 300 Kč / os. / den</span></div>
       <div class="row"><span class="name">Chatka Pobyt ve světle<small>1–2 osoby</small></span><span class="amount">1 700 Kč / 70 €</span></div>

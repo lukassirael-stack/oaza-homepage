@@ -19,6 +19,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-htM8Efs.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-iNM8.woff2">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/img/akce-hero.webp" type="image/webp">
 <style>
 :root{
   --cream:#fdfaf5; --cream-2:#f7f1e8; --line:#eadcc4;
@@ -32,7 +33,7 @@ h1,h2,h3{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.02em;margin:
 
 /* NAV */
 nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:34px;
-  padding:26px 48px 16px;background:rgba(27,42,65,.94);backdrop-filter:blur(8px);
+  padding:26px 48px 16px;background:linear-gradient(155deg,rgba(46,95,107,.95) 0%,rgba(31,74,82,.95) 55%,rgba(20,47,56,.95) 100%);backdrop-filter:blur(8px);
   border-bottom:1px solid rgba(226,214,188,.18);font-size:14px}
 nav .home{margin-right:auto;display:flex;align-items:center}
 nav .home svg{width:24px;height:24px;fill:none;stroke:#F6F1E7;stroke-width:1.6}
@@ -45,8 +46,14 @@ nav .btn:hover{background:#9c585a;color:#fdfaf5}
 .nav-toggle{display:none;background:none;border:none;color:#F6F1E7;font-size:30px;line-height:1;cursor:pointer;margin-left:auto}
 
 /* HERO */
-.hero{text-align:center;padding:64px 24px 38px;position:relative;
-  background:radial-gradient(ellipse 70% 90% at 50% -10%, rgba(201,161,74,.13), transparent 72%)}
+.hero{text-align:center;padding:88px 24px 64px;position:relative;
+  background-color:#f4ecdc;
+  background-image:
+    linear-gradient(180deg,rgba(253,250,245,.12) 0%,rgba(253,250,245,0) 42%,var(--cream) 97%),
+    url('/img/akce-hero.webp');
+  background-position:center,center 35%;
+  background-size:auto,cover;
+  background-repeat:no-repeat}
 .hero .eyebrow{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
 .hero h1{font-size:clamp(30px,5vw,46px);color:var(--text);margin:14px 0 10px}
 .hero p{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--muted);max-width:620px;margin:0 auto}

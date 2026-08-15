@@ -393,39 +393,35 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
 /* === BADGES === */
 /* === DURATION BLOCK (struktura terapie) === */
 .oa-duration {
-  margin: 48px auto 0;
-  max-width: 620px;
+  margin: 40px auto 0;
+  max-width: 340px;
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1.5px solid var(--gold-light);
-  border-radius: 24px;
-  padding: 28px 32px;
-  box-shadow: 0 12px 40px -10px rgba(184, 80, 104, 0.18);
+  border-radius: 18px;
+  padding: 16px 28px;
+  text-align: center;
+  box-shadow: 0 10px 30px -12px rgba(184, 80, 104, 0.18);
   opacity: 0;
   animation: oaSlideUp 1s ease 0.9s forwards;
   position: relative;
 }
 
-.oa-duration-total {
-  text-align: center;
-  padding-bottom: 18px;
-  border-bottom: 1px dashed rgba(201, 161, 74, 0.35);
-  margin-bottom: 18px;
-}
 .oa-duration-total-label {
-  font-size: 11px;
-  letter-spacing: 0.35em;
+  font-size: 10px;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--rose-deep);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   font-weight: 600;
 }
 .oa-duration-total-value {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   color: var(--ink);
   letter-spacing: 0.02em;
+  line-height: 1.2;
 }
 .oa-duration-total-value strong {
   background: linear-gradient(135deg, var(--gold-deep), var(--rose-deep));
@@ -435,55 +431,9 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
   font-weight: 600;
 }
 
-.oa-duration-parts {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.oa-duration-part {
-  flex: 1 1 220px;
-  min-width: 0;
-  text-align: center;
-  padding: 8px 4px;
-}
-.oa-duration-part-time {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  color: var(--gold-deep);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  margin-bottom: 4px;
-}
-.oa-duration-part-name {
-  font-size: 13px;
-  color: var(--ink-soft);
-  letter-spacing: 0.08em;
-}
-
-.oa-duration-plus {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--rose) 100%);
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: 300;
-  flex-shrink: 0;
-  box-shadow: 0 6px 16px -4px rgba(184, 80, 104, 0.4);
-  font-family: 'Cormorant Garamond', serif;
-}
-
 @media (max-width: 520px) {
-  .oa-duration { padding: 24px 20px; }
-  .oa-duration-parts { flex-direction: column; gap: 10px; }
-  .oa-duration-plus { transform: rotate(90deg); }
-  .oa-duration-part { padding: 4px; }
+  .oa-duration { padding: 14px 20px; max-width: 300px; }
+  .oa-duration-total-value { font-size: 1.35rem; }
 }
 
 /* === INTRO === */
@@ -1261,21 +1211,8 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
     </div>
 
     <div class="oa-duration">
-      <div class="oa-duration-total">
-        <div class="oa-duration-total-label">Celé setkání trvá</div>
-        <div class="oa-duration-total-value"><strong>80–90 minut</strong></div>
-      </div>
-      <div class="oa-duration-parts">
-        <div class="oa-duration-part">
-          <div class="oa-duration-part-time">50–60 min</div>
-          <div class="oa-duration-part-name">Kraniosakrální terapie</div>
-        </div>
-        <div class="oa-duration-plus">+</div>
-        <div class="oa-duration-part">
-          <div class="oa-duration-part-time">30 min</div>
-          <div class="oa-duration-part-name">Divine Healing</div>
-        </div>
-      </div>
+      <div class="oa-duration-total-label">Celé setkání trvá</div>
+      <div class="oa-duration-total-value"><strong>60–90 minut</strong></div>
     </div>
   </section>
 
@@ -1431,7 +1368,6 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
 
       <!-- KARTA 1 -->
       <div class="oa-card">
-        <div class="oa-card-tag">50–60 minut</div>
         <h2>Kraniosakrální terapie</h2>
         <div class="oa-card-sub">Hluboké uvolnění nervového systému a návrat těla do rovnováhy</div>
 
@@ -1459,7 +1395,6 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
 
       <!-- KARTA 2 -->
       <div class="oa-card">
-        <div class="oa-card-tag">30 minut</div>
         <h2>Divine Healing</h2>
         <div class="oa-card-sub">Léčení skrze světlo, vědomí a božskou přítomnost</div>
 
@@ -1625,10 +1560,10 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
     <div class="oa-price-block">
       <div class="oa-price-label">Investice do sebe</div>
       <div class="oa-price">
-        2 200 Kč
-        <span class="oa-price-alt">/ 88 €</span>
+        1 300 Kč
+        <span class="oa-price-alt">/ 52 €</span>
       </div>
-      <div class="oa-price-note">Kompletní setkání 80–90 minut</div>
+      <div class="oa-price-note">Kompletní setkání 60–90 minut</div>
     </div>
   </section>
 

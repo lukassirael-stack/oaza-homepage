@@ -492,6 +492,8 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 
 #objStav{margin-top:.8rem;text-align:center;font-size:.98rem;min-height:1.4em;color:var(--sed)}
 #objStav.chyba{color:#a8443a}
+@keyframes upozorni{0%,100%{border-color:var(--linka)}30%,70%{border-color:#a8443a}}
+#objEmail.upozorni{animation:upozorni 1.2s ease}
 #objQr svg{display:block;width:200px;height:200px}
 
 /* výsledek objednávky — musí být jasně vidět, že se něco stalo */
@@ -888,14 +890,26 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
     $("objQr").innerHTML = q.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
   }
 
+  function upozorniNaEmail(stav, email) {
+    stav.textContent = email
+      ? "Zkontroluj prosím e-mail — vypadá to na překlep."
+      : "Vyplň prosím svůj e-mail — pošleme na něj odemykací kód.";
+    stav.className = "chyba";
+    var pole = $("objEmail");
+    pole.classList.remove("upozorni");
+    void pole.offsetWidth;
+    pole.classList.add("upozorni");
+    pole.focus({ preventScroll: true });
+    pole.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
   async function objednejQr(tl) {
     var email = ($("objEmail").value || "").trim();
     var stav = $("objStav");
     stav.className = "";
 
     if (!/^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/.test(email)) {
-      stav.textContent = "Zkontroluj prosím e-mail — vypadá to na překlep.";
-      stav.className = "chyba";
+      upozorniNaEmail(stav, email);
       return;
     }
 
@@ -963,8 +977,7 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
     stav.className = "";
 
     if (!/^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/.test(email)) {
-      stav.textContent = "Zkontroluj prosím e-mail — vypadá to na překlep.";
-      stav.className = "chyba";
+      upozorniNaEmail(stav, email);
       return;
     }
 

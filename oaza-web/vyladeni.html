@@ -734,7 +734,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
       </button>
       <button type="button" class="zpusob" data-zpusob="penezenka" id="zpusobPenezenka" hidden>
         <span class="ikona" aria-hidden="true">◍</span>
-        <span class="nazev" id="penezenkaNazev">Apple Pay</span>
+        <span class="nazev" id="penezenkaNazev">Google / Apple Pay</span>
         <span class="castka" id="castkaPenezenka">499 Kč</span>
         <span class="kdy">kód přijde hned</span>
       </button>
@@ -831,13 +831,13 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
     }
   }
 
-  // Peněženku nabídneme jen tam, kde ji zařízení opravdu má.
+  // Peněženku nabídneme všude, kde ji prohlížeč umí — tedy Safari (Apple Pay)
+  // i Chrome včetně desktopu (Google Pay). Kterou konkrétně, rozhodne Stripe.
   (function detekujPenezenku() {
     var jeApple = false;
     try { jeApple = !!(window.ApplePaySession && window.ApplePaySession.canMakePayments()); } catch (e) {}
-    var jeGoogle = !!window.PaymentRequest && /Android/i.test(navigator.userAgent);
+    var jeGoogle = !!window.PaymentRequest;
     if (!jeApple && !jeGoogle) return;
-    $("penezenkaNazev").textContent = jeApple ? "Apple Pay" : "Google Pay";
     $("zpusobPenezenka").hidden = false;
   })();
 

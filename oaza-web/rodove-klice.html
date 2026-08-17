@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rodové klíče™ — Terapie pro šťastný život | Oáza Adamanthea</title>
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
-<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Rodové klíče™ — Terapie pro šťastný život">
 <meta property="og:url" content="https://oaza-adamanthea.cz/rodove-klice">
@@ -27,6 +24,7 @@
     --bg-sand: #ede0c4;
     --bg-card: #fdf8ec;
 
+
     /* Gold accents (deeper for contrast on light bg) */
     --gold: #b8924a;
     --gold-deep: #8a6a32;
@@ -34,11 +32,13 @@
     --gold-soft: #c9a868;
     --gold-glow: rgba(184, 146, 74, 0.25);
 
+
     /* Brown / earth tones */
     --brown-deep: #4a3520;
     --brown: #6b4d2e;
     --brown-soft: #8a6f4f;
     --brown-light: #b59a76;
+
 
     /* Text */
     --text: #4a3520;
@@ -46,16 +46,20 @@
     --text-muted: #8a7558;
     --ivory: #faf3e7;
 
+
     /* Lines */
     --line: rgba(138, 106, 50, 0.2);
     --line-soft: rgba(138, 106, 50, 0.1);
+
 
     --display: 'Cinzel', serif;
     --serif: 'Cormorant Garamond', serif;
     --sans: 'Cinzel', serif;
 
+
     --tree-img: url('/img/rodove-klice-strom.webp');
   }
+
 
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -69,6 +73,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
+
   /* ============ AMBIENT BACKGROUND ============ */
   .bg-ambient{
     position: fixed; inset: 0;
@@ -81,6 +86,7 @@
       linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-warm) 50%, var(--bg-cream) 100%);
   }
 
+
   /* Subtle paper grain via SVG noise */
   .bg-grain{
     position: fixed; inset: 0;
@@ -89,6 +95,7 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55  0 0 0 0 0.42  0 0 0 0 0.20  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     mix-blend-mode: multiply;
   }
+
 
   /* Soft glow orbs */
   .glow{
@@ -107,6 +114,7 @@
     background: radial-gradient(circle, rgba(181, 154, 118, 0.32) 0%, rgba(181, 154, 118, 0.14) 40%, transparent 68%);
   }
 
+
   /* ============ CONTAINER ============ */
   .wrap{
     position: relative;
@@ -115,6 +123,7 @@
     margin: 0 auto;
     padding: 0 24px;
   }
+
 
   /* ============ HOOK BANNER ============ */
   .hook{
@@ -152,6 +161,7 @@
     line-height: 0;
   }
 
+
   /* ============ HERO (organic split: text in sky + text in roots) ============ */
   .hero{
     position: relative;
@@ -176,6 +186,7 @@
     to{transform: scale(1)}
   }
 
+
   /* TOP BAND - text "in the sky/canopy" */
   .hero-top{
     position: relative;
@@ -196,12 +207,14 @@
     pointer-events: none;
   }
 
+
   /* MIDDLE - visible trunk + sun */
   .hero-middle{
     flex-grow: 1;
     min-height: 240px;
     position: relative;
   }
+
 
   /* BOTTOM BAND - "in the roots", solid cream card */
   .hero-bottom{
@@ -220,6 +233,7 @@
     align-items: center;
     padding-top: 12px;
   }
+
 
   /* Ornament */
   .hero-ornament{
@@ -245,6 +259,7 @@
     from{opacity: 0}
     to{opacity: 1}
   }
+
 
   /* TOP typography - needs strong cream halo for legibility on image */
   .eyebrow{
@@ -311,6 +326,7 @@
       0 0 12px rgba(0, 0, 0, 0.85);
   }
 
+
   /* BOTTOM typography - on cream background, clean */
   .hero-lead{
     max-width: 580px;
@@ -359,6 +375,7 @@
     color: var(--text-muted);
   }
 
+
   /* ============ BUTTONS ============ */
   .btn{
     display: inline-flex;
@@ -398,6 +415,7 @@
   }
   .btn-primary:hover::before{opacity: 1}
 
+
   .btn-ghost{
     background: transparent;
     color: var(--gold-deep);
@@ -409,6 +427,7 @@
     color: var(--brown-deep);
     transform: translateY(-2px);
   }
+
 
   /* ============ SECTION ============ */
   section{
@@ -456,6 +475,7 @@
     line-height: 1.7;
   }
 
+
   /* ============ STORY ============ */
   .story{
     background: linear-gradient(180deg, transparent 0%, rgba(237, 224, 196, 0.45) 50%, transparent 100%);
@@ -500,6 +520,7 @@
     font-style: italic;
     font-weight: 600;
   }
+
 
   /* ============ FOR WHO ============ */
   .for-who{
@@ -559,6 +580,7 @@
     font-size: 0.95em;
   }
 
+
   /* ============ GAINS ============ */
   .gains{
     background: linear-gradient(180deg, transparent 0%, rgba(237, 224, 196, 0.4) 100%);
@@ -610,6 +632,7 @@
     color: var(--text-soft);
     line-height: 1.65;
   }
+
 
   /* ============ TESTIMONIALS ============ */
   .testimonials{
@@ -740,6 +763,7 @@
     letter-spacing: 2px;
   }
 
+
   /* Mini testimonial bar under hero */
   .testimonial-bar{
     padding: 36px 24px;
@@ -772,6 +796,7 @@
   .testimonial-bar-author::before{
     content: '— ';
   }
+
 
   /* ============ PROCESS ============ */
   .process{
@@ -833,6 +858,7 @@
     font-size: 1.02rem;
     line-height: 1.7;
   }
+
 
   /* ============ RESERVE ============ */
   .reserve{
@@ -929,6 +955,7 @@
     font-weight: 500;
   }
 
+
   /* ============ FAQ ============ */
   .faq{
     background: linear-gradient(180deg, transparent 0%, rgba(237, 224, 196, 0.35) 100%);
@@ -981,6 +1008,7 @@
     padding-top: 18px;
   }
 
+
   /* ============ FINAL CTA ============ */
   .final-cta{
     padding: 96px 24px;
@@ -998,681 +1026,3 @@
     max-width: 760px;
     margin: 0 auto 24px;
   }
-  .final-cta p{
-    max-width: 600px;
-    margin: 0 auto 44px;
-    color: var(--text-soft);
-    font-size: 1.15rem;
-    font-style: italic;
-  }
-  .final-quote{
-    margin-top: 44px;
-    padding-top: 32px;
-    border-top: 1px solid var(--line);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--text);
-    line-height: 1.7;
-  }
-  .final-quote::before{
-    content: '✦';
-    display: block;
-    color: var(--gold);
-    margin-bottom: 16px;
-    font-size: 1.4rem;
-  }
-
-  /* ============ FOOTER ============ */
-  footer{
-    padding: 50px 24px 40px;
-    text-align: center;
-    border-top: 1px solid var(--line);
-    color: var(--text-soft);
-    font-size: 0.88rem;
-    position: relative;
-    z-index: 10;
-    background: rgba(245, 234, 213, 0.5);
-  }
-  footer a{color: var(--gold-deep); text-decoration: none; font-weight: 500}
-  footer a:hover{color: var(--brown-deep)}
-
-  /* ============ SCROLL REVEAL ============ */
-  .reveal{
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1s ease, transform 1s ease;
-  }
-  .reveal.visible{
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ============ RESPONSIVE ============ */
-  @media (max-width: 880px){
-    .hero{min-height: 680px}
-    .hero-top{padding: 50px 20px 40px}
-    .hero-middle{min-height: 180px}
-    .hero-bottom{padding: 48px 20px 50px}
-    .hero-meta{gap: 24px}
-    .story-grid{grid-template-columns: 1fr; gap: 50px}
-    .story-visual{max-width: 320px; margin: 0 auto}
-    .for-who-grid{grid-template-columns: 1fr; gap: 24px}
-    .for-who-card{padding: 40px 32px}
-    .testimonials-grid{grid-template-columns: 1fr; gap: 22px}
-    .testimonial{padding: 38px 32px 30px}
-    .testimonial.featured{padding: 44px 36px 34px}
-    .testimonial.featured .testimonial-text{font-size: 1.05rem}
-    .reserve-card{padding: 50px 32px}
-    .price-main{font-size: 2.6rem}
-    section{padding: 54px 20px}
-    .reserve{padding: 62px 20px}
-    .section-head{margin-bottom: 36px}
-    .testimonials{padding: 54px 20px}
-    .step{gap: 20px}
-    .step-num{width: 52px; height: 52px; font-size: 1.1rem}
-    .process-timeline::before{left: 25px}
-    .final-cta{padding: 64px 20px}
-  }
-  @media (max-width: 480px){
-    .hero{min-height: 600px}
-    .hero-top{padding: 40px 16px 32px}
-    .hero-middle{min-height: 140px}
-    .hero-bottom{padding: 40px 16px 44px}
-    .hero-ornament{width: 54px; height: 54px; margin-bottom: 16px}
-    .hero-meta{gap: 18px; margin-top: 28px; padding-top: 22px}
-    .hero-meta-num{font-size: 1.2rem}
-    .hero-meta-lbl{font-size: 0.62rem; letter-spacing: 0.15em}
-    .eyebrow{font-size: 0.7rem; letter-spacing: 0.3em}
-    .btn{padding: 15px 24px; font-size: 0.72rem}
-    .hero-cta{flex-direction: column; width: 100%; max-width: 280px}
-    .hero-cta .btn{justify-content: center}
-    .reserve-buttons{flex-direction: column}
-    .reserve-buttons .btn{justify-content: center}
-  }
-</style>
-  <link rel="canonical" href="https://oaza-adamanthea.cz/rodove-klice">
-  <meta property="og:description" content="Osvoboďte se od omezujících vzorců svých předků. Rodové klíče™ — jednoduchá a účinná terapie odemkne dary vašeho rodu.">
-  <meta property="og:site_name" content="Oáza Adamanthea">
-  <meta property="og:image" content="https://oaza-adamanthea.cz/img/og-nahled.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-</head>
-<body>
-<style>
-.site-nav{display:flex;align-items:center;justify-content:flex-end;gap:26px;padding:20px 40px;background:rgba(250,243,231,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:500;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.site-nav .menu{display:flex;gap:24px;font-family:'Cormorant Garamond',serif;font-size:18px}
-.site-nav .menu a{color:#5a4a30;position:relative;padding-bottom:3px;text-decoration:none}
-.site-nav .menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .25s}
-.site-nav .menu a:hover::after,.site-nav .menu a.aktivni::after{width:100%}
-.site-nav .menu a.aktivni{color:var(--gold-deep);font-weight:600}
-.site-nav .nav-toggle{display:none;background:none;border:none;color:#5a4a30;font-size:28px;cursor:pointer}
-@media(max-width:900px){
- .site-nav{padding:16px 20px;justify-content:space-between}
- .site-nav .menu{display:none;position:fixed;inset:0;background:#1c1208;flex-direction:column;padding:90px 28px 40px;gap:0;z-index:480;overflow-y:auto}
- .site-nav .menu.open{display:flex}
- .site-nav .menu a{color:#f3e9d6;font-size:24px;padding:20px 4px;border-bottom:1px solid rgba(243,233,214,.14)}
- .site-nav .menu a::after{display:none}
- .site-nav .nav-toggle{display:block;z-index:490;position:relative}
-}
-</style>
-<nav class="site-nav">
-  <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
-  <div class="menu" id="menu">
-    <a href="/portalova-zahrada">Portálová zahrada</a>
-    <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
-    <a href="/akce">Akce</a>
-    <a href="/nabidka-sluzeb" class="aktivni">Služby</a>
-    <a href="/pronajem-prostor">Pronájem</a>
-    <a href="/bali-shop">E-shop</a>
-    <a href="/o-nas">O nás</a>
-    <a href="/kontakt">Kontakt</a>
-  </div>
-</nav>
-
-<div class="bg-ambient"></div>
-<div class="bg-grain"></div>
-<div class="glow glow-1"></div>
-<div class="glow glow-2"></div>
-
-<!-- ============ HOOK ============ -->
-<div class="hook">
-  <p class="hook-inner">
-    Pracujete na sobě roky, zkusili jste techniky, terapie, semináře… <span class="hook-mark">✦</span> <strong>a stále to není ono?</strong> <span class="hook-mark">✦</span> Možná vám chybí jediný klíč — a ten máme my.
-  </p>
-</div>
-
-<!-- ============ HERO ============ -->
-<header class="hero">
-  <div class="hero-bg"></div>
-
-  <!-- TOP BAND: text "in the sky" -->
-  <div class="hero-top">
-    <div class="hero-ornament" aria-hidden="true">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="heroGoldGrad" cx="50%" cy="50%">
-            <stop offset="0%" stop-color="#d4a857" stop-opacity="0.95"/>
-            <stop offset="100%" stop-color="#8a6a32" stop-opacity="0.7"/>
-          </radialGradient>
-        </defs>
-        <circle cx="50" cy="50" r="48" fill="none" stroke="url(#heroGoldGrad)" stroke-width="0.5" opacity="0.8"/>
-        <circle cx="50" cy="50" r="42" fill="none" stroke="#8a6a32" stroke-width="0.35" opacity="0.6"/>
-        <g fill="none" stroke="url(#heroGoldGrad)" stroke-width="0.7" opacity="0.85">
-          <circle cx="50" cy="50" r="14"/>
-          <circle cx="50" cy="36" r="14"/>
-          <circle cx="50" cy="64" r="14"/>
-          <circle cx="62.12" cy="43" r="14"/>
-          <circle cx="37.88" cy="43" r="14"/>
-          <circle cx="62.12" cy="57" r="14"/>
-          <circle cx="37.88" cy="57" r="14"/>
-        </g>
-        <g transform="translate(50 50)" fill="#8a6a32">
-          <polygon points="0,-7 1.7,-1.7 7,0 1.7,1.7 0,7 -1.7,1.7 -7,0 -1.7,-1.7"/>
-        </g>
-      </svg>
-    </div>
-    <div class="eyebrow">Terapie Oázy Adamanthea</div>
-    <h1>
-      Rodové klíče<span class="tm">&trade;</span>
-      <span class="gold-line">Klíč k vašemu rodu, klíč k vám samým</span>
-    </h1>
-  </div>
-
-  <!-- MIDDLE - visible tree (trunk + sun) -->
-  <div class="hero-middle"></div>
-
-  <!-- BOTTOM BAND: text "in the roots" -->
-  <div class="hero-bottom">
-    <div class="hero-bottom-inner">
-      <p class="hero-lead">
-        Osvoboďte se od omezujících vzorců svých předků. Probuďte v sobě dary, které vám rod zanechal &mdash; a začněte žít život, který je skutečně váš.
-      </p>
-      <div class="hero-cta">
-        <a href="#rezervace" class="btn btn-primary"><span>Rezervovat termín</span></a>
-        <a href="#proces" class="btn btn-ghost">Jak terapie probíhá</a>
-      </div>
-      <div class="hero-meta">
-        <div class="hero-meta-item">
-          <span class="hero-meta-num">2 500+</span>
-          <span class="hero-meta-lbl">Klientů</span>
-        </div>
-        <div class="hero-meta-item">
-          <span class="hero-meta-num">15 let</span>
-          <span class="hero-meta-lbl">Zkušeností</span>
-        </div>
-        <div class="hero-meta-item">
-          <span class="hero-meta-num">Online i osobně</span>
-          <span class="hero-meta-lbl">Forma terapie</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- ============ MINI TESTIMONIAL BAR ============ -->
-<div class="testimonial-bar">
-  <p class="testimonial-bar-inner">
-    „Po jednom jediném sezení se syn choval jinak už hned po návratu domů. Náš vztah se uzdravil, cítím lásku a vděčnost."
-    <span class="testimonial-bar-author">Katka, klientka</span>
-  </p>
-</div>
-
-<!-- ============ STORY ============ -->
-<section class="story">
-  <div class="wrap">
-    <div class="story-grid reveal">
-      <div class="story-visual">
-        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <radialGradient id="treeGlow" cx="50%" cy="50%">
-              <stop offset="0%" stop-color="#d4a857" stop-opacity="0.5"/>
-              <stop offset="100%" stop-color="#b8924a" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <circle cx="200" cy="200" r="195" fill="none" stroke="#b8924a" stroke-width="0.5" opacity="0.4"/>
-          <circle cx="200" cy="200" r="170" fill="none" stroke="#b8924a" stroke-width="0.4" opacity="0.5"/>
-          <circle cx="200" cy="200" r="145" fill="none" stroke="#b8924a" stroke-width="0.3" opacity="0.6"/>
-          <g fill="#b8924a" opacity="0.7">
-            <circle cx="200" cy="5" r="1.5"/>
-            <circle cx="395" cy="200" r="1.5"/>
-            <circle cx="200" cy="395" r="1.5"/>
-            <circle cx="5" cy="200" r="1.5"/>
-            <circle cx="338" cy="62" r="1"/>
-            <circle cx="338" cy="338" r="1"/>
-            <circle cx="62" cy="338" r="1"/>
-            <circle cx="62" cy="62" r="1"/>
-          </g>
-          <g fill="none" stroke="#b8924a" stroke-width="0.8" opacity="0.6">
-            <circle cx="200" cy="200" r="45"/>
-            <circle cx="200" cy="155" r="45"/>
-            <circle cx="200" cy="245" r="45"/>
-            <circle cx="239" cy="177.5" r="45"/>
-            <circle cx="161" cy="177.5" r="45"/>
-            <circle cx="239" cy="222.5" r="45"/>
-            <circle cx="161" cy="222.5" r="45"/>
-          </g>
-          <circle cx="200" cy="200" r="60" fill="url(#treeGlow)"/>
-          <g transform="translate(200 200)" fill="#8a6a32">
-            <polygon points="0,-18 4,-4 18,0 4,4 0,18 -4,4 -18,0 -4,-4" opacity="0.95"/>
-            <polygon points="0,-10 2,-2 10,0 2,2 0,10 -2,2 -10,0 -2,-2" fill="#d4a857" opacity="0.85"/>
-          </g>
-        </svg>
-      </div>
-      <div class="story-text">
-        <p>Jako duše jsme již prošli nespočet inkarnací. Rodíme se do nových podmínek, tvoříme si nové situace, celé životy — a to vše pro vývoj naší duše.</p>
-        <p>Naše současné rodiče jsme si vybrali v okamžiku plánování lekcí jako <span class="highlight">ideální pro to, abychom rostli, získávali nové kvality a navraceli se zpět k božské lásce.</span></p>
-        <p>Rodové zátěže, opakující se vzorce a tzv. rodová karma vychází z potlačených, neprožitých nebo nepochopených emocí. Není třeba analyzovat minulé životy ani se roky snažit odpouštět našim rodičům.</p>
-        <p><span class="highlight">Nyní máme k dispozici Rodové klíče™</span> — jednoduchou a účinnou cestu, kterou můžeme trvale zpracovat své lekce, emoce i karmu. Ať už to nazveme jakkoli.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FOR WHO ============ -->
-<section class="for-who">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">Pro koho</div>
-      <h2>Rodové klíče jsou <em>pro vás</em>...</h2>
-      <p class="section-lead">Možná jste už zkusili všechno a stále to není ono. Možná právě teď začínáte. Cesta je otevřená oběma.</p>
-    </div>
-    <div class="for-who-grid reveal">
-      <div class="for-who-card">
-        <h3>Pro ty, kdo už zkusili všechno</h3>
-        <ul>
-          <li>Stále nemáte dobré vztahy</li>
-          <li>V životě se vám nedaří, jak byste si přáli</li>
-          <li>Nefunguje vám zákon přitažlivosti</li>
-          <li>Nemůžete někomu odpustit</li>
-          <li>Máte potlačené nebo nezpracované emoce</li>
-          <li>Necítíte radost a pozitivní emoce</li>
-          <li>Posouváte se pomalu nebo vůbec</li>
-          <li>Cítíte nepřijetí — v práci, ve vztazích, v sobě</li>
-          <li>Nevíte si se sebou rady</li>
-          <li>Stále nemáte partnera</li>
-          <li>Ptáte se „co dělám špatně?"</li>
-        </ul>
-      </div>
-      <div class="for-who-card">
-        <h3>Pro ty, kdo právě teď začínají</h3>
-        <ul>
-          <li>Uvědomujete si, že můžete žít jinak</li>
-          <li>Rádi byste se v životě posunuli</li>
-          <li>Hledáte jednoduchou a účinnou techniku pro práci na sobě</li>
-          <li>Chcete porozumět své mysli a emocím</li>
-          <li>Začínáte s prací na sobě a nevíte jak</li>
-          <li>Milujete objevovat hlubší vrstvy života</li>
-          <li>Chcete propojit duchovní i praktickou rovinu</li>
-          <li>Vnímáte, že přišel váš čas</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ GAINS ============ -->
-<section class="gains">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">Co terapie přinese do vašeho života</div>
-      <h2>Pět <em>darů</em>, které vám Rodové klíče otevřou</h2>
-      <p class="section-lead">Konkrétní změny, které klienti zažívají po práci s rodovou linií — ve vztazích, v práci, v každodenním prožívání.</p>
-    </div>
-    <div class="gains-grid reveal">
-      <div class="gain">
-        <div class="gain-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 4 0 5.5 4 4 7-2.5 4.5-9.5 9-9.5 9z"/></svg>
-        </div>
-        <h4>Hlubší a klidnější vztahy</h4>
-        <p>S rodiči, partnerem, dětmi i kolegy. Přestanou se opakovat staré konflikty — to, co dřív rozjelo hádku, vás najednou nechá v klidu.</p>
-      </div>
-      <div class="gain">
-        <div class="gain-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2v6m0 8v6M2 12h6m8 0h6M5 5l4 4m6 6l4 4M5 19l4-4m6-6l4-4"/></svg>
-        </div>
-        <h4>Více radosti a lehkosti</h4>
-        <p>Probudí se vaše schopnost cítit pozitivní emoce — nadšení, vděčnost, vnitřní klid. Život začne chutnat jinak. Plněji.</p>
-      </div>
-      <div class="gain">
-        <div class="gain-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C9 6 7 9 7 13a5 5 0 0 0 10 0c0-4-2-7-5-11z"/><path d="M9 13a3 3 0 0 0 6 0"/></svg>
-        </div>
-        <h4>Otevření hojnosti a peněz</h4>
-        <p>Rodové bloky kolem peněz, úspěchu a sebehodnoty se uvolní. Začne přicházet to, co jste si dlouho nepouštěli — práce, příležitosti, hojnost.</p>
-      </div>
-      <div class="gain">
-        <div class="gain-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3m9-9h-3M6 12H3"/></svg>
-        </div>
-        <h4>Vědomé prožívání všedního dne</h4>
-        <p>Místo automatických reakcí a vnitřního napětí přijde přítomnost. Budete vědět, co cítíte, co chcete — a co s tím udělat.</p>
-      </div>
-      <div class="gain">
-        <div class="gain-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 3l3 6 6 1-4.5 4.5L18 21l-6-3-6 3 1.5-6.5L3 10l6-1z"/></svg>
-        </div>
-        <h4>Síla žít z vlastního středu</h4>
-        <p>Přestanete řešit, co si o vás kdo myslí. Najdete své místo, své poslání — a odvahu konečně žít po svém. Bez výmluv.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TESTIMONIALS ============ -->
-<section class="testimonials">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">Příběhy klientů</div>
-      <h2>Skutečné <em>proměny</em>, skutečné životy</h2>
-      <p class="section-lead">Tohle nejsou marketingové slogany. Tohle jsou slova lidí, kteří odešli ze sezení s něčím, co dlouho hledali.</p>
-    </div>
-
-    <div class="testimonials-grid reveal">
-
-      <!-- Featured: Martina - vztah s matkou - silný archetypální příběh -->
-      <div class="testimonial featured">
-        <div class="testimonial-topic">Vztah s matkou</div>
-        <p class="testimonial-text">
-          Se svojí mámou jsem si vlastně nikdy nerozuměla. Necítila jsem s ní žádné spojení, natož lásku nebo cit. Dokonce jsem si několikrát myslela, zda mě neadoptovali. Záviděla jsem své sestře její vztah s mámou, který vypadal přirozený, lehký, láskyplný. Postupem času jsem si zvykla takto žít a měla pocit, že už není co řešit a že to takto prostě má být — že jsem jí vše odpustila a že je to uzdravené.<br><br>
-          K Lukášovi jsem přišla řešit vlastně úplně něco jiného, ale on mě po pár chvílích dovedl k tématu vztahu s matkou. Laskavě mě provedl celým příběhem, emocemi… Přišel pláč, úleva, rozpuštění — a já najednou poprvé v životě cítila moji maminku. Cítila jsem, jak ona miluje mě, já ji, a jaké pouto je mezi námi. Mé srdce se naplnilo láskou a rozsvítilo. <strong>Obrovské díky, tohle byl ten nejlepší dar mého života.</strong> Od té doby je vše jinak.
-        </p>
-        <div class="testimonial-author">
-          <div class="testimonial-initial">M</div>
-          <div>
-            <div class="testimonial-name">Martina</div>
-            <div class="testimonial-meta">klientka</div>
-          </div>
-          <span class="testimonial-stars">★ ★ ★ ★ ★</span>
-        </div>
-      </div>
-
-      <!-- Katka - vztah se synem -->
-      <div class="testimonial">
-        <div class="testimonial-topic">Vztah se synem</div>
-        <p class="testimonial-text">
-          Přišla jsem s hlavním problémem — vztahem s mým synem, se kterým jsem si nevěděla rady. Byl úplně na bodu mrazu, cítila jsem, že jsme odpojeni, že si nerozumíme, a měla jsem pocit, že z toho neexistuje žádné východisko.<br><br>
-          Po jednom jediném sezení se syn choval jinak už hned po návratu domů. Od té doby lépe komunikujeme, rozumíme si, náš vztah se uzdravil, cítím lásku a vděčnost. Děkuji.
-        </p>
-        <div class="testimonial-author">
-          <div class="testimonial-initial">K</div>
-          <div>
-            <div class="testimonial-name">Katka</div>
-            <div class="testimonial-meta">klientka</div>
-          </div>
-          <span class="testimonial-stars">★ ★ ★ ★ ★</span>
-        </div>
-      </div>
-
-      <!-- Petra - práce -->
-      <div class="testimonial">
-        <div class="testimonial-topic">Práce a vztahy v zaměstnání</div>
-        <p class="testimonial-text">
-          Po našem sezení je mi v práci znovu dobře. Se šéfem vycházím, necítím ten tlak a všechno hezky plyne a daří se. A jsem ráda, že tam nakonec můžu zůstat, protože změna je cítit. Děkuji.
-        </p>
-        <div class="testimonial-author">
-          <div class="testimonial-initial">P</div>
-          <div>
-            <div class="testimonial-name">Petra</div>
-            <div class="testimonial-meta">klientka</div>
-          </div>
-          <span class="testimonial-stars">★ ★ ★ ★ ★</span>
-        </div>
-      </div>
-
-      <!-- Karel - partnerství -->
-      <div class="testimonial">
-        <div class="testimonial-topic">Partnerství a láska</div>
-        <p class="testimonial-text">
-          Dlouhé roky jsem byl sám. Zkoušel jsem seznamky i jiné způsoby, ale nic nefungovalo. Měl jsem pocit, že asi ani nejsem hoden mít rodinu, ženu, zažívat lásku.<br><br>
-          Po sezení s Lukášem a uzdravení vztahu mých rodičů uvnitř mě jsem cca měsíc po terapii naprosto přirozeně potkal ženu. <strong>Nyní již čekáme miminko</strong> a já jsem moc šťastný, že jsem tehdy ten krok udělal a na terapii přišel. Děkuji.
-        </p>
-        <div class="testimonial-author">
-          <div class="testimonial-initial">K</div>
-          <div>
-            <div class="testimonial-name">Karel</div>
-            <div class="testimonial-meta">klient</div>
-          </div>
-          <span class="testimonial-stars">★ ★ ★ ★ ★</span>
-        </div>
-      </div>
-
-      <!-- Leona - sebepoznání -->
-      <div class="testimonial">
-        <div class="testimonial-topic">Sebepoznání a smysl</div>
-        <p class="testimonial-text">
-          Celý život jsem žila s pocitem, že nikam nepatřím, že nic speciálního neumím, že vlastně ani nevím, proč tu jsem. Chyběl mi hlubší smysl. Cítila jsem se odpojená, sama, bez radosti, bez chuti tvořit.<br><br>
-          Po hlubokém léčení a uzdravení zraněných částí a vnitřního dítěte ve mně se celý můj život změnil. Začala jsem nový život, jsem sebevědomá, vím, kde v životě stojím, znám své dary, znám sebe, umím vycházet s lidmi a <strong>jsem šťastná</strong>.
-        </p>
-        <div class="testimonial-author">
-          <div class="testimonial-initial">L</div>
-          <div>
-            <div class="testimonial-name">Leona</div>
-            <div class="testimonial-meta">klientka</div>
-          </div>
-          <span class="testimonial-stars">★ ★ ★ ★ ★</span>
-        </div>
-      </div>
-
-      <!-- Monika - podnikání / hojnost -->
-      <div class="testimonial">
-        <div class="testimonial-topic">Podnikání a hojnost</div>
-        <p class="testimonial-text">
-          Ve svém podnikání jsem se dostala na úplné dno. Cítila jsem vyhoření, obrovskou nechuť něco tvořit, která přecházela až do fyzických stavů nevolnosti a ztráty energie. Zkusila jsem různé webináře, semináře, techniky a prodejní strategie, ale nic nefungovalo.<br><br>
-          S Lukášem jsme se setkali 2× online. Dodnes nechápu, jak se to vlastně všechno událo, ale od té doby <strong>mi chodí objednávky</strong>, tvořím nové produkty, zažívám obrovskou radost při tvorbě, mám stále nové nápady, cítím se více živá. Děkuji, že jsem našla odvahu se s vámi spojit.
-        </p>
-        <div class="testimonial-author">
-          <div class="testimonial-initial">M</div>
-          <div>
-            <div class="testimonial-name">Monika</div>
-            <div class="testimonial-meta">klientka, podnikatelka</div>
-          </div>
-          <span class="testimonial-stars">★ ★ ★ ★ ★</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div style="text-align: center; margin-top: 44px;" class="reveal">
-      <a href="#rezervace" class="btn btn-primary"><span>✦ Chci svou proměnu</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PROCESS ============ -->
-<section class="process" id="proces">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">Průběh terapie</div>
-      <h2>Cesta uzdravení <em>krok za krokem</em></h2>
-      <p class="section-lead">Provedeme vás citlivě a jednoduše. Není třeba se předem připravovat — stačí váš záměr a otevřenost.</p>
-    </div>
-    <div class="process-timeline reveal">
-      <div class="step">
-        <div class="step-num">I</div>
-        <div class="step-body">
-          <h4>Rezervace termínu</h4>
-          <p>Zvolíte formu setkání — osobně v Oáze Adamanthea, online přes WhatsApp nebo Messenger. Domluvíme si den a čas, který vám vyhovuje.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">II</div>
-        <div class="step-body">
-          <h4>Naladění a otevření prostoru</h4>
-          <p>Na začátku se společně sladíme. Vyslechneme vaše téma, otázky, to s čím přicházíte. Vytvoříme bezpečný prostor pro práci.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">III</div>
-        <div class="step-body">
-          <h4>Práce s Rodovými klíči™</h4>
-          <p>Provedeme vás technikou Rodových klíčů. Pracujeme s rodovou pamětí, emocemi i vzorci — citlivě, bezpečně a v přítomnosti tady a teď.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">IV</div>
-        <div class="step-body">
-          <h4>Integrace a další kroky</h4>
-          <p>Společně shrneme, co se otevřelo. Dostanete doporučení, jak proces dokončit doma — a kdy je vhodné se vrátit.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ RESERVATION ============ -->
-<section class="reserve" id="rezervace">
-  <div class="wrap">
-    <div class="reserve-card reveal">
-      <svg class="reserve-ornament" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g fill="none" stroke="currentColor">
-          <circle cx="50" cy="50" r="48" stroke-width="0.6" opacity="0.8"/>
-          <circle cx="50" cy="50" r="44" stroke-width="0.4" opacity="0.5"/>
-          <g stroke-width="0.8" opacity="0.85">
-            <circle cx="50" cy="50" r="14"/>
-            <circle cx="50" cy="36" r="14"/>
-            <circle cx="37.88" cy="43" r="14"/>
-            <circle cx="37.88" cy="57" r="14"/>
-            <circle cx="50" cy="64" r="14"/>
-            <circle cx="62.12" cy="57" r="14"/>
-            <circle cx="62.12" cy="43" r="14"/>
-          </g>
-          <g stroke-width="0.7" opacity="0.55">
-            <circle cx="50" cy="22" r="14"/>
-            <circle cx="25.75" cy="36" r="14"/>
-            <circle cx="25.75" cy="64" r="14"/>
-            <circle cx="50" cy="78" r="14"/>
-            <circle cx="74.25" cy="64" r="14"/>
-            <circle cx="74.25" cy="36" r="14"/>
-            <circle cx="74.25" cy="50" r="14"/>
-            <circle cx="62.12" cy="29" r="14"/>
-            <circle cx="37.88" cy="29" r="14"/>
-            <circle cx="25.75" cy="50" r="14"/>
-            <circle cx="37.88" cy="71" r="14"/>
-            <circle cx="62.12" cy="71" r="14"/>
-          </g>
-        </g>
-      </svg>
-      <div class="section-eyebrow">Rezervace</div>
-      <h2>Začněte cestu <em>uzdravení</em> ještě dnes</h2>
-      <p class="reserve-sub">Domluvíme si termín, který vám sedne — osobně nebo online.</p>
-
-      <div class="price-block">
-        <div class="price-label">Příspěvek za terapii</div>
-        <div class="price-main">2 200 Kč</div>
-        <div class="price-alt">/ 88 €</div>
-        <div class="price-note">Jedno sezení (60–90 minut) • osobně v Oáze Adamanthea nebo online (WhatsApp / Messenger)</div>
-      </div>
-
-      <div class="reserve-buttons">
-        <a href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%20term%C3%ADnu%20-%20Rodov%C3%A9%20kl%C3%AD%C4%8De&body=Dobr%C3%BD%20den%2C%0A%0Achci%20si%20rezervovat%20term%C3%ADn%20terapie%20Rodov%C3%A9%20kl%C3%AD%C4%8De.%0A%0AM%C3%A9%20jm%C3%A9no%3A%20%0APreferovan%C3%A1%20forma%20%28osobn%C4%9B%20%2F%20online%29%3A%20%0AMo%C5%BEn%C3%A9%20term%C3%ADny%3A%20%0AT%C3%A9ma%2C%20se%20kter%C3%BDm%20p%C5%99ich%C3%A1z%C3%ADm%20%28nepovinn%C3%A9%29%3A%20%0A%0AD%C4%9Bkuji%21" target="_top" class="btn btn-primary"><span>✦ Rezervovat e-mailem</span></a>
-        <a href="tel:+420737869752" target="_top" class="btn btn-ghost">Zavolat: 737 869 752</a>
-      </div>
-
-      <div class="reserve-options">
-        <strong>Formy setkání</strong>
-        Osobně v Oáze Adamanthea &nbsp;·&nbsp; Online přes WhatsApp &nbsp;·&nbsp; Online přes Messenger
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FAQ ============ -->
-<section class="faq">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">Časté otázky</div>
-      <h2>Co potřebujete <em>vědět</em></h2>
-    </div>
-    <div class="faq-list reveal">
-      <div class="faq-item">
-        <div class="faq-q">Jak dlouho jedno sezení trvá? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Setkání obvykle trvá 60 až 90 minut. Záleží na tématu, se kterým přicházíte, a na hloubce práce. Nikdy vás nepouštíme dřív, než je proces uzavřený.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Funguje online forma stejně dobře jako osobní? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Ano. Práce s Rodovými klíči™ funguje napříč prostorem — energie nezná vzdálenost. Online forma přes WhatsApp nebo Messenger je plnohodnotnou variantou pro klienty z celé ČR i ze zahraničí.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Potřebuji se na sezení nějak připravit? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Ne. Stačí váš záměr a otevřenost. Pokud máte konkrétní téma, můžete si je předem zformulovat — ale není to nutné. Provedeme vás celým procesem.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Kolik sezení budu potřebovat? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Mnoho klientů cítí výraznou změnu už po jednom setkání. Někteří se vrací s dalšími tématy — to je přirozené. Po prvním sezení společně doporučíme další postup, pokud bude potřeba.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Je to vhodné, i když nemám žádné „velké téma"? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Rozhodně ano. Rodové klíče slouží stejně dobře pro hloubkové řešení dlouhodobých vzorců i pro jemné odemčení potenciálu, který v sobě tušíte. Nemusíte „mít problém", aby měla terapie smysl.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Co když nemám žádnou duchovní zkušenost? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">To vůbec nevadí. Pracujeme jednoduše, srozumitelně a v rovině, která je vám blízká. Není třeba věřit ničemu předem — vše se otevře skrze vaši vlastní zkušenost.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Jak probíhá platba? <span class="faq-toggle">+</span></div>
-        <div class="faq-a">Platbu lze provést hotově na místě (při osobním setkání) nebo převodem před online sezením. Platební údaje vám zašleme spolu s potvrzením termínu.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FINAL CTA ============ -->
-<section class="final-cta">
-  <div class="wrap reveal">
-    <h2>Klíč je <em>ve vás</em>. My vám pomůžeme ho otočit.</h2>
-    <p>Vaši předkové vám zanechali víc než jen tíhu. Zanechali vám dary. Je čas si je vzít.</p>
-    <a href="#rezervace" class="btn btn-primary"><span>✦ Rezervovat termín</span></a>
-
-    <div class="final-quote">
-      „Vše, co potřebujete k uzdravení, už ve vás je. Rodové klíče vám jen pomohou si vzpomenout."
-    </div>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer>
-  <p>© 2026 Oáza Adamanthea — peace · love · happiness</p>
-  <p style="margin-top:10px">
-    <a href="https://www.oaza-adamanthea.cz">www.oaza-adamanthea.cz</a> &nbsp;·&nbsp;
-    <a href="mailto:oaza.adamanthea@gmail.com" target="_top">oaza.adamanthea@gmail.com</a> &nbsp;·&nbsp;
-    <a href="tel:+420737869752" target="_top">+420 737 869 752</a>
-  </p>
-</footer>
-
-<script>
-  // FAQ accordion
-  document.querySelectorAll('.faq-item').forEach(item => {
-    const q = item.querySelector('.faq-q');
-    q.setAttribute('tabindex', '0');
-    q.setAttribute('role', 'button');
-    const toggle = () => {
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if(!wasOpen) item.classList.add('open');
-    };
-    item.addEventListener('click', toggle);
-    q.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
-    });
-  });
-
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold: 0.15});
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-
-<script>function prepniMenu(b){var m=document.getElementById('menu');var o=m.classList.toggle('open');b.textContent=o?'\u2715':'\u2630';document.body.style.overflow=o?'hidden':'';}</script>
-<script defer src="/navstevnost.js"></script>
-</body>
-</html>

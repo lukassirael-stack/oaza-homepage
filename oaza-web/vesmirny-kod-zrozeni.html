@@ -17,363 +17,38 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Infant:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#05040e;
-    --gold:#c9a227;
-    --gold-light:#f0d060;
-    --cream:#e8e0ff;
-    --mist:#a89ec9;
-    --rose:#c06080;
-    --line:rgba(201,162,39,.28);
-    --panel:rgba(10,8,26,.62);
-  }
-  *,*::before,*::after{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;color:var(--cream);background:var(--ink);
-    font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;font-size:20px;line-height:1.7;
-    -webkit-font-smoothing:antialiased;position:relative;
-  }
-  body::before{
-    content:"";position:fixed;inset:0;z-index:-2;
-    background:url('/img/vesmir-hero.jpg') center/cover no-repeat;
-  }
-  body::after{
-    content:"";position:fixed;inset:0;z-index:-1;
-    background:
-      radial-gradient(circle at 50% 30%,rgba(5,4,14,.35),rgba(5,4,14,.78) 70%),
-      linear-gradient(180deg,rgba(5,4,14,.55),rgba(5,4,14,.85));
-  }
-  a{color:var(--gold-light);text-decoration:none}
-  h1,h2,h3{font-family:"Cinzel Decorative",serif;color:var(--gold-light);font-weight:700;line-height:1.25;margin:0}
 
-  .nav{
-    display:flex;align-items:center;gap:3px;flex-wrap:wrap;
-    padding:14px 26px;background:rgba(5,4,14,.82);border-bottom:1px solid var(--line);
-    position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);
-  }
-  .nav-home{
-    display:inline-flex;align-items:center;justify-content:center;
-    width:40px;height:40px;border-radius:50%;border:1px solid var(--line);color:var(--cream);
-    margin-right:auto;transition:.2s;
-  }
-  .nav-home:hover{color:var(--gold-light);border-color:var(--gold)}
-  .nav a:not(.nav-home){
-    font-family:"Jost",sans-serif;font-size:.8rem;font-weight:300;letter-spacing:.05em;
-    text-transform:uppercase;color:var(--cream);padding:8px 11px;border-radius:6px;
-    white-space:nowrap;transition:color .2s ease;
-  }
-  .nav a:not(.nav-home):hover{color:var(--gold-light)}
-  .nav a.active{color:var(--gold-light)}
-  .nav-toggle{display:none;margin-left:auto;background:none;border:0;cursor:pointer;padding:8px;color:var(--cream)}
-
-  .wrap{max-width:880px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
-  .blob{
-    background:var(--panel);backdrop-filter:blur(6px);
-    border:1px solid rgba(201,162,39,.18);
-    border-radius:48px;padding:46px 38px;
-    box-shadow:0 30px 90px -40px rgba(0,0,0,.9);
-  }
-
-  .hero{padding:64px 22px 30px;text-align:center}
-  .hero .blob{border-radius:120px 120px 60px 60px;max-width:880px;margin:0 auto;position:relative;z-index:1}
-  .title{font-size:clamp(2rem,6vw,3.2rem);letter-spacing:.04em;color:var(--gold-light);text-shadow:0 2px 30px rgba(0,0,0,.6)}
-  .eyebrow{font-family:"Cinzel Decorative",serif;font-weight:700;font-size:.82rem;letter-spacing:.18em;color:var(--gold);margin:12px 0 0}
-  .subtitle{font-style:italic;color:var(--mist);font-size:1.18rem;margin:18px 0 26px}
-  .questions{font-style:italic;color:var(--cream);font-size:clamp(1.3rem,3.2vw,1.7rem);line-height:2}
-  .questions span{display:block}
-  .reveal{font-style:italic;color:var(--mist);font-size:1.12rem;margin-top:24px;max-width:720px;margin-left:auto;margin-right:auto}
-
-  .btn{
-    font-family:"Cinzel Decorative",serif;font-weight:700;font-size:.82rem;letter-spacing:.1em;
-    padding:17px 40px;border:none;border-radius:40px;cursor:pointer;
-    background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--ink);
-    display:inline-block;box-shadow:0 4px 32px rgba(201,162,39,.45);transition:.3s ease;
-  }
-  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 48px rgba(201,162,39,.65);color:var(--ink)}
-
-  .center{text-align:center}
-  .stars{color:var(--gold);letter-spacing:.5em;font-size:1rem;margin:0 0 6px}
-
-  section{padding:34px 0}
-  .sec-title{font-size:clamp(1.4rem,3.6vw,1.9rem);letter-spacing:.06em;text-align:center;margin-bottom:30px}
-
-  .benefits{display:flex;flex-direction:column;gap:24px}
-  .benefit h3{font-family:"Cinzel",serif;font-weight:500;color:var(--gold-light);font-size:1.28rem;letter-spacing:.03em;margin-bottom:6px;display:flex;align-items:center;gap:10px}
-  .benefit p{font-style:italic;color:var(--mist);margin:0;font-size:1.08rem}
-
-  .specs{max-width:620px;margin:0 auto;text-align:center}
-  .specs ul{list-style:none;margin:0;padding:0}
-  .specs li{font-style:italic;color:var(--cream);font-size:1.14rem;padding:12px 0;border-bottom:1px solid rgba(201,162,39,.14)}
-  .specs li:last-child{border-bottom:0;color:var(--gold-light)}
-  .specs li b{font-weight:600;color:var(--gold-light)}
-
-  .quote{max-width:760px;margin:0 auto;text-align:center;font-style:italic;color:var(--cream);font-size:1.22rem;line-height:1.8}
-
-  .price-card{max-width:520px;margin:0 auto;text-align:center;border-radius:60px}
-  .price-big{font-family:"Cinzel Decorative",serif;font-weight:700;font-size:2rem;color:var(--gold-light);margin:6px 0 4px;letter-spacing:.02em}
-  .price-note{font-style:italic;color:var(--mist);font-size:1.02rem;margin-bottom:22px}
-
-  .order{max-width:560px;margin:0 auto}
-  .order .blob{border-radius:28px;padding:40px 32px}
-  .form-title{font-family:"Cinzel Decorative",serif;font-weight:700;font-size:.86rem;letter-spacing:.18em;color:var(--gold);text-align:center;margin-bottom:26px}
-  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
-  label{font-family:"Jost",sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:400}
-  input{
-    width:100%;background:rgba(255,255,255,.045);border:1px solid rgba(201,162,39,.3);
-    border-radius:10px;padding:14px 18px;font-family:"Cormorant Garamond",serif;font-size:1.15rem;
-    color:var(--cream);outline:none;transition:border-color .25s;-webkit-appearance:none;
-  }
-  input:focus{border-color:var(--gold)}
-  input::placeholder{color:rgba(168,158,201,.45)}
-  .error{color:var(--rose);text-align:center;font-style:italic;min-height:1.2em;margin:4px 0}
-  .cur-toggle{display:flex;justify-content:center;gap:0;margin:8px auto 0;width:max-content;border:1px solid rgba(201,162,39,.35);border-radius:40px;padding:4px;background:rgba(255,255,255,.03)}
-  .cur-opt{font-family:"Cinzel Decorative",serif;font-size:.72rem;letter-spacing:.08em;font-weight:700;padding:9px 26px;border:none;background:transparent;color:var(--mist);border-radius:40px;cursor:pointer;transition:all .25s ease}
-  .cur-opt.active{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--ink);box-shadow:0 2px 14px rgba(201,162,39,.4)}
-  .btn-pay{font-family:"Cinzel Decorative",serif;font-size:.8rem;letter-spacing:.1em;padding:17px 40px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--ink);border-radius:40px;cursor:pointer;transition:all .3s ease;display:block;margin:22px auto 0;font-weight:700;box-shadow:0 4px 32px rgba(201,162,39,.45);width:100%;max-width:400px}
-  .btn-pay:hover{transform:translateY(-2px);box-shadow:0 8px 48px rgba(201,162,39,.65)}
-  .btn-pay:disabled{opacity:.4;cursor:not-allowed;transform:none}
-  .pay-note{font-size:.88rem;font-style:italic;color:rgba(168,158,201,.6);text-align:center;margin-top:12px}
-  .have-code{text-align:center;margin-top:18px}
-  .have-code a{font-size:.95rem;color:var(--mist);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-  .have-code a:hover{color:var(--cream)}
-
-  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(5,4,14,.85);backdrop-filter:blur(8px);z-index:1000;align-items:center;justify-content:center}
-  .modal-overlay.active{display:flex}
-  .modal{background:rgba(14,11,32,.96);border:1px solid rgba(201,162,39,.4);border-radius:20px;padding:48px 36px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 80px rgba(0,0,0,.7),0 0 60px rgba(201,162,39,.15);animation:fadeUp .5s ease both}
-  .modal-star{font-size:3rem;display:block;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(201,162,39,.6))}
-  .modal-title{font-family:"Cinzel Decorative",serif;font-weight:700;font-size:1rem;color:var(--gold-light);margin-bottom:16px;line-height:1.4}
-  .modal-text{font-size:1.1rem;color:rgba(220,215,245,.9);font-style:italic;line-height:1.7;margin-bottom:28px}
-  .modal-btn{font-family:"Cinzel Decorative",serif;font-weight:700;font-size:.75rem;letter-spacing:.1em;padding:14px 32px;border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:40px;cursor:pointer;transition:all .3s ease}
-  .modal-btn:hover{background:var(--gold);color:var(--ink)}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-
-  footer{background:rgba(5,4,14,.9);border-top:1px solid var(--line);padding:42px 24px 30px;margin-top:30px;text-align:center;color:var(--mist)}
-  footer .f-soc{display:flex;gap:14px;justify-content:center;margin:6px 0 16px}
-  footer .f-soc a{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;color:var(--cream);transition:.2s}
-  footer .f-soc a:hover{color:var(--gold-light);border-color:var(--gold)}
-  footer .f-meta{font-size:.96rem;line-height:1.7}
-  footer .f-meta a{color:var(--gold-light)}
-
-  @media(max-width:820px){
-    .nav a:not(.nav-home){display:none}
-    .nav.open a:not(.nav-home){display:block;width:100%;text-align:center;padding:11px}
-    .nav-toggle{display:inline-flex}
-    .nav.open{flex-direction:column;align-items:stretch}
-    .nav.open .nav-home{margin:0 auto 6px}
-    .nav.open .nav-toggle{position:absolute;right:18px;top:12px}
-    .hero .blob,.blob{padding:36px 24px}
-  }
-
-  /* ===== OŽIVENÍ — hvězdné pole, pohyb, světlo (přidáno) ===== */
-  @keyframes oazaTwinkle{0%,100%{opacity:.25}50%{opacity:1}}
-  @keyframes oazaBreath{0%,100%{box-shadow:0 4px 32px rgba(201,162,39,.4),0 0 0 rgba(201,162,39,0)}50%{box-shadow:0 4px 40px rgba(201,162,39,.6),0 0 38px rgba(201,162,39,.28)}}
-  @keyframes oazaPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
-  @keyframes oazaShoot{0%{transform:translate(0,0) rotate(35deg);opacity:0}8%{opacity:1}24%{opacity:1}40%{transform:translate(320px,224px) rotate(35deg);opacity:0}100%{opacity:0}}
-
-  .oaza-starfield{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .oaza-starfield i{position:absolute;display:block;width:2.5px;height:2.5px;border-radius:50%;
-    background:#fff;opacity:.5;box-shadow:0 0 4px 1px rgba(255,255,255,.6);
-    animation:oazaTwinkle 4s ease-in-out infinite}
-  .oaza-starfield i.g{background:#f3d77a;width:4px;height:4px;opacity:.6;
-    box-shadow:0 0 7px 2px rgba(243,215,122,.8)}
-  .oaza-shoot{position:fixed;top:8%;left:-40px;width:3px;height:3px;border-radius:50%;
-    background:#fff;box-shadow:0 0 8px 3px rgba(255,255,255,.9),
-    -70px -49px 36px 2px rgba(255,255,255,.18);z-index:0;pointer-events:none;
-    opacity:0;animation:oazaShoot 9s ease-in infinite}
-
-  .oaza-reveal{opacity:0;transform:translateY(26px);
-    transition:opacity .9s ease,transform .9s ease}
-  .oaza-reveal.in{opacity:1;transform:none}
-
-  .order .btn-pay{animation:oazaBreath 3.4s ease-in-out infinite}
-
-  .price-big{position:relative;display:inline-block}
-  .price-big::after{content:"";position:absolute;inset:-18px -34px;border-radius:50%;
-    background:radial-gradient(circle,rgba(201,162,39,.22),transparent 70%);
-    z-index:-1;animation:oazaPulse 4.2s ease-in-out infinite}
-
-  .oaza-sep{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px auto 30px;max-width:340px}
-  .oaza-sep .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-  .oaza-sep .dot{width:5px;height:5px;border-radius:50%;background:var(--gold-light);
-    box-shadow:0 0 8px rgba(240,208,96,.7);animation:oazaTwinkle 3s ease-in-out infinite}
-  .oaza-sep .dot:nth-child(3){animation-delay:.6s}
-  .oaza-sep .dot:nth-child(4){animation-delay:1.2s}
-
-  @media (prefers-reduced-motion:reduce){
-    .oaza-starfield i,.oaza-shoot,.order .btn-pay,.price-big::after,.oaza-sep .dot{animation:none}
-    .oaza-reveal{opacity:1;transform:none;transition:none}
-  }
+    :root{--night:#060a1d;--night-2:#111438;--violet:#8171b0;--ink:#f5eedf;--mist:#cac5dd;--gold:#e6bd70;--gold-pale:#fff0ba;--line:rgba(236,202,129,.26)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--night);color:var(--ink);font:400 20px/1.65 "Cormorant Garamond",Georgia,serif;-webkit-font-smoothing:antialiased}a{text-decoration:none;color:inherit}button,input{font:inherit}.scene{position:fixed;inset:0;z-index:-3;background:#060a1d url("/img/vesmirny-portal-hero.png") center top/cover no-repeat}.scene::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,9,27,.15),rgba(5,9,27,.03) 45%,rgba(5,9,27,.36)),linear-gradient(180deg,rgba(5,9,27,.12),rgba(5,9,27,.92) 84%)}.scene::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 65% 18%,transparent 0 21%,rgba(5,9,27,.35) 60%,rgba(5,9,27,.85) 100%)}
+    .frame{width:min(1180px,calc(100% - 44px));margin:auto}.nav{height:88px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.12)}.brand{color:var(--gold-pale);font:600 13px/1 Manrope,sans-serif;letter-spacing:.19em;text-transform:uppercase}.nav-links{display:flex;gap:20px;color:#e1dced;font:500 10px/1 Manrope,sans-serif;letter-spacing:.11em;text-transform:uppercase}.nav-links a:hover{color:var(--gold-pale)}
+    .hero{min-height:650px;display:flex;align-items:center;padding:72px 0 110px}.hero-copy{max-width:680px}.kicker,.label{color:var(--gold);font:600 11px/1.25 Manrope,sans-serif;letter-spacing:.19em;text-transform:uppercase}.kicker{display:flex;align-items:center;gap:11px}.kicker::before{content:"";height:1px;width:37px;background:var(--gold)}h1{margin:20px 0 25px;max-width:680px;font:600 clamp(3rem,6.3vw,6.6rem)/.98 "Cormorant Infant",Georgia,serif;letter-spacing:-.045em;text-wrap:balance}.lead{max-width:555px;margin:0;color:#e5e0ef;font-size:clamp(1.25rem,2vw,1.55rem);line-height:1.4}.questions{margin:32px 0 25px;padding-left:22px;border-left:1px solid var(--gold);color:var(--gold-pale);font:400 clamp(1.14rem,2vw,1.38rem)/1.55 "Cormorant Garamond",serif;font-style:italic}.questions span{display:block}.reveal{max-width:570px;margin:0;color:var(--mist);font-size:1.13rem;line-height:1.48}.cta-row{display:flex;align-items:center;gap:25px;margin-top:35px}.cta{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 29px;border-radius:999px;color:#181223;background:linear-gradient(110deg,#d3a34c,#fff0ad 54%,#d3a34c);font:600 11px/1 Manrope,sans-serif;letter-spacing:.13em;text-transform:uppercase;box-shadow:0 14px 38px rgba(213,165,67,.28);transition:.25s}.cta:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(213,165,67,.45)}.quiet-link{color:#e1dbea;font-size:1.05rem;border-bottom:1px solid var(--line)}
+    .ribbon{display:grid;grid-template-columns:repeat(3,1fr);margin-bottom:96px;border:1px solid var(--line);border-radius:26px;overflow:hidden;background:rgba(10,14,39,.78);backdrop-filter:blur(15px)}.ribbon div{padding:24px 29px;border-right:1px solid var(--line)}.ribbon div:last-child{border:0}.ribbon b{display:block;margin-bottom:7px;color:var(--gold);font:600 10px/1.2 Manrope,sans-serif;letter-spacing:.13em;text-transform:uppercase}.ribbon span{display:block;color:#ddd8eb;font-size:1.06rem;line-height:1.25}
+    section{padding:92px 0}.panel{border-radius:28px;background:linear-gradient(145deg,rgba(22,25,65,.82),rgba(7,11,32,.83));border:1px solid rgba(238,207,142,.18);box-shadow:0 34px 95px rgba(0,0,0,.28);backdrop-filter:blur(12px)}h2{max-width:790px;margin:15px 0 42px;color:#fff6d9;font:600 clamp(2rem,4vw,3.65rem)/1.08 "Cormorant Infant",Georgia,serif;letter-spacing:-.035em}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.card{min-height:225px;padding:29px 29px 26px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(41,36,91,.73),rgba(9,13,40,.77))}.card-no{color:var(--gold);font:500 12px/1 Manrope,sans-serif;letter-spacing:.12em}.card h3{margin:20px 0 10px;color:#fff4d6;font:500 1.31rem/1.2 "Cormorant Infant",Georgia,serif}.card p{margin:0;color:var(--mist);font-size:1.08rem;line-height:1.45}
+    .facts{display:grid;grid-template-columns:.84fr 1.16fr;gap:68px;align-items:start}.facts .intro{padding-top:20px}.facts .intro p{max-width:410px;margin:0;color:var(--mist);font-size:1.25rem;line-height:1.48}.spec-list{margin:0;padding:0 37px;list-style:none}.spec-list li{padding:22px 0;border-bottom:1px solid rgba(238,207,142,.2);color:#e9e4ee;font-size:1.24rem;line-height:1.35}.spec-list li:last-child{border:0;color:var(--gold-pale)}.spec-list b{color:var(--gold-pale);font-weight:600}.quote{max-width:850px;margin:auto;text-align:center;color:#fcf4da;font-size:clamp(1.45rem,2.8vw,2.1rem);font-style:italic;line-height:1.35}.quote::before{content:"✦";display:block;margin-bottom:22px;color:var(--gold);font-style:normal;font-size:1.2rem}
+    .price-wrap{padding:0 0 106px}.price-card{max-width:730px;margin:auto;padding:58px 70px;text-align:center;border-radius:34px;background:radial-gradient(circle at 50% 0,rgba(139,104,206,.27),transparent 48%),linear-gradient(145deg,rgba(32,28,75,.94),rgba(8,12,35,.93));border:1px solid rgba(238,207,142,.42);box-shadow:0 36px 110px rgba(0,0,0,.42)}.price-card h2{margin:16px auto 9px;font-size:clamp(2rem,3.7vw,3.2rem)}.price-card>p{max-width:490px;margin:0 auto;color:var(--mist);font-size:1.15rem}.price{margin:16px 0 20px;color:var(--gold-pale);font:600 clamp(1.8rem,3vw,2.6rem)/1.1 "Cormorant Infant",Georgia,serif;letter-spacing:-.02em}.order{margin-top:43px;text-align:left}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:7px;color:#d9d3e8;font:500 10px/1.2 Manrope,sans-serif;letter-spacing:.11em;text-transform:uppercase}.field input{height:52px;padding:0 15px;border:1px solid rgba(255,255,255,.16);border-radius:14px;outline:0;background:rgba(255,255,255,.07);color:#fff;font:400 1.14rem "Cormorant Garamond",serif}.pay{width:100%;margin-top:16px;border:0;cursor:default}.payment-note,.access{margin:15px 0 0;text-align:center;color:#b8b0cd;font-size:1rem}.access a{color:var(--gold-pale);border-bottom:1px solid var(--line)}footer{padding:36px 0 50px;border-top:1px solid rgba(255,255,255,.11);text-align:center;color:#aaa4c2;font-size:.99rem}
+    @media(max-width:800px){body{font-size:18px}.frame{width:min(100% - 30px,1180px)}.nav{height:70px}.nav-links{display:none}.hero{min-height:670px;align-items:flex-start;padding:76px 0 50px}.hero-copy{text-align:center}.kicker{justify-content:center}.questions{padding-left:0;border-left:0}.cta-row{justify-content:center;flex-wrap:wrap}.scene{background-position:65% top}.scene::before{background:linear-gradient(180deg,rgba(5,9,27,.22),rgba(5,9,27,.88) 86%)}.ribbon,.cards,.facts,.fields{grid-template-columns:1fr}.ribbon div{border-right:0;border-bottom:1px solid var(--line)}.ribbon div:last-child{border-bottom:0}.ribbon{margin-bottom:50px}.cards{gap:12px}.card{min-height:0}.facts{gap:30px}.spec-list{padding:23px}.spec-list li{font-size:1.16rem}.price-wrap{padding-bottom:72px}.price-card{padding:42px 25px}section{padding:65px 0}.quiet-link{display:none}}
+  .cur-toggle{display:flex;justify-content:center;gap:8px;margin:17px 0 5px}.cur-opt{min-width:58px;padding:8px 13px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:transparent;color:#d9d3e8;cursor:pointer;font:600 10px/1 Manrope,sans-serif;letter-spacing:.1em}.cur-opt.active{border-color:var(--gold);background:rgba(230,189,112,.16);color:var(--gold-pale)}.error{min-height:1.35em;margin:13px 0 0;text-align:center;color:#ffc7c7;font-size:1rem}.btn-pay:disabled{opacity:.72;cursor:wait}.modal-overlay{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:22px;background:rgba(4,6,20,.72);backdrop-filter:blur(8px)}.modal-overlay.active{display:grid}.modal{max-width:470px;padding:46px 35px;text-align:center;border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,#262158,#090c28);box-shadow:0 30px 100px rgba(0,0,0,.6)}.modal-star{display:block;color:var(--gold);font-size:2rem}.modal-title{margin-top:12px;color:var(--gold-pale);font:600 2rem/1.15 "Cormorant Infant",Georgia,serif}.modal-text{color:var(--mist);font-size:1.15rem}.modal-btn{min-height:50px;padding:0 24px;border:0;border-radius:999px;background:linear-gradient(110deg,#d3a34c,#fff0ad 54%,#d3a34c);color:#181223;font:600 11px/1 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
 </style>
-  <link rel="canonical" href="https://oaza-adamanthea.cz/vesmirny-kod-zrozeni">
-  <meta property="og:locale" content="cs_CZ">
-  <meta property="og:image" content="https://oaza-adamanthea.cz/img/og-nahled.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-
-<style id="vesmirny-kod-2026-refresh">
-/* Vizuální obnova landing page – zachovává původní strukturu a platební tok. */
-:root{--vk-ink:#050616;--vk-deep:#131032;--vk-gold:#f2cf79;--vk-lilac:#d8d1f2;--vk-line:rgba(242,207,121,.28)}
-body{background:var(--vk-ink);font-size:21px;background-image:radial-gradient(circle at 50% 0,rgba(124,77,177,.18),transparent 35%)}
-body::before{filter:saturate(1.08) brightness(.7)}
-body::after{background:radial-gradient(circle at 50% 16%,rgba(64,41,119,.21),rgba(5,4,14,.88) 67%),linear-gradient(180deg,rgba(5,4,14,.35),rgba(5,4,14,.94))}
-.nav{background:rgba(5,4,18,.76);border-bottom-color:rgba(255,255,255,.11);padding:15px 32px}
-.hero{padding:74px 22px 55px}.hero .blob{max-width:1000px;padding:76px 55px 70px;border-radius:34px;background:linear-gradient(132deg,rgba(27,20,67,.87),rgba(9,11,37,.74));border-color:rgba(242,207,121,.27);overflow:hidden}
-.hero .blob::before{content:"";position:absolute;width:420px;height:420px;right:-132px;top:50%;transform:translateY(-50%);border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff2d3 0 1%,#de9cd8 5%,#8058b4 20%,#2b236d 47%,#070826 72%);box-shadow:inset -34px -38px 85px #03041b,inset 25px 17px 75px #ffc18a55,0 0 48px #aa78eb77,0 0 125px #9265ec44;opacity:.84}
-.hero .blob::after{content:"✦  ·  ✧  ·  ✦";position:absolute;right:-74px;top:50%;width:310px;height:310px;display:grid;place-items:center;border:1px solid rgba(242,207,121,.42);border-radius:44% 56% 60% 40% / 47% 42% 58% 53%;color:var(--vk-gold);font:1.28rem Cinzel,serif;letter-spacing:.6em;transform:translateY(-50%) rotate(-24deg);text-shadow:0 0 12px #fff}
-.hero .title,.hero .eyebrow,.hero .subtitle,.hero .questions,.hero .reveal,.hero .btn{position:relative;z-index:1}.hero .title{max-width:620px;text-align:left;font-size:clamp(2.5rem,5.5vw,4.4rem);letter-spacing:-.04em}.hero .eyebrow{text-align:left;margin-top:17px;font:600 .77rem Cinzel,serif;letter-spacing:.18em;text-transform:uppercase;color:var(--vk-gold)}.hero .subtitle{max-width:600px;text-align:left;margin:18px 0 25px;color:var(--vk-lilac);font-size:1.3rem}.hero .questions{max-width:510px;text-align:left;font-size:clamp(1.25rem,2.5vw,1.55rem);line-height:1.75}.hero .reveal{max-width:570px;text-align:left;margin-left:0;color:#c5bee0}.btn{padding:18px 30px;background:linear-gradient(110deg,#d9aa4a,#fff0ad 50%,#d9aa4a);box-shadow:0 13px 38px rgba(229,184,78,.29)}
-section{padding:43px 0}.sec-title{font-family:Cinzel,serif;font-size:clamp(1.6rem,3vw,2.25rem);letter-spacing:-.035em}.benefits{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:14px;background:transparent;border:0;backdrop-filter:none;box-shadow:none}.benefit{min-height:177px;padding:25px;border:1px solid var(--vk-line);border-radius:18px;background:linear-gradient(145deg,rgba(39,30,79,.84),rgba(9,10,32,.76));box-shadow:inset 0 1px rgba(255,255,255,.08)}.benefit h3{font-family:Cinzel,serif;font-size:1.14rem}.benefit p{font-size:1.08rem;line-height:1.45;color:#c6bfdf}.specs{max-width:800px;padding:36px 38px}.specs li{font-size:1.18rem;padding:15px 0}.quote{font-size:1.4rem;color:#f4eeda}.price-card{max-width:640px;padding:49px 40px!important;border-color:rgba(242,207,121,.43);background:radial-gradient(circle at 50% 0,rgba(130,90,192,.32),transparent 44%),rgba(12,11,34,.83)}.price-big{font-size:clamp(2.25rem,4vw,3.3rem)}.order{max-width:700px}.order .blob{padding:48px;border-radius:26px;background:linear-gradient(145deg,rgba(37,28,74,.91),rgba(8,10,30,.9));border-color:rgba(242,207,121,.35)}.form-title{font-family:Cinzel,serif;font-size:1.55rem;color:var(--vk-gold)}.btn-pay{background:linear-gradient(110deg,#d9aa4a,#fff0ad 50%,#d9aa4a);box-shadow:0 12px 31px rgba(229,184,78,.25)}.cur-opt.active{background:rgba(242,207,121,.22);border-color:var(--vk-gold);color:var(--vk-gold)}.have-code a{color:var(--vk-gold)}
-@media(max-width:760px){body{font-size:19px}.nav{padding:12px 18px}.hero{padding:34px 14px 35px}.hero .blob{padding:45px 27px 322px;border-radius:25px}.hero .blob::before{width:286px;height:286px;right:50%;top:auto;bottom:15px;transform:translateX(50%)}.hero .blob::after{right:50%;top:auto;bottom:7px;width:230px;height:230px;transform:translateX(50%) rotate(-24deg);font-size:.85rem}.hero .title,.hero .eyebrow,.hero .subtitle,.hero .questions,.hero .reveal{text-align:center;margin-left:auto;margin-right:auto}.benefits{grid-template-columns:1fr;padding:0}.benefit{min-height:auto}.order .blob{padding:35px 23px}.specs{padding:28px 24px}}
-</style></head>
+</head>
 <body>
-<div class="oaza-starfield" id="oazaStarfield" aria-hidden="true"></div>
-<div class="oaza-shoot" aria-hidden="true"></div>
 
-<nav class="nav" id="nav">
-  <a class="nav-home" href="/" aria-label="Domů">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
-  </a>
-  <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu()">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-  </button>
-  <a href="/portalova-zahrada">Portálová zahrada</a>
-  <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
-  <a href="/akce">Akce</a>
-  <a href="/nabidka-sluzeb" class="active">Služby</a>
-  <a href="/pronajem-prostor">Pronájem prostor</a>
-  <a href="/bali-shop">E-shop</a>
-  <a href="/o-nas">O nás</a>
-  <a href="/kontakt">Kontakt</a>
-</nav>
-
-<header class="hero">
-  <div class="blob">
-    <h1 class="title">Vesmírný kód zrození</h1>
-    <p class="eyebrow">Objev své hvězdné kořeny</p>
-    <p class="subtitle">Multidimenzionální analýza tvé hvězdné identity a životní mise</p>
-    <div class="questions">
-      <span>Cítíš to volání?</span>
-      <span>Víš odkud jsi?</span>
-      <span>A jak to souvisí s tvým příběhem?</span>
-      <span>Jsi připraven/a to zjistit?</span>
-    </div>
-    <p class="reveal">Toto čtení ti odhalí tvůj konkrétní hvězdný rod, tvoje dary, karmická témata i důvod, proč jsi právě tady.</p>
-    <div style="margin-top:28px"><a class="btn" href="#objednavka">✦ Chci aktivovat svůj kód ✦</a></div>
+  <div class="scene"></div>
+  <div class="frame">
+    <nav class="nav" id="nav"><a class="brand" href="#top">Oáza Adamanthea</a><div class="nav-links"><a href="#prinosy">Co ti to přinese</a><a href="#otisk">Tvůj otisk</a><a href="#objednavka">Aktivace</a></div></nav>
+    <main id="top">
+      <section class="hero"><div class="hero-copy"><div class="kicker">Multidimenzionální analýza</div><h1>Vesmírný kód zrození</h1><p class="lead">Objev své hvězdné kořeny, dary duše a životní lekce.</p><div class="questions"><span>Cítíš to volání?</span><span>Víš odkud jsi?</span><span>A jak to souvisí s tvým příběhem?</span><span>Jsi připraven/a to zjistit?</span></div><p class="reveal">Toto čtení ti odhalí tvůj konkrétní hvězdný rod, tvoje dary, karmická témata i důvod, proč jsi právě tady.</p><div class="cta-row"><a class="cta" href="#objednavka">Aktivovat svůj kód ✦</a><a class="quiet-link" href="#prinosy">Co všechno objevíš ↓</a></div></div></section>
+      <div class="ribbon"><div><b>36 otázek</b><span>20 základních a 16 adaptabilních jen pro tebe</span></div><div><b>44 linií</b><span>Systém rozpoznává tvůj hvězdný rod</span></div><div><b>Osobní výsledek</b><span>Celý profil dostaneš na email</span></div></div>
+      <section id="prinosy"><div class="label">Co ti to přinese</div><h2>Tvůj vnitřní svět dostane nové souvislosti.</h2><div class="cards"><article class="card"><span class="card-no">01</span><h3>Ujasníš si sám sebe</h3><p>Pochopíš proč myslíš, cítíš a jednáš tak jak jednáš — jako jedinečný projev tvého kosmického nastavení.</p></article><article class="card"><span class="card-no">02</span><h3>Objevíš ztracené části své duše</h3><p>Tvoje dary, citlivosti a schopnosti čekají na pojmenování. Toto čtení ti je ukáže jako poklady, které mohou obohatit tvou cestu.</p></article><article class="card"><span class="card-no">03</span><h3>Napojíš se na svůj vesmírný původ</h3><p>Zjistíš, z jakého hvězdného světa pochází tvá duše — co si přinesla a proč jsi přišel/přišla právě sem, právě teď.</p></article><article class="card"><span class="card-no">04</span><h3>Objasní se ti klíčové otázky v životě</h3><p>Tvůj světelný rod přináší nové souvislosti pro opakující se vzorce, hojnost i vnímání energie tohoto světa.</p></article><article class="card"><span class="card-no">05</span><h3>Průvodce pro 6 oblastí života</h3><p>Vztahy, hojnost, zdraví, dary a poslání, duchovní rozvoj — vše skrze prizmu tvého hvězdného rodu.</p></article><article class="card"><span class="card-no">06</span><h3>Celý profil dostaneš na email</h3><p>Hluboce osobní text psaný jako dopis od hvězd přímo tobě — ke kterému se budeš vracet.</p></article></div></section>
+      <section id="otisk"><div class="facts"><div class="intro"><div class="label">Tvůj hvězdný otisk</div><h2>Otázky jsou klíče k tvému vesmírnému otisku.</h2><p>Každý výsledek přináší jedinečný a neopakovatelný pohled na cestu, po které kráčíš.</p></div><div class="panel"><ul class="spec-list"><li><b>36 otázek</b>, které tě vedou hluboko — 20 základních, 16 adaptabilních jen pro tebe</li><li>Systém rozpoznává tvůj hvězdný rod z <b>44 kosmických linií</b></li><li>Zohledňuje přesné postavení hvězd v okamžiku tvého narození</li><li>Každý výsledek přináší jedinečný a neopakovatelný pohled</li><li>Tvůj hvězdný otisk otevírá nový prostor pro objevování.</li></ul></div></div></section>
+      <section><p class="quote">Samotné otázky nejsou test. Jsou to klíče, které odemykají napojení na tvůj osobní vesmírný otisk. Při odpovídání možná pocítíš, že si vzpomínáš — ne že odpovídáš.</p></section>
+      <section class="price-wrap" id="objednavka"><div class="price-card"><div class="label">Aktivace vesmírného kódu</div><h2>Vstup do svého vesmírného otisku</h2><p>Jednorázový přístup · výsledek na email</p><div class="price">555 Kč / 22,2 €</div><div class="order"><div class="fields"><label class="field">Jméno<input type="text" id="f-name" placeholder="Tvoje jméno" autocomplete="given-name"></label><label class="field">Email<input type="email" id="f-email" placeholder="tvuj@email.cz" autocomplete="email"></label></div><p id="err" class="error" aria-live="polite"></p><div class="cur-toggle" role="group" aria-label="Volba měny"><button type="button" class="cur-opt active" data-cur="czk">Kč</button><button type="button" class="cur-opt" data-cur="eur">€</button></div><button class="cta pay btn-pay" id="btn-pay" type="button">Zaplatit 555 Kč a začít ✦</button><p class="payment-note" id="pay-note">platba přes Stripe · karta · Google Pay · Apple Pay</p><p class="access"><a href="https://kviz.oaza-adamanthea.cz" target="_blank" rel="noopener">Již mám přístupový kód →</a></p></div></div></section>
+    </main>
+    <footer>Oáza Adamanthea · Halenkovice 400 · Ochrana osobních údajů</footer>
   </div>
-</header>
 
-<section>
-  <div class="wrap">
-    <h2 class="sec-title">✦ Co ti to přinese ✦</h2>
-    <div class="blob benefits">
-      <div class="benefit">
-        <h3>💠 Ujasníš si sám sebe</h3>
-        <p>Pochopíš proč myslíš, cítíš a jednáš tak jak jednáš — ne jako chybu, ale jako projev tvého kosmického nastavení.</p>
-      </div>
-      <div class="benefit">
-        <h3>✨ Objevíš ztracené části své duše</h3>
-        <p>Tvoje dary, citlivosti a schopnosti čekají na pojmenování. Toto čtení ti je ukáže jako poklady, ne jako slabosti.</p>
-      </div>
-      <div class="benefit">
-        <h3>🧬 Napojíš se na svůj vesmírný původ</h3>
-        <p>Zjistíš, z jakého hvězdného světa pochází tvá duše — co si přinesla a proč jsi přišel/přišla právě sem, právě teď.</p>
-      </div>
-      <div class="benefit">
-        <h3>🔑 Objasní se ti klíčové otázky v životě</h3>
-        <p>Proč mám stále stejné vzorce? Proč mi hojnost nejde? Proč se cítím unavený/á z tohoto světa? Tvůj světelný rod nese odpovědi.</p>
-      </div>
-      <div class="benefit">
-        <h3>🧭 Průvodce pro 6 oblastí života</h3>
-        <p>Vztahy, hojnost, zdraví, dary a poslání, duchovní rozvoj — vše skrze prizmu tvého hvězdného rodu.</p>
-      </div>
-      <div class="benefit">
-        <h3>💌 Celý profil dostaneš na email</h3>
-        <p>Hluboce osobní text psaný jako dopis od hvězd přímo tobě — ke kterému se budeš vracet.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="oaza-sep" aria-hidden="true"><span class="ln"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ln"></span></div>
-    <div class="blob specs">
-      <ul>
-        <li><b>36 otázek</b>, které tě vedou hluboko — 20 základních, 16 adaptabilních jen pro tebe</li>
-        <li>Systém rozpoznává tvůj hvězdný rod z <b>44 kosmických linií</b></li>
-        <li>Zohledňuje přesné postavení hvězd v okamžiku tvého narození</li>
-        <li>Žádné škatulkování — každý výsledek je jedinečný a neopakovatelný</li>
-        <li>Tohle tu ještě nebylo. Tohle je tvůj hvězdný otisk.</li>
-      </ul>
-    </div>
-    <div class="oaza-sep" aria-hidden="true" style="margin-top:18px"><span class="ln"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ln"></span></div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <p class="quote">„Samotné otázky nejsou test. Jsou to klíče, které odemykají napojení na tvůj osobní vesmírný otisk. Při odpovídání možná pocítíš, že si vzpomínáš — ne že odpovídáš."</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="blob price-card">
-      <p class="stars">✦ ✧ ✦</p>
-      <div class="price-big">555 Kč / 22,2 €</div>
-      <p class="price-note">jednorázový přístup · výsledek na email</p>
-      <a class="btn" href="#objednavka">✦ Chci aktivovat svůj kód ✦</a>
-      <p class="stars" style="margin-top:18px">✦ ✧ ✦</p>
-    </div>
-  </div>
-</section>
-
-<section class="order" id="objednavka">
-  <div class="blob">
-    <div class="form-title">✦ Zadej své údaje ✦</div>
-    <div class="field">
-      <label for="f-name">Jméno</label>
-      <input type="text" id="f-name" placeholder="Tvoje jméno" autocomplete="given-name">
-    </div>
-    <div class="field">
-      <label for="f-email">Email</label>
-      <input type="email" id="f-email" placeholder="tvuj@email.cz" autocomplete="email">
-    </div>
-    <p id="err" class="error"></p>
-    <div class="cur-toggle" role="group" aria-label="Volba měny">
-      <button type="button" class="cur-opt active" data-cur="czk">Kč</button>
-      <button type="button" class="cur-opt" data-cur="eur">€</button>
-    </div>
-    <button class="btn-pay" id="btn-pay">Zaplatit 555 Kč a začít ✦</button>
-    <p class="pay-note" id="pay-note">platba přes Stripe · karta · Google Pay · Apple Pay</p>
-    <div class="have-code">
-      <a href="https://kviz.oaza-adamanthea.cz" target="_blank">Již mám přístupový kód →</a>
-    </div>
-  </div>
-</section>
-
-<div class="modal-overlay" id="successModal">
-  <div class="modal">
-    <span class="modal-star">✦</span>
-    <div class="modal-title">Platba proběhla úspěšně</div>
-    <p class="modal-text">Děkujeme za tvoji objednávku.<br>Přístupový kód byl odeslán na tvůj email.<br>Zkontroluj prosím svou schránku.</p>
-    <button class="modal-btn" id="modalClose">Přejít ke kvízu ✦</button>
-  </div>
-</div>
-
-<footer>
-  <div class="f-soc">
-    <a href="https://www.facebook.com/groups/1679547508831715" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
-    <a href="https://instagram.com/oazahalenkovice_healingcenter" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a>
-    <a href="https://wa.me/420737869752" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.1-.3.2-.5.1-.7-.3-1.4-.7-2-1.4-.4-.5-.8-1-.9-1.3 0-.2 0-.3.1-.4l.4-.4c.1-.1.2-.3.2-.4 0-.1 0-.3-.1-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.1 1.6 2.5 4 3.5 1.4.6 2 .6 2.7.5.4 0 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.1-.4-.2z"/></svg></a>
-  </div>
-  <p class="f-meta">
-    Oáza Adamanthea · Halenkovice 400, 763 63 · IČO 76564410<br>
-    <a href="/gdpr">Ochrana osobních údajů</a> · © 2025 Oáza Adamanthea — peace · love · happiness
-  </p>
-</footer>
+<div class="modal-overlay" id="successModal"><div class="modal"><span class="modal-star">✦</span><div class="modal-title">Platba proběhla úspěšně</div><p class="modal-text">Děkujeme za tvoji objednávku.<br>Přístupový kód byl odeslán na tvůj email.<br>Zkontroluj prosím svou schránku.</p><button class="modal-btn" id="modalClose">Přejít ke kvízu ✦</button></div></div>
 
 <script>
   function prepniMenu(){document.getElementById('nav').classList.toggle('open');}

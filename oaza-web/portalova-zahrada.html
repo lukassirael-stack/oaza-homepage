@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
-<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png">
 <title>Portálová zahrada | Oáza Adamanthea</title>
 <meta name="description" content="Portálová zahrada — posvátný prostor v Halenkovicích, kde se propojují světy. 12 energetických míst: pyramida, Sirius, Plejády, Atlantis, čakrová cesta a další. Vstup po domluvě.">
 <meta property="og:type" content="website">
@@ -37,6 +34,7 @@ img{max-width:100%;display:block}
 .btn:hover{background:var(--rose-dark)}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
+
 /* ===== NAV (přes hero) ===== */
 nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px;background:linear-gradient(180deg,rgba(12,18,10,.62) 0%,rgba(12,18,10,.30) 55%,rgba(12,18,10,0) 100%)}
 nav .menu{display:flex;gap:26px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;text-shadow:0 1px 8px rgba(0,0,0,.55);font-family:'Jost',sans-serif;color:#fdfaf5}
@@ -51,6 +49,7 @@ nav .nav-home{margin-right:auto;display:flex;align-items:center;color:#fdfaf5;te
 nav .nav-home:hover{opacity:.75}
 nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px}
 
+
 /* ===== HERO ===== */
 .pz-hero{position:relative;width:100%;min-height:82vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .pz-hero-bg{position:absolute;inset:0;background-image:url('/img/pz-hero.jpg');background-size:cover;background-position:50% 42%;filter:brightness(.98);transform:scale(1.02);transition:transform 8s ease}
@@ -62,12 +61,14 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .pz-divider{display:block;width:60px;height:1px;margin:0 auto 16px;background:linear-gradient(90deg,transparent,rgba(214,184,122,.95),transparent)}
 .pz-hero-sub{font-style:italic;font-size:clamp(17px,2.4vw,23px);color:rgba(255,255,255,.96);text-shadow:0 1px 3px rgba(0,0,0,.55),0 1px 16px rgba(0,0,0,.5)}
 
+
 /* ===== INTRO + ORIENTACE ===== */
 .pz-wrap{max-width:760px;margin:0 auto;padding:72px 28px 20px}
 .pz-lead{font-size:21px;font-style:italic;color:var(--green);text-align:center;line-height:1.55;margin-bottom:30px}
 .pz-wrap p{margin-bottom:16px;color:#4c5247;font-size:17px;line-height:1.75}
 .pz-sub{font-family:'Cinzel',serif;font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin:34px 0 14px;text-align:center;font-weight:500}
 .pz-orient{background:var(--cream-dark);border:1px solid var(--line);border-radius:14px;padding:24px 26px;font-size:16px;color:#4c5247;line-height:1.8}
+
 
 /* ===== 12 MÍST – KARTY ===== */
 .pz-places{max-width:1100px;margin:0 auto;padding:24px 24px 40px}
@@ -82,6 +83,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 @media(max-width:860px){.pz-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
 @media(max-width:560px){.pz-grid{grid-template-columns:1fr}}
 
+
 /* ===== VSTUP / CENÍK ===== */
 .pz-pricing{background:var(--green);color:#f2efe6;padding:54px 24px}
 .pz-pricing-in{max-width:760px;margin:0 auto}
@@ -91,6 +93,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .pz-price-row span:last-child{color:#fff;font-weight:500;text-align:right;font-family:'Jost',sans-serif;font-size:15px}
 .pz-price-note{margin-top:22px;font-style:italic;font-size:16px;color:#d8d2c4;line-height:1.7;text-align:center}
 .pz-price-note a{color:#fff;text-decoration:underline}
+
 
 /* ===== REZERVACE + SPRÁVA ===== */
 .pz-res-bg{background:linear-gradient(160deg,#f8f4ee,#efe9db);padding:60px 0}
@@ -114,6 +117,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .required{color:var(--rose)}
 
+
 .cal-wrap{margin-bottom:16px}
 .cal-label{font-size:11px;letter-spacing:.12em;color:#7c8478;text-transform:uppercase;margin-bottom:10px;display:block}
 .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -132,12 +136,14 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .cal-day.adm{cursor:pointer}
 .cal-day.adm.closed{cursor:pointer}
 
+
 .summary{background:rgba(46,68,52,.06);border:1.5px solid rgba(46,68,52,.16);border-radius:12px;padding:18px;margin-bottom:18px;display:none}
 .summary-title{font-size:11px;letter-spacing:.14em;color:#7c8478;text-transform:uppercase;margin-bottom:12px}
 .summary-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid rgba(46,68,52,.08);color:#5b6157}
 .summary-row span:last-child{color:#3a4036;font-weight:500;text-align:right}
 .summary-total{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--green);padding-top:10px}
 .summary-total span:last-child{color:var(--rose-dark);font-size:20px}
+
 
 .btn-submit{background:var(--green);color:#fff;border:none;border-radius:40px;padding:15px 36px;font-family:'Jost',sans-serif;font-size:14px;letter-spacing:.08em;cursor:pointer;width:100%;transition:all .25s}
 .btn-submit:hover{background:#1f3024;transform:translateY(-1px)}
@@ -148,6 +154,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .success h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--green);margin-bottom:10px}
 .success p{font-size:14px;color:#6f7568;line-height:1.8;font-family:'Jost',sans-serif}
 
+
 /* admin */
 .adm-note{font-size:12px;color:#7c8478;text-align:center;margin-bottom:14px;font-style:italic;font-family:'Cormorant Garamond',serif}
 .closed-list{margin-top:16px;display:flex;flex-direction:column;gap:7px}
@@ -155,8 +162,10 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .closed-item button{background:none;border:none;color:#bd5b5b;cursor:pointer;font-size:15px}
 .empty-list{text-align:center;color:#9aa094;font-size:13px;padding:14px;font-family:'Cormorant Garamond',serif;font-style:italic}
 
+
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:#fff;padding:12px 22px;border-radius:30px;font-family:'Jost',sans-serif;font-size:13px;opacity:0;transition:all .3s;z-index:999;box-shadow:0 6px 24px rgba(0,0,0,.2)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
 
 /* ===== PATIČKA ===== */
 footer{background:var(--cream-dark);text-align:center;padding:64px 32px 40px;border-top:1px solid var(--line)}
@@ -168,6 +177,7 @@ footer .kontakt a{color:var(--rose)}
 .soc a{width:44px;height:44px;border:1px solid var(--rose);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .25s}
 .soc a:hover{background:var(--rose);transform:translateY(-2px)}
 footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
+
 
 @media(max-width:900px){
   nav{padding:20px 22px;gap:20px}
@@ -185,11 +195,16 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 .to-top:hover{background:#1f3024}
 </style>
   <link rel="canonical" href="https://oaza-adamanthea.cz/portalova-zahrada">
-  <meta property="og:site_name" content="Oáza Adamanthea">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png?v=3">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png?v=3">
+<meta property="og:site_name" content="Oáza Adamanthea">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 </head>
 <body>
+
 
 <!-- ===== HERO + NAV ===== -->
 <header class="pz-hero">
@@ -210,6 +225,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
     <a class="btn" href="#rezervace">Chci přijet</a>
   </nav>
 
+
   <div class="pz-hero-bg"></div>
   <div class="pz-hero-overlay"></div>
   <div class="pz-hero-content">
@@ -220,10 +236,12 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   </div>
 </header>
 
+
 <!-- ===== INTRO + ORIENTACE ===== -->
 <section class="pz-wrap">
   <p class="pz-lead">Místo, kde se propojují světy. Můžete zde spočinout ve svém bytí tady a teď, být v napojení, dostávat vhledy, otevírat a léčit svá témata.</p>
   <p>Portálová zahrada je posvátný prostor. Jde o propojení světů — vnější je odrazem vnitřního. Můžete si zde posedět a nabít se v pyramidě, napojit se na vesmírný původ v portálu Sirius, projít čakrovou cestu, setkat se s Pacha Mamou nebo spočinout u velkého krystalu v Atlantidě.</p>
+
 
   <h2 class="pz-sub">Jak se v zahradě orientovat</h2>
   <div class="pz-orient">
@@ -231,6 +249,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
     Krystalů se nemusíte dotýkat — naopak, meditace v jejich blízkosti bez doteku vám dá mnohem víc. V zahradě můžete fotit, ale při vstupu do portálů je lepší nechat telefony stranou. Když se zujete, budete mít lepší spojení se zemí. Buďte prosím v tichosti, obzvlášť v portálech, a zkuste nechat hlavu před branou. 🌿
   </div>
 </section>
+
 
 <!-- ===== 12 MÍST ===== -->
 <section class="pz-places">
@@ -251,6 +270,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   </div>
 </section>
 
+
 <!-- ===== VSTUP / CENÍK ===== -->
 <section class="pz-pricing">
   <div class="pz-pricing-in">
@@ -268,6 +288,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   </div>
 </section>
 
+
 <!-- ===== REZERVACE + SPRÁVA ===== -->
 <section class="pz-res-bg" id="rezervace">
   <div class="res">
@@ -275,10 +296,12 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       <div class="sec-title">Rezervace návštěvy</div>
       <div class="sec-sub">Vyberte si termín a my se vám ozveme s potvrzením</div>
 
+
       <div class="tabs">
         <div class="tab active" id="tab-res" onclick="switchTab('res')">🌿 Rezervace</div>
         <div class="tab inactive" id="tab-adm" onclick="switchTab('adm')">⚙️ Správa</div>
       </div>
+
 
       <!-- PANEL REZERVACE -->
       <div class="panel active" id="panel-res">
@@ -286,13 +309,16 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
           <div id="formContent">
             <input type="hidden" id="h_datum"><input type="hidden" id="h_cena">
 
+
             <div class="field-row">
               <div class="field"><label>Jméno a příjmení <span class="required">*</span></label><input type="text" id="jmeno" placeholder="Vaše jméno"></div>
               <div class="field"><label>Email <span class="required">*</span></label><input type="email" id="email" placeholder="vas@email.cz"></div>
             </div>
             <div class="field"><label>Telefon</label><input type="tel" id="telefon" placeholder="+420 777 000 000"></div>
 
+
             <div class="field"><label>Preferovaný den <span class="required">*</span></label><input type="date" id="datum" onchange="onDateChange()"></div>
+
 
             <div class="field-row">
               <div class="field"><label>Hodina příjezdu <span class="required">*</span></label>
@@ -310,12 +336,15 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
             </div>
             <div class="notes" style="margin-bottom:18px">🕯️ Návštěva probíhá ve <strong>dvouhodinovém cyklu</strong>. Pokud byste si přáli zahradu na delší dobu, napište nám to do poznámky. Zájem o ubytování upřesněte rovněž v poznámce.</div>
 
+
             <div class="field-row">
               <div class="field"><label>Dospělí (250 Kč/os.) <span class="required">*</span></label><input type="number" id="dospeli" min="1" max="30" value="1" oninput="calcPrice()"></div>
               <div class="field"><label>Děti do 12 let (zdarma)</label><input type="number" id="deti" min="0" max="20" value="0" oninput="calcPrice()"></div>
             </div>
 
+
             <div class="field"><label>Poznámka / dotaz</label><textarea id="poznamka" placeholder="Speciální přání, otázky, potřeby..."></textarea></div>
+
 
             <div class="summary" id="summary">
               <div class="summary-title">📋 Shrnutí</div>
@@ -327,7 +356,9 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
               <div class="summary-total"><span>Orientační cena</span><span id="s-price">—</span></div>
             </div>
 
+
             <button type="button" class="btn-submit" id="submitBtn" onclick="submitForm()">🌿 Odeslat rezervaci</button>
+
 
             <div class="notes">
               ✨ Účastníci našich akcí a terapií mají vstup <strong>zdarma</strong>.<br>
@@ -335,6 +366,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
               🌱 Po odeslání vám přijde potvrzovací e-mail; termín potvrdíme.
             </div>
           </div>
+
 
           <div class="success" id="successMsg">
             <span class="success-icon">🌿</span>
@@ -344,6 +376,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
           </div>
         </div>
       </div>
+
 
       <!-- PANEL SPRÁVA (skrytá, 5× klik na badge v hero) -->
       <div class="panel" id="panel-adm">
@@ -361,9 +394,11 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         </div>
       </div>
 
+
     </div>
   </div>
 </section>
+
 
 <!-- ===== PATIČKA ===== -->
 <footer id="kontakt">
@@ -386,15 +421,19 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   <p class="drobne" style="font-style:normal;font-size:14px;margin-top:14px">© 2026 Oáza Adamanthea · IČ 76564410 · <a href="/gdpr" style="color:var(--rose)">Ochrana osobních údajů</a></p>
 </footer>
 
+
 <div class="toast" id="toast"></div>
+
 
 <!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>emailjs.init('p05n4K9B-MKfAohxp');</script>
 
+
 <script>
 // ── NAV ──
 function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}
+
 
 // ── ENDPOINT (token + admin heslo žijí na serveru) ──
 const ENDPOINT='/api/zahrada';
@@ -402,11 +441,13 @@ const ENDPOINT='/api/zahrada';
 const EJS_SERVICE='service_4lhe2ki';
 const EJS_TEMPLATE_ZAHRADA='template_cpbbqjo'; // Auto-Reply šablona (Portálová zahrada)
 
+
 let adminHeslo='';
 const MONTHS=["Leden","Únor","Březen","Duben","Květen","Červen","Červenec","Srpen","Září","Říjen","Listopad","Prosinec"];
 const MONTHS_GEN=["ledna","února","března","dubna","května","června","července","srpna","září","října","listopadu","prosince"];
 const DAYS=["Po","Út","St","Čt","Pá","So","Ne"];
 let today=new Date();today.setHours(0,0,0,0);
+
 
 // ── SKRYTÝ PŘÍSTUP DO SPRÁVY (5× klik na badge) ──
 let secretClicks=0,secretTimer=null;
@@ -429,6 +470,7 @@ function secretClick(){
   }
 }
 
+
 // ── ZÁLOŽKY / TOAST ──
 function switchTab(t){
   ['res','adm'].forEach(id=>{
@@ -440,6 +482,7 @@ function switchTab(t){
   if(t==='res'){renderResCal();}
 }
 function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200);}
+
 
 // ── ZAVŘENÉ DNY (přes endpoint) ──
 let closedDates=[];
@@ -468,6 +511,7 @@ async function removeClosedDate(ds){
   closedDates=closedDates.filter(r=>r.datum!==ds);
 }
 
+
 // ══ REZERVACE ══
 let selectedDateStr='',selectedDateLabel='';
 function renderResCal(){} // měsíční kalendář nahrazen výběrem dne
@@ -483,6 +527,7 @@ function onDateChange(){
   }else{selectedDateStr='';selectedDateLabel='';}
   updateSummary();
 }
+
 
 function calcPrice(){
   const a=parseInt(document.getElementById('dospeli').value)||0;
@@ -503,6 +548,7 @@ function updateSummary(){
   calcPrice();
 }
 function showSummary(){const show=selectedDateStr||document.getElementById('cas_prijezdu').value;document.getElementById('summary').style.display=show?'block':'none';}
+
 
 async function saveReservation(fields){
   const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reservation',fields})});
@@ -544,6 +590,7 @@ async function submitForm(){
     btn.disabled=false;btn.textContent='🌿 Odeslat rezervaci';
   }
 }
+
 
 // ══ SPRÁVA ══
 let admYear=today.getFullYear(),admMonth=today.getMonth();
@@ -601,6 +648,7 @@ async function removeDay(ds){
 }
 function admPrevMonth(){admMonth--;if(admMonth<0){admMonth=11;admYear--;}renderAdmCal();}
 function admNextMonth(){admMonth++;if(admMonth>11){admMonth=0;admYear++;}renderAdmCal();}
+
 
 // ── START ──
 (function(){var di=document.getElementById('datum');if(di)di.min=todayISO();})();

@@ -2,9 +2,6 @@
 <html lang="cs"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
-<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png">
 <title>Nabídka služeb | Oáza Adamanthea</title>
 <meta name="description" content="Terapie a duchovní služby v Oáze Adamanthea — kraniosakrální terapie, Divine Healing, karma a minulé životy, focení aury, harmonizace a další. Osobně i na dálku.">
 <meta property="og:type" content="website">
@@ -28,6 +25,7 @@ img{max-width:100%;display:block}
 .btn{display:inline-block;background:var(--rose);color:#fdfaf5;font-size:18px;padding:12px 30px;border-radius:6px;transition:background .25s;font-family:'Jost',sans-serif}
 .btn:hover{background:var(--rose-dark)}
 
+
 /* NAV */
 nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px;background:linear-gradient(180deg,rgba(12,18,10,.55) 0%,rgba(12,18,10,.25) 55%,rgba(12,18,10,0) 100%)}
 nav .menu{display:flex;gap:26px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.55);font-family:'Jost',sans-serif;color:#fdfaf5}
@@ -42,6 +40,7 @@ nav .nav-home{margin-right:auto;display:flex;align-items:center;color:#fdfaf5;te
 nav .nav-home:hover{color:var(--gold-soft)}
 nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px}
 
+
 /* HERO */
 .svc-hero{position:relative;min-height:46vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(155deg,#34503c 0%,#243a2c 60%,#1c2c22 100%)}
 .svc-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(216,189,131,.12),transparent 60%)}
@@ -50,12 +49,15 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .svc-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,7vw,64px);font-weight:300;letter-spacing:.1em;color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.4);margin-bottom:16px}
 .svc-hero-sub{font-style:italic;font-size:clamp(17px,2.4vw,22px);color:rgba(255,255,255,.9)}
 
+
 /* KVĚT ŽIVOTA – vodoznak v hero */
 .kvet-zivota{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(760px,105vw,1500px);height:auto;z-index:1;opacity:.17;pointer-events:none;-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 16%,rgba(0,0,0,.5) 44%,transparent 70%);mask-image:radial-gradient(circle at 50% 50%,#000 16%,rgba(0,0,0,.5) 44%,transparent 70%)}
+
 
 /* WRAP */
 .svc-wrap{max-width:1080px;margin:0 auto;padding:60px 28px 30px}
 .svc-lead{font-size:21px;font-style:italic;color:var(--green);text-align:center;line-height:1.55;max-width:680px;margin:0 auto 44px}
+
 
 /* FEATURED */
 .svc-featured{position:relative;background:#fff;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 12px 44px rgba(46,68,52,.10);margin-bottom:46px}
@@ -72,6 +74,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .svc-featured .short{color:#5a6055;margin-bottom:16px}
 .svc-featured .price{font-family:'Cinzel',serif;font-size:24px;color:var(--green);margin-bottom:6px}
 
+
 /* GRID */
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .svc-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 4px 22px rgba(46,68,52,.06);display:flex;flex-direction:column}
@@ -85,6 +88,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .svc-more{align-self:flex-start;cursor:pointer;font-family:'Jost',sans-serif;font-size:14px;color:var(--green);border:1.5px solid rgba(46,68,52,.25);border-radius:30px;padding:8px 18px;background:none;transition:all .2s}
 .svc-more:hover{background:var(--green);color:#fff;border-color:var(--green)}
 
+
 /* DETAIL (accordion) */
 .svc-detail{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
 .open .svc-detail{display:block}
@@ -97,6 +101,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .svc-review p{font-style:italic;color:#54594d;margin-bottom:6px;font-size:16px}
 .svc-review .who{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.1em;color:#8a8e80;font-style:normal}
 
+
 footer{background:var(--cream-dark);text-align:center;padding:64px 32px 40px;border-top:1px solid var(--line)}
 footer .f-logo{font-size:26px;color:var(--green);margin-bottom:6px}
 footer .f-tag{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#6f7468;margin-bottom:26px}
@@ -107,16 +112,20 @@ footer .kontakt a{color:var(--rose)}
 .soc a:hover{background:var(--rose);transform:translateY(-2px)}
 footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
+
 .to-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility .3s;z-index:80;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
 .to-top:hover{background:var(--green-deep)}
 
+
 @media(max-width:860px){.svc-grid{grid-template-columns:repeat(2,1fr)}.svc-featured .row{flex-direction:column}.svc-featured .pic{flex:none;height:170px}}
 @media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
 
 /* Výřez úvodního obrázku Vyladění */
 #vyladeni-novinka .pic{background-position:center 35%}
 @media(max-width:860px){#vyladeni-novinka .pic{height:210px;background-position:center 10%}}
+
 
 @media(max-width:900px){
   nav{padding:20px 22px;gap:20px}
@@ -133,8 +142,15 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   @media(prefers-reduced-motion:no-preference){.btn,.oa-btn,.svc-more{animation:oazaPuls 2.6s ease-in-out infinite}}
   .btn:hover,.oa-btn:hover,.svc-more:hover{animation:none}
 </style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png?v=3">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png?v=3">
 </head>
 <body>
+
+
+
 
 
 
@@ -206,8 +222,10 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   </div>
 </div>
 
+
 <div class="svc-wrap" id="sluzby">
   <p class="svc-lead">Každá z našich terapií je cestou k sobě — k uvolnění, rovnováze a hlubšímu porozumění. Vyberte si, co vás oslovuje, a ozvěte se nám.</p>
+
 
   <div class="svc-featured" id="vyladeni-novinka">
     <div class="topbar"></div>
@@ -224,7 +242,9 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
     </div>
   </div>
 
+
   <div class="svc-grid">
+
 
     <div class="svc-card" id="kranio">
       <div class="svc-img has-photo" style="background:url('/img/kranio.jpg') center/cover"></div>
@@ -236,6 +256,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
 
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/aura-hero.jpg') center 30%/cover"></div>
       <div class="svc-body">
@@ -245,6 +266,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/foceni-aury-a-caker" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
 
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/hojnost-hero.jpg') center 38%/cover"></div>
@@ -256,6 +278,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
 
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/dalkova-hero.jpg') center 28%/cover"></div>
       <div class="svc-body">
@@ -265,6 +288,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/dalkova-harmonizace-aury" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
 
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/osobni-terapie.jpg') center/cover"></div>
@@ -276,6 +300,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
 
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/rodove-klice.jpg') center/cover"></div>
       <div class="svc-body">
@@ -285,6 +310,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/rodove-klice" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
 
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/vesmirny-kod.jpg') center/cover"></div>
@@ -296,6 +322,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
 
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/karma-hero.jpg') center/cover"></div>
       <div class="svc-body">
@@ -305,6 +332,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/karma-minule-zivoty" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
 
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/harmonizace-hero.jpg?v=2') center/cover"></div>
@@ -316,6 +344,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
 
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/jmeno-hero.jpg') center 32%/cover"></div>
       <div class="svc-body">
@@ -325,6 +354,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/harmonizace-jmena-a-prijmeni" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
 
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/shamballa-hero.jpg') center 40%/cover"></div>
@@ -336,6 +366,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
 
+
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/lemoare-krystaly.jpg') center/cover"></div>
       <div class="svc-body">
@@ -345,6 +376,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
         <a class="svc-more" href="/lemoare-krystaly" style="text-decoration:none">Více informací →</a>
       </div>
     </div>
+
 
     <div class="svc-card">
       <div class="svc-img has-photo" style="background:url('/img/spoluprace.jpg') center/cover"></div>
@@ -356,8 +388,10 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       </div>
     </div>
 
+
   </div>
 </div>
+
 
 <footer id="kontakt">
   <p class="f-logo">Oáza Adamanthea</p>
@@ -379,7 +413,9 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   <p class="drobne" style="font-style:normal;font-size:14px;margin-top:14px">© 2026 Oáza Adamanthea · IČ 76564410 · <a href="/gdpr" style="color:var(--rose)">Ochrana osobních údajů</a></p>
 </footer>
 
+
 <button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 
 <script>
 function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}

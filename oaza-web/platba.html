@@ -22,7 +22,9 @@
       --linka: rgba(201, 161, 74, 0.35);
     }
 
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
 
     body {
       font-family: 'Jost', sans-serif;
@@ -32,11 +34,13 @@
       -webkit-font-smoothing: antialiased;
     }
 
+
     .obal {
       max-width: 680px;
       margin: 0 auto;
       padding: 48px 20px 80px;
     }
+
 
     .zpet {
       display: inline-flex;
@@ -52,13 +56,16 @@
     }
     .zpet:hover { color: var(--zlata); }
 
+
     .hlavicka { text-align: center; margin-bottom: 44px; }
+
 
     .hlavicka .ornament {
       color: var(--zlata);
       font-size: 20px;
       margin-bottom: 14px;
     }
+
 
     h1 {
       font-family: 'Cinzel', serif;
@@ -69,6 +76,7 @@
       margin-bottom: 14px;
     }
 
+
     .hlavicka p {
       font-family: 'Cormorant Garamond', serif;
       font-size: 18px;
@@ -77,6 +85,7 @@
       margin: 0 auto;
       line-height: 1.6;
     }
+
 
     /* ── Karty účtů ─────────────────────────────── */
     .ucet {
@@ -87,6 +96,7 @@
       overflow: hidden;
       box-shadow: 0 2px 14px rgba(31, 49, 41, 0.05);
     }
+
 
     .ucet-hlava {
       width: 100%;
@@ -109,7 +119,9 @@
       border-radius: 12px;
     }
 
+
     .ucet-info { flex: 1; min-width: 0; }
+
 
     .ucet-mena {
       font-family: 'Cinzel', serif;
@@ -121,11 +133,13 @@
     }
     .ucet-mena .vlajka { margin-right: 8px; }
 
+
     .ucet-maska {
       font-size: 14px;
       color: var(--text-tlumeny);
       letter-spacing: .5px;
     }
+
 
     .ucet-sipka {
       color: var(--zlata);
@@ -135,6 +149,7 @@
     }
     .ucet.otevreny .ucet-sipka { transform: rotate(180deg); }
 
+
     .ucet-telo {
       max-height: 0;
       overflow: hidden;
@@ -142,10 +157,12 @@
     }
     .ucet.otevreny .ucet-telo { max-height: 720px; }
 
+
     .ucet-vnitrek {
       padding: 4px 22px 26px;
       border-top: 1px solid var(--linka);
     }
+
 
     .radek {
       display: flex;
@@ -157,6 +174,7 @@
     }
     .radek:last-of-type { border-bottom: none; }
 
+
     .radek-popis {
       font-size: 12px;
       letter-spacing: 1.2px;
@@ -165,12 +183,14 @@
       flex-shrink: 0;
     }
 
+
     .radek-hodnota {
       display: flex;
       align-items: center;
       gap: 10px;
       min-width: 0;
     }
+
 
     .radek-hodnota span {
       font-size: 15.5px;
@@ -179,6 +199,7 @@
       word-break: break-all;
       text-align: right;
     }
+
 
     .kopirovat {
       background: none;
@@ -197,10 +218,12 @@
     .kopirovat:hover { background: var(--zelena); border-color: var(--zelena); color: var(--krem); }
     .kopirovat.ok { background: var(--zelena); border-color: var(--zelena); color: var(--zlata-svetla); }
 
+
     .qr-blok {
       margin-top: 22px;
       text-align: center;
     }
+
 
     .qr-titulek {
       font-family: 'Cinzel', serif;
@@ -209,6 +232,7 @@
       color: var(--zelena);
       margin-bottom: 14px;
     }
+
 
     .qr-ram {
       display: inline-block;
@@ -219,12 +243,14 @@
     }
     .qr-ram img, .qr-ram canvas { display: block; }
 
+
     .qr-pozn {
       font-size: 13px;
       color: var(--text-tlumeny);
       margin-top: 12px;
       line-height: 1.6;
     }
+
 
     /* ── Poznámka dole ──────────────────────────── */
     .pata-pozn {
@@ -240,20 +266,27 @@
     }
     .pata-pozn a { color: var(--zlata); }
 
+
     @media (prefers-reduced-motion: reduce) {
       .ucet-telo, .ucet-sipka, .kopirovat, .ucet-hlava { transition: none; }
     }
   </style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png?v=3">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png?v=3">
 </head>
 <body>
   <div class="obal">
     <a class="zpet" href="/">← Zpět na hlavní stránku</a>
+
 
     <header class="hlavicka">
       <div class="ornament">✦</div>
       <h1>Platební údaje</h1>
       <p>Bankovní spojení pro platby převodem. Klepnutím na účet zobrazíte celé číslo a&nbsp;QR&nbsp;kód pro platbu.</p>
     </header>
+
 
     <!-- ═══ Korunový účet ═══ -->
     <section class="ucet" id="ucet-czk">
@@ -297,6 +330,7 @@
       </div>
     </section>
 
+
     <!-- ═══ Eurový účet ═══ -->
     <section class="ucet" id="ucet-eur">
       <button class="ucet-hlava" type="button" aria-expanded="false" aria-controls="telo-eur" onclick="prepni('eur')">
@@ -339,6 +373,7 @@
       </div>
     </section>
 
+
     <div class="pata-pozn">
       Do zprávy pro příjemce prosím uveďte své jméno<br>
       nebo variabilní symbol, pokud jste jej od&nbsp;nás obdrželi.<br>
@@ -347,11 +382,13 @@
     </div>
   </div>
 
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     // ── QR data ──────────────────────────────────────────────
     // CZK: SPAYD (česká norma), bez částky — klient si ji doplní
     const spaydCZK = 'SPD*1.0*ACC:CZ1655000000008159854004*RN:LUKAS HUDECEK';
+
 
     // EUR: EPC QR (SEPA norma), bez částky
     const epcEUR = [
@@ -368,17 +405,20 @@
       'Platba Oaza Adamanthea'
     ].join('\n');
 
+
     new QRCode(document.getElementById('qr-czk'), {
       text: spaydCZK, width: 190, height: 190,
       colorDark: '#1f3129', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.M
     });
 
+
     new QRCode(document.getElementById('qr-eur'), {
       text: epcEUR, width: 190, height: 190,
       colorDark: '#1f3129', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.M
     });
+
 
     // ── Rozbalování karet ────────────────────────────────────
     function prepni(id) {
@@ -387,6 +427,7 @@
       const otevreno = karta.classList.toggle('otevreny');
       tlacitko.setAttribute('aria-expanded', otevreno ? 'true' : 'false');
     }
+
 
     // ── Kopírování ───────────────────────────────────────────
     function kopiruj(tlacitko, text) {

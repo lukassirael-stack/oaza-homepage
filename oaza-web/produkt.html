@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Produkt — Oáza Adamanthea</title>
@@ -20,8 +19,10 @@
     text-transform:uppercase;color:var(--tlumeny);padding:26px 0 6px}
   .zpet:hover{color:var(--zlata)}
 
+
   .detail{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;padding:8px 0 50px}
   @media(max-width:780px){.detail{grid-template-columns:1fr;gap:28px}}
+
 
   .galerie .hlavni{aspect-ratio:4/5;background:var(--slonovina2);border:1px solid var(--linka);overflow:hidden;border-radius:16px}
   .galerie .hlavni img{width:100%;height:100%;object-fit:cover;display:block}
@@ -29,6 +30,7 @@
   .mini{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
   .mini img{width:66px;height:82px;object-fit:cover;border:1px solid var(--linka);cursor:pointer;opacity:.62;transition:.18s;border-radius:10px}
   .mini img.akt,.mini img:hover{opacity:1;border-color:var(--zlata)}
+
 
   .info .eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--zlata)}
   .info h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2rem,4.5vw,2.9rem);line-height:1.08;margin:.18em 0 .12em}
@@ -44,11 +46,13 @@
   .vlastnosti{margin:14px 0;font-size:.98rem;color:var(--tlumeny)}
   .vlastnosti b{color:var(--namornicka);font-weight:500}
 
+
   .koupit{display:inline-block;margin-top:20px;background:var(--namornicka);color:var(--slonovina);
     font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;
     padding:15px 34px;border:none;cursor:pointer;border-radius:2px;transition:.18s}
   .koupit:hover{background:var(--namornicka2)}
   .jeden{font-style:italic;color:var(--tlumeny);font-size:.92rem;margin-top:12px}
+
 
   .podobne{padding:36px 0 70px;border-top:1px solid var(--linka)}
   .podobne h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.9rem;text-align:center;margin-bottom:6px}
@@ -61,12 +65,17 @@
   .pkarta .pcena{color:var(--namornicka2);font-size:.96rem}
   @media(max-width:560px){.pmrizka{grid-template-columns:1fr 1fr;gap:16px 12px}}
 
+
   .nacitam{text-align:center;padding:90px 0;color:var(--tlumeny);font-style:italic}
   footer{text-align:center;padding:28px 0 50px;color:var(--tlumeny);font-size:.86rem}
   footer a{color:var(--zlata)}
 </style>
   <link rel="canonical" href="https://oaza-adamanthea.cz/produkt">
-  <meta name="description" content="Krystaly, šperky a poklady z Bali v e-shopu Oázy Adamanthea.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png?v=3">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png?v=3">
+<meta name="description" content="Krystaly, šperky a poklady z Bali v e-shopu Oázy Adamanthea.">
   <meta property="og:title" content="Produkt — Oáza Adamanthea">
   <meta property="og:description" content="Krystaly, šperky a poklady z Bali v e-shopu Oázy Adamanthea.">
   <meta property="og:type" content="website">
@@ -85,6 +94,7 @@
 </div>
 <footer><div class="wrap">Oáza Adamanthea · <a href="/kontakt">Kontakt</a> · <a href="/obchodni-podminky">Obchodní podmínky</a></div></footer>
 
+
 <script>
 const KONTAKT='oaza.adamanthea@gmail.com';
 const $=s=>document.querySelector(s);
@@ -92,6 +102,7 @@ const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 const slug=(()=>{const m=location.pathname.match(/^\/produkt\/([^\/?#]+)/);return m?decodeURIComponent(m[1]):new URLSearchParams(location.search).get('slug');})();
 let MENA=(localStorage.getItem('oaza_mena')==='eur')?'eur':'czk';
 const cenaFmt=p=> MENA==='eur' ? (p.cena_eur||0).toLocaleString('cs-CZ')+' €' : (p.cena||0).toLocaleString('cs-CZ')+' Kč';
+
 
 async function nacti(){
   if(!slug){$('#obsah').innerHTML='<div class="nacitam">Produkt nenalezen.</div>';return;}
@@ -102,6 +113,7 @@ async function nacti(){
     nactiPodobne(j.produkt);
   }catch(e){$('#obsah').innerHTML='<div class="nacitam">Produkt se nepodařilo načíst.</div>';}
 }
+
 
 function seoAktualizace(p){
   const url='https://oaza-adamanthea.cz/produkt/'+encodeURIComponent(p.slug);
@@ -124,6 +136,7 @@ function seoAktualizace(p){
   const s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(ld);document.head.appendChild(s);
 }
 
+
 function render(p){
   document.title=p.nazev+' — Oáza Adamanthea';
   seoAktualizace(p);
@@ -133,6 +146,7 @@ function render(p){
   if((p.barva||[]).length)   vlast.push(`<div><b>Barva:</b> ${esc(p.barva.join(', '))}</div>`);
   if((p.velikost||[]).length)vlast.push(`<div><b>Velikost:</b> ${esc(p.velikost.join(', '))}</div>`);
   if((p.ucel||[]).length)    vlast.push(`<div><b>Zaměření:</b> ${esc(p.ucel.join(', '))}</div>`);
+
 
   const cenaText = (p.cena||0).toLocaleString('cs-CZ')+' Kč / '+(p.cena_eur||0).toLocaleString('cs-CZ')+' €';
   const predmet=encodeURIComponent('Zájem o produkt: '+p.nazev);
@@ -146,6 +160,7 @@ function render(p){
             ? '✦ Momentálně rezervováno jiným zákazníkem — zkus to prosím za pár hodin.'
             : '✦ Tento kus je již prodán.')
         : '✦ Jediný kus — po prodeji už nebude k dispozici.');
+
 
   $('#obsah').innerHTML=`
   <div class="detail">
@@ -190,6 +205,7 @@ function render(p){
 }
 window.prepni=(i,el)=>{$('#hlavniFoto').src=window.FOTKY[i];
   document.querySelectorAll('.mini img').forEach(x=>x.classList.remove('akt'));el.classList.add('akt');};
+
 
 async function nactiPodobne(p){
   try{

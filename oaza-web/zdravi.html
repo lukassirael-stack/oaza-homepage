@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
@@ -34,6 +33,7 @@
   }
   .wrap{max-width:880px;margin:0 auto}
 
+
   /* --- přihlášení --- */
   #login{max-width:380px;margin:14vh auto 0;text-align:center}
   #login h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2.1rem;letter-spacing:.02em}
@@ -50,6 +50,7 @@
   #login button:hover{background:var(--namornicka-svetla)}
   #login .err{color:var(--cervena);min-height:1.4em;margin-top:10px;font-style:italic}
 
+
   /* --- hlavička --- */
   header{text-align:center;margin-bottom:8px}
   .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--zlata)}
@@ -57,12 +58,15 @@
   .stav-radek{font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--text-tlumeny);margin-top:.3rem}
   .stav-radek .tecka{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
 
+
   .delic{height:1px;background:linear-gradient(90deg,transparent,var(--zlata),transparent);margin:22px 0 28px}
+
 
   /* --- karty --- */
   .karta{background:#FBF7EE;border:1px solid var(--slonovina-tmava);border-radius:3px;padding:22px 24px;margin-bottom:20px;box-shadow:0 1px 0 rgba(184,146,74,.12)}
   .karta > h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.45rem;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
   .karta > h2 .mini{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-tlumeny)}
+
 
   /* DB pruh */
   .db-cisla{display:flex;align-items:baseline;gap:10px;margin:14px 0 6px}
@@ -72,12 +76,14 @@
   .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--zlata),var(--zlata-svetla));border-radius:6px;transition:width .8s ease}
   .bar-popis{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--text-tlumeny);margin-top:6px}
 
+
   /* tabulky */
   table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.95rem}
   th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--slonovina-tmava)}
   th{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tlumeny);font-weight:500}
   td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   td .nazev{font-family:'IBM Plex Mono',monospace;font-size:.9rem}
+
 
   /* cron řádky */
   .cron{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--slonovina-tmava)}
@@ -87,12 +93,14 @@
   .cron .det{color:var(--text-tlumeny);font-size:.82rem;font-family:'IBM Plex Mono',monospace}
   .cron .vpravo{margin-left:auto;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--text-tlumeny)}
 
+
   /* sloupcový graf návštěvnosti */
   .graf{display:flex;align-items:flex-end;gap:10px;height:130px;margin-top:14px;padding-bottom:24px;position:relative}
   .graf .sl{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
   .graf .sl .pruh{width:100%;max-width:46px;background:linear-gradient(180deg,var(--namornicka-svetla),var(--namornicka));border-radius:3px 3px 0 0;transition:height .7s ease}
   .graf .sl .hod{font-family:'IBM Plex Mono',monospace;font-size:.75rem;margin-bottom:4px;color:var(--namornicka)}
   .graf .sl .dt{position:absolute;bottom:-22px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--text-tlumeny);white-space:nowrap}
+
 
   .pozn{font-style:italic;color:var(--text-tlumeny);font-size:.9rem;margin-top:10px}
   .refresh{display:block;margin:6px auto 0;background:none;border:1px solid var(--zlata);color:var(--namornicka);font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:2px;cursor:pointer}
@@ -101,8 +109,13 @@
   .nacitam{text-align:center;color:var(--text-tlumeny);font-style:italic;padding:40px}
 </style>
   <link rel="canonical" href="https://oaza-adamanthea.cz/zdravi">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png?v=3">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png?v=3">
 </head>
 <body>
+
 
 <div id="login">
   <h1>Zdraví systému</h1>
@@ -111,6 +124,7 @@
   <button id="vstup">Vstoupit</button>
   <div class="err" id="loginErr"></div>
 </div>
+
 
 <div class="wrap hidden" id="panel">
   <header>
@@ -123,18 +137,22 @@
   <button class="refresh" id="refresh">↻ Aktualizovat</button>
 </div>
 
+
 <script>
 const LIMIT_DB = 524288000; // 500 MB
 let HESLO = '';
 
+
 function tecka(barva){return '<span class="tecka" style="background:'+barva+'"></span>';}
 function escapeHtml(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
 
 function fmtCas(iso){
   if(!iso) return '—';
   const d = new Date(iso);
   return d.toLocaleString('cs-CZ',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
 }
+
 
 async function nacti(){
   document.getElementById('obsah').innerHTML = '<div class="nacitam">Načítám data…</div>';
@@ -151,6 +169,7 @@ async function nacti(){
   render(data);
 }
 
+
 function render(d){
   // celkový stav
   const pct = d.db.pct;
@@ -162,7 +181,9 @@ function render(d){
   document.getElementById('celkovyStav').innerHTML =
     tecka(barva) + popis + '  ·  aktualizováno ' + fmtCas(d.generated_at);
 
+
   let h = '';
+
 
   // --- Databáze ---
   h += '<div class="karta"><h2>Databáze <span class="mini">Supabase · limit 500 MB</span></h2>';
@@ -176,6 +197,7 @@ function render(d){
   });
   h += '</tbody></table></div>';
 
+
   // --- Cron ---
   h += '<div class="karta"><h2>Automatické úlohy <span class="mini">pg_cron · posl. 24 h</span></h2>';
   (d.cron||[]).forEach(c=>{
@@ -188,6 +210,7 @@ function render(d){
          '✓ '+c.ok_24h+(c.fail_24h>0?'  ✗ '+c.fail_24h:'')+'</div></div>';
   });
   h += '</div>';
+
 
   // --- Návštěvnost ---
   const a = d.analytics||{};
@@ -204,8 +227,10 @@ function render(d){
   h += '<p class="pozn">Tabulka navstevnost roste řádově o stovky řádků denně — proti limitu 500 MB zanedbatelné.</p>';
   h += '</div>';
 
+
   document.getElementById('obsah').innerHTML = h;
 }
+
 
 function odhlas(msg){
   HESLO='';
@@ -213,6 +238,7 @@ function odhlas(msg){
   document.getElementById('login').classList.remove('hidden');
   document.getElementById('loginErr').textContent = msg||'';
 }
+
 
 function vstup(){
   const h = document.getElementById('heslo').value.trim();
@@ -223,6 +249,7 @@ function vstup(){
   document.getElementById('loginErr').textContent='';
   nacti();
 }
+
 
 document.getElementById('vstup').addEventListener('click', vstup);
 document.getElementById('heslo').addEventListener('keydown', e=>{ if(e.key==='Enter') vstup(); });

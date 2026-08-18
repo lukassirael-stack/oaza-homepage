@@ -1076,3 +1076,60 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
       stav.textContent = "Platbu se nepodařilo otevřít. Zkus to prosím znovu, nebo zvol QR platbu.";
       stav.className = "chyba";
       tl.disabled = false;
+    }
+  }
+
+  $("zpusoby").addEventListener("click", function (e) {
+    var b = e.target.closest(".zpusob");
+    if (!b || b.disabled) return;
+    if (b.dataset.zpusob === "qr") objednejQr(b);
+    else objednejKartou(b);
+  });
+
+  $("objEmail").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      document.querySelector('.zpusob[data-zpusob="karta"]').click();
+    }
+  });
+
+  prekresliZpusoby();
+
+  (function navratZeStripe() {
+    var p = new URLSearchParams(location.search).get("platba");
+    if (!p) return;
+    var stav = $("objStav");
+    if (p === "hotovo") {
+      stav.textContent = "Platba proběhla. Odemykací kód ti právě letí na e-mail — když nedorazí do pár minut, mrkni do spamu.";
+      stav.className = "";
+      $("objednavka").scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (p === "zruseno") {
+      stav.textContent = "Platba nebyla dokončena. Můžeš to zkusit znovu, nebo zvolit QR platbu.";
+      stav.className = "chyba";
+    }
+    history.replaceState(null, "", location.pathname + location.hash);
+  })();
+
+  $("objKopie").addEventListener("click", function () {
+    if (!posledniVs) return;
+    var b = this;
+    var hotovo = function () {
+      b.textContent = "Zkopírováno";
+      setTimeout(function () { b.textContent = "Zkopírovat symbol"; }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(posledniVs).then(hotovo, function () {});
+    } else {
+      var t = document.createElement("textarea");
+      t.value = posledniVs;
+      document.body.appendChild(t);
+      t.select();
+      try { document.execCommand("copy"); hotovo(); } catch (e) {}
+      document.body.removeChild(t);
+    }
+  });
+})();
+</script>
+<script defer src="/navstevnost.js"></script>
+</body>
+</html>

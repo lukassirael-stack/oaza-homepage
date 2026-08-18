@@ -1083,3 +1083,265 @@ function toggleService(el, key, price){
 
 function prevMonth(){
   const now=new Date();
+  if(calYear<now.getFullYear() || (calYear===now.getFullYear() && calMonth<=now.getMonth())) return; // žádné minulé měsíce
+  calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCal();
+}
+function nextMonth(){ calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCal(); }
+function resetSel(){ checkIn=null; checkOut=null; renderCal(); calcPrice(); }
+
+async function submitForm(){
+  const name=document.getElementById('name').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  if(!name){alert('Prosím vyplňte jméno.');return;}
+  if(!email){alert('Prosím vyplňte email.');return;}
+  if(!checkIn){alert('Prosím vyberte datum příjezdu.');return;}
+  if(!checkOut){alert('Prosím vyberte datum odjezdu.');return;}
+  if(!document.getElementById('checkStorno').classList.contains('checked')){alert('Prosím potvrďte souhlas se storno podmínkami.');return;}
+
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='Odesílám...';
+
+  let total=0, nights=0;
+  let d=new Date(checkIn);
+  while(d<checkOut){ total+=nightPrice(d); nights++; d.setDate(d.getDate()+1); }
+  if(nights===7) total = 10800;
+  const adults=parseInt(document.getElementById('adults').value)||1;
+  const children=document.getElementById('children').value;
+  if(adults===2) total+=500*nights;
+  Object.values(selectedServices).forEach(p=>total+=p);
+  const vs=generateVS();
+  currentVS=vs;
+
+  const svcList = Object.keys(selectedServices).length
+    ? Object.keys(selectedServices).map(k=>{
+        const names={aura:'Focení aury a čaker',terapie:'Terapie',ocista:'Energetická očista',shop:'E-shop'};
+        return names[k]||k;
+      }).join(', ')
+    : 'Žádné';
+
+  try {
+    await saveToAirtable({
+      jmeno: name,
+      email: email,
+      telefon: phone||'—',
+      datum_prijezdu: dateStr(checkIn),
+      datum_odjezdu: dateStr(checkOut),
+      pocet_noci: nights,
+      dospeli: adults,
+      deti: parseInt(children)||0,
+      sluzby: svcList,
+      cena_celkem: total,
+      variabilni_symbol: vs,
+      poznamka: document.getElementById('note').value||'',
+      faktura: document.getElementById('checkFaktura').classList.contains('checked') ? 'Ano – ' + (document.getElementById('firmaName').value||'') + ', IČO: ' + (document.getElementById('ico').value||'') + (document.getElementById('dic').value ? ', DIČ: '+document.getElementById('dic').value : '') : 'Ne'
+    });
+
+    var _spayd='SPD*1.0*ACC:CZ1655000000008159854004*AM:'+Number(total).toFixed(2)+'*CC:CZK*X-VS:'+vs+'*MSG:Pobyt ve svetle Oaza Adamanthea';
+    var _qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=0&data='+encodeURIComponent(_spayd);
+    try {
+      await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+        jmeno: name, email: email,
+        qr_url: _qrUrl,
+        datum_prijezdu: dateLabel(checkIn),
+        datum_odjezdu: dateLabel(checkOut),
+        pocet_noci: nights, dospeli: adults, sluzby: svcList,
+        cena_celkem: total.toLocaleString('cs-CZ'),
+        variabilni_symbol: vs
+      });
+    } catch(ejsErr){ console.warn('EmailJS chyba:', ejsErr); }
+
+    document.getElementById('formContent').style.display='none';
+    const sp=document.getElementById('successPayment');
+    sp.innerHTML=`
+      <strong>📋 Vaše rezervace:</strong><br>
+      Jméno: <strong>${name}</strong><br>
+      Příjezd: <strong>${dateLabel(checkIn)}</strong><br>
+      Odjezd: <strong>${dateLabel(checkOut)}</strong><br>
+      Počet nocí: <strong>${nights}</strong><br>
+      Dospělí: <strong>${adults}</strong>${parseInt(children)?', děti: <strong>'+children+'</strong>':''}<br>
+      Doplňkové služby: <strong>${svcList}</strong><br><br>
+      <strong>💳 Platební údaje:</strong><br>
+      Číslo účtu: <strong>8159854004/5500</strong><br>
+      Banka: <strong>Raiffeisen Bank</strong><br>
+      Variabilní symbol: <strong>${vs}</strong><br>
+      Částka: <strong>${total.toLocaleString('cs-CZ')} Kč</strong><br><br>
+      <em>Rezervace bude potvrzena po přijetí platby na náš účet.</em>
+    `;
+    document.getElementById('successMsg').style.display='block';
+    // Plynule posuň pohled k potvrzení (s malým odstupem nad horní hranou).
+    setTimeout(function(){
+      var sm=document.getElementById('successMsg');
+      if(sm){ var y=sm.getBoundingClientRect().top + window.pageYOffset - 70; window.scrollTo({top: y<0?0:y, behavior:'smooth'}); }
+    }, 60);
+    if(typeof oazaTrackRezervace==='function') oazaTrackRezervace(total);
+    loadBookedDates();
+
+  } catch(err){
+    console.error(err);
+    alert(err && err.message ? err.message : 'Nastala chyba při odesílání. Zkuste to prosím znovu nebo nás kontaktujte přímo.');
+    btn.disabled=false; btn.textContent='🌿 Odeslat rezervaci';
+  }
+}
+
+function toggleStorno(btn){
+  btn.classList.toggle('open');
+  const body = document.getElementById('stornoBody');
+  body.style.display = body.style.display === 'block' ? 'none' : 'block';
+}
+
+function toggleCheck(id){
+  const box = document.getElementById(id);
+  box.classList.toggle('checked');
+  box.textContent = box.classList.contains('checked') ? '✓' : '';
+  if(id === 'checkFaktura'){
+    document.getElementById('fakturaFields').style.display = box.classList.contains('checked') ? 'block' : 'none';
+  }
+}
+
+document.getElementById('name').addEventListener('input', updateSummary);
+renderCal(); calcPrice();
+loadBookedDates();
+</script>
+
+<script>
+// ── ČÁST 4 — RECENZE ─────────────────────────────────
+const reviews = [
+  { name:"Pavlína", date:"17. 4. – 24. 4. 2026", text:"Přijela jsem na 4 dny a hned jsem věděla, že si pobyt prodloužím aspoň na týden. Potřebovala jsem se uzdravit a zklidnit mysl. A to se v tomto úžasném domečku a přírodě podařilo. Ta rána, kdy Vás budí zpěv ptáků, jsou TOP. Každé ráno procházka lesem za chatou až na pole a dál k rozhledně Šárka byl úžasný start do nového dne, večer odtud pozorovat západ slunce. Po 3 dnech jsem si uvědomila, že potřebuji i terapii a tak jsem s Lukášem zažila RODOVÉ KLÍČE a konečně se uvolnilo něco z rodové linie jen od mámy. Tolik uvědomění jsem tady zažila, skvělé. Odjíždím klidnější, uvolněnější a tělo stále prochází léčením. Ráda se zase někdy vrátím. Děkuji za vytvoření tohoto krásného, kouzelného místa. S úctou Pavlína." },
+  { name:"Lenka", date:"10. 4. – 15. 4. 2026", text:"Kdyby moje srdce umělo psát, napsalo by ódu nebo báseň na toto kouzelné místo. Ostrov Bali je ostrov Bohů, obec Halenkovice je ostrov klidu, bezpečí, míru, lidské hrdosti, jemných milých bytostí, přítomných okamžiků, plná ochrany, andělů, místo pod Boží ochranou. Místo, kde se Ti laskavě naslouchá duše, utichne mysl a probudí se slzy dojetí i vděčnosti. Zažiješ tu pocit, že jsi doma – doma ve svém srdci. Velký obdiv všem, kdo toto nádherné místo budují a dávají tím otisk lidské hrdosti naší Matce Zemi. Děkuji, děkuji, děkuji, za Vaše tvoření. P.S. Odložím si sem i svůj sen – zorganizovat tady BIODANZU. A moc děkujeme za výbornou vodu. A moc Vám přeji, ať se daří!" },
+  { name:"Klára T.", date:"30. 12. 2025 – 4. 1. 2026", text:"Miláčkové, světlo, klid a pohoda, kterou jsem tu měla, mi přinesla více jasnosti a klidu do mého vnitřního světa. A Vaše dobré srdce a čistý záměr cítím, jak podporují celý tento prostor a lidi i bytosti, kteří se tu nachází. Bylo a je mi tu krásně a těším se na každou další návštěvu, ať už přátelsky či formou pobytu, workshopu. Silvestr u Vás byl prostě boží, plný lásky a skvělých a krásných bytostí. Děkuji za Vás. S láskou, Klára T." },
+  { name:"Romana", date:"10. 4. – 13. 4. 2026", text:"Jednoznačně pocit ochrany a bezpečí. Děkuji vám i tomuto kouzelnému místu z celého srdce. Přeji požehnaný čas." },
+  { name:"Petr a Jana", date:"červenec 2025", text:"Děkujeme za azyl v tom nejlepším slova smyslu. Utekli jsme z města a našli jsme tu přesně to, co jsme hledali – ticho, tmu a hvězdy. Vaše meduňkový čaj byl balzám na duši. Určitě jsme tu nebyli naposledy." },
+  { name:"Marek", date:"srpen 2025", text:"Smekám před tím, co jste tady dokázali vybudovat. Ten výhled do údolí při ranní kávě mi bude chybět. Díky za inspirativní rozhovory a za to, že sdílíte tento kousek ráje s ostatními." },
+  { name:"Vlasta", date:"2. – 9. 8. 2025", text:"Ráno vás vítá mezi stromy vycházející slunce a pocit, že můžete všechno a nemusíte nic. Obnovení biorytmu, s úsvitem vstávat a se západem slunce jít spát. Jíst jen, když máte hlad. Poslední večer jsem zakončila meditací na Lví bránu a měsíc v úplňku mi v noci zodpověděl poslední otázky. Jsem vděčná, že jsem tu mohla dopsat svoji knížku. Jsem vděčná, že jsem tu mohla být. Díky, Vlasta." },
+  { name:"Ivana", date:"18. – 20. 7. 2025", text:"Moc děkuji za krásné a klidné místo k odpočinku, rozjímání a načerpání nových sil. Je tu cítit velká péče a láska, se kterou vše tvoříte. Přeji, ať se vám daří a do Halenkovic se vrací jen spokojení hosté." },
+  { name:"Miloš", date:"15. – 19. 8. 2025", text:"Děkuji za toto nádherné místo, kde se člověk zastaví, propojí se s přírodou, sebou samým. Odložil jsem mobil, hodinky, jídlo a snad i kousek ega. Děkuji." },
+  { name:"Dubinka", date:"", text:"Krásné čisté místo, úžasná příroda, spousta života kolem, inspirace i proměna vlastních záměrů. Přijela jsem v tichu tvořit novou etapu svého života a nakonec to bylo všechno jinak, tvořilo se v diskuzi a souladu. Děkuji a smekám, co jste pro nás lidi připravili. S láskou Dubinka." },
+  { name:"Kika", date:"11. – 14. 8. 2025", text:"Ďakujem za toto krásne miesto, vďaka ktorému som sa znovu prepojila sama so sebou a svojou vnútornou múdrosťou. V každom dni som našla mnoho cenných odpovedí a vhľadov. ♡" },
+  { name:"Hanka", date:"14. 8. 2025", text:"Děkuji z celého srdce za možnost pobytu na tomto úžasném místě uprostřed přírody, za probuzení slunečními paprsky, za vše, co zde s láskou tvoříte." },
+  { name:"Monika", date:"29. 8. – 5. 9. 2025", text:"Bylo tu krásně a odvážím si důležité poznání. Miluju výhled z chatky na les okolo." },
+  { name:"Jana", date:"5. – 7. 9. 2025", text:"Děkuji za prostředí, kde se učím být sama sebou a zároveň sama se sebou." },
+  { name:"Dáša", date:"21. – 24. 8. 2025", text:"Do třetice a vím, že ne naposledy. Děkuji nekonečněkrát za vás, za toto místo, za to, že jsem si vybrala tu být. Děje se tu toho tolik..." },
+  { name:"D.", date:"26. – 29. 4. 2025", text:"Přijela jsem s rozbouřeným oceánem, odjíždím s plynoucí řekou. Děkuji." }
+];
+
+(function(){
+  const grid = document.getElementById('reviewsGrid');
+  const TRUNCATE_THRESHOLD = 280;
+  reviews.forEach((review, index) => {
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.style.transitionDelay = `${(index % 4) * 0.08}s`;
+    const isLong = review.text.length > TRUNCATE_THRESHOLD;
+    const dateHTML = review.date
+      ? `<span class="review-separator">✦</span><span class="review-date">${review.date}</span>`
+      : '';
+    card.innerHTML = `
+      <div class="review-header">
+        <span class="review-name">${review.name}</span>
+        ${dateHTML}
+      </div>
+      <div class="review-text-wrapper ${!isLong ? 'no-fade' : ''}">
+        <div class="review-text">${review.text}</div>
+      </div>
+      ${isLong ? '<button class="read-more">Číst celé</button>' : ''}
+    `;
+    grid.appendChild(card);
+    if (isLong) {
+      const btn = card.querySelector('.read-more');
+      const textEl = card.querySelector('.review-text');
+      const wrapper = card.querySelector('.review-text-wrapper');
+      btn.addEventListener('click', () => {
+        const isExpanded = textEl.classList.contains('expanded');
+        textEl.classList.toggle('expanded');
+        wrapper.classList.toggle('expanded');
+        btn.textContent = isExpanded ? 'Číst celé' : 'Skrýt';
+      });
+    }
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.review-card, .reviews-header, .reviews-footer').forEach(el => observer.observe(el));
+})();
+</script>
+
+<button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',window.scrollY>500);});
+</script>
+<!-- ===================================================================== -->
+<!--  COOKIE SOUHLAS + META PIXEL  —  Oáza Adamanthea                       -->
+<!--  Pixel se spustí AŽ po souhlasu (EU / GDPR).                            -->
+<!-- ===================================================================== -->
+<style>
+  #oaza-cookie{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);
+    z-index:9999;max-width:430px;width:calc(100% - 28px);
+    background:rgba(245,241,233,.97);color:#4c5247;
+    border:1px solid rgba(46,68,52,.18);
+    border-radius:12px;box-shadow:0 6px 22px rgba(46,68,52,.12);
+    padding:13px 16px;font-family:'Cormorant Garamond',serif;
+    font-size:15px;line-height:1.45;display:none;
+    backdrop-filter:blur(2px)}
+  #oaza-cookie.show{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  #oaza-cookie p{margin:0;flex:1 1 200px;color:#5a6052}
+  #oaza-cookie .row{display:flex;gap:8px;margin-left:auto}
+  #oaza-cookie button{font-family:inherit;font-size:14px;cursor:pointer;
+    border-radius:8px;padding:6px 14px;border:1px solid transparent;
+    transition:background .2s,opacity .2s;white-space:nowrap}
+  #oaza-cookie .ok{background:#b06a6c;color:#fdfaf5}
+  #oaza-cookie .ok:hover{background:#9c585a}
+  #oaza-cookie .no{background:transparent;color:#8a8478;
+    border-color:rgba(46,68,52,.2)}
+  #oaza-cookie .no:hover{opacity:.7}
+</style>
+
+<div id="oaza-cookie" role="dialog" aria-label="Souhlas s cookies">
+  <p>Aby pro vás bylo na našem webu příjemně, používáme cookies.</p>
+  <div class="row">
+    <button class="no" onclick="oazaCookie(false)">Odmítnout</button>
+    <button class="ok" onclick="oazaCookie(true)">Přijmout</button>
+  </div>
+</div>
+
+<script>
+  var OAZA_PIXEL_ID = '2701237003568248';
+
+  function oazaLoadPixel(){
+    if(window._oazaPixelLoaded) return;
+    window._oazaPixelLoaded = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', OAZA_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+
+  // Konverzní event – volá se po úspěšné rezervaci (viz výše v kódu formuláře).
+  function oazaTrackRezervace(hodnota){
+    if(window.fbq && window._oazaPixelLoaded){
+      fbq('track', 'Schedule', hodnota ? {value: hodnota, currency: 'CZK'} : {});
+    }
+  }
+
+  function oazaCookie(accepted){
+    localStorage.setItem('oaza_cookie', accepted ? 'yes' : 'no');
+    document.getElementById('oaza-cookie').classList.remove('show');
+    if(accepted) oazaLoadPixel();
+  }
+
+  (function(){
+    var c = localStorage.getItem('oaza_cookie');
+    if(c === 'yes'){ oazaLoadPixel(); }
+    else if(c !== 'no'){ document.getElementById('oaza-cookie').classList.add('show'); }
+  })();
+</script>
+<!-- ===================================================================== -->
+<!--  konec bloku pixel + cookie                                           -->
+<!-- ===================================================================== -->
+<script defer src="/navstevnost.js"></script>
+</body>
+</html>

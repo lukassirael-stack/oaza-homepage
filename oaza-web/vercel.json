@@ -99,7 +99,7 @@
     },
     {
       "source": "/sitemap-produkty.xml",
-      "destination": "/api/produkty?sitemap=1"
+      "destination": "/api/produkty"
     },
     {
       "source": "/feed-google.xml",

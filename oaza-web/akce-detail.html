@@ -281,6 +281,8 @@ async function nacti(){
 
 
 function ukazNenalezeno(){
+  const m=document.createElement('meta');m.setAttribute('name','robots');m.setAttribute('content','noindex');document.head.appendChild(m);
+  document.title='Akce nenalezena | Oáza Adamanthea';
   document.getElementById('obsah').innerHTML=
     '<div class="notfound">Tuto akci jsme nenašli — možná už proběhla, nebo byl odkaz změněn.<br><a class="more" href="/akce">Zobrazit všechny akce</a></div>';
 }

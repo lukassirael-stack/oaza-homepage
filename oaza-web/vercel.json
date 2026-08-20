@@ -99,7 +99,7 @@
     },
     {
       "source": "/sitemap-produkty.xml",
-      "destination": "/api/produkty"
+      "destination": "/api/produkty?sitemap=1"
     },
     {
       "source": "/feed-google.xml",
@@ -117,8 +117,7 @@
       "source": "/akce/:slug",
       "destination": "/akce-detail?slug=:slug"
     }
-  ]
-,
+  ],
   "crons": [
     {
       "path": "/api/akce-denni-souhrn",

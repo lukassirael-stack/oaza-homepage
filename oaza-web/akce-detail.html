@@ -261,6 +261,16 @@ function zjistiSlug(){
   return m?decodeURIComponent(m[1]):null;
 }
 
+// Canonical nastavíme hned při načtení – Googlebot ho tak vidí vždy,
+// i když fetch akcí trvá dlouho nebo selže (GSC hlásilo „Duplicitní stránka bez kanonické verze“).
+(function(){
+  const s=zjistiSlug();
+  if(!s) return;
+  let can=document.querySelector('link[rel="canonical"]');
+  if(!can){ can=document.createElement('link'); can.setAttribute('rel','canonical'); document.head.appendChild(can); }
+  can.setAttribute('href','https://oaza-adamanthea.cz/akce/'+encodeURIComponent(s));
+})();
+
 
 async function nacti(){
   const obsah=document.getElementById('obsah');
@@ -461,18 +471,40 @@ function ukazUspech(data, email){
 /* ---------- JSON-LD pro vyhledávače ---------- */
 function vlozJsonLd(a){
   try{
+    const url='https://oaza-adamanthea.cz/akce/'+encodeURIComponent(a.slug);
+    const misto=String(a.misto||'').trim();
+    const jeOnline=/d[aá]lkov|online|p[řr]enos/i.test(misto);
+    const jeOaza=!misto||/halenkovice|o[aá]za/i.test(misto);
     const ld={
       '@context':'https://schema.org',
       '@type':'Event',
       name:a.nazev||'',
-      url:'https://oaza-adamanthea.cz/akce/'+encodeURIComponent(a.slug),
+      url:url,
       eventStatus:a.stav==='zrusena'?'https://schema.org/EventCancelled':'https://schema.org/EventScheduled',
-      organizer:{'@type':'Organization',name:'Oáza Adamanthea',url:'https://oaza-adamanthea.cz'}
+      eventAttendanceMode:jeOnline?'https://schema.org/OnlineEventAttendanceMode':'https://schema.org/OfflineEventAttendanceMode',
+      organizer:{'@type':'Organization',name:'Oáza Adamanthea',url:'https://oaza-adamanthea.cz'},
+      performer:{'@type':'Organization',name:'Oáza Adamanthea'}
     };
     if(a.datum_od) ld.startDate=a.datum_od;
-    if(a.misto) ld.location={'@type':'Place',name:a.misto};
+    const konec=a.datum_konec||a.datum_do;
+    if(konec) ld.endDate=konec;
+    // location – Google vyžaduje address; u Oázy dáme plnou adresu, jinde text, u dálkových VirtualLocation
+    if(jeOnline){
+      ld.location={'@type':'VirtualLocation',url:url};
+    }else if(jeOaza){
+      ld.location={'@type':'Place',name:'Oáza Adamanthea',
+        address:{'@type':'PostalAddress',streetAddress:'Halenkovice 400',addressLocality:'Halenkovice',postalCode:'763 63',addressRegion:'Zlínský kraj',addressCountry:'CZ'}};
+    }else{
+      ld.location={'@type':'Place',name:misto,address:misto};
+    }
     if(a.obrazek_url) ld.image=[a.obrazek_url];
-    if(a.cena_czk!=null) ld.offers={'@type':'Offer',price:String(a.cena_czk),priceCurrency:'CZK',availability:a.stav==='obsazena'?'https://schema.org/SoldOut':'https://schema.org/InStock'};
+    const popis=String(a.popis||'').replace(/[#*\[\]]/g,'').replace(/\s+/g,' ').trim().slice(0,300);
+    if(popis) ld.description=popis;
+    if(a.cena_czk!=null){
+      ld.offers={'@type':'Offer',url:url,price:String(a.cena_czk),priceCurrency:'CZK',
+        availability:a.stav==='obsazena'?'https://schema.org/SoldOut':'https://schema.org/InStock'};
+      if(a.vytvoreno) ld.offers.validFrom=String(a.vytvoreno).slice(0,10);
+    }
     const s=document.createElement('script');
     s.type='application/ld+json';
     s.textContent=JSON.stringify(ld);

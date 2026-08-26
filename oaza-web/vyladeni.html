@@ -598,7 +598,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     <span>5 až 60 minut</span><span>funguje offline</span><span>bez reklam</span>
   </div>
   <div class="cta">
-    <a class="tl tl-plna" href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Začít své Vyladění</a>
+    <a class="tl tl-plna" href="https://ladeni.oaza-adamanthea.cz">Začít své Vyladění</a>
     <a class="tl tl-obrys" href="#koupit">Plná verze · od 349 Kč / 14 €</a>
   </div>
 </header>
@@ -749,7 +749,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
   <div class="kroky">
     <div class="krok"><div><b>Vyber variantu</b><p>Zadej e-mail a nech si vygenerovat platební údaje. Dostaneš <b style="font-weight:600">vlastní variabilní symbol</b>, podle kterého platbu poznáme. Pak stačí načíst QR kód bankovní aplikací, nebo poslat převod ručně. Ze zahraničí použij IBAN.</p></div></div>
     <div class="krok"><div><b>Napiš nám</b><p>Klepni na „Zaplaceno — napsat si o kód" pod platebními údaji — zpráva se předvyplní sama. Kdyby tlačítko nešlo, napiš na <a href="mailto:oaza.adamanthea@gmail.com?subject=Vyladeni%20-%20plna%20verze">oaza.adamanthea@gmail.com</a>. Obratem ti přijde odemykací kód.</p></div></div>
-    <div class="krok"><div><b>Zadej kód v aplikaci</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz" target="_blank" rel="noopener">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Stejný kód zadáš i na druhém zařízení.</p></div></div>
+    <div class="krok"><div><b>Zadej kód v aplikaci</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Stejný kód zadáš i na druhém zařízení.</p></div></div>
   </div>
 
 
@@ -1229,6 +1229,82 @@ var qrcode=(function(){var module={exports:{}},exports=module.exports;var t,r=fu
       document.body.removeChild(t);
     }
   });
+})();
+</script>
+<!-- ===================================================================== -->
+<!-- MĚŘENÍ PŘECHODU DO APLIKACE                                           -->
+<!-- Klik na kterýkoli odkaz mířící na ladeni.oaza-adamanthea.cz se zapíše -->
+<!-- do tabulky navstevnost jako samostatná "stránka":                     -->
+<!--     /vyladeni-klik-do-aplikace                                        -->
+<!-- V přehledu návštěvnosti pak porovnáš /vyladeni proti tomuto řádku a   -->
+<!-- rovnou vidíš, kolik lidí z landingu opravdu odešlo do aplikace.       -->
+<!-- Do Meta pixelu jde zároveň událost ViewContent (jen po souhlasu).     -->
+<!-- Respektuje stejný opt-out (?nemerit=1) jako navstevnost.js.           -->
+<!-- ===================================================================== -->
+<script>
+(function () {
+  "use strict";
+
+  try {
+    if (localStorage.getItem("oaza_nemerit") === "1") return;
+  } catch (e) {}
+
+  var zacatek = Date.now();
+  var poslano = false;
+
+  function relace() {
+    try { return sessionStorage.getItem("oaza_relace") || "bez-relace"; }
+    catch (e) { return "bez-relace"; }
+  }
+
+  function zaznamenej() {
+    if (poslano) return;
+    poslano = true;
+
+    var telo = JSON.stringify({
+      session_id: relace(),
+      stranka: "/vyladeni-klik-do-aplikace",
+      titulek: "Vyladeni — klik do aplikace",
+      referrer: (document.referrer || "").slice(0, 300),
+      zarizeni: window.innerWidth < 768 ? "mobil" : "desktop",
+      doba_sekundy: Math.round((Date.now() - zacatek) / 1000)
+    });
+
+    var odeslano = false;
+    try {
+      var blob = new Blob([telo], { type: "text/plain" });
+      odeslano = !!(navigator.sendBeacon && navigator.sendBeacon("/api/analytika", blob));
+    } catch (e) {}
+
+    if (!odeslano) {
+      try {
+        fetch("/api/analytika", {
+          method: "POST",
+          body: telo,
+          keepalive: true,
+          headers: { "Content-Type": "text/plain" }
+        }).catch(function () {});
+      } catch (e) {}
+    }
+
+    try {
+      if (typeof oazaMeta === "function") {
+        oazaMeta("ViewContent", { content_name: "Vyladeni - vstup do aplikace" });
+      }
+    } catch (e) {}
+  }
+
+  // zachytáváme v capture fázi, ať se stihne odeslat před odchodem ze stránky
+  document.addEventListener("click", function (e) {
+    var cil = e.target;
+    while (cil && cil !== document) {
+      if (cil.tagName === "A" && (cil.getAttribute("href") || "").indexOf("ladeni.oaza-adamanthea.cz") !== -1) {
+        zaznamenej();
+        return;
+      }
+      cil = cil.parentNode;
+    }
+  }, true);
 })();
 </script>
 <script defer src="/navstevnost.js"></script>

@@ -130,7 +130,9 @@ header{text-align:center;padding:104px 1.2rem 1.2rem}
 h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(2.2rem,6.5vw,3.3rem);letter-spacing:.09em;margin:.7rem 0 .45rem}
 .podtitul{font-style:italic;font-size:1.14rem;color:var(--sed)}
 .uvodni{max-width:36rem;margin:.2rem auto 0}
-.cta{margin-top:1.4rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+.cta{margin-top:1.4rem;display:flex;gap:.9rem;justify-content:center;align-items:center;flex-wrap:wrap}
+/* malý podtitulek uvnitř tlačítka — „zdarma“ pod hlavním popiskem */
+.tl small{display:block;margin-top:.3rem;font-size:.62rem;letter-spacing:.22em;opacity:.75;text-transform:uppercase}
 
 
 /* tlačítka s leskem jako v aplikaci */
@@ -598,7 +600,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     <span>5 až 60 minut</span><span>funguje offline</span><span>bez reklam</span>
   </div>
   <div class="cta">
-    <a class="tl tl-plna" href="https://ladeni.oaza-adamanthea.cz">Začít své Vyladění</a>
+    <a class="tl tl-plna" href="https://ladeni.oaza-adamanthea.cz">Začít své Vyladění<small>zdarma</small></a>
     <a class="tl tl-obrys" href="#koupit">Plná verze · od 349 Kč / 14 €</a>
   </div>
 </header>

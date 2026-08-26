@@ -752,7 +752,7 @@
   </div>
 
 
-  <div class="shop-grid">
+  <div class="shop-grid" id="shop-grid">
     <a class="produkt" href="/produkt/flow-disc-nyni-k-dispozici-medovy-a-modry-178">
       <img class="produkt-foto" src="/img/produkt-3.jpg" alt="Flow Disc" loading="lazy">
       <div class="produkt-body">
@@ -1069,6 +1069,83 @@
       if(e.key==='ArrowRight') ukaz(akt+1);
       if(e.key==='ArrowLeft') ukaz(akt-1);
     });
+  })();
+
+
+  /* ===== Bali shop – náhodné produkty z databáze (statické karty jsou záloha) ===== */
+  (function(){
+    var grid=document.getElementById('shop-grid');
+    if(!grid) return;
+    var POCET=4;
+
+    function pole(d){
+      if(Array.isArray(d)) return d;
+      if(!d||typeof d!=='object') return [];
+      var k=['produkty','products','data','items','rows'];
+      for(var i=0;i<k.length;i++) if(Array.isArray(d[k[i]])) return d[k[i]];
+      return [];
+    }
+    function hodnota(p,jmena){
+      for(var i=0;i<jmena.length;i++){
+        var v=p[jmena[i]];
+        if(v!==undefined&&v!==null&&v!=='') return v;
+      }
+      return null;
+    }
+    function cislo(v){
+      if(v===null) return null;
+      var n=parseFloat(String(v).replace(/[^0-9.,-]/g,'').replace(',','.'));
+      return isNaN(n)?null:n;
+    }
+    function mezery(n){ return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'\u00a0'); }
+    function esc(t){return String(t||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+    function dostupny(p){
+      if(p.skryty===true||p.skryta===true||p.hidden===true) return false;
+      if(p.aktivni===false||p.aktivni_produkt===false||p.active===false||p.publikovany===false) return false;
+      if(p.prodano===true||p.vyprodano===true||p.sold===true) return false;
+      var stav=hodnota(p,['stav','status','dostupnost']);
+      if(stav&&/prodan|vyprodan|skryt|neaktiv|archiv|sold|hidden|draft/i.test(String(stav))) return false;
+      var sklad=hodnota(p,['sklad','pocet_skladem','mnozstvi','stock','quantity']);
+      if(sklad!==null&&cislo(sklad)===0) return false;
+      return true;
+    }
+
+    function karta(p){
+      var slug=hodnota(p,['slug','url_slug','handle']);
+      var nazev=hodnota(p,['nazev','name','title','nazev_produktu']);
+      var foto=hodnota(p,['obrazek_url','obrazek','hlavni_obrazek','foto','image','image_url','img','fotka','obrazky']);
+      if(Array.isArray(foto)) foto=foto[0];
+      if(foto&&typeof foto==='object') foto=foto.url||foto.src||null;
+      if(!slug||!nazev||!foto) return null;
+
+      var czk=cislo(hodnota(p,['cena','cena_czk','cena_kc','price','price_czk']));
+      var eur=cislo(hodnota(p,['cena_eur','price_eur','cena_eu']));
+      var cena='';
+      if(czk!==null) cena=mezery(czk)+'\u00a0Kč';
+      if(eur!==null) cena+=(cena?' / ':'')+mezery(eur)+'\u00a0€';
+
+      return '<a class="produkt" href="/produkt/'+encodeURIComponent(slug)+'">'
+        +'<img class="produkt-foto" src="'+esc(foto)+'" alt="'+esc(nazev)+'" loading="lazy">'
+        +'<div class="produkt-body"><h3>'+esc(nazev)+'</h3>'
+        +(cena?'<p class="cena">'+cena+'</p>':'')
+        +'</div></a>';
+    }
+
+    fetch('/api/produkty').then(function(r){return r.json();}).then(function(d){
+      var vse=pole(d).filter(dostupny);
+      /* náhodné pořadí (Fisher–Yates) */
+      for(var i=vse.length-1;i>0;i--){
+        var j=Math.floor(Math.random()*(i+1));
+        var t=vse[i]; vse[i]=vse[j]; vse[j]=t;
+      }
+      var html=[];
+      for(var k=0;k<vse.length&&html.length<POCET;k++){
+        var c=karta(vse[k]);
+        if(c) html.push(c);
+      }
+      if(html.length===POCET) grid.innerHTML=html.join('');
+    }).catch(function(){});
   })();
 </script>
 

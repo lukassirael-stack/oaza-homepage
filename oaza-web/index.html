@@ -1114,7 +1114,7 @@
     function karta(p){
       var slug=hodnota(p,['slug','url_slug','handle']);
       var nazev=hodnota(p,['nazev','name','title','nazev_produktu']);
-      var foto=hodnota(p,['obrazek_url','obrazek','hlavni_obrazek','foto','image','image_url','img','fotka','obrazky']);
+      var foto=hodnota(p,['fotky','obrazek_url','obrazek','hlavni_obrazek','foto','image','image_url','img']);
       if(Array.isArray(foto)) foto=foto[0];
       if(foto&&typeof foto==='object') foto=foto.url||foto.src||null;
       if(!slug||!nazev||!foto) return null;

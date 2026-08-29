@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-    let { slug, jmeno, email, telefon, pocet_osob, mena, poznamka, souhlas } = body;
+    let { slug, jmeno, email, telefon, pocet_osob, mena, poznamka, souhlas, prespani } = body;
 
     // --- validace ---
     if (!slug) return res.status(400).json({ error: 'Chybí akce.' });
@@ -54,6 +54,11 @@ module.exports = async (req, res) => {
     // --- platba ---
     const platba = akce.platba_typ; // 'online' | 'na_miste' | 'zdarma'
     let castka = null;
+    let prespani_castka = null;
+    // Příplatek za přespání se počítá za osobu. Pro cenu za celou přihlášku
+    // (jeden nocleh bez ohledu na počet lidí) přepni na false.
+    const PRESPANI_ZA_OSOBU = true;
+
     if (platba !== 'zdarma') {
       // výběr měny: pokud je zadaná a cena v ní existuje, jinak default CZK
       if (mena === 'eur' && akce.cena_eur != null) mena = 'eur';
@@ -62,9 +67,21 @@ module.exports = async (req, res) => {
       else mena = 'czk';
       const jednotka = mena === 'eur' ? akce.cena_eur : akce.cena_czk;
       castka = jednotka != null ? Number(jednotka) * pocet_osob : null;
+
+      // příplatek za přespání v meditační místnosti — částku určuje vždy server,
+      // z prohlížeče bereme jen ano/ne
+      if (prespani && akce.prespani_nabidnout) {
+        const jednotkaP = mena === 'eur' ? akce.prespani_cena_eur : akce.prespani_cena_czk;
+        if (jednotkaP != null) {
+          prespani_castka = Number(jednotkaP) * (PRESPANI_ZA_OSOBU ? pocet_osob : 1);
+          castka = Number(castka || 0) + prespani_castka;
+        }
+      }
     } else {
       mena = null;
     }
+    // přespání platí jen tehdy, když se ho podařilo i nacenit
+    prespani = prespani_castka != null;
 
     // počáteční stav platby
     const stav_platby = platba === 'zdarma' ? 'zdarma'
@@ -86,6 +103,8 @@ module.exports = async (req, res) => {
         castka,
         platba_typ: platba,
         stav_platby,
+        prespani,
+        prespani_castka,
         poznamka: poznamka || null,
       }],
     });
@@ -103,7 +122,7 @@ module.exports = async (req, res) => {
     }
 
     // --- potvrzovací e-mail zákazníkovi ---
-    const html = buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInfo });
+    const html = buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInfo, prespani_castka });
     await brevoSend({
       to: email,
       toName: jmeno,
@@ -118,6 +137,8 @@ module.exports = async (req, res) => {
       platba_typ: platba,
       castka,
       mena,
+      prespani,
+      prespani_castka,
       qrUrl,
     });
   } catch (e) {
@@ -126,11 +147,17 @@ module.exports = async (req, res) => {
 };
 
 // ------------------------------------------------------------------
-function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInfo }) {
+function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInfo, prespani_castka }) {
   const G = '#9a7628', GOLD = '#c9a14a', TXT = '#4a3b33', CREAM = '#fdfaf5';
   const symbol = mena === 'eur' ? '€' : 'Kč';
-  const castkaStr = castka != null
-    ? `${Number(castka).toLocaleString('cs-CZ')} ${symbol}`
+  const cistka = v => `${Number(v).toLocaleString('cs-CZ')} ${symbol}`;
+  const castkaStr = castka != null ? cistka(castka) : '';
+
+  // rozpis, když se k ceně akce přidal nocleh — ať je jasné, z čeho částka vznikla
+  const rozpis = (prespani_castka != null && castka != null)
+    ? `<div style="font-size:13.5px;color:#8a7d72;padding-top:4px;line-height:1.6">
+         vstup ${cistka(Number(castka) - Number(prespani_castka))} + přespání ${cistka(prespani_castka)}
+       </div>`
     : '';
 
   let platebniSekce = '';
@@ -145,7 +172,7 @@ function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInf
     platebniSekce = `
       <tr><td style="padding:24px 0 8px;font-family:Georgia,serif;font-size:18px;color:${G};">Platební údaje</td></tr>
       <tr><td style="font-family:Arial,sans-serif;font-size:15px;color:${TXT};line-height:1.7;">
-        Částka: <b>${castkaStr}</b><br>
+        Částka: <b>${castkaStr}</b>${rozpis}
         Číslo účtu: <b>${bankaInfo.cislo}</b> (${bankaInfo.banka})<br>
         IBAN: <b>${bankaInfo.iban}</b><br>
         Variabilní symbol: <b>${vs}</b><br>
@@ -162,7 +189,7 @@ function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInf
     platebniSekce = `
       <tr><td style="padding:24px 0 8px;font-family:Georgia,serif;font-size:18px;color:${G};">Platba</td></tr>
       <tr><td style="font-family:Arial,sans-serif;font-size:15px;color:${TXT};line-height:1.7;">
-        ${castka != null ? `Částka <b>${castkaStr}</b> se hradí <b>na místě</b> při příchodu.` : 'Platba probíhá na místě.'}
+        ${castka != null ? `Částka <b>${castkaStr}</b> se hradí <b>na místě</b> při příchodu.${rozpis}` : 'Platba probíhá na místě.'}
       </td></tr>`;
   } else {
     platebniSekce = `
@@ -189,6 +216,7 @@ function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInf
               ${akce.datum_text ? `📅 <b>${esc(akce.datum_text)}</b><br>` : ''}
               ${akce.misto ? `📍 ${esc(akce.misto)}<br>` : ''}
               👤 Počet osob: <b>${prihlaska.pocet_osob}</b>
+              ${prihlaska.prespani ? `<br>🌙 Přespání po akci v meditační místnosti s krystaly` : ''}
             </td></tr>
             ${platebniSekce}
             <tr><td style="padding-top:28px;border-top:1px solid #f0e6d5;font-family:Arial,sans-serif;font-size:13px;color:#8a7d72;line-height:1.7;">

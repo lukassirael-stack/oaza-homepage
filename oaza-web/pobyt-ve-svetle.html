@@ -179,6 +179,8 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .rez .cal-day.booked.co-ok{cursor:pointer;color:#8a4010;text-decoration:none;background:rgba(200,120,60,0.12);border:1.5px dashed rgba(200,120,60,0.75)}
 .rez .cal-day.booked.co-ok:hover{background:rgba(200,120,60,0.18)}
 .rez .cal-day.disabled{color:#d0c0a0;cursor:not-allowed}
+/* Proběhlý, ale obsazený den — ztlumená verze obsazenosti, ať je vidět historie */
+.rez .cal-day.disabled.past-booked{background:rgba(200,60,60,0.07);color:#c99a9a;text-decoration:line-through}
 .rez .cal-day.empty{cursor:default}
 .rez .cal-day.today{border-color:rgba(160,130,80,0.4);color:#8a6030}
 .rez .cal-hint{display:none;margin:0 0 10px;padding:9px 12px;border-radius:10px;font-size:12.5px;line-height:1.4;text-align:center}
@@ -557,6 +559,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
             <div class="leg"><div class="leg-dot" style="background:rgba(200,120,60,0.3);border:1px solid rgba(200,120,60,0.6)"></div>Odjezd</div>
             <div class="leg"><div class="leg-dot" style="background:rgba(160,130,80,0.15);border:1px solid rgba(160,130,80,0.2)"></div>Vybraný pobyt</div>
             <div class="leg"><div class="leg-dot" style="background:rgba(200,60,60,0.15);border:1px solid rgba(200,60,60,0.3)"></div>Obsazeno</div>
+            <div class="leg"><div class="leg-dot" style="background:rgba(200,60,60,0.07);border:1px solid rgba(200,60,60,0.15)"></div>Proběhlo (obsazeno)</div>
           </div>
           <div class="cal-reset-wrap" id="calResetWrap" style="display:none">
             <button type="button" class="cal-reset" onclick="resetSel()">↺ Zvolit jiný termín</button>
@@ -956,7 +959,9 @@ function renderCal(){
     // Odjezd je platný jen když je CELÉ rozmezí od příjezdu volné (≥2 noci, žádná obsazená noc) – stejně jako to ověřuje selectDay.
     const validCheckout = pickingCheckout && isValidCheckout(date);
     let cls='cal-day';
-    if(isPast) cls+=' disabled';
+    // Minulé dny nejdou vybrat, ale obsazenost se u nich musí dál zobrazovat —
+    // jinak to vypadá, že v proběhlých termínech nikdo nebyl.
+    if(isPast){ cls+=' disabled'; if(booked) cls+=' past-booked'; }
     else if(booked) cls+= validCheckout ? ' booked co-ok' : ' booked';
     if(isToday) cls+=' today';
     if(ciStr===ds) cls+=' checkin';

@@ -103,6 +103,11 @@ nav .btn:hover{background:#9c585a;color:#fdfaf5}
 .souhlas{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--muted);margin:20px 0 22px}
 .souhlas input{margin-top:3px;flex:none}
 .souhlas a{color:var(--gold-deep);border-bottom:1px solid var(--gold)}
+.souhlas.nocleh{font-size:15px;color:var(--text);margin:18px 0 0;padding:14px 16px;background:#fbf7ef;border:1px solid var(--gold);border-radius:12px;cursor:pointer}
+.souhlas.nocleh strong{color:var(--gold-deep);white-space:nowrap}
+.souhrn{margin:16px 0 4px;padding:14px 16px;background:#fbf7ef;border-radius:12px;font-size:14.5px;color:var(--muted)}
+.souhrn-radek{line-height:1.7}
+.souhrn-celkem{margin-top:6px;padding-top:8px;border-top:1px solid var(--gold);font-size:16px;color:var(--text)}
 .chyba{display:none;background:#f7e9e9;color:#9a4a4a;border-radius:10px;padding:12px 16px;font-size:14.5px;margin-bottom:16px}
 .uspech{background:var(--cream-2);border:1px solid var(--line);border-radius:18px;padding:30px 32px;text-align:center}
 .uspech h2{font-size:22px;color:var(--text);margin-bottom:10px}
@@ -354,17 +359,63 @@ function vykresli(a){
 
 
   document.getElementById('obsah').innerHTML=html;
+  prepocitej();
   vlozJsonLd(a);
 }
 
 
+/* Vybraná měna a jednotkové ceny — stejná logika jako na serveru,
+   aby se zobrazený součet shodoval s tím, co pak přijde v e-mailu. */
+function zvolenaMena(a){
+  const el=document.querySelector('input[name="f_mena"]:checked');
+  const chtena=el?el.value:null;
+  if(chtena==='eur' && a.cena_eur!=null) return 'eur';
+  if(a.cena_czk!=null) return 'czk';
+  if(a.cena_eur!=null) return 'eur';
+  return 'czk';
+}
+function nabizetPrespani(a){ return !!a.prespani_nabidnout && a.platba_typ!=='zdarma'; }
+
+function prepocitej(){
+  const a=AKCE; if(!a) return;
+  const box=document.getElementById('f_souhrn'); if(!box) return;
+  const mena=zvolenaMena(a);
+  const symbol=mena==='eur'?'€':'Kč';
+  const osob=Math.max(1,parseInt((document.getElementById('f_osob')||{}).value,10)||1);
+  const jednotka=mena==='eur'?a.cena_eur:a.cena_czk;
+  if(a.platba_typ==='zdarma' || jednotka==null){ box.style.display='none'; return; }
+
+  const vstup=Number(jednotka)*osob;
+  const ch=document.getElementById('f_prespani');
+  const jednotkaP=mena==='eur'?a.prespani_cena_eur:a.prespani_cena_czk;
+  const nocleh=(ch && ch.checked && jednotkaP!=null) ? Number(jednotkaP)*osob : 0;
+
+  box.style.display='block';
+  box.innerHTML='<div class="souhrn-radek">Vstup '+osob+'× '+fmt(jednotka)+' '+symbol+' = <strong>'+fmt(vstup)+' '+symbol+'</strong></div>'+
+    (nocleh?'<div class="souhrn-radek">Přespání '+osob+'× '+fmt(jednotkaP)+' '+symbol+' = <strong>'+fmt(nocleh)+' '+symbol+'</strong></div>':'')+
+    '<div class="souhrn-celkem">Celkem: <strong>'+fmt(vstup+nocleh)+' '+symbol+'</strong></div>';
+}
+
 function sestavFormular(a){
   const menaVolba=(a.platba_typ==='online' && a.cena_czk!=null && a.cena_eur!=null)
     ? '<div class="field"><label>Měna platby</label><div class="radioradek">'+
-        '<label><input type="radio" name="f_mena" value="czk" checked> Kč (CZK)</label>'+
-        '<label><input type="radio" name="f_mena" value="eur"> € (EUR)</label>'+
+        '<label><input type="radio" name="f_mena" value="czk" checked onchange="prepocitej()"> Kč (CZK)</label>'+
+        '<label><input type="radio" name="f_mena" value="eur" onchange="prepocitej()"> € (EUR)</label>'+
       '</div></div>'
     : '';
+
+  /* přespání po akci v meditační místnosti — příplatek za osobu */
+  let nocleh='';
+  if(nabizetPrespani(a)){
+    const ceny=[];
+    if(a.prespani_cena_czk!=null) ceny.push('+'+fmt(a.prespani_cena_czk)+' Kč');
+    if(a.prespani_cena_eur!=null) ceny.push('+'+fmt(a.prespani_cena_eur)+' €');
+    nocleh='<label class="souhlas nocleh"><input type="checkbox" id="f_prespani" onchange="prepocitej()"> '+
+      '<span>Chci po akci přespat v meditační místnosti s krystaly'+
+      (ceny.length?' <strong>('+ceny.join(' / ')+' za osobu)</strong>':'')+
+      '</span></label>';
+  }
+
   return '<section class="prihlaseni" id="prihlaseni">'+
     '<h2>Přihláška na akci</h2>'+
     '<p class="sub">Po odeslání vám přijde potvrzení e-mailem'+(a.platba_typ==='online'?' včetně platebních údajů a QR kódu':'')+'.</p>'+
@@ -375,9 +426,11 @@ function sestavFormular(a){
     '</div>'+
     '<div class="grid2">'+
       '<div class="field"><label>Telefon</label><input id="f_telefon" type="tel" autocomplete="tel" placeholder="+420 …"></div>'+
-      '<div class="field"><label>Počet osob</label><input id="f_osob" type="number" min="1" max="10" step="1" value="1"></div>'+
+      '<div class="field"><label>Počet osob</label><input id="f_osob" type="number" min="1" max="10" step="1" value="1" oninput="prepocitej()"></div>'+
     '</div>'+
     menaVolba+
+    nocleh+
+    '<div class="souhrn" id="f_souhrn" style="display:none"></div>'+
     '<div class="field"><label>Poznámka</label><textarea id="f_poznamka" placeholder="Chcete nám něco vzkázat? (nepovinné)"></textarea></div>'+
     '<label class="souhlas"><input type="checkbox" id="f_souhlas"> <span>Souhlasím se zpracováním osobních údajů pro účely přihlášky na akci (<a href="/gdpr" target="_blank">zásady ochrany údajů</a>).</span></label>'+
     '<button class="cta" id="f_odeslat" onclick="odeslat()">Odeslat přihlášku</button>'+
@@ -401,6 +454,8 @@ async function odeslat(){
   const souhlas=document.getElementById('f_souhlas').checked;
   const menaEl=document.querySelector('input[name="f_mena"]:checked');
   const mena=menaEl?menaEl.value:undefined;
+  const prespaniEl=document.getElementById('f_prespani');
+  const prespani=!!(prespaniEl && prespaniEl.checked);
 
 
   if(jmeno.length<2){ return ukazChybu('Vyplňte prosím jméno.'); }
@@ -418,6 +473,7 @@ async function odeslat(){
         telefon:telefon||undefined,
         pocet_osob:pocet,
         mena,
+        prespani,
         poznamka:poznamka||undefined,
         souhlas:true
       })
@@ -459,10 +515,15 @@ function ukazUspech(data, email){
     platba='<p>Účast je zdarma. Těšíme se na vás. 🌿</p>';
   }
   const el=document.getElementById('prihlaseni');
+  const noclehPozn=data.prespani
+    ? '<p class="pozn">🌙 Přespání v meditační místnosti máte zahrnuté'+
+      (data.prespani_castka!=null?' ('+fmt(data.prespani_castka)+' '+symbol+')':'')+'.</p>'
+    : '';
   el.innerHTML='<div class="uspech">'+
     '<h2>✨ Přihláška odeslána</h2>'+
     '<p>Potvrzení jsme poslali na <strong>'+esc(email)+'</strong>.</p>'+
     platba+
+    noclehPozn+
   '</div>';
   el.scrollIntoView({behavior:'smooth',block:'center'});
 }

@@ -394,7 +394,9 @@ h2{font-family:'Cinzel',serif;font-weight:500;font-size:1.5rem;letter-spacing:.0
 
 
 /* kroky */
-.kroky{max-width:620px;margin:1.6rem auto 0;counter-reset:krok}
+.krokyNadpis{max-width:620px;margin:2.4rem auto 0;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--zlata);text-align:center}
+.zpusobyPozn{text-align:center;font-style:italic;color:var(--sed);font-size:.95rem;margin:-.4rem 0 .9rem}
+.kroky{max-width:620px;margin:.6rem auto 0;counter-reset:krok}
 .krok{display:flex;gap:1.1rem;align-items:flex-start;margin:1.2rem 0}
 .krok::before{
   counter-increment:krok;content:counter(krok);
@@ -750,11 +752,6 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
   </div>
 
 
-  <div class="kroky">
-    <div class="krok"><div><b>Vyber variantu</b><p>Zadej e-mail a nech si vygenerovat platební údaje. Dostaneš <b style="font-weight:600">vlastní variabilní symbol</b>, podle kterého platbu poznáme. Pak stačí načíst QR kód bankovní aplikací, nebo poslat převod ručně. Ze zahraničí použij IBAN.</p></div></div>
-    <div class="krok"><div><b>Napiš nám</b><p>Klepni na „Zaplaceno — napsat si o kód" pod platebními údaji — zpráva se předvyplní sama. Kdyby tlačítko nešlo, napiš na <a href="mailto:oaza.adamanthea@gmail.com?subject=Vyladeni%20-%20plna%20verze">oaza.adamanthea@gmail.com</a>. Obratem ti přijde odemykací kód.</p></div></div>
-    <div class="krok"><div><b>Zadej kód v aplikaci</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Stejný kód zadáš i na druhém zařízení.</p></div></div>
-  </div>
 
 
   <div class="obj" id="objednavka">
@@ -777,6 +774,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
 
 
     <p class="zpusobyNadpis">Jak chceš zaplatit</p>
+<p class="zpusobyPozn">Kartou hned — kód ti přijde e-mailem během chvilky. Převodem podle návodu níž.</p>
     <div class="zpusoby" id="zpusoby">
       <button type="button" class="zpusob" data-zpusob="karta">
         <span class="ikona" aria-hidden="true">▭</span>
@@ -837,6 +835,13 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     <p class="objVsPozn" id="objMailPotvrzeni" hidden style="color:#2f6b4f"></p>
     <p class="objVsPozn">Tenhle symbol patří jen tvé objednávce — podle něj tvoji platbu poznáme.
     Když se sem vrátíš se stejným e-mailem, dostaneš ten samý, nic se nezdvojí.</p>
+  </div>
+
+  <p class="krokyNadpis">Platba převodem — jak to proběhne</p>
+  <div class="kroky">
+    <div class="krok"><div><b>Vyber variantu</b><p>Zadej e-mail a nech si vygenerovat platební údaje. Dostaneš <b style="font-weight:600">vlastní variabilní symbol</b>, podle kterého platbu poznáme. Pak stačí načíst QR kód bankovní aplikací, nebo poslat převod ručně. Ze zahraničí použij IBAN.</p></div></div>
+    <div class="krok"><div><b>Napiš nám</b><p>Klepni na „Zaplaceno — napsat si o kód" pod platebními údaji — zpráva se předvyplní sama. Kdyby tlačítko nešlo, napiš na <a href="mailto:oaza.adamanthea@gmail.com?subject=Vyladeni%20-%20plna%20verze">oaza.adamanthea@gmail.com</a>. Obratem ti přijde odemykací kód.</p></div></div>
+    <div class="krok"><div><b>Zadej kód v aplikaci</b><p>Otevři <a href="https://ladeni.oaza-adamanthea.cz">Vyladění</a>, zvol kterékoli zamčené sezení a vlož kód ve tvaru LADENI-XXXXX. Stejný kód zadáš i na druhém zařízení.</p></div></div>
   </div>
 
 

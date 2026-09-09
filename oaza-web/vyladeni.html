@@ -903,6 +903,9 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
 
 <script>
   var OAZA_PIXEL_ID = '2701237003568248';
+  /* Druhý pixel patří agentuře, která spravuje kampaně. Každá událost
+     (PageView, ViewContent, InitiateCheckout, Purchase) jde do obou. */
+  var OAZA_PIXEL_ID_AGENTURA = '1296400420228995';
   var _oazaFronta = [];
 
   function oazaSouhlas(){ try { return localStorage.getItem('oaza_cookie'); } catch (e) { return null; } }
@@ -916,6 +919,7 @@ footer p{font-family:'Jost',sans-serif;font-weight:300;font-size:.8rem;letter-sp
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
     (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', OAZA_PIXEL_ID);
+    fbq('init', OAZA_PIXEL_ID_AGENTURA);
     fbq('track', 'PageView');
     while(_oazaFronta.length){ var u = _oazaFronta.shift(); fbq('track', u[0], u[1]); }
   }

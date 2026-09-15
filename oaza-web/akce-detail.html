@@ -381,7 +381,7 @@ function vykresli(a){
     '<article class="detail">'+
       '<div class="poster">'+img+badge+'</div>'+
       '<div class="info">'+
-        '<div class="eyebrow">Oáza Adamanthea</div>'+
+        '<div class="eyebrow">'+(a.host?'Hostuje · '+esc(a.host):'Oáza Adamanthea')+'</div>'+
         '<h1>'+esc(a.nazev||'')+'</h1>'+
         '<div class="meta">'+
           (datum?'<span>📅 '+esc(datum)+'</span>':'')+

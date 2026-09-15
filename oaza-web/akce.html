@@ -65,6 +65,13 @@ nav .btn:hover{background:#9c585a;color:#fdfaf5}
 /* GRID */
 .wrap{max-width:1080px;margin:0 auto;padding:10px 24px 70px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px}
+.filtr{display:none;justify-content:center;gap:8px;margin:0 0 28px}
+.filtr.on{display:flex}
+.filtr button{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;transition:all .2s}
+.filtr button:hover{border-color:var(--gold)}
+.filtr button.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.card .host{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
+.card .host b{font-weight:500;letter-spacing:.5px;text-transform:none;font-size:13px}
 .card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;
   display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
 .card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(154,118,40,.12)}
@@ -154,6 +161,11 @@ footer .fine{font-size:12px;margin-top:10px}
 
 
 <main class="wrap">
+  <div class="filtr" id="filtr">
+    <button data-f="vse" class="on">Vše</button>
+    <button data-f="oaza">Oáza</button>
+    <button data-f="host">Hosté</button>
+  </div>
   <div id="grid" class="grid"><!-- AKCE:START -->
 <a class="card " href="/akce/den-otevrenych-dveri-v-portalove-zahrade">
         <div class="thumb"><img src="https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/eshop/akce-den-otevrenych-dveri-v-portalove-zahrade/1788936177705_v68aij.jpg" alt="Den Otevřených Dveří v Portálové Zahradě" loading="lazy"></div>
@@ -243,19 +255,6 @@ footer .fine{font-size:12px;margin-top:10px}
           </div>
           <div class="excerpt">ČISTÁ AURA Dálková harmonizace | 10.10. od 20:30 Z pohodlí vašeho domova. Setkáme se v kvantovém poli se společným záměrem. Občas v životě n…</div>
           <div class="price">350 Kč</div>
-          <span class="more">Více o akci</span>
-        </div>
-      </a>
-      <a class="card " href="/akce/re-kreace-uchop-svou-mentalni-silu">
-        <div class="thumb"><img src="https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/eshop/akce-re-kreace-uchop-svou-mentalni-silu/1789408230820_4b7579.jpg" alt="RE-KREACE - uchop svou mentální sílu" loading="lazy"></div>
-        <div class="body">
-          <h3>RE-KREACE - uchop svou mentální sílu</h3>
-          <div class="meta">
-            <span>📅 Víkend 16.-18.10.2026</span>
-            <span>📍 Oáza Adamanthea, Halenkovice 400</span>
-          </div>
-          <div class="excerpt"></div>
-          
           <span class="more">Více o akci</span>
         </div>
       </a>
@@ -349,12 +348,29 @@ function terminyMini(terminy){
 function zkrat(s,n){ if(!s) return ''; const txt=s.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim(); return txt.length>140?txt.slice(0,140)+'…':txt; }
 
 
+/* Filtr: akce Oázy versus akce hostujících lektorů (sloupec host). */
+let VSE=[], FILTR='vse';
+function nastavFiltr(){
+  const el=document.getElementById('filtr');
+  const jsouHoste=VSE.some(a=>a.host);
+  el.classList.toggle('on', jsouHoste);
+  el.querySelectorAll('button').forEach(b=>{
+    b.classList.toggle('on', b.dataset.f===FILTR);
+    b.onclick=()=>{ FILTR=b.dataset.f; nastavFiltr(); vykresli(); };
+  });
+}
 async function load(){
   try{
     const r = await fetch('/api/akce-list');
     if(!r.ok) return; // ponecháme předgenerovaný statický obsah
     const {akce} = await r.json();
     if(!Array.isArray(akce)) return;
+    VSE=akce; nastavFiltr(); vykresli();
+  }catch(e){ /* ponecháme předgenerovaný statický obsah */ }
+}
+function vykresli(){
+  try{
+    const akce = VSE.filter(a=>FILTR==='vse' || (FILTR==='host' ? !!a.host : !a.host));
     const grid = document.getElementById('grid');
     if(!akce.length){ grid.innerHTML='<div class="empty">Zatím nejsou vypsané žádné akce. Sledujte nás na Facebooku a Instagramu. 🌿</div>'; return; }
     grid.innerHTML = seskup(akce).map(({hlavni:a,terminy})=>{
@@ -367,6 +383,7 @@ async function load(){
       return `<a class="card ${a.stav==='zrusena'?'cancelled':''}" href="/akce/${encodeURIComponent(a.slug)}">
         <div class="thumb">${img}${badge}</div>
         <div class="body">
+          ${a.host?`<div class="host">Hostuje <b>${a.host}</b></div>`:''}
           <h3>${a.nazev||''}</h3>
           <div class="meta">
             ${a.datum_text?`<span>📅 ${a.datum_text}</span>`:''}

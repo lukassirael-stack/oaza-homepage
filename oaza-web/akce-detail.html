@@ -67,6 +67,14 @@ nav .btn:hover{background:#9c585a;color:#fdfaf5}
 .info h1{font-size:clamp(26px,3.6vw,38px);margin:12px 0 14px;line-height:1.22}
 .info .meta{display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--muted);margin-bottom:16px}
 .info .meta span{display:flex;gap:9px;align-items:baseline}
+.terminy{margin:-4px 0 18px}
+.terminy-nadpis{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.terminy-chipy{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid var(--line);border-radius:999px;font-size:14px;color:var(--text);text-decoration:none;background:#fff;transition:border-color .2s,background .2s}
+.chip:hover{border-color:var(--gold)}
+.chip.aktivni{background:var(--gold);border-color:var(--gold);color:#fff}
+.chip.plno{color:var(--muted);background:var(--cream-2)}
+.chip small{font-size:11px;letter-spacing:.5px;text-transform:uppercase}
 .info .price{font-size:17px;color:var(--gold-deep);font-weight:400;margin-bottom:22px}
 .stavbox{border:1px solid var(--line);background:var(--cream-2);border-radius:14px;padding:16px 20px;
   font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);margin-bottom:8px}
@@ -226,6 +234,37 @@ function datumText(a){
 }
 
 
+/* Série: stejná akce ve více termínech (sloupec serie).
+   Vrátí všechny nadcházející termíny série seřazené podle data — včetně aktuálního. */
+function terminySerie(a){
+  if(!a.serie) return [a];
+  return VSECHNY.filter(x=>x.serie===a.serie && x.stav!=='zrusena')
+    .sort((x,y)=>String(x.datum_od||'9999').localeCompare(String(y.datum_od||'9999')));
+}
+function datumKratky(x){
+  if(!x.datum_od) return x.datum_text||'';
+  const od=new Date(x.datum_od+'T00:00:00');
+  let t=od.getDate()+'. '+(od.getMonth()+1)+'.';
+  const k=x.datum_konec||x.datum_do;
+  if(k && k!==x.datum_od){ const kon=new Date(k+'T00:00:00'); t=od.getDate()+'.'+(od.getMonth()===kon.getMonth()?'':' '+(od.getMonth()+1)+'.')+'–'+kon.getDate()+'. '+(kon.getMonth()+1)+'.'; }
+  const cas=String(x.datum_text||'').match(/\b(\d{1,2}):(\d{2})\b/);
+  if(cas) t+=' '+(+cas[1])+':'+cas[2];
+  return t;
+}
+function terminyHtml(a,terminy){
+  if(terminy.length<2) return '';
+  return '<div class="terminy"><div class="terminy-nadpis">Vyberte si termín</div><div class="terminy-chipy">'+
+    terminy.map(x=>{
+      const akt=x.slug===a.slug;
+      const plno=x.stav==='obsazena';
+      const cls='chip'+(akt?' aktivni':'')+(plno?' plno':'');
+      const txt=esc(datumKratky(x))+(plno?' <small>obsazeno</small>':'');
+      return akt ? '<span class="'+cls+'">'+txt+'</span>'
+                 : '<a class="'+cls+'" href="/akce/'+encodeURIComponent(x.slug)+'">'+txt+'</a>';
+    }).join('')+'</div></div>';
+}
+
+
 /* Jednoduchý, bezpečný převod Markdownu (popis akce z adminu) na HTML.
    Nejdřív vše escapuje, pak aplikuje: ###/##/# nadpisy, **tučně**, *kurzíva*,
    [odkaz](https://…), odrážky - a •, odstavce. */
@@ -277,6 +316,7 @@ function zjistiSlug(){
 })();
 
 
+let VSECHNY=[];
 async function nacti(){
   const obsah=document.getElementById('obsah');
   const slug=zjistiSlug();
@@ -285,7 +325,8 @@ async function nacti(){
     const r=await fetch('/api/akce-list');
     if(!r.ok) throw new Error('API '+r.status);
     const {akce}=await r.json();
-    const a=(akce||[]).find(x=>x.slug===slug);
+    VSECHNY=akce||[];
+    const a=VSECHNY.find(x=>x.slug===slug);
     if(!a){ ukazNenalezeno(); return; }
     AKCE=a;
     vykresli(a);
@@ -310,7 +351,8 @@ function vykresli(a){
   if(metaDesc && popisKratky) metaDesc.setAttribute('content',popisKratky);
   let can=document.querySelector('link[rel="canonical"]');
   if(!can){ can=document.createElement('link'); can.setAttribute('rel','canonical'); document.head.appendChild(can); }
-  can.setAttribute('href','https://oaza-adamanthea.cz/akce/'+encodeURIComponent(a.slug));
+  const terminy=terminySerie(a);
+  can.setAttribute('href','https://oaza-adamanthea.cz/akce/'+encodeURIComponent((terminy[0]||a).slug));
 
 
   const st=STAVY[a.stav]||STAVY.otevrena;
@@ -345,6 +387,7 @@ function vykresli(a){
           (datum?'<span>📅 '+esc(datum)+'</span>':'')+
           (a.misto?'<span>📍 '+esc(a.misto)+'</span>':'')+
         '</div>'+
+        terminyHtml(a,terminy)+
         (cena?'<div class="price">'+cena+'</div>':'')+
         akcni+
       '</div>'+

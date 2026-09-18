@@ -32,6 +32,7 @@
   .mini img.akt,.mini img:hover{opacity:1;border-color:var(--zlata)}
 
 
+  .jeden.dodani{color:var(--tlumeny);font-size:.9rem;margin-top:6px}
   .info .eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--zlata)}
   .info h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2rem,4.5vw,2.9rem);line-height:1.08;margin:.18em 0 .12em}
   .cena{font-size:1.5rem;color:var(--namornicka2);font-family:'Cormorant Garamond',serif;margin:.1em 0 .2em}
@@ -107,13 +108,21 @@ function neindexovat(){
   document.title='Produkt nenalezen — Oáza Adamanthea';
 }
 
+let KAT={}, SEZNAM=null;
+const seznam=()=> SEZNAM || (SEZNAM=fetch('/api/produkty').then(r=>r.json()).catch(()=>({})));
+const katNazev=k=> KAT[k] || (k||'').replace(/-/g,' ');
+const img=(u,w)=> (window.Bali&&Bali.img) ? Bali.img(u,w) : u;
 async function nacti(){
   if(!slug){neindexovat();$('#obsah').innerHTML='<div class="nacitam">Produkt nenalezen.</div>';return;}
   try{
+    const sez=seznam(); // seznam (kategorie + podobné) se stahuje souběžně s produktem
     const r=await fetch('/api/produkty?slug='+encodeURIComponent(slug));
     const j=await r.json(); if(!r.ok){const err=new Error(j.error||'chyba');err.status=r.status;throw err;}
     render(j.produkt);
-    nactiPodobne(j.produkt);
+    if(window.Bali) Bali.udalost('produkt',{slug:j.produkt.slug,castka:j.produkt.cena,mena:'CZK'});
+    const l=await sez; (l.kategorie||[]).forEach(k=>KAT[k.slug]=k.nazev);
+    const eb=document.querySelector('.info .eyebrow'); if(eb) eb.textContent=katNazev(j.produkt.kategorie)||'Bali Shop';
+    nactiPodobne(j.produkt, l);
   }catch(e){
     if(e.status===404)neindexovat();
     $('#obsah').innerHTML='<div class="nacitam">Produkt se nepodařilo načíst.</div>';
@@ -155,7 +164,7 @@ function render(p){
   document.title=p.nazev+' — Oáza Adamanthea';
   seoAktualizace(p);
   const fotky=p.fotky||[];
-  const kat=(p.kategorie||'').replace(/-/g,' ');
+  const kat=katNazev(p.kategorie);
   const vlast=[];
   if((p.barva||[]).length)   vlast.push(`<div><b>Barva:</b> ${esc(p.barva.join(', '))}</div>`);
   if((p.velikost||[]).length)vlast.push(`<div><b>Velikost:</b> ${esc(p.velikost.join(', '))}</div>`);
@@ -179,8 +188,8 @@ function render(p){
   $('#obsah').innerHTML=`
   <div class="detail">
     <div class="galerie">
-      <div class="hlavni"><img id="hlavniFoto" src="${esc(fotky[0]||'')}" alt="${esc(p.nazev)}"></div>
-      ${fotky.length>1?`<div class="mini">${fotky.map((f,i)=>`<img src="${esc(f)}" class="${i===0?'akt':''}" onclick="prepni(${i},this)">`).join('')}</div>`:''}
+      <div class="hlavni"><img id="hlavniFoto" src="${esc(img(fotky[0]||'',1100))}" alt="${esc(p.nazev)}" onerror="if(!this.dataset.p){this.dataset.p=1;this.src=window.FOTKY[0]}"></div>
+      ${fotky.length>1?`<div class="mini">${fotky.map((f,i)=>`<img src="${esc(img(f,240))}" class="${i===0?'akt':''}" loading="lazy" onclick="prepni(${i},this)">`).join('')}</div>`:''}
       ${(p.videa||[]).map(v=>`<video src="${esc(v)}" controls playsinline></video>`).join('')}
     </div>
     <div class="info">
@@ -196,6 +205,7 @@ function render(p){
       ${vlast.length?`<div class="vlastnosti">${vlast.join('')}</div>`:''}
       <button class="koupit" id="doKosiku"${dostupny ? '' : ' disabled'}>${dostupny ? cta : (p.rezervovano ? 'Rezervováno' : 'Prodáno')}</button>
       <div class="jeden">${pozn}</div>
+      ${p.digitalni?'':'<div class="jeden dodani">Odesíláme do 3 pracovních dnů · Zásilkovna od 89 Kč · kartou, Apple Pay, Google Pay nebo QR platbou</div>'}
     </div>
   </div>`;
   window.FOTKY=fotky; window.PROD=p;
@@ -217,25 +227,27 @@ function render(p){
       $('#cenaText').textContent=cenaFmt(window.PROD);};
   });
 }
-window.prepni=(i,el)=>{$('#hlavniFoto').src=window.FOTKY[i];
+window.prepni=(i,el)=>{$('#hlavniFoto').src=img(window.FOTKY[i],1100);
   document.querySelectorAll('.mini img').forEach(x=>x.classList.remove('akt'));el.classList.add('akt');};
 
 
-async function nactiPodobne(p){
+async function nactiPodobne(p, j){
   try{
-    const r=await fetch('/api/produkty'); const j=await r.json();
+    j = j || await seznam();
     const pod=(j.produkty||[]).filter(x=>x.kategorie===p.kategorie&&x.slug!==p.slug).slice(0,4);
     if(!pod.length)return;
-    const kat=(p.kategorie||'').replace(/-/g,' ');
+    const kat=katNazev(p.kategorie);
     $('#obsah').insertAdjacentHTML('beforeend',
     `<div class="podobne"><span class="eyebrow">Mohlo by se hodit</span><h2>Z kategorie ${esc(kat)}</h2>
       <div class="pmrizka">${pod.map(x=>`<a class="pkarta" href="/produkt/${encodeURIComponent(x.slug)}">
-        <div class="pfoto"><img src="${esc(x.fotky[0]||'')}" alt="${esc(x.nazev)}" loading="lazy"></div>
+        <div class="pfoto"><img src="${esc(img(x.fotky[0]||'',480))}" alt="${esc(x.nazev)}" loading="lazy"></div>
         <h3>${esc(x.nazev)}</h3><div class="pcena">${x.cena.toLocaleString('cs-CZ')} Kč</div></a>`).join('')}</div></div>`);
+    if(window.Bali&&Bali.dopis) Bali.dopis($('#obsah'));
   }catch(e){}
 }
 nacti();
 </script>
 <script src="/kosik.js"></script>
+<script src="/bali.js?v=1"></script>
 </body>
 </html>

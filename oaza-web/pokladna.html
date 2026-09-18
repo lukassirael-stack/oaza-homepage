@@ -132,6 +132,7 @@
 
 
 <script src="/kosik.js"></script>
+<script src="/bali.js?v=1"></script>
 <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
 <script>
 const PACKETA_API_KEY='54841ac0ac111e66'; // veřejný klíč widgetu (klientská strana)
@@ -196,6 +197,7 @@ async function init(){
   }
   try{ const r=await fetch('/api/objednavka'); SHIP=(await r.json()).doprava; }catch(e){ SHIP=null; }
   renderFormular();
+  if(window.Bali && !window._pokladnaMereno){ window._pokladnaMereno=true; Bali.udalost('pokladna',{castka:Kosik.celkem('czk'),mena:'CZK',pocet:polozky().length}); }
 }
 
 
@@ -227,9 +229,9 @@ function renderFormular(){
         </div>
         <div class="pole"><label>Způsob dopravy (Zásilkovna)</label>
           <div class="volby" id="dop-volby" style="flex-direction:column">
-            <div class="volba" data-dop="mezi_nami"><div class="nadpis">Mezi námi — pošlete nám podací kód</div><div class="pod">Zásilku si vytvoříš ve své aplikaci Zásilkovna a pošleš nám kód · dopravu neúčtujeme</div></div>
-            <div class="volba" data-dop="vydejni_misto"><div class="nadpis">Klasická Zásilkovna — výdejní místo</div><div class="pod" id="cena-box"></div></div>
-            <div class="volba" data-dop="adresa"><div class="nadpis">Klasická Zásilkovna — na adresu</div><div class="pod" id="cena-adresa"></div></div>
+            <div class="volba" data-dop="vydejni_misto"><div class="nadpis">Zásilkovna — výdejní místo nebo Z‑BOX</div><div class="pod" id="cena-box"></div></div>
+            <div class="volba" data-dop="adresa"><div class="nadpis">Zásilkovna — doručení na adresu</div><div class="pod" id="cena-adresa"></div></div>
+            <div class="volba" data-dop="mezi_nami"><div class="nadpis">Mezi námi — pro znalé Zásilkovny</div><div class="pod">Zásilku si vytvoříš ve své aplikaci Zásilkovna, dopravu zaplatíš tam a pošleš nám podací kód</div></div>
           </div>
           <div id="mezinami-pole" style="display:none">
             <div class="pole" style="margin-top:12px"><label>Podací kód (nepovinné)</label>
@@ -391,6 +393,7 @@ function zaplacenoKartou(id){
   if(window.Kosik) Kosik.vyprazdni();
   const vykresli=(o)=>{
     const hotovo=o && o.stav && o.stav!=='nova';
+    if(hotovo && window.Bali && !window._zaplacenoMereno){ window._zaplacenoMereno=true; Bali.udalost('zaplaceno',{castka:o.cena_celkem,mena:o.mena}); }
     $('#obsah').innerHTML=`<div class="hotovo"><div class="znak">✦</div>
       <h2>${hotovo?'Zaplaceno, děkujeme!':'Platba se dokončuje…'}</h2>
       <p style="color:var(--tlumeny);font-style:italic;max-width:440px;margin:10px auto">${o&&o.cislo?`Objednávka #${esc(o.cislo)}. `:''}${hotovo
@@ -453,6 +456,7 @@ async function odeslat(){
       else chyba(j.error||'Objednávku se nepodařilo vytvořit.');
       btn.disabled=false; tlacText(); return;
     }
+    if(window.Bali) Bali.udalost('objednavka',{castka:j.cena_celkem,mena:j.mena});
     if(j.karta && j.stripe_url){ btn.textContent='Otevírám platbu…'; location.href=j.stripe_url; return; }
     Kosik.vyprazdni();
     potvrzeni(j);

@@ -139,7 +139,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let MENA=(localStorage.getItem('oaza_mena')==='eur')?'eur':'czk';
 let SHIP=null; // ceny dopravy ze serveru
-const STAV={zeme:'CZ', doprava:null, sleva:null, packetaPoint:null}; // doprava: 'vydejni_misto' | 'adresa'; sleva: {kod,typ,hodnota}
+const STAV={zeme:'CZ', doprava:null, sleva:null, packetaPoint:null, platba:'karta'}; // doprava: 'vydejni_misto' | 'adresa'; sleva: {kod,typ,hodnota}
 
 
 const polozky=()=> (window.Kosik?Kosik.polozky():[]);
@@ -259,7 +259,10 @@ function renderFormular(){
 
       <div class="karta" style="margin-top:18px">
         <h2>Platba</h2>
-        <div class="platba-info">QR platba / bankovní převod — po objednávce zobrazíme QR kód a údaje. <br><span style="color:var(--tlumeny);font-style:italic">Platba kartou a Google/Apple Pay — připravujeme.</span></div>
+        <div class="volby" id="plat-volby" style="flex-direction:column">
+          <div class="volba ${STAV.platba==='karta'?'akt':''}" data-plat="karta"><div class="nadpis">Kartou · Apple Pay · Google Pay</div><div class="pod">Zaplatíš hned na zabezpečené stránce Stripe, potvrzení a fakturu dostaneš e-mailem${dig?' i s obsahem ke stažení':''}.</div></div>
+          <div class="volba ${STAV.platba==='qr'?'akt':''}" data-plat="qr"><div class="nadpis">QR platba / bankovní převod</div><div class="pod">Po objednávce zobrazíme QR kód a údaje k platbě.</div></div>
+        </div>
         <div class="pole" style="margin-top:14px"><label>Poznámka (nepovinné)</label><textarea id="f-poznamka" rows="2"></textarea></div>
       </div>
     </div>
@@ -305,6 +308,8 @@ function renderFormular(){
   });
 
 
+  document.querySelectorAll('#plat-volby .volba').forEach(v=>v.onclick=()=>{ STAV.platba=v.dataset.plat; document.querySelectorAll('#plat-volby .volba').forEach(x=>x.classList.toggle('akt',x===v)); tlacText(); });
+  tlacText();
   $('#odeslat').onclick=odeslat;
 
 
@@ -377,6 +382,28 @@ function renderSouhrn(){
 
 
 function chyba(t){ const e=$('#chyba'); e.style.display='block'; e.textContent=t; }
+function tlacText(){ const b=$('#odeslat'); if(b && !b.disabled) b.textContent = STAV.platba==='karta' ? 'Zaplatit kartou' : 'Objednat'; }
+
+// ---- návrat ze Stripe ----
+const SB_FN='https://myybuesoourgpbouwwst.supabase.co/functions/v1/stripe-session';
+async function sbFn(data){ const r=await fetch(SB_FN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); return r.json().catch(()=>({})); }
+function zaplacenoKartou(id){
+  if(window.Kosik) Kosik.vyprazdni();
+  const vykresli=(o)=>{
+    const hotovo=o && o.stav && o.stav!=='nova';
+    $('#obsah').innerHTML=`<div class="hotovo"><div class="znak">✦</div>
+      <h2>${hotovo?'Zaplaceno, děkujeme!':'Platba se dokončuje…'}</h2>
+      <p style="color:var(--tlumeny);font-style:italic;max-width:440px;margin:10px auto">${o&&o.cislo?`Objednávka #${esc(o.cislo)}. `:''}${hotovo
+        ? (o.doprava==='digital' ? 'Fakturu a odkaz ke stažení máš v e-mailu.' : 'Fakturu máš v e-mailu, zboží pro tebe chystáme k odeslání.')
+        : 'Stripe nám právě potvrzuje platbu, za pár vteřin se tu ukáže potvrzení.'}</p>
+      <a class="tlac" style="max-width:260px;margin:18px auto" href="/bali-shop">Zpět do obchodu</a></div>`;
+    return hotovo;
+  };
+  vykresli(null);
+  let n=0; const tik=async()=>{ n++; let o=null; try{ o=await sbFn({druh:'eshop_stav',objednavka:id}); }catch(e){} if(!vykresli(o) && n<12) setTimeout(tik,2500); };
+  tik();
+}
+
 
 
 async function odeslat(){
@@ -418,16 +445,18 @@ async function odeslat(){
         mena: MENA==='eur'?'EUR':'CZK',
         poznamka: $('#f-poznamka').value.trim(),
         sleva_kod: STAV.sleva ? STAV.sleva.kod : null,
+        platba: STAV.platba,
       })});
     const j=await r.json();
     if(!r.ok){
       if(j.nedostupne){ (j.nedostupne||[]).forEach(s=>Kosik.odeber(s)); chyba('Některé položky už nejsou skladem a byly odebrány. Zkontroluj košík.'); setTimeout(init,1400); }
       else chyba(j.error||'Objednávku se nepodařilo vytvořit.');
-      btn.disabled=false; btn.textContent='Objednat'; return;
+      btn.disabled=false; tlacText(); return;
     }
+    if(j.karta && j.stripe_url){ btn.textContent='Otevírám platbu…'; location.href=j.stripe_url; return; }
     Kosik.vyprazdni();
     potvrzeni(j);
-  }catch(e){ chyba('Chyba spojení. Zkus to prosím znovu.'); btn.disabled=false; btn.textContent='Objednat'; }
+  }catch(e){ chyba('Chyba spojení. Zkus to prosím znovu.'); btn.disabled=false; tlacText(); }
 }
 
 
@@ -463,7 +492,22 @@ function potvrzeni(j){
 }
 
 
-if(window.Kosik) init(); else window.addEventListener('DOMContentLoaded',init);
+(function(){
+  const q=new URLSearchParams(location.search), plat=q.get('platba'), id=q.get('obj');
+  const start=()=>{
+    if(plat && id && /^[0-9a-f-]{36}$/i.test(id)){
+      history.replaceState(null,'',location.pathname);
+      if(plat==='hotovo'){ zaplacenoKartou(id); return; }
+      if(plat==='zruseno'){
+        sbFn({druh:'eshop_zrusit',objednavka:id}).then(v=>{ if(v && v.stav==='zaplaceno') zaplacenoKartou(id); }).catch(()=>{});
+        init().then(()=>{ const e=$('#chyba'); if(e){ e.style.display='block'; e.style.color='var(--namornicka2)'; e.textContent='Platbu jsi přerušil — košík máš připravený, můžeš ji dokončit kartou nebo QR kódem.'; } });
+        return;
+      }
+    }
+    init();
+  };
+  if(window.Kosik) start(); else window.addEventListener('DOMContentLoaded',start);
+})();
 </script>
 </body>
 </html>

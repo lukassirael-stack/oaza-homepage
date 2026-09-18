@@ -1,6 +1,7 @@
 // api/objednavka.js — vytvoření objednávky v Bali Shopu
 // Ceny se VŽDY přepočítávají na serveru (klientovi se nevěří).
-// Platba: QR/SPAYD (bankovní převod). Stripe doplníme později.
+// Platba: QR/SPAYD (bankovní převod) nebo karta / Apple Pay / Google Pay přes Stripe Checkout
+// (session vytváří Supabase Edge Function stripe-session, zaplacení potvrzuje stripe-webhook).
 
 const IBAN_CZK = 'CZ1655000000008159854004';      // Raiffeisenbank 8159854004/5500
 const IBAN_EUR = 'CZ1820100000002500144501';      // Fio (EUR)
@@ -67,6 +68,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Použij POST.' });
 
   const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+  const platba = body.platba === 'karta' ? 'karta' : 'qr';
 
   try {
     // --- nastavení (kurz + ceny dopravy) ---
@@ -170,7 +172,8 @@ export default async function handler(req, res) {
     let rezervovano = [];
     if (rezSlugy.length) {
       const nowIso = new Date().toISOString();
-      const doIso = new Date(Date.now() + 24 * 3600 * 1000).toISOString();
+      // karta: držíme jen po dobu platební session (Stripe ji ukončí po hodině), QR: 24 h
+      const doIso = new Date(Date.now() + (platba === 'karta' ? 70 * 60 : 24 * 3600) * 1000).toISOString();
       const filtr = `slug=in.(${rezSlugy.join(',')})&stav=eq.skladem`
         + `&or=(rezervovano_do.is.null,rezervovano_do.lt.${encodeURIComponent(nowIso)})`;
       const zabrano = await rest(`produkty?${filtr}`, {
@@ -192,7 +195,7 @@ export default async function handler(req, res) {
       const vlozeno = await rest('objednavky', {
         method: 'POST',
         body: JSON.stringify({
-          stav: 'nova', zpusob_platby: 'qr',
+          stav: 'nova', zpusob_platby: platba,
           jmeno, email, telefon, zeme,
           doprava, doprava_cena, adresa, packeta_point,
           packeta_id: (packeta_point && packeta_point.id) ? packeta_point.id : null,
@@ -214,6 +217,27 @@ export default async function handler(req, res) {
     // zvýšení počtu použití slevového kódu
     if (sleva_kod && sleva_castka > 0) {
       try { await rest('rpc/pouzij_slevovy_kod', { method: 'POST', body: JSON.stringify({ p_kod: sleva_kod }) }); } catch (e) {}
+    }
+
+    // --- karta: Stripe Checkout (e-maily pošle až administrace po zaplacení) ---
+    if (platba === 'karta') {
+      let url = null;
+      try {
+        const r = await fetch(`${URL}/functions/v1/stripe-session`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ druh: 'eshop', objednavka: obj.id }),
+        });
+        const j = await r.json().catch(() => ({}));
+        if (r.ok && j.url) url = j.url;
+      } catch (e) { url = null; }
+      if (!url) {
+        try { await rest(`objednavky?id=eq.${obj.id}`, { method: 'PATCH', body: JSON.stringify({ stav: 'zruseno' }), prefer: 'return=minimal' }); } catch (_) {}
+        if (rezervovano.length) {
+          try { await rest(`produkty?slug=in.(${rezervovano.join(',')})`, { method: 'PATCH', body: JSON.stringify({ rezervovano_do: null }), prefer: 'return=minimal' }); } catch (_) {}
+        }
+        return res.status(502).json({ error: 'Platební bránu se teď nepodařilo otevřít. Zkus to prosím znovu, nebo zvol QR platbu.' });
+      }
+      return res.status(200).json({ ok: true, karta: true, stripe_url: url, id: obj.id, cislo, cena_celkem, mena });
     }
 
     // --- QR / SPAYD ---

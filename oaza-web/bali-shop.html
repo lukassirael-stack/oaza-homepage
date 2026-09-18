@@ -111,18 +111,26 @@
 
 
   /* vstupy a Vybráno */
-  .vstupy{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:38px 0 8px}
+  .vstupy{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin:44px 0 8px}
+  .vstup{position:relative;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:var(--karta);cursor:pointer;
+    border:1px solid rgba(184,146,74,.45);box-shadow:0 0 0 6px rgba(184,146,74,.08),0 18px 40px -22px rgba(27,42,65,.35),0 0 60px -10px rgba(217,188,126,.45);
+    transition:transform .35s,box-shadow .35s}
+  .vstup::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);z-index:2}
+  .vstup:hover{transform:translateY(-4px);box-shadow:0 0 0 6px rgba(184,146,74,.14),0 26px 50px -22px rgba(27,42,65,.4),0 0 80px -8px rgba(217,188,126,.7)}
+  .vstup .f{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--slonovina2)}
+  .vstup .f::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(251,248,241,.9) 0%,rgba(251,248,241,0) 32%)}
+  .vstup img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block;transition:transform .9s ease}
+  .vstup:hover img{transform:scale(1.05)}
+  .vstup .t{position:relative;margin-top:-30px;padding:0 18px 20px;text-align:center;color:var(--namornicka)}
+  .vstup .t .z{display:block;color:var(--zlata);font-size:1.1rem;letter-spacing:.3em;margin-bottom:2px}
+  .vstup .t b{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.5rem;line-height:1.15}
+  .vstup .t small{display:block;font-style:italic;color:var(--tlumeny);margin-top:4px}
+  .vstup .t i{display:inline-block;font-family:'Cinzel',serif;font-style:normal;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--namornicka);border:1px solid var(--zlata);border-radius:30px;padding:7px 16px;margin-top:12px;transition:.25s}
+  .vstup:hover .t i{background:var(--namornicka);color:var(--slonovina);border-color:var(--namornicka)}
+  @media(max-width:900px){.vstupy{gap:16px}.vstup .f{aspect-ratio:3/4}}
+  @media(max-width:640px){.vstupy{grid-template-columns:1fr;gap:20px;max-width:380px;margin-left:auto;margin-right:auto}.vstup .f{aspect-ratio:4/5}}
   @media(max-width:900px){.vybrano .mrizka{grid-template-columns:repeat(3,1fr);gap:14px 12px}}
   @media(max-width:560px){.vybrano .mrizka{grid-template-columns:repeat(2,1fr)}}
-  .vstup{display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:var(--karta);border:1px solid var(--linka);cursor:pointer;transition:transform .3s,box-shadow .3s}
-  .vstup:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(27,42,65,.35)}
-  .vstup .f{aspect-ratio:5/4;overflow:hidden;background:var(--slonovina2)}
-  .vstup img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block;transition:transform .8s ease}
-  .vstup:hover img{transform:scale(1.04)}
-  .vstup .t{padding:16px 18px 18px;text-align:center;color:var(--namornicka)}
-  .vstup .t b{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.45rem;line-height:1.15}
-  .vstup .t small{display:block;font-style:italic;color:var(--tlumeny);margin-top:4px}
-  .vstup .t i{display:block;font-family:'Cinzel',serif;font-style:normal;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--zlata);margin-top:10px}
   .vybrano{margin:44px 0 6px;text-align:center}
   .vybrano .mrizka{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:24px 20px}
   .dodani-radek{color:var(--tlumeny);font-style:italic;font-size:.92rem;margin:4px 0 0}
@@ -137,8 +145,7 @@
   .katalog-nadpis::before,.katalog-nadpis::after{content:"";flex:1;height:1px;background:var(--linka)}
   .katalog-nadpis span{font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.32em;text-transform:uppercase}
   .dodani{font-size:.9rem;color:var(--tlumeny);font-style:italic;margin-top:3px}
-  @media(max-width:700px){.vstupy{grid-template-columns:1fr;gap:14px}.vstup .f{aspect-ratio:16/9}.vstup img{object-position:50% 35%}}
-
+  
   /* mřížka */
   .mrizka{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:30px 24px;padding:8px 0 60px}
   .karta-prod{cursor:pointer;display:flex;flex-direction:column}
@@ -267,9 +274,9 @@
   </div>
   <div class="vstupy-uvod"><span>Kudy dál</span></div>
   <div class="vstupy" id="vstupy">
-    <a class="vstup" data-k="darkove-sety" href="#katalog"><div class="f"><img id="vstup-1" alt="" loading="lazy"></div><div class="t"><b>Dárek s příběhem</b><small>sety, šperky a drobnosti, které udělají radost</small><i>Prohlédnout ›</i></div></a>
-    <a class="vstup" data-k="sperky" href="#katalog"><div class="f"><img id="vstup-2" alt="" loading="lazy"></div><div class="t"><b>Šperky z Bali</b><small>křídla, perleť, paua a ruční práce</small><i>Prohlédnout ›</i></div></a>
-    <a class="vstup" data-k="saty" href="#katalog"><div class="f"><img id="vstup-3" alt="" loading="lazy"></div><div class="t"><b>Šaty pro lehkost a ceremonii</b><small>léto, pohyb, ženskost</small><i>Prohlédnout ›</i></div></a>
+    <a class="vstup" data-k="darkove-sety" href="#katalog"><div class="f"><img id="vstup-1" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Dárek s příběhem</b><small>sety, šperky a drobnosti, které udělají radost</small><i>Prohlédnout ›</i></div></a>
+    <a class="vstup" data-k="sperky" href="#katalog"><div class="f"><img id="vstup-2" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šperky z Bali</b><small>křídla, perleť, paua a ruční práce</small><i>Prohlédnout ›</i></div></a>
+    <a class="vstup" data-k="saty" href="#katalog"><div class="f"><img id="vstup-3" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šaty pro lehkost a ceremonii</b><small>léto, pohyb, ženskost</small><i>Prohlédnout ›</i></div></a>
   </div>
   <div class="katalog-nadpis" id="katalog"><span>Celá nabídka</span></div>
   <div class="ovladani">

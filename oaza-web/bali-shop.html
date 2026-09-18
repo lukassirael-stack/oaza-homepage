@@ -129,10 +129,10 @@
   .vstup:hover .t i{background:var(--namornicka);color:var(--slonovina);border-color:var(--namornicka)}
   @media(max-width:900px){.vstupy{gap:16px}.vstup .f{aspect-ratio:3/4}}
   @media(max-width:640px){.vstupy{grid-template-columns:1fr;gap:20px;max-width:380px;margin-left:auto;margin-right:auto}.vstup .f{aspect-ratio:4/5}}
-  @media(max-width:900px){.vybrano .mrizka{grid-template-columns:repeat(3,1fr);gap:14px 12px}}
-  @media(max-width:560px){.vybrano .mrizka{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:900px){.vybrano .mrizka{gap:12px 10px}.vybrano .mrizka h3{font-size:.95rem}}
+  @media(max-width:640px){.vybrano .mrizka{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px 2px 14px;margin:0 -22px;padding-left:22px;padding-right:22px;-webkit-overflow-scrolling:touch}.vybrano .mrizka .karta-prod{flex:0 0 62vw;scroll-snap-align:start}.vybrano .mrizka::-webkit-scrollbar{height:0}}
   .vybrano{margin:44px 0 6px;text-align:center}
-  .vybrano .mrizka{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:24px 20px}
+  .vybrano .mrizka{grid-template-columns:repeat(5,1fr);gap:22px 18px}
   .dodani-radek{color:var(--tlumeny);font-style:italic;font-size:.92rem;margin:4px 0 0}
   .vstupy-uvod{display:flex;align-items:center;gap:14px;margin:36px 0 -22px;color:var(--zlata)}
   .vstupy-uvod::before,.vstupy-uvod::after{content:"";flex:1;height:1px;background:var(--linka)}
@@ -259,7 +259,7 @@
     <div class="eyebrow">Oáza Adamanthea</div>
     <h1>Bali&nbsp;Shop</h1>
     <div class="hvezda"><span>✦</span></div>
-    <p>Poklady, které přinášejí krásu, harmonii a inspiraci. Objevte jedinečné krystaly, šperky, šaty i esence vybrané srdcem.</p>
+    <p>Poklady, které si nás našly na cestách. Vybrané kousky pro radost, darování i malý rituál doma.</p>
   </div>
 </div>
 
@@ -267,16 +267,15 @@
 <div class="wrap">
   <div class="vybrano" id="vybrano">
     <div class="eyebrow">Vybráno z Bali Shopu</div>
-    <h2>Poklady, které si nás našly na cestách</h2>
-    <p>Vybrané kousky pro radost, darování i malý rituál doma.</p>
+    <h2>Pět kousků, které bychom dnes vybrali pro sebe nebo jako dar</h2>
     <div class="mrizka" id="mrizka-vybrano"><div class="nacitam" style="grid-column:1/-1">Načítám…</div></div>
     <p class="dodani-radek">Odesíláme do 3 pracovních dnů · Zásilkovna od 89 Kč · kartou, Apple Pay i Google Pay</p>
   </div>
   <div class="vstupy-uvod"><span>Kudy dál</span></div>
   <div class="vstupy" id="vstupy">
-    <a class="vstup" data-k="darkove-sety" href="#katalog"><div class="f"><img id="vstup-1" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Dárek s příběhem</b><small>sety, šperky a drobnosti, které udělají radost</small><i>Prohlédnout ›</i></div></a>
-    <a class="vstup" data-k="sperky" href="#katalog"><div class="f"><img id="vstup-2" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šperky z Bali</b><small>křídla, perleť, paua a ruční práce</small><i>Prohlédnout ›</i></div></a>
-    <a class="vstup" data-k="saty" href="#katalog"><div class="f"><img id="vstup-3" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šaty pro lehkost a ceremonii</b><small>léto, pohyb, ženskost</small><i>Prohlédnout ›</i></div></a>
+    <a class="vstup" data-k="darkove-sety" href="/bali-shop?kat=darkove-sety#katalog"><div class="f"><img id="vstup-1" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Dárek s příběhem</b><small>sety, šperky a drobnosti, které udělají radost</small><i>Prohlédnout ›</i></div></a>
+    <a class="vstup" data-k="sperky" href="/bali-shop?kat=sperky#katalog"><div class="f"><img id="vstup-2" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šperky z Bali</b><small>křídla, perleť, paua a ruční práce</small><i>Prohlédnout ›</i></div></a>
+    <a class="vstup" data-k="saty" href="/bali-shop?kat=saty#katalog"><div class="f"><img id="vstup-3" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šaty pro lehkost a ceremonii</b><small>léto, pohyb, ženskost</small><i>Prohlédnout ›</i></div></a>
   </div>
   <div class="katalog-nadpis" id="katalog"><span>Celá nabídka</span></div>
   <div class="ovladani">
@@ -354,7 +353,9 @@ async function nacti(){
     const r=await fetch('/api/produkty'); const j=await r.json();
     if(!r.ok)throw new Error(j.error||'chyba');
     VSE=j.produkty||[]; KATEGORIE=j.kategorie||[]; KURZ=j.kurz||25;
+    const kq=new URLSearchParams(location.search).get('kat'); if(kq && KATEGORIE.some(k=>k.slug===kq)) STAV.kat=kq;
     syncMena(); renderKategorie(); renderBarvy(); render(); renderVybrano();
+    if(kq){ document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('akt',x.dataset.k===STAV.kat)); setTimeout(()=>$('#katalog').scrollIntoView({behavior:'smooth',block:'start'}),80); }
     if(window.Bali&&Bali.dopis) Bali.dopis(document.querySelector('.wrap'));
   }catch(e){ $('#mrizka').innerHTML='<div class="prazdno" style="grid-column:1/-1">Obchod se nepodařilo načíst.</div>'; }
 }
@@ -401,7 +402,8 @@ function render(){
   else if(s==='drahe')list.sort((a,b)=>(b[pole]||0)-(a[pole]||0));
   else if(s==='az')list.sort((a,b)=>a.nazev.localeCompare(b.nazev,'cs'));
   else if(s==='nove')list.sort((a,b)=>new Date(b.vytvoreno)-new Date(a.vytvoreno));
-  // 'dop' = pořadí z API (doporučené první)
+  // 'dop' = pořadí z API; bez filtru začíná katalog dalšími kousky, pětice z „Vybráno“ jde na konec
+  else if(!(STAV.kat!=='vse' || STAV.q || STAV.barva || STAV.cmin!=null || STAV.cmax!=null)) list=list.filter(p=>!p.doporucujeme).concat(list.filter(p=>p.doporucujeme));
 
 
   const filtrAktivni = STAV.kat!=='vse' || STAV.q || STAV.barva || STAV.cmin!=null || STAV.cmax!=null;
@@ -429,7 +431,7 @@ function karta(p){
     </a>`;
 }
 function renderVybrano(){
-  const v=VSE.filter(p=>p.doporucujeme).slice(0,6);
+  const v=VSE.filter(p=>p.doporucujeme).slice(0,5);
   $('#vybrano').style.display=v.length?'':'none';
   $('#mrizka-vybrano').innerHTML=v.map(karta).join('');
   // obrázky vstupů: první fotka z dané kategorie (doporučené napřed)
@@ -438,7 +440,7 @@ function renderVybrano(){
   });
 }
 document.querySelectorAll('.vstup').forEach(a=>a.onclick=e=>{
-  e.preventDefault(); STAV.kat=a.dataset.k; render();
+  e.preventDefault(); STAV.kat=a.dataset.k; history.replaceState(null,'','/bali-shop?kat='+STAV.kat+'#katalog'); render();
   document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('akt',x.dataset.k===STAV.kat));
   $('#katalog').scrollIntoView({behavior:'smooth',block:'start'});
 });

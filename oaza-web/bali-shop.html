@@ -133,6 +133,12 @@
   @media(max-width:640px){.vybrano .mrizka{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px 2px 14px;margin:0 -22px;padding-left:22px;padding-right:22px;-webkit-overflow-scrolling:touch}.vybrano .mrizka .karta-prod{flex:0 0 62vw;scroll-snap-align:start}.vybrano .mrizka::-webkit-scrollbar{height:0}}
   .vybrano{margin:44px 0 6px;text-align:center}
   .vybrano .mrizka{grid-template-columns:repeat(5,1fr);gap:22px 18px}
+  /* hrdinové: fotka celá, bez ořezu, na jemném podkladu */
+  .vybrano .foto{background:#F2EBDC}
+  .vybrano .foto img{object-fit:contain;padding:6px;box-sizing:border-box}
+  .vybrano .foto img.druha{display:none}
+  .vybrano .karta-prod:hover .foto img.prvni{opacity:1;transform:scale(1.03)}
+  .vybrano h3{text-transform:none}
   .dodani-radek{color:var(--tlumeny);font-style:italic;font-size:.92rem;margin:4px 0 0}
   .vstupy-uvod{display:flex;align-items:center;gap:14px;margin:36px 0 -22px;color:var(--zlata)}
   .vstupy-uvod::before,.vstupy-uvod::after{content:"";flex:1;height:1px;background:var(--linka)}

@@ -13,6 +13,26 @@
       "permanent": true
     },
     {
+      "source": "/shop",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/shop/:cesta*",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/spirit-shop",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/category/:cesta*",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
       "source": "/obchod",
       "destination": "/bali-shop",
       "permanent": true

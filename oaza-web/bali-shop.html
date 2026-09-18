@@ -436,8 +436,10 @@ function renderVybrano(){
   $('#vybrano').style.display=v.length?'':'none';
   $('#mrizka-vybrano').innerHTML=v.map(karta).join('');
   // obrázky vstupů: první fotka z dané kategorie (doporučené napřed)
-  [['darkove-sety','#vstup-1'],['sperky','#vstup-2'],['saty','#vstup-3']].forEach(([k,sel])=>{
-    const p=VSE.find(x=>x.kategorie===k&&x.fotky[0]); if(p) $(sel).src=img(p.fotky[0],800);
+  // obrázky vstupů: jiné kousky než pětice nahoře (preferovaný slug, jinak první další z kategorie)
+  [['darkove-sety','#vstup-1','balicek-laska-134'],['sperky','#vstup-2','privesek-kvet-zivota-andelska-kridla-47'],['saty','#vstup-3','ceremonialni-saty-zavazovaci-1']].forEach(([k,sel,pref])=>{
+    const p=VSE.find(x=>x.slug===pref&&x.fotky[0]) || VSE.find(x=>x.kategorie===k&&!x.doporucujeme&&x.fotky[0]) || VSE.find(x=>x.kategorie===k&&x.fotky[0]);
+    if(p) $(sel).src=img(p.fotky[0],800);
   });
 }
 document.querySelectorAll('.vstup').forEach(a=>a.onclick=e=>{

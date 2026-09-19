@@ -154,11 +154,9 @@
   .foto{background:#F2EBDC}
   /* rozmazaný podklad ze stejné fotky vyplní okraje u fotek na výšku i na šířku */
   .foto::before{content:"";position:absolute;inset:-14px;background:var(--bg) center/cover no-repeat;filter:blur(16px) saturate(.9);opacity:.5}
-  .foto img{position:relative;width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;transition:transform .7s ease,opacity .4s}
-  /* fotky na výšku (vyšší než 4:5) vyplní kartu celou, jen se jim mírně ubere nahoře a dole */
-  .foto img.vyska{object-fit:cover;object-position:50% 45%;padding:0}
+  .foto img{position:relative;width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;transition:opacity .4s}
   .foto img.druha{position:absolute;inset:0;opacity:0}
-  .karta-prod:hover .foto img.prvni{transform:scale(1.05);opacity:0}
+  .karta-prod:hover .foto img.prvni{opacity:0}
   .karta-prod:hover .foto img.druha{opacity:1;transform:scale(1.05)}
   .karta-prod:hover .foto img.druha.chybi{opacity:0}
   .karta-prod:hover .foto img.prvni.sama{opacity:1}
@@ -439,8 +437,8 @@ function karta(p){
     const sama=!f2?'sama':'', chybi=!f2?'chybi':'';
     return `<a class="karta-prod" href="/produkt/${encodeURIComponent(p.slug)}">
       <div class="foto" style="--bg:url('${esc(img(f1,80))}')">
-        <img class="prvni ${sama}" src="${esc(img(f1,520))}" alt="${esc(p.nazev)}" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight<0.78)this.classList.add('vyska')" onerror="if(!this.dataset.p){this.dataset.p=1;this.src='${esc(f1)}'}else this.style.visibility='hidden'">
-        <img class="druha ${chybi}" src="${esc(img(f2||f1,520))}" alt="" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight<0.78)this.classList.add('vyska')">
+        <img class="prvni ${sama}" src="${esc(img(f1,520))}" alt="${esc(p.nazev)}" loading="lazy" onerror="if(!this.dataset.p){this.dataset.p=1;this.src='${esc(f1)}'}else this.style.visibility='hidden'">
+        <img class="druha ${chybi}" src="${esc(img(f2||f1,520))}" alt="" loading="lazy">
         ${p.stitek?`<span class="stitek">${esc(p.stitek)}</span>`:''}
         ${p.doporucujeme?'<span class="hvezdicka">✦</span>':''}
         ${p.digitalni?'<span class="digi-tag">Digitální</span>':''}

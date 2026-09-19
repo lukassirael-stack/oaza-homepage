@@ -61,7 +61,7 @@
   .pmrizka{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:24px 20px;margin-top:24px}
   .pkarta .pfoto{aspect-ratio:4/5;overflow:hidden;background:var(--slonovina2);border:1px solid var(--linka);border-radius:16px}
   .pkarta .pfoto img{width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;background:#F2EBDC;transition:transform .6s}
-  .pkarta:hover .pfoto img{transform:scale(1.05)}
+  
   .pkarta h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.16rem;margin:10px 0 2px}
   .pkarta .pcena{color:var(--namornicka2);font-size:.96rem}
   @media(max-width:560px){.pmrizka{grid-template-columns:1fr 1fr;gap:16px 12px}}
@@ -240,7 +240,7 @@ async function nactiPodobne(p, j){
     $('#obsah').insertAdjacentHTML('beforeend',
     `<div class="podobne"><span class="eyebrow">Mohlo by se hodit</span><h2>Z kategorie ${esc(kat)}</h2>
       <div class="pmrizka">${pod.map(x=>`<a class="pkarta" href="/produkt/${encodeURIComponent(x.slug)}">
-        <div class="pfoto"><img src="${esc(img(x.fotky[0]||'',480))}" alt="${esc(x.nazev)}" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight<0.78){this.style.objectFit='cover';this.style.padding='0'}"></div>
+        <div class="pfoto"><img src="${esc(img(x.fotky[0]||'',480))}" alt="${esc(x.nazev)}" loading="lazy"></div>
         <h3>${esc(x.nazev)}</h3><div class="pcena">${x.cena.toLocaleString('cs-CZ')} Kč</div></a>`).join('')}</div></div>`);
     if(window.Bali&&Bali.dopis) Bali.dopis($('#obsah'));
   }catch(e){}

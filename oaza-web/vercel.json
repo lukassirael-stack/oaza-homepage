@@ -60,6 +60,246 @@
       "permanent": true
     },
     {
+      "source": "/blog",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:cesta*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/post/:cesta*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/product-page",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/cart-page",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/checkout",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/thank-you-page",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/wishlist",
+      "destination": "/bali-shop",
+      "permanent": true
+    },
+    {
+      "source": "/book-online",
+      "destination": "/pobyt-ve-svetle",
+      "permanent": true
+    },
+    {
+      "source": "/bookings-checkout",
+      "destination": "/pobyt-ve-svetle",
+      "permanent": true
+    },
+    {
+      "source": "/service-page/:cesta*",
+      "destination": "/pobyt-ve-svetle",
+      "permanent": true
+    },
+    {
+      "source": "/rooms",
+      "destination": "/pobyt-ve-svetle",
+      "permanent": true
+    },
+    {
+      "source": "/rooms/:cesta*",
+      "destination": "/pobyt-ve-svetle",
+      "permanent": true
+    },
+    {
+      "source": "/events",
+      "destination": "/akce",
+      "permanent": true
+    },
+    {
+      "source": "/kalendar-akci",
+      "destination": "/akce",
+      "permanent": true
+    },
+    {
+      "source": "/kalendář-akcí",
+      "destination": "/akce",
+      "permanent": true
+    },
+    {
+      "source": "/akce-1",
+      "destination": "/akce",
+      "permanent": true
+    },
+    {
+      "source": "/account/:cesta*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/members",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/members/:cesta*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/profile/:cesta*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/forum/:cesta*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blank",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blank-:cesta*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/copy-of-:cesta*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/:cesta*",
+      "destination": "/:cesta*",
+      "permanent": true
+    },
+    {
+      "source": "/sk/:cesta*",
+      "destination": "/:cesta*",
+      "permanent": true
+    },
+    {
+      "source": "/cs/:cesta*",
+      "destination": "/:cesta*",
+      "permanent": true
+    },
+    {
+      "source": "/portálová-zahrada",
+      "destination": "/portalova-zahrada",
+      "permanent": true
+    },
+    {
+      "source": "/pobyt-ve-světle",
+      "destination": "/pobyt-ve-svetle",
+      "permanent": true
+    },
+    {
+      "source": "/nabídka-služeb",
+      "destination": "/nabidka-sluzeb",
+      "permanent": true
+    },
+    {
+      "source": "/o-nás",
+      "destination": "/o-nas",
+      "permanent": true
+    },
+    {
+      "source": "/pronájem-prostor",
+      "destination": "/pronajem-prostor",
+      "permanent": true
+    },
+    {
+      "source": "/rodové-klíče",
+      "destination": "/rodove-klice",
+      "permanent": true
+    },
+    {
+      "source": "/kraniosakrální-terapie",
+      "destination": "/kraniosakralni-terapie",
+      "permanent": true
+    },
+    {
+      "source": "/harmonizace-a-očista-prostoru",
+      "destination": "/harmonizace-a-ocista-prostoru",
+      "permanent": true
+    },
+    {
+      "source": "/shamballa-zasvěcení",
+      "destination": "/shamballa-zasveceni",
+      "permanent": true
+    },
+    {
+      "source": "/terapie-v-oáze",
+      "destination": "/terapie-v-oaze",
+      "permanent": true
+    },
+    {
+      "source": "/karma-minulé-životy",
+      "destination": "/karma-minule-zivoty",
+      "permanent": true
+    },
+    {
+      "source": "/focení-aury-a-čaker",
+      "destination": "/foceni-aury-a-caker",
+      "permanent": true
+    },
+    {
+      "source": "/dálková-harmonizace-aury",
+      "destination": "/dalkova-harmonizace-aury",
+      "permanent": true
+    },
+    {
+      "source": "/harmonizace-jména-a-příjmení",
+      "destination": "/harmonizace-jmena-a-prijmeni",
+      "permanent": true
+    },
+    {
+      "source": "/spolupráce",
+      "destination": "/spoluprace",
+      "permanent": true
+    },
+    {
+      "source": "/vesmírný-kód-zrození",
+      "destination": "/vesmirny-kod-zrozeni",
+      "permanent": true
+    },
+    {
+      "source": "/vyladění",
+      "destination": "/vyladeni",
+      "permanent": true
+    },
+    {
+      "source": "/obchodní-podmínky",
+      "destination": "/obchodni-podminky",
+      "permanent": true
+    },
+    {
+      "source": "/aktivace-osobního-portálu",
+      "destination": "/portalova-zahrada",
+      "permanent": true
+    },
+    {
+      "source": "/aktivace-osobniho-portalu",
+      "destination": "/portalova-zahrada",
+      "permanent": true
+    },
+    {
       "source": "/:path((?!img/|api/|product-page/|favicon|oaza-adamanthea-favicon|robots\\.txt|sitemap\\.xml|sitemap-produkty\\.xml|feed-google\\.xml|feed-zbozi\\.xml|feed-heureka\\.xml|index\\.html|pobyt|pobyt-ve-svetle|portalova-zahrada|nabidka-sluzeb|o-nas|pronajem-prostor|rodove-klice|kraniosakralni-terapie|harmonizace-a-ocista-prostoru|shamballa-zasveceni|terapie-v-oaze|terapie-hojnosti-a-prosperity|karma-minule-zivoty|foceni-aury-a-caker|dalkova-harmonizace-aury|harmonizace-jmena-a-prijmeni|lemoare-krystaly|spoluprace|vesmirny-kod-zrozeni|vyladeni|qr-vyladeni\\.png|akce|admin-akce|gdpr|obchodni-podminky|kontakt|platba|prehled-navstevnosti|zdravi|admin-produkty|import-wix|rehost-fotky|obchod|produkt|pokladna|bali-shop|admin-objednavky|kosik\\.js|bali\\.js|navstevnost\\.js).+)",
       "has": [
         {

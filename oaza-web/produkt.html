@@ -240,7 +240,7 @@ async function nactiPodobne(p, j){
     $('#obsah').insertAdjacentHTML('beforeend',
     `<div class="podobne"><span class="eyebrow">Mohlo by se hodit</span><h2>Z kategorie ${esc(kat)}</h2>
       <div class="pmrizka">${pod.map(x=>`<a class="pkarta" href="/produkt/${encodeURIComponent(x.slug)}">
-        <div class="pfoto"><img src="${esc(img(x.fotky[0]||'',480))}" alt="${esc(x.nazev)}" loading="lazy"></div>
+        <div class="pfoto"><img src="${esc(img(x.fotky[0]||'',480))}" alt="${esc(x.nazev)}" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight<0.78){this.style.objectFit='cover';this.style.padding='0'}"></div>
         <h3>${esc(x.nazev)}</h3><div class="pcena">${x.cena.toLocaleString('cs-CZ')} Kč</div></a>`).join('')}</div></div>`);
     if(window.Bali&&Bali.dopis) Bali.dopis($('#obsah'));
   }catch(e){}

@@ -437,8 +437,8 @@ function karta(p){
     const sama=!f2?'sama':'', chybi=!f2?'chybi':'';
     return `<a class="karta-prod" href="/produkt/${encodeURIComponent(p.slug)}">
       <div class="foto">
-        <img class="prvni ${sama}" src="${esc(img(f1,520))}" alt="${esc(p.nazev)}" loading="lazy" onerror="if(!this.dataset.p){this.dataset.p=1;this.src='${esc(f1)}'}else this.style.visibility='hidden'">
-        <img class="druha ${chybi}" src="${esc(img(f2||f1,520))}" alt="" loading="lazy">
+        <img class="prvni ${sama}" src="${esc(f1)}" alt="${esc(p.nazev)}" loading="lazy" onerror="this.style.visibility='hidden'">
+        <img class="druha ${chybi}" src="${esc(f2||f1)}" alt="" loading="lazy">
         ${p.stitek?`<span class="stitek">${esc(p.stitek)}</span>`:''}
         ${p.doporucujeme?'<span class="hvezdicka">✦</span>':''}
         ${p.digitalni?'<span class="digi-tag">Digitální</span>':''}

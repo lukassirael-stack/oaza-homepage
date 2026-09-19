@@ -188,7 +188,7 @@ function render(p){
   $('#obsah').innerHTML=`
   <div class="detail">
     <div class="galerie">
-      <div class="hlavni"><img id="hlavniFoto" src="${esc(img(fotky[0]||'',1100))}" alt="${esc(p.nazev)}" onerror="if(!this.dataset.p){this.dataset.p=1;this.src=window.FOTKY[0]}"></div>
+      <div class="hlavni"><img id="hlavniFoto" src="${esc(fotky[0]||'')}" alt="${esc(p.nazev)}"></div>
       ${fotky.length>1?`<div class="mini">${fotky.map((f,i)=>`<img src="${esc(img(f,240))}" class="${i===0?'akt':''}" loading="lazy" onclick="prepni(${i},this)">`).join('')}</div>`:''}
       ${(p.videa||[]).map(v=>`<video src="${esc(v)}" controls playsinline></video>`).join('')}
     </div>
@@ -227,7 +227,7 @@ function render(p){
       $('#cenaText').textContent=cenaFmt(window.PROD);};
   });
 }
-window.prepni=(i,el)=>{$('#hlavniFoto').src=img(window.FOTKY[i],1100);
+window.prepni=(i,el)=>{$('#hlavniFoto').src=window.FOTKY[i];
   document.querySelectorAll('.mini img').forEach(x=>x.classList.remove('akt'));el.classList.add('akt');};
 
 
@@ -240,7 +240,7 @@ async function nactiPodobne(p, j){
     $('#obsah').insertAdjacentHTML('beforeend',
     `<div class="podobne"><span class="eyebrow">Mohlo by se hodit</span><h2>Z kategorie ${esc(kat)}</h2>
       <div class="pmrizka">${pod.map(x=>`<a class="pkarta" href="/produkt/${encodeURIComponent(x.slug)}">
-        <div class="pfoto"><img src="${esc(img(x.fotky[0]||'',480))}" alt="${esc(x.nazev)}" loading="lazy"></div>
+        <div class="pfoto"><img src="${esc(x.fotky[0]||'')}" alt="${esc(x.nazev)}" loading="lazy"></div>
         <h3>${esc(x.nazev)}</h3><div class="pcena">${x.cena.toLocaleString('cs-CZ')} Kč</div></a>`).join('')}</div></div>`);
     if(window.Bali&&Bali.dopis) Bali.dopis($('#obsah'));
   }catch(e){}

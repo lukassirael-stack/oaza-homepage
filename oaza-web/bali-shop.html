@@ -130,7 +130,6 @@
   @media(max-width:900px){.vstupy{gap:16px}.vstup .f{aspect-ratio:3/4}}
   @media(max-width:640px){.vstupy{grid-template-columns:1fr;gap:20px;max-width:380px;margin-left:auto;margin-right:auto}.vstup .f{aspect-ratio:4/5}}
   @media(max-width:900px){.vybrano .mrizka{gap:12px 10px}.vybrano .mrizka h3{font-size:.95rem}}
-  @media(max-width:640px){.vybrano .mrizka{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px 2px 14px;margin:0 -22px;padding-left:22px;padding-right:22px;-webkit-overflow-scrolling:touch}.vybrano .mrizka .karta-prod{flex:0 0 56vw;scroll-snap-align:start}.vybrano h2{font-size:1.4rem;line-height:1.25;max-width:22ch;margin-left:auto;margin-right:auto}.vybrano .mrizka::-webkit-scrollbar{height:0}}
   .vybrano{margin:44px 0 6px;text-align:center}
   .vybrano .mrizka{grid-template-columns:repeat(5,1fr);gap:22px 18px}
   /* hrdinové: fotka celá, bez ořezu, na jemném podkladu */
@@ -200,6 +199,17 @@
     .filtry-toggle{display:block;font-size:.66rem;padding:8px 18px}
     #filtry-obal.sbaleno{display:none}
     .foto{border-radius:12px}
+  }
+  @media(max-width:640px){
+    .vybrano h2{font-size:1.45rem;line-height:1.25;max-width:24ch;margin-left:auto;margin-right:auto}
+    .vybrano .mrizka{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px 22px 6px;margin:0 -22px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .vybrano .mrizka::-webkit-scrollbar{display:none}
+    .vybrano .mrizka .karta-prod{flex:0 0 46vw;scroll-snap-align:start}
+    .vybrano .mrizka .karta-prod h3{font-size:1rem}
+    .vybrano .mrizka .karta-prod .cena{font-size:.95rem}
+    .pas-hint{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--zlata);margin:2px 0 6px}
+    .pas-hint i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--zlata);opacity:.35}
+    .pas-hint i.on{opacity:1}
   }
 
 
@@ -274,6 +284,7 @@
     <div class="eyebrow">Vybráno z Bali Shopu</div>
     <h2>Pět kousků, které bychom dnes vybrali pro sebe nebo jako dar</h2>
     <div class="mrizka" id="mrizka-vybrano"><div class="nacitam" style="grid-column:1/-1">Načítám…</div></div>
+    <div class="pas-hint" id="pas-hint" style="display:none"></div>
     <p class="dodani-radek">Odesíláme do 3 pracovních dnů · Zásilkovna od 89 Kč · kartou, Apple Pay i Google Pay</p>
   </div>
   <div class="vstupy-uvod"><span>Kudy dál</span></div>
@@ -440,6 +451,11 @@ function renderVybrano(){
   const v=VSE.filter(p=>p.doporucujeme).slice(0,5);
   $('#vybrano').style.display=v.length?'':'none';
   $('#mrizka-vybrano').innerHTML=v.map(karta).join('');
+  const hint=$('#pas-hint'), pas=$('#mrizka-vybrano');
+  if(hint && v.length>1 && window.matchMedia('(max-width:640px)').matches){
+    hint.style.display=''; hint.innerHTML='<span>posuň</span>'+v.map((_,i)=>`<i class="${i===0?'on':''}"></i>`).join('')+'<span>→</span>';
+    pas.addEventListener('scroll',()=>{ const k=pas.children[0]; if(!k) return; const w=k.getBoundingClientRect().width+12; const i=Math.min(v.length-1,Math.round(pas.scrollLeft/w)); hint.querySelectorAll('i').forEach((d,j)=>d.classList.toggle('on',j===i)); },{passive:true});
+  }
   // obrázky vstupů: první fotka z dané kategorie (doporučené napřed)
   // obrázky vstupů: jiné kousky než pětice nahoře (preferovaný slug, jinak první další z kategorie)
   [['darkove-sety','#vstup-1','balicek-laska-134'],['sperky','#vstup-2','privesek-kvet-zivota-andelska-kridla-47'],['saty','#vstup-3','ceremonialni-saty-zavazovaci-1']].forEach(([k,sel,pref])=>{

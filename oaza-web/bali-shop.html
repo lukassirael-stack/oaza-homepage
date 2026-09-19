@@ -151,10 +151,11 @@
   .mrizka{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:30px 24px;padding:8px 0 60px}
   .karta-prod{cursor:pointer;display:flex;flex-direction:column}
   .foto{position:relative;overflow:hidden;background:var(--slonovina2);border:1px solid var(--linka);border-radius:16px}
-  /* fotka přesně tak, jak je nahraná: plná šířka karty, výška podle fotky */
-  .foto img{display:block;width:100%;height:auto;transition:opacity .4s}
-  .foto img.druha{position:absolute;inset:0;height:100%;object-fit:cover;opacity:0}
-  .mrizka{align-items:start}
+  /* jednotná karta 2:3, fotka celá, okraje dovyplní rozmazaný podklad ze stejné fotky */
+  .foto{aspect-ratio:2/3;background:#F2EBDC}
+  .foto::before{content:"";position:absolute;inset:-16px;background:var(--bg) center/cover no-repeat;filter:blur(18px) saturate(.85);opacity:.55}
+  .foto img{position:relative;display:block;width:100%;height:100%;object-fit:contain;transition:opacity .4s}
+  .foto img.druha{position:absolute;inset:0;opacity:0}
   .foto img.druha{position:absolute;inset:0;opacity:0}
   .karta-prod:hover .foto img.prvni{opacity:0}
   .karta-prod:hover .foto img.druha{opacity:1}
@@ -436,7 +437,7 @@ function karta(p){
     const f1=p.fotky[0]||'', f2=p.fotky[1]||'';
     const sama=!f2?'sama':'', chybi=!f2?'chybi':'';
     return `<a class="karta-prod" href="/produkt/${encodeURIComponent(p.slug)}">
-      <div class="foto">
+      <div class="foto" style="--bg:url('${esc(f1)}')">
         <img class="prvni ${sama}" src="${esc(f1)}" alt="${esc(p.nazev)}" loading="lazy" onerror="this.style.visibility='hidden'">
         <img class="druha ${chybi}" src="${esc(f2||f1)}" alt="" loading="lazy">
         ${p.stitek?`<span class="stitek">${esc(p.stitek)}</span>`:''}

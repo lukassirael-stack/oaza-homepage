@@ -59,8 +59,9 @@
   .podobne h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.9rem;text-align:center;margin-bottom:6px}
   .podobne .eyebrow{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--zlata);text-align:center;display:block}
   .pmrizka{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:24px 20px;margin-top:24px}
-  .pkarta .pfoto{overflow:hidden;background:var(--slonovina2);border:1px solid var(--linka);border-radius:16px}
-  .pkarta .pfoto img{display:block;width:100%;height:auto}
+  .pkarta .pfoto{position:relative;aspect-ratio:2/3;overflow:hidden;background:#F2EBDC;border:1px solid var(--linka);border-radius:16px}
+  .pfoto::before{content:"";position:absolute;inset:-16px;background:var(--bg) center/cover no-repeat;filter:blur(18px) saturate(.85);opacity:.55}
+  .pkarta .pfoto img{position:relative;display:block;width:100%;height:100%;object-fit:contain}
   
   .pkarta h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.16rem;margin:10px 0 2px}
   .pkarta .pcena{color:var(--namornicka2);font-size:.96rem}
@@ -240,7 +241,7 @@ async function nactiPodobne(p, j){
     $('#obsah').insertAdjacentHTML('beforeend',
     `<div class="podobne"><span class="eyebrow">Mohlo by se hodit</span><h2>Z kategorie ${esc(kat)}</h2>
       <div class="pmrizka">${pod.map(x=>`<a class="pkarta" href="/produkt/${encodeURIComponent(x.slug)}">
-        <div class="pfoto"><img src="${esc(x.fotky[0]||'')}" alt="${esc(x.nazev)}" loading="lazy"></div>
+        <div class="pfoto" style="--bg:url('${esc(x.fotky[0]||'')}')"><img src="${esc(x.fotky[0]||'')}" alt="${esc(x.nazev)}" loading="lazy"></div>
         <h3>${esc(x.nazev)}</h3><div class="pcena">${x.cena.toLocaleString('cs-CZ')} Kč</div></a>`).join('')}</div></div>`);
     if(window.Bali&&Bali.dopis) Bali.dopis($('#obsah'));
   }catch(e){}

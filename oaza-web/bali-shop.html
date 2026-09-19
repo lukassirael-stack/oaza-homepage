@@ -130,7 +130,7 @@
   @media(max-width:900px){.vstupy{gap:16px}.vstup .f{aspect-ratio:3/4}}
   @media(max-width:640px){.vstupy{grid-template-columns:1fr;gap:20px;max-width:380px;margin-left:auto;margin-right:auto}.vstup .f{aspect-ratio:4/5}}
   @media(max-width:900px){.vybrano .mrizka{gap:12px 10px}.vybrano .mrizka h3{font-size:.95rem}}
-  @media(max-width:640px){.vybrano .mrizka{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px 2px 14px;margin:0 -22px;padding-left:22px;padding-right:22px;-webkit-overflow-scrolling:touch}.vybrano .mrizka .karta-prod{flex:0 0 62vw;scroll-snap-align:start}.vybrano .mrizka::-webkit-scrollbar{height:0}}
+  @media(max-width:640px){.vybrano .mrizka{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px 2px 14px;margin:0 -22px;padding-left:22px;padding-right:22px;-webkit-overflow-scrolling:touch}.vybrano .mrizka .karta-prod{flex:0 0 56vw;scroll-snap-align:start}.vybrano h2{font-size:1.4rem;line-height:1.25;max-width:22ch;margin-left:auto;margin-right:auto}.vybrano .mrizka::-webkit-scrollbar{height:0}}
   .vybrano{margin:44px 0 6px;text-align:center}
   .vybrano .mrizka{grid-template-columns:repeat(5,1fr);gap:22px 18px}
   /* hrdinové: fotka celá, bez ořezu, na jemném podkladu */
@@ -153,7 +153,9 @@
   .karta-prod{cursor:pointer;display:flex;flex-direction:column}
   .foto{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--slonovina2);border:1px solid var(--linka);border-radius:16px}
   .foto{background:#F2EBDC}
-  .foto img{width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;transition:transform .7s ease,opacity .4s}
+  /* rozmazaný podklad ze stejné fotky vyplní okraje u fotek na výšku i na šířku */
+  .foto::before{content:"";position:absolute;inset:-14px;background:var(--bg) center/cover no-repeat;filter:blur(16px) saturate(.9);opacity:.5}
+  .foto img{position:relative;width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;transition:transform .7s ease,opacity .4s}
   .foto img.druha{position:absolute;inset:0;opacity:0}
   .karta-prod:hover .foto img.prvni{transform:scale(1.05);opacity:0}
   .karta-prod:hover .foto img.druha{opacity:1;transform:scale(1.05)}
@@ -423,7 +425,7 @@ function karta(p){
     const f1=p.fotky[0]||'', f2=p.fotky[1]||'';
     const sama=!f2?'sama':'', chybi=!f2?'chybi':'';
     return `<a class="karta-prod" href="/produkt/${encodeURIComponent(p.slug)}">
-      <div class="foto">
+      <div class="foto" style="--bg:url('${esc(img(f1,80))}')">
         <img class="prvni ${sama}" src="${esc(img(f1,520))}" alt="${esc(p.nazev)}" loading="lazy" onerror="if(!this.dataset.p){this.dataset.p=1;this.src='${esc(f1)}'}else this.style.visibility='hidden'">
         <img class="druha ${chybi}" src="${esc(img(f2||f1,520))}" alt="" loading="lazy">
         ${p.stitek?`<span class="stitek">${esc(p.stitek)}</span>`:''}

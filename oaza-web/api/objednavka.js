@@ -7,6 +7,63 @@ const IBAN_CZK = 'CZ1655000000008159854004';      // Raiffeisenbank 8159854004/5
 const IBAN_EUR = 'CZ1820100000002500144501';      // Fio (EUR)
 const VS_BASE  = 700000;                            // VS = 700000 + číslo objednávky
 
+
+// ---------- Dopis z Bali Shopu (přihlášení k odběru → Supabase + seznam v Brevo + uvítací e-mail) ----------
+import crypto from 'node:crypto';
+const DOPIS_SEZNAM = 'Dopis z Bali Shopu';
+let dopisListId = null;
+async function brevo(path, opts = {}) {
+  const r = await fetch('https://api.brevo.com/v3' + path, {
+    ...opts,
+    headers: { 'api-key': process.env.BREVO_API_KEY, 'content-type': 'application/json', accept: 'application/json', ...(opts.headers || {}) },
+  });
+  const t = await r.text(); let d = null; try { d = t ? JSON.parse(t) : null; } catch { d = t; }
+  return { ok: r.ok, status: r.status, data: d };
+}
+async function dopisSeznam() {
+  if (dopisListId) return dopisListId;
+  const l = await brevo('/contacts/lists?limit=50&offset=0');
+  const hit = l.ok && (l.data.lists || []).find(x => x.name === DOPIS_SEZNAM);
+  if (hit) return (dopisListId = hit.id);
+  const f = await brevo('/contacts/folders?limit=10&offset=0');
+  let folderId = f.ok && f.data.folders && f.data.folders[0] && f.data.folders[0].id;
+  if (!folderId) { const nf = await brevo('/contacts/folders', { method: 'POST', body: JSON.stringify({ name: 'Oáza' }) }); folderId = nf.data && nf.data.id; }
+  const nl = await brevo('/contacts/lists', { method: 'POST', body: JSON.stringify({ name: DOPIS_SEZNAM, folderId }) });
+  return (dopisListId = nl.data && nl.data.id);
+}
+const dopisPodpis = (email) => crypto.createHmac('sha256', process.env.SUPABASE_SERVICE_KEY || 'x').update('dopis:' + email).digest('hex').slice(0, 20);
+const SITE = 'https://oaza-adamanthea.cz';
+function uvitaciEmail(email) {
+  const odhl = `${SITE}/api/objednavka?odhlasit=${encodeURIComponent(email)}&t=${dopisPodpis(email)}`;
+  return `<div style="font-family:Georgia,serif;color:#1B2A41;max-width:560px;margin:0 auto;padding:24px;background:#FBF8F1">
+    <p style="font-family:Arial,sans-serif;letter-spacing:.3em;font-size:11px;color:#B8924A;text-transform:uppercase;margin:0 0 14px">✦ Dopis z Bali Shopu</p>
+    <h1 style="font-weight:normal;font-size:26px;margin:0 0 14px">Vítej mezi námi</h1>
+    <p style="font-size:17px;line-height:1.6">Děkujeme, že chceš být u toho. Jednou za měsíc ti napíšeme, co nového dorazilo — jedinečné kousky z Bali, krystaly a malé rituály pro domov. Krátce a s příběhem.</p>
+    <p style="font-size:17px;line-height:1.6">Na úvod ti posíláme pět kousků, které bychom dnes vybrali pro sebe nebo jako dar:</p>
+    <p style="text-align:center;margin:26px 0"><a href="${SITE}/bali-shop#vybrano" style="background:#1B2A41;color:#F6F1E7;text-decoration:none;padding:13px 26px;border-radius:9px;font-family:Arial,sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase">Vybráno z Bali Shopu</a></p>
+    <p style="font-size:17px;line-height:1.6">S láskou<br>Lukáš a Martina · Oáza Adamanthea</p>
+    <p style="font-size:12px;color:#7A715F;margin-top:30px;border-top:1px solid #E2D6BC;padding-top:12px">Tento e-mail ti přišel, protože ses přihlásil(a) k Dopisu z Bali Shopu na oaza-adamanthea.cz. <a href="${odhl}" style="color:#7A715F">Odhlásit odběr</a></p>
+  </div>`;
+}
+async function dopisPrihlasit(email, zdroj, rest) {
+  await rest('rpc/eshop_dopis_prihlasit', { method: 'POST', body: JSON.stringify({ p_email: email, p_zdroj: zdroj }) });
+  if (!process.env.BREVO_API_KEY) return;
+  try {
+    const listId = await dopisSeznam();
+    const c = await brevo('/contacts', { method: 'POST', body: JSON.stringify({ email, listIds: listId ? [listId] : [], updateEnabled: true, attributes: { ZDROJ: 'Bali Shop' } }) });
+    if (!c.ok && listId) await brevo(`/contacts/lists/${listId}/contacts/add`, { method: 'POST', body: JSON.stringify({ emails: [email] }) });
+    await brevo('/smtp/email', { method: 'POST', body: JSON.stringify({
+      sender: { name: 'Oáza Adamanthea', email: 'info@oaza-adamanthea.cz' }, to: [{ email }],
+      subject: 'Vítej u Dopisu z Bali Shopu ✦', htmlContent: uvitaciEmail(email),
+    }) });
+  } catch (e) { console.error('dopis brevo:', e && e.message); }
+}
+async function dopisOdhlasit(email, rest) {
+  await rest(`eshop_dopis?email=eq.${encodeURIComponent(email)}`, { method: 'DELETE', prefer: 'return=minimal' });
+  if (!process.env.BREVO_API_KEY) return;
+  try { const listId = await dopisSeznam(); if (listId) await brevo(`/contacts/lists/${listId}/contacts/remove`, { method: 'POST', body: JSON.stringify({ emails: [email] }) }); } catch {}
+}
+
 export default async function handler(req, res) {
   const URL = process.env.SUPABASE_URL;
   const KEY = process.env.SUPABASE_SERVICE_KEY;
@@ -30,6 +87,14 @@ export default async function handler(req, res) {
 
   // GET = ceny dopravy + kurz (pro pokladnu), nebo živé ověření slevového kódu
   if (req.method === 'GET') {
+    // ?odhlasit=email&t=podpis → odhlášení z Dopisu
+    if (req.query && req.query.odhlasit) {
+      const em = String(req.query.odhlasit).trim().toLowerCase();
+      const okPodpis = String(req.query.t || '') === dopisPodpis(em);
+      if (okPodpis) { try { await dopisOdhlasit(em, rest); } catch {} }
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.status(200).send(`<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dopis z Bali Shopu</title><body style="margin:0;background:#F3ECDF;font-family:Georgia,serif;color:#1B2A41;display:grid;place-items:center;min-height:100vh;text-align:center;padding:20px"><div><p style="letter-spacing:.3em;font-size:12px;color:#B8924A;text-transform:uppercase">✦ Dopis z Bali Shopu</p><h1 style="font-weight:normal">${okPodpis ? 'Odběr je odhlášený' : 'Odkaz pro odhlášení je neúplný'}</h1><p style="font-style:italic;color:#33486A">${okPodpis ? 'Děkujeme za společný čas. Bali Shop tu pro tebe zůstává kdykoli.' : 'Napiš nám prosím na info@oaza-adamanthea.cz a odhlásíme tě ručně.'}</p><p><a href="/bali-shop" style="color:#B8924A">Zpět do Bali Shopu</a></p></div></body>`);
+    }
     // ?overit_kod=SVETLO10&mezisoucet=1000&mena=CZK  → { platny, sleva, duvod }
     if (req.query && req.query.overit_kod) {
       try {
@@ -68,6 +133,12 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Použij POST.' });
 
   const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+  if (body.akce === 'dopis') {
+    const em = String(body.email || '').trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em) || em.length > 200) return res.status(400).json({ error: 'E-mail' });
+    try { await dopisPrihlasit(em, String(body.zdroj || '').slice(0, 40), rest); return res.status(200).json({ ok: true }); }
+    catch (e) { return res.status(500).json({ error: 'Uložení se nepodařilo.' }); }
+  }
   const platba = body.platba === 'karta' ? 'karta' : 'qr';
 
   try {

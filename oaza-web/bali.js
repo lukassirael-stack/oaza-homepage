@@ -75,6 +75,7 @@
       <p>Napíšeme ti, když dorazí něco výjimečného — krátce, s příběhem, jednou měsíčně.</p>
       <form class="bali-dopis-f"><input type="email" required placeholder="tvůj e-mail" autocomplete="email"><button type="submit">Chci dopis</button></form>
       <div class="bali-dopis-z"></div>
+      <div class="bali-dopis-gdpr">Odběr odhlásíš kdykoli jedním klikem v každém dopisu · <a href="/gdpr">Ochrana osobních údajů</a></div>
     </div></div>`;
   }
   function dopisMount(host) {
@@ -83,14 +84,14 @@
     st.textContent = `.bali-dopis{margin:56px auto 20px;max-width:640px;padding:0 16px}.bali-dopis-in{background:#FBF8F1;border:1px solid #E2D6BC;border-radius:16px;padding:30px 26px;text-align:center;color:#1B2A41;font-family:'EB Garamond',Georgia,serif}
 .bali-dopis-eb{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:#B8924A}.bali-dopis h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.55rem;margin:8px 0 6px}.bali-dopis p{margin:0 0 16px;color:#33486A;font-style:italic}
 .bali-dopis-f{display:flex;gap:8px;max-width:420px;margin:0 auto}.bali-dopis-f input{flex:1;min-width:0;padding:11px 14px;border:1px solid #E2D6BC;border-radius:9px;background:#fff;font:inherit;font-size:1rem}.bali-dopis-f input:focus{outline:none;border-color:#B8924A}
-.bali-dopis-f button{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:#1B2A41;color:#F6F1E7;border:none;border-radius:9px;padding:11px 16px;cursor:pointer;white-space:nowrap}.bali-dopis-z{margin-top:10px;font-style:italic;color:#7A715F;min-height:1.2em}
+.bali-dopis-f button{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:#1B2A41;color:#F6F1E7;border:none;border-radius:9px;padding:11px 16px;cursor:pointer;white-space:nowrap}.bali-dopis-z{margin-top:10px;font-style:italic;color:#7A715F;min-height:1.2em}.bali-dopis-gdpr{font-size:.82rem;color:#7A715F;margin-top:4px}.bali-dopis-gdpr a{color:#B8924A}
 @media(max-width:480px){.bali-dopis-f{flex-direction:column}}`;
     document.head.appendChild(st);
     host.insertAdjacentHTML('beforeend', dopisHTML());
     const f = document.querySelector('#bali-dopis form'), z = document.querySelector('.bali-dopis-z');
     f.onsubmit = async (e) => {
       e.preventDefault(); const em = f.querySelector('input').value.trim(); const b = f.querySelector('button'); b.disabled = true;
-      try { const r = await fetch(SB + 'eshop_dopis_prihlasit', { method: 'POST', headers: { apikey: KEY, Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_email: em, p_zdroj: location.pathname.slice(1, 40) }) }); const ok = r.ok && (await r.json()) === true; z.textContent = ok ? 'Děkujeme — první dopis přijde, až bude co ukázat. ✦' : 'Zkontroluj prosím e-mail.'; if (ok) f.style.display = 'none'; }
+      try { const r = await fetch('/api/objednavka', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ akce: 'dopis', email: em, zdroj: location.pathname.slice(1, 40) }) }); const ok = r.ok; z.textContent = ok ? 'Děkujeme — uvítání máš v e-mailu. ✦' : 'Zkontroluj prosím e-mail.'; if (ok) f.style.display = 'none'; }
       catch (err) { z.textContent = 'Zkus to prosím za chvíli.'; }
       b.disabled = false;
     };

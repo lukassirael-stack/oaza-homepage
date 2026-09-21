@@ -118,11 +118,14 @@
   .vstup::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);z-index:2}
   .vstup:hover{transform:translateY(-4px);box-shadow:0 0 0 6px rgba(184,146,74,.14),0 26px 50px -22px rgba(27,42,65,.4),0 0 80px -8px rgba(217,188,126,.7)}
   .vstup .f{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--slonovina2)}
-  .vstup .f::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(251,248,241,.9) 0%,rgba(251,248,241,0) 32%)}
+  /* měkký přechod fotky do karty: dlouhý, plynulý (více stupňů), končí v barvě karty */
+  .vstup .f::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,
+    #FBF8F1 0%,rgba(251,248,241,.96) 8%,rgba(251,248,241,.82) 18%,rgba(251,248,241,.55) 30%,rgba(251,248,241,.25) 44%,rgba(251,248,241,.08) 58%,rgba(251,248,241,0) 72%)}
+  .vstup .f{background:#FBF8F1}
   .vstup img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block;transition:transform .9s ease}
   .vstup:hover img{transform:scale(1.05)}
-  .vstup .t{position:relative;margin-top:-30px;padding:0 18px 20px;text-align:center;color:var(--namornicka)}
-  .vstup .t .z{display:block;color:var(--zlata);font-size:1.1rem;letter-spacing:.3em;margin-bottom:2px}
+  .vstup .t{position:relative;margin-top:-46px;padding:0 18px 20px;text-align:center;color:var(--namornicka)}
+  .vstup .t .z{display:block;color:var(--zlata);font-size:1rem;letter-spacing:.3em;margin-bottom:6px;text-shadow:0 0 12px rgba(251,248,241,.9)}
   .vstup .t b{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.5rem;line-height:1.15}
   .vstup .t small{display:block;font-style:italic;color:var(--tlumeny);margin-top:4px}
   .vstup .t i{display:inline-block;font-family:'Cinzel',serif;font-style:normal;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--namornicka);border:1px solid var(--zlata);border-radius:30px;padding:7px 16px;margin-top:12px;transition:.25s}

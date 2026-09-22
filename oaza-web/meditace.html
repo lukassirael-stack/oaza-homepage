@@ -65,8 +65,8 @@ nav.web .menu{display:flex;gap:26px;font-size:.82rem;text-transform:uppercase;le
 nav.web .menu a{position:relative;padding-bottom:3px;color:var(--green);text-decoration:none;white-space:nowrap}
 nav.web .menu a:hover{color:#b8893a}
 nav.web .menu a.aktivni{color:#9c6a16;font-weight:500}
-.nav-toggle{display:none;background:none;border:none;color:#37492f;font-size:30px;cursor:pointer}
-nav.web .nav-home{margin-right:auto;display:flex;align-items:center;color:var(--green);transition:color .25s}
+.nav-toggle{display:none;background:none;border:none;color:#a8843f;font-size:30px;cursor:pointer}
+nav.web .nav-home{margin-right:auto;display:flex;align-items:center;color:#a8843f;transition:color .25s}
 nav.web .nav-home:hover{color:var(--rose-soft)}
 nav.web .btn{font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.7;padding:11px 26px;display:inline-block;background:var(--rose);color:#fdfaf5;border-radius:6px;text-decoration:none;transition:background .25s;white-space:nowrap}
 nav.web .btn:hover{background:#9c585a}
@@ -238,15 +238,20 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   .hero-logo .l4{font-size:8px}
 }
 @media (max-width:860px){
-  .hero{padding:225px 0 28px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
-  .hero .pod{max-width:30ch;font-size:22px}
-  .hero .akce .tl{font-size:21px;padding:17px 34px}
-  .hero-logo{position:absolute;top:66px;left:50%;right:auto;transform:translateX(-50%);width:min(300px,82vw)}
-  .hero-logo .l1,.hero-logo .l2{font-size:min(34px,9vw)}
-  .hero-logo .l4{font-size:min(9.5px,2.5vw)}
+  .hero{padding:205px 0 40px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
+  .hero h1{font-size:46px;letter-spacing:.05em}
+  .hero h1 .online{font-size:.62em;letter-spacing:.22em;margin-bottom:.1em}
+  .hero .pod{max-width:30ch;font-size:21px;line-height:1.3;margin:12px auto 26px}
+  .hero .akce .tl{font-size:20px;padding:13px 34px}
+  .nadpisek{font-size:13px;letter-spacing:.3em;font-weight:500;color:#8f6d33}
+  .hero-logo{position:absolute;top:80px;left:50%;right:auto;transform:translateX(-50%);width:min(250px,70vw)}
+  .hero-logo .l1,.hero-logo .l2{font-size:min(29px,7.6vw);font-weight:500}
+  .hero-logo .l2{margin-top:5px}
+  .hero-logo svg{margin:7px 0 7px}
+  .hero-logo .l4{font-size:min(9.5px,2.5vw);letter-spacing:.3em}
   .vejir{margin-top:12px;max-width:none}
   .hero-karty{margin:18px -26px 0}
-  .vyhody{display:flex;justify-content:space-between;width:100%;max-width:400px;margin:26px auto 0;padding:14px 4px;font-size:16px}
+  .vyhody{display:flex;justify-content:space-between;width:100%;max-width:400px;margin:60px auto 0;padding:14px 4px;font-size:16.5px;border-radius:22px}
   .vyhody li{flex:1;flex-direction:column;gap:8px;padding:4px 6px;text-align:center;line-height:1.2;white-space:normal}
   .vyhody svg{width:30px;height:30px}
   .hero .obal{grid-template-columns:1fr;text-align:center}

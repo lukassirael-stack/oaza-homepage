@@ -103,7 +103,9 @@ nav.web .btn:hover{background:#9c585a}
 .rukopis{font:400 26px/1.15 var(--rukopis);color:var(--zlata);transform:rotate(-7deg);pointer-events:none}
 .hero .rukopis{position:absolute;right:max(20px,calc(50% - 590px));top:100px;text-align:right;font-size:24px;z-index:6}
 
-/* karty meditací v úvodu */
+.hero-karty{margin:36px -60px 0 -10px;filter:drop-shadow(0 22px 30px rgba(90,60,20,.28))}
+.hero-karty img{width:100%;height:auto}
+/* karty meditací v úvodu (vějíř, nepoužito) */
 .vejir{position:relative;container-type:inline-size;width:100%;max-width:600px;aspect-ratio:600/450;margin:46px auto 0}
 .vejir figure{position:absolute;margin:0;width:27%;aspect-ratio:3/4;border-radius:3.2cqw;overflow:hidden;
   border:.7cqw solid #fffaf1;box-shadow:0 3cqw 5cqw -2.5cqw rgba(110,80,40,.55);background:var(--broskev);
@@ -152,14 +154,14 @@ nav.web .btn:hover{background:#9c585a}
   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23c9a86a' stroke-opacity='.22'%3E%3Ccircle cx='100' cy='100' r='40'/%3E%3Ccircle cx='100' cy='60' r='40'/%3E%3Ccircle cx='100' cy='140' r='40'/%3E%3Ccircle cx='134.6' cy='80' r='40'/%3E%3Ccircle cx='134.6' cy='120' r='40'/%3E%3Ccircle cx='65.4' cy='80' r='40'/%3E%3Ccircle cx='65.4' cy='120' r='40'/%3E%3Ccircle cx='100' cy='100' r='80'/%3E%3C/svg%3E") left -130px bottom -40px/320px no-repeat}
 
 /* karty meditací */
-.mrizka{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.mrizka{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
 .karta{background:var(--bila);border:1px solid var(--linka);border-radius:16px;padding:10px 10px 22px;text-align:center;display:flex;flex-direction:column;
   box-shadow:0 18px 34px -28px rgba(122,90,43,.55)}
-.karta img{width:100%;aspect-ratio:29/20;object-fit:cover;border-radius:10px;background:var(--broskev)}
-.karta h3{font-size:21px;letter-spacing:.03em;text-transform:uppercase;margin-top:16px}
+.karta img{width:100%;aspect-ratio:1/2;object-fit:cover;border-radius:12px;background:var(--broskev)}
+.karta h3{font-size:20px;letter-spacing:.03em;text-transform:uppercase;margin-top:16px}
 .karta .afirmace{font:500 17px/1.3 var(--serif);color:var(--hneda);margin-top:4px}
-.karta .popis{font-size:14.5px;line-height:1.5;padding:0 8px;margin:12px 0 18px;flex:1}
-.karta .tl{align-self:center;padding:12px 34px}
+.karta .popis{font-size:14px;line-height:1.5;padding:0 4px;margin:10px 0 16px;flex:1}
+.karta .tl{align-self:center;padding:11px 24px;font-size:14px}
 
 /* jak to funguje */
 .kroky{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:16px;align-items:center}
@@ -210,7 +212,7 @@ nav.web .btn:hover{background:#9c585a}
 /* detail meditace */
 dialog{border:0;padding:0;border-radius:20px;background:var(--bila);color:var(--text);width:min(560px,100% - 28px);box-shadow:0 40px 80px -30px rgba(60,40,10,.6)}
 dialog::backdrop{background:rgba(70,50,25,.45);backdrop-filter:blur(3px)}
-dialog img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--broskev)}
+dialog img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 30%;background:var(--broskev)}
 dialog .telo{padding:24px 28px 30px;text-align:center}
 dialog h2{font-size:32px;text-transform:uppercase;letter-spacing:.04em}
 dialog .afirmace{font:500 italic 20px/1.3 var(--serif);color:var(--zlata-tm);margin:6px 0 14px}
@@ -228,6 +230,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   .hero .pod{max-width:28ch}
   .hero .rukopis{display:block;position:absolute;top:84px;left:0;right:0;text-align:center;transform:rotate(-3deg);font-size:22px;text-shadow:0 1px 6px rgba(255,250,240,.9)}
   .vejir{margin-top:12px;max-width:none}
+  .hero-karty{margin:18px -26px 0}
   .vyhody{gap:8px 18px;font-size:13.5px}
   .hero .obal{grid-template-columns:1fr;text-align:center}
   .hero .pod{margin-inline:auto}
@@ -286,7 +289,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C6 15.5 3 12.5 3 8.75A4.75 4.75 0 0112 6.5a4.75 4.75 0 019 2.25C21 12.5 18 15.5 12 20z"/></svg>Tvořeno s láskou</li>
       </ul>
     </div>
-    <div class="vejir" id="vejir" aria-hidden="true"></div>
+    <div class="hero-karty" aria-hidden="true"><img src="/img/hero-karty.webp?v=1" alt="" width="1918" height="820" fetchpriority="high"></div>
   </div>
 </section>
 
@@ -403,10 +406,11 @@ const NASTAVENI = {
   dniPristupu: 30
 };
 const MEDITACE = [
-  { klic:'splynuti',      nazev:'Splynutí',               kratky:'Splynutí',      afirmace:'Návrat k jednotě',                     popis:'Hluboké spojení se sebou, s přírodou a se vším, co je.',            obrazek:'/img/meditace-splynuti.webp?v=1',      delka:'', cena:'', ukazka:'' },
-  { klic:'klidny-spanek', nazev:'Klidný spánek',          kratky:'Klidný spánek', afirmace:'Uvolnění pro hluboký odpočinek',        popis:'Ztiší mysl a připraví tě na klidný, regenerační spánek.',            obrazek:'/img/meditace-klidny-spanek.webp?v=1', delka:'', cena:'', ukazka:'' },
-  { klic:'hvezda-duse',   nazev:'Hvězda duše',            kratky:'Hvězda duše',   afirmace:'Spojení s tvým světlem',                popis:'Meditace pro návrat k tvé esenci a životnímu poslání.',             obrazek:'/img/meditace-hvezda-duse.webp?v=1',   delka:'', cena:'', ukazka:'' },
-  { klic:'ocista',        nazev:'Očista a návrat k sobě', kratky:'Očista',        afirmace:'Uvolnění, obnova, nový začátek',        popis:'Něžná meditace pro očistu na všech úrovních.',                      obrazek:'/img/meditace-ocista.webp?v=1',        delka:'', cena:'', ukazka:'' }
+  { klic:'nezna-podpora', nazev:'Něžná podpora', afirmace:'Objetí, které tě podrží',          popis:'Jemná meditace pro chvíle, kdy potřebuješ laskavost a oporu.',              obrazek:'/img/meditace-nezna-podpora.webp?v=1', delka:'', cena:'', ukazka:'' },
+  { klic:'sila-zeme',     nazev:'Síla země',     afirmace:'Uzemnění a stabilita',              popis:'Meditace pro pevné kořeny, klid v těle a jistotu v každém kroku.',          obrazek:'/img/meditace-sila-zeme.webp?v=1',     delka:'', cena:'', ukazka:'' },
+  { klic:'splynuti',      nazev:'Splynutí',      afirmace:'Návrat k jednotě',                  popis:'Hluboké spojení se sebou, s přírodou a se vším, co je.',                     obrazek:'/img/meditace-splynuti.webp?v=1',      delka:'', cena:'', ukazka:'' },
+  { klic:'hvezda-duse',   nazev:'Hvězda duše',   afirmace:'Spojení s tvým světlem',            popis:'Meditace pro návrat k tvé esenci a životnímu poslání.',                      obrazek:'/img/meditace-hvezda-duse.webp?v=1',   delka:'', cena:'', ukazka:'' },
+  { klic:'ocista-aury',   nazev:'Očista aury',   afirmace:'Uvolnění, obnova, nový začátek',    popis:'Něžná meditace pro očistu na všech úrovních.',                               obrazek:'/img/meditace-ocista-aury.webp?v=1',   delka:'', cena:'', ukazka:'' }
 ];
 const OHLASY = [
   // { text:'…', jmeno:'Jméno P.' }  ← skutečné ohlasy posluchačů; sekce se zobrazí sama
@@ -421,7 +425,7 @@ const sipka = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 MEDITACE.forEach(m => {
   const k = el('article', { className:'karta' });
   k.append(
-    el('img', { src:m.obrazek, alt:'', loading:'lazy', width:776, height:536 }),
+    el('img', { src:m.obrazek, alt:'', loading:'lazy', width:330, height:660 }),
     el('h3', { textContent:m.nazev }),
     el('p', { className:'afirmace', textContent:m.afirmace }),
     el('p', { className:'popis', textContent:m.popis })
@@ -434,7 +438,7 @@ MEDITACE.forEach(m => {
 });
 
 // vějíř obalů v úvodu
-const vejir = $('#vejir');
+const vejir = $('#vejir') || document.createElement('div');
 MEDITACE.slice(0, 6).forEach(m => {
   const f = el('figure');
   f.append(el('img', { src:m.obrazek, alt:'' }), el('figcaption', { textContent:m.kratky || m.nazev }));

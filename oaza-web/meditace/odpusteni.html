@@ -298,6 +298,18 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 .pristup .cena{font:500 34px/1 var(--serif);color:var(--zlata-tm);margin:16px 0 4px}
 .pristup .pozn{font-size:14px;color:var(--jemna)}
 .pristup .tl{margin-top:20px;font:500 19px/1 var(--serif);padding:15px 34px}
+.objednavka{max-width:440px;margin:28px auto 0;text-align:left;display:grid;gap:14px}
+.objednavka label{display:grid;gap:6px;font-size:14px;color:var(--hneda)}
+.objednavka input{font:400 16px/1.3 var(--sans);padding:13px 16px;border-radius:12px;border:1px solid var(--linka);background:var(--bila);color:var(--hneda)}
+.objednavka input:focus{outline:2px solid var(--zlata-sv);outline-offset:1px}
+.volby{display:grid;gap:10px;margin-top:6px}
+.volby .tl{margin-top:0;justify-content:center;width:100%}
+.hlaseni{font-size:14px;color:var(--zlata-tm);text-align:center;margin-top:4px}
+.qr-udaje{max-width:440px;margin:24px auto 0;padding:22px;background:var(--bila);border:1px solid var(--linka);border-radius:16px}
+.qr-udaje h3{font-size:22px;margin-bottom:12px}
+.qr-udaje img{display:block;margin:0 auto 14px;border:8px solid #fff;border-radius:10px}
+.qr-udaje ul{list-style:none;padding:0;margin:0 0 12px;font-size:15px;line-height:1.9}
+.qr-udaje p{font-size:13.5px;color:var(--jemna)}
 .kroky-pristup{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:26px;text-align:left;list-style:none;padding:0}
 .kroky-pristup li{background:rgba(255,253,249,.8);border:1px solid var(--linka);border-radius:14px;padding:16px 18px;font-size:14.5px;line-height:1.5}
 .kroky-pristup b{display:block;font:500 18px/1.2 var(--serif);color:var(--hneda);margin-bottom:6px}
@@ -348,7 +360,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
         <li>Hlas: Martina a Lukáš</li>
       </ul>
       <div class="akce">
-        <button class="tl tl-plne" type="button" id="koupit">Získat přístup · 149 Kč</button>
+        <a class="tl tl-plne" href="#odemknuti">Získat přístup · 149 Kč <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
@@ -380,18 +392,43 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   </div>
 </section>
 
-<section class="sekce">
+<section class="sekce" id="odemknuti">
   <div class="obal">
     <div class="pristup">
       <h2>Odemknutí poslechu</h2>
       <p class="cena">149 Kč</p>
       <p class="pozn">Neomezený poslech po dobu 30 dní od prvního spuštění.</p>
       <ol class="kroky-pristup">
-        <li><b>1 · Platba</b>Kartou, Apple Pay nebo Google Pay. QR platba je k dispozici jako druhá volba.</li>
-        <li><b>2 · E-mail s odkazem</b>Hned po zaplacení ti přijde osobní odkaz k poslechu.</li>
+        <li><b>1 · Platba</b>Kartou, Apple Pay nebo Google Pay. Převod s QR kódem je druhá volba.</li>
+        <li><b>2 · E-mail s odkazem</b>Osobní odkaz k poslechu ti přijde e-mailem.</li>
         <li><b>3 · Poslech</b>Otevřeš odkaz na mobilu i počítači a pouštíš meditaci, kolikrát chceš.</li>
       </ol>
-      <button class="tl tl-plne" type="button" id="koupit2">Získat přístup · 149 Kč</button>
+
+      <form class="objednavka" id="objednavka" autocomplete="on">
+        <label>Tvé jméno
+          <input type="text" name="jmeno" autocomplete="name" placeholder="Jméno" maxlength="80">
+        </label>
+        <label>E-mail, kam pošleme odkaz
+          <input type="email" name="email" autocomplete="email" placeholder="tvuj@email.cz" required>
+        </label>
+        <div class="volby">
+          <button class="tl tl-plne" type="submit" value="karta" name="zpusob">Zaplatit kartou · 149 Kč</button>
+          <button class="tl tl-linka" type="submit" value="qr" name="zpusob">Zaplatit převodem (QR)</button>
+        </div>
+        <p class="hlaseni" id="hlaseni" hidden></p>
+      </form>
+
+      <div class="qr-udaje" id="qr-udaje" hidden>
+        <h3>Platební údaje</h3>
+        <img id="qr-obr" alt="QR platba" width="200" height="200">
+        <ul>
+          <li>Účet <b>8159854004/5500</b></li>
+          <li>Variabilní symbol <b id="qr-vs"></b></li>
+          <li>Částka <b>149 Kč</b></li>
+        </ul>
+        <p>Stejné údaje ti přišly i e-mailem. Po připsání platby ti pošleme osobní odkaz k poslechu.</p>
+      </div>
+
       <p class="pozn" style="margin-top:16px">Potřebuješ poradit? Napiš nám na <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>.</p>
     </div>
   </div>
@@ -425,15 +462,40 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 <script>
 function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}
 document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('menu').classList.remove('open');document.body.style.overflow='';}));
-const PRODEJ=false, PLATBA_URL='';
-document.querySelectorAll('#koupit,#koupit2').forEach(b=>{
-  if(!PRODEJ){ b.disabled=true; b.textContent='Brzy k poslechu'; return; }
-  b.addEventListener('click', async ()=>{
-    b.disabled=true; b.textContent='Otevírám platbu…';
-    try{const r=await fetch(PLATBA_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({druh:'meditace',klic:'odpusteni'})});const d=await r.json(); if(d.url) location.href=d.url; else throw new Error();}
-    catch{ b.disabled=false; b.textContent='Zkusit platbu znovu'; }
-  });
+const FUNKCE='https://myybuesoourgpbouwwst.supabase.co/functions/v1/meditace-objednavka';
+const KLIC='odpusteni';
+const f=document.getElementById('objednavka'), hl=document.getElementById('hlaseni');
+let zpusob='karta';
+f.querySelectorAll('button[type=submit]').forEach(b=>b.addEventListener('click',()=>{zpusob=b.value;}));
+f.addEventListener('submit', async e => {
+  e.preventDefault();
+  const email=f.email.value.trim(), jmeno=f.jmeno.value.trim();
+  if(!email) return;
+  f.querySelectorAll('button').forEach(b=>b.disabled=true);
+  hl.hidden=false; hl.textContent = zpusob==='karta' ? 'Otevírám platbu…' : 'Připravuji platební údaje…';
+  try{
+    const r=await fetch(FUNKCE,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({klic:KLIC,email,jmeno,druh:zpusob})});
+    const d=await r.json();
+    if(d.url){ location.href=d.url; return; }
+    if(d.ok && d.druh==='qr'){
+      document.getElementById('qr-vs').textContent=d.vs;
+      document.getElementById('qr-obr').src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&format=png&data='+encodeURIComponent(d.spayd);
+      document.getElementById('qr-udaje').hidden=false;
+      f.hidden=true;
+      document.getElementById('qr-udaje').scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
+    throw new Error();
+  }catch{
+    hl.textContent='Zkus to prosím ještě jednou, nebo nám napiš na oaza.adamanthea@gmail.com.';
+    f.querySelectorAll('button').forEach(b=>b.disabled=false);
+  }
 });
+if(new URLSearchParams(location.search).get('platba')==='hotovo'){
+  f.hidden=true; hl.hidden=false;
+  hl.textContent='Děkujeme. Osobní odkaz k poslechu ti právě letí e-mailem.';
+}
 </script>
 <script defer src="/navstevnost.js"></script>
 </body>

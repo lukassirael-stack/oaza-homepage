@@ -97,12 +97,13 @@ nav.web .btn:hover{background:#9c585a}
 .nadpisek .sym{color:var(--zlata);font-size:11px;margin:0 .1em;letter-spacing:0}
 .hero h1{font-family:'Cinzel',var(--serif);font-size:clamp(36px,5.4vw,68px);font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1.08;color:var(--zlata-tm);background:linear-gradient(180deg,#b8924a 0%,#8a682e 55%,#a8843f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(255,250,240,.7))}
 .hero h1 .online{display:block;font-size:.72em;letter-spacing:.2em;margin-bottom:.04em}
-.hero .pod{font:400 clamp(19px,2.1vw,24px)/1.35 var(--sans);color:var(--hneda);margin:16px 0 30px;max-width:26ch}
+.hero .pod{font:500 clamp(21px,2.3vw,27px)/1.3 var(--serif);color:var(--hneda);margin:14px 0 28px;max-width:30ch}
 .hero .akce{display:flex;flex-wrap:wrap;gap:12px}
-.vyhody{display:inline-flex;align-items:stretch;margin:34px 0 0;padding:6px 4px;list-style:none;font-size:15px;color:var(--hneda);border-radius:18px;background:rgba(253,249,242,.8);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 20px -12px rgba(90,60,20,.5)}
+.hero .akce .tl{font:500 20px/1 var(--serif);padding:16px 30px;letter-spacing:.02em}
+.vyhody{display:inline-flex;align-items:stretch;margin:34px 0 0;padding:6px 4px;list-style:none;font:400 17px/1.2 var(--serif);color:var(--hneda);border-radius:18px;background:rgba(253,249,242,.8);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 20px -12px rgba(90,60,20,.5)}
 .vyhody li{display:flex;align-items:center;gap:8px;padding:8px 16px;font-weight:400;white-space:nowrap;border-left:1px solid rgba(169,130,63,.25)}
 .vyhody li:first-child{border-left:0}
-.vyhody svg{width:22px;height:22px;color:var(--zlata)}
+.vyhody svg{width:24px;height:24px;color:var(--zlata)}
 .rukopis{font:400 26px/1.15 var(--rukopis);color:var(--zlata);transform:rotate(-7deg);pointer-events:none}
 .hero .rukopis{position:absolute;right:max(20px,calc(50% - 590px));top:100px;text-align:right;font-size:24px;z-index:6}
 
@@ -230,14 +231,15 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   .hero-logo{width:210px;top:90px}
 }
 @media (max-width:860px){
-  .hero{padding:200px 0 28px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
-  .hero .pod{max-width:28ch}
-  .hero-logo{position:absolute;top:66px;left:50%;right:auto;transform:translateX(-50%);width:230px}
+  .hero{padding:215px 0 28px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
+  .hero .pod{max-width:30ch;font-size:22px}
+  .hero .akce .tl{font-size:21px;padding:17px 34px}
+  .hero-logo{position:absolute;top:66px;left:50%;right:auto;transform:translateX(-50%);width:min(260px,72vw)}
   .vejir{margin-top:12px;max-width:none}
   .hero-karty{margin:18px -26px 0}
-  .vyhody{display:flex;justify-content:space-between;width:100%;max-width:400px;margin:26px auto 0;padding:10px 4px;font-size:13px}
-  .vyhody li{flex:1;flex-direction:column;gap:6px;padding:4px 6px;text-align:center;line-height:1.2;white-space:normal}
-  .vyhody svg{width:24px;height:24px}
+  .vyhody{display:flex;justify-content:space-between;width:100%;max-width:400px;margin:26px auto 0;padding:14px 4px;font-size:16px}
+  .vyhody li{flex:1;flex-direction:column;gap:8px;padding:4px 6px;text-align:center;line-height:1.2;white-space:normal}
+  .vyhody svg{width:30px;height:30px}
   .hero .obal{grid-template-columns:1fr;text-align:center}
   .hero .pod{margin-inline:auto}
   .hero .akce{justify-content:center}

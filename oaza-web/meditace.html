@@ -104,7 +104,10 @@ nav.web .btn:hover{background:#9c585a}
 .rukopis{font:400 26px/1.15 var(--rukopis);color:var(--zlata);transform:rotate(-7deg);pointer-events:none}
 .hero .rukopis{position:absolute;right:max(20px,calc(50% - 590px));top:100px;text-align:right;font-size:24px;z-index:6}
 
-/* vějíř obalů s telefonem */
+.hero-obraz{position:relative;margin:24px -40px 0 0;-webkit-mask:linear-gradient(90deg,transparent,#000 22%);mask:linear-gradient(90deg,transparent,#000 22%)}
+.hero-obraz img{width:100%;height:auto;border-radius:0 0 0 28px}
+.hero .rukopis{display:none}
+/* vějíř obalů s telefonem (nepoužito, ponecháno pro variantu s vlastními obaly) */
 .vejir{position:relative;container-type:inline-size;width:100%;max-width:600px;aspect-ratio:600/450;margin:46px auto 0}
 .vejir figure{position:absolute;margin:0;width:27%;aspect-ratio:3/4;border-radius:3.2cqw;overflow:hidden;
   border:.7cqw solid #fffaf1;box-shadow:0 3cqw 5cqw -2.5cqw rgba(110,80,40,.55);background:var(--broskev);
@@ -227,6 +230,8 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   .hero .pod{margin-inline:auto}
   .hero .akce,.vyhody{justify-content:center}
   .vejir{margin-top:26px;max-width:460px}
+  .hero-obraz{margin:10px -20px 0;-webkit-mask:none;mask:none}
+  .hero-obraz img{border-radius:18px}
   .prinosy .obal{grid-template-columns:1fr}
   .prinosy .rukopis{text-align:center;transform:rotate(-3deg)}
   .prinosy ul{grid-template-columns:repeat(2,1fr);gap:22px 0}
@@ -280,7 +285,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C6 15.5 3 12.5 3 8.75A4.75 4.75 0 0112 6.5a4.75 4.75 0 019 2.25C21 12.5 18 15.5 12 20z"/></svg>Tvořeno s láskou</li>
       </ul>
     </div>
-    <div class="vejir" id="vejir" aria-hidden="true"></div>
+    <div class="hero-obraz" aria-hidden="true"><img src="/img/hero-meditace.webp?v=1" alt="" width="1176" height="721" fetchpriority="high"></div>
   </div>
 </section>
 
@@ -428,7 +433,7 @@ MEDITACE.forEach(m => {
 });
 
 // vějíř obalů v úvodu
-const vejir = $('#vejir');
+const vejir = $('#vejir') || document.createElement('div');
 MEDITACE.slice(0, 6).forEach(m => {
   const f = el('figure');
   f.append(el('img', { src:m.obrazek, alt:'' }), el('figcaption', { textContent:m.kratky || m.nazev }));

@@ -89,13 +89,12 @@ nav.web .btn:hover{background:#9c585a}
 /* hero */
 .hero{position:relative;padding:140px 0 64px;min-height:640px;display:flex;align-items:center;
   background:
-    linear-gradient(90deg,rgba(251,246,238,.94) 0%,rgba(251,246,238,.82) 30%,rgba(251,246,238,.35) 50%,rgba(251,246,238,0) 66%),
-    linear-gradient(180deg,rgba(251,246,238,.35),transparent 30%),
+    linear-gradient(90deg,rgba(251,246,238,.82) 0%,rgba(251,246,238,.62) 28%,rgba(251,246,238,.18) 48%,rgba(251,246,238,0) 62%),
     url('/img/hero-pozadi.webp?v=1') center 58%/cover no-repeat,#f8ead8}
 .hero>.obal{width:min(var(--sirka),100% - 40px)}
 .hero .obal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;align-items:center}
 .nadpisek{font:600 12px/1 var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--zlata-tm);margin-bottom:22px}
-.hero h1{font-size:clamp(46px,6.4vw,78px);font-weight:600;color:var(--zlata-tm);letter-spacing:-.01em}
+.hero h1{font-size:clamp(40px,6.4vw,78px);font-weight:600;color:var(--zlata-tm);letter-spacing:-.01em}
 .hero .pod{font:400 clamp(19px,2.1vw,24px)/1.35 var(--sans);color:var(--hneda);margin:16px 0 30px;max-width:22ch}
 .hero .akce{display:flex;flex-wrap:wrap;gap:12px}
 .vyhody{display:flex;flex-wrap:wrap;gap:12px 26px;margin-top:34px;padding:0;list-style:none;font-size:14px;color:var(--hneda)}
@@ -221,10 +220,15 @@ dialog audio{width:100%;margin-bottom:20px}
 dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,253,249,.9);color:var(--hneda);font-size:20px;cursor:pointer}
 
 @media (max-width:1080px){
-  .hero .rukopis,.vzniklo .rukopis{display:none}
+  .vzniklo .rukopis{display:none}
+  .hero .rukopis{display:none}
 }
 @media (max-width:860px){
-  .hero{padding-top:104px;min-height:0;background-position:center 70%;background-image:linear-gradient(180deg,rgba(251,246,238,.9) 0%,rgba(251,246,238,.75) 55%,rgba(251,246,238,.15) 72%,rgba(251,246,238,0)),url('/img/hero-pozadi.webp?v=1')}
+  .hero{padding:150px 0 28px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
+  .hero .pod{max-width:28ch}
+  .hero .rukopis{display:block;position:absolute;top:84px;left:0;right:0;text-align:center;transform:rotate(-3deg);font-size:22px;text-shadow:0 1px 6px rgba(255,250,240,.9)}
+  .vejir{margin-top:12px;max-width:none}
+  .vyhody{gap:8px 18px;font-size:13.5px}
   .hero .obal{grid-template-columns:1fr;text-align:center}
   .hero .pod{margin-inline:auto}
   .hero .akce,.vyhody{justify-content:center}

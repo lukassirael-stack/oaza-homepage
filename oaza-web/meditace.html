@@ -103,6 +103,7 @@ nav.web .btn:hover{background:#9c585a}
 .rukopis{font:400 26px/1.15 var(--rukopis);color:var(--zlata);transform:rotate(-7deg);pointer-events:none}
 .hero .rukopis{position:absolute;right:max(20px,calc(50% - 590px));top:100px;text-align:right;font-size:24px;z-index:6}
 
+.hero-logo{position:absolute;right:max(24px,calc(50% - 590px));top:92px;width:210px;height:auto;z-index:6;padding:14px 18px;border-radius:50%;background:radial-gradient(closest-side,rgba(251,246,238,.9),rgba(251,246,238,.55) 70%,transparent);filter:drop-shadow(0 1px 2px rgba(120,85,30,.35))}
 .hero-karty{margin:36px -60px 0 -10px;filter:drop-shadow(0 22px 30px rgba(90,60,20,.28))}
 .hero-karty img{width:100%;height:auto}
 /* karty meditací v úvodu (vějíř, nepoužito) */
@@ -223,12 +224,12 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 
 @media (max-width:1080px){
   .vzniklo .rukopis{display:none}
-  .hero .rukopis{display:none}
+  .hero-logo{width:160px;top:88px}
 }
 @media (max-width:860px){
-  .hero{padding:150px 0 28px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
+  .hero{padding:212px 0 28px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
   .hero .pod{max-width:28ch}
-  .hero .rukopis{display:block;position:absolute;top:84px;left:0;right:0;text-align:center;transform:rotate(-3deg);font-size:22px;text-shadow:0 1px 6px rgba(255,250,240,.9)}
+  .hero-logo{position:absolute;top:78px;left:50%;right:auto;transform:translateX(-50%);width:170px}
   .vejir{margin-top:12px;max-width:none}
   .hero-karty{margin:18px -26px 0}
   .vyhody{gap:8px 18px;font-size:13.5px}
@@ -273,10 +274,10 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 
 <main>
 <section class="hero">
-  <p class="rukopis" aria-hidden="true">Více klidu v tobě.<br>Více světla ve světě.</p>
+  <img class="hero-logo" src="/img/logo-transparent.png" alt="Oáza Adamanthea" width="600" height="486">
   <div class="obal">
     <div>
-      <p class="nadpisek">Zvuk &nbsp;•&nbsp; Vědomí &nbsp;•&nbsp; Harmonie</p>
+      <p class="nadpisek">Proud vědomí a světla</p>
       <h1>Meditace Oázy</h1>
       <p class="pod">Vedené meditace pro klid, léčení a&nbsp;návrat k&nbsp;sobě.</p>
       <div class="akce">

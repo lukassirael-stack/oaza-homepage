@@ -169,7 +169,7 @@ nav.web .btn:hover{background:#9c585a}
 .mrizka{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
 .karta{background:var(--bila);border:1px solid var(--linka);border-radius:16px;padding:10px 10px 22px;text-align:center;display:flex;flex-direction:column;
   box-shadow:0 18px 34px -28px rgba(122,90,43,.55)}
-.karta img{width:100%;aspect-ratio:1/2;object-fit:cover;border-radius:12px;background:var(--broskev)}
+.karta img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:var(--broskev)}
 .karta h3{font-size:20px;letter-spacing:.03em;text-transform:uppercase;margin-top:16px}
 .karta .afirmace{font:500 17px/1.3 var(--serif);color:var(--hneda);margin-top:4px}
 .karta .popis{font-size:14px;line-height:1.5;padding:0 4px;margin:10px 0 16px;flex:1}
@@ -435,11 +435,11 @@ const NASTAVENI = {
   dniPristupu: 30
 };
 const MEDITACE = [
-  { klic:'odpusteni',     nazev:'Odpuštění',     kratky:'Odpuštění',     afirmace:'Propouštím a vracím se k lehkosti.', popis:'Jemné uvolnění křivd a návrat lehkosti do srdce.',                  obrazek:'/img/karta-odpusteni.webp?v=1',        odkaz:'/meditace/odpusteni', delka:'12 minut', cena:'149 Kč', ukazka:'/audio/odpusteni-ukazka.mp3?v=1' },
-  { klic:'nezna-podpora', nazev:'Něžná podpora', kratky:'Něžná podpora', afirmace:'Objetí, které tě podrží',            popis:'Jemná meditace pro chvíle, kdy potřebuješ laskavost a oporu.',      obrazek:'/img/meditace-nezna-podpora.webp?v=2', delka:'', cena:'', ukazka:'' },
-  { klic:'sila-zeme',     nazev:'Síla země',     kratky:'Síla země',     afirmace:'Uzemnění a stabilita',               popis:'Meditace pro pevné kořeny, klid v těle a jistotu v každém kroku.',  obrazek:'/img/meditace-sila-zeme.webp?v=2',     delka:'', cena:'', ukazka:'' },
-  { klic:'splynuti',      nazev:'Splynutí',      kratky:'Splynutí',      afirmace:'Návrat k jednotě',                   popis:'Hluboké spojení se sebou, s přírodou a se vším, co je.',            obrazek:'/img/meditace-splynuti.webp?v=2',      delka:'', cena:'', ukazka:'' },
-  { klic:'hvezda-duse',   nazev:'Hvězda duše',   kratky:'Hvězda duše',   afirmace:'Spojení s tvým světlem',             popis:'Meditace pro návrat k tvé esenci a životnímu poslání.',             obrazek:'/img/meditace-hvezda-duse.webp?v=2',   delka:'', cena:'', ukazka:'' }
+  { klic:'odpusteni',     nazev:'Odpuštění',     kratky:'Odpuštění',     afirmace:'Propouštím a vracím se k lehkosti.', popis:'Jemné uvolnění křivd a návrat lehkosti do srdce.',                  obrazek:'/img/meditace-odpusteni.webp?v=1',        odkaz:'/meditace/odpusteni', delka:'12 minut', cena:'149 Kč', ukazka:'/audio/odpusteni-ukazka.mp3?v=1' },
+  { klic:'nezna-podpora', nazev:'Něžná podpora', kratky:'Něžná podpora', afirmace:'Objetí, které tě podrží',            popis:'Jemná meditace pro chvíle, kdy potřebuješ laskavost a oporu.',      obrazek:'/img/meditace-nezna-podpora.webp?v=3', delka:'', cena:'', ukazka:'' },
+  { klic:'sila-zeme',     nazev:'Síla země',     kratky:'Síla země',     afirmace:'Uzemnění a stabilita',               popis:'Meditace pro pevné kořeny, klid v těle a jistotu v každém kroku.',  obrazek:'/img/meditace-sila-zeme.webp?v=3',     delka:'', cena:'', ukazka:'' },
+  { klic:'splynuti',      nazev:'Splynutí',      kratky:'Splynutí',      afirmace:'Návrat k jednotě',                   popis:'Hluboké spojení se sebou, s přírodou a se vším, co je.',            obrazek:'/img/meditace-splynuti.webp?v=3',      delka:'', cena:'', ukazka:'' },
+  { klic:'hvezda-duse',   nazev:'Hvězda duše',   kratky:'Hvězda duše',   afirmace:'Spojení s tvým světlem',             popis:'Meditace pro návrat k tvé esenci a životnímu poslání.',             obrazek:'/img/meditace-hvezda-duse.webp?v=3',   delka:'', cena:'', ukazka:'' }
 ];
 const OHLASY = [
   // { text:'…', jmeno:'Jméno P.' }  ← skutečné ohlasy posluchačů; sekce se zobrazí sama
@@ -455,7 +455,7 @@ MEDITACE.forEach(m => {
   const k = el('article', { className:'karta' });
   if (m.odkaz) { k.style.cursor='pointer'; k.addEventListener('click', e => { if (!e.target.closest('a')) location.href = m.odkaz; }); }
   k.append(
-    el('img', { src:m.obrazek, alt:'', loading:'lazy', width:330, height:660 }),
+    el('img', { src:m.obrazek, alt:'', loading:'lazy', width:600, height:600 }),
     el('h3', { textContent:m.nazev }),
     el('p', { className:'afirmace', textContent:m.afirmace }),
     el('p', { className:'popis', textContent:m.popis })

@@ -51,11 +51,9 @@
       if (udalost === 'pokladna') meta('InitiateCheckout', { value: o.castka, currency: m, num_items: o.pocet || 1 });
       if (udalost === 'zaplaceno' || udalost === 'objednavka') meta('Purchase', { value: o.castka, currency: m, content_type: 'product' });
     },
-    // obrázek ze Supabase úložiště v menší velikosti (rychlejší načtení)
-    img(url, w) {
-      if (!url || !/\/storage\/v1\/object\/public\//.test(url) || /\.(mp4|webm|mov)(\?|$)/i.test(url)) return url;
-      return url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/') + (url.includes('?') ? '&' : '?') + 'width=' + (w || 600) + '&quality=78';
-    },
+    // obrázek ze Supabase úložiště: originál, prohlížeč ho zobrazí v potřebné velikosti
+    // (transformace na straně Supabase mají měsíční kvótu, proto je necháváme stranou)
+    img(url) { return url; },
   };
   window.Bali = Bali;
 

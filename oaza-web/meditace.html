@@ -87,12 +87,12 @@ nav.web .btn:hover{background:#9c585a}
 .logo small{display:block;font:600 8.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--zlata-tm);margin-top:5px}
 
 /* hero */
-.hero{position:relative;padding:128px 0 56px;
+.hero{position:relative;padding:140px 0 64px;min-height:640px;display:flex;align-items:center;
   background:
-    radial-gradient(60% 80% at 82% 38%,rgba(255,224,178,.85),transparent 70%),
-    radial-gradient(45% 60% at 100% 0%,rgba(246,200,190,.55),transparent 70%),
-    radial-gradient(50% 70% at 0% 100%,rgba(214,226,200,.55),transparent 70%),
-    linear-gradient(180deg,#fdf3e6,#fbf6ee)}
+    linear-gradient(90deg,rgba(251,246,238,.94) 0%,rgba(251,246,238,.82) 30%,rgba(251,246,238,.35) 50%,rgba(251,246,238,0) 66%),
+    linear-gradient(180deg,rgba(251,246,238,.35),transparent 30%),
+    url('/img/hero-pozadi.webp?v=1') center 58%/cover no-repeat,#f8ead8}
+.hero>.obal{width:min(var(--sirka),100% - 40px)}
 .hero .obal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;align-items:center}
 .nadpisek{font:600 12px/1 var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--zlata-tm);margin-bottom:22px}
 .hero h1{font-size:clamp(46px,6.4vw,78px);font-weight:600;color:var(--zlata-tm);letter-spacing:-.01em}
@@ -104,25 +104,24 @@ nav.web .btn:hover{background:#9c585a}
 .rukopis{font:400 26px/1.15 var(--rukopis);color:var(--zlata);transform:rotate(-7deg);pointer-events:none}
 .hero .rukopis{position:absolute;right:max(20px,calc(50% - 590px));top:100px;text-align:right;font-size:24px;z-index:6}
 
-.hero-obraz{position:relative;margin:24px -40px 0 0;-webkit-mask:linear-gradient(90deg,transparent,#000 22%);mask:linear-gradient(90deg,transparent,#000 22%)}
-.hero-obraz img{width:100%;height:auto;border-radius:0 0 0 28px}
-.hero .rukopis{display:none}
-/* vějíř obalů s telefonem (nepoužito, ponecháno pro variantu s vlastními obaly) */
+/* karty meditací v úvodu */
 .vejir{position:relative;container-type:inline-size;width:100%;max-width:600px;aspect-ratio:600/450;margin:46px auto 0}
 .vejir figure{position:absolute;margin:0;width:27%;aspect-ratio:3/4;border-radius:3.2cqw;overflow:hidden;
   border:.7cqw solid #fffaf1;box-shadow:0 3cqw 5cqw -2.5cqw rgba(110,80,40,.55);background:var(--broskev);
   left:var(--x);top:var(--y);rotate:var(--r)}
 .vejir figure img{width:100%;height:100%;object-fit:cover}
 .vejir figcaption{position:absolute;inset:7% 4% auto;text-align:center;font:600 3.1cqw/1.1 var(--serif);letter-spacing:.08em;text-transform:uppercase;color:#fffaf0;text-shadow:0 1px 6px rgba(70,45,15,.75)}
-.vejir figure{width:24%;aspect-ratio:3/4.2}
-.vejir figure:nth-of-type(1){--x:3%;--y:22%;--r:-4deg}
-.vejir figure:nth-of-type(2){--x:23%;--y:8%;--r:-1.5deg;width:27%;z-index:2}
-.vejir figure:nth-of-type(3){--x:54%;--y:12%;--r:2deg;z-index:2}
-.vejir figure:nth-of-type(4){--x:75%;--y:24%;--r:5deg}
-.vejir figure:nth-of-type(5){--x:36%;--y:-2%;--r:0deg}
-.vejir figure:nth-of-type(6){--x:60%;--y:-2%;--r:3deg}
-.vejir figcaption{inset:auto 5% 10%;font-size:3.4cqw;text-shadow:0 1px 8px rgba(70,45,15,.85)}
-.telefon{position:absolute;left:47%;top:34%;width:26%;aspect-ratio:9/18.6;z-index:5;border-radius:5.5cqw;padding:1.1cqw;
+.vejir{aspect-ratio:600/470}
+.vejir figure{width:23%;aspect-ratio:3/4.6;border:.5cqw solid rgba(255,250,240,.75);border-radius:2.4cqw;
+  box-shadow:0 3cqw 6cqw -2cqw rgba(90,70,40,.5),inset 0 0 0 .3cqw rgba(255,255,255,.35);background:rgba(255,250,240,.35);backdrop-filter:blur(6px)}
+.vejir figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.28),transparent 40%,rgba(70,45,15,.55))}
+.vejir figure:nth-of-type(1){--x:2%;--y:22%;--r:-5deg}
+.vejir figure:nth-of-type(2){--x:26%;--y:6%;--r:-1.5deg;width:26%;z-index:2}
+.vejir figure:nth-of-type(3){--x:53%;--y:9%;--r:2deg;z-index:2}
+.vejir figure:nth-of-type(4){--x:77%;--y:24%;--r:6deg}
+.vejir figure:nth-of-type(n+5){display:none}
+.vejir figcaption{inset:auto 6% 8%;z-index:2;font:500 3.2cqw/1.1 var(--serif);letter-spacing:.08em;text-transform:uppercase;color:#fffaf0;text-shadow:0 1px 8px rgba(70,45,15,.85)}
+.telefon{display:none;position:absolute;left:47%;top:34%;width:26%;aspect-ratio:9/18.6;z-index:5;border-radius:5.5cqw;padding:1.1cqw;
   background:linear-gradient(145deg,#3b3026,#1f1812);box-shadow:0 5cqw 8cqw -4cqw rgba(80,55,20,.7)}
 .telefon .displej{height:100%;border-radius:4.5cqw;overflow:hidden;background:linear-gradient(180deg,#fff6e8,#fdebd6);display:flex;flex-direction:column;text-align:center}
 .telefon img{width:100%;height:46%;object-fit:cover}
@@ -225,13 +224,11 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   .hero .rukopis,.vzniklo .rukopis{display:none}
 }
 @media (max-width:860px){
-  .hero{padding-top:104px}
+  .hero{padding-top:104px;min-height:0;background-position:center 70%;background-image:linear-gradient(180deg,rgba(251,246,238,.9) 0%,rgba(251,246,238,.75) 55%,rgba(251,246,238,.15) 72%,rgba(251,246,238,0)),url('/img/hero-pozadi.webp?v=1')}
   .hero .obal{grid-template-columns:1fr;text-align:center}
   .hero .pod{margin-inline:auto}
   .hero .akce,.vyhody{justify-content:center}
   .vejir{margin-top:26px;max-width:460px}
-  .hero-obraz{margin:10px -20px 0;-webkit-mask:none;mask:none}
-  .hero-obraz img{border-radius:18px}
   .prinosy .obal{grid-template-columns:1fr}
   .prinosy .rukopis{text-align:center;transform:rotate(-3deg)}
   .prinosy ul{grid-template-columns:repeat(2,1fr);gap:22px 0}
@@ -285,7 +282,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C6 15.5 3 12.5 3 8.75A4.75 4.75 0 0112 6.5a4.75 4.75 0 019 2.25C21 12.5 18 15.5 12 20z"/></svg>Tvořeno s láskou</li>
       </ul>
     </div>
-    <div class="hero-obraz" aria-hidden="true"><img src="/img/hero-meditace.webp?v=1" alt="" width="1176" height="721" fetchpriority="high"></div>
+    <div class="vejir" id="vejir" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -433,18 +430,12 @@ MEDITACE.forEach(m => {
 });
 
 // vějíř obalů v úvodu
-const vejir = $('#vejir') || document.createElement('div');
+const vejir = $('#vejir');
 MEDITACE.slice(0, 6).forEach(m => {
   const f = el('figure');
   f.append(el('img', { src:m.obrazek, alt:'' }), el('figcaption', { textContent:m.kratky || m.nazev }));
   vejir.append(f);
 });
-const prvni = MEDITACE[0];
-vejir.append(el('div', { className:'telefon' },
-  `<div class="displej"><img src="${prvni.obrazek}" alt=""><b>${prvni.nazev}</b><small>${prvni.afirmace}</small><div class="cara"></div>
-   <div class="ovl"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 5v14L9 12zM5 5h2v14H5z"/></svg>
-   <span class="hraj"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l12-7z"/></svg></span>
-   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 5v14l10-7zM17 5h2v14h-2z"/></svg></div></div>`));
 
 // detail meditace
 const dlg = $('#detail');

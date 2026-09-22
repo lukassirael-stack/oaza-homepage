@@ -252,7 +252,12 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   .hero-logo svg{margin:7px 0 7px}
   .hero-logo .l4{font-size:min(9.5px,2.5vw);letter-spacing:.3em}
   .vejir{margin-top:12px;max-width:none}
-  .hero-karty{margin:18px -26px 0}
+  .hero .obal>div:first-child{display:contents}
+  .vyhody{order:1}
+  .hero-karty{position:relative;margin:30px -14px 6px;padding:26px 6px 22px;isolation:isolate;
+    filter:drop-shadow(0 18px 22px rgba(70,45,15,.45)) drop-shadow(0 0 1px rgba(255,255,255,.9))}
+  .hero-karty::before{content:"";position:absolute;inset:-6% -2% -4%;z-index:-1;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(255,250,240,.96),rgba(253,243,230,.85) 55%,rgba(253,243,230,0) 100%)}
   .vyhody{display:flex;justify-content:space-between;width:100%;max-width:400px;margin:60px auto 0;padding:14px 4px;font-size:16.5px;border-radius:22px}
   .vyhody li{flex:1;flex-direction:column;gap:8px;padding:4px 6px;text-align:center;line-height:1.2;white-space:normal}
   .vyhody svg{width:30px;height:30px}

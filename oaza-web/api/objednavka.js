@@ -139,7 +139,7 @@ export default async function handler(req, res) {
     if (body.seznam === 'oaza') {
       // Dopisy z Oázy (Beehiiv): uložit u nás + přihlásit v Beehiiv, jakmile je nastavený klíč
       try { await rest('rpc/eshop_dopis_prihlasit', { method: 'POST', body: JSON.stringify({ p_email: em, p_zdroj: 'dopisy-z-oazy' }) }); } catch {}
-      const key = process.env.BEEHIIV_API_KEY, pub = process.env.BEEHIIV_PUBLICATION_ID;
+      const key = process.env.BEEHIIV_API_KEY, pub = process.env.BEEHIIV_PUBLICATION_ID || 'pub_827f8ea4-6d44-424a-9bfb-ef0936062ab1';
       if (key && pub) {
         try {
           const r = await fetch(`https://api.beehiiv.com/v2/publications/${pub}/subscriptions`, {

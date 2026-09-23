@@ -136,6 +136,21 @@ export default async function handler(req, res) {
   if (body.akce === 'dopis') {
     const em = String(body.email || '').trim().toLowerCase();
     if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em) || em.length > 200) return res.status(400).json({ error: 'E-mail' });
+    if (body.seznam === 'oaza') {
+      // Dopisy z Oázy (Beehiiv): uložit u nás + přihlásit v Beehiiv, jakmile je nastavený klíč
+      try { await rest('rpc/eshop_dopis_prihlasit', { method: 'POST', body: JSON.stringify({ p_email: em, p_zdroj: 'dopisy-z-oazy' }) }); } catch {}
+      const key = process.env.BEEHIIV_API_KEY, pub = process.env.BEEHIIV_PUBLICATION_ID;
+      if (key && pub) {
+        try {
+          const r = await fetch(`https://api.beehiiv.com/v2/publications/${pub}/subscriptions`, {
+            method: 'POST', headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: em, reactivate_existing: true, send_welcome_email: true, utm_source: 'oaza-adamanthea.cz', utm_medium: 'web', referring_site: 'https://oaza-adamanthea.cz' }),
+          });
+          if (!r.ok) console.error('beehiiv', r.status, (await r.text()).slice(0, 200));
+        } catch (e) { console.error('beehiiv', e && e.message); }
+      }
+      return res.status(200).json({ ok: true });
+    }
     try { await dopisPrihlasit(em, String(body.zdroj || '').slice(0, 40), rest); return res.status(200).json({ ok: true }); }
     catch (e) { return res.status(500).json({ error: 'Uložení se nepodařilo.' }); }
   }

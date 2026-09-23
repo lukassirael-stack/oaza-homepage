@@ -405,7 +405,15 @@
     width:8px;height:8px;border:1px solid #b06a6c;
     transform:rotate(45deg);
   }
-  .news-form{max-width:560px;margin:0 auto}
+  .news-form{max-width:520px;margin:28px auto 0}
+  .news-row{display:flex;gap:10px;background:#fff;border:1px solid rgba(176,106,108,.35);border-radius:999px;padding:6px;box-shadow:0 10px 30px -18px rgba(46,68,52,.35)}
+  .news-row input{flex:1;min-width:0;border:0;background:transparent;padding:12px 18px;font:inherit;font-size:1.1rem;color:var(--ink);outline:none}
+  .news-row input::placeholder{color:#9a958b;font-style:italic}
+  .news-row button{border:0;border-radius:999px;background:var(--green);color:var(--cream);font-family:inherit;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 26px;cursor:pointer;white-space:nowrap;transition:background .25s}
+  .news-row button:hover{background:var(--rose-dark)}
+  .news-row button:disabled{opacity:.7;cursor:default}
+  .news-ok{text-align:center;font-style:italic;color:var(--green);min-height:1.4em;margin:12px 0 0;font-size:1.15rem}
+  @media(max-width:520px){.news-row{flex-direction:column;border-radius:18px;padding:8px}.news-row input{text-align:center}.news-row button{padding:14px}}
   .news-pozn{
     font-size:15px;color:#6c7466;letter-spacing:.02em;
     margin:6px auto 0;max-width:460px;
@@ -820,18 +828,36 @@
       </svg>
     </div>
   </div>
-  <p class="pod">Jeden dopis za měsíc. Nic víc, nic míň.</p>
+  <p class="pod">Jeden dopis měsíčně, s láskou z Oázy.</p>
   <div class="news-body">
     <ul>
       <li>Pozvánky na akce dřív, než se objeví na webu — místa se plní rychle.</li>
       <li>Vhledy z portálové zahrady: co právě dozrává, co se otevírá, co odchází.</li>
-      <li>Tichá inspirace pro všední dny — krátce, prakticky, bez patosu.</li>
+      <li>Tichá inspirace pro všední dny — krátce, prakticky, od srdce.</li>
     </ul>
   </div>
-  <div class="news-form">
-    <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="1a7bce6b-489b-4ee8-a36c-3375cc2385d8"></script>
-  </div>
-  <p class="news-pozn">Přes 1 300 čtenářů · žádný spam · odhlášení jedním klepnutím</p>
+  <form class="news-form" id="newsForm" novalidate>
+    <div class="news-row">
+      <input type="email" name="email" required autocomplete="email" placeholder="tvůj e-mail" aria-label="E-mail">
+      <button type="submit">Chci dopisy</button>
+    </div>
+    <p class="news-ok" id="newsOk" aria-live="polite"></p>
+  </form>
+  <p class="news-pozn">Přes 1 300 čtenářů · jen to podstatné · odhlášení jedním klepnutím</p>
+  <script>
+  (function(){
+    var f=document.getElementById('newsForm'), ok=document.getElementById('newsOk');
+    f.addEventListener('submit', async function(e){
+      e.preventDefault(); var i=f.email, b=f.querySelector('button'), em=i.value.trim();
+      if(!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em)){ ok.textContent='Zkontroluj prosím e-mail.'; i.focus(); return; }
+      b.disabled=true; b.textContent='Odesílám…';
+      try{ var r=await fetch('/api/objednavka',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({akce:'dopis',seznam:'oaza',email:em,zdroj:'uvod'})});
+        if(r.ok){ f.querySelector('.news-row').style.display='none'; ok.textContent='Děkujeme ✦ První dopis z Oázy dorazí do tvé schránky.'; }
+        else { ok.textContent='Zkus to prosím za chvíli znovu.'; b.disabled=false; b.textContent='Chci dopisy'; }
+      }catch(err){ ok.textContent='Zkus to prosím za chvíli znovu.'; b.disabled=false; b.textContent='Chci dopisy'; }
+    });
+  })();
+  </script>
 </section>
 
 

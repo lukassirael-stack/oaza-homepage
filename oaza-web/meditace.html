@@ -87,27 +87,29 @@ nav.web .btn:hover{background:#9c585a}
 .logo small{display:block;font:600 8.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--zlata-tm);margin-top:5px}
 
 /* hero */
-.hero{position:relative;padding:150px 0 64px;min-height:680px;display:flex;align-items:center;
+.hero{position:relative;padding:110px 0 70px;min-height:760px;display:flex;align-items:center;
   background:
     linear-gradient(90deg,rgba(251,246,238,.82) 0%,rgba(251,246,238,.62) 28%,rgba(251,246,238,.18) 48%,rgba(251,246,238,0) 62%),
     url('/img/hero-pozadi.webp?v=1') center 58%/cover no-repeat,#f8ead8}
 .hero>.obal{width:min(var(--sirka),100% - 40px)}
-.hero .obal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;align-items:center}
-.nadpisek{font:600 12px/1 var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--zlata-tm);margin-bottom:22px}
-.nadpisek .sym{color:var(--zlata);font-size:11px;margin:0 .1em;letter-spacing:0}
-.hero h1{font-family:'Cinzel',var(--serif);font-size:clamp(36px,5.4vw,68px);font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1.08;color:var(--zlata-tm);background:linear-gradient(180deg,#b8924a 0%,#8a682e 55%,#a8843f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(255,250,240,.7))}
-.hero h1 .online{display:block;font-size:.72em;letter-spacing:.2em;margin-bottom:.04em}
+.hero .obal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:30px;align-items:center}
+.nadpisek{font:500 17px/1 var(--serif);letter-spacing:.3em;text-transform:uppercase;color:var(--zlata-tm);margin-bottom:22px}
+.nadpisek .sym{color:var(--zlata);font-size:13px;margin:0 .1em;letter-spacing:0}
+.hero h1{font-family:'Cinzel',var(--serif);font-size:clamp(40px,5.8vw,84px);font-weight:500;letter-spacing:.02em;text-transform:none;line-height:1;color:var(--zlata-tm);background:linear-gradient(180deg,#b8924a 0%,#8a682e 55%,#a8843f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(255,250,240,.7))}
+.hero h1 .online{display:block}
 .hero .pod{font:500 clamp(21px,2.3vw,27px)/1.3 var(--serif);color:var(--hneda);margin:14px 0 28px;max-width:30ch}
 .hero .akce{display:flex;flex-wrap:wrap;gap:12px}
 .hero .akce .tl{font:500 20px/1 var(--serif);padding:16px 30px;letter-spacing:.02em}
 .vyhody{display:inline-flex;align-items:stretch;margin:34px 0 0;padding:6px 4px;list-style:none;font:400 17px/1.2 var(--serif);color:var(--hneda);border-radius:18px;background:rgba(253,249,242,.8);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 20px -12px rgba(90,60,20,.5)}
-.vyhody li{display:flex;align-items:center;gap:8px;padding:8px 16px;font-weight:400;white-space:nowrap;border-left:1px solid rgba(169,130,63,.25)}
+.vyhody li{display:flex;align-items:center;gap:8px;padding:8px 14px;font-weight:400;white-space:nowrap;border-left:1px solid rgba(169,130,63,.25)}
 .vyhody li:first-child{border-left:0}
 .vyhody svg{width:24px;height:24px;color:var(--zlata)}
 .rukopis{font:400 26px/1.15 var(--rukopis);color:var(--zlata);transform:rotate(-7deg);pointer-events:none}
 .hero .rukopis{position:absolute;right:max(20px,calc(50% - 590px));top:100px;text-align:right;font-size:24px;z-index:6}
 
-.hero-logo{position:absolute;right:max(230px,calc(50% - 380px));top:88px;width:300px;z-index:6;display:flex;flex-direction:column;align-items:center;text-align:center;font-family:'Cinzel',var(--serif);text-transform:uppercase;line-height:1;filter:drop-shadow(0 0 3px rgba(255,252,245,1)) drop-shadow(0 0 12px rgba(255,250,240,.9))}
+.hero-prava{display:flex;flex-direction:column;align-items:center}
+.hero-logo{position:relative;width:300px;z-index:6;display:flex;flex-direction:column;align-items:center;text-align:center;font-family:'Cinzel',var(--serif);text-transform:uppercase;line-height:1;filter:drop-shadow(0 0 3px rgba(255,252,245,1)) drop-shadow(0 0 12px rgba(255,250,240,.9))}
+.hero-logo .l0{width:56px;height:56px;color:#b08a45;margin-bottom:10px}
 .hero-logo span{background:linear-gradient(180deg,#c9a45c 0%,#9c7531 55%,#bf9b52 100%);-webkit-background-clip:text;background-clip:text;color:#a3792f;-webkit-text-fill-color:transparent}
 .hero-logo svg{color:#b08a45;width:100%;height:auto;margin:6px 0 6px}
 .hero-logo .l1{font-size:34px;font-weight:600;letter-spacing:.06em}
@@ -115,7 +117,7 @@ nav.web .btn:hover{background:#9c585a}
 .hero-logo .ac::after{content:'';position:absolute;left:50%;top:-.22em;width:.1em;height:.26em;margin-left:0;border-radius:.05em;background:linear-gradient(180deg,#c9a45c,#9c7531);transform:rotate(30deg);transform-origin:bottom center}
 .hero-logo .l2{font-size:34px;font-weight:600;letter-spacing:.04em;margin-top:6px}
 .hero-logo .l4{font-family:'Cinzel',var(--serif);font-size:9.5px;font-weight:500;letter-spacing:.34em;white-space:nowrap}
-.hero-karty{margin:100px 0 0;padding:0 24px;filter:drop-shadow(0 22px 30px rgba(90,60,20,.28))}
+.hero-karty{margin:34px 0 0;padding:0 6px;width:100%;filter:drop-shadow(0 22px 30px rgba(90,60,20,.28))}
 .hero-karty img{width:100%;height:auto}
 /* karty meditací v úvodu (vějíř, nepoužito) */
 .vejir{position:relative;container-type:inline-size;width:100%;max-width:600px;aspect-ratio:600/450;margin:46px auto 0}
@@ -235,18 +237,20 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 
 @media (max-width:1080px){
   .vzniklo .rukopis{display:none}
-  .hero-logo{width:250px;top:84px}
+  .hero-logo{width:250px}
   .hero-logo .l1,.hero-logo .l2{font-size:28px}
   .hero-logo .l4{font-size:8px}
 }
 @media (max-width:860px){
   .hero{padding:205px 0 40px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
-  .hero h1{font-size:46px;letter-spacing:.05em}
-  .hero h1 .online{font-size:.62em;letter-spacing:.22em;margin-bottom:.1em}
+  .hero h1{font-size:50px;letter-spacing:.02em}
+
   .hero .pod{max-width:30ch;font-size:21px;line-height:1.3;margin:12px auto 26px}
   .hero .akce .tl{font-size:20px;padding:13px 34px}
-  .nadpisek{font-size:13px;letter-spacing:.3em;font-weight:500;color:#8f6d33}
-  .hero-logo{position:absolute;top:80px;left:50%;right:auto;transform:translateX(-50%);width:min(250px,70vw)}
+  .nadpisek{font-size:15px;letter-spacing:.26em;color:#8f6d33}
+  .hero-prava{display:contents}
+  .hero-logo{order:-1;width:min(250px,70vw);margin:0 auto 26px}
+  .hero-logo .l0{width:46px;height:46px}
   .hero-logo .l1,.hero-logo .l2{font-size:min(29px,7.6vw);font-weight:500}
   .hero-logo .l2{margin-top:5px}
   .hero-logo svg{margin:7px 0 7px}
@@ -303,16 +307,10 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 
 <main>
 <section class="hero">
-  <div class="hero-logo" role="img" aria-label="Oáza Adamanthea, Crystal & Retreat centrum">
-    <span class="l1">O<span class="ac" aria-label="á">A</span>ZA</span>
-    <span class="l2">Adamanthea</span>
-    <svg class="l3" viewBox="0 0 400 14" aria-hidden="true"><path d="M0 7h178M222 7h178" stroke="currentColor" stroke-width="1.2"/><path d="M200 1l6 6-6 6-6-6z" fill="currentColor"/></svg>
-    <span class="l4">Crystal &amp; Retreat centrum</span>
-  </div>
   <div class="obal">
     <div>
       <p class="nadpisek">Proud <span class="sym">✦</span> Vědomí <span class="sym">✦</span> Světla</p>
-      <h1><span class="online">Online</span>meditace</h1>
+      <h1><span class="online">Online</span>Meditace</h1>
       <p class="pod">Vedené meditace a&nbsp;aktivace pro vnitřní klid, harmonii a&nbsp;rovnováhu.</p>
       <div class="akce">
         <a class="tl tl-plne" href="#meditace">Vybrat meditaci <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
@@ -324,7 +322,16 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C6 15.5 3 12.5 3 8.75A4.75 4.75 0 0112 6.5a4.75 4.75 0 019 2.25C21 12.5 18 15.5 12 20z"/></svg>Tvořeno s láskou</li>
       </ul>
     </div>
-    <div class="hero-karty" aria-hidden="true"><img src="/img/hero-karty.webp?v=2" alt="" width="1552" height="739" fetchpriority="high"></div>
+    <div class="hero-prava">
+      <div class="hero-logo" role="img" aria-label="Oáza Adamanthea, Crystal & Retreat centrum">
+        <svg class="l0" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="50" cy="50" r="19"/><circle cx="50" cy="31" r="19"/><circle cx="50" cy="69" r="19"/><circle cx="66.5" cy="40.5" r="19"/><circle cx="66.5" cy="59.5" r="19"/><circle cx="33.5" cy="40.5" r="19"/><circle cx="33.5" cy="59.5" r="19"/><circle cx="50" cy="50" r="40"/></svg>
+        <span class="l1">O<span class="ac" aria-label="á">A</span>ZA</span>
+        <span class="l2">Adamanthea</span>
+        <svg class="l3" viewBox="0 0 400 14" aria-hidden="true"><path d="M0 7h178M222 7h178" stroke="currentColor" stroke-width="1.2"/><path d="M200 1l6 6-6 6-6-6z" fill="currentColor"/></svg>
+        <span class="l4">Crystal &amp; Retreat centrum</span>
+      </div>
+      <div class="hero-karty" aria-hidden="true"><img src="/img/hero-karty.webp?v=2" alt="" width="1552" height="739" fetchpriority="high"></div>
+    </div>
   </div>
 </section>
 

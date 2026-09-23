@@ -92,7 +92,7 @@ nav.web .btn:hover{background:#9c585a}
     linear-gradient(90deg,rgba(251,246,238,.82) 0%,rgba(251,246,238,.62) 28%,rgba(251,246,238,.18) 48%,rgba(251,246,238,0) 62%),
     url('/img/hero-pozadi.webp?v=1') center 58%/cover no-repeat,#f8ead8}
 .hero>.obal{width:min(var(--sirka),100% - 40px)}
-.hero .obal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:30px;align-items:center}
+.hero .obal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(30px,3vw,48px);align-items:center}
 .nadpisek{font:500 17px/1 var(--serif);letter-spacing:.3em;text-transform:uppercase;color:var(--zlata-tm);margin-bottom:22px}
 .nadpisek .sym{color:var(--zlata);font-size:13px;margin:0 .1em;letter-spacing:0}
 .hero h1{font-family:'Cinzel',var(--serif);font-size:clamp(40px,5.8vw,84px);font-weight:500;letter-spacing:.02em;text-transform:none;line-height:1;color:var(--zlata-tm);background:linear-gradient(180deg,#b8924a 0%,#8a682e 55%,#a8843f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(255,250,240,.7))}
@@ -100,10 +100,10 @@ nav.web .btn:hover{background:#9c585a}
 .hero .pod{font:500 clamp(21px,2.3vw,27px)/1.3 var(--serif);color:var(--hneda);margin:14px 0 28px;max-width:30ch}
 .hero .akce{display:flex;flex-wrap:wrap;gap:12px}
 .hero .akce .tl{font:500 20px/1 var(--serif);padding:16px 30px;letter-spacing:.02em}
-.vyhody{display:inline-flex;align-items:stretch;margin:34px 0 0;padding:6px 4px;list-style:none;font:400 17px/1.2 var(--serif);color:var(--hneda);border-radius:18px;background:rgba(253,249,242,.8);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 20px -12px rgba(90,60,20,.5)}
-.vyhody li{display:flex;align-items:center;gap:8px;padding:8px 14px;font-weight:400;white-space:nowrap;border-left:1px solid rgba(169,130,63,.25)}
+.vyhody{display:inline-flex;align-items:stretch;max-width:100%;margin:34px 0 0;padding:6px 4px;list-style:none;font:400 clamp(14px,1.05vw,16px)/1.2 var(--serif);color:var(--hneda);border-radius:18px;background:rgba(253,249,242,.8);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 20px -12px rgba(90,60,20,.5)}
+.vyhody li{display:flex;align-items:center;gap:7px;padding:8px clamp(8px,.8vw,13px);font-weight:400;white-space:nowrap;min-width:0;border-left:1px solid rgba(169,130,63,.25)}
 .vyhody li:first-child{border-left:0}
-.vyhody svg{width:24px;height:24px;color:var(--zlata)}
+.vyhody svg{width:22px;height:22px;flex:none;color:var(--zlata)}
 .rukopis{font:400 26px/1.15 var(--rukopis);color:var(--zlata);transform:rotate(-7deg);pointer-events:none}
 .hero .rukopis{position:absolute;right:max(20px,calc(50% - 590px));top:100px;text-align:right;font-size:24px;z-index:6}
 
@@ -235,6 +235,9 @@ dialog .udaje li{border:1px solid var(--linka);border-radius:999px;padding:6px 1
 dialog audio{width:100%;margin-bottom:20px}
 dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,253,249,.9);color:var(--hneda);font-size:20px;cursor:pointer}
 
+@media (max-width:1180px){
+  .vyhody li{white-space:normal}
+}
 @media (max-width:1080px){
   .vzniklo .rukopis{display:none}
   .hero-logo{width:250px}

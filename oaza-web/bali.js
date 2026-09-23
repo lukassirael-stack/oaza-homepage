@@ -1,4 +1,4 @@
-/* bali.js — sdílené věci Bali Shopu: měření nákupní cesty, Meta pixel po souhlasu, Dopis z Bali Shopu.
+/* bali.js — sdílené věci Bali Shopu: měření nákupní cesty, Meta pixel po souhlasu, Novinky z Bali Shopu.
    Načítá se na /bali-shop, /produkt a /pokladna (za kosik.js). */
 (function () {
   const SB = 'https://myybuesoourgpbouwwst.supabase.co/rest/v1/rpc/';
@@ -65,15 +65,15 @@
     window.Kosik._mereno = true;
   }
 
-  // ---- Dopis z Bali Shopu ----
+  // ---- Novinky z Bali Shopu ----
   function dopisHTML() {
     return `<div class="bali-dopis" id="bali-dopis"><div class="bali-dopis-in">
-      <div class="bali-dopis-eb">✦ Dopis z Bali Shopu</div>
-      <h3>Jednou za měsíc vybrané novinky a jedinečné kusy</h3>
-      <p>Napíšeme ti, když dorazí něco výjimečného — krátce, s příběhem, jednou měsíčně.</p>
-      <form class="bali-dopis-f"><input type="email" required placeholder="tvůj e-mail" autocomplete="email"><button type="submit">Chci dopis</button></form>
+      <div class="bali-dopis-eb">✦ Novinky z Bali Shopu</div>
+      <h3>Vybrané novinky a jedinečné kusy</h3>
+      <p>Napíšeme ti, když dorazí něco výjimečného — krátce a s příběhem.</p>
+      <form class="bali-dopis-f"><input type="email" required placeholder="tvůj e-mail" autocomplete="email"><button type="submit">Chci novinky</button></form>
       <div class="bali-dopis-z"></div>
-      <div class="bali-dopis-gdpr">Odběr odhlásíš kdykoli jedním klikem v každém dopisu · <a href="/gdpr">Ochrana osobních údajů</a></div>
+      <div class="bali-dopis-gdpr">Odběr odhlásíš kdykoli jedním klikem v každém e-mailu · <a href="/gdpr">Ochrana osobních údajů</a></div>
     </div></div>`;
   }
   function dopisMount(host) {

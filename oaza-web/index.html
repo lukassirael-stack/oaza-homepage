@@ -821,14 +821,14 @@
 <!-- ============ NEWSLETTER ============ -->
 <section class="news" id="newsletter">
   <div class="sekce-head" style="margin-bottom:0">
-    <h2>Dopisy z Oázy</h2>
+    <h2>Newsletter Oázy</h2>
     <div class="orn">
       <svg width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
         <path d="M8 1 L13 7 L11 21 L5 21 L3 7 Z" stroke="#b06a6c" stroke-width="1"/>
       </svg>
     </div>
   </div>
-  <p class="pod">Jeden dopis měsíčně, s láskou z Oázy.</p>
+  <p class="pod">S láskou z Oázy, přímo do tvé schránky.</p>
   <div class="news-body">
     <ul>
       <li>Pozvánky na akce dřív, než se objeví na webu — místa se plní rychle.</li>
@@ -839,7 +839,7 @@
   <form class="news-form" id="newsForm" novalidate>
     <div class="news-row">
       <input type="email" name="email" required autocomplete="email" placeholder="tvůj e-mail" aria-label="E-mail">
-      <button type="submit">Chci dopisy</button>
+      <button type="submit">Chci newsletter</button>
     </div>
     <p class="news-ok" id="newsOk" aria-live="polite"></p>
   </form>
@@ -852,9 +852,9 @@
       if(!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em)){ ok.textContent='Zkontroluj prosím e-mail.'; i.focus(); return; }
       b.disabled=true; b.textContent='Odesílám…';
       try{ var r=await fetch('/api/objednavka',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({akce:'dopis',seznam:'oaza',email:em,zdroj:'uvod'})});
-        if(r.ok){ f.querySelector('.news-row').style.display='none'; ok.textContent='Děkujeme ✦ První dopis z Oázy dorazí do tvé schránky.'; }
-        else { ok.textContent='Zkus to prosím za chvíli znovu.'; b.disabled=false; b.textContent='Chci dopisy'; }
-      }catch(err){ ok.textContent='Zkus to prosím za chvíli znovu.'; b.disabled=false; b.textContent='Chci dopisy'; }
+        if(r.ok){ f.querySelector('.news-row').style.display='none'; ok.textContent='Děkujeme ✦ Zkontroluj schránku a potvrď odběr.'; }
+        else { ok.textContent='Zkus to prosím za chvíli znovu.'; b.disabled=false; b.textContent='Chci newsletter'; }
+      }catch(err){ ok.textContent='Zkus to prosím za chvíli znovu.'; b.disabled=false; b.textContent='Chci newsletter'; }
     });
   })();
   </script>

@@ -112,7 +112,13 @@ function neindexovat(){
 let KAT={}, SEZNAM=null;
 const seznam=()=> SEZNAM || (SEZNAM=fetch('/api/produkty').then(r=>r.json()).catch(()=>({})));
 const katNazev=k=> KAT[k] || (k||'').replace(/-/g,' ');
-const img=(u,w)=> (window.Bali&&Bali.img) ? Bali.img(u,w) : u;
+// zmenšený obrázek přes Vercel (povolené zdroje a šířky ve vercel.json → images); nezávislé na pořadí načtení bali.js
+const img=(u,w)=>{
+  if(!u||!w) return u;
+  const s=String(u).replace(/^https:\/\/oaza-adamanthea\.cz(?=\/)/,'');
+  if(!(s.startsWith('/img/')||s.startsWith('https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/eshop/'))||/\.svg($|\?)/i.test(s)) return u;
+  return '/_vercel/image?url='+encodeURIComponent(s)+'&w='+([320,480,800,1200].find(x=>x>=w)||1200)+'&q=75';
+};
 async function nacti(){
   if(!slug){neindexovat();$('#obsah').innerHTML='<div class="nacitam">Produkt nenalezen.</div>';return;}
   try{

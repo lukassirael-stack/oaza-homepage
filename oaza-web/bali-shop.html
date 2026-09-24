@@ -441,8 +441,8 @@ function karta(p){
     const sama=!f2?'sama':'', chybi=!f2?'chybi':'';
     return `<a class="karta-prod" href="/produkt/${encodeURIComponent(p.slug)}">
       <div class="foto">
-        <img class="prvni ${sama}" src="${esc(f1)}" alt="${esc(p.nazev)}" loading="lazy" decoding="async" onload="this.parentNode.style.setProperty('--bg','url(&quot;'+this.currentSrc+'&quot;)')" onerror="this.style.visibility='hidden'">
-        ${f2?`<img class="druha" data-src="${esc(f2)}" alt="" decoding="async" onload="this.classList.add('ok')">`:''}
+        <img class="prvni ${sama}" src="${esc(img(f1,480))}" srcset="${esc(img(f1,320))} 320w, ${esc(img(f1,480))} 480w, ${esc(img(f1,800))} 800w" sizes="(max-width:640px) 50vw, 300px" alt="${esc(p.nazev)}" loading="lazy" decoding="async" onload="this.parentNode.style.setProperty('--bg','url(&quot;'+this.currentSrc+'&quot;)')" onerror="if(this.src.indexOf('/_vercel/')<0)this.style.visibility='hidden'">
+        ${f2?`<img class="druha" data-src="${esc(img(f2,800))}" alt="" decoding="async" onload="this.classList.add('ok')">`:''}
         ${p.stitek?`<span class="stitek">${esc(p.stitek)}</span>`:''}
         ${p.doporucujeme?'<span class="hvezdicka">✦</span>':''}
         ${p.digitalni?'<span class="digi-tag">Digitální</span>':''}

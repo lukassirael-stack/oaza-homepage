@@ -400,5 +400,33 @@
         }
       ]
     }
-  ]
+  ],
+  "images": {
+    "sizes": [
+      320,
+      480,
+      800,
+      1200
+    ],
+    "qualities": [
+      75
+    ],
+    "formats": [
+      "image/webp"
+    ],
+    "minimumCacheTTL": 2678400,
+    "remotePatterns": [
+      {
+        "protocol": "https",
+        "hostname": "myybuesoourgpbouwwst.supabase.co",
+        "pathname": "^/storage/v1/object/public/eshop/.*$"
+      }
+    ],
+    "localPatterns": [
+      {
+        "pathname": "^/img/.*$",
+        "search": ""
+      }
+    ]
+  }
 }

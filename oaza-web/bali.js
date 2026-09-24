@@ -51,11 +51,27 @@
       if (udalost === 'pokladna') meta('InitiateCheckout', { value: o.castka, currency: m, num_items: o.pocet || 1 });
       if (udalost === 'zaplaceno' || udalost === 'objednavka') meta('Purchase', { value: o.castka, currency: m, content_type: 'product' });
     },
-    // obrázek ze Supabase úložiště: originál, prohlížeč ho zobrazí v potřebné velikosti
-    // (transformace na straně Supabase mají měsíční kvótu, proto je necháváme stranou)
-    img(url) { return url; },
+    // obrázek zmenšený přes Vercel Image Optimization (povolené zdroje a šířky jsou ve vercel.json → images)
+    img(url, w) {
+      if (!url || !w) return url;
+      const u = String(url).replace(/^https:\/\/oaza-adamanthea\.cz(?=\/)/, '');
+      const povoleno = u.startsWith('/img/') || u.startsWith('https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/eshop/');
+      if (!povoleno || /\.svg($|\?)/i.test(u)) return url;
+      const sirka = [320, 480, 800, 1200].find(x => x >= w) || 1200;
+      return '/_vercel/image?url=' + encodeURIComponent(u) + '&w=' + sirka + '&q=75';
+    },
   };
   window.Bali = Bali;
+
+  // pojistka: když se zmenšený obrázek nenačte, zobrazí se originál
+  document.addEventListener('error', e => {
+    const t = e.target;
+    if (!t || t.tagName !== 'IMG' || !t.src || t.src.indexOf('/_vercel/image') < 0) return;
+    const puvodni = new URL(t.src).searchParams.get('url');
+    if (!puvodni) return;
+    t.removeAttribute('srcset');
+    t.src = puvodni;
+  }, true);
 
   // košík: přidání zaznamenat (obalíme Kosik.pridej)
   function obalKosik() {

@@ -133,6 +133,7 @@
 
 <script src="/kosik.js"></script>
 <script src="/bali.js?v=3"></script>
+<script src="/heureka.js"></script>
 <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
 <script>
 const PACKETA_API_KEY='54841ac0ac111e66'; // veřejný klíč widgetu (klientská strana)
@@ -393,7 +394,9 @@ function zaplacenoKartou(id){
   if(window.Kosik) Kosik.vyprazdni();
   const vykresli=(o)=>{
     const hotovo=o && o.stav && o.stav!=='nova';
-    if(hotovo && window.Bali && !window._zaplacenoMereno){ window._zaplacenoMereno=true; Bali.udalost('zaplaceno',{castka:o.cena_celkem,mena:o.mena}); }
+    if(hotovo && !window._zaplacenoMereno){ window._zaplacenoMereno=true;
+      if(window.Bali) Bali.udalost('zaplaceno',{castka:o.cena_celkem,mena:o.mena});
+      try{ const hz=JSON.parse(sessionStorage.getItem('oaza_heureka_obj')||'null'); sessionStorage.removeItem('oaza_heureka_obj'); if(hz && window.HeurekaOaza) HeurekaOaza.objednavka(Object.assign(hz,{cislo:o.cislo||hz.cislo,celkem:o.cena_celkem||hz.celkem})); }catch(e){} }
     $('#obsah').innerHTML=`<div class="hotovo"><div class="znak">✦</div>
       <h2>${hotovo?'Zaplaceno, děkujeme!':'Platba se dokončuje…'}</h2>
       <p style="color:var(--tlumeny);font-style:italic;max-width:440px;margin:10px auto">${o&&o.cislo?`Objednávka #${esc(o.cislo)}. `:''}${hotovo
@@ -457,7 +460,9 @@ async function odeslat(){
       btn.disabled=false; tlacText(); return;
     }
     if(window.Bali) Bali.udalost('objednavka',{castka:j.cena_celkem,mena:j.mena});
-    if(j.karta && j.stripe_url){ btn.textContent='Otevírám platbu…'; location.href=j.stripe_url; return; }
+    const hz={cislo:j.cislo, celkem:j.cena_celkem, mena:j.mena, polozky:polozky().map(p=>({id:p.slug, nazev:p.nazev, cena:cenaPol(p)}))};
+    if(j.karta && j.stripe_url){ try{ sessionStorage.setItem('oaza_heureka_obj',JSON.stringify(hz)); }catch(e){} btn.textContent='Otevírám platbu…'; location.href=j.stripe_url; return; }
+    if(window.HeurekaOaza) HeurekaOaza.objednavka(hz);
     Kosik.vyprazdni();
     potvrzeni(j);
   }catch(e){ chyba('Chyba spojení. Zkus to prosím znovu.'); btn.disabled=false; tlacText(); }

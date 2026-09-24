@@ -298,6 +298,46 @@
       "source": "/aktivace-osobniho-portalu",
       "destination": "/portalova-zahrada",
       "permanent": true
+    },
+    {
+      "source": "/terapie-konzultace",
+      "destination": "/terapie-v-oaze",
+      "permanent": true
+    },
+    {
+      "source": "/terapie",
+      "destination": "/terapie-v-oaze",
+      "permanent": true
+    },
+    {
+      "source": "/dálková-harmonizace",
+      "destination": "/dalkova-harmonizace-aury",
+      "permanent": true
+    },
+    {
+      "source": "/dalkova-harmonizace",
+      "destination": "/dalkova-harmonizace-aury",
+      "permanent": true
+    },
+    {
+      "source": "/services-9",
+      "destination": "/nabidka-sluzeb",
+      "permanent": true
+    },
+    {
+      "source": "/services-:cislo",
+      "destination": "/nabidka-sluzeb",
+      "permanent": true
+    },
+    {
+      "source": "/kangen",
+      "destination": "/nabidka-sluzeb",
+      "permanent": true
+    },
+    {
+      "source": "/healy",
+      "destination": "/nabidka-sluzeb",
+      "permanent": true
     }
   ],
   "rewrites": [

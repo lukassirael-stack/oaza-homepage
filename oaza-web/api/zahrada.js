@@ -42,6 +42,25 @@ const CACHE_KEY = 'closed_days_zahrada_v1';
 // stránka a posílá ho ve fields, takže odložená rezervace nese stejný VS.
 const POBYT_PROXY = 'https://rezervace-proxy.vercel.app/api/airtable';
 const POBYT_BUF   = 'rezervace_pobyt_buffer';
+// Faktura na přání hosta: web zapíše VS do Supabase fronty (faktury_fronta)
+// a hned spustí vystavení. Cron faktury-pobyt se Airtable ptá jen tehdy,
+// když ve frontě něco čeká — spotřeba API volání tak odpovídá počtu faktur.
+function chceFakturu(pf) {
+  return /^\s*ano/i.test(String((pf && pf.faktura) || ''));
+}
+async function zaradFakturu(pf) {
+  await supaRest('faktury_fronta', {
+    method: 'POST', prefer: 'return=minimal',
+    body: [{ vs: String(pf.variabilni_symbol || ''), email: String(pf.email || '') }],
+  });
+}
+async function vystavFakturuHned() {
+  // max. 8 s, ať host nečeká; co nestihne, dožene cron do 10 minut
+  await Promise.race([
+    supaRest('rpc/vystav_faktury_pobyt', { method: 'POST', body: {} }),
+    new Promise((resolve) => setTimeout(resolve, 8000)),
+  ]);
+}
 function pobytOverlaps(aIn, aOut, bIn, bOut) {
   if (!aIn || !aOut || !bIn || !bOut) return false;
   return aIn < bOut && bIn < aOut; // [in, out) překryv
@@ -224,6 +243,9 @@ module.exports = async function handler(req, res) {
         if (ppr && ppr.ok) {
           const pj = await ppr.json().catch(() => ({ ok: true }));
           try { await flushPobytBuffer(); } catch (e) {} // proxy jede → dožeň odložené
+          if (chceFakturu(pf)) {
+            try { await zaradFakturu(pf); await vystavFakturuHned(); } catch (e) {}
+          }
           return res.status(200).json(pj);
         }
         // 2) jiná 4xx než limit (validace) → vrať reálnou chybu proxy
@@ -242,6 +264,8 @@ module.exports = async function handler(req, res) {
         }
         try {
           await supaRest(POBYT_BUF, { method: 'POST', prefer: 'return=minimal', body: [{ payload: pf }] });
+          // faktura počká ve frontě, cron ji vystaví po přehrání rezervace do Airtable
+          if (chceFakturu(pf)) { try { await zaradFakturu(pf); } catch (e) {} }
           return res.status(200).json({ ok: true, buffered: true });
         } catch (bufErr) {
           return res.status(502).json({ error: 'Rezervaci se nepodařilo uložit', detail: String((bufErr && bufErr.message) || bufErr) });

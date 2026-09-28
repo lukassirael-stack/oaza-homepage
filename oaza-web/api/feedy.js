@@ -12,6 +12,12 @@ const esc = s => String(s == null ? '' : s)
 
 // Oblečení pro srovnávače (Heureka / Zboží): značka, velikost a sekce podle druhu kusu.
 const ZNACKA = 'Bali Shop';
+// označení zdroje v odkazech → vlastní analytika (bez cookies) pozná návštěvy ze srovnávačů
+const UTM = {
+  google: 'utm_source=google&utm_medium=nakupy',
+  heureka: 'utm_source=heureka&utm_medium=srovnavac',
+  zbozi: 'utm_source=zbozi&utm_medium=srovnavac',
+};
 const ODESLANI_DNU = 3; // web slibuje odeslání do 3 pracovních dnů
 const MODA = 'Oblečení, obuv a doplňky';
 function modniSekce(nazev) {
@@ -63,7 +69,7 @@ export default async function handler(req, res) {
       nazev: p.nazev,
       popis: String(p.popis || '').replace(/\s+/g, ' ').trim()
         || `Ručně vybraný kus z Bali Shopu Oázy Adamanthea — ${p.nazev}.`,
-      url: `${WEB}/produkt/${encodeURIComponent(p.slug)}`,
+      url: `${WEB}/produkt/${encodeURIComponent(p.slug)}?${UTM[typ]}`,
       foto: (p.fotky || [])[0] || '',
       dalsiFotky: (p.fotky || []).slice(1, 6),
       cena: Number(p.cena || 0),

@@ -184,7 +184,14 @@
         session_id: sid,
         stranka: location.pathname || "/",
         titulek: (document.title || "").slice(0, 200),
-        referrer: (document.referrer || "").slice(0, 300),
+        referrer: (function () {
+          // odkazy ze srovnávačů nesou utm_source → uloží se jako zdroj „utm:zdroj/medium“
+          try {
+            var u = new URLSearchParams(location.search);
+            if (u.get("utm_source")) return ("utm:" + u.get("utm_source") + "/" + (u.get("utm_medium") || "")).slice(0, 300);
+          } catch (e) {}
+          return (document.referrer || "").slice(0, 300);
+        })(),
         zarizeni: window.innerWidth < 768 ? "mobil" : "desktop",
         doba_sekundy: Math.round(aktivniMs / 1000),
       };

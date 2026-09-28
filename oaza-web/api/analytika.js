@@ -247,6 +247,13 @@ function radaHodinova(rada, off) {
 
 function normalizujReferrer(ref) {
   if (!ref) return "Přímý / záložka";
+  if (/^utm:/i.test(ref)) {
+    const [zdroj, medium] = ref.slice(4).toLowerCase().split("/");
+    if (zdroj === "google" && medium === "nakupy") return "Google Nákupy";
+    if (zdroj === "heureka") return "Heureka";
+    if (zdroj === "zbozi") return "Zboží.cz";
+    return zdroj || "Přímý / záložka";
+  }
   try {
     const h = new URL(ref).hostname.replace(/^www\./, "");
     if (h.includes("oaza-adamanthea")) return "Vlastní web";

@@ -368,6 +368,31 @@ const BARVY={'bílá':'#fff','černá':'#222','šedá':'#9a9a9a','stříbrná':'
 function barvaHex(n){const k=bezDia(n);for(const[c,h]of Object.entries(BARVY))if(bezDia(c)===k||k.includes(bezDia(c)))return h;return '#cfc3a8';}
 
 
+// Návrat z produktu na stejné místo v katalogu (filtry i pozice)
+if('scrollRestoration' in history) history.scrollRestoration='manual';
+const NAVRAT_KLIC='oaza_shop_navrat';
+document.addEventListener('click',e=>{
+  const a=e.target.closest&&e.target.closest('a.karta-prod'); if(!a) return;
+  try{ sessionStorage.setItem(NAVRAT_KLIC,JSON.stringify({y:window.scrollY,stav:STAV,t:Date.now()})); }catch(_){}
+},true);
+function navratZProduktu(){
+  let z=null; try{ z=JSON.parse(sessionStorage.getItem(NAVRAT_KLIC)||'null'); }catch(_){}
+  if(!z || Date.now()-z.t>3600e3) return null;
+  const nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};
+  return (nav.type==='back_forward' || /\/produkt\//.test(document.referrer)) ? z : null;
+}
+function obnovMisto(z){
+  STAV=Object.assign(STAV,z.stav||{});
+  $('#hledat').value=STAV.q||''; $('#razeni').value=STAV.sort||'dop';
+  $('#cena-min').value=STAV.cmin??''; $('#cena-max').value=STAV.cmax??'';
+  document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('akt',x.dataset.k===STAV.kat));
+  document.querySelectorAll('.barva-chip').forEach(x=>x.classList.toggle('akt',x.dataset.b===STAV.barva));
+  render();
+  const jdi=()=>window.scrollTo(0,z.y);
+  jdi(); requestAnimationFrame(jdi); setTimeout(jdi,250);
+}
+window.addEventListener('pageshow',e=>{ if(e.persisted){ const z=navratZProduktu(); if(z) window.scrollTo(0,z.y); } });
+
 async function nacti(){
   try{
     const r=await fetch('/api/produkty'); const j=await r.json();
@@ -375,7 +400,9 @@ async function nacti(){
     VSE=j.produkty||[]; KATEGORIE=j.kategorie||[]; KURZ=j.kurz||25;
     const kq=new URLSearchParams(location.search).get('kat'); if(kq && KATEGORIE.some(k=>k.slug===kq)) STAV.kat=kq;
     syncMena(); renderKategorie(); renderBarvy(); render(); renderVybrano();
-    if(kq){ document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('akt',x.dataset.k===STAV.kat)); setTimeout(()=>$('#katalog').scrollIntoView({behavior:'smooth',block:'start'}),80); }
+    const navrat=navratZProduktu();
+    if(navrat) obnovMisto(navrat);
+    else if(kq){ document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('akt',x.dataset.k===STAV.kat)); setTimeout(()=>$('#katalog').scrollIntoView({behavior:'smooth',block:'start'}),80); }
     if(window.Bali&&Bali.dopis) Bali.dopis(document.querySelector('.wrap'));
   }catch(e){ $('#mrizka').innerHTML='<div class="prazdno" style="grid-column:1/-1">Obchod se nepodařilo načíst.</div>'; }
 }

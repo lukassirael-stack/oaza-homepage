@@ -10,6 +10,25 @@ const esc = s => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+// Oblečení pro srovnávače (Heureka / Zboží): značka, velikost a sekce podle druhu kusu.
+const ZNACKA = 'Bali Shop';
+const ODESLANI_DNU = 3; // web slibuje odeslání do 3 pracovních dnů
+const MODA = 'Oblečení, obuv a doplňky';
+function modniSekce(nazev) {
+  const n = String(nazev || '').toLowerCase();
+  if (/^pánsk/.test(n)) return `${MODA} | Pánské oblečení | Pánská trička a tílka`;
+  if (/komplet/.test(n)) return `${MODA} | Dámské oblečení | Dámské komplety`;
+  if (/kalhoty/.test(n)) return `${MODA} | Dámské oblečení | Dámské kalhoty`;
+  if (/sukn/.test(n)) return `${MODA} | Dámské oblečení | Dámské sukně`;
+  if (/(tílko|top\b|tričko)/.test(n)) return `${MODA} | Dámské oblečení | Dámská trička a tílka`;
+  if (/(svetř|svetr|pončo|poncho|ponchetto)/.test(n)) return `${MODA} | Dámské oblečení | Dámské mikiny a svetry`;
+  return `${MODA} | Dámské oblečení | Dámské šaty`;
+}
+const param = (jmeno, hodnota) => `  <PARAM>
+    <PARAM_NAME>${esc(jmeno)}</PARAM_NAME>
+    <VAL>${esc(hodnota)}</VAL>
+  </PARAM>`;
+
 export default async function handler(req, res) {
   const URL = process.env.SUPABASE_URL;
   const KEY = process.env.SUPABASE_SERVICE_KEY;
@@ -28,7 +47,7 @@ export default async function handler(req, res) {
 
   try {
     const [radky, kategorie] = await Promise.all([
-      rest('produkty?stav=eq.skladem&select=id,slug,nazev,popis,cena,digitalni,kategorie,fotky,rezervovano_do&order=vytvoreno.desc&limit=1000'),
+      rest('produkty?stav=eq.skladem&select=id,slug,nazev,popis,cena,digitalni,kategorie,fotky,rezervovano_do,velikost,barva,material&order=vytvoreno.desc&limit=1000'),
       rest('kategorie?select=slug,nazev'),
     ]);
     const katMapa = {};
@@ -49,6 +68,10 @@ export default async function handler(req, res) {
       dalsiFotky: (p.fotky || []).slice(1, 6),
       cena: Number(p.cena || 0),
       kategorie: katMapa[p.kategorie] || p.kategorie || 'Bali Shop',
+      obleceni: p.kategorie === 'saty',
+      velikost: (p.velikost || []).filter(Boolean)[0] || '',
+      barva: (p.barva || []).filter(Boolean).join(', '),
+      material: (p.material || []).filter(m => m && !/velikost/i.test(m)).join(', '),
     });
 
     let xml = '';
@@ -82,17 +105,27 @@ ${items}
       const ns = typ === 'zbozi'
         ? ' xmlns="http://www.zbozi.cz/ns/offer/1.0"'
         : ' xmlns="http://www.heureka.cz/ns/offer/1.0"';
-      const items = produkty.map(polozka).map(p => `<SHOPITEM>
+      // Oblečení jde do srovnávačů jen s vyplněnou velikostí (povinný PARAM).
+      const items = produkty.map(polozka).filter(p => !p.obleceni || p.velikost).map(p => {
+        const nazev = p.obleceni ? `${ZNACKA} ${p.nazev} ${p.velikost}` : p.nazev;
+        const sekce = p.obleceni ? modniSekce(p.nazev) : p.kategorie;
+        const parametry = p.obleceni ? [
+          param('Velikost', p.velikost),
+          p.barva ? param('Barva', p.barva) : '',
+          p.material ? param('Materiál', p.material) : '',
+        ].filter(Boolean).join('\n') : '';
+        return `<SHOPITEM>
   <ITEM_ID>${p.id}</ITEM_ID>
-  <PRODUCTNAME>${esc(p.nazev)}</PRODUCTNAME>
+  <PRODUCTNAME>${esc(nazev)}</PRODUCTNAME>
   <DESCRIPTION>${esc(p.popis)}</DESCRIPTION>
   <URL>${esc(p.url)}</URL>
   <IMGURL>${esc(p.foto)}</IMGURL>
 ${p.dalsiFotky.map(f => `  <IMGURL_ALTERNATIVE>${esc(f)}</IMGURL_ALTERNATIVE>`).join('\n')}
   <PRICE_VAT>${p.cena}</PRICE_VAT>
-  <DELIVERY_DATE>0</DELIVERY_DATE>
-  <CATEGORYTEXT>${esc(p.kategorie)}</CATEGORYTEXT>
-</SHOPITEM>`).join('\n');
+${p.obleceni ? `  <MANUFACTURER>${esc(ZNACKA)}</MANUFACTURER>\n` : ''}  <DELIVERY_DATE>${ODESLANI_DNU}</DELIVERY_DATE>
+  <CATEGORYTEXT>${esc(sekce)}</CATEGORYTEXT>
+${parametry ? parametry + '\n' : ''}</SHOPITEM>`;
+      }).join('\n');
 
       xml = `<?xml version="1.0" encoding="utf-8"?>\n<SHOP${ns}>\n${items}\n</SHOP>\n`;
     }

@@ -419,7 +419,7 @@ function renderKategorie(){
     b.classList.add('akt'); STAV.kat=b.dataset.k; render();
     history.replaceState(null,'',STAV.kat==='vse'?'/bali-shop':'/bali-shop?kat='+STAV.kat+'#katalog');
     if(jeMobil()){ $('#filtry-obal').classList.add('sbaleno'); $('#filtry-toggle').classList.remove('otevreno');
-      window.scrollTo({top:0,behavior:'smooth'}); }
+      $('#katalog').scrollIntoView({behavior:'smooth',block:'start'}); }
   });
 }
 function renderBarvy(){

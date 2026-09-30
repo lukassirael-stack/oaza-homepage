@@ -24,8 +24,9 @@
   @media(max-width:780px){.detail{grid-template-columns:1fr;gap:28px}}
 
 
-  .galerie .hlavni{aspect-ratio:4/5;background:var(--slonovina2);border:1px solid var(--linka);overflow:hidden;border-radius:16px}
-  .galerie .hlavni img{width:100%;height:100%;object-fit:cover;display:block}
+  .galerie .hlavni{position:relative;aspect-ratio:4/5;background:var(--slonovina2);border:1px solid var(--linka);overflow:hidden;border-radius:16px}
+  .galerie .hlavni::before{content:"";position:absolute;inset:-20px;background:var(--bg) center/cover no-repeat;filter:blur(20px) saturate(.85);opacity:.55}
+  .galerie .hlavni img{position:relative;width:100%;height:100%;object-fit:contain;display:block}
   .galerie video{width:100%;border:1px solid var(--linka);margin-top:12px;background:#000}
   .mini{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
   .mini img{width:66px;height:82px;object-fit:cover;border:1px solid var(--linka);cursor:pointer;opacity:.62;transition:.18s;border-radius:10px}
@@ -195,7 +196,7 @@ function render(p){
   $('#obsah').innerHTML=`
   <div class="detail">
     <div class="galerie">
-      <div class="hlavni"><img id="hlavniFoto" src="${esc(fotky[0]||'')}" alt="${esc(p.nazev)}"></div>
+      <div class="hlavni"><img id="hlavniFoto" src="${esc(fotky[0]||'')}" alt="${esc(p.nazev)}" onload="this.parentNode.style.setProperty('--bg','url(&quot;'+this.currentSrc+'&quot;)')"></div>
       ${fotky.length>1?`<div class="mini">${fotky.map((f,i)=>`<img src="${esc(img(f,240))}" class="${i===0?'akt':''}" loading="lazy" onclick="prepni(${i},this)">`).join('')}</div>`:''}
       ${(p.videa||[]).map(v=>`<video src="${esc(v)}" controls playsinline></video>`).join('')}
     </div>

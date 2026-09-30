@@ -318,6 +318,69 @@ html{scroll-behavior:smooth;}
 
 
 .price-kind{font-family:'Jost',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;color:var(--gold-deep);text-align:center;margin:2px 0 16px}
+
+/* ---------- kalkulace pronájmu ---------- */
+.kalk{max-width:960px;margin:56px auto 0;scroll-margin-top:20px;}
+.kalk-title{text-align:center;font-size:1.5rem;}
+.kalk-lead{text-align:center;max-width:56ch;margin:.5rem auto 26px;}
+.kalk-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:26px;align-items:start;}
+.kalk-fields{background:#fffdf8;border:1px solid var(--line);border-radius:8px;padding:8px 28px 22px;box-shadow:var(--shadow);}
+.k-field{border:0;margin:0;padding:18px 0 4px;border-bottom:1px solid var(--line);min-width:0;}
+.kalk-fields>.k-field:last-child{border-bottom:0;}
+.k-row2>.k-field{border:0;padding-top:0;}
+.k-field legend,.k-label{font-family:"Cinzel",serif;color:var(--ink);font-weight:600;font-size:1rem;padding:0;margin-bottom:10px;display:block;}
+.k-field legend small{font-family:"Cormorant Garamond",serif;font-weight:400;font-style:italic;color:var(--ink-soft);font-size:.95rem;}
+.k-hint{font-size:1rem;font-style:italic;margin:-4px 0 10px;}
+.k-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;}
+.k-row2 .k-field{padding-bottom:10px;}
+.k-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.k-seg label{position:relative;cursor:pointer;}
+.k-seg input{position:absolute;opacity:0;}
+.k-seg span{display:block;text-align:center;border:1px solid var(--line);border-radius:6px;padding:10px 6px;font-family:"Jost",sans-serif;font-size:.92rem;color:var(--ink);background:var(--cream);transition:border-color .2s,background .2s;}
+.k-seg span small{display:block;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.9rem;color:var(--ink-soft);}
+.k-seg input:checked+span{border-color:var(--gold);background:var(--cream-warm);box-shadow:inset 0 0 0 1px var(--gold);}
+.k-seg input:focus-visible+span,.k-check input:focus-visible+span{outline:2px solid var(--gold-deep);outline-offset:2px;}
+.k-step{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:6px;background:#fff;overflow:hidden;}
+.k-step button{width:40px;height:42px;border:0;background:var(--cream);color:var(--gold-deep);font-size:1.25rem;cursor:pointer;font-family:"Jost",sans-serif;}
+.k-step button:hover{background:var(--cream-warm);}
+.k-step input{width:58px;height:42px;border:0;text-align:center;font-family:"Jost",sans-serif;font-size:1.05rem;color:var(--ink);-moz-appearance:textfield;background:#fff;}
+.k-step input::-webkit-inner-spin-button,.k-step input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+.k-step.sm button{width:34px;height:36px;}
+.k-step.sm input{width:44px;height:36px;}
+.k-meals{display:grid;gap:4px;margin-bottom:10px;}
+.k-meal{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;}
+.k-meal>span,.k-check span{color:var(--ink);line-height:1.25;}
+.k-meal small,.k-check small{display:block;font-size:.92rem;font-style:italic;color:var(--ink-soft);}
+.k-check{display:flex;gap:12px;align-items:flex-start;cursor:pointer;padding:10px 0 12px;}
+.k-check input{width:20px;height:20px;accent-color:var(--gold-deep);margin-top:4px;flex:none;}
+.k-in{width:100%;font:inherit;font-size:1.05rem;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-bottom:10px;}
+.k-in:focus,.k-step input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+.k-in.chyba{border-color:#b06a6c;}
+textarea.k-in{resize:vertical;}
+.k-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;}
+.kalk-sum{position:sticky;top:20px;background:var(--ink);color:#f4ead8;border-radius:8px;padding:24px 22px;box-shadow:var(--shadow);}
+.k-sum-title{font-family:"Cinzel",serif;color:var(--gold);text-align:center;margin:0 0 12px;letter-spacing:.06em;}
+#kRadky .r{display:flex;justify-content:space-between;gap:12px;font-size:1rem;padding:7px 0;border-bottom:1px solid rgba(201,161,74,.22);line-height:1.3;}
+#kRadky .r b{font-family:"Jost",sans-serif;font-weight:400;white-space:nowrap;color:#fdfaf5;}
+#kRadky .r small{display:block;opacity:.75;font-style:italic;font-size:.88rem;}
+.k-total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 2px;}
+.k-total span{font-family:"Cinzel",serif;}
+.k-total strong{font-family:"Jost",sans-serif;font-weight:500;font-size:1.6rem;color:var(--gold);}
+.k-perosob{text-align:right;font-style:italic;font-size:.98rem;margin:0 0 16px;opacity:.85;}
+.k-send{display:block;width:100%;margin:0;border:0;cursor:pointer;background:var(--gold);color:var(--ink);}
+.k-send[disabled]{opacity:.6;cursor:wait;}
+.k-msg{font-size:1rem;margin:12px 0 0;text-align:center;min-height:1.2em;}
+.k-msg.ok{color:var(--gold);}
+.k-note{font-size:.92rem;font-style:italic;text-align:center;opacity:.75;margin:10px 0 0;}
+@media (max-width:820px){
+  .kalk-grid{grid-template-columns:1fr;}
+  .kalk-sum{position:static;}
+  .kalk-fields{padding:4px 18px 16px;}
+}
+@media (max-width:520px){
+  .k-row2{grid-template-columns:1fr;gap:0;}
+  .k-seg{grid-template-columns:1fr;}
+}
 </style>
   <meta property="og:locale" content="cs_CZ">
   <meta property="og:image" content="https://oaza-adamanthea.cz/img/og-nahled.jpg">
@@ -455,10 +518,88 @@ html{scroll-behavior:smooth;}
       <div class="row"><span class="name">Shalla + meditační místnost<small>den a noc — 24 hodin / za účastníka · minimálně 7 účastníků</small></span><span class="amount">1 000 Kč / 40 €</span></div>
       <div class="row sub"><span class="name">Denní pronájem (bez noci)<small>za účastníka</small></span><span class="amount">700 Kč / 28 €</span></div>
       <div class="row sub"><span class="name">Půldenní pronájem (do 4 hodin)<small>za účastníka</small></span><span class="amount">400 Kč / 16 €</span></div>
-      <div class="row"><span class="name">Vegetariánská / veganská strava<small>snídaně, oběd, večeře</small></span><span class="amount">450 Kč / den</span></div>
-      <div class="row"><span class="name">Soukromé pokoje se sdílenou koupelnou<small>aktuálně pro 7 osob · sdílení pokoje +200 Kč · příplatek během akce</small></span><span class="amount">+ 300 Kč / os. / den</span></div>
+      <div class="row"><span class="name">Vegetariánská / veganská strava<small>snídaně 160 Kč · oběd 220 Kč · večeře 220 Kč</small></span><span class="amount">600 Kč / den</span></div>
+      <div class="row"><span class="name">Soukromé pokoje se sdílenou koupelnou<small>5 pokojů pro 9 osob · další pokoje přibudou v roce 2027 · příplatek během akce</small></span><span class="amount">+ 300 Kč / os. / den</span></div>
       <div class="row"><span class="name">Chatka Pobyt ve světle<small>1–2 osoby · vytápěná, celoročně</small></span><span class="amount">1 700 Kč / 70 €</span></div>
       <p class="note">Nocování účastníků na matracích v meditační místnosti — přímo mezi velkými krystaly, jejichž pole hosty provází i ve spánku — je součástí ceny. Uvedené ceny platí pro <strong>pronájem na skupinové akce a retreaty</strong>; pro soukromý pobyt jednotlivců (včetně cen pokojů) platí <a href="#soukromy-pobyt" style="color:var(--gold-deep)">vlastní ceník níže</a>.</p>
+    </div>
+
+
+
+    <!-- ===== KALKULACE A POPTÁVKA ===== -->
+    <div class="kalk" id="kalkulace">
+      <h3 class="kalk-title">Spočítejte si svůj retreat</h3>
+      <p class="kalk-lead">Zadejte počet účastníků, délku akce a stravu. Cena se přepočítává rovnou a poptávku nám pak pošlete jedním tlačítkem.</p>
+
+      <form id="kalkForm" class="kalk-grid" novalidate>
+        <div class="kalk-fields">
+          <fieldset class="k-field">
+            <legend>Typ akce</legend>
+            <div class="k-seg" role="radiogroup">
+              <label><input type="radio" name="varianta" value="retreat" checked><span>Vícedenní retreat<small>s nocováním</small></span></label>
+              <label><input type="radio" name="varianta" value="den"><span>Jednodenní<small>přes den</small></span></label>
+              <label><input type="radio" name="varianta" value="pulden"><span>Půldenní<small>do 4 hodin</small></span></label>
+            </div>
+          </fieldset>
+
+          <div class="k-row2">
+            <div class="k-field">
+              <label class="k-label" for="kOsob">Počet účastníků</label>
+              <div class="k-step"><button type="button" data-step="osob" data-d="-1" aria-label="Méně">−</button><input id="kOsob" name="osob" type="number" min="1" max="60" value="10" inputmode="numeric"><button type="button" data-step="osob" data-d="1" aria-label="Více">+</button></div>
+            </div>
+            <div class="k-field" id="kDelkaWrap">
+              <label class="k-label" for="kDelka" id="kDelkaLabel">Počet nocí</label>
+              <div class="k-step"><button type="button" data-step="delka" data-d="-1" aria-label="Méně">−</button><input id="kDelka" name="delka" type="number" min="1" max="30" value="2" inputmode="numeric"><button type="button" data-step="delka" data-d="1" aria-label="Více">+</button></div>
+            </div>
+          </div>
+
+          <fieldset class="k-field">
+            <legend>Vegetariánská strava <small>na osobu</small></legend>
+            <div class="k-meals">
+              <div class="k-meal"><span>Snídaně<small>160 Kč</small></span><div class="k-step sm"><button type="button" data-step="snidane" data-d="-1" aria-label="Méně">−</button><input name="snidane" type="number" min="0" max="60" value="2"><button type="button" data-step="snidane" data-d="1" aria-label="Více">+</button></div></div>
+              <div class="k-meal"><span>Oběd<small>220 Kč</small></span><div class="k-step sm"><button type="button" data-step="obedy" data-d="-1" aria-label="Méně">−</button><input name="obedy" type="number" min="0" max="60" value="2"><button type="button" data-step="obedy" data-d="1" aria-label="Více">+</button></div></div>
+              <div class="k-meal"><span>Večeře<small>220 Kč</small></span><div class="k-step sm"><button type="button" data-step="vecere" data-d="-1" aria-label="Méně">−</button><input name="vecere" type="number" min="0" max="60" value="2"><button type="button" data-step="vecere" data-d="1" aria-label="Více">+</button></div></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="k-field" id="kUbytovani">
+            <legend>Ubytování</legend>
+            <p class="k-hint" id="kKrystaly"></p>
+            <div class="k-meal"><span>Soukromé pokoje<small>300 Kč / os. / noc · 5 pokojů pro 9 osob</small></span><div class="k-step sm"><button type="button" data-step="pokoje" data-d="-1" aria-label="Méně">−</button><input name="pokoje" type="number" min="0" max="9" value="0"><button type="button" data-step="pokoje" data-d="1" aria-label="Více">+</button></div></div>
+            <label class="k-check"><input type="checkbox" name="chatka"><span>Chatka Pobyt ve světle<small>1–2 osoby · 1 700 Kč / noc</small></span></label>
+          </fieldset>
+
+          <fieldset class="k-field">
+            <legend>O jaký termín máte zájem?</legend>
+            <p class="k-hint">Napište nám jednu až dvě možnosti, volný termín vám potvrdíme osobně.</p>
+            <div class="k-row2">
+              <input class="k-in" name="termin1" placeholder="1. možnost, např. 12.–14. 3. 2027" required>
+              <input class="k-in" name="termin2" placeholder="2. možnost">
+            </div>
+          </fieldset>
+
+          <fieldset class="k-field">
+            <legend>Kontakt</legend>
+            <div class="k-row2">
+              <input class="k-in" name="jmeno" placeholder="Jméno a příjmení" autocomplete="name" required>
+              <input class="k-in" name="email" type="email" placeholder="E-mail" autocomplete="email" required>
+            </div>
+            <input class="k-in" name="telefon" type="tel" placeholder="Telefon" autocomplete="tel">
+            <textarea class="k-in" name="zprava" rows="3" placeholder="Pár slov o vaší akci — zaměření, program, přání"></textarea>
+            <input type="text" name="web" tabindex="-1" autocomplete="off" class="k-hp" aria-hidden="true">
+          </fieldset>
+        </div>
+
+        <aside class="kalk-sum" aria-live="polite">
+          <p class="k-sum-title">Orientační cena</p>
+          <div id="kRadky"></div>
+          <div class="k-total"><span>Celkem</span><strong id="kCelkem">0 Kč</strong></div>
+          <p class="k-perosob" id="kNaOsobu"></p>
+          <button type="submit" class="btn btn-gold k-send" id="kSend">Odeslat poptávku</button>
+          <p class="k-msg" id="kMsg" role="status"></p>
+          <p class="k-note">Finální nabídku vám pošleme s potvrzením termínu.</p>
+        </aside>
+      </form>
     </div>
 
 
@@ -617,5 +758,89 @@ document.addEventListener('click', function(e){
 
 
 <script defer src="/navstevnost.js"></script>
+<script>
+(function(){
+  var C={retreat:1000,den:700,pulden:400,min:7,snidane:160,obedy:220,vecere:220,pokoj:300,pokojeMax:9,chatka:1700};
+  var f=document.getElementById('kalkForm'); if(!f) return;
+  var $=function(n){return f.elements[n];};
+  var kc=function(v){return v.toLocaleString('cs-CZ')+' Kč';};
+  var tvar=function(n,a,b,c){return n===1?a:(n>1&&n<5?b:c);};
+  var posledni=null;
+
+  function num(n,min,max){var v=parseInt($(n).value,10);if(isNaN(v))v=min;v=Math.min(max,Math.max(min,v));$(n).value=v;return v;}
+  function varianta(){return f.querySelector('input[name=varianta]:checked').value;}
+
+  // výchozí strava podle typu a délky akce
+  function predvyplnStravu(){
+    var v=varianta(),d=num('delka',1,30);
+    if(v==='retreat'){$('snidane').value=d;$('obedy').value=d;$('vecere').value=d;}
+    else if(v==='den'){$('snidane').value=0;$('obedy').value=d;$('vecere').value=0;}
+    else{$('snidane').value=0;$('obedy').value=0;$('vecere').value=0;}
+  }
+
+  function prepocet(){
+    var v=varianta(),retreat=v==='retreat';
+    document.getElementById('kDelkaWrap').style.display=v==='pulden'?'none':'';
+    document.getElementById('kDelkaLabel').textContent=retreat?'Počet nocí':'Počet dní';
+    document.getElementById('kUbytovani').style.display=retreat?'':'none';
+    var o=num('osob',1,60),d=v==='pulden'?1:num('delka',1,30);
+    var s=num('snidane',0,60),ob=num('obedy',0,60),ve=num('vecere',0,60);
+    var p=retreat?num('pokoje',0,Math.min(C.pokojeMax,o)):0;
+    var ch=retreat&&$('chatka').checked;
+    var r=[];
+    if(retreat){var u=Math.max(o,C.min);r.push(['Shalla, meditační místnost a zahrada',u+' os. × '+d+' '+tvar(d,'noc','noci','nocí')+(o<C.min?' · minimum 7 účastníků':''),u*d*C.retreat]);}
+    else if(v==='den')r.push(['Shalla, meditační místnost a zahrada',o+' os. × '+d+' '+tvar(d,'den','dny','dní'),o*d*C.den]);
+    else r.push(['Shalla, meditační místnost a zahrada',o+' os. · do 4 hodin',o*C.pulden]);
+    var st=(s*C.snidane+ob*C.obedy+ve*C.vecere)*o;
+    if(st)r.push(['Strava',[s&&s+'× snídaně',ob&&ob+'× oběd',ve&&ve+'× večeře'].filter(Boolean).join(', ')+' · '+o+' os.',st]);
+    if(p)r.push(['Soukromé pokoje',p+' os. × '+d+' '+tvar(d,'noc','noci','nocí'),p*d*C.pokoj]);
+    if(ch)r.push(['Chatka Pobyt ve světle',d+' '+tvar(d,'noc','noci','nocí'),d*C.chatka]);
+    var celkem=r.reduce(function(a,x){return a+x[2];},0);
+    document.getElementById('kRadky').innerHTML=r.map(function(x){return '<div class="r"><span>'+x[0]+'<small>'+x[1]+'</small></span><b>'+kc(x[2])+'</b></div>';}).join('');
+    document.getElementById('kCelkem').textContent=kc(celkem);
+    document.getElementById('kNaOsobu').textContent='přibližně '+kc(Math.round(celkem/o))+' na účastníka';
+    var mk=o-p;
+    document.getElementById('kKrystaly').textContent=mk>0?(mk+' '+tvar(mk,'účastník nocuje','účastníci nocují','účastníků nocuje')+' na matracích v meditační místnosti mezi krystaly — v ceně pronájmu.'):'Všichni účastníci nocují v soukromých pokojích.';
+  }
+
+  f.addEventListener('click',function(e){
+    var b=e.target.closest('[data-step]'); if(!b) return;
+    var inp=$(b.getAttribute('data-step'));
+    inp.value=(parseInt(inp.value,10)||0)+parseInt(b.getAttribute('data-d'),10);
+    if(inp.name==='delka'){num('delka',1,30);predvyplnStravu();}
+    prepocet();
+  });
+  f.addEventListener('change',function(e){
+    if(e.target.name==='varianta'||e.target.name==='delka')predvyplnStravu();
+    prepocet();
+  });
+  f.addEventListener('input',function(e){if(e.target.type==='number')prepocet();});
+
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var msg=document.getElementById('kMsg'),btn=document.getElementById('kSend');
+    msg.className='k-msg';msg.textContent='';
+    var chyby=['jmeno','email','termin1'].filter(function(n){var el=$(n),ok=n==='email'?/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim()):!!el.value.trim();el.classList.toggle('chyba',!ok);return !ok;});
+    if(chyby.length){msg.textContent='Doplňte prosím jméno, e-mail a termín.';$(chyby[0]).focus();return;}
+    var data={};new FormData(f).forEach(function(v,k){data[k]=v;});data.chatka=$('chatka').checked;
+    btn.disabled=true;btn.textContent='Odesílám…';
+    fetch('/api/poptavka',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+      .then(function(x){
+        if(!x.ok) throw new Error(x.j&&x.j.error);
+        msg.className='k-msg ok';
+        msg.textContent='Poptávka odeslána. Shrnutí najdete v e-mailu, termín vám brzy potvrdíme.';
+        btn.textContent='Poptávka odeslána';
+      })
+      .catch(function(err){
+        msg.textContent=(err&&err.message)||'Odeslání se nepodařilo. Napište nám prosím na oaza.adamanthea@gmail.com.';
+        btn.disabled=false;btn.textContent='Odeslat poptávku';
+      });
+  });
+
+  predvyplnStravu();prepocet();
+})();
+</script>
+
 </body>
 </html>

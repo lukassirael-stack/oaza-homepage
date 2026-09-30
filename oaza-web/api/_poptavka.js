@@ -87,6 +87,7 @@ export async function poptavka(req, res) {
   const teloZak = `
     <p>Děkujeme, ${esc(jmeno.split(' ')[0])}. Vaši poptávku jsme přijali a brzy se vám ozveme s potvrzením termínu a finální nabídkou.</p>
     ${detaily}${tabulka}
+    <p style="margin:10px 0">${k.varianta === 'retreat' ? 'Termín rezervujete zálohou <b>5 000 Kč</b> při jeho potvrzení — pokyny k platbě vám pošleme spolu s potvrzením.' : 'Zálohu k rezervaci termínu vám nastavíme individuálně spolu s potvrzením.'}</p>
     <p style="color:#6b4a55;font-size:13px">Cena vychází z aktuálního ceníku skupinových pronájmů. Podrobnosti rádi doladíme spolu — stačí odpovědět na tento e-mail.</p>`;
   const teloNas = `
     <p><b>${esc(jmeno)}</b> · <a href="mailto:${esc(email)}">${esc(email)}</a>${telefon ? ' · ' + esc(telefon) : ''}</p>

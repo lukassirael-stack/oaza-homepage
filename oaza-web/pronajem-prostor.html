@@ -372,6 +372,8 @@ textarea.k-in{resize:vertical;}
 .k-send[disabled]{opacity:.6;cursor:wait;}
 .k-msg{font-size:1rem;margin:12px 0 0;text-align:center;min-height:1.2em;}
 .k-msg.ok{color:var(--gold);}
+.k-zaloha{font-size:1rem;text-align:center;margin:14px 0 0;padding-top:12px;border-top:1px solid rgba(201,161,74,.22);}
+.k-zaloha b{font-family:"Jost",sans-serif;font-weight:500;color:var(--gold);}
 .k-note{font-size:.92rem;font-style:italic;text-align:center;opacity:.75;margin:10px 0 0;}
 @media (max-width:820px){
   .kalk-grid{grid-template-columns:1fr;}
@@ -522,7 +524,7 @@ textarea.k-in{resize:vertical;}
       <div class="row"><span class="name">Vegetariánská / veganská strava<small>snídaně 160 Kč · oběd 220 Kč · večeře 220 Kč</small></span><span class="amount">600 Kč / den</span></div>
       <div class="row"><span class="name">Soukromé pokoje se sdílenou koupelnou<small>pokoje sdílí dvojice · 5 pokojů pro 9 osob · další pokoje přibudou v roce 2027 · příplatek během akce</small></span><span class="amount">+ 300 Kč / os. / den</span></div>
       <div class="row"><span class="name">Chatka Pobyt ve světle<small>1–2 osoby · vytápěná, celoročně · pátek a sobota 2 000 Kč · od 10 účastníků pro organizátora zdarma</small></span><span class="amount">1 700 Kč / 70 €</span></div>
-      <p class="note">Nocování účastníků na matracích v meditační místnosti — přímo mezi velkými krystaly, jejichž pole hosty provází i ve spánku — je součástí ceny. Uvedené ceny platí pro <strong>pronájem na skupinové akce a retreaty</strong>; pro soukromý pobyt jednotlivců (včetně cen pokojů) platí <a href="#soukromy-pobyt" style="color:var(--gold-deep)">vlastní ceník níže</a>.</p>
+      <p class="note">Nocování účastníků na matracích v meditační místnosti — přímo mezi velkými krystaly, jejichž pole hosty provází i ve spánku — je součástí ceny. Termín víkendového retreatu rezervujete zálohou 5 000 Kč při jeho potvrzení, u menších akcí zálohu nastavíme individuálně. Uvedené ceny platí pro <strong>pronájem na skupinové akce a retreaty</strong>; pro soukromý pobyt jednotlivců (včetně cen pokojů) platí <a href="#soukromy-pobyt" style="color:var(--gold-deep)">vlastní ceník níže</a>.</p>
     </div>
 
 
@@ -598,6 +600,7 @@ textarea.k-in{resize:vertical;}
           <p class="k-perosob" id="kNaOsobu"></p>
           <button type="submit" class="btn btn-gold k-send" id="kSend">Odeslat poptávku</button>
           <p class="k-msg" id="kMsg" role="status"></p>
+          <p class="k-zaloha" id="kZaloha"></p>
           <p class="k-note">Finální nabídku vám pošleme s potvrzením termínu.</p>
         </aside>
       </form>
@@ -802,6 +805,7 @@ document.addEventListener('click', function(e){
     var celkem=r.reduce(function(a,x){return a+x[2];},0);
     document.getElementById('kRadky').innerHTML=r.map(function(x){return '<div class="r"><span>'+x[0]+'<small>'+x[1]+'</small></span><b>'+(x[2]?kc(x[2]):'zdarma')+'</b></div>';}).join('');
     document.getElementById('kCelkem').textContent=kc(celkem);
+    document.getElementById('kZaloha').innerHTML=retreat?'Termín rezervujete zálohou <b>5 000 Kč</b> při jeho potvrzení.':'Zálohu k rezervaci termínu vám nastavíme individuálně.';
     document.getElementById('kNaOsobu').textContent='přibližně '+kc(Math.round(celkem/o))+' na účastníka';
     var mk=o-p;
     var org=!ch;

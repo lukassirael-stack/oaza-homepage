@@ -329,6 +329,7 @@ html{scroll-behavior:smooth;}
 .kalk-fields>.k-field:last-child{border-bottom:0;}
 .k-row2>.k-field{border:0;padding-top:0;}
 .k-field legend,.k-label{font-family:"Cinzel",serif;color:var(--ink);font-weight:600;font-size:1rem;padding:0;margin-bottom:10px;display:block;}
+.k-sub{font-family:"Cormorant Garamond",serif;font-weight:400;font-style:italic;color:var(--ink-soft);font-size:.95rem;}
 .k-field legend small{font-family:"Cormorant Garamond",serif;font-weight:400;font-style:italic;color:var(--ink-soft);font-size:.95rem;}
 .k-hint{font-size:1rem;font-style:italic;margin:-4px 0 10px;}
 .k-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;}
@@ -519,8 +520,8 @@ textarea.k-in{resize:vertical;}
       <div class="row sub"><span class="name">Denní pronájem (bez noci)<small>za účastníka</small></span><span class="amount">700 Kč / 28 €</span></div>
       <div class="row sub"><span class="name">Půldenní pronájem (do 4 hodin)<small>za účastníka</small></span><span class="amount">400 Kč / 16 €</span></div>
       <div class="row"><span class="name">Vegetariánská / veganská strava<small>snídaně 160 Kč · oběd 220 Kč · večeře 220 Kč</small></span><span class="amount">600 Kč / den</span></div>
-      <div class="row"><span class="name">Soukromé pokoje se sdílenou koupelnou<small>5 pokojů pro 9 osob · další pokoje přibudou v roce 2027 · příplatek během akce</small></span><span class="amount">+ 300 Kč / os. / den</span></div>
-      <div class="row"><span class="name">Chatka Pobyt ve světle<small>1–2 osoby · vytápěná, celoročně</small></span><span class="amount">1 700 Kč / 70 €</span></div>
+      <div class="row"><span class="name">Soukromé pokoje se sdílenou koupelnou<small>pokoje sdílí dvojice · 5 pokojů pro 9 osob · další pokoje přibudou v roce 2027 · příplatek během akce</small></span><span class="amount">+ 300 Kč / os. / den</span></div>
+      <div class="row"><span class="name">Chatka Pobyt ve světle<small>1–2 osoby · vytápěná, celoročně · pátek a sobota 2 000 Kč · od 10 účastníků pro organizátora zdarma</small></span><span class="amount">1 700 Kč / 70 €</span></div>
       <p class="note">Nocování účastníků na matracích v meditační místnosti — přímo mezi velkými krystaly, jejichž pole hosty provází i ve spánku — je součástí ceny. Uvedené ceny platí pro <strong>pronájem na skupinové akce a retreaty</strong>; pro soukromý pobyt jednotlivců (včetně cen pokojů) platí <a href="#soukromy-pobyt" style="color:var(--gold-deep)">vlastní ceník níže</a>.</p>
     </div>
 
@@ -544,7 +545,7 @@ textarea.k-in{resize:vertical;}
 
           <div class="k-row2">
             <div class="k-field">
-              <label class="k-label" for="kOsob">Počet účastníků</label>
+              <label class="k-label" for="kOsob">Počet účastníků <small class="k-sub">organizátor je navíc</small></label>
               <div class="k-step"><button type="button" data-step="osob" data-d="-1" aria-label="Méně">−</button><input id="kOsob" name="osob" type="number" min="1" max="60" value="10" inputmode="numeric"><button type="button" data-step="osob" data-d="1" aria-label="Více">+</button></div>
             </div>
             <div class="k-field" id="kDelkaWrap">
@@ -565,13 +566,13 @@ textarea.k-in{resize:vertical;}
           <fieldset class="k-field" id="kUbytovani">
             <legend>Ubytování</legend>
             <p class="k-hint" id="kKrystaly"></p>
-            <div class="k-meal"><span>Soukromé pokoje<small>300 Kč / os. / noc · 5 pokojů pro 9 osob</small></span><div class="k-step sm"><button type="button" data-step="pokoje" data-d="-1" aria-label="Méně">−</button><input name="pokoje" type="number" min="0" max="9" value="0"><button type="button" data-step="pokoje" data-d="1" aria-label="Více">+</button></div></div>
-            <label class="k-check"><input type="checkbox" name="chatka"><span>Chatka Pobyt ve světle<small>1–2 osoby · 1 700 Kč / noc</small></span></label>
+            <div class="k-meal"><span>Soukromé pokoje<small>pokoje sdílí dvojice · 300 Kč / os. / noc · 5 pokojů pro 9 osob</small></span><div class="k-step sm"><button type="button" data-step="pokoje" data-d="-1" aria-label="Méně">−</button><input name="pokoje" type="number" min="0" max="9" value="0"><button type="button" data-step="pokoje" data-d="1" aria-label="Více">+</button></div></div>
+            <label class="k-check"><input type="checkbox" name="chatka"><span>Chatka Pobyt ve světle pro organizátora<small id="kChatkaInfo">1–2 osoby · víkend 2 000 Kč / noc · od 10 účastníků zdarma</small></span></label>
           </fieldset>
 
           <fieldset class="k-field">
             <legend>O jaký termín máte zájem?</legend>
-            <p class="k-hint">Napište nám jednu až dvě možnosti, volný termín vám potvrdíme osobně.</p>
+            <p class="k-hint">Napište nám jednu až dvě možnosti, volný termín vám potvrdíme.</p>
             <div class="k-row2">
               <input class="k-in" name="termin1" placeholder="1. možnost, např. 12.–14. 3. 2027" required>
               <input class="k-in" name="termin2" placeholder="2. možnost">
@@ -760,11 +761,12 @@ document.addEventListener('click', function(e){
 <script defer src="/navstevnost.js"></script>
 <script>
 (function(){
-  var C={retreat:1000,den:700,pulden:400,min:7,snidane:160,obedy:220,vecere:220,pokoj:300,pokojeMax:9,chatka:1700};
+  var C={retreat:1000,den:700,pulden:400,min:7,snidane:160,obedy:220,vecere:220,pokoj:300,pokojeMax:9,chatka:2000};
   var f=document.getElementById('kalkForm'); if(!f) return;
   var $=function(n){return f.elements[n];};
   var kc=function(v){return v.toLocaleString('cs-CZ')+' Kč';};
   var tvar=function(n,a,b,c){return n===1?a:(n>1&&n<5?b:c);};
+  var uc=function(n){return n+' '+tvar(n,'účastník','účastníci','účastníků');};
   var posledni=null;
 
   function num(n,min,max){var v=parseInt($(n).value,10);if(isNaN(v))v=min;v=Math.min(max,Math.max(min,v));$(n).value=v;return v;}
@@ -788,19 +790,22 @@ document.addEventListener('click', function(e){
     var p=retreat?num('pokoje',0,Math.min(C.pokojeMax,o)):0;
     var ch=retreat&&$('chatka').checked;
     var r=[];
-    if(retreat){var u=Math.max(o,C.min);r.push(['Shalla, meditační místnost a zahrada',u+' os. × '+d+' '+tvar(d,'noc','noci','nocí')+(o<C.min?' · minimum 7 účastníků':''),u*d*C.retreat]);}
-    else if(v==='den')r.push(['Shalla, meditační místnost a zahrada',o+' os. × '+d+' '+tvar(d,'den','dny','dní'),o*d*C.den]);
-    else r.push(['Shalla, meditační místnost a zahrada',o+' os. · do 4 hodin',o*C.pulden]);
+    if(retreat){var u=Math.max(o,C.min);r.push(['Shalla, meditační místnost a zahrada',uc(u)+' × '+d+' '+tvar(d,'noc','noci','nocí')+(o<C.min?' · minimum 7 účastníků':''),u*d*C.retreat]);}
+    else if(v==='den')r.push(['Shalla, meditační místnost a zahrada',uc(o)+' × '+d+' '+tvar(d,'den','dny','dní'),o*d*C.den]);
+    else r.push(['Shalla, meditační místnost a zahrada',uc(o)+' · do 4 hodin',o*C.pulden]);
     var st=(s*C.snidane+ob*C.obedy+ve*C.vecere)*o;
-    if(st)r.push(['Strava',[s&&s+'× snídaně',ob&&ob+'× oběd',ve&&ve+'× večeře'].filter(Boolean).join(', ')+' · '+o+' os.',st]);
+    if(st)r.push(['Strava',[s&&s+'× snídaně',ob&&ob+'× oběd',ve&&ve+'× večeře'].filter(Boolean).join(', ')+' · '+uc(o),st]);
     if(p)r.push(['Soukromé pokoje',p+' os. × '+d+' '+tvar(d,'noc','noci','nocí'),p*d*C.pokoj]);
-    if(ch)r.push(['Chatka Pobyt ve světle',d+' '+tvar(d,'noc','noci','nocí'),d*C.chatka]);
+    var chZdarma=o>=10;
+    document.getElementById('kChatkaInfo').textContent=chZdarma?'1–2 osoby · pro organizátora zdarma':'1–2 osoby · víkend 2 000 Kč / noc · od 10 účastníků zdarma';
+    if(ch)r.push(['Chatka Pobyt ve světle',d+' '+tvar(d,'noc','noci','nocí')+(chZdarma?' · pro organizátora zdarma':''),chZdarma?0:d*C.chatka]);
     var celkem=r.reduce(function(a,x){return a+x[2];},0);
-    document.getElementById('kRadky').innerHTML=r.map(function(x){return '<div class="r"><span>'+x[0]+'<small>'+x[1]+'</small></span><b>'+kc(x[2])+'</b></div>';}).join('');
+    document.getElementById('kRadky').innerHTML=r.map(function(x){return '<div class="r"><span>'+x[0]+'<small>'+x[1]+'</small></span><b>'+(x[2]?kc(x[2]):'zdarma')+'</b></div>';}).join('');
     document.getElementById('kCelkem').textContent=kc(celkem);
     document.getElementById('kNaOsobu').textContent='přibližně '+kc(Math.round(celkem/o))+' na účastníka';
     var mk=o-p;
-    document.getElementById('kKrystaly').textContent=mk>0?(mk+' '+tvar(mk,'účastník nocuje','účastníci nocují','účastníků nocuje')+' na matracích v meditační místnosti mezi krystaly — v ceně pronájmu.'):'Všichni účastníci nocují v soukromých pokojích.';
+    var org=!ch;
+    document.getElementById('kKrystaly').textContent=(mk>0||org)?((mk>0?uc(mk)+(org?' a organizátor':''):'Organizátor')+' '+(org&&mk>0?'nocují':(mk>0?tvar(mk,'nocuje','nocují','nocuje'):'nocuje'))+' na matracích v meditační místnosti mezi krystaly — v ceně pronájmu.'):'Účastníci nocují v soukromých pokojích, organizátor v chatce Pobyt ve světle.';
   }
 
   f.addEventListener('click',function(e){

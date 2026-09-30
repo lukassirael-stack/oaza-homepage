@@ -9,10 +9,11 @@ const CENIK = {
   snidane: 160, obed: 220, vecere: 220,
   pokoj: 300,      // soukromý pokoj / os. / noc
   pokojeMax: 9,
-  chatka: 1700,    // Pobyt ve světle / noc
+  chatka: 2000,    // Pobyt ve světle / noc (víkendová cena, retreaty bývají o víkendu)
 };
 
 const int = (v, min, max) => Math.min(max, Math.max(min, parseInt(v, 10) || 0));
+const uc = n => `${n} ${n === 1 ? 'účastník' : n > 1 && n < 5 ? 'účastníci' : 'účastníků'}`;
 const kc = v => `${Number(v).toLocaleString('cs-CZ')} Kč`;
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -27,16 +28,16 @@ function spocitej(b) {
   const radky = [];
   if (varianta === 'retreat') {
     const uctovano = Math.max(osob, CENIK.minOsob);
-    radky.push([`Shalla + meditační místnost · ${uctovano} os. × ${delka} ${delka === 1 ? 'noc' : delka < 5 ? 'noci' : 'nocí'}`, uctovano * delka * CENIK.retreat]);
+    radky.push([`Shalla + meditační místnost · ${uc(uctovano)} × ${delka} ${delka === 1 ? 'noc' : delka < 5 ? 'noci' : 'nocí'}`, uctovano * delka * CENIK.retreat]);
   } else if (varianta === 'den') {
-    radky.push([`Jednodenní akce · ${osob} os. × ${delka} ${delka === 1 ? 'den' : delka < 5 ? 'dny' : 'dní'}`, osob * delka * CENIK.den]);
+    radky.push([`Jednodenní akce · ${uc(osob)} × ${delka} ${delka === 1 ? 'den' : delka < 5 ? 'dny' : 'dní'}`, osob * delka * CENIK.den]);
   } else {
-    radky.push([`Půldenní akce · ${osob} os.`, osob * CENIK.pulden]);
+    radky.push([`Půldenní akce · ${uc(osob)}`, osob * CENIK.pulden]);
   }
   const strava = (s * CENIK.snidane + o * CENIK.obed + v * CENIK.vecere) * osob;
-  if (strava) radky.push([`Strava · ${s}× snídaně, ${o}× oběd, ${v}× večeře · ${osob} os.`, strava]);
+  if (strava) radky.push([`Strava · ${s}× snídaně, ${o}× oběd, ${v}× večeře · ${uc(osob)}`, strava]);
   if (pokojeOs) radky.push([`Soukromé pokoje · ${pokojeOs} os. × ${delka} noc.`, pokojeOs * delka * CENIK.pokoj]);
-  if (chatka) radky.push([`Chatka Pobyt ve světle · ${delka} noc.`, delka * CENIK.chatka]);
+  if (chatka) radky.push([`Chatka Pobyt ve světle · ${delka} noc.${osob >= 10 ? ' · pro organizátora zdarma' : ''}`, osob >= 10 ? 0 : delka * CENIK.chatka]);
   const celkem = radky.reduce((a, r) => a + r[1], 0);
   return { varianta, osob, delka, pokojeOs, chatka, radky, celkem };
 }
@@ -63,11 +64,11 @@ export async function poptavka(req, res) {
 
   const tabulka = `
     <table style="width:100%;border-collapse:collapse;margin:10px 0">
-      ${k.radky.map(r => `<tr><td style="padding:7px 0;border-bottom:1px solid #E7DCC8">${esc(r[0])}</td><td style="padding:7px 0;border-bottom:1px solid #E7DCC8;text-align:right;white-space:nowrap">${kc(r[1])}</td></tr>`).join('')}
+      ${k.radky.map(r => `<tr><td style="padding:7px 0;border-bottom:1px solid #E7DCC8">${esc(r[0])}</td><td style="padding:7px 0;border-bottom:1px solid #E7DCC8;text-align:right;white-space:nowrap">${r[1] ? kc(r[1]) : 'zdarma'}</td></tr>`).join('')}
       <tr><td style="padding:10px 0;font-size:18px"><b>Orientační cena celkem</b></td><td style="padding:10px 0;text-align:right;font-size:18px"><b>${kc(k.celkem)}</b></td></tr>
     </table>`;
   const detaily = `
-    <p style="margin:4px 0"><b>Typ akce:</b> ${nazevVarianty} · ${k.osob} ${k.osob === 1 ? 'osoba' : k.osob < 5 ? 'osoby' : 'osob'}</p>
+    <p style="margin:4px 0"><b>Typ akce:</b> ${nazevVarianty} · ${uc(k.osob)} + organizátor</p>
     <p style="margin:4px 0"><b>Termín – 1. možnost:</b> ${esc(termin1)}</p>
     ${termin2 ? `<p style="margin:4px 0"><b>Termín – 2. možnost:</b> ${esc(termin2)}</p>` : ''}
     ${zprava ? `<p style="margin:10px 0 4px"><b>O akci:</b><br>${esc(zprava).replace(/\n/g, '<br>')}</p>` : ''}`;

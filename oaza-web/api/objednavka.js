@@ -10,6 +10,7 @@ const VS_BASE  = 700000;                            // VS = 700000 + číslo obj
 
 // ---------- Novinky z Bali Shopu (přihlášení k odběru → Supabase + seznam v Brevo + uvítací e-mail) ----------
 import crypto from 'node:crypto';
+import { poptavka } from './_poptavka.js';
 const DOPIS_SEZNAM = 'Novinky z Bali Shopu', DOPIS_SEZNAM_PUV = 'Dopis z Bali Shopu';
 let dopisListId = null;
 async function brevo(path, opts = {}) {
@@ -68,6 +69,9 @@ async function dopisOdhlasit(email, rest) {
 }
 
 export default async function handler(req, res) {
+  // poptávka pronájmu prostor (sdílí funkci kvůli limitu 12 funkcí na Vercelu)
+  if (req.query && req.query.akce === 'poptavka') return poptavka(req, res);
+
   const URL = process.env.SUPABASE_URL;
   const KEY = process.env.SUPABASE_SERVICE_KEY;
   if (!URL || !KEY) return res.status(500).json({ error: 'Chybí SUPABASE_URL nebo SUPABASE_SERVICE_KEY.' });

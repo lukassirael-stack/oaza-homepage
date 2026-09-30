@@ -450,11 +450,7 @@ function render(){
   else if(s==='drahe')list.sort((a,b)=>(b[pole]||0)-(a[pole]||0));
   else if(s==='az')list.sort((a,b)=>a.nazev.localeCompare(b.nazev,'cs'));
   else if(s==='nove')list.sort((a,b)=>new Date(b.vytvoreno)-new Date(a.vytvoreno));
-  // 'dop' = pořadí z API; bez filtru začíná katalog dalšími kousky, na konec jde jen pětice zobrazená ve „Vybráno“
-  else if(!(STAV.kat!=='vse' || STAV.q || STAV.barva || STAV.cmin!=null || STAV.cmax!=null)){
-    const nahore=new Set(VSE.filter(p=>p.doporucujeme).slice(0,5).map(p=>p.slug));
-    list=list.filter(p=>!nahore.has(p.slug)).concat(list.filter(p=>nahore.has(p.slug)));
-  }
+  // 'dop' = pořadí z API (pole Pořadí, pak nejnovější); Doporučujeme pořadí v katalogu nemění
 
 
   const filtrAktivni = STAV.kat!=='vse' || STAV.q || STAV.barva || STAV.cmin!=null || STAV.cmax!=null;

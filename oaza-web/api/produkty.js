@@ -115,7 +115,7 @@ export default async function handler(req, res) {
 
     // seznam – jen dostupné, bez popisů (lehké)
     const [produkty, kategorie] = await Promise.all([
-      rest('produkty?stav=eq.skladem&select=id,slug,nazev,cena,cena_eur,digitalni,kategorie,fotky,doporucujeme,stitek,barva,velikost,vlastnosti,vytvoreno,rezervovano_do&order=doporucujeme.desc,poradi.asc,vytvoreno.desc'),
+      rest('produkty?stav=eq.skladem&select=id,slug,nazev,cena,cena_eur,digitalni,kategorie,fotky,doporucujeme,stitek,barva,velikost,vlastnosti,vytvoreno,rezervovano_do&order=poradi.asc,vytvoreno.desc'),
       rest('kategorie?select=slug,nazev,poradi&order=poradi.asc'),
     ]);
 

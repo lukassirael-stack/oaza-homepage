@@ -371,15 +371,26 @@ function barvaHex(n){const k=bezDia(n);for(const[c,h]of Object.entries(BARVY))if
 // Návrat z produktu na stejné místo v katalogu (filtry i pozice)
 if('scrollRestoration' in history) history.scrollRestoration='manual';
 const NAVRAT_KLIC='oaza_shop_navrat';
-document.addEventListener('click',e=>{
-  const a=e.target.closest&&e.target.closest('a.karta-prod'); if(!a) return;
-  try{ sessionStorage.setItem(NAVRAT_KLIC,JSON.stringify({y:window.scrollY,stav:STAV,t:Date.now()})); }catch(_){}
-},true);
+function ulozMisto(){ try{ sessionStorage.setItem(NAVRAT_KLIC,JSON.stringify({y:window.scrollY,stav:STAV,t:Date.now()})); }catch(_){} }
+document.addEventListener('click',e=>{ if(e.target.closest&&e.target.closest('a.karta-prod')) ulozMisto(); },true);
+document.addEventListener('pointerdown',e=>{ if(e.target.closest&&e.target.closest('a.karta-prod')) ulozMisto(); },true);
 function navratZProduktu(){
   let z=null; try{ z=JSON.parse(sessionStorage.getItem(NAVRAT_KLIC)||'null'); }catch(_){}
-  if(!z || Date.now()-z.t>3600e3) return null;
-  const nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};
-  return (nav.type==='back_forward' || /\/produkt\//.test(document.referrer)) ? z : null;
+  try{ sessionStorage.removeItem(NAVRAT_KLIC); }catch(_){}
+  return (z && Date.now()-z.t<1800e3) ? z : null;
+}
+// drží pozici, dokud se katalog a fotky nerozloží; skončí při dotyku uživatele
+function drzPozici(y){
+  let konec=false, stabil=0; const start=performance.now();
+  const stop=()=>{konec=true;};
+  ['touchstart','wheel','keydown','mousedown'].forEach(t=>window.addEventListener(t,stop,{once:true,passive:true}));
+  (function krok(){
+    if(konec) return;
+    const max=document.documentElement.scrollHeight-innerHeight;
+    window.scrollTo({top:Math.min(y,max),behavior:'instant'});
+    stabil = (Math.abs(window.scrollY-y)<2) ? stabil+1 : 0;
+    if(stabil<20 && performance.now()-start<3000) requestAnimationFrame(krok);
+  })();
 }
 function obnovMisto(z){
   STAV=Object.assign(STAV,z.stav||{});
@@ -388,10 +399,9 @@ function obnovMisto(z){
   document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('akt',x.dataset.k===STAV.kat));
   document.querySelectorAll('.barva-chip').forEach(x=>x.classList.toggle('akt',x.dataset.b===STAV.barva));
   render();
-  const jdi=()=>window.scrollTo(0,z.y);
-  jdi(); requestAnimationFrame(jdi); setTimeout(jdi,250);
+  drzPozici(z.y);
 }
-window.addEventListener('pageshow',e=>{ if(e.persisted){ const z=navratZProduktu(); if(z) window.scrollTo(0,z.y); } });
+window.addEventListener('pageshow',e=>{ if(e.persisted){ const z=navratZProduktu(); if(z) drzPozici(z.y); } });
 
 async function nacti(){
   try{

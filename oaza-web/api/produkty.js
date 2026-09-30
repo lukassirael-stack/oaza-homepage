@@ -101,7 +101,7 @@ export default async function handler(req, res) {
       if (!rows.length) return res.status(404).json({ error: 'Produkt nenalezen.' });
       const p = rows[0];
       const rezervovano = !!(p.rezervovano_do && new Date(p.rezervovano_do) > new Date());
-      res.setHeader('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=600');
+      res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=60');
       return res.status(200).json({ kurz, produkt: {
         id: p.id, slug: p.slug, nazev: p.nazev, popis: p.popis, cena: p.cena,
         cena_eur: eur(p.cena, p.cena_eur, kurz), digitalni: !!p.digitalni,
@@ -134,7 +134,7 @@ export default async function handler(req, res) {
     }));
 
 
-    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+    res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=60');
     return res.status(200).json({ kurz, produkty: lehke, kategorie });
   } catch (e) {
     return res.status(500).json({ error: String(e.message || e).slice(0, 300) });

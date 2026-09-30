@@ -824,7 +824,7 @@ document.addEventListener('click', function(e){
     if(chyby.length){msg.textContent='Doplňte prosím jméno, e-mail a termín.';$(chyby[0]).focus();return;}
     var data={};new FormData(f).forEach(function(v,k){data[k]=v;});data.chatka=$('chatka').checked;
     btn.disabled=true;btn.textContent='Odesílám…';
-    fetch('/api/poptavka',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+    fetch('/api/objednavka?akce=poptavka',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
       .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
       .then(function(x){
         if(!x.ok) throw new Error(x.j&&x.j.error);

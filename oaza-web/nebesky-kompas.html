@@ -419,7 +419,7 @@ footer a{color:#c9d6f2}
       <ul class="seznam">
         <li><b>Tvůj horoskop ve dvanácti kapitolách</b> od osobnosti přes vztahy a&nbsp;práci až po duchovní cestu.</li>
         <li><b>Čím teď procházíš.</b> Tranzity jako oblouky s&nbsp;daty, kdy začínají, kdy jsou přesné a&nbsp;kdy doznívají.</li>
-        <li><b>Kdo se k&nbsp;tobě hodí.</b> Partnerský profil z&nbsp;tvé mapy a&nbsp;znamení, se kterými ti to jde lehce.</li>
+        <li><b>Kdo se k&nbsp;tobě hodí.</b> Partnerský profil z&nbsp;tvé mapy, znamení, se kterými ti to jde lehce, a&nbsp;znamení, se kterými rosteš.</li>
         <li><b>Vztahy</b> s&nbsp;porovnáním dvou map a&nbsp;čtením pro tvé blízké.</li>
         <li><b>Tvá čísla, Čakra roku a&nbsp;Velké návraty</b> Slunce, Luny, Jupiteru a&nbsp;Saturnu.</li>
         <li><b>Mayský a&nbsp;čínský horoskop</b> jako dva další pohledy na tvé narození.</li>
@@ -507,7 +507,7 @@ footer a{color:#c9d6f2}
         </ul></div>
 
         <div class="skup"><h4>Ty a&nbsp;tvoji blízcí</h4><ul>
-          <li>Kdo se k&nbsp;tobě hodí<small>partnerský profil z&nbsp;Descendentu, Venuše, Marsu a&nbsp;Luny a&nbsp;znamení, se kterými ti to jde lehce</small></li>
+          <li>Kdo se k&nbsp;tobě hodí<small>partnerský profil z&nbsp;Descendentu, Venuše, Marsu a&nbsp;Luny znamení, se kterými ti to jde lehce, a&nbsp;znamení, se kterými rosteš</small></li>
           <li>Vztahy: porovnání dvou map narození</li>
           <li>Číst jako: celé čtení O&nbsp;tobě pro kohokoli z&nbsp;tvých blízkých</li>
         </ul></div>
@@ -666,7 +666,7 @@ footer a{color:#c9d6f2}
       }
       $('s-luna-t').textContent=tx;
       $('s-venuse').textContent=GL[zv]+' '+ZN[zv];
-      $('s-venuse-t').textContent=VENUSE[zv]+' Celý partnerský profil a znamení, se kterými ti to jde lehce, najdeš v plné verzi Kompasu.';
+      $('s-venuse-t').textContent=VENUSE[zv]+' Celý partnerský profil, znamení, se kterými ti to jde lehce, i ta, se kterými rosteš, najdeš v plné verzi Kompasu.';
       var cislo=redukuj(v.replace(/-/g,'').split('').reduce(function(s,ch){return s+(+ch);},0));
       $('s-cislo').textContent=String(cislo);
       $('s-cislo-t').textContent=CISLA[cislo];

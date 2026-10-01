@@ -417,7 +417,7 @@ function zvolenaMena(a){
   if(a.cena_eur!=null) return 'eur';
   return 'czk';
 }
-function jeDalkova(a){ return /d[aá]lkov/i.test(String(a.misto||'')+' '+String(a.nazev||'')); }
+function jeDalkova(a){ return !!a.dalkove_udaje; }
 function nabizetPrespani(a){ return !!a.prespani_nabidnout && a.platba_typ!=='zdarma'; }
 
 function prepocitej(){

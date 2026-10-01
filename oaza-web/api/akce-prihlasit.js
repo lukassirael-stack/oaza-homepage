@@ -38,6 +38,7 @@ module.exports = async (req, res) => {
 
     if (akce.stav === 'zrusena') return res.status(409).json({ error: 'Tato akce byla zrušena.' });
     if (akce.stav === 'obsazena') return res.status(409).json({ error: 'Tato akce je obsazená.' });
+    if (akce.dalkove_udaje && String(poznamka || '').trim().length < 10) return res.status(400).json({ error: 'Vyplňte prosím jméno, datum narození a místo, kde budete během meditace.' });
 
     // --- kapacita ---
     if (akce.kapacita) {

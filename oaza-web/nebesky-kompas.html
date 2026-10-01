@@ -35,7 +35,7 @@
 "url":"https://nebe.oaza-adamanthea.cz","image":"https://oaza-adamanthea.cz/img/kompas/kompas-og.jpg",
 "description":"Astrologický kalendář: barva a čtení každého dne, úkazy na rok dopředu, hvězdné nebe ve 3D, diář a horoskop podle mapy narození.",
 "publisher":{"@type":"Organization","name":"Oáza Adamanthea","url":"https://oaza-adamanthea.cz"},
-"offers":{"@type":"Offer","name":"Základ","price":"0","priceCurrency":"CZK","url":"https://nebe.oaza-adamanthea.cz"}}
+"offers":[{"@type":"Offer","name":"Základ","price":"0","priceCurrency":"CZK","url":"https://nebe.oaza-adamanthea.cz","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"Plná verze na měsíc (zaváděcí cena)","price":"129","priceCurrency":"CZK","priceValidUntil":"2026-12-31","url":"https://oaza-adamanthea.cz/nebesky-kompas#verze","availability":"https://schema.org/PreOrder"},{"@type":"Offer","name":"Plná verze na rok (zaváděcí cena)","price":"899","priceCurrency":"CZK","priceValidUntil":"2026-12-31","url":"https://oaza-adamanthea.cz/nebesky-kompas#verze","availability":"https://schema.org/PreOrder"},{"@type":"Offer","name":"Plná verze na měsíc","price":"5","priceCurrency":"EUR","priceValidUntil":"2026-12-31","url":"https://oaza-adamanthea.cz/nebesky-kompas#verze","availability":"https://schema.org/PreOrder"},{"@type":"Offer","name":"Plná verze na rok","price":"36","priceCurrency":"EUR","priceValidUntil":"2026-12-31","url":"https://oaza-adamanthea.cz/nebesky-kompas#verze","availability":"https://schema.org/PreOrder"}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
@@ -186,7 +186,9 @@ h2.nadpis{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(30px,3.6vw,
 .plna h3{color:var(--zlato)}
 .cena{font-family:'Jost',sans-serif;font-size:15px;color:var(--mlha);margin:10px 0 6px}
 .cena strong{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:#fff;margin-right:6px}
-.plna .cena strong{color:var(--zlato);font-size:28px}
+.plna .cena strong{color:var(--zlato);font-size:30px}
+.plna .cena .c{display:inline-block;white-space:nowrap;margin-right:18px}
+.plna .cena-pozn{font-size:15px;color:#d5def2;line-height:1.5;margin:4px 0 0}
 .verze .uvodni{font-size:19px;color:#d5def2;margin:8px 0 22px}
 .skup{margin-top:22px}
 .skup h4{font-family:'Jost',sans-serif;font-weight:500;font-size:14.5px;color:var(--zlato);letter-spacing:.02em;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--linka)}
@@ -485,7 +487,8 @@ footer a{color:#c9d6f2}
 
       <article class="plna" aria-labelledby="v-plna">
         <h3 id="v-plna">Plná verze</h3>
-        <p class="cena"><strong>Cenu oznámíme při spuštění</strong></p>
+        <p class="cena"><span class="c"><strong>129&nbsp;Kč</strong>měsíčně</span> <span class="c"><strong>899&nbsp;Kč</strong>ročně</span></p>
+        <p class="cena cena-pozn">Zaváděcí cena do 31. 12. 2026 (5 € a&nbsp;36 €). Od ledna 149 Kč měsíčně a&nbsp;990 Kč ročně. Kdo si rok pořídí do Vánoc, platí 899 Kč i&nbsp;v&nbsp;dalších letech, dokud předplatné běží.</p>
         <p class="uvodni">Všechno ze základu a&nbsp;k&nbsp;tomu čtení podle tvé mapy narození:</p>
 
         <div class="skup"><h4>Tvůj horoskop</h4><ul>
@@ -519,7 +522,7 @@ footer a{color:#c9d6f2}
           <li>Účet a&nbsp;průběžná synchronizace mezi telefonem a&nbsp;počítačem</li>
         </ul></div>
 
-        <p class="zkusebni">Kompas je teď ve zkušebním provozu a&nbsp;je otevřený celý, včetně plné verze. Vyzkoušej si ho a&nbsp;napiš nám, jak ti sedí.</p>
+        <p class="zkusebni">Do spuštění plné verze je Kompas ve zkušebním provozu a&nbsp;otevřený celý. Vyzkoušej si ho a&nbsp;napiš nám, jak ti sedí. Dárkový horoskop pro blízkého jako PDF bude za 349 Kč.</p>
 
         <div class="zajem">
           <p>Pošleme ti zprávu, až plnou verzi spustíme.</p>
@@ -563,7 +566,7 @@ footer a{color:#c9d6f2}
       <details><summary>Funguje Kompas i&nbsp;na Slovensku?</summary>
         <p>Ano. Rozhraní přepneš do slovenštiny a&nbsp;kalendář ukazuje slovenské svátky a&nbsp;jmeniny.</p></details>
       <details><summary>Kolik bude stát plná verze?</summary>
-        <p>Cenu oznámíme při spuštění, předplatné bude měsíční i&nbsp;roční. Základ zůstává zdarma natrvalo. Teď ve zkušebním provozu máš otevřené všechno.</p></details>
+        <p>Do 31. 12. 2026 platí zaváděcí cena 129 Kč měsíčně nebo 899 Kč ročně (5 € a&nbsp;36 €), od ledna 149 Kč a&nbsp;990 Kč. Roční předplatné pořízené do Vánoc zůstává na 899 Kč, dokud běží. Základ je zdarma natrvalo a&nbsp;do spuštění plné verze máš ve zkušebním provozu otevřené všechno.</p></details>
       <details><summary>Kdo Kompas tvoří?</summary>
         <p>Lukáš z&nbsp;Oázy Adamanthea v&nbsp;Halenkovicích, centra krystalů a&nbsp;pobytů na Moravě. Kompas vznikl z&nbsp;jeho každodenní práce s&nbsp;rytmy oblohy. Nápady a&nbsp;postřehy posílej na <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>.</p></details>
     </div>

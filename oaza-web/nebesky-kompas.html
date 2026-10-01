@@ -150,7 +150,7 @@ h2.nadpis{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(30px,3.6vw,
 .pole label{font-family:'Jost',sans-serif;font-size:14px;color:var(--mlha)}
 .pole input{font:inherit;font-family:'Jost',sans-serif;font-size:17px;color:var(--perla);background:rgba(7,21,52,.7);border:1px solid rgba(169,187,223,.35);border-radius:14px;padding:13px 16px;min-width:200px;color-scheme:dark}
 .pole input:focus{border-color:var(--zlato);outline:none;box-shadow:0 0 0 3px rgba(243,211,132,.18)}
-.svetla{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px}
+.svetla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:38px}
 .svetlo{border:1px solid var(--linka);border-radius:22px;padding:26px 24px;background:rgba(7,21,52,.55);min-height:180px}
 .svetlo .sym{font-size:34px;color:var(--zlato);line-height:1}
 .svetlo .co{font-family:'Jost',sans-serif;font-size:13px;color:var(--mlha);margin-top:12px}
@@ -385,8 +385,8 @@ footer a{color:#c9d6f2}
 <!-- ================= VYZKOUŠEJ ================= -->
 <section class="sekce zkus" id="zkus">
   <div class="obal">
-    <h2 class="nadpis">Tvoje tři světla</h2>
-    <p class="podnadpis">Zadej datum narození a&nbsp;hned uvidíš své Slunce, Lunu a&nbsp;životní číslo. S&nbsp;časem narození bude Luna přesnější.</p>
+    <h2 class="nadpis">Tvoje světla</h2>
+    <p class="podnadpis">Zadej datum narození a&nbsp;hned uvidíš své Slunce, Lunu, Venuši a&nbsp;životní číslo. S&nbsp;časem narození bude Luna přesnější.</p>
     <form class="zkus-form" id="zkus-form">
       <div class="pole"><label for="z-datum">Datum narození</label><input type="date" id="z-datum" required min="1900-01-01" max="2030-12-31"></div>
       <div class="pole"><label for="z-cas">Čas narození (nepovinný)</label><input type="time" id="z-cas"></div>
@@ -395,10 +395,11 @@ footer a{color:#c9d6f2}
     <div class="svetla" id="svetla" hidden aria-live="polite">
       <div class="svetlo"><div class="sym" aria-hidden="true">☉&#xFE0E;</div><div class="co">Slunce · tvoje podstata</div><div class="kde" id="s-slunce"></div><p id="s-slunce-t"></p></div>
       <div class="svetlo"><div class="sym" aria-hidden="true">☽&#xFE0E;</div><div class="co">Luna · co tě živí</div><div class="kde" id="s-luna"></div><p id="s-luna-t"></p></div>
+      <div class="svetlo"><div class="sym" aria-hidden="true">♀&#xFE0E;</div><div class="co">Venuše · jak miluješ</div><div class="kde" id="s-venuse"></div><p id="s-venuse-t"></p></div>
       <div class="svetlo"><div class="sym" aria-hidden="true">✦</div><div class="co">Životní číslo</div><div class="kde" id="s-cislo"></div><p id="s-cislo-t"></p></div>
     </div>
     <div class="zkus-dal" id="zkus-dal" hidden>
-      <p>V&nbsp;Kompasu k&nbsp;tomu přibude Ascendent, Descendent, celá mapa narození a&nbsp;čtení každého dne podle ní.</p>
+      <p>V&nbsp;Kompasu k&nbsp;tomu přibude Ascendent, Descendent, celá mapa narození, čtení každého dne podle ní a&nbsp;partnerský profil Kdo se k&nbsp;tobě hodí.</p>
       <a class="tl obrys" href="https://nebe.oaza-adamanthea.cz" data-mer="otevrit-svetla">Pokračovat v&nbsp;Kompasu</a>
     </div>
     <p class="vysvetl" id="zkus-pozn">Výpočet proběhne jen ve tvém prohlížeči. Čas bereme jako středoevropský, stejně jako v&nbsp;Česku a&nbsp;na Slovensku.</p>
@@ -418,6 +419,7 @@ footer a{color:#c9d6f2}
       <ul class="seznam">
         <li><b>Tvůj horoskop ve dvanácti kapitolách</b> od osobnosti přes vztahy a&nbsp;práci až po duchovní cestu.</li>
         <li><b>Čím teď procházíš.</b> Tranzity jako oblouky s&nbsp;daty, kdy začínají, kdy jsou přesné a&nbsp;kdy doznívají.</li>
+        <li><b>Kdo se k&nbsp;tobě hodí.</b> Partnerský profil z&nbsp;tvé mapy a&nbsp;znamení, se kterými ti to jde lehce.</li>
         <li><b>Vztahy</b> s&nbsp;porovnáním dvou map a&nbsp;čtením pro tvé blízké.</li>
         <li><b>Tvá čísla, Čakra roku a&nbsp;Velké návraty</b> Slunce, Luny, Jupiteru a&nbsp;Saturnu.</li>
         <li><b>Mayský a&nbsp;čínský horoskop</b> jako dva další pohledy na tvé narození.</li>
@@ -505,6 +507,7 @@ footer a{color:#c9d6f2}
         </ul></div>
 
         <div class="skup"><h4>Ty a&nbsp;tvoji blízcí</h4><ul>
+          <li>Kdo se k&nbsp;tobě hodí<small>partnerský profil z&nbsp;Descendentu, Venuše, Marsu a&nbsp;Luny a&nbsp;znamení, se kterými ti to jde lehce</small></li>
           <li>Vztahy: porovnání dvou map narození</li>
           <li>Číst jako: celé čtení O&nbsp;tobě pro kohokoli z&nbsp;tvých blízkých</li>
         </ul></div>
@@ -598,6 +601,7 @@ footer a{color:#c9d6f2}
   var GL=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'].map(function(g){return g+'\uFE0E';});
   var SLUNCE=['odvaha začínat, přímost a oheň pro nové věci','stálost, smysly a trpělivá síla','zvídavost, slovo a lehkost spojování','péče, domov a hluboká citlivost','srdce, tvořivost a radost ze světla','pečlivost, služba a smysl pro řád','harmonie, vztahy a cit pro krásu','hloubka, proměna a věrnost pravdě','víra, rozhled a touha po smyslu','vytrvalost, odpovědnost a stavění na pevném','originalita, přátelství a pohled dopředu','soucit, intuice a spojení s celkem'];
   var LUNA=['Klid najdeš, když se můžeš hned pustit do akce.','Klid najdeš v pohodlí, dobrém jídle a pevné půdě pod nohama.','Klid najdeš v rozhovoru a v tom, co se nového dozvíš.','Klid najdeš doma mezi svými.','Klid najdeš, když tvoříš a tvoje světlo je vidět.','Klid najdeš v pořádku a ve smysluplné práci.','Klid najdeš v harmonii a kráse kolem sebe.','Klid najdeš v hloubce a ve sdílení s někým, komu důvěřuješ.','Klid najdeš na cestě, ve volnosti a s výhledem.','Klid najdeš v jasném plánu a na svém pevném místě.','Klid najdeš mezi přáteli, kde můžeš být sám sebou.','Klid najdeš v tichu, hudbě a chvíli snění.'];
+  var VENUSE=['Miluješ rychle, přímo a naplno; jiskra a dobývání tě baví.','Miluješ smysly a stálostí: dotek, společné jídlo, věrnost.','Miluješ slovem a hrou; láska u tebe musí mluvit a smát se.','Miluješ péčí a pamětí srdce: kdo je tvůj, je tvůj.','Miluješ velkoryse a s gestem; láska má zářit a být vidět.','Miluješ činem a všímavostí, malými věcmi každý den.','Miluješ souladem a krásou; umění být ve dvou je tvůj dar.','Miluješ hluboko a bezezbytku; celistvost je u tebe jediná možnost.','Miluješ svobodně a s humorem; láska je pro tebe cesta a výhled.','Miluješ vážně, věrně a činy spíš než slovy; vztah stavíš na roky.','Miluješ přátelstvím a volností; blízkost potřebuješ bez pout.','Miluješ oddaně, s citem pro duši druhého; vztah je pro tebe útočiště.'];
   var CISLA={1:'Začátky a vlastní cesta. Jdeš první a otevíráš nové.',2:'Spolupráce a citlivost. Spojuješ lidi a vnímáš jemné tóny.',3:'Tvořivost a radost z vyjádření. Slovo, barva, hra.',4:'Řád a pevné základy. Stavíš tak, aby to vydrželo.',5:'Svoboda a změna. Učíš se pohybem a zkušeností.',6:'Láska, péče a odpovědnost za domov a blízké.',7:'Hledání pravdy, ticho a vnitřní poznání.',8:'Síla, hojnost a schopnost věci uskutečnit.',9:'Soucit, moudrost a dokončování kruhů.',11:'Mistrovské číslo inspirace a intuice, s větším rozsahem i nárokem.',22:'Mistrovské číslo stavitele, který převádí vize do světa.',33:'Mistrovské číslo služby z lásky a uzdravujícího slova.'};
   var $=function(id){return document.getElementById(id);};
   var znameni=function(lon){return Math.floor((((lon%360)+360)%360)/30);};
@@ -611,6 +615,7 @@ footer a{color:#c9d6f2}
   }
   function lunaLon(d){ return Astronomy.EclipticGeoMoon(d).lon; }
   function slunceLon(d){ return Astronomy.SunPosition(d).elon; }
+  function venuseLon(d){ var v=Astronomy.GeoVector('Venus',d,true); var e=Astronomy.Ecliptic(v); return e.elon; }
 
   // ---- obloha právě teď ----
   function tedka(){
@@ -649,7 +654,7 @@ footer a{color:#c9d6f2}
     var p=v.split('-').map(Number), t=(c||'12:00').split(':').map(Number);
     nacti(function(){
       var d=prahaNaUTC(p[0],p[1],p[2],t[0],t[1]);
-      var zs=znameni(slunceLon(d)), ll=lunaLon(d), zl=znameni(ll);
+      var zs=znameni(slunceLon(d)), ll=lunaLon(d), zl=znameni(ll), zv=znameni(venuseLon(d));
       $('s-slunce').textContent=GL[zs]+' '+ZN[zs];
       $('s-slunce-t').textContent=SLUNCE[zs].charAt(0).toUpperCase()+SLUNCE[zs].slice(1)+'.';
       $('s-luna').textContent=GL[zl]+' '+ZN[zl];
@@ -660,6 +665,8 @@ footer a{color:#c9d6f2}
         if(stupen<6.6||stupen>23.4){ var vedle=stupen<15?(zl+11)%12:(zl+1)%12; tx+=' Ten den Luna přecházela z '+(stupen<15?ZN_GEN[vedle]+' do '+ZN_GEN[zl]:ZN_GEN[zl]+' do '+ZN_GEN[vedle])+', čas narození to upřesní.'; }
       }
       $('s-luna-t').textContent=tx;
+      $('s-venuse').textContent=GL[zv]+' '+ZN[zv];
+      $('s-venuse-t').textContent=VENUSE[zv]+' Celý partnerský profil a znamení, se kterými ti to jde lehce, najdeš v plné verzi Kompasu.';
       var cislo=redukuj(v.replace(/-/g,'').split('').reduce(function(s,ch){return s+(+ch);},0));
       $('s-cislo').textContent=String(cislo);
       $('s-cislo-t').textContent=CISLA[cislo];

@@ -417,6 +417,7 @@ function zvolenaMena(a){
   if(a.cena_eur!=null) return 'eur';
   return 'czk';
 }
+function jeDalkova(a){ return /d[aá]lkov/i.test(String(a.misto||'')+' '+String(a.nazev||'')); }
 function nabizetPrespani(a){ return !!a.prespani_nabidnout && a.platba_typ!=='zdarma'; }
 
 function prepocitej(){
@@ -474,7 +475,11 @@ function sestavFormular(a){
     menaVolba+
     nocleh+
     '<div class="souhrn" id="f_souhrn" style="display:none"></div>'+
-    '<div class="field"><label>Poznámka</label><textarea id="f_poznamka" placeholder="Chcete nám něco vzkázat? (nepovinné)"></textarea></div>'+
+    (jeDalkova(a)
+      ? '<div class="field"><label>Údaje pro dálkovou meditaci *</label>'+
+          '<textarea id="f_poznamka" rows="4" placeholder="Jméno, datum narození a místo, kde budete během meditace\n(např. Jana Nováková, 12. 3. 1980, doma v Brně)"></textarea>'+
+          '<p class="sub" style="margin:.4rem 0 0">Energii posíláme přímo k vám, proto potřebujeme vědět, kdo jste a kde budete. Při více osobách uveďte údaje každé z nich.</p></div>'
+      : '<div class="field"><label>Poznámka</label><textarea id="f_poznamka" placeholder="Chcete nám něco vzkázat? (nepovinné)"></textarea></div>')+
     '<label class="souhlas"><input type="checkbox" id="f_souhlas"> <span>Souhlasím se zpracováním osobních údajů pro účely přihlášky na akci (<a href="/gdpr" target="_blank">zásady ochrany údajů</a>).</span></label>'+
     '<button class="cta" id="f_odeslat" onclick="odeslat()">Odeslat přihlášku</button>'+
   '</section>';
@@ -503,6 +508,7 @@ async function odeslat(){
 
   if(jmeno.length<2){ return ukazChybu('Vyplňte prosím jméno.'); }
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ return ukazChybu('Zadejte prosím platný e-mail.'); }
+  if(jeDalkova(a) && poznamka.length<10){ document.getElementById('f_poznamka').focus(); return ukazChybu('Vyplňte prosím jméno, datum narození a místo, kde budete během meditace.'); }
   if(!souhlas){ return ukazChybu('Je potřeba souhlas se zpracováním údajů.'); }
 
 

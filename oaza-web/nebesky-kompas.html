@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nebeský kompas — tvůj hvězdný kalendář · Oáza Adamanthea</title>
+<meta name="description" content="Nebeský kompas čte každý den z oblohy: Luna, planety, hvězdy a tvoje mapa narození. Kalendář s barvou dne, úkazy na rok dopředu, hvězdné nebe ve 3D a osobní horoskop. Základ zdarma.">
+<link rel="canonical" href="https://oaza-adamanthea.cz/nebesky-kompas">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png?v=3">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png?v=3">
+<meta property="og:title" content="Nebeský kompas — tvůj hvězdný kalendář">
+<meta property="og:description" content="Každý den přečtený z oblohy. Kalendář s barvou dne, úkazy na rok dopředu, hvězdné nebe ve 3D a horoskop podle tvé mapy narození.">
+<meta property="og:image" content="https://oaza-adamanthea.cz/img/kompas/kompas-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nebeský kompas — zlatý emblém na modrém nebi">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oaza-adamanthea.cz/nebesky-kompas">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:site_name" content="Oáza Adamanthea">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nebeský kompas — tvůj hvězdný kalendář">
+<meta name="twitter:description" content="Každý den přečtený z oblohy. Základ zdarma.">
+<meta name="twitter:image" content="https://oaza-adamanthea.cz/img/kompas/kompas-og.jpg">
+<meta name="theme-color" content="#071534">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="/img/kompas/app-uvod.webp" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Nebeský kompas","alternateName":"tvůj hvězdný kalendář",
+"applicationCategory":"LifestyleApplication","operatingSystem":"Web, Android, iOS (PWA)","inLanguage":["cs","sk"],
+"url":"https://nebe.oaza-adamanthea.cz","image":"https://oaza-adamanthea.cz/img/kompas/kompas-og.jpg",
+"description":"Astrologický kalendář: barva a čtení každého dne, úkazy na rok dopředu, hvězdné nebe ve 3D, diář a horoskop podle mapy narození.",
+"publisher":{"@type":"Organization","name":"Oáza Adamanthea","url":"https://oaza-adamanthea.cz"},
+"offers":{"@type":"Offer","name":"Základ","price":"0","priceCurrency":"CZK","url":"https://nebe.oaza-adamanthea.cz"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+ {"@type":"ListItem","position":1,"name":"Oáza Adamanthea","item":"https://oaza-adamanthea.cz/"},
+ {"@type":"ListItem","position":2,"name":"Nebeský kompas","item":"https://oaza-adamanthea.cz/nebesky-kompas"}]}
+</script>
+<style>
+:root{
+  --pulnoc:#071534;   /* základ stránky */
+  --hlubina:#0c2257;  /* plochy */
+  --azur:#3b78d8;     /* modř z artworku */
+  --zlato:#f3d384;    /* zlato aplikace */
+  --zlato2:#c9a24f;
+  --perla:#eef2fb;    /* text */
+  --mlha:#a9bbdf;     /* vedlejší text */
+  --linka:rgba(243,211,132,.22);
+  --sklo:rgba(17,38,88,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--pulnoc);overflow-x:hidden}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{color:var(--perla);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::before{content:"";position:absolute;inset:0 0 auto 0;height:1500px;z-index:-1;
+  background:linear-gradient(to bottom,rgba(7,21,52,.25),rgba(7,21,52,.55) 55%,var(--pulnoc) 96%),url("/img/kompas/nebe-noc.webp") center top/cover no-repeat}
+a{color:var(--zlato);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--zlato);outline-offset:3px;border-radius:4px}
+img{display:block;max-width:100%}
+.obal{max-width:1120px;margin:0 auto;padding:0 24px}
+.skryte{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- navigace Oázy (tmavá varianta) ---------- */
+nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px}
+nav .menu{display:flex;gap:26px;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;font-family:'Jost',sans-serif}
+nav .menu a{color:var(--perla);text-decoration:none;opacity:.86}
+nav .menu a:hover{color:var(--zlato);opacity:1}
+nav .nav-home{margin-right:auto;display:flex;align-items:center;color:var(--perla)}
+nav .nav-home:hover{color:var(--zlato)}
+.nav-toggle{display:none;background:none;border:none;color:var(--perla);font-size:30px;cursor:pointer}
+.jen-mobil{display:none}
+@media(max-width:900px){
+  nav{padding:18px 20px;gap:20px}
+  nav .menu{display:none;position:fixed;inset:0;background:#0a1430;flex-direction:column;padding:96px 28px 40px;gap:0;z-index:50;overflow-y:auto}
+  nav .menu.open{display:flex}
+  nav .menu a{font-size:25px;padding:21px 4px;border-bottom:1px solid rgba(243,239,229,.14);text-transform:none;letter-spacing:0;font-family:'Cormorant Garamond',serif}
+  .nav-toggle{display:block;position:relative;z-index:60}
+}
+
+/* ---------- tlačítka ---------- */
+.tl{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:'Jost',sans-serif;font-weight:500;font-size:16px;letter-spacing:.02em;padding:15px 28px;border-radius:999px;cursor:pointer;border:1px solid transparent;transition:background .2s,border-color .2s,color .2s}
+.tl:hover{text-decoration:none}
+.tl.zlate{background:linear-gradient(180deg,#f7dd98,#d9b25e);color:#1a1606;box-shadow:0 8px 30px rgba(243,211,132,.25)}
+.tl.zlate:hover{background:linear-gradient(180deg,#fbe5aa,#e2bd6b)}
+.tl.obrys{border-color:rgba(243,211,132,.45);color:var(--zlato);background:rgba(7,21,52,.35)}
+.tl.obrys:hover{background:rgba(243,211,132,.10)}
+
+/* ---------- telefon ---------- */
+.telefon{position:relative;width:min(300px,78vw);aspect-ratio:600/1298;border-radius:42px;padding:9px;background:linear-gradient(160deg,#2a3c6a,#0b1430 40%,#1b2b55);box-shadow:0 0 0 1px rgba(243,211,132,.28),0 30px 80px rgba(0,0,0,.55),0 0 120px rgba(59,120,216,.25)}
+.telefon img{width:100%;height:100%;object-fit:cover;border-radius:34px;background:#0c2257}
+
+/* ---------- úvod ---------- */
+.hero{padding:150px 0 70px}
+.hero .obal{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.znacka{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(46px,6.4vw,84px);line-height:1;letter-spacing:.04em;color:var(--zlato);text-shadow:0 2px 30px rgba(243,211,132,.25)}
+.znacka small{display:block;font-size:.36em;letter-spacing:.62em;margin-top:.55em;color:#e9d39a;padding-left:.2em}
+.claim{font-style:italic;font-size:clamp(26px,2.6vw,32px);color:var(--perla);margin:28px 0 16px}
+.lead{font-size:21px;color:#d5def2;max-width:34em;text-shadow:0 1px 14px rgba(7,21,52,.9)}
+.hero .akce{display:flex;flex-wrap:wrap;gap:14px;margin:34px 0 0}
+.hero .pozn{font-family:'Jost',sans-serif;font-size:14px;color:var(--mlha);margin-top:14px}
+.hero-tel{display:flex;justify-content:center;position:relative}
+.hero-tel::before{content:"";position:absolute;width:130%;aspect-ratio:1;left:-15%;top:6%;border-radius:50%;border:1px solid rgba(243,211,132,.18);box-shadow:inset 0 0 0 40px rgba(243,211,132,.025)}
+.hero .uvod{animation:vynor 1.1s ease-out both}
+.hero .hero-tel{animation:vynor 1.1s .25s ease-out both}
+@keyframes vynor{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* obloha právě teď */
+.tedka{margin-top:42px;border-top:1px solid var(--linka);padding-top:20px;max-width:560px}
+.tedka h2{font-family:'Jost',sans-serif;font-weight:500;font-size:14px;letter-spacing:.04em;color:var(--zlato);margin-bottom:12px}
+.tedka dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px}
+.tedka dt{font-family:'Jost',sans-serif;font-size:13px;color:var(--mlha)}
+.tedka dd{font-size:20px;line-height:1.25}
+.tedka dd .g{color:var(--zlato);margin-right:.25em}
+.tedka p{font-family:'Jost',sans-serif;font-size:12.5px;color:#7f93bd;margin-top:12px}
+
+/* ---------- sekce ---------- */
+section{position:relative}
+.sekce{padding:110px 0}
+h2.nadpis{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(30px,3.6vw,46px);line-height:1.15;color:var(--zlato);letter-spacing:.02em}
+.podnadpis{font-size:22px;color:#cfd9ef;max-width:36em;margin-top:16px}
+.hvezdicka{display:block;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--linka),transparent);position:relative}
+.hvezdicka::after{content:"✦";position:absolute;left:50%;top:50%;transform:translate(-50%,-55%);color:var(--zlato);font-size:16px;background:var(--pulnoc);padding:0 14px}
+
+/* funkce: telefon + text */
+.funkce{display:grid;grid-template-columns:auto 1fr;gap:70px;align-items:center}
+.funkce.zrcadlo{grid-template-columns:1fr auto}
+.funkce.zrcadlo .telefon{order:2}
+.funkce h3{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(26px,2.8vw,36px);color:var(--zlato);line-height:1.2}
+.funkce .text>p{font-size:21px;color:#d5def2;margin:14px 0 22px;max-width:32em}
+.seznam{list-style:none;display:grid;gap:13px;max-width:34em}
+.seznam li{position:relative;padding-left:30px;color:var(--perla)}
+.seznam li::before{content:"✦";position:absolute;left:2px;top:.08em;color:var(--zlato);font-size:15px}
+.seznam b{font-weight:600;color:#fff}
+.telefony2{display:flex;gap:22px;align-items:flex-start}
+.telefony2 .telefon{width:min(250px,40vw)}
+.telefony2 .telefon:nth-child(2){margin-top:70px}
+
+/* vyzkoušej */
+.zkus{background:radial-gradient(ellipse at 50% 0%,rgba(59,120,216,.28),transparent 65%),linear-gradient(180deg,#0a1b47,#081736);border-top:1px solid var(--linka);border-bottom:1px solid var(--linka)}
+.zkus .obal{max-width:980px}
+.zkus-form{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-top:34px}
+.pole{display:flex;flex-direction:column;gap:7px}
+.pole label{font-family:'Jost',sans-serif;font-size:14px;color:var(--mlha)}
+.pole input{font:inherit;font-family:'Jost',sans-serif;font-size:17px;color:var(--perla);background:rgba(7,21,52,.7);border:1px solid rgba(169,187,223,.35);border-radius:14px;padding:13px 16px;min-width:200px;color-scheme:dark}
+.pole input:focus{border-color:var(--zlato);outline:none;box-shadow:0 0 0 3px rgba(243,211,132,.18)}
+.svetla{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px}
+.svetlo{border:1px solid var(--linka);border-radius:22px;padding:26px 24px;background:rgba(7,21,52,.55);min-height:180px}
+.svetlo .sym{font-size:34px;color:var(--zlato);line-height:1}
+.svetlo .co{font-family:'Jost',sans-serif;font-size:13px;color:var(--mlha);margin-top:12px}
+.svetlo .kde{font-family:'Cinzel',serif;font-size:26px;color:#fff;margin:2px 0 8px}
+.svetlo p{font-size:18.5px;color:#d5def2;line-height:1.5}
+.svetla[hidden]{display:none}
+.zkus-dal{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.zkus-dal p{font-size:19px;color:#cfd9ef;max-width:30em}
+.zkus .vysvetl{font-family:'Jost',sans-serif;font-size:13.5px;color:#8ea2c9;margin-top:16px}
+
+/* galerie */
+.galerie{display:flex;gap:26px;overflow-x:auto;scroll-snap-type:x mandatory;padding:40px max(24px,calc((100vw - 1120px)/2)) 30px;scrollbar-width:thin;scrollbar-color:rgba(243,211,132,.35) transparent}
+.galerie figure{scroll-snap-align:center;flex:none;width:230px}
+.galerie .telefon{width:230px;border-radius:34px;padding:7px}
+.galerie .telefon img{border-radius:28px}
+.galerie figcaption{font-family:'Jost',sans-serif;font-size:14px;color:var(--mlha);text-align:center;margin-top:16px}
+.galerie figcaption b{display:block;font-weight:500;color:var(--perla);font-size:15px}
+
+/* kroky */
+.kroky{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:44px;counter-reset:k}
+.kroky li{counter-increment:k;padding-top:56px;position:relative}
+.kroky li::before{content:counter(k);position:absolute;top:0;left:0;width:42px;height:42px;border-radius:50%;border:1px solid var(--zlato);color:var(--zlato);font-family:'Cinzel',serif;font-size:20px;display:flex;align-items:center;justify-content:center}
+.kroky h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px;color:#fff;margin-bottom:6px}
+.kroky p{color:#cfd9ef;font-size:19px}
+
+/* dvě verze */
+.verze{display:grid;grid-template-columns:1fr 1.12fr;gap:26px;margin-top:50px;align-items:start}
+.verze article{border-radius:30px;padding:38px 36px 36px}
+.zaklad{background:linear-gradient(180deg,rgba(23,52,118,.62),rgba(11,30,74,.62));border:1px solid rgba(169,187,223,.25)}
+.plna{background:radial-gradient(ellipse at 50% -10%,rgba(243,211,132,.18),transparent 60%),linear-gradient(180deg,#14234d,#0b1838);border:1px solid rgba(243,211,132,.55);box-shadow:0 0 0 6px rgba(243,211,132,.05),0 30px 90px rgba(0,0,0,.35)}
+.verze h3{font-family:'Cinzel',serif;font-weight:600;font-size:30px;line-height:1.1}
+.zaklad h3{color:#fff}
+.plna h3{color:var(--zlato)}
+.cena{font-family:'Jost',sans-serif;font-size:15px;color:var(--mlha);margin:10px 0 6px}
+.cena strong{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:#fff;margin-right:6px}
+.plna .cena strong{color:var(--zlato);font-size:28px}
+.verze .uvodni{font-size:19px;color:#d5def2;margin:8px 0 22px}
+.skup{margin-top:22px}
+.skup h4{font-family:'Jost',sans-serif;font-weight:500;font-size:14.5px;color:var(--zlato);letter-spacing:.02em;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--linka)}
+.zaklad .skup h4{color:#c9d6f2;border-color:rgba(169,187,223,.2)}
+.skup ul{list-style:none;display:grid;gap:10px}
+.skup li{position:relative;padding-left:26px;font-size:19px;line-height:1.45}
+.skup li::before{content:"";position:absolute;left:3px;top:.55em;width:9px;height:9px;border-radius:50%;border:1.5px solid #9fb7e6}
+.plna .skup li::before{content:"✦";border:0;width:auto;height:auto;top:.05em;left:1px;color:var(--zlato);font-size:15px}
+.skup li small{display:block;font-size:16.5px;color:var(--mlha);line-height:1.4;margin-top:2px}
+.verze .tl{margin-top:30px;width:100%}
+.zkusebni{margin-top:26px;border:1px dashed rgba(243,211,132,.4);border-radius:18px;padding:16px 18px;font-size:18px;color:#e9dcb4;background:rgba(243,211,132,.05)}
+.zajem{margin-top:26px}
+.zajem p{font-size:18px;color:#cfd9ef;margin-bottom:12px}
+.zajem form{display:flex;gap:10px;flex-wrap:wrap}
+.zajem input{flex:1 1 220px;font-family:'Jost',sans-serif;font-size:16px;color:var(--perla);background:rgba(7,21,52,.7);border:1px solid rgba(243,211,132,.35);border-radius:999px;padding:13px 20px}
+.zajem input:focus{outline:none;border-color:var(--zlato);box-shadow:0 0 0 3px rgba(243,211,132,.16)}
+.zajem .tl{margin-top:0;width:auto}
+.zajem .stav{font-family:'Jost',sans-serif;font-size:14.5px;color:var(--zlato);margin-top:10px;min-height:1.4em}
+
+/* otázky */
+.otazky{max-width:820px;margin:44px auto 0}
+.otazky details{border-bottom:1px solid var(--linka)}
+.otazky summary{cursor:pointer;list-style:none;padding:22px 40px 22px 0;font-size:23px;font-weight:600;color:#fff;position:relative}
+.otazky summary::-webkit-details-marker{display:none}
+.otazky summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:'Jost',sans-serif;font-weight:300;font-size:28px;color:var(--zlato);transition:transform .2s}
+.otazky details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.otazky details p{padding:0 0 22px;color:#d5def2;font-size:20px;max-width:38em}
+
+/* závěr */
+.zaver{text-align:center;padding:120px 0 130px;background:radial-gradient(ellipse at 50% 100%,rgba(59,120,216,.3),transparent 60%)}
+.zaver img{width:min(380px,80vw);margin:0 auto 34px;border-radius:26px;box-shadow:0 30px 90px rgba(0,0,0,.45),0 0 0 1px rgba(243,211,132,.25)}
+.zaver p{font-size:22px;color:#d5def2;max-width:30em;margin:18px auto 32px}
+.tvurce{font-family:'Jost',sans-serif;font-size:14px;color:#8ea2c9;margin-top:40px}
+
+footer{border-top:1px solid var(--linka);padding:34px 24px 44px;text-align:center;font-family:'Jost',sans-serif;font-size:14px;color:#8ea2c9}
+footer a{color:#c9d6f2}
+
+/* ---------- mobil ---------- */
+@media(max-width:900px){
+  .hero{padding:104px 0 40px}
+  .hero .obal{grid-template-columns:1fr;gap:46px}
+  .hero-tel::before{width:110%;left:-5%}
+  .funkce,.funkce.zrcadlo{grid-template-columns:1fr;gap:40px}
+  .funkce .telefon,.funkce.zrcadlo .telefon{order:0;margin:0 auto}
+  .telefony2{justify-content:center}
+  .sekce{padding:80px 0}
+  .verze{grid-template-columns:1fr}
+  .verze article{padding:30px 22px}
+  .kroky{grid-template-columns:1fr;gap:26px}
+  .svetla{grid-template-columns:1fr}
+  .svetlo{min-height:0}
+}
+@media(max-width:520px){
+  body{font-size:19px}
+  .obal{padding:0 18px}
+  .tedka dl{grid-template-columns:1fr 1fr}
+  .tedka dd{font-size:18px}
+  .hero .akce .tl{width:100%}
+  .pole,.pole input{width:100%}
+  .zkus-form .tl{width:100%}
+  .telefony2 .telefon{width:44vw}
+  .telefony2 .telefon:nth-child(2){margin-top:40px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-home" href="/" aria-label="Domů — hlavní stránka Oázy"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></a>
+  <button class="nav-toggle" aria-label="Menu" aria-controls="menu" onclick="prepniMenu(this)">☰</button>
+  <div class="menu" id="menu">
+    <a href="/portalova-zahrada">Portálová zahrada</a>
+    <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+    <a href="/akce">Akce</a>
+    <a href="/nabidka-sluzeb">Služby</a>
+    <a href="/pronajem-prostor">Pronájem</a>
+    <a href="/bali-shop">E-shop</a>
+    <a href="/o-nas">O&nbsp;nás</a>
+    <a href="/kontakt">Kontakt</a>
+  </div>
+</nav>
+<script>function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';btn.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';}</script>
+
+<main>
+<!-- ================= ÚVOD ================= -->
+<section class="hero">
+  <div class="obal">
+    <div class="uvod">
+      <h1 class="znacka">Nebeský<small>kompas</small></h1>
+      <p class="claim">Tvůj hvězdný kalendář</p>
+      <p class="lead">Každý den přečtený z&nbsp;oblohy. Kompas sleduje Lunu, planety a&nbsp;hvězdy a&nbsp;spojuje je s&nbsp;tvou mapou narození. Ráno víš, čemu den přeje, kdy je vhodná chvíle a&nbsp;čím právě procházíš.</p>
+      <div class="akce">
+        <a class="tl zlate" href="https://nebe.oaza-adamanthea.cz" data-mer="otevrit-hero">Otevřít Kompas zdarma</a>
+        <a class="tl obrys" href="#verze">Základ a&nbsp;plná verze</a>
+      </div>
+      <p class="pozn">Běží v&nbsp;telefonu i&nbsp;počítači a&nbsp;nainstaluješ ho na plochu jedním klepnutím.</p>
+
+      <div class="tedka" id="tedka" aria-live="polite">
+        <h2>Obloha právě teď</h2>
+        <dl>
+          <div><dt>Luna</dt><dd id="t-luna">počítám…</dd></div>
+          <div><dt>Fáze</dt><dd id="t-faze">…</dd></div>
+          <div><dt>Slunce</dt><dd id="t-slunce">…</dd></div>
+          <div><dt id="t-dalsi-l">Nejbližší</dt><dd id="t-dalsi">…</dd></div>
+        </dl>
+        <p>Spočítáno v&nbsp;tvém prohlížeči stejným jádrem, na kterém běží Kompas.</p>
+      </div>
+    </div>
+    <div class="hero-tel">
+      <div class="telefon"><img src="/img/kompas/app-uvod.webp" width="600" height="1298" alt="Úvodní obrazovka Nebeského kompasu se Sluncem, Lunou, Ascendentem a&nbsp;Descendentem"></div>
+    </div>
+  </div>
+</section>
+
+<span class="hvezdicka" aria-hidden="true"></span>
+
+<!-- ================= DNES ================= -->
+<section class="sekce" id="dnes">
+  <div class="obal funkce">
+    <div class="telefon"><img src="/img/kompas/app-dnes.webp" width="600" height="1298" loading="lazy" alt="Karta Dnes: klidný den, Luna v&nbsp;Blížencích, co dnes podporuje, tatva a&nbsp;orgánové hodiny"></div>
+    <div class="text">
+      <h3>Celý den na jedné kartě</h3>
+      <p>Karta Dnes je první, co ráno uvidíš. Jedno slovo řekne, jaký den je, a&nbsp;pod ním najdeš, co tě dnes nese.</p>
+      <ul class="seznam">
+        <li><b>Barva a&nbsp;nálada dne.</b> Klidný, přívětivý, náročný nebo vlídný, spočítaný z&nbsp;Luny a&nbsp;planet.</li>
+        <li><b>Čtení dne.</b> Co dnes podporuje a&nbsp;co stojí víc sil, řečeno lidsky a&nbsp;věcně.</li>
+        <li><b>Rytmus dne.</b> Tatvy a&nbsp;orgánové hodiny ukotvené na skutečné sluneční poledne tvého místa.</li>
+        <li><b>Nebeský tip.</b> Malá pozvánka na každý den podle Luny a&nbsp;její fáze.</li>
+        <li><b>Příroda a&nbsp;obloha.</b> Zlatá a&nbsp;modrá hodina, Kolo roku, perigeum Luny a&nbsp;lunární zahrádkář.</li>
+        <li><b>Portály a&nbsp;mayský den.</b> Zrcadlová data, mistrovské dny a&nbsp;pravý počet Tzolk'in.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KALENDÁŘ ================= -->
+<section class="sekce" id="kalendar" style="padding-top:0">
+  <div class="obal funkce zrcadlo">
+    <div class="telefony2">
+      <div class="telefon"><img src="/img/kompas/app-kalendar.webp" width="600" height="1298" loading="lazy" alt="Měsíční kalendář s&nbsp;barevně označenými dny a&nbsp;fázemi Luny"></div>
+      <div class="telefon"><img src="/img/kompas/app-prubeh-dne.webp" width="600" height="1298" loading="lazy" alt="Průběh dne: východ Slunce, planetární hodiny a&nbsp;západ Luny"></div>
+    </div>
+    <div class="text">
+      <h3>Měsíc v&nbsp;barvách, den po hodinách</h3>
+      <p>Na mřížce měsíce hned vidíš, které dny jsou lehké a&nbsp;které chtějí víc pozornosti. Klepnutím na den otevřeš jeho podrobné čtení.</p>
+      <ul class="seznam">
+        <li><b>Fáze Luny, svátky a&nbsp;jmeniny</b> pro Česko i&nbsp;Slovensko.</li>
+        <li><b>Průběh dne</b> s&nbsp;východem a&nbsp;západem Slunce i&nbsp;Luny a&nbsp;s&nbsp;planetárními hodinami.</li>
+        <li><b>Počasí v&nbsp;kalendáři</b> přímo v&nbsp;políčkách dnů.</li>
+        <li><b>Denní rytmus</b> s&nbsp;krátkým textem o&nbsp;tom, kudy den plyne.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEBE 3D ================= -->
+<section class="sekce" id="nebe" style="padding-top:0">
+  <div class="obal funkce">
+    <div class="telefon"><img src="/img/kompas/app-nebe-3d.webp" width="600" height="1298" loading="lazy" alt="Hvězdné nebe teď: trojrozměrná obloha s&nbsp;Mléčnou dráhou a&nbsp;souhvězdím Kasiopeja"></div>
+    <div class="text">
+      <h3>Hvězdné nebe teď</h3>
+      <p>Namiř telefon na oblohu a&nbsp;Kompas ti ukáže, co právě vidíš. Planety, hvězdy, souhvězdí i&nbsp;Mléčná dráha v&nbsp;trojrozměrné nebeské sféře, přesně podle tvé polohy a&nbsp;času.</p>
+      <ul class="seznam">
+        <li><b>5 044 hvězd, 88 souhvězdí a&nbsp;110 objektů Messierova katalogu</b> včetně galaxií a&nbsp;mlhovin.</li>
+        <li><b>Znamení zvěrokruhu přímo na obloze</b>, ať vidíš, kudy vede ekliptika.</li>
+        <li><b>Hledání se šipkou k&nbsp;cíli</b> a&nbsp;jemné zavibrování, když na objekt zamíříš.</li>
+        <li><b>Režim Prostor a&nbsp;Atlas</b>, překryv přes kameru a&nbsp;tmavě modrý noční režim pro oči přivyklé tmě.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ÚKAZY + DIÁŘ ================= -->
+<section class="sekce" id="ukazy" style="padding-top:0">
+  <div class="obal funkce zrcadlo">
+    <div class="telefony2">
+      <div class="telefon"><img src="/img/kompas/app-ukazy.webp" width="600" height="1298" loading="lazy" alt="Úkazy: kategorie zatmění, Luna, planety, roje a&nbsp;seznam úkazů na říjen"></div>
+      <div class="telefon"><img src="/img/kompas/app-diar.webp" width="600" height="1298" loading="lazy" alt="Diář s&nbsp;kalendářem, plánem dne a&nbsp;zápisem s&nbsp;fotkou a&nbsp;hlasovou poznámkou"></div>
+    </div>
+    <div class="text">
+      <h3>Rok oblohy dopředu a&nbsp;diář, který s&nbsp;ní ladí</h3>
+      <p>Úkazy ti ukážou všechno podstatné, co obloha chystá, seřazené podle data a&nbsp;rozdělené do kategorií. Každý úkaz má krátké vysvětlení.</p>
+      <ul class="seznam">
+        <li><b>Zatmění, novy a&nbsp;úplňky, retrogradity a&nbsp;vstupy planet do znamení.</b></li>
+        <li><b>Meteorické roje, komety, rovnodennosti a&nbsp;slunovraty</b> s&nbsp;časy pro tvé místo.</li>
+        <li><b>Diář pro plán i&nbsp;zápis dne</b> s&nbsp;fotkami, hlasovými poznámkami a&nbsp;samostatnými poznámkami.</li>
+        <li><b>Jak to sedí.</b> Po pěti zapsaných dnech Kompas porovná tvoje hodnocení s&nbsp;výpočtem.</li>
+        <li><b>Modul cyklu</b> se čtyřmi fázemi a&nbsp;tichým řádkem v&nbsp;kartě Dnes.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VYZKOUŠEJ ================= -->
+<section class="sekce zkus" id="zkus">
+  <div class="obal">
+    <h2 class="nadpis">Tvoje tři světla</h2>
+    <p class="podnadpis">Zadej datum narození a&nbsp;hned uvidíš své Slunce, Lunu a&nbsp;životní číslo. S&nbsp;časem narození bude Luna přesnější.</p>
+    <form class="zkus-form" id="zkus-form">
+      <div class="pole"><label for="z-datum">Datum narození</label><input type="date" id="z-datum" required min="1900-01-01" max="2030-12-31"></div>
+      <div class="pole"><label for="z-cas">Čas narození (nepovinný)</label><input type="time" id="z-cas"></div>
+      <button class="tl zlate" type="submit">Spočítat</button>
+    </form>
+    <div class="svetla" id="svetla" hidden aria-live="polite">
+      <div class="svetlo"><div class="sym" aria-hidden="true">☉&#xFE0E;</div><div class="co">Slunce · tvoje podstata</div><div class="kde" id="s-slunce"></div><p id="s-slunce-t"></p></div>
+      <div class="svetlo"><div class="sym" aria-hidden="true">☽&#xFE0E;</div><div class="co">Luna · co tě živí</div><div class="kde" id="s-luna"></div><p id="s-luna-t"></p></div>
+      <div class="svetlo"><div class="sym" aria-hidden="true">✦</div><div class="co">Životní číslo</div><div class="kde" id="s-cislo"></div><p id="s-cislo-t"></p></div>
+    </div>
+    <div class="zkus-dal" id="zkus-dal" hidden>
+      <p>V&nbsp;Kompasu k&nbsp;tomu přibude Ascendent, Descendent, celá mapa narození a&nbsp;čtení každého dne podle ní.</p>
+      <a class="tl obrys" href="https://nebe.oaza-adamanthea.cz" data-mer="otevrit-svetla">Pokračovat v&nbsp;Kompasu</a>
+    </div>
+    <p class="vysvetl" id="zkus-pozn">Výpočet proběhne jen ve tvém prohlížeči. Čas bereme jako středoevropský, stejně jako v&nbsp;Česku a&nbsp;na Slovensku.</p>
+  </div>
+</section>
+
+<!-- ================= O&nbsp;TOBĚ ================= -->
+<section class="sekce" id="o-tobe">
+  <div class="obal funkce">
+    <div class="telefony2">
+      <div class="telefon"><img src="/img/kompas/app-o-tobe.webp" width="600" height="1298" loading="lazy" alt="O tobě: dlaždice Tvoje mapa, Čím teď procházíš, Vztahy, Tvůj horoskop, Tvá čísla, Čakra roku a&nbsp;další"></div>
+      <div class="telefon"><img src="/img/kompas/app-horoskop.webp" width="600" height="1298" loading="lazy" alt="Tvůj horoskop s&nbsp;kolem mapy narození"></div>
+    </div>
+    <div class="text">
+      <h3>O&nbsp;tobě: mapa, která se dá číst</h3>
+      <p>Zadáš datum, čas a&nbsp;místo narození a&nbsp;Kompas z&nbsp;nich spočítá tvou mapu. Polohy planet, Ascendent i&nbsp;hroty domů sedí se Swiss Ephemeris na úhlovou minutu.</p>
+      <ul class="seznam">
+        <li><b>Tvůj horoskop ve dvanácti kapitolách</b> od osobnosti přes vztahy a&nbsp;práci až po duchovní cestu.</li>
+        <li><b>Čím teď procházíš.</b> Tranzity jako oblouky s&nbsp;daty, kdy začínají, kdy jsou přesné a&nbsp;kdy doznívají.</li>
+        <li><b>Vztahy</b> s&nbsp;porovnáním dvou map a&nbsp;čtením pro tvé blízké.</li>
+        <li><b>Tvá čísla, Čakra roku a&nbsp;Velké návraty</b> Slunce, Luny, Jupiteru a&nbsp;Saturnu.</li>
+        <li><b>Mayský a&nbsp;čínský horoskop</b> jako dva další pohledy na tvé narození.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALERIE ================= -->
+<section aria-labelledby="galerie-h" style="padding-top:20px">
+  <div class="obal"><h2 class="nadpis" id="galerie-h">Projdi si Kompas</h2><p class="podnadpis">Skutečné obrazovky z&nbsp;aplikace s&nbsp;ukázkovým profilem.</p></div>
+  <div class="galerie" tabindex="0" aria-label="Galerie obrazovek, posouvej do stran">
+    <figure><div class="telefon"><img src="/img/kompas/app-uvod.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Úvod</b>tvoje čtyři hlavní body</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-dnes.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Dnes</b>nálada a&nbsp;rytmus dne</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-kalendar.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Kalendář</b>měsíc v&nbsp;barvách</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-prubeh-dne.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Průběh dne</b>hodiny a&nbsp;východy</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-ukazy.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Úkazy</b>rok oblohy dopředu</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-nebe-3d.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Hvězdné nebe teď</b>obloha ve 3D</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-o-tobe.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>O&nbsp;tobě</b>všechna čtení na jednom místě</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-horoskop-kapitoly.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Tvůj horoskop</b>kapitoly a&nbsp;roční výhled</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-mapa.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Tvoje mapa</b>bod po bodu</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-prochazis.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Čím teď procházíš</b>tranzity jako oblouky</figcaption></figure>
+    <figure><div class="telefon"><img src="/img/kompas/app-diar.webp" width="600" height="1298" loading="lazy" alt=""></div><figcaption><b>Diář</b>plán, zápis, fotky a&nbsp;hlas</figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= DVĚ VERZE ================= -->
+<section class="sekce" id="verze">
+  <div class="obal">
+    <h2 class="nadpis">Základ a&nbsp;plná verze</h2>
+    <p class="podnadpis">Základ je zdarma a&nbsp;zůstane zdarma: celý kalendář, obloha a&nbsp;diář. Plná verze přidá hloubku, všechno čtené osobně podle tvé mapy narození.</p>
+
+    <div class="verze">
+      <article class="zaklad" aria-labelledby="v-zaklad">
+        <h3 id="v-zaklad">Základ</h3>
+        <p class="cena"><strong>Zdarma</strong>natrvalo</p>
+        <p class="uvodni">Všechno, co čte oblohu pro každého. Stačí otevřít a&nbsp;používat.</p>
+
+        <div class="skup"><h4>Kalendář a&nbsp;den</h4><ul>
+          <li>Kalendář s&nbsp;barvou každého dne<small>fáze Luny, státní svátky a&nbsp;jmeniny pro Česko i&nbsp;Slovensko</small></li>
+          <li>Karta Dnes se všemi vrstvami<small>čtení dne, rytmus dne s&nbsp;tatvami a&nbsp;orgánovými hodinami, Nebeský tip, příroda, portály, mayský den a&nbsp;počasí</small></li>
+          <li>Průběh dne s&nbsp;planetárními hodinami</li>
+        </ul></div>
+
+        <div class="skup"><h4>Obloha</h4><ul>
+          <li>Úkazy na rok dopředu v&nbsp;jedenácti kategoriích</li>
+          <li>Hvězdné nebe teď ve 3D<small>planety, hvězdy, souhvězdí, Messierovy objekty a&nbsp;znamení na obloze</small></li>
+          <li>Kosmické počasí a&nbsp;geomagnetická aktivita</li>
+        </ul></div>
+
+        <div class="skup"><h4>Diář a&nbsp;ty</h4><ul>
+          <li>Diář s&nbsp;plánem, zápisem dne, fotkami a&nbsp;hlasem</li>
+          <li>Modul cyklu se čtyřmi fázemi</li>
+          <li>Tvoje Slunce, Luna, Ascendent a&nbsp;Descendent s&nbsp;výkladem</li>
+          <li>Tvoje životní číslo</li>
+        </ul></div>
+
+        <div class="skup"><h4>Pohodlí</h4><ul>
+          <li>Instalace na plochu a&nbsp;provoz offline</li>
+          <li>Rozhraní v&nbsp;češtině i&nbsp;slovenštině</li>
+          <li>Přenos dat mezi zařízeními jedním QR kódem</li>
+          <li>Nápověda a&nbsp;Průvodce vesmírnými vlivy</li>
+        </ul></div>
+
+        <a class="tl obrys" href="https://nebe.oaza-adamanthea.cz" data-mer="otevrit-zaklad">Otevřít Kompas</a>
+      </article>
+
+      <article class="plna" aria-labelledby="v-plna">
+        <h3 id="v-plna">Plná verze</h3>
+        <p class="cena"><strong>Cenu oznámíme při spuštění</strong></p>
+        <p class="uvodni">Všechno ze základu a&nbsp;k&nbsp;tomu čtení podle tvé mapy narození:</p>
+
+        <div class="skup"><h4>Tvůj horoskop</h4><ul>
+          <li>Celoživotní horoskop ve dvanácti kapitolách<small>osobnost, peníze, vztahy a&nbsp;láska, rodina a&nbsp;kořeny, duchovní cesta, překážky a&nbsp;výzvy, práce a&nbsp;poslání, zdraví a&nbsp;vitalita, tvořivost a&nbsp;radost, komunikace a&nbsp;mysl, tvé hvězdy a&nbsp;tvůj rok</small></li>
+          <li>Osobní horoskop na den, týden, měsíc a&nbsp;rok<small>tvůj měsíc s&nbsp;novem a&nbsp;úplňkem v&nbsp;tvých domech a&nbsp;s&nbsp;klíčovými dny</small></li>
+          <li>Uložení a&nbsp;tisk celého horoskopu jako dokumentu</li>
+        </ul></div>
+
+        <div class="skup"><h4>Tvoje mapa v&nbsp;čase</h4><ul>
+          <li>Tvoje mapa bod po bodu<small>každá planeta s&nbsp;výkladem ve znamení a&nbsp;v&nbsp;domě, aspekty s&nbsp;výkladem</small></li>
+          <li>Čím teď procházíš<small>tranzity pomalých planet jako oblouky s&nbsp;daty začátku, přesnosti a&nbsp;doznění</small></li>
+          <li>Tvůj den v&nbsp;kartě Dnes a&nbsp;osobní portály</li>
+          <li>Najít vhodný den<small>zadáš záměr a&nbsp;rozsah a&nbsp;Kompas vybere dny, které mu přejí, i&nbsp;s&nbsp;důvody</small></li>
+        </ul></div>
+
+        <div class="skup"><h4>Ty a&nbsp;tvoji blízcí</h4><ul>
+          <li>Vztahy: porovnání dvou map narození</li>
+          <li>Číst jako: celé čtení O&nbsp;tobě pro kohokoli z&nbsp;tvých blízkých</li>
+        </ul></div>
+
+        <div class="skup"><h4>Další pohledy</h4><ul>
+          <li>Tvá čísla: osobní rok, měsíc a&nbsp;den</li>
+          <li>Čakra roku podle sedmiletých cyklů</li>
+          <li>Velké návraty Slunce, Luny, Jupiteru a&nbsp;Saturnu</li>
+          <li>Tvé hvězdy: výklad 22 stálic v&nbsp;tvé mapě</li>
+          <li>Mayský horoskop<small>nawal a&nbsp;tón narození, Mayský kříž, nositel roku a&nbsp;kalendářní kruh</small></li>
+          <li>Čínský horoskop se čtyřmi pilíři</li>
+        </ul></div>
+
+        <div class="skup"><h4>S&nbsp;plnou verzí přijde</h4><ul>
+          <li>Účet a&nbsp;průběžná synchronizace mezi telefonem a&nbsp;počítačem</li>
+        </ul></div>
+
+        <p class="zkusebni">Kompas je teď ve zkušebním provozu a&nbsp;je otevřený celý, včetně plné verze. Vyzkoušej si ho a&nbsp;napiš nám, jak ti sedí.</p>
+
+        <div class="zajem">
+          <p>Pošleme ti zprávu, až plnou verzi spustíme.</p>
+          <form id="zajem-form">
+            <label for="zajem-email" class="skryte">E-mail</label>
+            <input type="email" id="zajem-email" placeholder="tvůj e-mail" autocomplete="email" required>
+            <button class="tl zlate" type="submit">Dej mi vědět</button>
+          </form>
+          <p class="stav" id="zajem-stav" role="status"></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JAK ZAČÍT ================= -->
+<section class="sekce" id="zacit" style="padding-top:0">
+  <div class="obal">
+    <h2 class="nadpis">Jak začít</h2>
+    <ol class="kroky">
+      <li><h3>Otevři Kompas</h3><p>Na adrese nebe.oaza-adamanthea.cz. V&nbsp;telefonu ho přidáš na plochu a&nbsp;dál se otevírá jako aplikace.</p></li>
+      <li><h3>Zadej své narození</h3><p>Jméno, datum, čas a&nbsp;místo. Průvodce tě provede třemi krátkými kroky.</p></li>
+      <li><h3>Ráno se podívej na kartu Dnes</h3><p>Pár vteřin stačí. Večer můžeš zapsat, jak den šel, a&nbsp;Kompas se naladí na tebe.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= OTÁZKY ================= -->
+<section class="sekce" id="otazky" style="padding-top:0">
+  <div class="obal">
+    <h2 class="nadpis">Otázky</h2>
+    <div class="otazky">
+      <details><summary>Jak Kompas nainstaluju do telefonu?</summary>
+        <p>Otevři nebe.oaza-adamanthea.cz. Na iPhonu klepni v&nbsp;Safari na Sdílet a&nbsp;pak na Přidat na plochu. Na Androidu v&nbsp;Chromu otevři nabídku ⋮ a&nbsp;zvol Instalovat aplikaci. Kompas se pak spouští z&nbsp;plochy jako běžná aplikace a&nbsp;funguje i&nbsp;offline.</p></details>
+      <details><summary>Kde jsou uložená moje data?</summary>
+        <p>V&nbsp;tvém zařízení. Profil, diář, fotky i&nbsp;hlasové poznámky zůstávají u&nbsp;tebe. Do jiného telefonu nebo počítače je přeneseš šifrovaně jedním QR kódem a&nbsp;kdykoli si je uložíš jako zálohu.</p></details>
+      <details><summary>Jak přesné jsou výpočty?</summary>
+        <p>Kompas počítá s&nbsp;astronomickým jádrem astronomy-engine. Polohy planet, Ascendent, MC i&nbsp;hroty domů (Placidus) jsme porovnali se Swiss Ephemeris a&nbsp;sedí na úhlovou minutu. Pracuje s&nbsp;tropickým zvěrokruhem.</p></details>
+      <details><summary>Znám jen datum narození. Stačí to?</summary>
+        <p>Ano. Kompas pak počítá s&nbsp;polednem a&nbsp;většina čtení funguje stejně. Ascendent a&nbsp;domy zpřesní čas narození, který můžeš doplnit kdykoli později.</p></details>
+      <details><summary>Funguje Kompas i&nbsp;na Slovensku?</summary>
+        <p>Ano. Rozhraní přepneš do slovenštiny a&nbsp;kalendář ukazuje slovenské svátky a&nbsp;jmeniny.</p></details>
+      <details><summary>Kolik bude stát plná verze?</summary>
+        <p>Cenu oznámíme při spuštění, předplatné bude měsíční i&nbsp;roční. Základ zůstává zdarma natrvalo. Teď ve zkušebním provozu máš otevřené všechno.</p></details>
+      <details><summary>Kdo Kompas tvoří?</summary>
+        <p>Lukáš z&nbsp;Oázy Adamanthea v&nbsp;Halenkovicích, centra krystalů a&nbsp;pobytů na Moravě. Kompas vznikl z&nbsp;jeho každodenní práce s&nbsp;rytmy oblohy. Nápady a&nbsp;postřehy posílej na <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ZÁVĚR ================= -->
+<section class="zaver">
+  <div class="obal">
+    <img src="/img/kompas/splash.webp" width="900" height="1107" loading="lazy" alt="Nebeský kompas, tvůj hvězdný kalendář">
+    <h2 class="nadpis">Průvodce vesmírnými vlivy</h2>
+    <p>Otevři Kompas a&nbsp;podívej se, co ti obloha nese dnes.</p>
+    <a class="tl zlate" href="https://nebe.oaza-adamanthea.cz" data-mer="otevrit-zaver">Otevřít Kompas zdarma</a>
+    <p class="tvurce">Nebeský kompas tvoří Oáza Adamanthea · Halenkovice</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>Oáza Adamanthea · Halenkovice · <a href="https://oaza-adamanthea.cz">oaza-adamanthea.cz</a> · <a href="/obchodni-podminky">Obchodní podmínky</a> · <a href="/gdpr">Ochrana osobních údajů</a></p>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var ZN=['Beran','Býk','Blíženci','Rak','Lev','Panna','Váhy','Štír','Střelec','Kozoroh','Vodnář','Ryby'];
+  var ZN_LOC=['v Beranu','v Býku','v Blížencích','v Raku','ve Lvu','v Panně','ve Vahách','ve Štíru','ve Střelci','v Kozorohu','ve Vodnáři','v Rybách'];
+  var ZN_GEN=['Berana','Býka','Blíženců','Raka','Lva','Panny','Vah','Štíra','Střelce','Kozoroha','Vodnáře','Ryb'];
+  var GL=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'].map(function(g){return g+'\uFE0E';});
+  var SLUNCE=['odvaha začínat, přímost a oheň pro nové věci','stálost, smysly a trpělivá síla','zvídavost, slovo a lehkost spojování','péče, domov a hluboká citlivost','srdce, tvořivost a radost ze světla','pečlivost, služba a smysl pro řád','harmonie, vztahy a cit pro krásu','hloubka, proměna a věrnost pravdě','víra, rozhled a touha po smyslu','vytrvalost, odpovědnost a stavění na pevném','originalita, přátelství a pohled dopředu','soucit, intuice a spojení s celkem'];
+  var LUNA=['Klid najdeš, když se můžeš hned pustit do akce.','Klid najdeš v pohodlí, dobrém jídle a pevné půdě pod nohama.','Klid najdeš v rozhovoru a v tom, co se nového dozvíš.','Klid najdeš doma mezi svými.','Klid najdeš, když tvoříš a tvoje světlo je vidět.','Klid najdeš v pořádku a ve smysluplné práci.','Klid najdeš v harmonii a kráse kolem sebe.','Klid najdeš v hloubce a ve sdílení s někým, komu důvěřuješ.','Klid najdeš na cestě, ve volnosti a s výhledem.','Klid najdeš v jasném plánu a na svém pevném místě.','Klid najdeš mezi přáteli, kde můžeš být sám sebou.','Klid najdeš v tichu, hudbě a chvíli snění.'];
+  var CISLA={1:'Začátky a vlastní cesta. Jdeš první a otevíráš nové.',2:'Spolupráce a citlivost. Spojuješ lidi a vnímáš jemné tóny.',3:'Tvořivost a radost z vyjádření. Slovo, barva, hra.',4:'Řád a pevné základy. Stavíš tak, aby to vydrželo.',5:'Svoboda a změna. Učíš se pohybem a zkušeností.',6:'Láska, péče a odpovědnost za domov a blízké.',7:'Hledání pravdy, ticho a vnitřní poznání.',8:'Síla, hojnost a schopnost věci uskutečnit.',9:'Soucit, moudrost a dokončování kruhů.',11:'Mistrovské číslo inspirace a intuice, s větším rozsahem i nárokem.',22:'Mistrovské číslo stavitele, který převádí vize do světa.',33:'Mistrovské číslo služby z lásky a uzdravujícího slova.'};
+  var $=function(id){return document.getElementById(id);};
+  var znameni=function(lon){return Math.floor((((lon%360)+360)%360)/30);};
+  var datum=function(d){return d.toLocaleDateString('cs-CZ',{day:'numeric',month:'long',timeZone:'Europe/Prague'});};
+
+  function nacti(cb){
+    if(window.Astronomy) return cb();
+    var s=document.createElement('script'); s.src='/js/astronomy.browser.min.js?v=2.1'; s.async=true;
+    s.onload=cb; s.onerror=function(){ $('t-luna').textContent='obloha se nenačetla'; };
+    document.head.appendChild(s);
+  }
+  function lunaLon(d){ return Astronomy.EclipticGeoMoon(d).lon; }
+  function slunceLon(d){ return Astronomy.SunPosition(d).elon; }
+
+  // ---- obloha právě teď ----
+  function tedka(){
+    try{
+      var A=Astronomy, ted=new Date();
+      var zl=znameni(lunaLon(ted)), zs=znameni(slunceLon(ted));
+      var faze=A.MoonPhase(ted), osv=Math.round(A.Illumination('Moon',ted).phase_fraction*100);
+      var jmeno=faze<10||faze>350?'nov':faze<170?'dorůstá':faze<190?'úplněk':'couvá';
+      $('t-luna').innerHTML='<span class="g">'+GL[zl]+'</span>'+ZN_LOC[zl];
+      $('t-faze').textContent=jmeno+(jmeno==='nov'||jmeno==='úplněk'?'':' · '+osv+' %');
+      $('t-slunce').innerHTML='<span class="g">'+GL[zs]+'</span>'+ZN_LOC[zs];
+      var nov=A.SearchMoonPhase(0,ted,40).date, upl=A.SearchMoonPhase(180,ted,40).date;
+      var prvni=nov<upl?['Nov',nov]:['Úplněk',upl];
+      $('t-dalsi-l').textContent=prvni[0];
+      $('t-dalsi').textContent=datum(prvni[1]);
+    }catch(e){ $('t-luna').textContent='obloha se nenačetla'; }
+  }
+
+  // ---- tři světla ----
+  function prahaNaUTC(y,m,d,h,mi){
+    var odhad=Date.UTC(y,m-1,d,h,mi);
+    var f=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Prague',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+    for(var i=0;i<2;i++){
+      var p={}; f.formatToParts(new Date(odhad)).forEach(function(x){p[x.type]=+x.value;});
+      var mistni=Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute);
+      odhad=Date.UTC(y,m-1,d,h,mi)-(mistni-odhad);
+    }
+    return new Date(odhad);
+  }
+  function redukuj(n){ while(n>9 && n!==11 && n!==22 && n!==33){ n=String(n).split('').reduce(function(s,c){return s+(+c);},0); } return n; }
+
+  $('zkus-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=$('z-datum').value; if(!v) return;
+    var c=$('z-cas').value, casZnam=!!c;
+    var p=v.split('-').map(Number), t=(c||'12:00').split(':').map(Number);
+    nacti(function(){
+      var d=prahaNaUTC(p[0],p[1],p[2],t[0],t[1]);
+      var zs=znameni(slunceLon(d)), ll=lunaLon(d), zl=znameni(ll);
+      $('s-slunce').textContent=GL[zs]+' '+ZN[zs];
+      $('s-slunce-t').textContent=SLUNCE[zs].charAt(0).toUpperCase()+SLUNCE[zs].slice(1)+'.';
+      $('s-luna').textContent=GL[zl]+' '+ZN[zl];
+      var tx=LUNA[zl];
+      if(!casZnam){
+        // Luna za den urazí asi 13°; když leží blízko hranice znamení, řekneme to.
+        var stupen=((ll%30)+30)%30;
+        if(stupen<6.6||stupen>23.4){ var vedle=stupen<15?(zl+11)%12:(zl+1)%12; tx+=' Ten den Luna přecházela z '+(stupen<15?ZN_GEN[vedle]+' do '+ZN_GEN[zl]:ZN_GEN[zl]+' do '+ZN_GEN[vedle])+', čas narození to upřesní.'; }
+      }
+      $('s-luna-t').textContent=tx;
+      var cislo=redukuj(v.replace(/-/g,'').split('').reduce(function(s,ch){return s+(+ch);},0));
+      $('s-cislo').textContent=String(cislo);
+      $('s-cislo-t').textContent=CISLA[cislo];
+      $('svetla').hidden=false; $('zkus-dal').hidden=false;
+      try{ if(window.oazaUdalost) window.oazaUdalost('kompas-svetla'); }catch(_){}
+    });
+  });
+
+  // ---- zájem o plnou verzi ----
+  $('zajem-form').addEventListener('submit',async function(e){
+    e.preventDefault();
+    var em=$('zajem-email').value.trim(), b=this.querySelector('button'), st=$('zajem-stav');
+    b.disabled=true; b.textContent='Ukládám…';
+    try{
+      var r=await fetch('/api/objednavka',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({akce:'dopis',seznam:'kompas',email:em,zdroj:'nebesky-kompas'})});
+      if(r.ok){ st.textContent='Hotovo. Ozveme se, jakmile plnou verzi spustíme ✦'; this.reset(); b.textContent='Uloženo'; return; }
+      st.textContent='Zkontroluj prosím e-mail a zkus to znovu.';
+    }catch(err){ st.textContent='Spojení vypadlo, zkus to prosím za chvíli.'; }
+    b.disabled=false; b.textContent='Dej mi vědět';
+  });
+
+  // obloha se počítá až ve chvíli, kdy je stránka vidět
+  if('requestIdleCallback' in window) requestIdleCallback(function(){nacti(tedka);},{timeout:1500}); else setTimeout(function(){nacti(tedka);},300);
+})();
+</script>
+<script defer src="/navstevnost.js"></script>
+</body>
+</html>

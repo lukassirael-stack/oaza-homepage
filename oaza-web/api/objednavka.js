@@ -158,6 +158,11 @@ export default async function handler(req, res) {
       }
       return res.status(200).json({ ok: true });
     }
+    if (body.seznam === 'kompas') {
+      // zájemci o plnou verzi Nebeského kompasu: jen uložit (Brevo seznam Bali Shopu se jich netýká)
+      try { await rest('rpc/eshop_dopis_prihlasit', { method: 'POST', body: JSON.stringify({ p_email: em, p_zdroj: 'nebesky-kompas' }) }); return res.status(200).json({ ok: true }); }
+      catch (e) { return res.status(500).json({ error: 'Uložení se nepodařilo.' }); }
+    }
     try { await dopisPrihlasit(em, String(body.zdroj || '').slice(0, 40), rest); return res.status(200).json({ ok: true }); }
     catch (e) { return res.status(500).json({ error: 'Uložení se nepodařilo.' }); }
   }

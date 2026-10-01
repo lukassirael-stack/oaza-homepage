@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spirit Lab — aplikace Oázy Adamanthea</title>
+<meta name="description" content="Spirit Lab je digitální dílna Oázy Adamanthea: Nebeský kompas, Vyladění, Vesmírný kód zrození, Atlas energetických míst, Tatvy a Mapa života. Aplikace pro vnitřní práci v telefonu i počítači.">
+<link rel="canonical" href="https://oaza-adamanthea.cz/spirit-lab">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png?v=3">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png?v=3">
+<meta property="og:title" content="Spirit Lab · aplikace Oázy Adamanthea">
+<meta property="og:description" content="Nebeský kompas, Vyladění, Vesmírný kód zrození, Atlas energetických míst, Tatvy a Mapa života na jednom místě.">
+<meta property="og:image" content="https://oaza-adamanthea.cz/img/spirit-lab/spirit-lab-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oaza-adamanthea.cz/spirit-lab">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:site_name" content="Oáza Adamanthea">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f6f0e2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CollectionPage","name":"Spirit Lab","url":"https://oaza-adamanthea.cz/spirit-lab",
+"description":"Digitální aplikace Oázy Adamanthea pro vnitřní práci.",
+"hasPart":[
+ {"@type":"SoftwareApplication","name":"Nebeský kompas","url":"https://oaza-adamanthea.cz/nebesky-kompas","applicationCategory":"LifestyleApplication"},
+ {"@type":"SoftwareApplication","name":"Vyladění","url":"https://oaza-adamanthea.cz/vyladeni","applicationCategory":"HealthApplication"},
+ {"@type":"Product","name":"Vesmírný kód zrození","url":"https://oaza-adamanthea.cz/vesmirny-kod-zrozeni"},
+ {"@type":"WebApplication","name":"Atlas energetických míst","url":"https://atlas.oaza-adamanthea.cz"},
+ {"@type":"WebApplication","name":"Tatvy","url":"https://tatvy.oaza-adamanthea.cz"}]}
+</script>
+<style>
+:root{--les:#f6f0e2;--krem:#1d3b30;--sed:#6e8076;--zlata:#a8813a;--lesk:#f0d9a4;--plocha:rgba(255,255,255,.90);--linka:rgba(168,129,58,.24)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--les)}
+body{background:var(--les);color:var(--krem);font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:var(--zlata);text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+:focus-visible{outline:2px solid var(--zlata);outline-offset:3px}
+
+/* navigační lišta Oázy */
+nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px}
+nav .menu{display:flex;gap:26px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;font-family:'Jost',sans-serif;color:var(--krem)}
+nav .menu a{position:relative;padding-bottom:3px;color:var(--krem);text-decoration:none}
+nav .menu a:hover{color:var(--zlata)}
+nav .nav-home{margin-right:auto;display:flex;align-items:center;color:var(--krem);transition:color .25s}
+nav .nav-home:hover{color:var(--zlata)}
+.nav-toggle{display:none;background:none;border:none;color:var(--krem);font-size:30px;cursor:pointer}
+nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px;display:inline-block;background:#b06a6c;color:#fdfaf5;border-radius:6px;text-decoration:none;transition:background .25s}
+nav .btn:hover{background:#9c585a}
+.jen-mobil{display:none}
+@media(max-width:900px){
+  nav{padding:20px 22px;gap:20px}
+  nav .menu{display:none;position:fixed;inset:0;background:#15221a;flex-direction:column;padding:96px 28px 40px;gap:0;text-align:left;z-index:50;overflow-y:auto}
+  nav .menu.open{display:flex}
+  nav .menu a{font-size:25px;color:#f3efe5;padding:21px 4px;border-bottom:1px solid rgba(243,239,229,.14)}
+  .jen-mobil{display:block}
+  .nav-toggle{display:block;position:relative;z-index:60}
+  nav .btn:not(.jen-mobil){display:none}
+}
+
+.obal{max-width:1120px;margin:0 auto;padding:0 1.4rem}
+header{padding:132px 0 34px;text-align:center}
+header h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(34px,5vw,56px);letter-spacing:.08em;color:var(--zlata)}
+header .claim{font-style:italic;font-size:clamp(22px,2.4vw,28px);margin:14px 0 18px}
+header p.lead{max-width:38em;margin:0 auto;font-size:20px;color:#2f4a3f}
+@media(max-width:900px){header{padding-top:92px}}
+
+.mrizka{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;padding:26px 0 10px}
+.karta{display:flex;flex-direction:column;background:var(--plocha);border:1px solid var(--linka);border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(29,59,48,.08);transition:transform .2s,box-shadow .2s}
+.karta:hover{transform:translateY(-3px);box-shadow:0 24px 60px rgba(29,59,48,.13)}
+.karta .obr{aspect-ratio:3/2;overflow:hidden;background:#0c1f3a}
+.karta .obr img{width:100%;height:100%;object-fit:cover}
+.karta .telo{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.karta h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:27px;line-height:1.15;color:var(--krem)}
+.karta .pod{font-style:italic;color:var(--sed);font-size:18px;margin-top:2px}
+.karta p{font-size:18px;color:#2f4a3f;margin:12px 0 16px;flex:1}
+.karta .cena{font-family:'Jost',sans-serif;font-size:14px;color:var(--zlata);margin-bottom:12px}
+.karta .cena b{font-weight:500;color:var(--krem)}
+.tl{display:inline-flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;font-weight:500;font-size:15px;letter-spacing:.02em;padding:12px 22px;border-radius:999px;border:1px solid var(--zlata);color:var(--krem);background:transparent;transition:background .2s,color .2s}
+.tl:hover{background:var(--zlata);color:#fffaf0}
+.tl.plne{background:var(--krem);color:#fdfaf5;border-color:var(--krem)}
+.tl.plne:hover{background:#2c5446}
+.karta.pripravujeme .obr{filter:saturate(.7)}
+.karta .stitek{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#fdfaf5;background:var(--zlata);display:inline-block;padding:4px 10px;border-radius:999px;margin-bottom:10px;align-self:flex-start}
+
+.spolecne{margin:44px auto 0;max-width:820px;text-align:center}
+.spolecne h2{font-family:'Cinzel',serif;font-weight:500;font-size:28px;color:var(--zlata);letter-spacing:.04em;margin-bottom:12px}
+.spolecne p{font-size:20px;color:#2f4a3f}
+.spolecne ul{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:24px;text-align:left}
+.spolecne li{background:var(--plocha);border:1px solid var(--linka);border-radius:16px;padding:16px 18px;font-size:18px}
+.spolecne li b{display:block;font-weight:600;color:var(--krem);margin-bottom:4px}
+
+.kdo{margin:50px auto 0;max-width:720px;text-align:center;font-size:20px;color:#2f4a3f}
+.kdo a{text-decoration:underline;text-underline-offset:3px}
+
+footer{margin-top:2.6rem;padding:2.4rem 1.2rem 3rem;text-align:center;border-top:1px solid var(--linka);font-family:'Jost',sans-serif;font-size:14px;color:var(--sed)}
+footer a{color:var(--krem)}
+
+@media(max-width:900px){.mrizka{grid-template-columns:1fr 1fr}.spolecne ul{grid-template-columns:1fr}}
+@media(max-width:560px){.mrizka{grid-template-columns:1fr}body{font-size:18px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-home" href="/" aria-label="Domů — hlavní stránka"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></a>
+  <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+  <div class="menu" id="menu">
+    <a href="/portalova-zahrada">Portálová zahrada</a>
+    <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+    <a href="/akce">Akce</a>
+    <a href="/nabidka-sluzeb">Služby</a>
+    <a href="/pronajem-prostor">Pronájem</a>
+    <a href="/bali-shop">E-shop</a>
+    <a href="/spirit-lab">Spirit Lab</a>
+    <a href="/o-nas">O&nbsp;nás</a>
+    <a href="/kontakt">Kontakt</a>
+    <a href="/kontakt" class="jen-mobil">Napište nám</a>
+  </div>
+  <a class="btn" href="/kontakt">Napište nám</a>
+</nav>
+<script>function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}</script>
+
+<main class="obal">
+<header>
+  <h1>Spirit Lab</h1>
+  <p class="claim">Digitální dílna Oázy Adamanthea</p>
+  <p class="lead">Aplikace, které vznikají v&nbsp;Halenkovicích z&nbsp;každodenní práce s&nbsp;lidmi, oblohou a&nbsp;tichem. Běží v&nbsp;telefonu i&nbsp;v&nbsp;počítači, přidáš je na plochu jedním klepnutím a&nbsp;tvá data zůstávají u&nbsp;tebe.</p>
+</header>
+
+<section class="mrizka" aria-label="Aplikace">
+  <article class="karta">
+    <div class="obr"><img src="/img/spirit-lab/kompas.webp" width="900" height="600" alt="Nebeský kompas"></div>
+    <div class="telo">
+      <h2>Nebeský kompas</h2><div class="pod">tvůj hvězdný kalendář</div>
+      <p>Každý den přečtený z&nbsp;oblohy: kalendář s&nbsp;barvou dne, úkazy na rok dopředu, hvězdné nebe ve 3D a&nbsp;horoskop podle tvé mapy narození.</p>
+      <div class="cena"><b>Základ zdarma</b> · plná verze od 129 Kč měsíčně</div>
+      <a class="tl plne" href="/nebesky-kompas">Prozkoumat Kompas</a>
+    </div>
+  </article>
+
+  <article class="karta">
+    <div class="obr"><img src="/img/spirit-lab/vyladeni.webp" width="900" height="600" alt="Vyladění" loading="lazy"></div>
+    <div class="telo">
+      <h2>Vyladění</h2><div class="pod">zvukový průvodce ke klidu</div>
+      <p>Dvanáct zvukových programů pro zklidnění, spánek, meditaci, tvořivost a&nbsp;soustředění. Rytmus, dech a&nbsp;mluvený průvodce ve sluchátkách.</p>
+      <div class="cena"><b>Ochutnávka zdarma</b> · půl roku 349 Kč, rok 499 Kč</div>
+      <a class="tl plne" href="/vyladeni">Prozkoumat Vyladění</a>
+    </div>
+  </article>
+
+  <article class="karta">
+    <div class="obr"><img src="/img/spirit-lab/vesmirny-kod.webp" width="900" height="600" alt="Vesmírný kód zrození" loading="lazy"></div>
+    <div class="telo">
+      <h2>Vesmírný kód zrození</h2><div class="pod">tvé hvězdné kořeny</div>
+      <p>Pětatřicet otázek a&nbsp;čtení na míru: tvůj hvězdný rod, dary, karmická témata a&nbsp;důvod, proč jsi tady.</p>
+      <div class="cena"><b>555 Kč</b> · jednorázově, čtení přijde e-mailem</div>
+      <a class="tl plne" href="/vesmirny-kod-zrozeni">Prozkoumat kód zrození</a>
+    </div>
+  </article>
+
+  <article class="karta">
+    <div class="obr"><img src="/img/spirit-lab/atlas.webp" width="900" height="600" alt="Atlas energetických míst" loading="lazy"></div>
+    <div class="telo">
+      <h2>Atlas energetických míst</h2><div class="pod">živá mapa posvátných míst</div>
+      <p>Prameny, megality, portály a&nbsp;tiché brány Česka na jedné mapě. Objevuj, zapisuj návštěvy, sdílej, co jsi na místě prožil.</p>
+      <div class="cena"><b>Zdarma</b> · tvoří ho komunita poutníků</div>
+      <a class="tl" href="https://atlas.oaza-adamanthea.cz">Otevřít Atlas</a>
+    </div>
+  </article>
+
+  <article class="karta">
+    <div class="obr"><img src="/img/spirit-lab/tatvy.webp" width="900" height="600" alt="Tatvy" loading="lazy"></div>
+    <div class="telo">
+      <h2>Tatvy</h2><div class="pod">co právě proudí</div>
+      <p>Hodiny živlů podle východu Slunce v&nbsp;tvém místě: která tatva právě vládne, jak dlouho ještě, a&nbsp;čemu chvíle přeje.</p>
+      <div class="cena"><b>Zdarma</b> · stačí otevřít</div>
+      <a class="tl" href="https://tatvy.oaza-adamanthea.cz">Otevřít Tatvy</a>
+    </div>
+  </article>
+
+  <article class="karta pripravujeme">
+    <div class="obr"><img src="/img/spirit-lab/mapa-zivota.webp" width="900" height="600" alt="Mapa života" loading="lazy"></div>
+    <div class="telo">
+      <span class="stitek">Připravujeme</span>
+      <h2>Mapa života</h2><div class="pod">tvá cesta jako kniha</div>
+      <p>Osobní výklad životní cesty podle data narození, vysázený jako kniha v&nbsp;PDF, se jménem a&nbsp;věnováním.</p>
+      <div class="cena"><b>444 Kč</b> · jednorázově</div>
+      <a class="tl" href="/kontakt">Dát vědět o&nbsp;spuštění</a>
+    </div>
+  </article>
+</section>
+
+<section class="spolecne">
+  <h2>Co mají společné</h2>
+  <p>Každá aplikace dělá jednu věc pořádně a&nbsp;všechny vycházejí ze stejného přístupu.</p>
+  <ul>
+    <li><b>Běží všude</b>Telefon, tablet i&nbsp;počítač, v&nbsp;prohlížeči. Přidáš je na plochu a&nbsp;spouštíš jako aplikaci, i&nbsp;offline.</li>
+    <li><b>Data zůstávají u&nbsp;tebe</b>Co do aplikace zadáš, zůstává ve tvém zařízení. Mezi zařízeními data přeneseš sám, jedním kódem.</li>
+    <li><b>Platíš přímo autorovi</b>Platba kartou, Apple Pay nebo Google Pay přes Stripe. Celá částka jde na další vývoj a&nbsp;předplatné zrušíš jedním klikem.</li>
+  </ul>
+</section>
+
+<p class="kdo">Spirit Lab vede Lukáš z&nbsp;Oázy Adamanthea. Nápady, postřehy a&nbsp;přání pište na <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>.</p>
+</main>
+
+<footer>
+  <p>Oáza Adamanthea · Halenkovice · <a href="https://oaza-adamanthea.cz">oaza-adamanthea.cz</a> · <a href="/obchodni-podminky">Obchodní podmínky</a> · <a href="/gdpr">Ochrana osobních údajů</a></p>
+</footer>
+<script defer src="/navstevnost.js"></script>
+</body>
+</html>

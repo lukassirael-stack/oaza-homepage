@@ -299,6 +299,10 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 .pristup .cena-eur{font-size:.6em;color:var(--jemna);font-weight:400}
 .pristup .pozn{font-size:14px;color:var(--jemna)}
 .pristup .tl{margin-top:20px;font:500 19px/1 var(--serif);padding:15px 34px}
+.mena{display:flex;justify-content:center;gap:6px;margin:4px 0 2px}
+.mena button{font:500 14px/1 var(--sans);padding:9px 18px;border-radius:999px;border:1px solid var(--linka);background:var(--bila);color:var(--hneda);cursor:pointer}
+.mena button[aria-pressed="true"]{background:var(--zlata-tm);border-color:var(--zlata-tm);color:#fffaf0}
+.mena-pozn{font-size:12.5px;color:var(--jemna);text-align:center;margin:0}
 .objednavka{max-width:440px;margin:28px auto 0;text-align:left;display:grid;gap:14px}
 .objednavka label{display:grid;gap:6px;font-size:14px;color:var(--hneda)}
 .objednavka input{font:400 16px/1.3 var(--sans);padding:13px 16px;border-radius:12px;border:1px solid var(--linka);background:var(--bila);color:var(--hneda)}
@@ -412,9 +416,13 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
         <label>E-mail, kam pošleme odkaz
           <input type="email" name="email" autocomplete="email" placeholder="tvuj@email.cz" required>
         </label>
+        <div class="mena" role="group" aria-label="Měna platby">
+          <button type="button" data-mena="czk" aria-pressed="true">Platím v Kč</button>
+          <button type="button" data-mena="eur" aria-pressed="false">Platím v €</button>
+        </div>
         <div class="volby">
-          <button class="tl tl-plne" type="submit" value="karta" name="zpusob">Zaplatit kartou · 349 Kč / 13,96 €</button>
-          <button class="tl tl-linka" type="submit" value="qr" name="zpusob">Zaplatit převodem (QR)</button>
+          <button class="tl tl-plne" type="submit" value="karta" name="zpusob" id="tl-karta" data-czk="Zaplatit kartou · 349 Kč" data-eur="Zaplatit kartou · 13,96 €">Zaplatit kartou · 349 Kč</button>
+          <button class="tl tl-linka" type="submit" value="qr" name="zpusob" id="tl-qr">Zaplatit převodem (QR)</button>
         </div>
         <p class="hlaseni" id="hlaseni" hidden></p>
       </form>
@@ -466,6 +474,15 @@ document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{
 const FUNKCE='https://myybuesoourgpbouwwst.supabase.co/functions/v1/meditace-objednavka';
 const KLIC='otec';
 const f=document.getElementById('objednavka'), hl=document.getElementById('hlaseni');
+let mena = (/^(cs|cz)/i.test(navigator.language||'') ? 'czk' : 'eur');
+function nastavMenu(m){
+  mena=m;
+  document.querySelectorAll('.mena button').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.mena===m)));
+  const k=document.getElementById('tl-karta'); if(k) k.textContent=k.dataset[m];
+  const q=document.getElementById('tl-qr'); if(q) q.hidden = (m==='eur');
+}
+document.querySelectorAll('.mena button').forEach(b=>b.addEventListener('click',()=>nastavMenu(b.dataset.mena)));
+nastavMenu(mena);
 let zpusob='karta';
 f.querySelectorAll('button[type=submit]').forEach(b=>b.addEventListener('click',()=>{zpusob=b.value;}));
 f.addEventListener('submit', async e => {
@@ -476,7 +493,7 @@ f.addEventListener('submit', async e => {
   hl.hidden=false; hl.textContent = zpusob==='karta' ? 'Otevírám platbu…' : 'Připravuji platební údaje…';
   try{
     const r=await fetch(FUNKCE,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({klic:KLIC,email,jmeno,druh:zpusob})});
+      body:JSON.stringify({klic:KLIC,email,jmeno,druh:zpusob,mena,navrat:location.pathname.replace(/\.html$/,'')})});
     const d=await r.json();
     if(d.url){ location.href=d.url; return; }
     if(d.ok && d.druh==='qr'){

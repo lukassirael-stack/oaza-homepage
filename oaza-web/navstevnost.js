@@ -66,7 +66,11 @@
 
     // GEOMETRIE: jednotné usazení lišty na všech stránkách (jako Pobyt/Portálová)
     css +=
-      "@media (min-width:901px){nav:not(.nav){padding-top:26px !important;padding-left:48px !important;padding-right:48px !important;gap:34px !important}nav:not(.nav) .menu{gap:26px !important;line-height:21px !important}nav:not(.nav) .menu a{line-height:21px !important;font-weight:400 !important}nav:not(.nav) .btn{font-size:18px !important;line-height:29px !important;width:150px !important;padding:11px 0 !important;text-align:center !important;box-sizing:border-box !important;margin:0 !important}}" +
+      "@media (min-width:1241px){nav:not(.nav){padding-top:26px !important;padding-left:48px !important;padding-right:48px !important;gap:34px !important}nav:not(.nav) .menu{gap:26px !important;line-height:21px !important}nav:not(.nav) .menu a{line-height:21px !important;font-weight:400 !important}nav:not(.nav) .btn{font-size:18px !important;line-height:29px !important;width:150px !important;padding:11px 0 !important;text-align:center !important;box-sizing:border-box !important;margin:0 !important}}" +
+      // užší obrazovky (notebooky 901–1240 px): zhuštěná lišta, aby se vešlo všech 10 položek
+      "@media (min-width:901px) and (max-width:1240px){nav:not(.nav){padding-top:22px !important;padding-left:24px !important;padding-right:24px !important;gap:16px !important}nav:not(.nav) .menu{gap:13px !important;line-height:21px !important}nav:not(.nav) .menu a,nav:not(.nav)>a:not(.home):not(.nav-home):not(.btn){font-size:.7rem !important;letter-spacing:.04em !important;line-height:21px !important;font-weight:400 !important}nav:not(.nav) .btn{font-size:16px !important;line-height:27px !important;width:auto !important;padding:9px 16px !important;margin:0 !important}}" +
+      "@media (min-width:901px) and (max-width:1060px){nav:not(.nav) .btn{display:none !important}}" +
+      "@media (min-width:901px) and (max-width:1000px){nav:not(.nav){gap:12px !important;padding-left:18px !important;padding-right:18px !important}nav:not(.nav) .menu{gap:10px !important}nav:not(.nav) .menu a,nav:not(.nav)>a:not(.home):not(.nav-home):not(.btn){font-size:.64rem !important;letter-spacing:.03em !important}}" +
       "@media (max-width:900px){nav:not(.nav){padding-top:20px !important;padding-left:22px !important;padding-right:22px !important}.nav-toggle{font-size:30px !important}}";
 
     // MOBIL: sjednocená, mírně větší velikost položek menu na všech stránkách

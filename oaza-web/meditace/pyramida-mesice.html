@@ -296,6 +296,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 .pristup{background:linear-gradient(180deg,#fdf3e6,#f8e7d2);border:1px solid var(--linka);border-radius:20px;padding:34px;text-align:center}
 .pristup h2{font-size:clamp(26px,3vw,34px)}
 .pristup .cena{font:500 34px/1 var(--serif);color:var(--zlata-tm);margin:16px 0 4px}
+.pristup .cena-eur{font-size:.6em;color:var(--jemna);font-weight:400}
 .pristup .pozn{font-size:14px;color:var(--jemna)}
 .pristup .tl{margin-top:20px;font:500 19px/1 var(--serif);padding:15px 34px}
 .objednavka{max-width:440px;margin:28px auto 0;text-align:left;display:grid;gap:14px}
@@ -359,7 +360,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
         <li>Mobil i počítač</li>
       </ul>
       <div class="akce">
-        <a class="tl tl-plne" href="#odemknuti">Získat přístup · 770 Kč <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+        <a class="tl tl-plne" href="#odemknuti">Získat přístup · 770 Kč / 30,80 € <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
@@ -395,7 +396,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   <div class="obal">
     <div class="pristup">
       <h2>Odemknutí poslechu</h2>
-      <p class="cena">770 Kč</p>
+      <p class="cena">770 Kč <span class="cena-eur">/ 30,80 €</span></p>
       <p class="pozn">Neomezený poslech po dobu 30 dní od prvního spuštění.</p>
       <ol class="kroky-pristup">
         <li><b>1 · Platba</b>Kartou, Apple Pay nebo Google Pay. Převod s QR kódem je druhá volba.</li>
@@ -411,7 +412,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
           <input type="email" name="email" autocomplete="email" placeholder="tvuj@email.cz" required>
         </label>
         <div class="volby">
-          <button class="tl tl-plne" type="submit" value="karta" name="zpusob">Zaplatit kartou · 770 Kč</button>
+          <button class="tl tl-plne" type="submit" value="karta" name="zpusob">Zaplatit kartou · 770 Kč / 30,80 €</button>
           <button class="tl tl-linka" type="submit" value="qr" name="zpusob">Zaplatit převodem (QR)</button>
         </div>
         <p class="hlaseni" id="hlaseni" hidden></p>

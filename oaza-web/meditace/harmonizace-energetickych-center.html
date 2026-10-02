@@ -313,6 +313,13 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 .mena button{font:500 14px/1 var(--sans);padding:9px 18px;border-radius:999px;border:1px solid var(--linka);background:var(--bila);color:var(--hneda);cursor:pointer}
 .mena button[aria-pressed="true"]{background:var(--zlata-tm);border-color:var(--zlata-tm);color:#fffaf0}
 .mena-pozn{font-size:12.5px;color:var(--jemna);text-align:center;margin:0}
+.po-platbe{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(60,42,22,.45);backdrop-filter:blur(3px)}
+.pp-karta{width:min(520px,100%);background:var(--bila);border:1px solid var(--linka);border-radius:22px;padding:32px 28px 26px;text-align:center;box-shadow:0 30px 70px -30px rgba(60,40,15,.7)}
+.pp-ikona{font-size:30px;color:var(--zlata);margin-bottom:6px}
+.pp-karta h2{font-size:clamp(24px,3vw,30px);margin-bottom:12px}
+.pp-karta p{font-size:15.5px;line-height:1.6;margin:0 0 12px}
+.pp-karta .pp-tip{font-size:13.5px;color:var(--jemna)}
+.pp-karta .tl{margin-top:10px}
 .objednavka{max-width:440px;margin:28px auto 0;text-align:left;display:grid;gap:14px}
 .objednavka label{display:grid;gap:6px;font-size:14px;color:var(--hneda)}
 .objednavka input{font:400 16px/1.3 var(--sans);padding:13px 16px;border-radius:12px;border:1px solid var(--linka);background:var(--bila);color:var(--hneda)}
@@ -534,10 +541,20 @@ f.addEventListener('submit', async e => {
     f.querySelectorAll('button').forEach(b=>b.disabled=false);
   }
 });
-if(new URLSearchParams(location.search).get('platba')==='hotovo'){
-  f.hidden=true; hl.hidden=false;
-  hl.textContent='Děkujeme. Osobní odkaz k poslechu ti právě letí e-mailem.';
-}
+(function navratZPlatby(){
+  const stav=new URLSearchParams(location.search).get('platba');
+  if(stav!=='hotovo' && stav!=='zruseno') return;
+  const hotovo = stav==='hotovo';
+  if(hotovo){ f.hidden=true; hl.hidden=false; hl.textContent='Děkujeme. Osobní odkaz k poslechu ti právě odešel e-mailem.'; }
+  const box=document.createElement('div'); box.className='po-platbe'+(hotovo?'':' zruseno'); box.setAttribute('role','status');
+  box.innerHTML = '<div class="pp-karta">' + (hotovo
+    ? '<div class="pp-ikona" aria-hidden="true">✦</div><h2>Děkujeme, platba proběhla</h2><p>Na e-mail, který jsi zadal(a), ti právě odešel <strong>osobní odkaz k poslechu</strong>. Otevři si poštu a klikni na tlačítko „Otevřít meditaci“.</p><p class="pp-tip">E-mail přijde do pár minut. Kdyby nebyl ve schránce, mrkni i do složky Hromadné, Promoakce nebo Spam. S čímkoli ti rádi pomůžeme na <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>.</p><button type="button" class="tl tl-plne pp-zavrit">Rozumím</button>'
+    : '<h2>Platba čeká na dokončení</h2><p>Meditaci si můžeš odemknout kdykoli: vyber způsob platby níže a dokonči ji v klidu.</p><button type="button" class="tl tl-linka pp-zavrit">Pokračovat</button>') + '</div>';
+  document.body.appendChild(box);
+  const zavri=()=>{ box.remove(); history.replaceState(null,'',location.pathname); if(!hotovo) document.getElementById('odemknuti')?.scrollIntoView({behavior:'smooth'}); };
+  box.querySelector('.pp-zavrit').addEventListener('click',zavri);
+  box.addEventListener('click',e=>{ if(e.target===box) zavri(); });
+})();
 </script>
 <script defer src="/navstevnost.js"></script>
 <script>

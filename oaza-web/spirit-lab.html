@@ -72,7 +72,9 @@ header{position:relative;text-align:center;padding:0 0 26px}
 .hero-ban::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(to bottom,rgba(246,240,226,0),var(--les))}
 .skryte{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 header .lead{margin-top:6px}
-.hero-txt{position:absolute;left:0;right:0;top:26%;line-height:1.2;text-align:center}
+.hero-txt{position:absolute;left:0;right:0;top:22%;line-height:0;text-align:center}
+.hero-txt h1{margin:0}
+.hero-txt img{display:inline-block;width:clamp(220px,31vw,640px);height:auto;filter:drop-shadow(0 1px 14px rgba(255,248,232,.7))}
 .hero-txt h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(24px,2.9vw,56px);letter-spacing:.1em;color:#a8813a;text-shadow:0 1px 16px rgba(255,248,232,.9)}
 .hero-txt .claim{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(15px,1.35vw,26px);color:#5c4a2c;margin:.35em 0 0;text-shadow:0 1px 12px rgba(255,248,232,.9)}
 @media(max-width:700px){.hero-txt{top:22%}}
@@ -139,7 +141,7 @@ footer a{color:var(--krem)}
 <main>
 <header>
   <div class="hero-ban"><picture><source media="(max-width:700px)" srcset="/img/spirit-lab/hero3-m.webp"><img src="/img/spirit-lab/hero3.webp" width="1920" height="813" alt="" fetchpriority="high"></picture>
-    <div class="hero-txt"><h1>Spirit Lab</h1><p class="claim">Digitální dílna Oázy Adamanthea</p></div></div>
+    <div class="hero-txt"><h1><img src="/img/spirit-lab/nazev.webp" width="1200" height="289" alt="Spirit Lab – Digitální dílna Oázy Adamanthea"></h1></div></div>
   <div class="obal">
   <p class="lead">Když se vědomí propojí s&nbsp;technologií, vzniká nový prostor pro vnitřní vývoj. Pro hlubší práci, rozšíření vnímání, otevření schopností a&nbsp;objevování toho, kým skutečně jsi.</p>
   </div>

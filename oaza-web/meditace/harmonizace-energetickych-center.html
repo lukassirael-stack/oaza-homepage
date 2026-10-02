@@ -299,6 +299,15 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 .pristup .cena-eur{font-size:.6em;color:var(--jemna);font-weight:400}
 .pristup .pozn{font-size:14px;color:var(--jemna)}
 .pristup .tl{margin-top:20px;font:500 19px/1 var(--serif);padding:15px 34px}
+.varianty{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 6px}
+.varianta{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:20px 10px 16px;border-radius:16px;border:1px solid var(--linka);background:var(--bila);color:var(--hneda);cursor:pointer;font:inherit;text-align:center;transition:border-color .2s,box-shadow .2s,transform .2s}
+.varianta b{font:500 19px/1.1 var(--serif)}
+.varianta .v-cena{font:500 26px/1.1 var(--serif);color:var(--zlata-tm)}
+.varianta .v-eur{font-size:13px;color:var(--jemna)}
+.varianta small{font-size:12.5px;color:var(--jemna);margin-top:2px}
+.varianta[aria-checked="true"]{border-color:var(--zlata);box-shadow:0 0 0 2px var(--zlata-sv),0 14px 30px -18px rgba(122,90,43,.6);transform:translateY(-2px)}
+.v-stitek{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font:600 11px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;font-style:normal;background:var(--zlata-tm);color:#fffaf0;padding:6px 10px;border-radius:999px;white-space:nowrap}
+@media (max-width:560px){.varianty{grid-template-columns:1fr}.varianta{flex-direction:row;flex-wrap:wrap;justify-content:space-between;padding:16px 18px;text-align:left}.varianta small{width:100%}.v-stitek{left:auto;right:14px;transform:none}}
 .mena{display:flex;justify-content:center;gap:6px;margin:4px 0 2px}
 .mena button{font:500 14px/1 var(--sans);padding:9px 18px;border-radius:999px;border:1px solid var(--linka);background:var(--bila);color:var(--hneda);cursor:pointer}
 .mena button[aria-pressed="true"]{background:var(--zlata-tm);border-color:var(--zlata-tm);color:#fffaf0}
@@ -360,11 +369,11 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
       <p class="perex">Hluboká vedená meditace, která tě provede všemi sedmi energetickými centry od kořene až ke koruně. Každou čakru očistíš, naplníš světlem a sladíš s ostatními, aby energie tělem volně proudila.</p>
       <ul class="stitky">
         <li>63 minut</li>
-        <li>30 dní poslechu</li>
+        <li>1, 3 nebo 12 měsíců poslechu</li>
         <li>Mobil i počítač</li>
       </ul>
       <div class="akce">
-        <a class="tl tl-plne" href="#odemknuti">Získat přístup · 149 Kč / 6,00 € <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+        <a class="tl tl-plne" href="#odemknuti">Získat přístup · od 399 Kč / 15,96 € <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
@@ -401,8 +410,12 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   <div class="obal">
     <div class="pristup">
       <h2>Odemknutí poslechu</h2>
-      <p class="cena">149 Kč <span class="cena-eur">/ 6,00 €</span></p>
-      <p class="pozn">Neomezený poslech po dobu 30 dní od prvního spuštění.</p>
+      <p class="pozn">Vyber si, jak dlouho chceš meditaci poslouchat. Doba běží od prvního spuštění a během ní poslech neomezeně opakuješ.</p>
+      <div class="varianty" role="radiogroup" aria-label="Délka přístupu">
+        <button type="button" class="varianta" role="radio" aria-checked="false" data-dni="30" data-czk="399" data-eur="15,96"><b>1 měsíc</b><span class="v-cena">399 Kč</span><span class="v-eur">15,96 €</span><small>na vyzkoušení</small></button>
+        <button type="button" class="varianta" role="radio" aria-checked="true" data-dni="90" data-czk="799" data-eur="31,96"><i class="v-stitek">Nejoblíbenější</i><b>3 měsíce</b><span class="v-cena">799 Kč</span><span class="v-eur">31,96 €</span><small>o třetinu výhodnější</small></button>
+        <button type="button" class="varianta" role="radio" aria-checked="false" data-dni="365" data-czk="1 490" data-eur="59,60"><b>1 rok</b><span class="v-cena">1 490 Kč</span><span class="v-eur">59,60 €</span><small>vychází na 124 Kč měsíčně</small></button>
+      </div>
       <ol class="kroky-pristup">
         <li><b>1 · Platba</b>Kartou, Apple Pay nebo Google Pay. Převod s QR kódem je druhá volba.</li>
         <li><b>2 · E-mail s odkazem</b>Osobní odkaz k poslechu ti přijde e-mailem.</li>
@@ -421,7 +434,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
           <button type="button" data-mena="eur" aria-pressed="false">Platím v €</button>
         </div>
         <div class="volby">
-          <button class="tl tl-plne" type="submit" value="karta" name="zpusob" id="tl-karta" data-czk="Zaplatit kartou · 149 Kč" data-eur="Zaplatit kartou · 6,00 €">Zaplatit kartou · 149 Kč</button>
+          <button class="tl tl-plne" type="submit" value="karta" name="zpusob" id="tl-karta" data-czk="" data-eur="">Zaplatit kartou · 799 Kč</button>
           <button class="tl tl-linka" type="submit" value="qr" name="zpusob" id="tl-qr">Zaplatit převodem (QR)</button>
         </div>
         <p class="hlaseni" id="hlaseni" hidden></p>
@@ -433,7 +446,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
         <ul>
           <li>Účet <b>8159854004/5500</b></li>
           <li>Variabilní symbol <b id="qr-vs"></b></li>
-          <li>Částka <b>149 Kč</b></li>
+          <li>Částka <b id="qr-castka">799 Kč</b></li>
         </ul>
         <p>Stejné údaje ti přišly i e-mailem. Po připsání platby ti pošleme osobní odkaz k poslechu.</p>
       </div>
@@ -475,11 +488,21 @@ const FUNKCE='https://myybuesoourgpbouwwst.supabase.co/functions/v1/meditace-obj
 const KLIC='harmonizace-energetickych-center';
 const f=document.getElementById('objednavka'), hl=document.getElementById('hlaseni');
 let mena = (/^(cs|cz)/i.test(navigator.language||'') ? 'czk' : 'eur');
+let varianta=document.querySelector('.varianta[aria-checked="true"]');
+function popisky(){
+  const k=document.getElementById('tl-karta');
+  if(k) k.textContent='Zaplatit kartou · '+(mena==='eur' ? varianta.dataset.eur+' €' : varianta.dataset.czk+' Kč');
+  const qc=document.getElementById('qr-castka'); if(qc) qc.textContent=varianta.dataset.czk+' Kč';
+}
+document.querySelectorAll('.varianta').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.varianta').forEach(x=>x.setAttribute('aria-checked','false'));
+  b.setAttribute('aria-checked','true'); varianta=b; popisky();
+}));
 function nastavMenu(m){
   mena=m;
   document.querySelectorAll('.mena button').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.mena===m)));
-  const k=document.getElementById('tl-karta'); if(k) k.textContent=k.dataset[m];
   const q=document.getElementById('tl-qr'); if(q) q.hidden = (m==='eur');
+  popisky();
 }
 document.querySelectorAll('.mena button').forEach(b=>b.addEventListener('click',()=>nastavMenu(b.dataset.mena)));
 nastavMenu(mena);
@@ -493,7 +516,7 @@ f.addEventListener('submit', async e => {
   hl.hidden=false; hl.textContent = zpusob==='karta' ? 'Otevírám platbu…' : 'Připravuji platební údaje…';
   try{
     const r=await fetch(FUNKCE,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({klic:KLIC,email,jmeno,druh:zpusob,mena,navrat:location.pathname.replace(/\.html$/,'')})});
+      body:JSON.stringify({klic:KLIC,email,jmeno,druh:zpusob,mena,dni:Number(varianta.dataset.dni),navrat:location.pathname.replace(/\.html$/,'')})});
     const d=await r.json();
     if(d.url){ location.href=d.url; return; }
     if(d.ok && d.druh==='qr'){

@@ -275,6 +275,10 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 .pruh{position:relative;height:6px;border-radius:99px;background:var(--linka);cursor:pointer;margin:18px 0 8px}
 .pruh span{position:absolute;inset:0 auto 0 0;width:0;border-radius:99px;background:linear-gradient(90deg,var(--zlata-sv),var(--zlata))}
 .casy{display:flex;justify-content:space-between;font-size:13px;color:var(--jemna)}
+.kapitoly{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:22px 0 0;padding:0;list-style:none}
+.kapitoly button{font:500 16px/1 var(--serif);padding:11px 20px;border-radius:999px;border:1px solid var(--zlata-sv);background:var(--bila);color:var(--hneda);cursor:pointer}
+.kapitoly button.akt{background:linear-gradient(180deg,#bd9853,#9b7836);color:#fffaf0;border-color:transparent}
+.kapitoly small{display:block;font:400 12px/1 var(--sans);opacity:.75;margin-top:4px}
 .platnost{margin-top:26px;font-size:14px;color:var(--jemna)}
 .hlaska{background:var(--bila);border:1px solid var(--linka);border-radius:18px;padding:30px 28px;text-align:center}
 .hlaska h2{font-size:26px;margin-bottom:10px}
@@ -339,7 +343,7 @@ document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{
 const FUNKCE = 'https://myybuesoourgpbouwwst.supabase.co/functions/v1/meditace-zvuk';
 const panel = document.getElementById('panel');
 const token = new URLSearchParams(location.search).get('k');
-const cas = s => { s = Math.max(0, Math.floor(s||0)); return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); };
+const cas = s => { s = isFinite(s) ? Math.max(0, Math.floor(s||0)) : 0; return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); };
 
 function hlaska(nadpis, text, odkaz) {
   panel.innerHTML = `<div class="hlaska"><h2>${nadpis}</h2><p>${text}</p>
@@ -372,6 +376,7 @@ function vykreslit(d) {
     </div>
     <div class="pruh" id="pruh"><span id="postup"></span></div>
     <div class="casy"><span id="ted">0:00</span><span id="celkem">${d.delka_min ? d.delka_min+':00' : ''}</span></div>
+    ${Array.isArray(d.kapitoly) && d.kapitoly.length>1 ? `<ul class="kapitoly">${d.kapitoly.map((k,i)=>`<li><button type="button" data-od="${k.od}" class="${i===0?'akt':''}">${i+1} · ${k.nazev}<small>${cas(k.od)}</small></button></li>`).join('')}</ul>` : ''}
     <p class="platnost">Poslouchej neomezeně ještě ${d.zbyva_dni} dní · do ${new Date(d.plati_do).toLocaleDateString('cs-CZ')}</p>`;
 
   const a = new Audio(); a.preload = 'metadata'; a.src = d.zvuk;
@@ -397,7 +402,7 @@ function vykreslit(d) {
   a.addEventListener('pause', () => ikona(true));
   document.getElementById('zpet').addEventListener('click',  () => a.currentTime = Math.max(0, a.currentTime - 15));
   document.getElementById('vpred').addEventListener('click', () => a.currentTime = Math.min(a.duration||0, a.currentTime + 15));
-  a.addEventListener('loadedmetadata', () => document.getElementById('celkem').textContent = cas(a.duration));
+  a.addEventListener('loadedmetadata', () => { if (isFinite(a.duration)) document.getElementById('celkem').textContent = cas(a.duration); });
   a.addEventListener('timeupdate', () => {
     document.getElementById('ted').textContent = cas(a.currentTime);
     document.getElementById('postup').style.width = ((a.currentTime / (a.duration||1)) * 100) + '%';
@@ -405,6 +410,15 @@ function vykreslit(d) {
   document.getElementById('pruh').addEventListener('click', e => {
     const r = e.currentTarget.getBoundingClientRect();
     a.currentTime = ((e.clientX - r.left) / r.width) * (a.duration||0);
+  });
+  const tlKap=[...document.querySelectorAll('.kapitoly button')];
+  tlKap.forEach(t=>t.addEventListener('click', async ()=>{
+    if (Date.now() > vyprsi) await obnovitZdroj();
+    a.currentTime=Number(t.dataset.od); a.play();
+  }));
+  if (tlKap.length) a.addEventListener('timeupdate',()=>{
+    let i=0; tlKap.forEach((t,j)=>{ if(a.currentTime>=Number(t.dataset.od)-0.5) i=j; });
+    tlKap.forEach((t,j)=>t.classList.toggle('akt',j===i));
   });
   document.addEventListener('contextmenu', e => { if (e.target.closest('.panel')) e.preventDefault(); });
   if ('mediaSession' in navigator) navigator.mediaSession.metadata = new MediaMetadata({

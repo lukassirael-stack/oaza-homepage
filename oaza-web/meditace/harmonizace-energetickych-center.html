@@ -364,7 +364,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   <div class="obal">
     <div class="detail-obraz"><img src="/img/meditace-harmonizace-energetickych-center.webp?v=1" alt="Meditující žena se zářícími čakrami, meditace Harmonizace energetických center" width="1200" height="1200"></div>
     <div>
-      <a class="zpet" href="/meditace#meditace" onclick="if(document.referrer.indexOf(location.host+'/meditace')>-1&&history.length>1){history.back();return false}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg> Všechny meditace</a>
+      <a class="zpet" href="/meditace#meditace" onclick="return zpetNaSeznam()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg> Všechny meditace</a>
       <h1>Harmonizace energetických center</h1>
       <p class="afirmace">Mé tělo, mysl i duše proudí v souladu.</p>
       <p class="perex">Hluboká vedená meditace, která tě provede všemi sedmi energetickými centry od kořene až ke koruně. Každou čakru očistíš, naplníš světlem a sladíš s ostatními, aby energie tělem volně proudila.</p>
@@ -540,5 +540,12 @@ if(new URLSearchParams(location.search).get('platba')==='hotovo'){
 }
 </script>
 <script defer src="/navstevnost.js"></script>
+<script>
+function zpetNaSeznam(){
+  var pos=null; try{pos=sessionStorage.getItem('meditace-pozice');}catch(e){}
+  if (document.referrer && history.length>1) { history.back(); return false; }
+  location.href = pos!==null ? '/meditace' : '/meditace#meditace'; return false;
+}
+</script>
 </body>
 </html>

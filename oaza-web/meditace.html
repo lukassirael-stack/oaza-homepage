@@ -561,9 +561,12 @@ document.addEventListener('click', e => {
   if (y === null || location.hash) return;
   const cil = Number(y);
   const posun = () => window.scrollTo({ top: cil, behavior: 'instant' });
-  requestAnimationFrame(posun);
-  window.addEventListener('load', posun, { once: true });
-  setTimeout(posun, 350);
+  let pokusy = 0, uzivatel = false;
+  ['wheel','touchstart','keydown'].forEach(ev => window.addEventListener(ev, () => { uzivatel = true; }, { once: true, passive: true }));
+  const opakuj = () => { if (uzivatel) return; posun(); if (++pokusy < 12 && Math.abs(window.scrollY - cil) > 2) setTimeout(opakuj, 150); };
+  requestAnimationFrame(opakuj);
+  window.addEventListener('load', () => { if (!uzivatel) posun(); }, { once: true });
+  document.fonts && document.fonts.ready.then(() => { if (!uzivatel) posun(); });
 })();
 window.addEventListener('pageshow', e => { if (e.persisted) { try { sessionStorage.removeItem('meditace-pozice'); } catch {} } });
 

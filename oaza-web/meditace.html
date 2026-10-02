@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online meditace | Oáza Adamanthea</title>
+<meta name="description" content="Vedené meditace a aktivace z Oázy Adamanthea pro vnitřní klid, harmonii a rovnováhu. Vyber si meditaci, získej okamžitý přístup a poslouchej ji 30 dní, kolikrát chceš.">
+<link rel="canonical" href="https://oaza-adamanthea.cz/meditace">
+<meta name="theme-color" content="#fbf6ee">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:site_name" content="Oáza Adamanthea">
+<meta property="og:title" content="Online meditace | Oáza Adamanthea">
+<meta property="og:description" content="Vedené meditace a aktivace pro vnitřní klid, harmonii a rovnováhu. Poslouchej kdykoli, 30 dní.">
+<meta property="og:url" content="https://oaza-adamanthea.cz/meditace">
+<meta property="og:image" content="https://oaza-adamanthea.cz/img/og-nahled.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="/oaza-adamanthea-favicon-32.png?v=3">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/oaza-adamanthea-favicon-180.png?v=3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cinzel:wght@500;600&family=Jost:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CollectionPage","name":"Online meditace","url":"https://oaza-adamanthea.cz/meditace","inLanguage":"cs","isPartOf":{"@type":"WebSite","name":"Oáza Adamanthea","url":"https://oaza-adamanthea.cz/"},"description":"Vedené meditace a aktivace z Oázy Adamanthea pro vnitřní klid, harmonii a rovnováhu."}
+</script>
+<style>
+:root{
+  --krem:#fbf6ee; --krem-2:#f6eee2; --bila:#fffdf9;
+  --zlata:#a9823f; --zlata-tm:#8a682e; --zlata-sv:#d9bf8c;
+  --hneda:#5a4632; --text:#6b5a48; --jemna:#9a8a78;
+  --linka:#ecdfcc; --broskev:#f6dfcd;
+  --serif:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
+  --sans:"Nunito Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --rukopis:"Caveat","Segoe Script",cursive;
+  --sirka:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{margin:0;background:var(--krem);color:var(--text);font:400 16px/1.65 var(--sans);overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);color:var(--hneda);font-weight:500;margin:0;line-height:1.12}
+p{margin:0}
+.obal{width:min(var(--sirka),100% - 40px);margin-inline:auto}
+:focus-visible{outline:2px solid var(--zlata);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* tlačítka */
+.tl{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--sans);text-decoration:none;cursor:pointer;
+  padding:15px 26px;border-radius:999px;border:1px solid var(--zlata);transition:background .2s,color .2s,box-shadow .2s}
+.tl svg{width:18px;height:18px;flex:none}
+.tl-plne{background:linear-gradient(180deg,#bd9853,#9b7836);color:#fffaf0;border-color:#9b7836;box-shadow:0 8px 20px -10px rgba(122,90,43,.7)}
+.tl-plne:hover{background:linear-gradient(180deg,#c6a25e,#a5813d)}
+.tl-linka{background:rgba(255,253,249,.75);color:var(--zlata-tm)}
+.tl-linka:hover{background:var(--bila);box-shadow:0 6px 18px -12px rgba(122,90,43,.6)}
+.tl[disabled]{opacity:.75;cursor:default;box-shadow:none}
+
+/* hlavička — sjednoceno s webem */
+nav.web{--green:#37492f;--rose:#c0817c;--rose-soft:#d8a6a2;position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:flex-end;gap:34px;padding:26px 48px 60px;background:linear-gradient(180deg,rgba(247,243,234,.85) 0%,rgba(247,243,234,.35) 62%,rgba(247,243,234,0) 100%)}
+nav.web .menu{display:flex;gap:26px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;font-family:'Jost',sans-serif;color:var(--green)}
+.jen-mobil{display:none}
+nav.web .menu a{position:relative;padding-bottom:3px;color:var(--green);text-decoration:none;white-space:nowrap}
+nav.web .menu a:hover{color:#b8893a}
+nav.web .menu a.aktivni{color:#9c6a16;font-weight:500}
+.nav-toggle{display:none;background:none;border:none;color:#a8843f;font-size:30px;cursor:pointer}
+nav.web .nav-home{margin-right:auto;display:flex;align-items:center;color:#a8843f;transition:color .25s}
+nav.web .nav-home:hover{color:var(--rose-soft)}
+nav.web .btn{font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.7;padding:11px 26px;display:inline-block;background:var(--rose);color:#fdfaf5;border-radius:6px;text-decoration:none;transition:background .25s;white-space:nowrap}
+nav.web .btn:hover{background:#9c585a}
+@media(min-width:901px) and (max-width:1240px){nav.web{gap:20px;padding-left:28px;padding-right:28px}nav.web .menu{gap:16px;font-size:.76rem}}
+@media(min-width:901px) and (max-width:1100px){nav.web .btn{display:none}}
+@media(max-width:900px){
+  nav.web{padding:20px 22px;gap:20px}
+  nav.web .menu{display:none;position:fixed;inset:0;background:#15221a;flex-direction:column;padding:96px 28px 40px;gap:0;text-align:left;z-index:50;overflow-y:auto}
+  nav.web .menu.open{display:flex}
+  nav.web .menu a{font-size:25px;color:#f3efe5;padding:21px 4px;border-bottom:1px solid rgba(243,239,229,.14)}
+  .jen-mobil{display:block}
+  .nav-toggle{display:block;position:relative;z-index:60}
+  nav.web .btn:not(.jen-mobil){display:none}
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{width:46px;height:46px;color:var(--zlata)}
+.logo b{display:block;font:500 21px/1.05 var(--serif);color:var(--hneda)}
+.logo small{display:block;font:600 8.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--zlata-tm);margin-top:5px}
+
+/* hero */
+.hero{position:relative;padding:110px 0 70px;min-height:760px;display:flex;align-items:center;
+  background:
+    linear-gradient(90deg,rgba(251,246,238,.82) 0%,rgba(251,246,238,.62) 28%,rgba(251,246,238,.18) 48%,rgba(251,246,238,0) 62%),
+    url('/img/hero-pozadi.webp?v=1') center 58%/cover no-repeat,#f8ead8}
+.hero>.obal{width:min(var(--sirka),100% - 40px)}
+.hero .obal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(30px,3vw,48px);align-items:center}
+.nadpisek{font:500 17px/1 var(--serif);letter-spacing:.3em;text-transform:uppercase;color:var(--zlata-tm);margin-bottom:22px}
+.nadpisek .sym{color:var(--zlata);font-size:13px;margin:0 .1em;letter-spacing:0}
+.hero h1{font-family:'Cinzel',var(--serif);font-size:clamp(40px,5.8vw,84px);font-weight:500;letter-spacing:.02em;text-transform:none;line-height:1;color:var(--zlata-tm);background:linear-gradient(180deg,#b8924a 0%,#8a682e 55%,#a8843f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(255,250,240,.7))}
+.hero h1 .online{display:block}
+.hero .pod{font:500 clamp(21px,2.3vw,27px)/1.3 var(--serif);color:var(--hneda);margin:14px 0 28px;max-width:30ch}
+.hero .akce{display:flex;flex-wrap:wrap;gap:12px}
+.hero .akce .tl{font:500 20px/1 var(--serif);padding:16px 30px;letter-spacing:.02em}
+.vyhody{display:inline-flex;align-items:stretch;max-width:100%;margin:34px 0 0;padding:6px 4px;list-style:none;font:400 clamp(14px,1.05vw,16px)/1.2 var(--serif);color:var(--hneda);border-radius:18px;background:rgba(253,249,242,.8);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 20px -12px rgba(90,60,20,.5)}
+.vyhody li{display:flex;align-items:center;gap:7px;padding:8px clamp(8px,.8vw,13px);font-weight:400;white-space:nowrap;min-width:0;border-left:1px solid rgba(169,130,63,.25)}
+.vyhody li:first-child{border-left:0}
+.vyhody svg{width:22px;height:22px;flex:none;color:var(--zlata)}
+.rukopis{font:400 26px/1.15 var(--rukopis);color:var(--zlata);transform:rotate(-7deg);pointer-events:none}
+.hero .rukopis{position:absolute;right:max(20px,calc(50% - 590px));top:100px;text-align:right;font-size:24px;z-index:6}
+
+.hero-prava{display:flex;flex-direction:column;align-items:center}
+.hero-logo{position:relative;width:300px;z-index:6;display:flex;flex-direction:column;align-items:center;text-align:center;font-family:'Cinzel',var(--serif);text-transform:uppercase;line-height:1;filter:drop-shadow(0 0 3px rgba(255,252,245,1)) drop-shadow(0 0 12px rgba(255,250,240,.9))}
+.hero-logo .l0{width:56px;height:56px;color:#b08a45;margin-bottom:10px}
+.hero-logo span{background:linear-gradient(180deg,#c9a45c 0%,#9c7531 55%,#bf9b52 100%);-webkit-background-clip:text;background-clip:text;color:#a3792f;-webkit-text-fill-color:transparent}
+.hero-logo svg{color:#b08a45;width:100%;height:auto;margin:6px 0 6px}
+.hero-logo .l1{font-size:34px;font-weight:600;letter-spacing:.06em}
+.hero-logo .ac{position:relative;display:inline-block}
+.hero-logo .ac::after{content:'';position:absolute;left:50%;top:-.22em;width:.1em;height:.26em;margin-left:0;border-radius:.05em;background:linear-gradient(180deg,#c9a45c,#9c7531);transform:rotate(30deg);transform-origin:bottom center}
+.hero-logo .l2{font-size:34px;font-weight:600;letter-spacing:.04em;margin-top:6px}
+.hero-logo .l4{font-family:'Cinzel',var(--serif);font-size:9.5px;font-weight:500;letter-spacing:.34em;white-space:nowrap}
+.hero-karty{margin:34px 0 0;padding:0 6px;width:100%;filter:drop-shadow(0 22px 30px rgba(90,60,20,.28))}
+.hero-karty img{width:100%;height:auto}
+/* karty meditací v úvodu (vějíř, nepoužito) */
+.vejir{position:relative;container-type:inline-size;width:100%;max-width:600px;aspect-ratio:600/450;margin:46px auto 0}
+.vejir figure{position:absolute;margin:0;width:27%;aspect-ratio:3/4;border-radius:3.2cqw;overflow:hidden;
+  border:.7cqw solid #fffaf1;box-shadow:0 3cqw 5cqw -2.5cqw rgba(110,80,40,.55);background:var(--broskev);
+  left:var(--x);top:var(--y);rotate:var(--r)}
+.vejir figure img{width:100%;height:100%;object-fit:cover}
+.vejir figcaption{position:absolute;inset:7% 4% auto;text-align:center;font:600 3.1cqw/1.1 var(--serif);letter-spacing:.08em;text-transform:uppercase;color:#fffaf0;text-shadow:0 1px 6px rgba(70,45,15,.75)}
+.vejir{aspect-ratio:600/470}
+.vejir figure{width:23%;aspect-ratio:3/4.6;border:.5cqw solid rgba(255,250,240,.75);border-radius:2.4cqw;
+  box-shadow:0 3cqw 6cqw -2cqw rgba(90,70,40,.5),inset 0 0 0 .3cqw rgba(255,255,255,.35);background:rgba(255,250,240,.35);backdrop-filter:blur(6px)}
+.vejir figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.28),transparent 40%,rgba(70,45,15,.55))}
+.vejir figure:nth-of-type(1){--x:2%;--y:22%;--r:-5deg}
+.vejir figure:nth-of-type(2){--x:26%;--y:6%;--r:-1.5deg;width:26%;z-index:2}
+.vejir figure:nth-of-type(3){--x:53%;--y:9%;--r:2deg;z-index:2}
+.vejir figure:nth-of-type(4){--x:77%;--y:24%;--r:6deg}
+.vejir figure:nth-of-type(n+5){display:none}
+.vejir figcaption{inset:auto 6% 8%;z-index:2;font:500 3.2cqw/1.1 var(--serif);letter-spacing:.08em;text-transform:uppercase;color:#fffaf0;text-shadow:0 1px 8px rgba(70,45,15,.85)}
+.telefon{display:none;position:absolute;left:47%;top:34%;width:26%;aspect-ratio:9/18.6;z-index:5;border-radius:5.5cqw;padding:1.1cqw;
+  background:linear-gradient(145deg,#3b3026,#1f1812);box-shadow:0 5cqw 8cqw -4cqw rgba(80,55,20,.7)}
+.telefon .displej{height:100%;border-radius:4.5cqw;overflow:hidden;background:linear-gradient(180deg,#fff6e8,#fdebd6);display:flex;flex-direction:column;text-align:center}
+.telefon img{width:100%;height:46%;object-fit:cover}
+.telefon b{font:500 3cqw/1.2 var(--serif);color:var(--hneda);padding:2.2cqw 2cqw 0}
+.telefon small{font:400 1.7cqw/1.2 var(--sans);color:var(--jemna);padding:.6cqw 2cqw 0}
+.telefon .cara{height:.5cqw;margin:2.2cqw 3cqw 0;border-radius:9px;background:linear-gradient(90deg,var(--zlata) 38%,#ead9bd 38%)}
+.telefon .ovl{display:flex;justify-content:center;align-items:center;gap:3cqw;margin-top:2.4cqw;color:var(--zlata)}
+.telefon .ovl svg{width:3.4cqw;height:3.4cqw}
+.telefon .ovl .hraj{width:7cqw;height:7cqw;border-radius:50%;background:var(--zlata);color:#fffaf0;display:grid;place-items:center}
+
+/* pás přínosů */
+.prinosy{position:relative;padding:46px 0 42px}
+.prinosy ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.prinosy li{text-align:center;padding:14px 18px;border-left:1px solid var(--linka)}
+.prinosy li:first-child{border-left:0}
+.prinosy svg{width:52px;height:64px;color:var(--zlata);margin:0 auto 12px}
+.prinosy h3{font-size:25px;letter-spacing:.01em}
+.prinosy p{font:400 15px/1.45 var(--sans);color:var(--jemna);margin-top:6px;max-width:22ch;margin-inline:auto}
+.prinosy .obal{display:block}
+
+/* sekce */
+.sekce{padding:44px 0}
+.sekce > .obal > h2{font-size:clamp(30px,3.6vw,40px);text-align:center}
+.ozdoba{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px auto 34px;color:var(--zlata-sv)}
+.ozdoba::before,.ozdoba::after{content:"";width:64px;height:1px;background:currentColor}
+.ozdoba i{width:7px;height:7px;border:1px solid var(--zlata);rotate:45deg}
+.s-kvetem{background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23c9a86a' stroke-opacity='.28'%3E%3Ccircle cx='100' cy='100' r='40'/%3E%3Ccircle cx='100' cy='60' r='40'/%3E%3Ccircle cx='100' cy='140' r='40'/%3E%3Ccircle cx='134.6' cy='80' r='40'/%3E%3Ccircle cx='134.6' cy='120' r='40'/%3E%3Ccircle cx='65.4' cy='80' r='40'/%3E%3Ccircle cx='65.4' cy='120' r='40'/%3E%3Ccircle cx='100' cy='100' r='80'/%3E%3C/svg%3E") right -110px top 10px/300px no-repeat,
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23c9a86a' stroke-opacity='.22'%3E%3Ccircle cx='100' cy='100' r='40'/%3E%3Ccircle cx='100' cy='60' r='40'/%3E%3Ccircle cx='100' cy='140' r='40'/%3E%3Ccircle cx='134.6' cy='80' r='40'/%3E%3Ccircle cx='134.6' cy='120' r='40'/%3E%3Ccircle cx='65.4' cy='80' r='40'/%3E%3Ccircle cx='65.4' cy='120' r='40'/%3E%3Ccircle cx='100' cy='100' r='80'/%3E%3C/svg%3E") left -130px bottom -40px/320px no-repeat}
+
+/* karty meditací */
+.mrizka{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.karta{background:var(--bila);border:1px solid var(--linka);border-radius:16px;padding:10px 10px 22px;text-align:center;display:flex;flex-direction:column;
+  box-shadow:0 18px 34px -28px rgba(122,90,43,.55)}
+.karta img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:var(--broskev)}
+.karta h3{font-size:20px;letter-spacing:.03em;text-transform:uppercase;margin-top:16px}
+.karta .afirmace{font:500 17px/1.3 var(--serif);color:var(--hneda);margin-top:4px}
+.karta .popis{font-size:14px;line-height:1.5;padding:0 4px;margin:10px 0 16px;flex:1}
+.karta .tl{align-self:center;padding:11px 24px;font-size:14px}
+
+/* jak to funguje */
+.kroky{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:16px;align-items:center}
+.krok{display:grid;grid-template-columns:auto auto 1fr;gap:16px;align-items:center;background:var(--bila);border:1px solid var(--linka);border-radius:16px;padding:20px 22px;height:100%}
+.krok .c{width:38px;height:38px;border-radius:50%;border:1px solid var(--zlata-sv);display:grid;place-items:center;font:500 22px/1 var(--serif);color:var(--zlata-tm);align-self:start}
+.krok svg{width:42px;height:42px;color:var(--zlata)}
+.krok h3{font-size:22px}
+.krok p{font-size:14px;line-height:1.45;margin-top:4px}
+.sipka{color:var(--zlata-sv);width:26px;height:26px}
+
+/* vzniklo v Oáze */
+.vzniklo{position:relative;background:var(--krem);min-height:40vw;display:flex;align-items:center;padding:56px 0;overflow:hidden}
+.vzniklo::before{content:"";position:absolute;top:50%;right:0;width:60%;aspect-ratio:3/2;transform:translateY(-50%);background:var(--foto,linear-gradient(120deg,#f4dcc3,#e9c9a6)) center/contain no-repeat}
+.vzniklo::after{content:"";position:absolute;top:0;bottom:0;left:40%;width:22%;background:linear-gradient(90deg,var(--krem),rgba(251,246,238,0))}
+.vzniklo>.obal{position:relative;z-index:1}
+.vzniklo .text{max-width:470px}
+.vzniklo h2{font-size:clamp(30px,3.4vw,38px)}
+.vzniklo .ozdoba{justify-content:flex-start;margin:12px 0 20px}
+.vzniklo .ozdoba::before{display:none}
+.vzniklo p{margin-bottom:24px;font-size:14.5px}
+.vzniklo .uvod{font:400 19px/1.4 var(--sans);color:var(--hneda);margin-bottom:14px}
+.vzniklo .rukopis{position:absolute;right:max(24px,calc(50% - 600px));bottom:34px;left:auto;top:auto;z-index:2;text-align:right;color:#fffaf0;text-shadow:0 1px 10px rgba(70,45,15,.7)}
+
+/* ohlasy (zobrazí se po vložení skutečných ohlasů) */
+.ohlasy{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.ohlas{background:var(--bila);border:1px solid var(--linka);border-radius:16px;padding:22px 24px}
+.ohlas blockquote{margin:0;font-size:15px;line-height:1.55;color:var(--hneda)}
+.ohlas cite{display:block;font-style:normal;font-size:14px;color:var(--jemna);margin-top:10px}
+
+/* závěrečná výzva */
+.vyzva{position:relative;text-align:center;padding:64px 0 70px;
+  background:radial-gradient(55% 120% at 50% 0%,rgba(255,250,240,.95),transparent 70%),
+  radial-gradient(40% 90% at 12% 100%,rgba(246,200,190,.6),transparent 70%),
+  radial-gradient(45% 90% at 90% 90%,rgba(255,214,160,.7),transparent 70%),
+  linear-gradient(180deg,#fbf6ee,#f8e7d2)}
+.vyzva h2{font-size:clamp(32px,3.8vw,42px)}
+.vyzva p{font-size:18px;color:var(--hneda);margin:10px 0 26px}
+.vyzva .rukopis{position:absolute;right:max(20px,calc(50% - 560px));top:34px}
+
+/* patička */
+.pata{background:var(--bila);border-top:1px solid var(--linka);padding:40px 0 28px;font-size:14.5px}
+.pata .obal{display:grid;grid-template-columns:1.2fr 1fr auto;gap:30px;align-items:start}
+.pata a{text-decoration:none}
+.pata a:hover{color:var(--zlata-tm)}
+.pata nav{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+.pata .site{display:flex;gap:10px}
+.pata .site a{width:40px;height:40px;border:1px solid var(--linka);border-radius:50%;display:grid;place-items:center;color:var(--hneda)}
+.pata .site svg{width:18px;height:18px}
+.pata .dole{grid-column:1/-1;border-top:1px solid var(--linka);padding-top:18px;color:var(--jemna);font-size:13px}
+
+/* detail meditace */
+dialog{border:0;padding:0;border-radius:20px;background:var(--bila);color:var(--text);width:min(560px,100% - 28px);box-shadow:0 40px 80px -30px rgba(60,40,10,.6)}
+dialog::backdrop{background:rgba(70,50,25,.45);backdrop-filter:blur(3px)}
+dialog img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 30%;background:var(--broskev)}
+dialog .telo{padding:24px 28px 30px;text-align:center}
+dialog h2{font-size:32px;text-transform:uppercase;letter-spacing:.04em}
+dialog .afirmace{font:500 italic 20px/1.3 var(--serif);color:var(--zlata-tm);margin:6px 0 14px}
+dialog .udaje{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px 0 22px;padding:0;list-style:none;font-size:13.5px;color:var(--hneda)}
+dialog .udaje li{border:1px solid var(--linka);border-radius:999px;padding:6px 14px;background:var(--krem)}
+dialog audio{width:100%;margin-bottom:20px}
+dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,253,249,.9);color:var(--hneda);font-size:20px;cursor:pointer}
+
+@media (max-width:1180px){
+  .vyhody li{white-space:normal}
+}
+@media (max-width:1080px){
+  .vzniklo .rukopis{display:none}
+  .hero-logo{width:250px}
+  .hero-logo .l1,.hero-logo .l2{font-size:28px}
+  .hero-logo .l4{font-size:8px}
+}
+@media (max-width:860px){
+  .hero{padding:205px 0 40px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
+  .hero h1{font-size:50px;letter-spacing:.02em}
+
+  .hero .pod{max-width:30ch;font-size:21px;line-height:1.3;margin:12px auto 26px}
+  .hero .akce .tl{font-size:20px;padding:13px 34px}
+  .nadpisek{font-size:15px;letter-spacing:.26em;color:#8f6d33}
+  .hero-prava{display:contents}
+  .hero-logo{order:-1;width:min(250px,70vw);margin:0 auto 26px}
+  .hero-logo .l0{width:46px;height:46px}
+  .hero-logo .l1,.hero-logo .l2{font-size:min(29px,7.6vw);font-weight:500}
+  .hero-logo .l2{margin-top:5px}
+  .hero-logo svg{margin:7px 0 7px}
+  .hero-logo .l4{font-size:min(9.5px,2.5vw);letter-spacing:.3em}
+  .vejir{margin-top:12px;max-width:none}
+  .hero .obal>div:first-child{display:contents}
+  .vyhody{order:1}
+  .hero-karty{position:relative;margin:30px -14px 6px;padding:26px 6px 22px;isolation:isolate;
+    filter:drop-shadow(0 18px 22px rgba(70,45,15,.45)) drop-shadow(0 0 1px rgba(255,255,255,.9))}
+  .hero-karty::before{content:"";position:absolute;inset:-6% -2% -4%;z-index:-1;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(255,250,240,.96),rgba(253,243,230,.85) 55%,rgba(253,243,230,0) 100%)}
+  .vyhody{display:flex;justify-content:space-between;width:100%;max-width:400px;margin:60px auto 0;padding:14px 4px;font-size:16.5px;border-radius:22px}
+  .vyhody li{flex:1;flex-direction:column;gap:8px;padding:4px 6px;text-align:center;line-height:1.2;white-space:normal}
+  .vyhody svg{width:30px;height:30px}
+  .hero .obal{grid-template-columns:1fr;text-align:center}
+  .hero .pod{margin-inline:auto}
+  .hero .akce{justify-content:center}
+  .vejir{margin-top:26px;max-width:460px}
+  .prinosy ul{grid-template-columns:repeat(2,1fr);gap:30px 0}
+  .prinosy li:nth-child(odd){border-left:0}
+  .prinosy li:nth-child(n+3){padding-top:30px}
+  .prinosy h3{font-size:22px}
+  .prinosy p{font-size:14px}
+  .kroky{grid-template-columns:1fr}
+  .sipka{rotate:90deg;margin-inline:auto}
+  .vzniklo{background:var(--krem-2);padding-top:0;flex-direction:column;align-items:stretch}
+  .vzniklo::before{content:"";position:static;display:block;width:100%;height:auto;aspect-ratio:3/2;transform:none;margin-bottom:34px;background:var(--foto,linear-gradient(120deg,#f4dcc3,#e9c9a6)) center/contain no-repeat}
+  .vzniklo::after{display:none}
+  .vzniklo{min-height:0}
+  .vzniklo .text{max-width:none}
+  .vyzva .rukopis{position:static;transform:rotate(-3deg);margin-bottom:12px}
+  .pata .obal{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tl{transition:none}}
+</style>
+</head>
+<body>
+
+<nav class="web" aria-label="Hlavní menu">
+    <a class="nav-home" href="/" aria-label="Domů — hlavní stránka"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="prepniMenu(this)">☰</button>
+    <div class="menu" id="menu">
+      <a href="/portalova-zahrada">Portálová zahrada</a>
+      <a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+      <a href="/akce">Akce</a>
+      <a href="/meditace" class="aktivni">Meditace</a>
+      <a href="/nabidka-sluzeb">Služby</a>
+      <a href="/pronajem-prostor">Pronájem</a>
+      <a href="/bali-shop">E-shop</a>
+      <a href="/o-nas">O nás</a>
+      <a href="/kontakt">Kontakt</a>
+      <a href="/kontakt" class="jen-mobil">Napište nám</a>
+    </div>
+    <a class="btn" href="/kontakt">Napište nám</a>
+  </nav>
+
+<main>
+<section class="hero">
+  <div class="obal">
+    <div>
+      <p class="nadpisek">Proud <span class="sym">✦</span> Vědomí <span class="sym">✦</span> Světla</p>
+      <h1><span class="online">Online</span>Meditace</h1>
+      <p class="pod">Vedené meditace a&nbsp;aktivace pro vnitřní klid, harmonii a&nbsp;rovnováhu.</p>
+      <div class="akce">
+        <a class="tl tl-plne" href="#meditace">Vybrat meditaci <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+        <button class="tl tl-linka" type="button" id="uvod-tl" hidden><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><span>Poslechnout ukázku</span></button>
+      </div>
+      <ul class="vyhody">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 13h6l-1 8 9-11h-6z"/></svg>Okamžitý přístup</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 12c-2-3-3.5-4.5-6-4.5a4.5 4.5 0 000 9c2.500 0 4-1.500 6-4.500zm0 0c2 3 3.500 4.500 6 4.500a4.500 4.500 0 000-9c-2.500 0-4 1.500-6 4.500z"/></svg>Poslouchej kdykoli</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C6 15.5 3 12.5 3 8.75A4.75 4.75 0 0112 6.5a4.75 4.75 0 019 2.25C21 12.5 18 15.5 12 20z"/></svg>Tvořeno s láskou</li>
+      </ul>
+    </div>
+    <div class="hero-prava">
+      <div class="hero-logo" role="img" aria-label="Oáza Adamanthea, Crystal & Retreat centrum">
+        <svg class="l0" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="50" cy="50" r="19"/><circle cx="50" cy="31" r="19"/><circle cx="50" cy="69" r="19"/><circle cx="66.5" cy="40.5" r="19"/><circle cx="66.5" cy="59.5" r="19"/><circle cx="33.5" cy="40.5" r="19"/><circle cx="33.5" cy="59.5" r="19"/><circle cx="50" cy="50" r="40"/></svg>
+        <span class="l1">O<span class="ac" aria-label="á">A</span>ZA</span>
+        <span class="l2">Adamanthea</span>
+        <svg class="l3" viewBox="0 0 400 14" aria-hidden="true"><path d="M0 7h178M222 7h178" stroke="currentColor" stroke-width="1.2"/><path d="M200 1l6 6-6 6-6-6z" fill="currentColor"/></svg>
+        <span class="l4">Crystal &amp; Retreat centrum</span>
+      </div>
+      <div class="hero-karty" aria-hidden="true"><img src="/img/hero-karty.webp?v=6" alt="" width="1698" height="839" fetchpriority="high"></div>
+    </div>
+  </div>
+</section>
+
+<section class="prinosy" aria-label="Co meditace přinášejí">
+  <div class="obal">
+    <ul>
+      <li><svg viewBox="0 0 48 60" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="4" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="14" r="1" fill="currentColor" stroke="none"/><path d="M24 20c3 4 4.5 8 4.5 12S27 39 24 42c-3-3-4.5-6-4.5-10S21 24 24 20z"/><path d="M19 27c-3.5-1.5-7-1.5-9.5-.5 0 6 3.5 12.5 14.5 15.5M29 27c3.5-1.5 7-1.5 9.5-.5 0 6-3.5 12.5-14.5 15.5"/><path d="M10 35c-2 .8-3.5 1.8-4.5 3.5 3.5 4.5 10.5 6 18.5 3.5M38 35c2 .8 3.5 1.8 4.5 3.5-3.5 4.5-10.5 6-18.5 3.5"/><circle cx="24" cy="48" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="53" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="58" r="1" fill="currentColor" stroke="none"/></svg><h3>Zklidnění</h3><p>Klid mysli a&nbsp;hlubší přítomnost.</p></li>
+      <li><svg viewBox="0 0 48 60" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" aria-hidden="true"><path d="M24 4l1.6 3.4L29 9l-3.4 1.6L24 14l-1.6-3.4L19 9l3.4-1.6z" fill="currentColor" stroke="none"/><path d="M24 42C13 33.5 8 28.5 8 22.5A8.5 8.5 0 0124 18.5a8.5 8.5 0 0116 4C40 28.5 35 33.5 24 42z"/><circle cx="24" cy="48" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="53" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="58" r="1" fill="currentColor" stroke="none"/></svg><h3>Láska a&nbsp;vztahy</h3><p>Uzdravení lásky, blízkosti a&nbsp;rodu.</p></li>
+      <li><svg viewBox="0 0 48 60" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="4" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M24 12l1.6 3.6L29 17l-3.4 1.4L24 22l-1.6-3.6L19 17l3.4-1.4z" fill="currentColor" stroke="none"/><path d="M24 33c-3.5-5-6-7.5-10.5-7.5a7.5 7.5 0 000 15C18 40.5 20.5 38 24 33zm0 0c3.5 5 6 7.5 10.5 7.5a7.5 7.5 0 000-15C30 25.5 27.5 28 24 33z"/><circle cx="24" cy="48" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="53" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="58" r="1" fill="currentColor" stroke="none"/></svg><h3>Hojnost</h3><p>Otevření darů, síly a&nbsp;proudu.</p></li>
+      <li><svg viewBox="0 0 48 60" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="4" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M24 13.5l.8 2.1 2.1.8-2.1.8-.8 2.1-.8-2.1-2.1-.8 2.1-.8z" fill="currentColor" stroke="none"/><path d="M8 30c4.6-6.4 10-9.6 16-9.6S35.4 23.6 40 30c-4.6 6.4-10 9.6-16 9.6S12.6 36.4 8 30z"/><circle cx="24" cy="30" r="5.4"/><circle cx="24" cy="30" r="1.9" fill="currentColor" stroke="none"/><path d="M13 20.5l2.6 3M35 20.5l-2.6 3M24 17.8V21" stroke-width="0.85" opacity=".7"/><path d="M14 41.5c3 1.8 6.4 2.7 10 2.7s7-.9 10-2.7" stroke-width="0.85" opacity=".6"/><circle cx="24" cy="51" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="56" r="1" fill="currentColor" stroke="none"/></svg><h3>Vyšší vědomí</h3><p>Spojení s&nbsp;bytostmi, dimenzemi a&nbsp;světy.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sekce s-kvetem" id="meditace">
+  <div class="obal">
+    <h2>Vyber si meditaci podle toho, co právě potřebuješ</h2>
+    <div class="ozdoba" aria-hidden="true"><i></i></div>
+    <div class="mrizka" id="mrizka"></div>
+  </div>
+</section>
+
+<section class="sekce" id="jak-to-funguje">
+  <div class="obal">
+    <h2>Jak to funguje</h2>
+    <div class="ozdoba" aria-hidden="true"><i></i></div>
+    <ol class="kroky">
+      <li class="krok"><span class="c">1</span><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 30v-6a16 16 0 0132 0v6"/><rect x="6" y="28" width="9" height="14" rx="4"/><rect x="33" y="28" width="9" height="14" rx="4"/></svg><div><h3>Vyber si meditaci</h3><p>Zvol tu, která tě právě volá.</p></div></li>
+      <li aria-hidden="true"><svg class="sipka" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></li>
+      <li class="krok"><span class="c">2</span><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="5" width="20" height="38" rx="4"/><path d="M21 38h6"/></svg><div><h3>Pusť si ji v&nbsp;klidu doma</h3><p>Na telefonu, tabletu nebo počítači.</p></div></li>
+      <li aria-hidden="true"><svg class="sipka" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></li>
+      <li class="krok"><span class="c">3</span><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M24 8c4 5 6 10 6 15s-2 9-6 12c-4-3-6-7-6-12s2-10 6-15z"/><path d="M18 17c-4-2-8-2-11-1 0 7 4 15 17 19M30 17c4-2 8-2 11-1 0 7-4 15-17 19"/><path d="M8 27c-2 1-4 2-5 4 4 5 12 7 21 4M40 27c2 1 4 2 5 4-4 5-12 7-21 4"/></svg><div><h3>Nech se vést zpět k&nbsp;sobě</h3><p>Uvolni se a&nbsp;přijmi, co přichází.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="vzniklo" id="o-meditacich" style="--foto:url('/img/meditace-vzniklo.webp?v=1')">
+  <p class="rukopis" aria-hidden="true">Posvátný prostor<br>pro skutečný život ♡</p>
+  <div class="obal">
+    <div class="text">
+      <h2>Vzniklo v&nbsp;Oáze Adamanthea</h2>
+      <div class="ozdoba" aria-hidden="true"><i></i></div>
+      <p class="uvod">Meditace tvořené s&nbsp;citem pro prostor, energii a&nbsp;hluboký vnitřní klid.</p>
+      <p>V&nbsp;<strong>Oáze Adamanthea</strong> propojujeme sílu krystalů, přírody a&nbsp;vědomé tvorby, abychom ti přiblížili meditace, které jsou skutečným zážitkem a&nbsp;podporou na tvé cestě.</p>
+      <a class="tl tl-linka" href="/o-nas">Více o Oáze <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="sekce" id="ohlasy" hidden>
+  <div class="obal">
+    <h2>Co o meditacích říkají</h2>
+    <div class="ozdoba" aria-hidden="true"><i></i></div>
+    <div class="ohlasy" id="ohlasy-seznam"></div>
+  </div>
+</section>
+
+<section class="vyzva">
+  <p class="rukopis" aria-hidden="true">„Když se zastavíš,<br>uslyšíš, co je opravdu důležité."</p>
+  <div class="obal">
+    <h2>Dopřej si chvíli jen pro sebe</h2>
+    <p>Objev meditace, které tě zklidní, vyživí a&nbsp;vrátí do středu.</p>
+    <a class="tl tl-plne" href="#meditace">Zobrazit všechny meditace <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+</main>
+
+<footer class="pata">
+  <div class="obal">
+    <div>
+      <a class="logo" href="/"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="50" cy="50" r="19"/><circle cx="50" cy="31" r="19"/><circle cx="50" cy="69" r="19"/><circle cx="66.5" cy="40.5" r="19"/><circle cx="66.5" cy="59.5" r="19"/><circle cx="33.5" cy="40.5" r="19"/><circle cx="33.5" cy="59.5" r="19"/><circle cx="50" cy="50" r="40"/></svg><span><b>Oáza Adamanthea</b><small>Crystal &amp; retreat centrum</small></span></a>
+      <p style="margin-top:16px">Halenkovice 400, 763 63 Halenkovice<br>
+      <a href="tel:+420737869752">+420 737 869 752</a> · <a href="tel:+420608828996">+420 608 828 996</a><br>
+      <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a></p>
+    </div>
+    <nav aria-label="Menu v patičce">
+      <a href="/portalova-zahrada">Portálová zahrada</a><a href="/pobyt-ve-svetle">Pobyt ve světle</a>
+      <a href="/akce">Akce</a><a href="/meditace">Meditace</a>
+      <a href="/nabidka-sluzeb">Služby</a>
+      <a href="/pronajem-prostor">Pronájem</a>
+      <a href="/bali-shop">E-shop</a><a href="/o-nas">O nás</a>
+      <a href="/kontakt">Kontakt</a>
+    </nav>
+    <div class="site">
+      <a href="https://www.facebook.com/groups/1679547508831715" aria-label="Facebook" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.500 21v-7.500h2.600l.4-3h-3V8.600c0-.9.300-1.500 1.600-1.500h1.500V4.400c-.300 0-1.200-.1-2.200-.1-2.200 0-3.700 1.300-3.700 3.800v2.400H8v3h2.700V21z"/></svg></a>
+      <a href="https://www.instagram.com/oazahalenkovice_healingcenter" aria-label="Instagram" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.500"/><circle cx="12" cy="12" r="3.600"/><circle cx="16.700" cy="7.300" r=".6" fill="currentColor"/></svg></a>
+    </div>
+    <p class="dole">Místo pro zastavení, ztišení a návrat k sobě. · © 2026 Oáza Adamanthea · IČ 76564410 · <a href="/gdpr">Ochrana osobních údajů</a></p>
+  </div>
+</footer>
+
+<dialog id="detail" aria-labelledby="d-nazev">
+  <button class="zavrit" type="button" aria-label="Zavřít" data-zavrit>✕</button>
+  <img id="d-obr" alt="">
+  <div class="telo">
+    <h2 id="d-nazev"></h2>
+    <p class="afirmace" id="d-afirmace"></p>
+    <p id="d-popis"></p>
+    <ul class="udaje" id="d-udaje"></ul>
+    <audio id="d-ukazka" controls preload="none" hidden></audio>
+    <button class="tl tl-plne" type="button" id="d-koupit"></button>
+  </div>
+</dialog>
+
+<audio id="uvod-audio" preload="none"></audio>
+
+<script>
+/* ───────── OBSAH STRÁNKY: vše se upravuje tady ───────── */
+const NASTAVENI = {
+  prodej: false,              // true = tlačítko v detailu spouští platbu
+  platbaUrl: '',              // adresa funkce, která vrátí odkaz na Stripe Checkout
+  uvodAudio: '',              // např. '/audio/meditace-predstaveni.mp3' → zobrazí tlačítko „Představení meditací"
+  dniPristupu: 30
+};
+const MEDITACE = [
+  { klic:'odpusteni',     nazev:'Odpuštění',     kratky:'Odpuštění',     afirmace:'Propouštím a vracím se k lehkosti.', popis:'Uvolnění zranění spojených s druhými a návrat lehkosti do srdce.',                  obrazek:'/img/meditace-odpusteni.webp?v=1',        odkaz:'/meditace/odpusteni', delka:'17 minut', cena:'349 Kč', ukazka:'' },
+  { klic:'otec',          nazev:'Kořeny a mužská síla', kratky:'Kořeny a mužská síla',          afirmace:'Stojím pevně ve svých kořenech.', popis:'Uzdravení vztahu s otcem, stabilita a pevnost.',          obrazek:'/img/meditace-otec.webp?v=2',          odkaz:'/meditace/koreny-a-muzska-sila', delka:'24 minut', cena:'349 Kč', ukazka:'' },
+  { klic:'harmonizace-energetickych-center', nazev:'Harmonizace energetických center', kratky:'Harmonizace čaker', afirmace:'Mé tělo, mysl i duše proudí v souladu.', popis:'Vyladění všech sedmi čaker do souladu, klidu a proudící energie.', obrazek:'/img/meditace-harmonizace-energetickych-center.webp?v=1', odkaz:'/meditace/harmonizace-energetickych-center', delka:'63 minut', cena:'od 399 Kč', ukazka:'' },
+  { klic:'splynuti', nazev:'Splynutí', kratky:'Splynutí', afirmace:'Mužské a ženské ve mně proudí v jednotě.', popis:'Spojení mužské a ženské energie, harmonie a uzdravení ve vztazích.', obrazek:'/img/meditace-splynuti-muze-zeny.webp?v=1', odkaz:'/meditace/splynuti', delka:'61 minut', cena:'399 Kč', ukazka:'' },
+  { klic:'rovnovaha-jin-a-jang', nazev:'Rovnováha jin a jang', kratky:'Jin a jang', afirmace:'Slunce i měsíc ve mně tančí v harmonii.', popis:'Sladění ženské a mužské energie, klidu a síly.', obrazek:'/img/meditace-rovnovaha-jin-a-jang.webp?v=1', odkaz:'/meditace/rovnovaha-jin-a-jang', delka:'33 minut', cena:'349 Kč', ukazka:'' },
+  { klic:'lvi-brana', nazev:'Lví brána', kratky:'Lví brána', afirmace:'Probouzím svůj vnitřní oheň a sílu.', popis:'Vnitřní oheň, síla a probuzení do vlastní velikosti.', obrazek:'/img/meditace-lvi-brana.webp?v=1', odkaz:'/meditace/lvi-brana', delka:'36 minut', cena:'444 Kč', ukazka:'' },
+  { klic:'pyramida-slunce', nazev:'Aktivace na pyramidě Slunce', kratky:'Pyramida Slunce', afirmace:'Meditace a aktivace v Bosně, 26. 9. 2026', popis:'Autentická nahrávka z největší a nejstarší pyramidy světa.', obrazek:'/img/meditace-pyramida-slunce.webp?v=1', odkaz:'/meditace/pyramida-slunce', delka:'29 minut', cena:'520 Kč', ukazka:'' },
+  { klic:'pyramida-mesice', nazev:'Meditace na úpatí pyramidy Měsíce', kratky:'Pyramida Měsíce', afirmace:'Léčení ženské energie a vztahu s matkou', popis:'Autentická nahrávka od druhé největší a nejstarší pyramidy světa, 26. 9. 2026.', obrazek:'/img/meditace-pyramida-mesice.webp?v=1', odkaz:'/meditace/pyramida-mesice', delka:'27 minut', cena:'520 Kč', ukazka:'' }
+];
+const OHLASY = [
+  // { text:'…', jmeno:'Jméno P.' }  ← skutečné ohlasy posluchačů; sekce se zobrazí sama
+];
+/* ─────────────────────────────────────────────────────── */
+
+const $ = s => document.querySelector(s);
+const el = (tag, attrs = {}, html = '') => { const e = document.createElement(tag); Object.assign(e, attrs); if (html) e.innerHTML = html; return e; };
+const sipka = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>';
+
+// karty meditací
+MEDITACE.forEach(m => {
+  const k = el('article', { className:'karta' });
+  if (m.odkaz) { k.style.cursor='pointer'; k.addEventListener('click', e => { if (!e.target.closest('a')) location.href = m.odkaz; }); }
+  k.append(
+    el('img', { src:m.obrazek, alt:'', loading:'lazy', width:600, height:600 }),
+    el('h3', { textContent:m.nazev }),
+    el('p', { className:'afirmace', textContent:m.afirmace }),
+    el('p', { className:'popis', textContent:m.popis })
+  );
+  let b;
+  if (m.odkaz) {
+    b = el('a', { className:'tl tl-linka', href:m.odkaz }, 'Zjistit více ' + sipka);
+  } else {
+    b = el('button', { type:'button', className:'tl tl-linka' }, 'Zjistit více ' + sipka);
+    b.addEventListener('click', () => otevrit(m));
+  }
+  b.setAttribute('aria-label', 'Zjistit více o meditaci ' + m.nazev);
+  k.append(b);
+  $('#mrizka').append(k);
+});
+
+// vějíř obalů v úvodu
+const vejir = $('#vejir') || document.createElement('div');
+MEDITACE.slice(0, 6).forEach(m => {
+  const f = el('figure');
+  f.append(el('img', { src:m.obrazek, alt:'' }), el('figcaption', { textContent:m.kratky || m.nazev }));
+  vejir.append(f);
+});
+
+// detail meditace
+const dlg = $('#detail');
+let vybrana = null;
+function otevrit(m){
+  vybrana = m;
+  $('#d-obr').src = m.obrazek;
+  $('#d-nazev').textContent = m.nazev;
+  $('#d-afirmace').textContent = m.afirmace;
+  $('#d-popis').textContent = m.popis;
+  const udaje = [m.delka && 'Délka ' + m.delka, NASTAVENI.dniPristupu + ' dní poslechu', 'Mobil i počítač', m.cena].filter(Boolean);
+  $('#d-udaje').innerHTML = udaje.map(u => `<li>${u}</li>`).join('');
+  const a = $('#d-ukazka');
+  a.hidden = !m.ukazka; if (m.ukazka) a.src = m.ukazka; else a.removeAttribute('src');
+  const b = $('#d-koupit');
+  const aktivni = NASTAVENI.prodej && m.cena;
+  b.disabled = !aktivni;
+  b.innerHTML = aktivni ? `Poslouchat ${NASTAVENI.dniPristupu} dní · ${m.cena}` : 'Brzy k poslechu';
+  dlg.showModal();
+}
+function zavrit(){ $('#d-ukazka').pause(); dlg.close(); }
+dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-zavrit]')) zavrit(); });
+dlg.addEventListener('close', () => $('#d-ukazka').pause());
+
+$('#d-koupit').addEventListener('click', async () => {
+  if (!NASTAVENI.prodej || !vybrana) return;
+  const b = $('#d-koupit'); b.disabled = true; b.textContent = 'Otevírám platbu…';
+  try {
+    const r = await fetch(NASTAVENI.platbaUrl, { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify({ druh:'meditace', klic:vybrana.klic }) });
+    const d = await r.json();
+    if (d.url) location.href = d.url; else throw new Error();
+  } catch { b.disabled = false; b.textContent = 'Zkusit platbu znovu'; }
+});
+
+// představení meditací (úvodní nahrávka)
+if (NASTAVENI.uvodAudio) {
+  const t = $('#uvod-tl'), a = $('#uvod-audio'); t.hidden = false; a.src = NASTAVENI.uvodAudio;
+  t.addEventListener('click', () => a.paused ? a.play() : a.pause());
+  a.addEventListener('play',  () => t.querySelector('span').textContent = 'Pozastavit ukázku');
+  a.addEventListener('pause', () => t.querySelector('span').textContent = 'Poslechnout ukázku');
+}
+
+// ohlasy
+if (OHLASY.length) {
+  $('#ohlasy').hidden = false;
+  OHLASY.forEach(o => $('#ohlasy-seznam').append(el('figure', { className:'ohlas', style:'margin:0' }, `<blockquote>„${o.text}“</blockquote><cite>${o.jmeno}</cite>`)));
+}
+
+// návrat zpět na stejné místo v seznamu meditací
+try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch {}
+document.addEventListener('click', e => {
+  const odkaz = e.target.closest('a[href*="/meditace/"]'), karta = e.target.closest('.karta');
+  if (odkaz || karta) { try { sessionStorage.setItem('meditace-pozice', String(window.scrollY)); } catch {} }
+}, true);
+(function obnovitPozici(){
+  let y = null; try { y = sessionStorage.getItem('meditace-pozice'); sessionStorage.removeItem('meditace-pozice'); } catch {}
+  if (y === null || location.hash) return;
+  const cil = Number(y);
+  const posun = () => window.scrollTo({ top: cil, behavior: 'instant' });
+  let pokusy = 0, uzivatel = false;
+  ['wheel','touchstart','keydown'].forEach(ev => window.addEventListener(ev, () => { uzivatel = true; }, { once: true, passive: true }));
+  const opakuj = () => { if (uzivatel) return; posun(); if (++pokusy < 12 && Math.abs(window.scrollY - cil) > 2) setTimeout(opakuj, 150); };
+  requestAnimationFrame(opakuj);
+  window.addEventListener('load', () => { if (!uzivatel) posun(); }, { once: true });
+  document.fonts && document.fonts.ready.then(() => { if (!uzivatel) posun(); });
+})();
+window.addEventListener('pageshow', e => { if (e.persisted) { try { sessionStorage.removeItem('meditace-pozice'); } catch {} } });
+
+// mobilní menu (shodné s webem)
+function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}
+document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('menu').classList.remove('open');document.body.style.overflow='';}));
+</script>
+<script defer src="/navstevnost.js"></script>
+</body>
+</html>

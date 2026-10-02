@@ -545,6 +545,23 @@ if (OHLASY.length) {
   OHLASY.forEach(o => $('#ohlasy-seznam').append(el('figure', { className:'ohlas', style:'margin:0' }, `<blockquote>„${o.text}“</blockquote><cite>${o.jmeno}</cite>`)));
 }
 
+// návrat zpět na stejné místo v seznamu meditací
+try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch {}
+document.addEventListener('click', e => {
+  const odkaz = e.target.closest('a[href*="/meditace/"]'), karta = e.target.closest('.karta');
+  if (odkaz || karta) { try { sessionStorage.setItem('meditace-pozice', String(window.scrollY)); } catch {} }
+}, true);
+(function obnovitPozici(){
+  let y = null; try { y = sessionStorage.getItem('meditace-pozice'); sessionStorage.removeItem('meditace-pozice'); } catch {}
+  if (y === null || location.hash) return;
+  const cil = Number(y);
+  const posun = () => window.scrollTo({ top: cil, behavior: 'instant' });
+  requestAnimationFrame(posun);
+  window.addEventListener('load', posun, { once: true });
+  setTimeout(posun, 350);
+})();
+window.addEventListener('pageshow', e => { if (e.persisted) { try { sessionStorage.removeItem('meditace-pozice'); } catch {} } });
+
 // mobilní menu (shodné s webem)
 function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}
 document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('menu').classList.remove('open');document.body.style.overflow='';}));

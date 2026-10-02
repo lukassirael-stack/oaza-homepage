@@ -77,7 +77,13 @@ header p.lead{position:relative;margin-top:calc(-7vw);text-shadow:0 1px 14px rgb
 .hero-txt img{display:inline-block;width:clamp(226px,29.4vw,611px);height:auto;filter:drop-shadow(0 1px 14px rgba(255,248,232,.7))}
 .hero-txt h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(24px,2.9vw,56px);letter-spacing:.1em;color:#a8813a;text-shadow:0 1px 16px rgba(255,248,232,.9)}
 .hero-txt .claim{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(15px,1.35vw,26px);color:#5c4a2c;margin:.35em 0 0;text-shadow:0 1px 12px rgba(255,248,232,.9)}
-@media(max-width:700px){.hero-txt{top:24%}header p.lead{margin-top:-6vw}}
+@media(max-width:700px){
+  .hero-ban picture img{height:min(360px,78vw);object-fit:cover;object-position:50% 62%}
+  .hero-ban::before{content:"";position:absolute;left:0;right:0;top:0;bottom:0;background:radial-gradient(ellipse 70% 42% at 50% 56%,rgba(40,28,10,.34),rgba(40,28,10,0) 100%);pointer-events:none}
+  .hero-txt{top:50%;transform:translateY(-50%)}
+  .hero-txt img{width:min(82vw,420px);filter:drop-shadow(0 1px 2px rgba(255,250,235,.9)) drop-shadow(0 3px 14px rgba(40,25,5,.55))}
+  header p.lead{margin-top:-4vw}
+}
 header h1{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(34px,5vw,56px);letter-spacing:.08em;color:var(--zlata)}
 header .claim{font-style:italic;font-size:clamp(22px,2.4vw,28px);margin:14px 0 18px}
 header p.lead{max-width:38em;margin:calc(-11vw - 3cm) auto 0;font-size:20px;color:#2f4a3f}

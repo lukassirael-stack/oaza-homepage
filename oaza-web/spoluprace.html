@@ -198,12 +198,26 @@
   /* Hero spolupráce: hotový obraz s textem, klikací tlačítko přes obraz */
   .hero-art{position:relative;aspect-ratio:1672/941;overflow:hidden;background:#f3dfb4}
   .hero-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
-  .hero-art-btn{position:absolute;left:50%;top:67.6%;transform:translate(-50%,-50%);width:16.8%;height:8.4%;border-radius:999px}
-  .hero-art-btn:focus-visible{outline:2px solid #fff;outline-offset:3px;box-shadow:0 0 0 5px rgba(154,118,40,.6)}
+  .hero-art{container-type:inline-size}
+  .hero-art-btn{position:absolute;left:50%;top:67.6%;transform:translate(-50%,-50%);width:17.6%;height:9%;
+    display:flex;align-items:center;justify-content:center;gap:.7em;
+    font-family:"Jost",sans-serif;font-weight:500;font-size:1.12cqw;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;
+    color:#fff;background:linear-gradient(180deg,#e2bd6a 0%,#c9a14a 45%,#9a7628 100%);
+    border:1px solid rgba(255,240,200,.75);border-radius:999px;
+    box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 -2px 6px rgba(110,80,20,.35) inset,0 10px 26px -8px rgba(120,80,10,.65),0 0 34px rgba(255,220,140,.55);
+    text-shadow:0 1px 2px rgba(90,60,10,.55);
+    transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}
+  .hero-art-btn svg{width:1.15em;height:1.15em;transition:transform .2s ease}
+  .hero-art-btn:hover{transform:translate(-50%,-50%) translateY(-2px);filter:brightness(1.07);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 -2px 6px rgba(110,80,20,.3) inset,0 16px 32px -10px rgba(120,80,10,.7),0 0 46px rgba(255,225,150,.75)}
+  .hero-art-btn:hover svg{transform:translateX(3px)}
+  .hero-art-btn:active{transform:translate(-50%,-50%) translateY(1px);filter:brightness(.97)}
+  .hero-art-btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  @media(prefers-reduced-motion:reduce){.hero-art-btn,.hero-art-btn svg{transition:none}}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   @media(max-width:700px){
     .hero-art{aspect-ratio:3/4}
-    .hero-art-btn{width:39%}
+    .hero-art-btn{width:41%;font-size:2.6cqw}
   }
 </style>
 <style>
@@ -252,7 +266,7 @@
     <h1>Spolupráce s vámi</h1>
     <p>Naše služby u vás, nebo u nás — pojďme tvořit společně.</p>
   </div>
-  <a class="hero-art-btn" href="mailto:oaza.adamanthea@gmail.com?subject=Spolupr%C3%A1ce%20s%20O%C3%A1zou%20Adamanthea&body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20spolupr%C3%A1ci.%20M%C3%A1%20p%C5%99edstava%3A%0A%0ATyp%20akce%2Fkurzu%2Fterapie%3A%0APreferovan%C3%BD%20term%C3%ADn%3A%0APo%C4%8Det%20%C3%BA%C4%8Dastn%C3%ADk%C5%AF%3A%0A" aria-label="Napsat nám"></a>
+  <a class="hero-art-btn" href="mailto:oaza.adamanthea@gmail.com?subject=Spolupr%C3%A1ce%20s%20O%C3%A1zou%20Adamanthea&body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20spolupr%C3%A1ci.%20M%C3%A1%20p%C5%99edstava%3A%0A%0ATyp%20akce%2Fkurzu%2Fterapie%3A%0APreferovan%C3%BD%20term%C3%ADn%3A%0APo%C4%8Det%20%C3%BA%C4%8Dastn%C3%ADk%C5%AF%3A%0A" >Napsat nám<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
 </header>
 
 

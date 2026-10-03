@@ -179,7 +179,12 @@ export default async function handler(req, res) {
     const mena = (body.mena === 'EUR') ? 'EUR' : 'CZK';
 
     // --- položky: ověř proti DB (skladem) a přepočítej ceny ---
-    const slugy = [...new Set((body.polozky || []).map(p => p && p.slug).filter(Boolean))];
+    const vstupSlugy = (body.polozky || []).map(p => p && p.slug).filter(Boolean);
+    // slug smí obsahovat jen malá písmena, číslice a pomlčky (jde přímo do dotazu na produkty)
+    if (vstupSlugy.length > 100 || vstupSlugy.some(s => typeof s !== 'string' || !/^[a-z0-9][a-z0-9-]{0,119}$/.test(s))) {
+      return res.status(400).json({ error: 'Neplatná položka v košíku.' });
+    }
+    const slugy = [...new Set(vstupSlugy)];
     if (!slugy.length) return res.status(400).json({ error: 'Košík je prázdný.' });
 
     const inList = slugy.join(',');

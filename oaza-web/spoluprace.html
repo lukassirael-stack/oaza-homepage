@@ -161,6 +161,39 @@
 /* menu s položkou Meditace */
 @media(min-width:821px) and (max-width:1100px){.nav a:not(.nav-home){padding:8px 6px;font-size:.74rem;letter-spacing:.02em}}
 @media(min-width:821px) and (max-width:920px){.nav a:not(.nav-home){padding:8px 4px;font-size:.68rem;letter-spacing:0}}
+
+  /* Co můžeme nabídnout */
+  .offer{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--cream-2),var(--cream))}
+  .offer .wrap-wide{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:0 24px}
+  .offer .leaf{position:absolute;z-index:0;width:210px;color:var(--gold);opacity:.55;pointer-events:none}
+  .offer .leaf.l{left:-28px;top:40px}
+  .offer .leaf.r{right:-28px;top:10px;transform:scaleX(-1)}
+  .offer .leaf.bl{left:10px;bottom:-40px;width:120px;opacity:.35}
+  .offer .section-head{margin-bottom:22px}
+  .offer .section-head .eyebrow{margin:0 0 12px}
+  .offer .section-head h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:clamp(2rem,4.6vw,2.9rem);letter-spacing:.01em}
+  .rule-gem{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px auto 0;color:var(--gold)}
+  .rule-gem::before,.rule-gem::after{content:"";width:90px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .rule-gem::after{background:linear-gradient(90deg,var(--gold),transparent)}
+  .offer-lead{max-width:620px;margin:0 auto 34px;text-align:center;font-family:"Jost",sans-serif;font-weight:300;font-size:1.04rem;line-height:1.6;color:var(--ink)}
+  .offer-lead strong{font-weight:500}
+  .offer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .offer-card{position:relative;display:flex;min-height:230px;background:rgba(255,253,249,.92);border:1px solid rgba(154,118,40,.12);border-radius:16px;box-shadow:0 14px 34px -22px rgba(120,90,40,.45);overflow:hidden}
+  .offer-card .ph{flex:0 0 40%;margin:10px 0 10px 10px;border-radius:10px;background-size:cover;background-position:center;-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent)}
+  .offer-card .tx{flex:1;padding:24px 26px 26px 22px;display:flex;flex-direction:column}
+  .offer-card .ic{width:40px;height:40px;color:var(--gold);margin-bottom:10px}
+  .offer-card h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:1.5rem;letter-spacing:0;margin:0 0 8px}
+  .offer-card p{margin:0;padding-right:28px;font-family:"Jost",sans-serif;font-weight:300;font-size:.95rem;line-height:1.6;color:var(--ink)}
+  .offer-card .go{position:absolute;right:20px;bottom:20px;width:34px;height:34px;border-radius:50%;border:1px solid var(--gold);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;background:var(--cream)}
+  .offer-card .go:hover,.offer-card .go:focus-visible{background:var(--gold);color:#fff;outline:none}
+  .offer-foot{margin:30px 0 0;text-align:center;font-family:"Jost",sans-serif;font-weight:300;font-size:.98rem;color:var(--ink-soft)}
+  @media(max-width:900px){.offer-grid{grid-template-columns:1fr}}
+  @media(max-width:520px){
+    .offer-card{flex-direction:column}
+    .offer-card .ph{flex:none;height:200px;margin:10px 10px 0;-webkit-mask-image:none;mask-image:none}
+    .offer-card .tx{padding:20px 22px 24px}
+    .offer .leaf{display:none}
+  }
 </style>
 <style>
 /* jemne dychani objednavaciho tlacitka */
@@ -222,31 +255,56 @@
 </section>
 
 
-<section class="alt">
-  <div class="wrap">
+<section class="offer">
+  <span class="leaf l"><svg viewBox="0 0 200 260" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M30 255C60 190 95 120 170 20"/><path d="M52 205c-30-2-44-18-48-36 22-2 40 10 48 36z"/><path d="M52 205c6-28 24-40 44-40-2 22-18 36-44 40z"/><path d="M78 160c-28-6-40-24-40-42 22 2 36 16 40 42z"/><path d="M78 160c10-26 30-34 50-30-6 20-24 32-50 30z"/><path d="M105 115c-24-10-32-28-30-46 20 6 32 22 30 46z"/><path d="M105 115c14-22 34-26 52-20-8 18-28 26-52 20z"/><path d="M135 70c-18-12-22-30-16-46 18 8 24 26 16 46z"/><path d="M135 70c16-16 34-16 48-8-10 14-28 18-48 8z"/></svg></span>
+  <span class="leaf r"><svg viewBox="0 0 200 260" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M30 255C60 190 95 120 170 20"/><path d="M52 205c-30-2-44-18-48-36 22-2 40 10 48 36z"/><path d="M52 205c6-28 24-40 44-40-2 22-18 36-44 40z"/><path d="M78 160c-28-6-40-24-40-42 22 2 36 16 40 42z"/><path d="M78 160c10-26 30-34 50-30-6 20-24 32-50 30z"/><path d="M105 115c-24-10-32-28-30-46 20 6 32 22 30 46z"/><path d="M105 115c14-22 34-26 52-20-8 18-28 26-52 20z"/><path d="M135 70c-18-12-22-30-16-46 18 8 24 26 16 46z"/><path d="M135 70c16-16 34-16 48-8-10 14-28 18-48 8z"/></svg></span>
+  <span class="leaf bl"><svg viewBox="0 0 200 260" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M30 255C60 190 95 120 170 20"/><path d="M52 205c-30-2-44-18-48-36 22-2 40 10 48 36z"/><path d="M52 205c6-28 24-40 44-40-2 22-18 36-44 40z"/><path d="M78 160c-28-6-40-24-40-42 22 2 36 16 40 42z"/><path d="M78 160c10-26 30-34 50-30-6 20-24 32-50 30z"/><path d="M105 115c-24-10-32-28-30-46 20 6 32 22 30 46z"/><path d="M105 115c14-22 34-26 52-20-8 18-28 26-52 20z"/><path d="M135 70c-18-12-22-30-16-46 18 8 24 26 16 46z"/><path d="M135 70c16-16 34-16 48-8-10 14-28 18-48 8z"/></svg></span>
+  <div class="wrap-wide">
     <div class="section-head">
+      <div class="eyebrow">Naše služby</div>
       <h2>Co můžeme nabídnout</h2>
-      <div class="rule"></div>
+      <div class="rule-gem"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" aria-hidden="true"><path d="M6 1l5 5-5 5-5-5z"/><path d="M6 3.6L8.4 6 6 8.4 3.6 6z"/></svg></div>
     </div>
-    <div class="cards">
-      <div class="card">
-        <h3>Focení aury pro skupiny</h3>
-        <p>Měření aury a diagnostika čaker s přednáškou a aura-reportem pro každého.</p>
-      </div>
-      <div class="card">
-        <h3>Kakaová ceremonie</h3>
-        <p>Posvátný rituál s ceremoniálním kakaem pro otevření srdce a propojení skupiny.</p>
-      </div>
-      <div class="card">
-        <h3>Meditace a soundhealing</h3>
-        <p>Vedené meditace a léčivé zvukové lázně pro zklidnění a regeneraci.</p>
-      </div>
-      <div class="card">
-        <h3>Kurzy a terapie</h3>
-        <p>Workshopy, přednášky a terapeutická sezení z naší nabídky — na míru vaší skupině.</p>
-      </div>
+    <p class="offer-lead">Vyberte si z našich <strong>služeb</strong>, nebo nám napište o vaší představě.<br>Rádi pro vás připravíme <strong>program na míru</strong>.</p>
+    <div class="offer-grid">
+      <article class="offer-card">
+        <div class="ph" style="background-image:url('/img/spoluprace/aura.webp')" role="img" aria-label="Zářící postava s barevnými čakrami"></div>
+        <div class="tx">
+          <svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M24 3l4.5 16.5L45 24l-16.5 4.5L24 45l-4.5-16.5L3 24l16.5-4.5z"/><path d="M24 12l2.6 9.4L36 24l-9.4 2.6L24 36l-2.6-9.4L12 24l9.4-2.6z"/><circle cx="24" cy="24" r="2"/></svg>
+          <h3>Focení aury pro skupiny</h3>
+          <p>Měření aury a diagnostika čaker pro jednotlivce i celé skupiny. Jedinečný zážitek, který přináší uvědomění, inspiraci a hlubší porozumění sobě.</p>
+        </div>
+        <a class="go" href="/foceni-aury-a-caker" aria-label="Focení aury pro skupiny – více"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+      <article class="offer-card">
+        <div class="ph" style="background-image:url('/img/spoluprace/kakao.webp')" role="img" aria-label="Miska s kakaem, květy a svíčky"></div>
+        <div class="tx">
+          <svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><path d="M24 36c-5-5-6-14 0-24 6 10 5 19 0 24z"/><path d="M24 36c-8-1-14-8-14-18 7 2 12 8 14 18z"/><path d="M24 36c8-1 14-8 14-18-7 2-12 8-14 18z"/><path d="M24 36c-10 1-17-4-20-10 6-1 13 2 20 10z"/><path d="M24 36c10 1 17-4 20-10-6-1-13 2-20 10z"/><path d="M12 40h24"/></svg>
+          <h3>Kakaová ceremonie</h3>
+          <p>Posvátný rituál kakaa pro otevření srdce, prohloubení sdílení a propojení skupiny. Jemná, ale silná zkušenost, která přináší hloubku a autenticitu.</p>
+        </div>
+        <a class="go" href="#napiste" aria-label="Kakaová ceremonie – více"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+      <article class="offer-card">
+        <div class="ph" style="background-image:url('/img/spoluprace/soundhealing.webp')" role="img" aria-label="Tibetská mísa mezi svíčkami"></div>
+        <div class="tx">
+          <svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true"><path d="M4 16c5-5 10-5 15 0s10 5 15 0 10-5 10-2"/><path d="M4 24c5-5 10-5 15 0s10 5 15 0 10-5 10-2"/><path d="M4 32c5-5 10-5 15 0s10 5 15 0 10-5 10-2"/></svg>
+          <h3>Meditace a soundhealing</h3>
+          <p>Společné zklidnění, uvolnění a napojení na sebe skrze vedenou meditaci, zvukové lázně a další harmonizační techniky. Regenerace pro tělo, mysl i duši.</p>
+        </div>
+        <a class="go" href="#napiste" aria-label="Meditace a soundhealing – více"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+      <article class="offer-card">
+        <div class="ph" style="background-image:url('/img/spoluprace/kurzy.webp')" role="img" aria-label="Krystal, lotos a otevřené zápisky"></div>
+        <div class="tx">
+          <svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><circle cx="24" cy="24" r="21"/><circle cx="24" cy="24" r="8"/><circle cx="24" cy="16" r="8"/><circle cx="24" cy="32" r="8"/><circle cx="17.1" cy="20" r="8"/><circle cx="30.9" cy="20" r="8"/><circle cx="17.1" cy="28" r="8"/><circle cx="30.9" cy="28" r="8"/></svg>
+          <h3>Kurzy a terapie</h3>
+          <p>Workshopy, přednášky a terapeutická sezení na míru vaší skupině. Témata osobního rozvoje, spirituality, práce s energií a mnohem více.</p>
+        </div>
+        <a class="go" href="#napiste" aria-label="Kurzy a terapie – více"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
     </div>
-    <p class="quiet" style="margin-top:30px">Máte zájem o jinou z našich služeb? Napište nám — domluvíme se.</p>
+    <p class="offer-foot">Máte zájem o jinou z našich služeb? Napište nám — domluvíme se.</p>
   </div>
 </section>
 
@@ -288,7 +346,7 @@
 </section>
 
 
-<section class="alt cta">
+<section class="alt cta" id="napiste">
   <div class="wrap">
     <div class="section-head">
       <h2>Pojďme tvořit společně</h2>

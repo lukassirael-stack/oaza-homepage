@@ -33,10 +33,9 @@ module.exports = async (req, res) => {
     const datum = new Date().toLocaleDateString('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' });
     let html, predmet;
 
+    // E-mail odchází jen ve dnech, kdy přibyly nové přihlášky
     if (!rows || !rows.length) {
-      predmet = `Oáza — denní souhrn: žádné nové přihlášky (${datum})`;
-      html = bodyWrap(`<p style="font-family:Arial,sans-serif;font-size:15px;color:#4a3b33">
-        Za posledních 24 hodin se na akce nikdo nově nepřihlásil. 🌿</p>`);
+      return res.status(200).json({ ok: true, count: 0, sent: false });
     } else {
       // seskupit podle akce
       const skupiny = {};

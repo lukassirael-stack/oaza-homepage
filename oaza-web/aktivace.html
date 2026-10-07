@@ -660,6 +660,7 @@ MEDITACE.forEach(m => {
     f.hidden = false; $('#tr-qr-udaje').hidden = true; hl.hidden = true;
     f.querySelectorAll('button').forEach(b => b.disabled = false);
     dlgT.showModal();
+    fetch(FUNKCE, { method:'GET', keepalive:true }).catch(() => {}); // probudí platební funkci, než se vyplní e-mail
   });
   dlgT.addEventListener('click', e => { if (e.target === dlgT || e.target.closest('[data-zavrit-tr]')) dlgT.close(); });
   f.querySelectorAll('button[type=submit]').forEach(b => b.addEventListener('click', () => { zpusob = b.value; }));
@@ -670,7 +671,7 @@ MEDITACE.forEach(m => {
     f.querySelectorAll('button').forEach(b => b.disabled = true);
     hl.hidden = false; hl.textContent = zpusob === 'karta' ? 'Otevírám platbu…' : 'Připravuji platební údaje…';
     try {
-      const r = await fetch(FUNKCE, { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify({ trojice:vybrane, email, jmeno, druh:zpusob, mena }) });
+      const r = await fetch(FUNKCE, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=UTF-8' }, body:JSON.stringify({ trojice:vybrane, email, jmeno, druh:zpusob, mena }) });
       const d = await r.json();
       if (d.url) { location.href = d.url; return; }
       if (d.ok && d.druh === 'qr') {

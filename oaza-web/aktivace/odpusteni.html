@@ -499,6 +499,7 @@ function nastavMenu(m){
 document.querySelectorAll('.mena button').forEach(b=>b.addEventListener('click',()=>nastavMenu(b.dataset.mena)));
 nastavMenu(mena);
 let zpusob='karta';
+f.addEventListener('focusin',()=>{ if(!f.dataset.zahrato){ f.dataset.zahrato='1'; fetch(FUNKCE,{method:'GET',keepalive:true}).catch(()=>{}); } });
 f.querySelectorAll('button[type=submit]').forEach(b=>b.addEventListener('click',()=>{zpusob=b.value;}));
 f.addEventListener('submit', async e => {
   e.preventDefault();
@@ -507,7 +508,7 @@ f.addEventListener('submit', async e => {
   f.querySelectorAll('button').forEach(b=>b.disabled=true);
   hl.hidden=false; hl.textContent = zpusob==='karta' ? 'Otevírám platbu…' : 'Připravuji platební údaje…';
   try{
-    const r=await fetch(FUNKCE,{method:'POST',headers:{'Content-Type':'application/json'},
+    const r=await fetch(FUNKCE,{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},
       body:JSON.stringify({klic:KLIC,email,jmeno,druh:zpusob,mena,navrat:location.pathname.replace(/\.html$/,'')})});
     const d=await r.json();
     if(d.url){ location.href=d.url; return; }

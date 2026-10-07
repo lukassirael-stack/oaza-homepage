@@ -303,6 +303,10 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 .trojice-pas .stara{font:500 22px/1 var(--serif);color:var(--jemna);text-decoration:line-through;text-decoration-thickness:1.5px}
 .trojice-pas .sleva{font:700 13px/1 var(--sans);color:#fffaf0;background:var(--zlata);border-radius:999px;padding:7px 12px}
 .trojice-pas p{max-width:56ch;margin:6px auto 0;color:var(--hneda)}
+.trojice-pas .odpocet{display:flex;justify-content:center;gap:10px;margin:18px 0 0}
+.trojice-pas .odpocet div{min-width:66px;padding:10px 6px 8px;border-radius:12px;background:var(--bila);border:1px solid var(--zlata-sv)}
+.trojice-pas .odpocet b{display:block;font:600 28px/1 var(--serif);color:var(--zlata-tm);font-variant-numeric:tabular-nums}
+.trojice-pas .odpocet span{display:block;font:600 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--jemna);margin-top:6px}
 .trojice-pas .do{font-size:14px;color:var(--jemna);margin-top:10px}
 .trojice-pas .tl{margin-top:18px}
 .karta{position:relative}
@@ -411,6 +415,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
       <h3>Vyber si 3 audio aktivace</h3>
       <div class="ceny"><span class="nova">660 Kč</span><span class="stara">1&nbsp;250 Kč</span><span class="sleva">−47&nbsp;%</span></div>
       <p>Výjimečně je máš k&nbsp;poslechu <strong>60 dní</strong>, dvakrát déle než obvykle. Poslouchej je, kolikrát chceš, a&nbsp;vracej se k&nbsp;nim ve svém tempu.</p>
+      <div class="odpocet" id="trojice-odpocet" aria-label="Do konce nabídky zbývá"><div><b id="od-d">–</b><span>dní</span></div><div><b id="od-h">–</b><span>hodin</span></div><div><b id="od-m">–</b><span>minut</span></div><div><b id="od-s">–</b><span>sekund</span></div></div>
       <p class="do">Nabídka platí do 20.&nbsp;10.&nbsp;2026</p>
       <a class="tl tl-plne" href="#mrizka" id="trojice-start">Sestavit svou trojici <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
     </div>
@@ -590,6 +595,13 @@ MEDITACE.forEach(m => {
   if (stav === 'hotovo') { const d = $('#dekujeme'); d.hidden = false; d.textContent = 'Děkujeme ✦ Platba proběhla a odkazy k poslechu ti právě odcházejí e-mailem.'; }
   if (Date.now() > KONEC) return;
   $('#trojice-pas').hidden = false;
+  (function odpocet(){
+    const z = Math.max(0, KONEC - Date.now());
+    if (!z) { $('#trojice-pas').hidden = true; $('#trojice-lista').classList.remove('vidi'); return; }
+    const d = Math.floor(z/864e5), h = Math.floor(z/36e5)%24, m = Math.floor(z/6e4)%60, s = Math.floor(z/1e3)%60;
+    $('#od-d').textContent = d; $('#od-h').textContent = String(h).padStart(2,'0'); $('#od-m').textContent = String(m).padStart(2,'0'); $('#od-s').textContent = String(s).padStart(2,'0');
+    setTimeout(odpocet, 1000);
+  })();
   const vybrane = [];
   const lista = $('#trojice-lista');
   const karty = [...document.querySelectorAll('#mrizka .karta')];

@@ -295,26 +295,26 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   .pata .obal{grid-template-columns:1fr}
 }
 /* ── zaváděcí trojice ── */
-.trojice-pas{position:relative;overflow:hidden;margin:0 auto 38px;max-width:860px;text-align:center;padding:38px 28px 34px;border-radius:22px;color:#efe2c8;
-  background:radial-gradient(120% 90% at 50% 0%,rgba(240,206,140,.30),rgba(240,206,140,0) 62%),linear-gradient(160deg,#8a6b4f 0%,#6b5039 55%,#7d6047 100%);
-  border:1px solid rgba(214,176,104,.55);box-shadow:0 26px 50px -30px rgba(70,45,20,.6),inset 0 0 0 1px rgba(255,236,200,.08)}
-.trojice-pas::before{content:"";position:absolute;inset:10px;border:1px solid rgba(214,176,104,.28);border-radius:16px;pointer-events:none}
+.trojice-pas{position:relative;overflow:hidden;margin:0 auto 38px;max-width:860px;text-align:center;padding:38px 28px 34px;border-radius:22px;color:#4a3624;
+  background:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.75),rgba(255,255,255,0) 60%),linear-gradient(160deg,#f3e2c0 0%,#e6cc9c 55%,#efdcb6 100%);
+  border:1px solid #c9a157;box-shadow:0 26px 50px -30px rgba(122,90,43,.55),inset 0 0 0 1px rgba(255,255,255,.35)}
+.trojice-pas::before{content:"";position:absolute;inset:10px;border:1px solid rgba(201,161,87,.6);border-radius:16px;pointer-events:none}
 .trojice-pas>*{position:relative}
-.trojice-pas .stitek{font:600 12px/1 var(--sans);letter-spacing:.32em;text-transform:uppercase;color:#d6b068}
-.trojice-pas h3{font-size:clamp(28px,3.2vw,38px);margin:14px 0 10px;color:#f6ead2;font-weight:500}
+.trojice-pas .stitek{font:600 12px/1 var(--sans);letter-spacing:.32em;text-transform:uppercase;color:#7a5520}
+.trojice-pas h3{font-size:clamp(28px,3.2vw,38px);margin:14px 0 10px;color:#4a3624;font-weight:500}
 .trojice-pas .ceny{display:flex;justify-content:center;align-items:baseline;gap:14px;flex-wrap:wrap;margin:4px 0 12px}
-.trojice-pas .nova{font:600 clamp(40px,4.6vw,54px)/1 var(--serif);background:linear-gradient(180deg,#f4dc9c 0%,#d6b068 45%,#b38a42 100%);-webkit-background-clip:text;background-clip:text;color:#d6b068;-webkit-text-fill-color:transparent}
-.trojice-pas .stara{font:500 22px/1 var(--serif);color:rgba(239,226,200,.5);text-decoration:line-through;text-decoration-thickness:1.5px}
-.trojice-pas .sleva{font:700 13px/1 var(--sans);color:#2a1d13;background:linear-gradient(180deg,#f0d796,#c9a157);border-radius:999px;padding:7px 12px}
-.trojice-pas p{max-width:56ch;margin:6px auto 0;color:rgba(239,226,200,.88)}
-.trojice-pas p strong{color:#f4dc9c}
+.trojice-pas .nova{font:600 clamp(40px,4.6vw,54px)/1 var(--serif);background:linear-gradient(180deg,#9c7431,#7a5520);-webkit-background-clip:text;background-clip:text;color:#7a5520;-webkit-text-fill-color:transparent}
+.trojice-pas .stara{font:500 22px/1 var(--serif);color:rgba(74,54,36,.55);text-decoration:line-through;text-decoration-thickness:1.5px}
+.trojice-pas .sleva{font:700 13px/1 var(--sans);color:#fff7e6;background:linear-gradient(180deg,#8f6a2e,#6e4e1e);border-radius:999px;padding:7px 12px}
+.trojice-pas p{max-width:56ch;margin:6px auto 0;color:rgba(74,54,36,.8)}
+.trojice-pas p strong{color:#7a5520}
 .trojice-pas .odpocet{display:flex;justify-content:center;gap:10px;margin:22px 0 0}
-.trojice-pas .odpocet div{min-width:68px;padding:12px 6px 9px;border-radius:12px;background:rgba(255,240,210,.09);border:1px solid rgba(214,176,104,.45)}
-.trojice-pas .odpocet b{display:block;font:600 30px/1 var(--serif);color:#f0d796;font-variant-numeric:tabular-nums}
-.trojice-pas .odpocet span{display:block;font:600 10.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(239,226,200,.6);margin-top:7px}
-.trojice-pas .do{font-size:14px;color:rgba(239,226,200,.6);margin-top:12px}
-.trojice-pas .tl{margin-top:20px;background:linear-gradient(180deg,#f0d796,#c9a157);color:#2a1d13;border-color:#e2c27e;box-shadow:0 10px 26px -12px rgba(214,176,104,.8)}
-.trojice-pas .tl:hover{background:linear-gradient(180deg,#f6e2ab,#d3ab62)}
+.trojice-pas .odpocet div{min-width:68px;padding:12px 6px 9px;border-radius:12px;background:rgba(255,250,240,.6);border:1px solid #c9a157}
+.trojice-pas .odpocet b{display:block;font:600 30px/1 var(--serif);color:#7a5520;font-variant-numeric:tabular-nums}
+.trojice-pas .odpocet span{display:block;font:600 10.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(74,54,36,.65);margin-top:7px}
+.trojice-pas .do{font-size:14px;color:rgba(74,54,36,.7);margin-top:12px}
+.trojice-pas .tl{margin-top:20px;background:linear-gradient(180deg,#8f6a2e,#6e4e1e);color:#fff7e6;border-color:#6e4e1e;box-shadow:0 10px 26px -12px rgba(110,78,30,.8)}
+.trojice-pas .tl:hover{background:linear-gradient(180deg,#9c7634,#7a5824)}
 .karta{position:relative}
 .karta .tl-trojice{margin-top:10px;background:transparent;border-color:var(--zlata-sv);color:var(--zlata-tm)}
 .karta.vybrana{border-color:var(--zlata);box-shadow:0 0 0 2px var(--zlata-sv),0 14px 30px -20px rgba(122,90,43,.6)}

@@ -44,7 +44,7 @@ Jazyk webu: čeština; ceny terapií uvádíme v Kč i v eurech
 - [Vesmírný kód zrození](https://oaza-adamanthea.cz/vesmirny-kod-zrozeni)
 - [Nebeský kompas](https://oaza-adamanthea.cz/nebesky-kompas): osobní astrologická aplikace
 - [Vyladění](https://oaza-adamanthea.cz/vyladeni): zvuková aplikace pro naladění
-- [Meditace](https://oaza-adamanthea.cz/meditace): nahrané meditace Lukáše a Martiny
+- [Meditace](https://oaza-adamanthea.cz/aktivace): nahrané meditace Lukáše a Martiny
 
 ## Doplňující
 

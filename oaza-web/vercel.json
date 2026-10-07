@@ -13,6 +13,16 @@
       "permanent": true
     },
     {
+      "source": "/meditace",
+      "destination": "/aktivace",
+      "permanent": true
+    },
+    {
+      "source": "/meditace/:cesta*",
+      "destination": "/aktivace/:cesta*",
+      "permanent": true
+    },
+    {
       "source": "/shop",
       "destination": "/bali-shop",
       "permanent": true

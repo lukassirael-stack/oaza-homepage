@@ -494,7 +494,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 
 <div class="trojice-lista" id="trojice-lista" aria-live="polite">
   <div class="stav"><span id="tl-stav">Vybráno 0 ze 3</span><small id="tl-nazvy">Přidej si na kartách tři aktivace</small></div>
-  <button class="tl tl-plne" type="button" id="tl-dal" disabled>Pokračovat</button>
+  <button class="tl tl-plne" type="button" id="tl-dal">Přidej 3 aktivace</button>
 </div>
 <dialog id="trojice-dlg" aria-labelledby="tr-nadpis">
   <button class="zavrit" type="button" data-zavrit-tr aria-label="Zavřít">✕</button>
@@ -627,7 +627,8 @@ MEDITACE.forEach(m => {
     lista.classList.toggle('vidi', vybrane.length > 0);
     $('#tl-stav').textContent = `Vybráno ${vybrane.length} ze 3`;
     $('#tl-nazvy').textContent = vybrane.length ? vybrane.map(k => (MEDITACE.find(m => m.klic === k) || {}).kratky).join(' · ') : 'Přidej si na kartách tři aktivace';
-    const b = $('#tl-dal'); b.disabled = vybrane.length !== 3; b.textContent = vybrane.length === 3 ? 'Pokračovat k platbě' : 'Pokračovat';
+    const b = $('#tl-dal'), zbyva = 3 - vybrane.length;
+    b.textContent = zbyva === 0 ? 'Pokračovat k platbě' : zbyva === 1 ? 'Přidej ještě 1 aktivaci' : `Přidej ještě ${zbyva} aktivace`;
   }
   $('#trojice-start').addEventListener('click', e => { e.preventDefault(); $('#mrizka').scrollIntoView({ behavior:'smooth', block:'start' }); lista.classList.add('vidi'); });
 
@@ -643,7 +644,11 @@ MEDITACE.forEach(m => {
   }
   f.querySelectorAll('.mena button').forEach(b => b.addEventListener('click', () => nastavMenu(b.dataset.mena)));
   $('#tl-dal').addEventListener('click', () => {
-    if (vybrane.length !== 3) return;
+    if (vybrane.length !== 3) {
+      const dalsi = karty.find(k => !vybrane.includes(k.dataset.klic));
+      (dalsi || $('#mrizka')).scrollIntoView({ behavior:'smooth', block:'center' });
+      return;
+    }
     $('#tr-vyber').innerHTML = '';
     vybrane.forEach(k => { const m = MEDITACE.find(x => x.klic === k); $('#tr-vyber').append(el('li', {}, `<img src="${m.obrazek}" alt="">`)); $('#tr-vyber').lastChild.append(m.nazev); });
     f.hidden = false; $('#tr-qr-udaje').hidden = true; hl.hidden = true;

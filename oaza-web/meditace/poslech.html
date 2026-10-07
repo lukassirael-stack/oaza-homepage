@@ -427,7 +427,7 @@ function vykreslit(d) {
   });
   document.addEventListener('contextmenu', e => { if (e.target.closest('.panel')) e.preventDefault(); });
   if ('mediaSession' in navigator) navigator.mediaSession.metadata = new MediaMetadata({
-    title: d.nazev, artist: 'Oáza Adamanthea', album: 'Online meditace' });
+    title: d.nazev, artist: 'Oáza Adamanthea', album: 'Audio aktivace' });
 }
 start();
 </script>

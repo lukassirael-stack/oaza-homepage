@@ -43,6 +43,16 @@ async function vystavFakturuHned() {
     new Promise((resolve) => setTimeout(resolve, 8000)),
   ]);
 }
+// Obsazenost chatky se z Airtable obnovuje pravidelně jen 4× denně (šetří měsíční
+// limit volání). Po rezervaci z webu ji proto obnovíme hned, ať je termín obsazený
+// do pár minut i v kalendáři pro Airbnb a e-chalupy. Stojí to 1 volání na rezervaci.
+async function obnovObsazenostHned() {
+  // max. 6 s, ať host nečeká; kdyby to nestihla, dožene to pravidelná obnova
+  await Promise.race([
+    supaRest('rpc/refresh_booked_ranges', { method: 'POST', body: {} }),
+    new Promise((resolve) => setTimeout(resolve, 6000)),
+  ]);
+}
 function pobytOverlaps(aIn, aOut, bIn, bOut) {
   if (!aIn || !aOut || !bIn || !bOut) return false;
   return aIn < bOut && bIn < aOut; // [in, out) překryv
@@ -125,6 +135,7 @@ module.exports = async function handler(req, res) {
         if (ppr && ppr.ok) {
           const pj = await ppr.json().catch(() => ({ ok: true }));
           try { await flushPobytBuffer(); } catch (e) {} // proxy jede → dožeň odložené
+          try { await obnovObsazenostHned(); } catch (e) {} // nový termín hned do obsazenosti
           if (chceFakturu(pf)) {
             try { await zaradFakturu(pf); await vystavFakturuHned(); } catch (e) {}
           }

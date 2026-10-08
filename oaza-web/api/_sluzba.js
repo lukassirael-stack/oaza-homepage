@@ -1,6 +1,7 @@
 // api/_sluzba.js — objednávky a dotazy ze stránek služeb (formulář /objednavka-sluzby.js)
 // Podtržítko = pomocný modul, Vercel z něj funkci nedělá. Volá se přes /api/objednavka?akce=sluzba.
-// Pošle e-mail Oáze (odpověď míří rovnou zákazníkovi) a potvrzení se shrnutím zákazníkovi (Brevo).
+// Pošle e-mail Oáze (odpověď míří rovnou zákazníkovi) a — když si to zákazník zaškrtne —
+// kopii se shrnutím na jeho e-mail (Brevo).
 
 import crypto from 'node:crypto';
 
@@ -81,6 +82,7 @@ export async function sluzba(req, res) {
   }
 
   const robot = !!b.kontrola;   // skryté pole vyplní jen automat — zprávu doručíme Oáze s označením, potvrzení ven nejde
+  const kopie = b.kopie !== false; // políčko „Chci kopii do svého e-mailu"; starší verze formuláře ho neposílá → kopie odchází
   if (await prekrocenLimit(req))
     return res.status(429).json({ error: `Od vás už tu několik zpráv máme. Pro rychlou domluvu nám prosím zavolejte na ${OAZA_TEL} nebo napište na ${OAZA_EMAIL}.` });
 
@@ -136,10 +138,10 @@ export async function sluzba(req, res) {
     const okNas = await send(OAZA_EMAIL, `${robot ? '[automat?] ' : ''}${druh}: ${S.nazev} · ${jmeno}`, obal(dotaz ? 'Nový dotaz' : 'Nová objednávka', teloNas), email);
     if (!okNas) throw new Error('brevo');
     let potvrzeni = false;
-    if (!robot) {
+    if (!robot && kopie) {
       try { potvrzeni = await send(email, `${dotaz ? 'Váš dotaz' : 'Vaše objednávka'} — ${S.nazev} · Oáza Adamanthea`, obal(dotaz ? 'Dotaz přijat' : 'Objednávka přijata', teloZak), OAZA_EMAIL); } catch {}
     }
-    console.log('sluzba: odesláno', slug, dotaz ? 'dotaz' : 'objednavka', potvrzeni ? 'potvrzeni-ok' : 'bez-potvrzeni');
+    console.log('sluzba: odesláno', slug, dotaz ? 'dotaz' : 'objednavka', potvrzeni ? 'kopie-odeslana' : (kopie ? 'kopie-neodesla' : 'bez-kopie'));
     return res.status(200).json({ ok: true, potvrzeni, dalsi: dotaz ? 'Brzy vám odpovíme.' : S.dalsi });
   } catch (e) {
     console.error('sluzba: doručení selhalo', slug, e && e.message);

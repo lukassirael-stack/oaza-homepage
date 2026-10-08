@@ -7,7 +7,8 @@
    • tlačítko s atributem  data-objednat          otevře objednávku dané služby
    • tlačítko s atributem  data-objednat="dotaz"  otevře krátký formulář pro dotaz
    • formulář se odešle na /api/objednavka?akce=sluzba (api/_sluzba.js):
-     Oáze přijde e-mail s objednávkou, zákazníkovi potvrzení se shrnutím
+     Oáze přijde e-mail s objednávkou; zákazník dostane kopii se shrnutím,
+     když nechá zaškrtnuté „Chci kopii do svého e-mailu"
    • odkaz mailto: v href tlačítka zůstává jako záloha
 
    Nová služba = nový blok v SLUZBY níže + řádek v api/_sluzba.js.
@@ -189,6 +190,9 @@
     '.os-v input:focus-visible+span{box-shadow:0 0 0 3px rgba(201,161,74,.32)}' +
     '.os-f.os-chyba .os-i,.os-f.os-chyba .os-v span{border-color:#b3261e;box-shadow:0 0 0 1px #b3261e;background-color:#fef6f5}' +
     '.os-f.os-chyba .os-l{color:#b3261e}' +
+    '.os-c{grid-column:1/-1;display:flex;align-items:center;gap:11px;min-height:40px;margin:-2px 0;padding:0;font-family:"Jost",system-ui,sans-serif;font-size:15.5px;font-weight:400;line-height:1.4;letter-spacing:0;text-transform:none;color:var(--os-ink);cursor:pointer}' +
+    '.os-c input{flex:0 0 auto;width:22px;height:22px;margin:0;accent-color:var(--os-ad);cursor:pointer}' +
+    '.os-c input:focus-visible{outline:2px solid var(--os-ad);outline-offset:2px}' +
     '.os-m{grid-column:1/-1;min-height:0;margin:0;font-family:"Jost",system-ui,sans-serif;font-size:15px;line-height:1.5;color:#b3261e}' +
     '.os-m:empty{display:none}' +
     '.os-m a{color:inherit;text-decoration:underline}' +
@@ -311,6 +315,12 @@
     var hpIn = el('input'); hpIn.type = 'text'; hpIn.name = 'kontrola'; hpIn.tabIndex = -1; hpIn.autocomplete = 'off';
     hp.appendChild(hpIn); form.appendChild(hp);
 
+    // kopie odeslané zprávy na e-mail zákazníka (zaškrtnuto = pošle se shrnutí)
+    var kopie = el('label', 'os-c');
+    var kopieIn = el('input'); kopieIn.type = 'checkbox'; kopieIn.checked = true;
+    kopie.appendChild(kopieIn); kopie.appendChild(el('span', '', 'Chci kopii do svého e-mailu'));
+    form.appendChild(kopie);
+
     var msg = el('p', 'os-m'); msg.setAttribute('role', 'alert');
     form.appendChild(msg);
     var popisek = C.odeslat || 'Odeslat objednávku';
@@ -354,6 +364,7 @@
         sluzba: slug, typ: typ,
         jmeno: jmeno.cti(), email: email.cti(), telefon: telefon.cti(),
         pole: vlastni.map(function (f) { return [f.def.n, f.cti()]; }).filter(function (p) { return p[1]; }),
+        kopie: kopieIn.checked,
         kontrola: hpIn.value
       };
       odeslat.disabled = true; odeslat.textContent = 'Odesílám…';

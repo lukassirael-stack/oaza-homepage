@@ -93,9 +93,9 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
     <a href="/spirit-lab">Spirit Lab</a>
     <a href="/o-nas">O nás</a>
     <a href="/kontakt">Kontakt</a>
-    <a class="nav-cta jen-mobil" onclick="prepniMenu(document.querySelector('.nav-toggle'));oaOpenForm();">Objednat</a>
+    <a class="nav-cta jen-mobil" onclick="prepniMenu(document.querySelector('.nav-toggle'));" data-objednat>Objednat</a>
   </div>
-  <button class="nav-cta" onclick="oaOpenForm()">Objednat</button>
+  <button class="nav-cta" data-objednat>Objednat</button>
 </nav>
 
 
@@ -896,125 +896,6 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
 }
 
 
-/* === FORMULÁŘ MODAL === */
-.oa-form-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(61, 40, 50, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 20px;
-  animation: oaFadeIn 0.3s ease;
-}
-.oa-form-overlay.active { display: flex; }
-
-
-@keyframes oaFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-
-.oa-form-box {
-  background: var(--cream);
-  border-radius: 28px;
-  padding: 52px 44px;
-  max-width: 540px;
-  width: 100%;
-  position: relative;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.35);
-  border: 2px solid var(--gold-light);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.oa-form-close {
-  position: absolute;
-  top: 16px; right: 22px;
-  background: none;
-  border: none;
-  font-size: 32px;
-  color: var(--rose-deep);
-  cursor: pointer;
-  line-height: 1;
-  font-family: serif;
-  transition: transform 0.2s;
-}
-.oa-form-close:hover { transform: rotate(90deg); }
-
-
-.oa-form-box h3 {
-  font-size: 1.8rem;
-  margin-bottom: 8px;
-  color: var(--ink);
-}
-.oa-form-box .oa-form-sub {
-  font-style: italic;
-  color: var(--ink-soft);
-  margin-bottom: 32px;
-  font-size: 0.98rem;
-}
-.oa-form-field {
-  margin-bottom: 20px;
-}
-.oa-form-field label {
-  display: block;
-  font-size: 11.5px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--rose-deep);
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-.oa-form-field input,
-.oa-form-field textarea {
-  width: 100%;
-  padding: 14px 18px;
-  border: 1.5px solid rgba(201, 161, 74, 0.3);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.85);
-  font-family: 'Cardo', serif;
-  font-size: 1rem;
-  color: var(--ink);
-  transition: all 0.3s;
-}
-.oa-form-field input:focus,
-.oa-form-field textarea:focus {
-  outline: none;
-  border-color: var(--gold);
-  background: var(--white);
-  box-shadow: 0 0 0 4px rgba(201, 161, 74, 0.12);
-}
-.oa-form-field textarea {
-  min-height: 110px;
-  resize: vertical;
-  font-family: 'Cardo', serif;
-}
-.oa-form-submit {
-  width: 100%;
-  padding: 18px;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--rose-deep) 100%);
-  color: var(--white);
-  border: none;
-  border-radius: 100px;
-  font-family: 'Cardo', serif;
-  font-size: 0.98rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  cursor: pointer;
-  margin-top: 14px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  font-weight: 700;
-}
-.oa-form-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(184, 80, 104, 0.35);
-}
-
-
 /* === FOOTER === */
 .oa-footer-note {
   text-align: center;
@@ -1281,7 +1162,7 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
     </p>
 
     <div class="oa-hero-cta">
-      <button class="oa-btn" onclick="oaOpenForm()">Rezervovat termín</button>
+      <button class="oa-btn" data-objednat>Rezervovat termín</button>
     </div>
 
     <div class="oa-hero-image">
@@ -1665,8 +1546,8 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
       a dovolit si být opečováni.
     </p>
 
-    <button class="oa-btn" onclick="oaOpenForm()">Rezervovat termín</button>
-    <a href="mailto:oaza.adamanthea@gmail.com" class="oa-btn-secondary">Napsat e-mail</a>
+    <button class="oa-btn" data-objednat>Rezervovat termín</button>
+    <a href="mailto:oaza.adamanthea@gmail.com" class="oa-btn-secondary" data-objednat="dotaz">Napsat dotaz</a>
   </section>
 
   <div class="oa-footer-note">
@@ -1674,62 +1555,6 @@ body{margin:0;background:var(--cream);font-family:'Cardo','Cormorant Garamond',G
   </div>
 
 </div>
-
-<!-- ============== FORMULÁŘ MODAL ============== -->
-<div class="oa-form-overlay" id="oaFormOverlay" onclick="if(event.target===this)oaCloseForm()">
-  <div class="oa-form-box">
-    <button class="oa-form-close" onclick="oaCloseForm()">×</button>
-    <h3>Rezervace termínu</h3>
-    <p class="oa-form-sub">Vyplňte prosím formulář — ozveme se vám do 24 hodin s nabídkou termínu.</p>
-
-    <form id="oaForm" onsubmit="oaSubmitForm(event)">
-      <div class="oa-form-field">
-        <label for="oaName">Jméno a příjmení</label>
-        <input type="text" id="oaName" required>
-      </div>
-      <div class="oa-form-field">
-        <label for="oaEmail">E-mail</label>
-        <input type="email" id="oaEmail" required>
-      </div>
-      <div class="oa-form-field">
-        <label for="oaPhone">Telefon</label>
-        <input type="tel" id="oaPhone">
-      </div>
-      <div class="oa-form-field">
-        <label for="oaMessage">Vaše zpráva / preferovaný termín</label>
-        <textarea id="oaMessage" placeholder="Např. ideálně víkend, dopoledne..."></textarea>
-      </div>
-      <button type="submit" class="oa-form-submit">Odeslat poptávku</button>
-    </form>
-  </div>
-</div>
-
-<script>
-  function oaOpenForm() {
-    document.getElementById('oaFormOverlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function oaCloseForm() {
-    document.getElementById('oaFormOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  function oaSubmitForm(e) {
-    e.preventDefault();
-    const name = document.getElementById('oaName').value;
-    const email = document.getElementById('oaEmail').value;
-    const phone = document.getElementById('oaPhone').value;
-    const message = document.getElementById('oaMessage').value;
-
-    const subject = encodeURIComponent('Rezervace — Kraniosakrální terapie & Divine Healing');
-    const body = encodeURIComponent(
-      'Jméno: ' + name + '\n' +
-      'E-mail: ' + email + '\n' +
-      'Telefon: ' + phone + '\n\n' +
-      'Zpráva:\n' + message
-    );
-    window.location.href = 'mailto:oaza.adamanthea@gmail.com?subject=' + subject + '&body=' + body;
-  }
-</script>
 
 <!-- ===== SDÍLENÁ PATIČKA ===== -->
 <style>
@@ -1778,6 +1603,7 @@ function prepniMenu(btn){
   document.body.style.overflow=o?'hidden':'';
 }
 </script>
+<script defer src="/objednavka-sluzby.js"></script>
 <script defer src="/navstevnost.js"></script>
 </body>
 </html>

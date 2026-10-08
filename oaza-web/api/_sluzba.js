@@ -6,6 +6,7 @@
 import crypto from 'node:crypto';
 
 // Stránky služeb, ze kterých formulář přijímáme: slug → název a věta o dalším kroku.
+// druh: 'poptávka' změní oslovení v e-mailech (výchozí je objednávka).
 // Nová stránka služby = nový řádek tady + její pole v /objednavka-sluzby.js.
 const SLUZBY = {
   'harmonizace-a-ocista-prostoru': { nazev: 'Harmonizace a očista prostoru', dalsi: 'Analýzu vám pošleme do 3 dnů e-mailem spolu s předběžnou cenou.' },
@@ -18,8 +19,9 @@ const SLUZBY = {
   'terapie-v-oaze':                { nazev: 'Terapie v Oáze', dalsi: 'Brzy se vám ozveme s nabídkou termínu.' },
   'rodove-klice':                  { nazev: 'Rodové klíče', dalsi: 'Brzy se vám ozveme s nabídkou termínu.' },
   'kraniosakralni-terapie':        { nazev: 'Kraniosakrální terapie & Divine Healing', dalsi: 'Ozveme se vám do 24 hodin s nabídkou termínu.' },
-  'lemoare-krystaly':              { nazev: 'Lemoare Krystaly', dalsi: 'Brzy vám pošleme aktuální nabídku a katalog.' },
-  'spoluprace':                    { nazev: 'Spolupráce s Oázou', dalsi: 'Brzy se vám ozveme a domluvíme další postup.' },
+  'lemoare-krystaly':              { nazev: 'Lemoare Krystaly', druh: 'poptávka', dalsi: 'Brzy vám pošleme aktuální nabídku a katalog.' },
+  'spoluprace':                    { nazev: 'Spolupráce s Oázou', druh: 'poptávka', dalsi: 'Brzy se vám ozveme a domluvíme další postup.' },
+  'portalova-zahrada':             { nazev: 'Portálová zahrada', druh: 'poptávka', dalsi: 'Brzy se vám ozveme s potvrzením termínu.' },
 };
 
 const OAZA_EMAIL = 'oaza.adamanthea@gmail.com';
@@ -89,7 +91,9 @@ export async function sluzba(req, res) {
   const API = process.env.BREVO_API_KEY;
   if (!API) { console.error('sluzba: chybí BREVO_API_KEY'); return res.status(500).json({ error: ZNOVU }); }
 
-  const druh = dotaz ? 'Dotaz' : 'Objednávka';
+  // slovo pro tuto zprávu: dotaz (mužský rod) · poptávka · objednávka
+  const slovo = dotaz ? 'dotaz' : (S.druh || 'objednávka');
+  const druh = slovo.charAt(0).toUpperCase() + slovo.slice(1);
   const tabulka = radky => `
     <table style="width:100%;border-collapse:collapse;margin:12px 0">
       ${radky.map(r => `<tr><td style="padding:8px 12px 8px 0;border-bottom:1px solid #E7DCC8;vertical-align:top;color:#6b4a55;width:38%">${esc(r[0])}</td><td style="padding:8px 0;border-bottom:1px solid #E7DCC8;vertical-align:top">${r[2] || esc(r[1]).replace(/\n/g, '<br>')}</td></tr>`).join('')}
@@ -116,7 +120,7 @@ export async function sluzba(req, res) {
     ${tabulka(kontakt.concat(pole))}
     <p style="color:#6b4a55;font-size:13px">Odpovědí na tento e-mail píšete rovnou zákazníkovi.</p>`;
   const teloZak = `
-    <p>Děkujeme, ${dotaz ? 'váš dotaz' : 'vaše objednávka'} je u nás. ${esc(dotaz ? 'Brzy vám odpovíme.' : S.dalsi)}</p>
+    <p>Děkujeme, ${dotaz ? 'váš' : 'vaše'} ${slovo} je u nás. ${esc(dotaz ? 'Brzy vám odpovíme.' : S.dalsi)}</p>
     <p style="margin:14px 0 0"><b>${esc(S.nazev)}</b></p>
     ${tabulka(kontakt.concat(pole))}
     <p style="color:#6b4a55;font-size:13px">Chcete něco doplnit? Stačí odpovědět na tento e-mail.</p>`;
@@ -135,13 +139,13 @@ export async function sluzba(req, res) {
   }
 
   try {
-    const okNas = await send(OAZA_EMAIL, `${robot ? '[automat?] ' : ''}${druh}: ${S.nazev} · ${jmeno}`, obal(dotaz ? 'Nový dotaz' : 'Nová objednávka', teloNas), email);
+    const okNas = await send(OAZA_EMAIL, `${robot ? '[automat?] ' : ''}${druh}: ${S.nazev} · ${jmeno}`, obal(`${dotaz ? 'Nový' : 'Nová'} ${slovo}`, teloNas), email);
     if (!okNas) throw new Error('brevo');
     let potvrzeni = false;
     if (!robot && kopie) {
-      try { potvrzeni = await send(email, `${dotaz ? 'Váš dotaz' : 'Vaše objednávka'} — ${S.nazev} · Oáza Adamanthea`, obal(dotaz ? 'Dotaz přijat' : 'Objednávka přijata', teloZak), OAZA_EMAIL); } catch {}
+      try { potvrzeni = await send(email, `${dotaz ? 'Váš' : 'Vaše'} ${slovo} — ${S.nazev} · Oáza Adamanthea`, obal(`${druh} ${dotaz ? 'přijat' : 'přijata'}`, teloZak), OAZA_EMAIL); } catch {}
     }
-    console.log('sluzba: odesláno', slug, dotaz ? 'dotaz' : 'objednavka', potvrzeni ? 'kopie-odeslana' : (kopie ? 'kopie-neodesla' : 'bez-kopie'));
+    console.log('sluzba: odesláno', slug, slovo, potvrzeni ? 'kopie-odeslana' : (kopie ? 'kopie-neodesla' : 'bez-kopie'));
     return res.status(200).json({ ok: true, potvrzeni, dalsi: dotaz ? 'Brzy vám odpovíme.' : S.dalsi });
   } catch (e) {
     console.error('sluzba: doručení selhalo', slug, e && e.message);

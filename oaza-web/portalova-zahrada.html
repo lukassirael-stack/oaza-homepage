@@ -23,7 +23,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 /* ===== GLOBÁL (sjednoceno s homepage) ===== */
-:root{--cream:#f5f1e9;--cream-dark:#ede7db;--green:#2e4434;--rose:#b06a6c;--rose-dark:#9c585a;--ink:#3a3f38;--line:#d8d0c2}
+:root{--cream:#f5f1e9;--cream-dark:#ede7db;--green:#2e4434;--rose:#b06a6c;--rose-dark:#9c585a;--ink:#3a3f38;--line:#d8d0c2;
+  /* barvy poptávkového formuláře (objednavka-sluzby.js) */
+  --gold:#557a5d;--gold-deep:#2e4434;--ink-soft:#5b6157}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'Cormorant Garamond',serif;background:var(--cream);color:var(--ink);font-size:19px;line-height:1.6}
@@ -95,76 +97,16 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .pz-price-note a{color:#fff;text-decoration:underline}
 
 
-/* ===== REZERVACE + SPRÁVA ===== */
+/* ===== NÁVŠTĚVA – POPTÁVKA ===== */
 .pz-res-bg{background:linear-gradient(160deg,#f8f4ee,#efe9db);padding:60px 0}
 .res{font-family:'Jost',sans-serif;color:#3a4036}
 .res .main{max-width:640px;margin:0 auto;padding:0 20px}
 .res .sec-title{font-family:'Cinzel',serif;color:var(--green);font-size:22px;letter-spacing:.14em;text-transform:uppercase;text-align:center;margin-bottom:8px;font-weight:500}
 .res .sec-sub{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:#6f7568;margin-bottom:26px}
-.tabs{display:flex;gap:8px;justify-content:center;margin-bottom:18px}
-.tab{padding:9px 20px;border-radius:30px;font-size:13px;cursor:pointer;border:1.5px solid rgba(46,68,52,.2);transition:all .2s}
-.tab.active{background:var(--green);color:#fff;border-color:var(--green)}
-.tab.inactive{background:rgba(255,255,255,.6);color:#5b6157}
-#tab-adm{display:none}
-.panel{display:none}
-.panel.active{display:block}
 .card{background:rgba(255,255,255,.78);border:1px solid rgba(46,68,52,.14);border-radius:18px;padding:28px;box-shadow:0 4px 26px rgba(46,68,52,.07)}
-.field{margin-bottom:16px}
-.field label{display:block;font-size:11px;letter-spacing:.12em;color:#7c8478;text-transform:uppercase;margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;background:rgba(255,255,255,.85);border:1.5px solid rgba(46,68,52,.18);border-radius:10px;padding:11px 14px;color:#3a4036;font-family:'Jost',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);background:#fff}
-.field textarea{resize:vertical;min-height:64px}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.required{color:var(--rose)}
-
-
-.cal-wrap{margin-bottom:16px}
-.cal-label{font-size:11px;letter-spacing:.12em;color:#7c8478;text-transform:uppercase;margin-bottom:10px;display:block}
-.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.cal-nav{background:rgba(46,68,52,.08);border:1.5px solid rgba(46,68,52,.18);border-radius:8px;color:var(--green);padding:5px 15px;cursor:pointer;font-size:16px}
-.cal-nav:hover{background:rgba(46,68,52,.16)}
-.cal-month{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--green);font-style:italic}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.cal-day-name{text-align:center;font-size:10px;letter-spacing:.05em;color:#9aa094;text-transform:uppercase;padding:4px 0}
-.cal-day{text-align:center;padding:9px 2px;border-radius:8px;cursor:pointer;font-size:12px;color:#4c5247;border:1.5px solid transparent;transition:all .15s}
-.cal-day:hover:not(.past):not(.closed):not(.empty){background:rgba(46,68,52,.1);border-color:rgba(46,68,52,.3)}
-.cal-day.selected{background:rgba(120,160,90,.25);border-color:rgba(90,140,60,.6);color:#3c5a22;font-weight:600}
-.cal-day.closed{background:rgba(200,70,70,.12);color:#bd5b5b;cursor:not-allowed;text-decoration:line-through}
-.cal-day.past{color:#c4c9bd;cursor:not-allowed}
-.cal-day.today{border-color:rgba(46,68,52,.4)}
-.cal-day.empty{cursor:default}
-.cal-day.adm{cursor:pointer}
-.cal-day.adm.closed{cursor:pointer}
-
-
-.summary{background:rgba(46,68,52,.06);border:1.5px solid rgba(46,68,52,.16);border-radius:12px;padding:18px;margin-bottom:18px;display:none}
-.summary-title{font-size:11px;letter-spacing:.14em;color:#7c8478;text-transform:uppercase;margin-bottom:12px}
-.summary-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid rgba(46,68,52,.08);color:#5b6157}
-.summary-row span:last-child{color:#3a4036;font-weight:500;text-align:right}
-.summary-total{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--green);padding-top:10px}
-.summary-total span:last-child{color:var(--rose-dark);font-size:20px}
-
-
-.btn-submit{background:var(--green);color:#fff;border:none;border-radius:40px;padding:15px 36px;font-family:'Jost',sans-serif;font-size:14px;letter-spacing:.08em;cursor:pointer;width:100%;transition:all .25s}
-.btn-submit:hover{background:#1f3024;transform:translateY(-1px)}
-.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .notes{margin-top:18px;padding:14px 16px;background:rgba(46,68,52,.05);border-radius:10px;font-size:12px;color:#6f7568;line-height:1.8}
-.success{display:none;text-align:center;padding:36px 14px}
-.success-icon{font-size:48px;display:block;margin-bottom:12px}
-.success h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--green);margin-bottom:10px}
-.success p{font-size:14px;color:#6f7568;line-height:1.8;font-family:'Jost',sans-serif}
-
-
-/* admin */
-.adm-note{font-size:12px;color:#7c8478;text-align:center;margin-bottom:14px;font-style:italic;font-family:'Cormorant Garamond',serif}
-.closed-list{margin-top:16px;display:flex;flex-direction:column;gap:7px}
-.closed-item{display:flex;justify-content:space-between;align-items:center;background:rgba(200,70,70,.08);border:1px solid rgba(200,70,70,.2);border-radius:8px;padding:8px 14px;font-size:13px;color:#8a4040}
-.closed-item button{background:none;border:none;color:#bd5b5b;cursor:pointer;font-size:15px}
-.empty-list{text-align:center;color:#9aa094;font-size:13px;padding:14px;font-family:'Cormorant Garamond',serif;font-style:italic}
-
-
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:#fff;padding:12px 22px;border-radius:30px;font-family:'Jost',sans-serif;font-size:13px;opacity:0;transition:all .3s;z-index:999;box-shadow:0 6px 24px rgba(0,0,0,.2)}
-.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.pz-zaloha{font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.7;text-align:center;color:#4c5247;padding:10px 0}
+.pz-zaloha a{color:var(--rose-dark);text-decoration:underline}
 
 
 /* ===== PATIČKA ===== */
@@ -189,7 +131,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   .nav-toggle{display:block;position:relative;z-index:60}
   nav .btn:not(.jen-mobil){display:none}
 }
-@media(max-width:480px){.field-row{grid-template-columns:1fr}}
+@media(max-width:480px){.card{padding:22px 16px}}
 .to-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility .3s;z-index:80;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
 .to-top:hover{background:#1f3024}
@@ -235,8 +177,8 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   <div class="pz-hero-bg"></div>
   <div class="pz-hero-overlay"></div>
   <div class="pz-hero-content">
-    <span class="pz-badge" id="secretBadge" onclick="secretClick()">Oáza Adamanthea · Halenkovice</span>
-    <h1 onclick="secretClick()" style="cursor:default;user-select:none">Portálová zahrada</h1>
+    <span class="pz-badge">Oáza Adamanthea · Halenkovice</span>
+    <h1>Portálová zahrada</h1>
     <span class="pz-divider"></span>
     <p class="pz-hero-sub">Posvátný prostor · místo, kde se propojují světy</p>
   </div>
@@ -288,119 +230,33 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
     <div class="pz-price-row"><span>Při účasti na naší akci či terapii</span><span>zdarma</span></div>
     <p class="pz-price-note">
       Vstup je vždy po předchozí domluvě. Prosíme, neberte s sebou domácí mazlíčky (psy).<br>
-      Termín si můžete domluvit telefonicky nebo přes rezervační formulář níže.<br>
+      Termín si můžete domluvit telefonicky nebo přes formulář níže.<br>
       <a href="tel:+420737869752">+420 737 869 752</a> (Lukáš) · <a href="tel:+420608828996">+420 608 828 996</a> (Martina)
     </p>
   </div>
 </section>
 
 
-<!-- ===== REZERVACE + SPRÁVA ===== -->
+<!-- ===== NÁVŠTĚVA – POPTÁVKA (formulář vkládá /objednavka-sluzby.js) ===== -->
 <section class="pz-res-bg" id="rezervace">
   <div class="res">
     <div class="main">
-      <div class="sec-title">Rezervace návštěvy</div>
+      <h2 class="sec-title">Domluvte si návštěvu</h2>
       <div class="sec-sub">Vyberte si termín a my se vám ozveme s potvrzením</div>
 
+      <div class="card">
+        <div class="notes" style="margin:0 0 22px">🕯️ Návštěva probíhá ve <strong>dvouhodinovém cyklu</strong>. Pokud byste si přáli zahradu na delší dobu, napište nám to do poznámky.</div>
 
-      <div class="tabs">
-        <div class="tab active" id="tab-res" onclick="switchTab('res')">🌿 Rezervace</div>
-        <div class="tab inactive" id="tab-adm" onclick="switchTab('adm')">⚙️ Správa</div>
-      </div>
+        <div data-objednat-zde>
+          <p class="pz-zaloha">Napište nám na <a href="mailto:oaza.adamanthea@gmail.com?subject=N%C3%A1v%C5%A1t%C4%9Bva%20Port%C3%A1lov%C3%A9%20zahrady">oaza.adamanthea@gmail.com</a> nebo zavolejte na <a href="tel:+420737869752">+420 737 869 752</a> a domluvíme termín.</p>
+        </div>
 
-
-      <!-- PANEL REZERVACE -->
-      <div class="panel active" id="panel-res">
-        <div class="card" id="formCard">
-          <div id="formContent">
-            <input type="hidden" id="h_datum"><input type="hidden" id="h_cena">
-
-
-            <div class="field-row">
-              <div class="field"><label>Jméno a příjmení <span class="required">*</span></label><input type="text" id="jmeno" placeholder="Vaše jméno"></div>
-              <div class="field"><label>Email <span class="required">*</span></label><input type="email" id="email" placeholder="vas@email.cz"></div>
-            </div>
-            <div class="field"><label>Telefon</label><input type="tel" id="telefon" placeholder="+420 777 000 000"></div>
-
-
-            <div class="field"><label>Preferovaný den <span class="required">*</span></label><input type="date" id="datum" onchange="onDateChange()"></div>
-
-
-            <div class="field-row">
-              <div class="field"><label>Hodina příjezdu <span class="required">*</span></label>
-                <select id="cas_prijezdu" onchange="updateSummary()">
-                  <option value="">Vyberte čas</option>
-                  <option>8:00</option><option>9:00</option><option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option>
-                </select>
-              </div>
-              <div class="field"><label>Ubytování</label>
-                <select id="ubytovani" onchange="updateSummary()">
-                  <option value="ne">Nemám zájem o ubytování</option>
-                  <option value="ano">Mám zájem i o ubytování</option>
-                </select>
-              </div>
-            </div>
-            <div class="notes" style="margin-bottom:18px">🕯️ Návštěva probíhá ve <strong>dvouhodinovém cyklu</strong>. Pokud byste si přáli zahradu na delší dobu, napište nám to do poznámky. Zájem o ubytování upřesněte rovněž v poznámce.</div>
-
-
-            <div class="field-row">
-              <div class="field"><label>Dospělí (250 Kč/os.) <span class="required">*</span></label><input type="number" id="dospeli" min="1" max="30" value="1" oninput="calcPrice()"></div>
-              <div class="field"><label>Děti do 12 let (zdarma)</label><input type="number" id="deti" min="0" max="20" value="0" oninput="calcPrice()"></div>
-            </div>
-
-
-            <div class="field"><label>Poznámka / dotaz</label><textarea id="poznamka" placeholder="Speciální přání, otázky, potřeby..."></textarea></div>
-
-
-            <div class="summary" id="summary">
-              <div class="summary-title">📋 Shrnutí</div>
-              <div class="summary-row"><span>Datum</span><span id="s-date">—</span></div>
-              <div class="summary-row"><span>Čas příjezdu</span><span id="s-time">—</span></div>
-              <div class="summary-row"><span>Ubytování</span><span id="s-stay">—</span></div>
-              <div class="summary-row"><span>Dospělí</span><span id="s-adults">—</span></div>
-              <div class="summary-row"><span>Děti do 12 let</span><span id="s-children">—</span></div>
-              <div class="summary-total"><span>Orientační cena</span><span id="s-price">—</span></div>
-            </div>
-
-
-            <button type="button" class="btn-submit" id="submitBtn" onclick="submitForm()">🌿 Odeslat rezervaci</button>
-
-
-            <div class="notes">
-              ✨ Účastníci našich akcí a terapií mají vstup <strong>zdarma</strong>.<br>
-              🐾 Prosíme, neberte s sebou domácí mazlíčky.<br>
-              🌱 Po odeslání vám přijde potvrzovací e-mail; termín potvrdíme.
-            </div>
-          </div>
-
-
-          <div class="success" id="successMsg">
-            <span class="success-icon">🌿</span>
-            <h3>Rezervace odeslána!</h3>
-            <p>Děkujeme za zájem o návštěvu Portálové zahrady.<br>Na váš e-mail jsme zaslali potvrzení. Brzy se vám ozveme s potvrzením termínu.</p>
-            <p>S láskou, tým Oázy Adamanthea 🙏</p>
-          </div>
+        <div class="notes">
+          ✨ Účastníci našich akcí a terapií mají vstup <strong>zdarma</strong>.<br>
+          🐾 Prosíme, neberte s sebou domácí mazlíčky.<br>
+          🌱 Termín vám potvrdíme e-mailem nebo telefonicky.
         </div>
       </div>
-
-
-      <!-- PANEL SPRÁVA (skrytá, 5× klik na badge v hero) -->
-      <div class="panel" id="panel-adm">
-        <div class="card">
-          <p class="adm-note">Správa zavřených dnů — klikněte na den v kalendáři pro uzavření/otevření.</p>
-          <div class="cal-wrap">
-            <div class="cal-head">
-              <button type="button" class="cal-nav" onclick="admPrevMonth()">‹</button>
-              <span class="cal-month" id="admCalMonth"></span>
-              <button type="button" class="cal-nav" onclick="admNextMonth()">›</button>
-            </div>
-            <div class="cal-grid" id="admCalGrid"></div>
-          </div>
-          <div class="closed-list" id="closedList"></div>
-        </div>
-      </div>
-
-
     </div>
   </div>
 </section>
@@ -428,242 +284,17 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 </footer>
 
 
-<div class="toast" id="toast"></div>
-
-
-<!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>emailjs.init('p05n4K9B-MKfAohxp');</script>
-
-
 <script>
 // ── NAV ──
 function prepniMenu(btn){const m=document.getElementById('menu');const o=m.classList.toggle('open');btn.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';}
 
 
-// ── ENDPOINT (token + admin heslo žijí na serveru) ──
-const ENDPOINT='/api/zahrada';
-// EmailJS — stejná služba jako pobyt; ZALOŽ šablonu pro zahradu a vlož její ID:
-const EJS_SERVICE='service_4lhe2ki';
-const EJS_TEMPLATE_ZAHRADA='template_cpbbqjo'; // Auto-Reply šablona (Portálová zahrada)
-
-
-let adminHeslo='';
-const MONTHS=["Leden","Únor","Březen","Duben","Květen","Červen","Červenec","Srpen","Září","Říjen","Listopad","Prosinec"];
-const MONTHS_GEN=["ledna","února","března","dubna","května","června","července","srpna","září","října","listopadu","prosince"];
-const DAYS=["Po","Út","St","Čt","Pá","So","Ne"];
-let today=new Date();today.setHours(0,0,0,0);
-
-
-// ── SKRYTÝ PŘÍSTUP DO SPRÁVY (5× klik na badge) ──
-let secretClicks=0,secretTimer=null;
-function secretClick(){
-  secretClicks++;clearTimeout(secretTimer);
-  secretTimer=setTimeout(()=>{secretClicks=0;},2000);
-  if(secretClicks>=5){
-    secretClicks=0;
-    const tab=document.getElementById('tab-adm');
-    const visible=tab.style.display==='flex';
-    if(visible){
-      tab.style.display='none';
-      if(document.getElementById('panel-adm').classList.contains('active')) switchTab('res');
-      showToast('🔒 Správa skryta');
-    } else {
-      tab.style.display='flex';
-      if(!adminHeslo){ adminHeslo=prompt('Heslo správy:')||''; }
-      showToast('🔑 Správa odemčena');
-    }
-  }
-}
-
-
-// ── ZÁLOŽKY / TOAST ──
-function switchTab(t){
-  ['res','adm'].forEach(id=>{
-    document.getElementById('panel-'+id).classList.toggle('active',id===t);
-    document.getElementById('tab-'+id).classList.toggle('active',id===t);
-    document.getElementById('tab-'+id).classList.toggle('inactive',id!==t);
-  });
-  if(t==='adm'){renderAdmCal();renderClosedList();}
-  if(t==='res'){renderResCal();}
-}
-function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200);}
-
-
-// ── ZAVŘENÉ DNY (přes endpoint) ──
-let closedDates=[];
-function loadDates(){return closedDates.map(r=>r.datum);}
-async function loadClosed(){
-  try{
-    const res=await fetch(ENDPOINT);
-    const data=await res.json();
-    closedDates=Array.isArray(data.closed)?data.closed:[];
-    renderResCal();renderAdmCal();renderClosedList();
-  }catch(e){console.warn('Zavřené dny se nenačetly:',e);renderResCal();}
-}
-async function addClosedDate(ds){
-  const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'close',datum:ds,heslo:adminHeslo})});
-  if(res.status===401) throw new Error('401');
-  const json=await res.json();
-  if(!res.ok) throw new Error('save');
-  closedDates.push({id:json.id,datum:ds});
-  closedDates.sort((a,b)=>a.datum.localeCompare(b.datum));
-}
-async function removeClosedDate(ds){
-  const rec=closedDates.find(r=>r.datum===ds);if(!rec)return;
-  const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'open',id:rec.id,heslo:adminHeslo})});
-  if(res.status===401) throw new Error('401');
-  if(!res.ok) throw new Error('del');
-  closedDates=closedDates.filter(r=>r.datum!==ds);
-}
-
-
-// ══ REZERVACE ══
-let selectedDateStr='',selectedDateLabel='';
-function renderResCal(){} // měsíční kalendář nahrazen výběrem dne
-function todayISO(){return `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;}
-function onDateChange(){
-  const inp=document.getElementById('datum');
-  const ds=inp.value;
-  if(ds){
-    if(ds<todayISO()){showToast('⚠️ Tento den už uplynul, zvolte prosím jiný.');inp.value='';selectedDateStr='';selectedDateLabel='';updateSummary();return;}
-    if(loadDates().includes(ds)){showToast('⚠️ Tento den je bohužel obsazený — zvolte prosím jiný.');inp.value='';selectedDateStr='';selectedDateLabel='';updateSummary();return;}
-    const [y,m,d]=ds.split('-');
-    selectedDateStr=ds;selectedDateLabel=`${parseInt(d)}. ${MONTHS_GEN[parseInt(m)-1]} ${y}`;
-  }else{selectedDateStr='';selectedDateLabel='';}
-  updateSummary();
-}
-
-
-function calcPrice(){
-  const a=parseInt(document.getElementById('dospeli').value)||0;
-  const c=parseInt(document.getElementById('deti').value)||0;
-  const total=a*250;
-  document.getElementById('h_cena').value=total+' Kč';
-  document.getElementById('s-adults').textContent=a+' os. × 250 Kč = '+(a*250).toLocaleString('cs-CZ')+' Kč';
-  document.getElementById('s-children').textContent=c+' os. (zdarma)';
-  document.getElementById('s-price').textContent=total.toLocaleString('cs-CZ')+' Kč';
-  showSummary();
-}
-function updateSummary(){
-  const time=document.getElementById('cas_prijezdu').value;
-  document.getElementById('s-time').textContent=time||'—';
-  document.getElementById('s-date').textContent=selectedDateLabel||'—';
-  const stay=document.getElementById('ubytovani');
-  if(stay)document.getElementById('s-stay').textContent=stay.value==='ano'?'Ano — zájem':'Ne';
-  calcPrice();
-}
-function showSummary(){const show=selectedDateStr||document.getElementById('cas_prijezdu').value;document.getElementById('summary').style.display=show?'block':'none';}
-
-
-async function saveReservation(fields){
-  const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reservation',fields})});
-  const json=await res.json();
-  if(!res.ok) throw new Error('Chyba: '+JSON.stringify(json));
-  return json;
-}
-async function submitForm(){
-  const jmeno=document.getElementById('jmeno').value.trim();
-  const email=document.getElementById('email').value.trim();
-  const telefon=document.getElementById('telefon').value.trim();
-  const cas=document.getElementById('cas_prijezdu').value;
-  const dospeli=parseInt(document.getElementById('dospeli').value)||1;
-  const deti=parseInt(document.getElementById('deti').value)||0;
-  const stay=document.getElementById('ubytovani').value;
-  const poznamkaText=document.getElementById('poznamka').value.trim();
-  const cena=dospeli*250;
-  const delkaText='2 hodiny (základní cyklus)';
-  if(!jmeno){alert('Prosím vyplňte jméno.');return;}
-  if(!email){alert('Prosím vyplňte email.');return;}
-  if(!selectedDateStr){alert('Prosím vyberte preferovaný den.');return;}
-  if(!cas){alert('Prosím vyberte čas příjezdu.');return;}
-  if(loadDates().includes(selectedDateStr)){alert('Vybraný den je obsazený, zvolte prosím jiný.');return;}
-  let poznamka='';
-  if(stay==='ano')poznamka+='🛏️ ZÁJEM O UBYTOVÁNÍ\n';
-  if(poznamkaText)poznamka+=poznamkaText;
-  poznamka=poznamka.trim();
-  const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Odesílám...';
-  try{
-    await saveReservation({jmeno,email,telefon:telefon||'—',datum:selectedDateStr,cas_prijezdu:cas,delka_navstevy:delkaText,dospeli,deti,cena_celkem:cena,poznamka:poznamka||''});
-    try{
-      await emailjs.send(EJS_SERVICE,EJS_TEMPLATE_ZAHRADA,{jmeno,email,datum:selectedDateLabel,cas_prijezdu:cas,delka_navstevy:delkaText,dospeli,deti,cena_celkem:cena.toLocaleString('cs-CZ')+' Kč'});
-    }catch(ejsErr){console.warn('EmailJS:',ejsErr);}
-    document.getElementById('formContent').style.display='none';
-    document.getElementById('successMsg').style.display='block';
-  }catch(err){
-    console.error(err);
-    alert('Nastala chyba při odesílání. Zkuste to prosím znovu nebo nás kontaktujte přímo.');
-    btn.disabled=false;btn.textContent='🌿 Odeslat rezervaci';
-  }
-}
-
-
-// ══ SPRÁVA ══
-let admYear=today.getFullYear(),admMonth=today.getMonth();
-function renderAdmCal(){
-  const closed=loadDates();
-  document.getElementById('admCalMonth').textContent=MONTHS[admMonth]+' '+admYear;
-  const grid=document.getElementById('admCalGrid');
-  grid.innerHTML=DAYS.map(d=>`<div class="cal-day-name">${d}</div>`).join('');
-  let s=new Date(admYear,admMonth,1).getDay();s=s===0?6:s-1;
-  for(let i=0;i<s;i++)grid.innerHTML+=`<div class="cal-day empty adm"></div>`;
-  const days=new Date(admYear,admMonth+1,0).getDate();
-  for(let d=1;d<=days;d++){
-    const date=new Date(admYear,admMonth,d);
-    const ds=`${admYear}-${String(admMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const isPast=date<today,isClosed=closed.includes(ds),isToday=date.getTime()===today.getTime();
-    let cls='cal-day adm';
-    if(isPast)cls+=' past';if(isClosed)cls+=' closed';if(isToday)cls+=' today';
-    const oc=!isPast?`onclick="toggleDay('${ds}')"`:'';
-    grid.innerHTML+=`<div class="${cls}" ${oc}>${d}</div>`;
-  }
-}
-async function toggleDay(ds){
-  if(!adminHeslo){adminHeslo=prompt('Heslo správy:')||'';if(!adminHeslo)return;}
-  const isClosed=closedDates.some(r=>r.datum===ds);
-  try{
-    if(isClosed){await removeClosedDate(ds);showToast('✓ Den otevřen');}
-    else{await addClosedDate(ds);showToast('🔴 Den uzavřen');}
-    renderAdmCal();renderClosedList();
-    if(document.getElementById('panel-res').classList.contains('active'))renderResCal();
-  }catch(e){
-    if(e.message==='401'){adminHeslo='';showToast('❌ Špatné heslo');}
-    else showToast('❌ Chyba při ukládání');
-  }
-}
-function renderClosedList(){
-  const closed=loadDates();
-  const el=document.getElementById('closedList');
-  if(!closed.length){el.innerHTML=`<div class="empty-list">Žádné zavřené dny 🌿</div>`;return;}
-  el.innerHTML=closed.map(ds=>{
-    const [y,m,d]=ds.split('-');
-    const label=`${parseInt(d)}. ${MONTHS_GEN[parseInt(m)-1]} ${y}`;
-    return `<div class="closed-item"><span>🔴 ${label}</span><button onclick="removeDay('${ds}')" title="Odebrat">✕</button></div>`;
-  }).join('');
-}
-async function removeDay(ds){
-  if(!adminHeslo){adminHeslo=prompt('Heslo správy:')||'';if(!adminHeslo)return;}
-  try{
-    await removeClosedDate(ds);
-    renderAdmCal();renderClosedList();renderResCal();
-    showToast('✓ Den odebrán');
-  }catch(e){
-    if(e.message==='401'){adminHeslo='';showToast('❌ Špatné heslo');}
-    else showToast('❌ Chyba');
-  }
-}
-function admPrevMonth(){admMonth--;if(admMonth<0){admMonth=11;admYear--;}renderAdmCal();}
-function admNextMonth(){admMonth++;if(admMonth>11){admMonth=0;admYear++;}renderAdmCal();}
-
-
-// ── START ──
-(function(){var di=document.getElementById('datum');if(di)di.min=todayISO();})();
-renderResCal();calcPrice();loadClosed();
 </script>
 <button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',window.scrollY>500);});
 </script>
+<script defer src="/objednavka-sluzby.js"></script>
 <script defer src="/navstevnost.js"></script>
 </body>
 </html>

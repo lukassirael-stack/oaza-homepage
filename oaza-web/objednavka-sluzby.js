@@ -10,10 +10,14 @@
      Oáze přijde e-mail s objednávkou; zákazník dostane kopii se shrnutím,
      když nechá zaškrtnuté „Chci kopii do svého e-mailu"
    • odkaz mailto: v href tlačítka zůstává jako záloha
+   • prvek s atributem  data-objednat-zde  dostane formulář vložený přímo do stránky
+     (Portálová zahrada); jeho původní obsah je záloha pro případ, že se skript nenačte
 
    Nová služba = nový blok v SLUZBY níže + řádek v api/_sluzba.js.
    Klíč je adresa stránky (např. /terapie-v-oaze → 'terapie-v-oaze').
    Typy polí: text (výchozí) · 'dlouhy' (víceřádkový) · 'vyber' (rozbalovací) · 'volba' (přepínač)
+              · 'zaskrt' (zaškrtávací políčko) · vstup:'date' (den) · vstup:'number' (počet, od–do)
+   druh: 'poptávka' změní oslovení v textech a e-mailech (výchozí je objednávka).
    ===================================================================== */
 (function () {
   'use strict';
@@ -122,6 +126,7 @@
     },
     'lemoare-krystaly': {
       nazev: 'Lemoare Krystaly',
+      druh: 'poptávka',
       titul: 'Mám zájem o krystal',
       uvod: 'Napište, jaký krystal hledáte, a pošleme vám aktuální nabídku a katalog.',
       odeslat: 'Odeslat poptávku',
@@ -129,6 +134,7 @@
     },
     'spoluprace': {
       nazev: 'Spolupráce s Oázou',
+      druh: 'poptávka',
       titul: 'Pojďme tvořit společně',
       uvod: 'Napište nám svou představu a domluvíme se na dalším postupu.',
       odeslat: 'Odeslat poptávku',
@@ -138,6 +144,23 @@
         { n: 'Preferovaný termín', pul: true },
         { n: 'Počet lidí', pul: true },
         { n: 'Vaše představa', typ: 'dlouhy', nizky: true }
+      ]
+    },
+    'portalova-zahrada': {
+      nazev: 'Portálová zahrada',
+      druh: 'poptávka',
+      titul: 'Návštěva Portálové zahrady',
+      uvod: 'Vyberte si termín a my se vám ozveme s potvrzením.',
+      odeslat: 'Odeslat poptávku',
+      pole: [
+        { n: 'Preferovaný den', vstup: 'date', povinne: true, pul: true },
+        { n: 'Hodina příjezdu', typ: 'vyber', povinne: true, pul: true,
+          moznosti: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'] },
+        { n: 'Návštěva', typ: 'volba', povinne: true, moznosti: ['Samostatně', 'S průvodcem'], vychozi: 'Samostatně' },
+        { n: 'Dospělí', vstup: 'number', od: 1, 'do': 30, hodnota: 1, povinne: true, pul: true },
+        { n: 'Děti do 12 let', vstup: 'number', od: 0, 'do': 20, hodnota: 0, pul: true },
+        { n: 'Mám zájem i o ubytování', typ: 'zaskrt' },
+        { n: 'Poznámka', typ: 'dlouhy', nizky: true, ph: 'delší čas v zahradě, speciální přání, otázky…' }
       ]
     }
   };
@@ -159,10 +182,11 @@
 
   // ---- vzhled (barvy si bere z proměnných stránky, takže ladí s každou službou) ----
   var CSS =
-    '.os-o{position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:24px 14px;background:rgba(44,37,51,.64);' +
-      '--os-a:var(--gold,#c9a14a);--os-ad:var(--gold-deep,#9a7628);--os-ink:var(--ink,#2c2533);--os-soft:var(--ink-soft,#6b4a55);--os-line:rgba(120,96,60,.3)}' +
+    '.os-o{position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:24px 14px;background:rgba(44,37,51,.64)}' +
+    '.os-o,.os-in{--os-a:var(--gold,#c9a14a);--os-ad:var(--gold-deep,#9a7628);--os-ink:var(--ink,#2c2533);--os-soft:var(--ink-soft,#6b4a55);--os-line:rgba(120,96,60,.3)}' +
     '.os-o.os-on{display:flex;align-items:flex-start;justify-content:center}' +
-    '.os-o,.os-o *,.os-o *::before,.os-o *::after{box-sizing:border-box}' +
+    '.os-o,.os-o *,.os-o *::before,.os-o *::after,.os-in,.os-in *,.os-in *::before,.os-in *::after{box-sizing:border-box}' +
+    '.os-in{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;line-height:1.5;color:var(--os-soft);text-align:left}' +
     '.os-b{position:relative;width:100%;max-width:560px;margin:auto;padding:36px 34px 28px;background:#fffdf8;border:1px solid var(--os-line);border-radius:18px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);' +
       'font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;line-height:1.5;color:var(--os-soft);text-align:left;outline:0}' +
     '@media(prefers-reduced-motion:no-preference){.os-o.os-on{animation:osFade .2s ease}.os-o.os-on .os-b{animation:osUp .26s ease}}' +
@@ -181,6 +205,7 @@
     '.os-i::placeholder{color:var(--os-soft);opacity:.62}' +
     '.os-i:focus{outline:0;border-color:var(--os-a);box-shadow:0 0 0 3px rgba(201,161,74,.22)}' +
     'textarea.os-i{min-height:120px;resize:vertical}textarea.os-i.os-nizky{min-height:84px}' +
+    'input[type=date].os-i{min-height:48px}' +
     'select.os-i{padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 12 8\'%3E%3Cpath d=\'M1 1.5l5 5 5-5\' fill=\'none\' stroke=\'%236b4a55\' stroke-width=\'1.6\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:12px 8px;cursor:pointer}' +
     '.os-v{display:flex;flex-wrap:wrap;gap:8px}' +
     '.os-v label{position:relative;flex:1 1 0;min-width:120px;margin:0;cursor:pointer}' +
@@ -204,7 +229,7 @@
     '.os-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}' +
     '.os-ok{padding:14px 0 6px;text-align:center}' +
     '.os-ok .os-hv{margin:0 0 10px;font-size:26px;line-height:1;color:var(--os-a)}' +
-    '.os-ok .os-t{margin:0 0 12px}' +
+    '.os-ok .os-t{margin:0 0 12px}.os-ok .os-t:focus{outline:0}' +
     '.os-ok .os-p{margin:0 0 10px;font-size:19px;color:var(--os-soft)}' +
     '.os-ok .os-s{width:auto;min-width:180px;margin:16px auto 0}' +
     '@media(max-width:560px){.os-o{padding:12px 10px}.os-b{padding:30px 20px 22px;border-radius:16px}.os-t{font-size:22px}.os-g{grid-template-columns:1fr}.os-f.os-pul{grid-column:1/-1}}';
@@ -219,9 +244,21 @@
   var overlay, box, otevirac, puvodniOverflow, pocitadlo = 0;
   var panely = {};   // typ → { uzel, hotovo }
 
+  var stylHotov = false;
+  function styl() {
+    if (stylHotov) return;
+    stylHotov = true;
+    var st = el('style'); st.textContent = CSS; document.head.appendChild(st);
+  }
+
+  // slovo pro tento formulář: dotaz · poptávka · objednávka
+  function slovo(typ) { return typ === 'dotaz' ? 'dotaz' : (SLUZBA.druh || 'objednávka'); }
+  var DNY = ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'];
+  function dnesISO() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+
   function zaklad() {
     if (overlay) return;
-    var st = el('style'); st.textContent = CSS; document.head.appendChild(st);
+    styl();
     overlay = el('div', 'os-o');
     box = el('div', 'os-b');
     box.setAttribute('role', 'dialog');
@@ -241,13 +278,19 @@
     });
   }
 
-  // jedno pole formuláře; vrací { uzel, cti(), prvek }
+  // jedno pole formuláře; vrací { uzel, cti(), prvek, platne() }
   function postavPole(p, typ) {
     var id = 'os-' + typ + '-' + (++pocitadlo);
     var obal = el('div', 'os-f' + (p.pul ? ' os-pul' : ''));
-    var prvek, cti;
+    var prvek, cti, platne;
 
-    if (p.typ === 'volba') {
+    if (p.typ === 'zaskrt') {
+      var zl = el('label', 'os-c');
+      prvek = el('input'); prvek.type = 'checkbox'; prvek.id = id;
+      zl.appendChild(prvek); zl.appendChild(el('span', '', p.n));
+      obal.appendChild(zl);
+      cti = function () { return prvek.checked ? 'Ano' : ''; };
+    } else if (p.typ === 'volba') {
       obal.setAttribute('role', 'radiogroup');
       var nadpis = el('span', 'os-l', p.n); nadpis.id = id + '-l';
       obal.setAttribute('aria-labelledby', nadpis.id);
@@ -277,7 +320,14 @@
       } else {
         prvek = el('input', 'os-i');
         prvek.type = p.vstup || 'text';
-        prvek.maxLength = p.max || 200;
+        if (p.vstup === 'number') {
+          prvek.min = p.od; prvek.max = p['do']; prvek.inputMode = 'numeric';
+          if (p.hodnota != null) prvek.value = p.hodnota;
+        } else if (p.vstup === 'date') {
+          prvek.min = dnesISO();
+        } else {
+          prvek.maxLength = p.max || 200;
+        }
         if (p.rezim) prvek.inputMode = p.rezim;
       }
       prvek.id = id;
@@ -286,20 +336,38 @@
       if (p.povinne) prvek.setAttribute('aria-required', 'true');
       obal.appendChild(prvek);
       cti = function () { return prvek.value.trim(); };
+      if (p.vstup === 'date') {
+        // do e-mailu jde den česky (např. „neděle 12. 10. 2026"); den musí být dnes nebo později
+        cti = function () {
+          var v = prvek.value.trim(), m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v);
+          if (!m) return v;
+          return DNY[new Date(+m[1], +m[2] - 1, +m[3]).getDay()] + ' ' + (+m[3]) + '. ' + (+m[2]) + '. ' + m[1];
+        };
+        platne = function () { var v = prvek.value.trim(); return !/^\d{4}-\d{2}-\d{2}$/.test(v) || v >= dnesISO(); };
+      } else if (p.vstup === 'number') {
+        platne = function () {
+          var v = prvek.value.trim(); if (!v) return true;
+          var n = Number(v); return n === Math.floor(n) && n >= p.od && n <= p['do'];
+        };
+      }
     }
-    return { uzel: obal, cti: cti, prvek: prvek, def: p };
+    return { uzel: obal, cti: cti, prvek: prvek, def: p, platne: platne };
   }
 
-  function postavPanel(typ) {
+  // vlozeny = formulář přímo ve stránce (nadpis dodává stránka), jinak obsah okna
+  function postavPanel(typ, vlozeny) {
     var C = typ === 'dotaz' ? DOTAZ : SLUZBA;
     var uzel = el('div');
-    var zavrBtn = el('button', 'os-x', '×'); zavrBtn.type = 'button'; zavrBtn.setAttribute('aria-label', 'Zavřít');
-    zavrBtn.addEventListener('click', zavrit);
-    uzel.appendChild(zavrBtn);
-    uzel.appendChild(el('p', 'os-e', typ === 'dotaz' ? SLUZBA.nazev : 'Oáza Adamanthea'));
-    var titul = el('p', 'os-t', C.titul); titul.id = 'os-titul-' + typ; titul.setAttribute('role', 'heading'); titul.setAttribute('aria-level', '2');
-    uzel.appendChild(titul);
-    if (C.uvod) uzel.appendChild(el('p', 'os-u', C.uvod));
+    var titulId = 'os-titul-' + typ + (vlozeny ? '-v' : '');
+    if (!vlozeny) {
+      var zavrBtn = el('button', 'os-x', '×'); zavrBtn.type = 'button'; zavrBtn.setAttribute('aria-label', 'Zavřít');
+      zavrBtn.addEventListener('click', zavrit);
+      uzel.appendChild(zavrBtn);
+      uzel.appendChild(el('p', 'os-e', typ === 'dotaz' ? SLUZBA.nazev : 'Oáza Adamanthea'));
+      var titul = el('p', 'os-t', C.titul); titul.id = titulId; titul.setAttribute('role', 'heading'); titul.setAttribute('aria-level', '2');
+      uzel.appendChild(titul);
+      if (C.uvod) uzel.appendChild(el('p', 'os-u', C.uvod));
+    }
 
     var form = el('form', 'os-g'); form.noValidate = true;
     var jmeno = postavPole({ n: (typ !== 'dotaz' && SLUZBA.jmeno) || 'Jméno a příjmení', povinne: true, ac: 'name', max: 120 }, typ);
@@ -326,7 +394,7 @@
     var popisek = C.odeslat || 'Odeslat objednávku';
     var odeslat = el('button', 'os-s', popisek); odeslat.type = 'submit';
     form.appendChild(odeslat);
-    var gdpr = el('p', 'os-n', 'Údaje použijeme k vyřízení vaší ' + (typ === 'dotaz' ? 'zprávy' : 'objednávky') + '. ');
+    var gdpr = el('p', 'os-n', 'Údaje použijeme k vyřízení vaší ' + (typ === 'dotaz' ? 'zprávy' : (SLUZBA.druh === 'poptávka' ? 'poptávky' : 'objednávky')) + '. ');
     var gl = el('a', '', 'Ochrana osobních údajů'); gl.href = '/gdpr'; gl.target = '_blank'; gl.rel = 'noopener';
     gdpr.appendChild(gl); form.appendChild(gdpr);
     uzel.appendChild(form);
@@ -348,7 +416,7 @@
       msg.textContent = '';
       var chybne = vsechna.filter(function (f) {
         var h = f.cti();
-        var ok = f === email ? /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(h) : (!f.def.povinne || !!h);
+        var ok = f === email ? /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(h) : ((!f.def.povinne || !!h) && (!f.platne || f.platne()));
         f.uzel.classList.toggle('os-chyba', !ok);
         if (f.prvek) f.prvek.setAttribute('aria-invalid', ok ? 'false' : 'true');
         return !ok;
@@ -375,7 +443,7 @@
         .then(function (x) {
           clearTimeout(casovac);
           if (!x.ok || !x.j || !x.j.ok) throw new Error((x.j && x.j.error) || '');
-          hotovo(typ, uzel, data, x.j);
+          hotovo(typ, uzel, data, x.j, vlozeny);
         })
         .catch(function (err) {
           clearTimeout(casovac);
@@ -390,27 +458,37 @@
         });
     });
 
-    return { uzel: uzel, titulId: titul.id, prvni: jmeno.prvek, hotovo: false };
+    return { uzel: uzel, titulId: titulId, prvni: jmeno.prvek, hotovo: false };
   }
 
   function zalozniMailto(typ, d) {
     var r = ['Jméno: ' + d.jmeno, 'E-mail: ' + d.email];
     if (d.telefon) r.push('Telefon: ' + d.telefon);
     d.pole.forEach(function (p) { r.push(p[0] + ': ' + p[1]); });
-    return 'mailto:' + OAZA_EMAIL + '?subject=' + encodeURIComponent((typ === 'dotaz' ? 'Dotaz' : 'Objednávka') + ' – ' + SLUZBA.nazev) +
+    return 'mailto:' + OAZA_EMAIL + '?subject=' + encodeURIComponent(slovo(typ).charAt(0).toUpperCase() + slovo(typ).slice(1) + ' – ' + SLUZBA.nazev) +
       '&body=' + encodeURIComponent(r.join('\n') + '\n');
   }
 
-  function hotovo(typ, uzel, data, odp) {
-    var P = panely[typ]; P.hotovo = true;
+  function hotovo(typ, uzel, data, odp, vlozeny) {
     while (uzel.firstChild) uzel.removeChild(uzel.firstChild);
     var ok = el('div', 'os-ok');
     ok.appendChild(el('p', 'os-hv', '✦'));
-    var t = el('p', 'os-t', typ === 'dotaz' ? 'Děkujeme, dotaz je u nás' : 'Děkujeme, objednávka je u nás');
-    t.id = P.titulId; t.setAttribute('role', 'heading'); t.setAttribute('aria-level', '2');
+    var t = el('p', 'os-t', 'Děkujeme, ' + slovo(typ) + ' je u nás');
+    t.setAttribute('role', 'heading'); t.setAttribute('aria-level', vlozeny ? '3' : '2');
     ok.appendChild(t);
     ok.appendChild(el('p', 'os-p', odp.dalsi || 'Brzy se vám ozveme.'));
     if (odp.potvrzeni) ok.appendChild(el('p', 'os-p', 'Shrnutí najdete ve svém e-mailu ' + data.email + '.'));
+    if (vlozeny) {
+      // ve stránce: poděkování zůstane na místě formuláře a čtečka ho ohlásí
+      ok.setAttribute('role', 'status');
+      t.tabIndex = -1;
+      uzel.appendChild(ok);
+      if (ok.scrollIntoView) ok.scrollIntoView({ block: 'center' });
+      t.focus({ preventScroll: true });
+      return;
+    }
+    var P = panely[typ]; P.hotovo = true;
+    t.id = P.titulId;
     var z = el('button', 'os-s', 'Zavřít'); z.type = 'button'; z.addEventListener('click', zavrit);
     ok.appendChild(z);
     uzel.appendChild(ok);
@@ -451,6 +529,15 @@
     if (!t) return;
     e.preventDefault();
     otevrit(t.getAttribute('data-objednat'), t);
+  });
+
+  // formulář vložený přímo do stránky: <div data-objednat-zde>záložní obsah</div>
+  Array.prototype.forEach.call(document.querySelectorAll('[data-objednat-zde]'), function (misto) {
+    styl();
+    var typ = misto.getAttribute('data-objednat-zde') === 'dotaz' ? 'dotaz' : 'objednavka';
+    while (misto.firstChild) misto.removeChild(misto.firstChild);
+    misto.classList.add('os-in');
+    misto.appendChild(postavPanel(typ, true).uzel);
   });
 
   window.OazaObjednavka = { otevrit: otevrit, zavrit: zavrit };

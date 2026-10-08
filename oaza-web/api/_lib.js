@@ -94,10 +94,13 @@ function spayd({ mena, amount, vs, msg }) {
 }
 
 // --- Brevo transakční e-mail --------------------------------------
-async function brevoSend({ to, toName, subject, html, bcc }) {
+// Odesílá se z adresy info@ (ověřená doména), ale odpověď musí vždy dojít do schránky,
+// kterou čteme — proto má každý e-mail nastavenou adresu pro odpověď (výchozí ADMIN_EMAIL).
+async function brevoSend({ to, toName, subject, html, bcc, replyTo }) {
   const body = {
     sender: SENDER,
     to: [{ email: to, name: toName || to }],
+    replyTo: { email: replyTo || ADMIN_EMAIL, name: SENDER.name },
     subject,
     htmlContent: html,
   };

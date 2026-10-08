@@ -59,6 +59,7 @@ async function dopisPrihlasit(email, zdroj, rest) {
     if (!c.ok && listId) await brevo(`/contacts/lists/${listId}/contacts/add`, { method: 'POST', body: JSON.stringify({ emails: [email] }) });
     await brevo('/smtp/email', { method: 'POST', body: JSON.stringify({
       sender: { name: 'Oáza Adamanthea', email: 'info@oaza-adamanthea.cz' }, to: [{ email }],
+      replyTo: { email: 'oaza.adamanthea@gmail.com', name: 'Oáza Adamanthea' },
       subject: 'Vítej u Novinek z Bali Shopu ✦', htmlContent: uvitaciEmail(email),
     }) });
   } catch (e) { console.error('dopis brevo:', e && e.message); }
@@ -103,7 +104,7 @@ export default async function handler(req, res) {
       const okPodpis = String(req.query.t || '') === dopisPodpis(em);
       if (okPodpis) { try { await dopisOdhlasit(em, rest); } catch {} }
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      return res.status(200).send(`<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Novinky z Bali Shopu</title><body style="margin:0;background:#F3ECDF;font-family:Georgia,serif;color:#1B2A41;display:grid;place-items:center;min-height:100vh;text-align:center;padding:20px"><div><p style="letter-spacing:.3em;font-size:12px;color:#B8924A;text-transform:uppercase">✦ Novinky z Bali Shopu</p><h1 style="font-weight:normal">${okPodpis ? 'Odběr je odhlášený' : 'Odkaz pro odhlášení je neúplný'}</h1><p style="font-style:italic;color:#33486A">${okPodpis ? 'Děkujeme za společný čas. Bali Shop tu pro tebe zůstává kdykoli.' : 'Napiš nám prosím na info@oaza-adamanthea.cz a odhlásíme tě ručně.'}</p><p><a href="/bali-shop" style="color:#B8924A">Zpět do Bali Shopu</a></p></div></body>`);
+      return res.status(200).send(`<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Novinky z Bali Shopu</title><body style="margin:0;background:#F3ECDF;font-family:Georgia,serif;color:#1B2A41;display:grid;place-items:center;min-height:100vh;text-align:center;padding:20px"><div><p style="letter-spacing:.3em;font-size:12px;color:#B8924A;text-transform:uppercase">✦ Novinky z Bali Shopu</p><h1 style="font-weight:normal">${okPodpis ? 'Odběr je odhlášený' : 'Odkaz pro odhlášení je neúplný'}</h1><p style="font-style:italic;color:#33486A">${okPodpis ? 'Děkujeme za společný čas. Bali Shop tu pro tebe zůstává kdykoli.' : 'Napiš nám prosím na oaza.adamanthea@gmail.com a odhlásíme tě ručně.'}</p><p><a href="/bali-shop" style="color:#B8924A">Zpět do Bali Shopu</a></p></div></body>`);
     }
     // ?overit_kod=SVETLO10&mezisoucet=1000&mena=CZK  → { platny, sleva, duvod }
     if (req.query && req.query.overit_kod) {

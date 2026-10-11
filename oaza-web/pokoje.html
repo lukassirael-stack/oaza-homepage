@@ -221,6 +221,7 @@ var Org = (() => {
           <button class="btn ghost sm" id="out">Odhlásit</button></div>
         <div><h1>${esc(a.nazev)}</h1>
           <div class="muted">${dt(a.datum_od)} ${PRV[a.prvni_jidlo]} – ${dt(a.datum_do)} ${POS[a.posledni_jidlo]} · ${nociTxt(a.noci)}${a.organizator ? ' · ' + esc(a.organizator) : ''}</div>
+          ${a.cas_zacatek || a.cas_konec ? `<div class="small">Program: začátek ${esc(a.cas_zacatek || '–')} · konec ${esc(a.cas_konec || '–')}</div>` : ''}
           <button class="btn ghost sm" id="editAkce" style="margin-top:8px">Upravit údaje akce</button></div>
         ${a.navrh_od ? `<div class="card" style="border-color:var(--gold);background:var(--gold-soft)"><b>Nový termín ${dt(a.navrh_od)} – ${dt(a.navrh_do)}</b>
           <div class="small">Návrh je odeslaný Oáze a začne platit po jejím potvrzení.</div></div>` : ''}
@@ -322,6 +323,8 @@ var Org = (() => {
     const t = new Date(y, mo - 1, d); if (t.getFullYear() !== y || t.getMonth() !== mo - 1 || t.getDate() !== d) return null;
     return y + '-' + String(mo).padStart(2, '0') + '-' + String(d).padStart(2, '0');
   }
+  const CASY = (() => { const c = []; for (let h = 6; h <= 23; h++) for (const m of ['00', '30']) c.push(String(h).padStart(2, '0') + ':' + m); return c; })();
+  const casOpt = (v, ph) => `<option value="">${ph}</option>` + CASY.map(c => `<option ${c === (v || '') ? 'selected' : ''}>${c}</option>`).join('');
   function komplForm(){
     const a = D.akce, dny = dnyAkce(addD(a.datum_od, -1), a.datum_do);
     const casy = []; for (let h = 6; h <= 23; h++) for (const m of ['00', '30']) casy.push(String(h).padStart(2, '0') + ':' + m);
@@ -355,6 +358,8 @@ var Org = (() => {
         <div><label>Kontakt</label><input id="ak" value="${esc(a.kontakt || '')}"></div></div>
       <div class="grid2"><div><label>Příjezd (dd.mm.rrrr)</label><input id="ad1" inputmode="numeric" placeholder="dd.mm.rrrr" value="${dmy(a.navrh_od || a.datum_od)}"></div>
         <div><label>Odjezd (dd.mm.rrrr)</label><input id="ad2" inputmode="numeric" placeholder="dd.mm.rrrr" value="${dmy(a.navrh_do || a.datum_do)}"></div></div>
+      <div class="grid2"><div><label>Začátek akce</label><select id="az">${casOpt(a.cas_zacatek, 'čas začátku')}</select></div>
+        <div><label>Konec akce</label><select id="akk">${casOpt(a.cas_konec, 'čas konce')}</select></div></div>
       <div class="grid2"><div><label>První jídlo v den příjezdu</label><select id="aj1">${o(PRV, a.prvni_jidlo)}</select></div>
         <div><label>Odjezd v poslední den</label><select id="aj2">${o(POS, a.posledni_jidlo)}</select></div></div>
       <div class="muted small">Změny se uloží hned a Oáza o nich dostane zprávu. Nový termín začne platit po potvrzení Oázou.</div>
@@ -366,7 +371,8 @@ var Org = (() => {
       if (!od || !d2) { $('#aerr').textContent = 'Datum zadej jako dd.mm.rrrr, třeba 6.11.2026.'; $('#aerr').classList.add('on'); return; }
       $('#as').disabled = true;
       try { const r = await rpc('pokoje_org_akce', { p_kod: kod, p_heslo: heslo, p_a: { nazev: $('#an').value, organizator: $('#ao').value, kontakt: $('#ak').value,
-          datum_od: od, datum_do: d2, prvni_jidlo: $('#aj1').value, posledni_jidlo: $('#aj2').value } });
+          datum_od: od, datum_do: d2, prvni_jidlo: $('#aj1').value, posledni_jidlo: $('#aj2').value,
+          cas_zacatek: $('#az').value, cas_konec: $('#akk').value } });
         if (r.chyba) { $('#aerr').textContent = r.chyba; $('#aerr').classList.add('on'); $('#as').disabled = false; return; }
         D = r; closeSheet(); render(); toast('Uloženo');
       } catch(e) { $('#aerr').textContent = e.message; $('#aerr').classList.add('on'); $('#as').disabled = false; }

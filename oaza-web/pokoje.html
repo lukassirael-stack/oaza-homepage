@@ -103,6 +103,7 @@ table.cen input{max-width:120px}
 .hidden{display:none!important}
 .foot{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 <div id="app" class="wrap"></div>
@@ -226,6 +227,7 @@ var Org = (() => {
           <div class="stat"><b>${veg} · ${vgn}</b><span>vegetariánská · veganská</span></div>
           <div class="stat"><b>${kc(total)}</b><span>celkem ubytování a strava</span></div>
         </div>
+        ${zalohaCard()}
         ${chatkaCard()}
         <button class="btn gold" id="addAny" style="width:100%;justify-content:center">+ Přidat účastníka</button>
         ${D.pokoje.map(roomCard).join('')}
@@ -241,9 +243,35 @@ var Org = (() => {
     $('#out').onclick = () => { store.del('oaza_pokoje_org'); heslo = ''; login(); };
     $('#csv').onclick = csv;
     $('#addAny').onclick = () => form({ pokoj: firstFree() });
+    zalohaQR();
     document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => b.dataset.ch === 'uvolnit' ? chatkaUvolnit() : chatkaForm());
     document.querySelectorAll('[data-add]').forEach(b => b.onclick = () => form({ pokoj: b.dataset.add }));
     document.querySelectorAll('[data-u]').forEach(r => r.onclick = () => form(U.find(u => u.id === r.dataset.u)));
+  }
+  const UCET = { cislo: '8159854004/5500', iban: 'CZ1655000000008159854004' };
+  function zalohaCard(){
+    const z = D.zaloha; if (!z) return '';
+    if (z.zaplaceno) return `<div class="card row" style="border-color:var(--ok)"><div style="flex:1"><h3>Záloha ${kc(z.castka)}</h3>
+      <div class="muted small">Přijata ${dt(z.zaplaceno)}. Děkujeme, termín je potvrzený.</div></div><span class="chip ok">zaplaceno</span></div>`;
+    return `<div class="card stack" style="border-color:var(--gold)">
+      <div class="row"><div style="flex:1"><h3>Záloha ${kc(z.castka)}</h3>
+        <div class="muted small">Zálohou se potvrzuje termín akce.${z.splatnost ? ' Splatnost ' + dt(z.splatnost) + '.' : ''}</div></div>
+        <span class="chip warn">čeká na platbu</span></div>
+      <div class="row" style="align-items:flex-start;gap:16px">
+        <div id="zqr" style="background:#fff;padding:8px;border-radius:12px;border:1px solid var(--line)"></div>
+        <div class="small" style="flex:1;min-width:180px;line-height:1.9">
+          Číslo účtu: <b>${UCET.cislo}</b> <button class="btn ghost sm" data-cp="${UCET.cislo}">Kopírovat</button><br>
+          Variabilní symbol: <b>${esc(z.vs)}</b> <button class="btn ghost sm" data-cp="${esc(z.vs)}">Kopírovat</button><br>
+          Částka: <b>${kc(z.castka)}</b><br>
+          <span class="muted">IBAN ${UCET.iban} · QR kód naskenuješ v bankovní aplikaci.</span></div></div>
+    </div>`;
+  }
+  function zalohaQR(){
+    const z = D.zaloha, el = document.getElementById('zqr');
+    document.querySelectorAll('[data-cp]').forEach(b => b.onclick = async () => { try { await navigator.clipboard.writeText(b.dataset.cp); toast('Zkopírováno'); } catch(e) {} });
+    if (!z || z.zaplaceno || !el || typeof QRCode === 'undefined') return;
+    const msg = ('ZALOHA ' + D.akce.nazev).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[*]/g, '').toUpperCase().slice(0, 60);
+    new QRCode(el, { text: `SPD*1.0*ACC:${UCET.iban}*AM:${Number(z.castka).toFixed(2)}*CC:CZK*X-VS:${z.vs}*MSG:${msg}`, width: 132, height: 132, correctLevel: QRCode.CorrectLevel.M });
   }
   function chatkaCard(){
     const c = D.chatka, n = D.ucastnici.length, noci = c.chci ? dnu(c.prijezd, c.odjezd) : D.akce.noci;

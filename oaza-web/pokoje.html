@@ -234,6 +234,12 @@ var Org = (() => {
         ${chatkaCard()}
         <button class="btn gold" id="addAny" style="width:100%;justify-content:center">+ Přidat účastníka</button>
         ${D.pokoje.map(roomCard).join('')}
+        <div class="card stack" style="text-align:center;border-color:var(--plum)">
+          <h3>${a.kompletni ? 'Přehled je odeslaný Oáze' : 'Máte skupinu kompletní?'}</h3>
+          <div class="muted small">${a.kompletni ? 'Odesláno ' + new Date(a.kompletni).toLocaleString('cs-CZ', { day:'numeric', month:'numeric', hour:'2-digit', minute:'2-digit' }) + '. Po dalších změnách pošlete aktualizovaný přehled.'
+            : 'Jedním kliknutím pošlete Oáze obsazenost pokojů a počty jídel po dnech, ať můžeme vše připravit. Jména a kontakty zůstávají jen u vás.'}</div>
+          <button class="btn ${a.kompletni ? 'ghost' : 'gold'}" id="kompl" style="justify-content:center">${a.kompletni ? 'Odeslat aktualizovaný přehled' : 'Skupina je kompletní – odeslat Oáze'}</button>
+        </div>
         ${nez.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Čekají na pokoj</h3>
           <div class="muted small">Klikni na jméno a vyber místo.</div></div></div>
           <div class="people">${nez.map(personRow).join('')}</div></div>` : ''}
@@ -246,6 +252,14 @@ var Org = (() => {
     $('#out').onclick = () => { store.del('oaza_pokoje_org'); heslo = ''; login(); };
     $('#csv').onclick = csv;
     $('#editAkce').onclick = akceForm;
+    $('#kompl').onclick = async () => {
+      if (!confirm(a.kompletni ? 'Odeslat Oáze aktualizovaný přehled?' : 'Odeslat Oáze obsazenost pokojů a počty jídel? Účastníky můžete i potom dál upravovat.')) return;
+      $('#kompl').disabled = true;
+      try { const r = await rpc('pokoje_org_kompletni', { p_kod: kod, p_heslo: heslo });
+        if (r.chyba) { toast(r.chyba); $('#kompl').disabled = false; return; }
+        D = r; render(); toast('Odesláno Oáze, děkujeme');
+      } catch(e) { toast(e.message); $('#kompl').disabled = false; }
+    };
     $('#addAny').onclick = () => form({ pokoj: firstFree() });
     zalohaQR();
     document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => b.dataset.ch === 'uvolnit' ? chatkaUvolnit() : chatkaForm());

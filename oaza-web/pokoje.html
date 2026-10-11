@@ -224,6 +224,7 @@ var Org = (() => {
           <button class="btn ghost sm" id="editAkce" style="margin-top:8px">Upravit údaje akce</button></div>
         ${a.navrh_od ? `<div class="card" style="border-color:var(--gold);background:var(--gold-soft)"><b>Nový termín ${dt(a.navrh_od)} – ${dt(a.navrh_do)}</b>
           <div class="small">Návrh je odeslaný Oáze a začne platit po jejím potvrzení.</div></div>` : ''}
+        ${zalohaStav()}
         <div class="stats">
           <div class="stat"><b>${U.length}</b><span>přihlášených osob</span></div>
           <div class="stat"><b>${obs} / ${luzek}</b><span>obsazená místa</span></div>
@@ -262,11 +263,20 @@ var Org = (() => {
     document.querySelectorAll('[data-u]').forEach(r => r.onclick = () => form(U.find(u => u.id === r.dataset.u)));
   }
   const UCET = { cislo: '8159854004/5500', iban: 'CZ1655000000008159854004' };
+  function zalohaStav(){
+    const z = D.zaloha; if (!z) return '';
+    if (z.zaplaceno) return `<div class="row" style="padding:12px 16px;border-radius:14px;background:var(--ok-soft);color:var(--ok);font-weight:600">
+      <span style="font-size:20px">✓</span><span style="flex:1">Záloha ${kc(z.castka)} zaplacena ${dt(z.zaplaceno)} · termín je potvrzený</span></div>`;
+    const po = z.splatnost && z.splatnost < new Date().toISOString().slice(0, 10);
+    return `<a href="#zaloha" class="row" style="padding:14px 16px;border-radius:14px;background:var(--warn);color:#fff;font-weight:600;text-decoration:none">
+      <span style="font-size:20px">!</span><span style="flex:1">Záloha ${kc(z.castka)} čeká na zaplacení${z.splatnost ? (po ? ' · splatnost byla ' : ' · splatnost ') + dt(z.splatnost) : ''}</span>
+      <span style="font-weight:500;text-decoration:underline">Platební údaje</span></a>`;
+  }
   function zalohaCard(){
     const z = D.zaloha; if (!z) return '';
     if (z.zaplaceno) return `<div class="card row" style="border-color:var(--ok)"><div style="flex:1"><h3>Záloha ${kc(z.castka)}</h3>
       <div class="muted small">Přijata ${dt(z.zaplaceno)}. Děkujeme, termín je potvrzený.</div></div><span class="chip ok">zaplaceno</span></div>`;
-    return `<div class="card stack" style="border-color:var(--gold)">
+    return `<div class="card stack" id="zaloha" style="border:2px solid var(--warn);background:#fff8f4">
       <div class="row"><div style="flex:1"><h3>Záloha ${kc(z.castka)}</h3>
         <div class="muted small">Zálohou se potvrzuje termín akce.${z.splatnost ? ' Splatnost ' + dt(z.splatnost) + '.' : ''}</div></div>
         <span class="chip warn">čeká na platbu</span></div>

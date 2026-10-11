@@ -543,7 +543,7 @@ textarea.k-in{resize:vertical;}
       <div class="row sub"><span class="name">Půldenní pronájem (do 4 hodin)<small>za účastníka</small></span><span class="amount">400 Kč / 16 €</span></div>
       <div class="row"><span class="name">Vegetariánská / veganská strava<small>snídaně 160 Kč · oběd 220 Kč · večeře 220 Kč</small></span><span class="amount">600 Kč / den</span></div>
       <div class="row"><span class="name">Soukromé pokoje se sdílenou koupelnou<small>pokoje sdílí dvojice · 5 pokojů pro 9 osob · další pokoje přibudou v roce 2027</small></span><span class="amount">+ 300 Kč / os. / den</span></div>
-      <div class="row"><span class="name">Chatka Pobyt ve světle<small>1–2 osoby · vytápěná, celoročně · pátek a sobota 2 000 Kč · od 10 účastníků pro organizátora zdarma</small></span><span class="amount">1 700 Kč / 70 €</span></div>
+      <div class="row"><span class="name">Chatka Pobyt ve světle<small>1–2 osoby · vytápěná, celoročně · cena za noc pro organizátora akce · od 10 účastníků zdarma</small></span><span class="amount">1 500 Kč / 60 €</span></div>
       <p class="note">Nocování účastníků na matracích v meditační místnosti — přímo mezi velkými krystaly, jejichž pole hosty provází i ve spánku — je součástí ceny. Termín víkendového retreatu rezervujete zálohou 5 000 Kč při jeho potvrzení, u menších akcí zálohu nastavíme individuálně. Uvedené ceny platí pro <strong>pronájem na skupinové akce a retreaty</strong>; pro soukromý pobyt jednotlivců (včetně cen pokojů) platí <a href="#soukromy-pobyt" style="color:var(--gold-deep)">vlastní ceník níže</a>.</p>
     </div>
 
@@ -589,7 +589,7 @@ textarea.k-in{resize:vertical;}
             <legend>Ubytování</legend>
             <p class="k-hint" id="kKrystaly"></p>
             <div class="k-meal"><span>Soukromé pokoje<small>pokoje sdílí dvojice · 300 Kč / os. / noc · 5 pokojů pro 9 osob</small></span><div class="k-step sm"><button type="button" data-step="pokoje" data-d="-1" aria-label="Méně">−</button><input name="pokoje" type="number" min="0" max="9" value="0"><button type="button" data-step="pokoje" data-d="1" aria-label="Více">+</button></div></div>
-            <label class="k-check"><input type="checkbox" name="chatka"><span>Chatka Pobyt ve světle pro organizátora<small id="kChatkaInfo">1–2 osoby · víkend 2 000 Kč / noc · od 10 účastníků zdarma</small></span></label>
+            <label class="k-check"><input type="checkbox" name="chatka"><span>Chatka Pobyt ve světle pro organizátora<small id="kChatkaInfo">1–2 osoby · 1 500 Kč / noc · od 10 účastníků zdarma</small></span></label>
           </fieldset>
 
           <fieldset class="k-field">
@@ -784,7 +784,7 @@ document.addEventListener('click', function(e){
 <script defer src="/navstevnost.js"></script>
 <script>
 (function(){
-  var C={retreat:1000,den:700,pulden:400,min:7,snidane:160,obedy:220,vecere:220,pokoj:300,pokojeMax:9,chatka:2000};
+  var C={retreat:1000,den:700,pulden:400,min:7,snidane:160,obedy:220,vecere:220,pokoj:300,pokojeMax:9,chatka:1500};
   var f=document.getElementById('kalkForm'); if(!f) return;
   var $=function(n){return f.elements[n];};
   var kc=function(v){return v.toLocaleString('cs-CZ')+' Kč';};
@@ -820,7 +820,7 @@ document.addEventListener('click', function(e){
     if(st)r.push(['Strava',[s&&s+'× snídaně',ob&&ob+'× oběd',ve&&ve+'× večeře'].filter(Boolean).join(', ')+' · '+uc(o),st]);
     if(p)r.push(['Soukromé pokoje',p+' os. × '+d+' '+tvar(d,'noc','noci','nocí'),p*d*C.pokoj]);
     var chZdarma=o>=10;
-    document.getElementById('kChatkaInfo').textContent=chZdarma?'1–2 osoby · pro organizátora zdarma':'1–2 osoby · víkend 2 000 Kč / noc · od 10 účastníků zdarma';
+    document.getElementById('kChatkaInfo').textContent=chZdarma?'1–2 osoby · pro organizátora zdarma':'1–2 osoby · 1 500 Kč / noc · od 10 účastníků zdarma';
     if(ch)r.push(['Chatka Pobyt ve světle',d+' '+tvar(d,'noc','noci','nocí')+(chZdarma?' · pro organizátora zdarma':''),chZdarma?0:d*C.chatka]);
     var celkem=r.reduce(function(a,x){return a+x[2];},0);
     document.getElementById('kRadky').innerHTML=r.map(function(x){return '<div class="r"><span>'+x[0]+'<small>'+x[1]+'</small></span><b>'+(x[2]?kc(x[2]):'zdarma')+'</b></div>';}).join('');

@@ -237,7 +237,8 @@ var Org = (() => {
         <div class="card stack" style="text-align:center;border-color:var(--plum)">
           <h3>${a.kompletni ? 'Přehled je odeslaný Oáze' : 'Máte skupinu kompletní?'}</h3>
           <div class="muted small">${a.kompletni ? 'Odesláno ' + new Date(a.kompletni).toLocaleString('cs-CZ', { day:'numeric', month:'numeric', hour:'2-digit', minute:'2-digit' }) + '. Po dalších změnách pošlete aktualizovaný přehled.'
-            : 'Jedním kliknutím pošlete Oáze obsazenost pokojů a počty jídel po dnech, ať můžeme vše připravit. Jména a kontakty zůstávají jen u vás.'}</div>
+            : 'Pošlete Oáze obsazenost pokojů, počty jídel po dnech a čas svého příjezdu, ať můžeme vše připravit. Jména a kontakty zůstávají jen u vás.'}</div>
+          ${a.prijezd_org_den ? `<div class="small">Váš předběžný příjezd: <b>${den(a.prijezd_org_den)} v ${esc(a.prijezd_org_cas)}</b>${a.prijezd_org_pozn ? ' · ' + esc(a.prijezd_org_pozn) : ''}</div>` : ''}
           <button class="btn ${a.kompletni ? 'ghost' : 'gold'}" id="kompl" style="justify-content:center">${a.kompletni ? 'Odeslat aktualizovaný přehled' : 'Skupina je kompletní – odeslat Oáze'}</button>
         </div>
         ${nez.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Čekají na pokoj</h3>
@@ -252,14 +253,7 @@ var Org = (() => {
     $('#out').onclick = () => { store.del('oaza_pokoje_org'); heslo = ''; login(); };
     $('#csv').onclick = csv;
     $('#editAkce').onclick = akceForm;
-    $('#kompl').onclick = async () => {
-      if (!confirm(a.kompletni ? 'Odeslat Oáze aktualizovaný přehled?' : 'Odeslat Oáze obsazenost pokojů a počty jídel? Účastníky můžete i potom dál upravovat.')) return;
-      $('#kompl').disabled = true;
-      try { const r = await rpc('pokoje_org_kompletni', { p_kod: kod, p_heslo: heslo });
-        if (r.chyba) { toast(r.chyba); $('#kompl').disabled = false; return; }
-        D = r; render(); toast('Odesláno Oáze, děkujeme');
-      } catch(e) { toast(e.message); $('#kompl').disabled = false; }
-    };
+    $('#kompl').onclick = komplForm;
     $('#addAny').onclick = () => form({ pokoj: firstFree() });
     zalohaQR();
     document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => b.dataset.ch === 'uvolnit' ? chatkaUvolnit() : chatkaForm());
@@ -316,6 +310,28 @@ var Org = (() => {
     if (!m) return null; let d = +m[1], mo = +m[2], y = +m[3]; if (y < 100) y += 2000;
     const t = new Date(y, mo - 1, d); if (t.getFullYear() !== y || t.getMonth() !== mo - 1 || t.getDate() !== d) return null;
     return y + '-' + String(mo).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+  }
+  function komplForm(){
+    const a = D.akce, dny = dnyAkce(addD(a.datum_od, -1), a.datum_do);
+    const casy = []; for (let h = 6; h <= 23; h++) for (const m of ['00', '30']) casy.push(String(h).padStart(2, '0') + ':' + m);
+    const denV = a.prijezd_org_den || a.datum_od, casV = a.prijezd_org_cas || '';
+    openSheet(`<div class="stack"><div class="row"><h2>${a.kompletni ? 'Aktualizovaný přehled' : 'Skupina je kompletní'}</h2><div class="spacer"></div><button class="btn ghost sm" id="kx">Zavřít</button></div>
+      <div class="muted small">Oáza dostane obsazenost pokojů, počty jídel po dnech a čas vašeho příjezdu. Účastníky můžete i potom dál upravovat.</div>
+      <div><label>Váš předběžný příjezd</label><div class="grid2">
+        <select id="kd">${dny.map(d => `<option value="${d}" ${d === denV ? 'selected' : ''}>${den(d)}</option>`).join('')}</select>
+        <select id="kc"><option value="">čas příjezdu</option>${casy.map(c => `<option ${c === casV ? 'selected' : ''}>${c}</option>`).join('')}</select></div></div>
+      <div><label>Poznámka k příjezdu</label><input id="kp" placeholder="např. přijedu dřív s pomocníkem na přípravu" value="${esc(a.prijezd_org_pozn || '')}"></div>
+      <div class="err" id="kerr"></div>
+      <button class="btn gold" id="ks" style="justify-content:center">Odeslat Oáze</button></div>`);
+    $('#kx').onclick = closeSheet;
+    $('#ks').onclick = async () => {
+      if (!$('#kc').value) { $('#kerr').textContent = 'Vyber prosím předběžný čas příjezdu.'; $('#kerr').classList.add('on'); return; }
+      $('#ks').disabled = true;
+      try { const r = await rpc('pokoje_org_kompletni', { p_kod: kod, p_heslo: heslo, p_prijezd: { den: $('#kd').value, cas: $('#kc').value, pozn: $('#kp').value } });
+        if (r.chyba) { $('#kerr').textContent = r.chyba; $('#kerr').classList.add('on'); $('#ks').disabled = false; return; }
+        D = r; closeSheet(); render(); toast('Odesláno Oáze, děkujeme');
+      } catch(e) { $('#kerr').textContent = e.message; $('#kerr').classList.add('on'); $('#ks').disabled = false; }
+    };
   }
   function akceForm(){
     const a = D.akce, o = (m, v) => Object.entries(m).map(([k, t]) => `<option value="${k}" ${k === v ? 'selected' : ''}>${t}</option>`).join('');

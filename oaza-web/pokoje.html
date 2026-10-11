@@ -226,6 +226,7 @@ var Org = (() => {
           <div class="stat"><b>${veg} · ${vgn}</b><span>vegetariánská · veganská</span></div>
           <div class="stat"><b>${kc(total)}</b><span>celkem ubytování a strava</span></div>
         </div>
+        ${chatkaCard()}
         <button class="btn gold" id="addAny" style="width:100%;justify-content:center">+ Přidat účastníka</button>
         ${D.pokoje.map(roomCard).join('')}
         ${nez.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Čekají na pokoj</h3>
@@ -240,8 +241,51 @@ var Org = (() => {
     $('#out').onclick = () => { store.del('oaza_pokoje_org'); heslo = ''; login(); };
     $('#csv').onclick = csv;
     $('#addAny').onclick = () => form({ pokoj: firstFree() });
+    document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => b.dataset.ch === 'uvolnit' ? chatkaUvolnit() : chatkaForm());
     document.querySelectorAll('[data-add]').forEach(b => b.onclick = () => form({ pokoj: b.dataset.add }));
     document.querySelectorAll('[data-u]').forEach(r => r.onclick = () => form(U.find(u => u.id === r.dataset.u)));
+  }
+  function chatkaCard(){
+    const c = D.chatka, n = D.ucastnici.length, noci = c.chci ? dnu(c.prijezd, c.odjezd) : D.akce.noci;
+    const otevreno = !c.uzavreno && new Date() < new Date(c.uzaverka + 'T00:00:00');
+    let cena;
+    if (c.uzavreno) cena = c.cena_final === 0 ? `<b>Zdarma</b> · k uzávěrce ${c.ucastniku_final} přihlášených`
+      : `<b>${kc(c.cena_final)} / ${c.cena_eur_final} €</b> · k uzávěrce ${c.ucastniku_final} přihlášených`;
+    else if (n >= c.zdarma_od) cena = `<b>Zdarma</b> · máš ${n} přihlášených (zdarma od ${c.zdarma_od})`;
+    else cena = `<b>${kc(c.cena)} / ${c.cena_eur} € za noc</b>${c.chci ? ` · celkem ${kc(c.cena * noci)}` : ''}<br><span class="muted small">Od ${c.zdarma_od} přihlášených je zdarma – teď máš ${n}, stačí ještě ${c.zdarma_od - n}.</span>`;
+    return `<div class="card stack" style="border-color:var(--gold)">
+      <div class="row"><div style="flex:1;min-width:0"><h3>Pobyt ve světle</h3>
+        <div class="muted small">Samostatná vytápěná chatka v zahradě Oázy pro tebe jako organizátora a tvůj doprovod.</div></div>
+        ${c.chci ? '<span class="chip ok">rezervováno</span>' : ''}</div>
+      ${c.chci ? `<div>${den(c.prijezd)} – ${den(c.odjezd)} · ${nociTxt(noci)}${c.kdo ? ' · ' + esc(c.kdo) : ''}</div>` : ''}
+      <div class="price">${cena}</div>
+      ${!c.uzavreno ? `<div class="muted small">Cena se zafixuje ${dt(c.uzaverka)} podle počtu přihlášených.${c.chci ? ' Do té doby můžeš chatku kdykoli uvolnit.' : ' Rezervací si termín držíš už teď.'}</div>` : ''}
+      ${otevreno ? `<div class="row">${c.chci ? '<button class="btn ghost sm" data-ch="upravit">Upravit</button><button class="btn danger sm" data-ch="uvolnit">Uvolnit chatku</button>'
+        : '<button class="btn sm" data-ch="rezervovat">Rezervovat chatku</button>'}</div>` : ''}
+    </div>`;
+  }
+  function chatkaForm(){
+    const c = D.chatka, dny = dnyAkce(D.akce.datum_od, D.akce.datum_do);
+    const opt = (list, v) => list.map(d => `<option value="${d}" ${d === v ? 'selected' : ''}>${den(d)}</option>`).join('');
+    openSheet(`<div class="stack"><div class="row"><h2>Pobyt ve světle</h2><div class="spacer"></div><button class="btn ghost sm" id="cx">Zavřít</button></div>
+      <div class="grid2"><div><label>Příjezd</label><select id="cp">${opt(dny.slice(0, -1), c.prijezd || D.akce.datum_od)}</select></div>
+        <div><label>Odjezd</label><select id="co">${opt(dny.slice(1), c.odjezd || D.akce.datum_do)}</select></div></div>
+      <div><label>Kdo bude v chatce bydlet</label><input id="ck" placeholder="např. Jana Nováková + partner" value="${esc(c.kdo || '')}"></div>
+      <div class="err" id="cerr"></div>
+      <button class="btn" id="cs">${c.chci ? 'Uložit' : 'Rezervovat chatku'}</button></div>`);
+    $('#cx').onclick = closeSheet;
+    $('#cs').onclick = async () => {
+      $('#cs').disabled = true;
+      try { const r = await rpc('pokoje_org_chatka', { p_kod: kod, p_heslo: heslo, p_c: { chci: true, prijezd: $('#cp').value, odjezd: $('#co').value, kdo: $('#ck').value } });
+        if (r.chyba) { $('#cerr').textContent = r.chyba; $('#cerr').classList.add('on'); $('#cs').disabled = false; return; }
+        D = r; closeSheet(); render(); toast('Chatka je rezervovaná');
+      } catch(e) { $('#cerr').textContent = e.message; $('#cerr').classList.add('on'); $('#cs').disabled = false; }
+    };
+  }
+  async function chatkaUvolnit(){
+    if (!confirm('Uvolnit Pobyt ve světle? Termín se vrátí ostatním hostům.')) return;
+    try { const r = await rpc('pokoje_org_chatka', { p_kod: kod, p_heslo: heslo, p_c: { chci: false } });
+      if (r.chyba) return toast(r.chyba); D = r; render(); toast('Chatka uvolněna'); } catch(e) { toast(e.message); }
   }
   function firstFree(){ const p = D.pokoje.find(p => !p.v_cene && volno(p) > 0) || D.pokoje.find(p => volno(p) > 0); return p ? p.kod : ''; }
   function roomCard(p){

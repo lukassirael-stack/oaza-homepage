@@ -5,6 +5,7 @@ Allow: /
 Disallow: /admin-akce
 Disallow: /prehled-navstevnosti
 Disallow: /pokladna
+Disallow: /pokoje
 
 Sitemap: https://oaza-adamanthea.cz/sitemap.xml
 Sitemap: https://oaza-adamanthea.cz/sitemap-produkty.xml

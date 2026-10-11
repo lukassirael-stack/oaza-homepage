@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Pokoje akce · Oáza Adamanthea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f2ea; --card:#fffdf9; --ink:#2f2433; --muted:#7a6c74; --line:#e7dccd;
+  --gold:#b08a3e; --gold-soft:#f1e6cf; --plum:#5b3a63; --plum-soft:#efe5f1;
+  --ok:#4f7a5a; --ok-soft:#e3efe5; --warn:#a8553a; --warn-soft:#f6e3db;
+  --r:16px; --sh:0 1px 2px rgba(47,36,51,.05),0 6px 22px rgba(47,36,51,.06);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:96px}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;margin:0;letter-spacing:.2px}
+h1{font-size:30px;line-height:1.15}
+h2{font-size:23px}
+h3{font-size:20px}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:880px;margin:0 auto;padding:20px 16px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--gold);font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+.brand:before{content:"";width:22px;height:1px;background:var(--gold)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding:18px}
+.stack>*+*{margin-top:14px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+.btn{border:0;border-radius:999px;padding:11px 18px;background:var(--plum);color:#fff;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--plum);border:1px solid var(--line)}
+.btn.gold{background:var(--gold)}
+.btn.sm{padding:7px 13px;font-size:13px}
+.btn.danger{background:transparent;color:var(--warn);border:1px solid var(--warn-soft)}
+.btn:disabled{opacity:.45;cursor:default}
+label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bottom:5px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+textarea{min-height:64px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:120px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;cursor:pointer;text-align:left}
+.seg button b{display:block;font-weight:600}
+.seg button span{font-size:12px;color:var(--muted)}
+.seg button.on{border-color:var(--plum);background:var(--plum-soft)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 10px;border-radius:999px;background:var(--gold-soft);color:#6d5420;font-weight:500}
+.chip.plum{background:var(--plum-soft);color:var(--plum)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:640px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.stat b{display:block;font-size:22px;font-family:"Cormorant Garamond",serif;font-weight:600}
+.stat span{font-size:12px;color:var(--muted)}
+.room{padding:0;overflow:hidden}
+.room-h{padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.room-h .t{flex:1;min-width:0}
+.beds{display:flex;gap:5px;margin-top:8px}
+.bed{width:22px;height:9px;border-radius:5px;background:var(--line)}
+.bed.f{background:var(--plum)}
+.bed.s{background:var(--gold)}
+.people{border-top:1px solid var(--line)}
+.p{display:flex;gap:10px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line);cursor:pointer}
+.p:last-child{border-bottom:0}
+.p:hover{background:#fbf7f0}
+.p .n{flex:1;min-width:0}
+.p .n b{font-weight:600}
+.p .n div{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p .c{text-align:right;font-weight:600;white-space:nowrap}
+.p .c small{display:block;font-weight:400;font-size:11px;color:var(--muted)}
+.add{padding:12px 18px;border-top:1px solid var(--line)}
+.overlay{position:fixed;inset:0;background:rgba(47,36,51,.35);display:none;align-items:flex-end;justify-content:center;z-index:20}
+.overlay.on{display:flex}
+.sheet{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:20px 18px 28px}
+@media(min-width:640px){.overlay{align-items:center}.sheet{border-radius:22px}}
+.price{background:var(--gold-soft);border-radius:12px;padding:12px 14px;font-size:14px}
+.price .tot{font-size:20px;font-family:"Cormorant Garamond",serif;font-weight:600}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;z-index:40;opacity:0;transition:.25s;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1}
+.err{background:var(--warn-soft);color:var(--warn);border-radius:12px;padding:10px 12px;font-size:14px;display:none}
+.err.on{display:block}
+.login{max-width:420px;margin:8vh auto 0}
+.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;width:max-content}
+.tabs button{border:0;background:transparent;padding:8px 16px;border-radius:999px;cursor:pointer;font-weight:500}
+.tabs button.on{background:var(--plum);color:#fff}
+.occ{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px;align-items:center}
+.bar{height:6px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:3px}
+.bar i{display:block;height:100%;background:var(--plum)}
+.bar i.s{background:var(--gold)}
+.box{border:1px dashed var(--gold);background:var(--gold-soft);border-radius:14px;padding:14px}
+.box code{font-size:15px;font-weight:600;background:#fff;padding:2px 8px;border-radius:6px}
+table.cen{width:100%;border-collapse:collapse}
+table.cen td,table.cen th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+table.cen th{font-size:12px;color:var(--muted);font-weight:500}
+table.cen input{max-width:120px}
+.hidden{display:none!important}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
+</style>
+</head>
+<body>
+<div id="app" class="wrap"></div>
+<div id="ov" class="overlay"><div class="sheet" id="sheet"></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const SB = 'https://myybuesoourgpbouwwst.supabase.co';
+const KEY = 'sb_publishable_v9E-GhERgU5JCvE0D-l65A_QB2S2yux';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const kc = n => (Math.round(n || 0)).toLocaleString('cs-CZ') + ' Kč';
+const dt = d => d ? new Date(d + 'T12:00:00').toLocaleDateString('cs-CZ', {day:'numeric', month:'numeric', year:'numeric'}) : '';
+const nociTxt = n => n === 1 ? '1 noc' : (n >= 2 && n <= 4 ? n + ' noci' : n + ' nocí');
+const store = {
+  get(k){ try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch(e) { return null; } },
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} },
+  del(k){ try { localStorage.removeItem(k); } catch(e) {} }
+};
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2600); }
+async function rpc(fn, args){
+  const r = await fetch(`${SB}/rest/v1/rpc/${fn}`, { method:'POST', headers:{ apikey:KEY, 'Content-Type':'application/json' }, body: JSON.stringify(args) });
+  if (!r.ok) throw new Error('Spojení se nepodařilo, zkus to prosím znovu.');
+  return r.json();
+}
+function openSheet(html){ $('#sheet').innerHTML = html; $('#ov').classList.add('on'); }
+function closeSheet(){ $('#ov').classList.remove('on'); }
+$('#ov').addEventListener('click', e => { if (e.target.id === 'ov') closeSheet(); });
+async function copy(t){ try { await navigator.clipboard.writeText(t); toast('Zkopírováno'); } catch(e) { prompt('Zkopíruj:', t); } }
+
+
+/* ============ ORGANIZÁTOR ============ */
+var Org = (() => {
+  let kod = '', heslo = '', D = null, edit = null;
+  const room = k => D.pokoje.find(p => p.kod === k);
+  const inRoom = k => D.ucastnici.filter(u => u.pokoj === k);
+  const rezimy = p => p.v_cene ? ['sdileny'] : (p.kapacita === 1 ? ['sam'] : ['sam','sdileny']);
+  function rate(p, rez){ if (!p) return 0; if (p.v_cene) return 0; return rez === 'sam' ? p.cena_sam : p.cena_sdileny; }
+  function cena(u){
+    const p = room(u.pokoj), r = rate(p, u.rezim);
+    const ub = r == null ? null : r * (u.noci || 0);
+    const st = u.stravovani ? (D.strava_den || 0) * (u.noci || 0) : 0;
+    return { ub, st, celkem: (ub || 0) + st, doplni: r == null };
+  }
+  function volno(p, exceptId){
+    const os = inRoom(p.kod).filter(u => u.id !== exceptId);
+    if (os.some(u => u.rezim === 'sam')) return 0;
+    return p.kapacita - os.length;
+  }
+  function rezLabel(u){ const p = room(u.pokoj); if (!p) return ''; if (p.v_cene) return 'matrace v sále'; return u.rezim === 'sam' ? 'sám v pokoji' : 'sdílený pokoj'; }
+
+  async function start(){
+    const q = new URLSearchParams(location.search);
+    const saved = store.get('oaza_pokoje_org');
+    kod = (q.get('a') || saved?.kod || '').toLowerCase();
+    if (saved && saved.kod === kod && saved.heslo) { heslo = saved.heslo; if (await load(true)) return; }
+    login();
+  }
+  function login(msg){
+    $('#app').innerHTML = `
+      <div class="login card stack">
+        <div class="brand">Oáza Adamanthea</div>
+        <h1>Pokoje pro tvou akci</h1>
+        <p class="muted">Přihlas se údaji, které ti poslala Oáza. Pak tu rozdělíš účastníky do pokojů a uvidíš ceny.</p>
+        <div><label>Kód akce</label><input id="lk" value="${esc(kod)}" autocomplete="username" autocapitalize="none"></div>
+        <div><label>Heslo</label><input id="lh" type="password" autocomplete="current-password"></div>
+        <div class="err ${msg ? 'on' : ''}" id="le">${esc(msg || '')}</div>
+        <button class="btn" id="lb" style="width:100%;justify-content:center">Vstoupit</button>
+      </div>`;
+    const go = async () => { kod = $('#lk').value.trim().toLowerCase(); heslo = $('#lh').value.trim(); $('#lb').disabled = true; if (!(await load())) $('#lb').disabled = false; };
+    $('#lb').onclick = go; $('#lh').onkeydown = e => { if (e.key === 'Enter') go(); };
+    (kod ? $('#lh') : $('#lk')).focus();
+  }
+  async function load(silent){
+    try {
+      const r = await rpc('pokoje_org_nacist', { p_kod: kod, p_heslo: heslo });
+      if (r.chyba) { if (!silent) { $('#le').textContent = r.chyba; $('#le').classList.add('on'); } return false; }
+      D = r; store.set('oaza_pokoje_org', { kod, heslo });
+      if (new URLSearchParams(location.search).get('a') !== kod) history.replaceState(null, '', '?a=' + kod);
+      render(); return true;
+    } catch(e) { if (!silent) { $('#le').textContent = e.message; $('#le').classList.add('on'); } return false; }
+  }
+  function render(){
+    const a = D.akce, U = D.ucastnici;
+    const luzek = D.pokoje.reduce((s,p) => s + p.kapacita, 0);
+    const obs = D.pokoje.reduce((s,p) => s + (p.kapacita - volno(p)), 0);
+    const total = U.reduce((s,u) => s + cena(u).celkem, 0);
+    const veg = U.filter(u => u.stravovani && u.strava === 'vegetarianska').length;
+    const vgn = U.filter(u => u.stravovani && u.strava === 'veganska').length;
+    const nez = U.filter(u => !u.pokoj);
+    $('#app').innerHTML = `
+      <div class="stack">
+        <div class="row"><div class="brand">Oáza Adamanthea</div><div class="spacer"></div>
+          <button class="btn ghost sm" id="csv">Stáhnout seznam</button>
+          <button class="btn ghost sm" id="out">Odhlásit</button></div>
+        <div><h1>${esc(a.nazev)}</h1>
+          <div class="muted">${dt(a.datum_od)} – ${dt(a.datum_do)} · ${nociTxt(a.noci)}${a.organizator ? ' · ' + esc(a.organizator) : ''}</div></div>
+        <div class="stats">
+          <div class="stat"><b>${U.length}</b><span>přihlášených osob</span></div>
+          <div class="stat"><b>${obs} / ${luzek}</b><span>obsazená místa</span></div>
+          <div class="stat"><b>${veg} · ${vgn}</b><span>vegetariánská · veganská</span></div>
+          <div class="stat"><b>${kc(total)}</b><span>celkem ubytování a strava</span></div>
+        </div>
+        <button class="btn gold" id="addAny" style="width:100%;justify-content:center">+ Přidat účastníka</button>
+        ${D.pokoje.map(roomCard).join('')}
+        ${nez.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Čekají na pokoj</h3>
+          <div class="muted small">Klikni na jméno a vyber místo.</div></div></div>
+          <div class="people">${nez.map(personRow).join('')}</div></div>` : ''}
+        <p class="muted small">Ceny jsou za osobu a noc podle ceníku Oázy. Strava ${kc(D.strava_den)} / den (snídaně, oběd, večeře) se počítá na každou noc pobytu. Osobní údaje vidíš jen ty – Oáza vidí obsazenost pokojů a počty jídel.</p>
+        <div class="foot">Oáza Adamanthea · Crystal &amp; Retreat centrum · Halenkovice</div>
+      </div>`;
+    $('#out').onclick = () => { store.del('oaza_pokoje_org'); heslo = ''; login(); };
+    $('#csv').onclick = csv;
+    $('#addAny').onclick = () => form({ pokoj: firstFree() });
+    document.querySelectorAll('[data-add]').forEach(b => b.onclick = () => form({ pokoj: b.dataset.add }));
+    document.querySelectorAll('[data-u]').forEach(r => r.onclick = () => form(U.find(u => u.id === r.dataset.u)));
+  }
+  function firstFree(){ const p = D.pokoje.find(p => !p.v_cene && volno(p) > 0) || D.pokoje.find(p => volno(p) > 0); return p ? p.kod : ''; }
+  function roomCard(p){
+    const os = inRoom(p.kod), v = volno(p), sam = os.some(u => u.rezim === 'sam');
+    const beds = Array.from({length: p.kapacita}, (_, i) => `<span class="bed ${sam ? 's' : (i < os.length ? 'f' : '')}"></span>`).join('');
+    let ceny;
+    if (p.v_cene) ceny = `<span class="chip ok">v ceně pronájmu</span>`;
+    else {
+      const c = [];
+      if (rezimy(p).includes('sam')) c.push(`<span class="chip">${p.kapacita === 1 ? '' : 'sám '}${p.cena_sam != null ? kc(p.cena_sam) : 'cenu doplní Oáza'} / noc</span>`);
+      if (rezimy(p).includes('sdileny')) c.push(`<span class="chip plum">sdílený ${p.cena_sdileny != null ? kc(p.cena_sdileny) : 'cenu doplní Oáza'} / os. / noc</span>`);
+      ceny = c.join(' ');
+    }
+    return `<div class="card room">
+      <div class="room-h"><div class="t"><h3>${esc(p.nazev)}</h3>
+        <div class="muted small">${esc(p.popis)}</div>
+        <div class="row" style="margin-top:8px;gap:6px">${ceny}</div>
+        <div class="beds">${beds}</div></div>
+        <div>${v > 0 ? `<span class="chip ok">volno ${v}</span>` : `<span class="chip plum">plno</span>`}</div></div>
+      ${os.length ? `<div class="people">${os.map(personRow).join('')}</div>` : ''}
+      ${v > 0 ? `<div class="add"><button class="btn ghost sm" data-add="${p.kod}">+ Přidat do pokoje</button></div>` : ''}
+    </div>`;
+  }
+  function personRow(u){
+    const c = cena(u);
+    const info = [rezLabel(u), nociTxt(u.noci), u.stravovani ? (u.strava === 'veganska' ? 'veganská' : 'vegetariánská') + (u.specialni_strava ? ' + ' + u.specialni_strava : '') : 'vlastní strava', u.telefon, u.email].filter(Boolean).join(' · ');
+    return `<div class="p" data-u="${u.id}"><div class="n"><b>${esc(u.jmeno)}</b><div>${esc(info)}</div></div>
+      <div class="c">${c.doplni ? '<span class="muted small">cenu doplní Oáza</span>' : kc(c.celkem)}
+      <small>${c.ub != null && !c.doplni ? 'ubyt. ' + kc(c.ub) : ''}${c.st ? ' · strava ' + kc(c.st) : ''}</small></div></div>`;
+  }
+  function form(u){
+    edit = Object.assign({ id:'', jmeno:'', telefon:'', email:'', pokoj:'', rezim:'sdileny', noci:D.akce.noci, stravovani:true, strava:'vegetarianska', specialni_strava:'', poznamka:'' }, u || {});
+    const opts = D.pokoje.map(p => { const v = volno(p, edit.id); const ok = v > 0 || p.kod === u?.pokoj && u?.id;
+      return `<option value="${p.kod}" ${ok ? '' : 'disabled'}>${esc(p.nazev)} – ${ok ? 'volno ' + Math.max(v,0) : 'plno'}</option>`; }).join('');
+    openSheet(`<div class="stack">
+      <div class="row"><h2>${edit.id ? 'Upravit účastníka' : 'Nový účastník'}</h2><div class="spacer"></div><button class="btn ghost sm" id="fx">Zavřít</button></div>
+      <div><label>Jméno a příjmení</label><input id="fj" value="${esc(edit.jmeno)}"></div>
+      <div class="grid2"><div><label>Telefon</label><input id="ft" type="tel" value="${esc(edit.telefon)}"></div>
+        <div><label>E-mail</label><input id="fe" type="email" value="${esc(edit.email)}"></div></div>
+      <div class="grid2"><div><label>Pokoj</label><select id="fp"><option value="">Čeká na pokoj</option>${opts}</select></div>
+        <div><label>Počet nocí</label><input id="fn" type="number" min="0" max="${Math.max(D.akce.noci, 1)}" value="${edit.noci}"></div></div>
+      <div id="frez"></div>
+      <div><label>Strava</label><div class="seg" id="fs">
+        <button data-s="vegetarianska"><b>Vegetariánská</b><span>základ</span></button>
+        <button data-s="veganska"><b>Veganská</b><span>rostlinná</span></button>
+        <button data-s="vlastni"><b>Vlastní strava</b><span>stravuje se sám</span></button></div></div>
+      <div id="fsp"><label>Speciální strava</label><input id="fss" placeholder="např. bezlepková, alergie na ořechy" value="${esc(edit.specialni_strava)}"></div>
+      <div><label>Poznámka</label><textarea id="fpo">${esc(edit.poznamka)}</textarea></div>
+      <div class="price" id="fpr"></div>
+      <div class="err" id="ferr"></div>
+      <div class="row"><button class="btn" id="fsave">Uložit</button>
+        ${edit.id ? '<div class="spacer"></div><button class="btn danger sm" id="fdel">Odebrat</button>' : ''}</div>
+    </div>`);
+    $('#fp').value = edit.pokoj || '';
+    $('#fx').onclick = closeSheet;
+    $('#fp').onchange = () => { edit.pokoj = $('#fp').value; rez(); };
+    $('#fn').oninput = () => { edit.noci = Math.max(0, parseInt($('#fn').value) || 0); price(); };
+    document.querySelectorAll('#fs button').forEach(b => b.onclick = () => {
+      if (b.dataset.s === 'vlastni') edit.stravovani = false; else { edit.stravovani = true; edit.strava = b.dataset.s; } strava(); });
+    $('#fsave').onclick = save;
+    if (edit.id) $('#fdel').onclick = del;
+    rez(); strava(); setTimeout(() => !edit.id && $('#fj').focus(), 50);
+  }
+  function rez(){
+    const p = room(edit.pokoj);
+    if (!p) { $('#frez').innerHTML = ''; price(); return; }
+    const R = rezimy(p);
+    if (!R.includes(edit.rezim)) edit.rezim = R[0];
+    if (edit.rezim === 'sam' && volno(p, edit.id) < p.kapacita && R.includes('sdileny')) edit.rezim = 'sdileny';
+    const samOK = volno(p, edit.id) === p.kapacita;
+    $('#frez').innerHTML = p.v_cene ? `<div class="chip ok">Matrace v meditačním sále · v ceně pronájmu</div>` :
+      `<label>Ubytování</label><div class="seg">
+        ${R.includes('sam') ? `<button data-r="sam" ${samOK ? '' : 'disabled'}><b>Sám v pokoji</b><span>${p.cena_sam != null ? kc(p.cena_sam) + ' / noc' : 'cenu doplní Oáza'}${samOK ? '' : ' · pokoj je už sdílený'}</span></button>` : ''}
+        ${R.includes('sdileny') ? `<button data-r="sdileny"><b>Sdílený pokoj</b><span>${p.cena_sdileny != null ? kc(p.cena_sdileny) + ' / os. / noc' : 'cenu doplní Oáza'}</span></button>` : ''}
+      </div>`;
+    document.querySelectorAll('#frez [data-r]').forEach(b => { b.classList.toggle('on', b.dataset.r === edit.rezim); b.onclick = () => { edit.rezim = b.dataset.r; rez(); }; });
+    price();
+  }
+  function strava(){
+    document.querySelectorAll('#fs button').forEach(b => b.classList.toggle('on', edit.stravovani ? b.dataset.s === edit.strava : b.dataset.s === 'vlastni'));
+    $('#fsp').classList.toggle('hidden', !edit.stravovani);
+    price();
+  }
+  function price(){
+    const c = cena(edit);
+    $('#fpr').innerHTML = `<div class="row"><div>Ubytování: ${!edit.pokoj ? 'po přidělení pokoje' : c.doplni ? 'cenu doplní Oáza' : kc(c.ub)}<br>Strava: ${edit.stravovani ? kc(c.st) + ` <span class="muted small">(${edit.noci} × ${kc(D.strava_den)})</span>` : 'vlastní'}</div>
+      <div class="spacer"></div><div class="tot">${kc(c.celkem)}</div></div>`;
+  }
+  async function save(){
+    const body = Object.assign({}, edit, { jmeno: $('#fj').value, telefon: $('#ft').value, email: $('#fe').value,
+      specialni_strava: edit.stravovani ? $('#fss').value : '', poznamka: $('#fpo').value, pokoj: $('#fp').value, noci: parseInt($('#fn').value) || 0 });
+    $('#fsave').disabled = true;
+    try {
+      const r = await rpc('pokoje_org_ulozit', { p_kod: kod, p_heslo: heslo, p_u: body });
+      if (r.chyba) { $('#ferr').textContent = r.chyba; $('#ferr').classList.add('on'); $('#fsave').disabled = false; if (r.prihlaseni) { closeSheet(); login(r.chyba); } return; }
+      D = r; closeSheet(); render(); toast('Uloženo');
+    } catch(e) { $('#ferr').textContent = e.message; $('#ferr').classList.add('on'); $('#fsave').disabled = false; }
+  }
+  async function del(){
+    if (!confirm('Odebrat ' + edit.jmeno + ' z akce?')) return;
+    try { const r = await rpc('pokoje_org_smazat', { p_kod: kod, p_heslo: heslo, p_id: edit.id });
+      if (r.chyba) return toast(r.chyba); D = r; closeSheet(); render(); toast('Odebráno'); } catch(e) { toast(e.message); }
+  }
+  function csv(){
+    const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+    const rows = [['Jméno','Telefon','E-mail','Pokoj','Ubytování','Noci','Strava','Speciální strava','Ubytování Kč','Strava Kč','Celkem Kč','Poznámka']];
+    D.ucastnici.forEach(u => { const c = cena(u); rows.push([u.jmeno, u.telefon, u.email, room(u.pokoj)?.nazev || 'čeká na pokoj', rezLabel(u), u.noci,
+      u.stravovani ? (u.strava === 'veganska' ? 'veganská' : 'vegetariánská') : 'vlastní', u.specialni_strava, c.ub ?? '', c.st, c.celkem, u.poznamka]); });
+    const blob = new Blob(['﻿' + rows.map(r => r.map(q).join(';')).join('\r\n')], { type:'text/csv;charset=utf-8' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'ucastnici-' + D.akce.kod + '.csv'; a.click();
+  }
+  return { start };
+})();
+
+/* ============ SPRÁVA OÁZY ============ */
+var Admin = (() => {
+  let heslo = '', D = null, tab = 'akce', pristup = null;
+  const roomName = k => D.pokoje.find(p => p.kod === k)?.nazev || k;
+  async function start(){
+    heslo = store.get('oaza_pokoje_admin') || '';
+    if (heslo && await load(true)) return; login();
+  }
+  function login(msg){
+    $('#app').innerHTML = `<div class="login card stack"><div class="brand">Oáza Adamanthea · správa</div><h1>Pokoje akcí</h1>
+      <div><label>Heslo správy</label><input id="ah" type="password" autocomplete="current-password"></div>
+      <div class="err ${msg ? 'on' : ''}" id="ae">${esc(msg || '')}</div>
+      <button class="btn" id="ab" style="width:100%;justify-content:center">Vstoupit</button></div>`;
+    const go = async () => { heslo = $('#ah').value.trim(); await load(); };
+    $('#ab').onclick = go; $('#ah').onkeydown = e => { if (e.key === 'Enter') go(); }; $('#ah').focus();
+  }
+  async function load(silent){
+    try { const r = await rpc('pokoje_admin_prehled', { p_heslo: heslo });
+      if (r.chyba) { if (!silent) { $('#ae').textContent = r.chyba; $('#ae').classList.add('on'); } return false; }
+      D = r; store.set('oaza_pokoje_admin', heslo); render(); return true;
+    } catch(e) { if (!silent) { $('#ae').textContent = e.message; $('#ae').classList.add('on'); } return false; }
+  }
+  function apply(r){ if (r.chyba) { toast(r.chyba); if (r.prihlaseni) login(r.chyba); return false; } D = r; if (r.pristup) pristup = r.pristup; render(); return true; }
+  const link = k => location.origin + location.pathname.replace(/index\.html$/, '') + '?a=' + k;
+  function zprava(a, p){ return `Dobrý den,\n\npro akci „${a.nazev}“ (${dt(a.datum_od)} – ${dt(a.datum_do)}) je připravená stránka s pokoji, kde rozdělíte účastníky a uvidíte ceny:\n${link(p.kod)}\n\nKód akce: ${p.kod}\nHeslo: ${p.heslo}\n\nS láskou\nOáza Adamanthea`; }
+  function render(){
+    $('#app').innerHTML = `<div class="stack">
+      <div class="row"><div class="brand">Oáza Adamanthea · správa</div><div class="spacer"></div><button class="btn ghost sm" id="out">Odhlásit</button></div>
+      <h1>Pokoje akcí</h1>
+      <div class="tabs"><button data-t="akce" class="${tab === 'akce' ? 'on' : ''}">Akce</button><button data-t="cenik" class="${tab === 'cenik' ? 'on' : ''}">Ceník</button></div>
+      <div id="body"></div></div>`;
+    $('#out').onclick = () => { store.del('oaza_pokoje_admin'); login(); };
+    document.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { tab = b.dataset.t; render(); });
+    tab === 'akce' ? akce() : cenik();
+  }
+  function akce(){
+    const luzek = D.pokoje.reduce((s,p) => s + p.kapacita, 0);
+    const P = pristup ? D.akce.find(a => a.kod === pristup.kod) : null;
+    $('#body').innerHTML = `<div class="stack">
+      ${P ? `<div class="box stack"><b>Přístup pro organizátora – ${esc(P.nazev)}</b>
+        <div>Odkaz: <code>${esc(link(pristup.kod))}</code></div><div>Kód: <code>${pristup.kod}</code> · Heslo: <code>${esc(pristup.heslo)}</code></div>
+        <div class="muted small">Heslo se ukazuje jen teď. Kdykoli můžeš vygenerovat nové.</div>
+        <div class="row"><button class="btn sm" id="cpz">Kopírovat zprávu pro organizátora</button><button class="btn ghost sm" id="cpx">Hotovo</button></div></div>` : ''}
+      <button class="btn gold" id="nova" style="width:100%;justify-content:center">+ Nová akce</button>
+      ${D.akce.length ? D.akce.map(a => {
+        const obs = D.pokoje.reduce((s,p) => { const o = a.obsazenost[p.kod]; return s + (o ? (o.sam ? p.kapacita : o.osob) : 0); }, 0);
+        return `<div class="card stack">
+          <div class="row"><div><h3>${esc(a.nazev)}</h3><div class="muted small">${dt(a.datum_od)} – ${dt(a.datum_do)} · ${nociTxt(a.noci)}${a.organizator ? ' · ' + esc(a.organizator) : ''}${a.kontakt ? ' · ' + esc(a.kontakt) : ''}</div></div>
+            <div class="spacer"></div><span class="chip plum">${obs} / ${luzek} míst</span></div>
+          <div class="occ">${D.pokoje.map(p => { const o = a.obsazenost[p.kod] || { osob:0, sam:false }; const f = o.sam ? p.kapacita : o.osob;
+            return `<div>${esc(p.nazev)}<div class="bar"><i class="${o.sam ? 's' : ''}" style="width:${100 * f / p.kapacita}%"></i></div></div>
+              <div class="small">${o.osob}/${p.kapacita}${o.sam ? ' · sám' : ''}</div>`; }).join('')}</div>
+          <div class="row" style="gap:6px"><span class="chip">${a.strava.vegetarianska} vegetariánská</span><span class="chip">${a.strava.veganska} veganská</span>
+            ${a.nezarazeno ? `<span class="chip warn">${a.nezarazeno} čeká na pokoj</span>` : ''}</div>
+          ${a.strava.specialni.length ? `<div class="small"><b>Speciální strava:</b> ${a.strava.specialni.map(esc).join(' · ')}</div>` : ''}
+          ${a.poznamka ? `<div class="small muted">${esc(a.poznamka)}</div>` : ''}
+          <div class="row"><button class="btn ghost sm" data-l="${a.kod}">Kopírovat odkaz</button>
+            <button class="btn ghost sm" data-e="${a.id}">Upravit</button>
+            <button class="btn ghost sm" data-h="${a.id}">Nové heslo</button>
+            <div class="spacer"></div><button class="btn danger sm" data-d="${a.id}">Smazat</button></div>
+        </div>`; }).join('') : `<p class="muted">Tady se objeví akce, které vytvoříš.</p>`}
+    </div>`;
+    $('#nova').onclick = () => formAkce({});
+    if (P) { $('#cpz').onclick = () => copy(zprava(P, pristup)); $('#cpx').onclick = () => { pristup = null; render(); }; }
+    document.querySelectorAll('[data-l]').forEach(b => b.onclick = () => copy(link(b.dataset.l)));
+    document.querySelectorAll('[data-e]').forEach(b => b.onclick = () => formAkce(D.akce.find(a => a.id === b.dataset.e)));
+    document.querySelectorAll('[data-h]').forEach(b => b.onclick = async () => {
+      if (!confirm('Vygenerovat nové heslo? Staré přestane platit.')) return;
+      const a = D.akce.find(x => x.id === b.dataset.h);
+      apply(await rpc('pokoje_admin_akce', { p_heslo: heslo, p_a: Object.assign({}, a, { nove_heslo: 'true' }) })); scrollTo(0,0); });
+    document.querySelectorAll('[data-d]').forEach(b => b.onclick = async () => {
+      const a = D.akce.find(x => x.id === b.dataset.d);
+      if (!confirm(`Smazat akci „${a.nazev}“ včetně seznamu účastníků organizátora?`)) return;
+      if (apply(await rpc('pokoje_admin_akce_smazat', { p_heslo: heslo, p_id: a.id }))) toast('Akce smazána'); });
+  }
+  function formAkce(a){
+    openSheet(`<div class="stack"><div class="row"><h2>${a.id ? 'Upravit akci' : 'Nová akce'}</h2><div class="spacer"></div><button class="btn ghost sm" id="fx">Zavřít</button></div>
+      <div><label>Název akce</label><input id="an" value="${esc(a.nazev)}"></div>
+      <div class="grid2"><div><label>Příjezd</label><input id="ao" type="date" value="${esc(a.datum_od)}"></div><div><label>Odjezd</label><input id="ad" type="date" value="${esc(a.datum_do)}"></div></div>
+      <div class="grid2"><div><label>Organizátor</label><input id="ag" value="${esc(a.organizator)}"></div><div><label>Kontakt na organizátora</label><input id="ak" value="${esc(a.kontakt)}"></div></div>
+      <div><label>Poznámka (vidí i organizátor)</label><textarea id="ap">${esc(a.poznamka)}</textarea></div>
+      <div class="err" id="aerr"></div>
+      <button class="btn" id="as">${a.id ? 'Uložit' : 'Vytvořit a vygenerovat přístup'}</button></div>`);
+    $('#fx').onclick = closeSheet;
+    $('#as').onclick = async () => {
+      const body = { id: a.id || '', nazev: $('#an').value, datum_od: $('#ao').value, datum_do: $('#ad').value, organizator: $('#ag').value, kontakt: $('#ak').value, poznamka: $('#ap').value };
+      $('#as').disabled = true;
+      try { const r = await rpc('pokoje_admin_akce', { p_heslo: heslo, p_a: body });
+        if (r.chyba) { $('#aerr').textContent = r.chyba; $('#aerr').classList.add('on'); $('#as').disabled = false; return; }
+        closeSheet(); apply(r); scrollTo(0,0); toast('Uloženo');
+      } catch(e) { $('#aerr').textContent = e.message; $('#aerr').classList.add('on'); $('#as').disabled = false; }
+    };
+  }
+  function cenik(){
+    $('#body').innerHTML = `<div class="card stack"><p class="muted small">Ceny za osobu a noc. Organizátoři je vidí u pokojů a počítají se z nich ceny účastníků.</p>
+      <table class="cen"><tr><th>Pokoj</th><th>Sám v pokoji</th><th>Sdílený / os.</th></tr>
+      ${D.pokoje.map(p => `<tr><td><b>${esc(p.nazev)}</b><div class="small muted">${p.kapacita} ${p.kapacita === 1 ? 'místo' : p.kapacita < 5 ? 'místa' : 'míst'}</div></td>
+        ${p.v_cene ? `<td colspan="2"><span class="chip ok">v ceně pronájmu</span></td>` :
+          `<td><input type="number" min="0" data-k="${p.kod}" data-f="cena_sam" value="${p.cena_sam ?? ''}" placeholder="Kč"></td>
+           <td>${p.kapacita === 1 ? '<span class="small muted">jen pro jednoho</span>' : `<input type="number" min="0" data-k="${p.kod}" data-f="cena_sdileny" value="${p.cena_sdileny ?? ''}" placeholder="Kč">`}</td>`}</tr>`).join('')}
+      </table>
+      <div style="max-width:220px"><label>Strava na den (Kč)</label><input type="number" min="0" id="sd" value="${D.strava_den}"></div>
+      <button class="btn" id="cs">Uložit ceník</button></div>`;
+    $('#cs').onclick = async () => {
+      const m = {};
+      document.querySelectorAll('[data-k]').forEach(i => { (m[i.dataset.k] ||= { kod: i.dataset.k })[i.dataset.f] = i.value; });
+      if (apply(await rpc('pokoje_admin_cenik', { p_heslo: heslo, p_pokoje: Object.values(m), p_strava_den: parseInt($('#sd').value) || 0 }))) toast('Ceník uložen');
+    };
+  }
+  return { start };
+})();
+
+const ADMIN = location.hash === '#sprava' || new URLSearchParams(location.search).has('sprava');
+if (ADMIN) Admin.start(); else Org.start();
+</script>
+</body>
+</html>

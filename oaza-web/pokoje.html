@@ -220,7 +220,10 @@ var Org = (() => {
           <button class="btn ghost sm" id="csv">Stáhnout seznam</button>
           <button class="btn ghost sm" id="out">Odhlásit</button></div>
         <div><h1>${esc(a.nazev)}</h1>
-          <div class="muted">${dt(a.datum_od)} ${PRV[a.prvni_jidlo]} – ${dt(a.datum_do)} ${POS[a.posledni_jidlo]} · ${nociTxt(a.noci)}${a.organizator ? ' · ' + esc(a.organizator) : ''}</div></div>
+          <div class="muted">${dt(a.datum_od)} ${PRV[a.prvni_jidlo]} – ${dt(a.datum_do)} ${POS[a.posledni_jidlo]} · ${nociTxt(a.noci)}${a.organizator ? ' · ' + esc(a.organizator) : ''}</div>
+          <button class="btn ghost sm" id="editAkce" style="margin-top:8px">Upravit údaje akce</button></div>
+        ${a.navrh_od ? `<div class="card" style="border-color:var(--gold);background:var(--gold-soft)"><b>Nový termín ${dt(a.navrh_od)} – ${dt(a.navrh_do)}</b>
+          <div class="small">Návrh je odeslaný Oáze a začne platit po jejím potvrzení.</div></div>` : ''}
         <div class="stats">
           <div class="stat"><b>${U.length}</b><span>přihlášených osob</span></div>
           <div class="stat"><b>${obs} / ${luzek}</b><span>obsazená místa</span></div>
@@ -242,6 +245,7 @@ var Org = (() => {
       </div>`;
     $('#out').onclick = () => { store.del('oaza_pokoje_org'); heslo = ''; login(); };
     $('#csv').onclick = csv;
+    $('#editAkce').onclick = akceForm;
     $('#addAny').onclick = () => form({ pokoj: firstFree() });
     zalohaQR();
     document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => b.dataset.ch === 'uvolnit' ? chatkaUvolnit() : chatkaForm());
@@ -291,6 +295,38 @@ var Org = (() => {
       ${otevreno ? `<div class="row">${c.chci ? '<button class="btn ghost sm" data-ch="upravit">Upravit</button><button class="btn danger sm" data-ch="uvolnit">Uvolnit chatku</button>'
         : '<button class="btn sm" data-ch="rezervovat">Rezervovat chatku</button>'}</div>` : ''}
     </div>`;
+  }
+  const dmy = iso => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? m[3] + '.' + m[2] + '.' + m[1] : ''; };
+  function naIso(v){
+    v = (v || '').trim(); let m = /^(\d{2})(\d{2})(\d{4})$/.exec(v) || /^(\d{1,2})[.\/\- ]+(\d{1,2})[.\/\- ]+(\d{2}|\d{4})$/.exec(v);
+    if (!m) return null; let d = +m[1], mo = +m[2], y = +m[3]; if (y < 100) y += 2000;
+    const t = new Date(y, mo - 1, d); if (t.getFullYear() !== y || t.getMonth() !== mo - 1 || t.getDate() !== d) return null;
+    return y + '-' + String(mo).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+  }
+  function akceForm(){
+    const a = D.akce, o = (m, v) => Object.entries(m).map(([k, t]) => `<option value="${k}" ${k === v ? 'selected' : ''}>${t}</option>`).join('');
+    openSheet(`<div class="stack"><div class="row"><h2>Údaje akce</h2><div class="spacer"></div><button class="btn ghost sm" id="ax">Zavřít</button></div>
+      <div><label>Název akce</label><input id="an" value="${esc(a.nazev)}"></div>
+      <div class="grid2"><div><label>Organizátor</label><input id="ao" value="${esc(a.organizator || '')}"></div>
+        <div><label>Kontakt</label><input id="ak" value="${esc(a.kontakt || '')}"></div></div>
+      <div class="grid2"><div><label>Příjezd (dd.mm.rrrr)</label><input id="ad1" inputmode="numeric" placeholder="dd.mm.rrrr" value="${dmy(a.navrh_od || a.datum_od)}"></div>
+        <div><label>Odjezd (dd.mm.rrrr)</label><input id="ad2" inputmode="numeric" placeholder="dd.mm.rrrr" value="${dmy(a.navrh_do || a.datum_do)}"></div></div>
+      <div class="grid2"><div><label>První jídlo v den příjezdu</label><select id="aj1">${o(PRV, a.prvni_jidlo)}</select></div>
+        <div><label>Odjezd v poslední den</label><select id="aj2">${o(POS, a.posledni_jidlo)}</select></div></div>
+      <div class="muted small">Změny se uloží hned a Oáza o nich dostane zprávu. Nový termín začne platit po potvrzení Oázou.</div>
+      <div class="err" id="aerr"></div>
+      <button class="btn" id="as">Uložit</button></div>`);
+    $('#ax').onclick = closeSheet;
+    $('#as').onclick = async () => {
+      const od = naIso($('#ad1').value), d2 = naIso($('#ad2').value);
+      if (!od || !d2) { $('#aerr').textContent = 'Datum zadej jako dd.mm.rrrr, třeba 6.11.2026.'; $('#aerr').classList.add('on'); return; }
+      $('#as').disabled = true;
+      try { const r = await rpc('pokoje_org_akce', { p_kod: kod, p_heslo: heslo, p_a: { nazev: $('#an').value, organizator: $('#ao').value, kontakt: $('#ak').value,
+          datum_od: od, datum_do: d2, prvni_jidlo: $('#aj1').value, posledni_jidlo: $('#aj2').value } });
+        if (r.chyba) { $('#aerr').textContent = r.chyba; $('#aerr').classList.add('on'); $('#as').disabled = false; return; }
+        D = r; closeSheet(); render(); toast('Uloženo');
+      } catch(e) { $('#aerr').textContent = e.message; $('#aerr').classList.add('on'); $('#as').disabled = false; }
+    };
   }
   function chatkaForm(){
     const c = D.chatka, dny = dnyAkce(D.akce.datum_od, D.akce.datum_do);

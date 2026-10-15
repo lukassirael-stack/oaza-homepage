@@ -1,7 +1,48 @@
+# Oáza Adamanthea – oaza-adamanthea.cz
+# Web je otevřený vyhledávačům i AI asistentům.
+# Popis webu pro jazykové modely: https://oaza-adamanthea.cz/llms.txt
+
 User-agent: *
 Allow: /
-
 # Administrační a interní stránky – mimo vyhledávače
+Disallow: /admin-akce
+Disallow: /prehled-navstevnosti
+Disallow: /pokladna
+Disallow: /pokoje
+
+# ===== AI asistenti a jejich vyhledávání – výslovně vítáni =====
+# OpenAI / ChatGPT
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+# Anthropic / Claude
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: anthropic-ai
+# Google / Gemini a AI přehledy
+User-agent: Google-Extended
+# Microsoft / Bing a Copilot (ChatGPT čerpá z indexu Bingu)
+User-agent: Bingbot
+# Perplexity
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+# Apple Intelligence
+User-agent: Applebot
+User-agent: Applebot-Extended
+# Meta AI
+User-agent: Meta-ExternalAgent
+User-agent: meta-externalagent
+# Amazon
+User-agent: Amazonbot
+# Common Crawl (zdroj dat pro řadu modelů)
+User-agent: CCBot
+# DuckDuckGo, You.com, Cohere, Mistral
+User-agent: DuckAssistBot
+User-agent: YouBot
+User-agent: cohere-ai
+User-agent: MistralAI-User
+Allow: /
 Disallow: /admin-akce
 Disallow: /prehled-navstevnosti
 Disallow: /pokladna

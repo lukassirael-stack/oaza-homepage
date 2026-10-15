@@ -7,9 +7,24 @@
   const rpc = (fn, body) => fetch(SB + fn, { method: 'POST', keepalive: true, headers: { apikey: KEY, Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).catch(() => {});
 
   // ---- session (jen po dobu návštěvy, bez cookies) ----
-  let ses = null;
-  try { ses = sessionStorage.getItem('oaza_ses'); if (!ses) { ses = 's' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); sessionStorage.setItem('oaza_ses', ses); } } catch (e) { ses = 'anon'; }
+  let ses = null, nova = false;
+  try { ses = sessionStorage.getItem('oaza_ses'); if (!ses) { ses = 's' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); sessionStorage.setItem('oaza_ses', ses); nova = true; } } catch (e) { ses = 'anon'; }
   const zarizeni = window.matchMedia && window.matchMedia('(max-width: 768px)').matches ? 'mobil' : 'desktop';
+
+  // ---- odkud návštěva přišla: referrer, vstupní stránka a UTM se zapamatují při prvním načtení a posílají se s každou událostí ----
+  let vstup = null;
+  try { vstup = JSON.parse(sessionStorage.getItem('oaza_vstup') || 'null'); } catch (e) {}
+  if (!vstup) {
+    const utm = {};
+    try {
+      const q = new URLSearchParams(location.search);
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(k => { const v = q.get(k); if (v) utm[k] = v.slice(0, 80); });
+      if (q.has('fbclid')) utm.fbclid = true;
+      if (q.has('gclid')) utm.gclid = true;
+    } catch (e) {}
+    vstup = { ref: (document.referrer || '').slice(0, 300), str: (location.pathname + location.search).slice(0, 200), utm: Object.keys(utm).length ? utm : null };
+    try { sessionStorage.setItem('oaza_vstup', JSON.stringify(vstup)); } catch (e) {}
+  }
 
   // ---- Meta pixel: až po souhlasu (stejný klíč oaza_cookie jako zbytek webu) ----
   const souhlas = () => { try { return localStorage.getItem('oaza_cookie'); } catch (e) { return null; } };
@@ -40,11 +55,11 @@
     document.body.appendChild(d);
   }
 
-  // ---- nákupní cesta: produkt → košík → pokladna → objednávka → zaplaceno ----
+  // ---- nákupní cesta: vstup → produkt → košík → pokladna → objednávka → zaplaceno ----
   const Bali = {
     udalost(udalost, o) {
       o = o || {};
-      rpc('eshop_udalost', { p_session: ses, p_udalost: udalost, p_slug: o.slug || null, p_castka: o.castka != null ? Math.round(o.castka) : null, p_mena: o.mena || null, p_zarizeni: zarizeni });
+      rpc('eshop_udalost', { p_session: ses, p_udalost: udalost, p_slug: o.slug || null, p_castka: o.castka != null ? Math.round(o.castka) : null, p_mena: o.mena || null, p_zarizeni: zarizeni, p_referrer: vstup.ref, p_vstup: vstup.str, p_utm: vstup.utm });
       const m = (o.mena || 'CZK').toUpperCase();
       if (udalost === 'produkt') meta('ViewContent', { content_ids: [o.slug], content_type: 'product', value: o.castka, currency: m });
       if (udalost === 'kosik') meta('AddToCart', { content_ids: [o.slug], content_type: 'product', value: o.castka, currency: m });
@@ -111,6 +126,9 @@
     };
   }
   Bali.dopis = dopisMount;
+
+  // první stránka nové návštěvy shopu → událost „vstup“ (jednou za relaci)
+  if (nova) Bali.udalost('vstup');
 
   const start = () => { obalKosik(); lista(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();

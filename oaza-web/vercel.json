@@ -1,5 +1,6 @@
 {
   "cleanUrls": true,
+  "regions": ["dub1"],
   "redirects": [
     {
       "source": "/:path*",
@@ -473,7 +474,8 @@
       320,
       480,
       800,
-      1200
+      1200,
+      1920
     ],
     "qualities": [
       75

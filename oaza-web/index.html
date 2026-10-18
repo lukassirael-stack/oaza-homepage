@@ -17,7 +17,9 @@
 <meta property="og:image" content="https://oaza-adamanthea.cz/img/og-nahled.jpg">
 <meta property="og:locale" content="cs_CZ">
 <meta name="theme-color" content="#23352a">
-<link rel="preload" as="image" href="/img/hero-vlevo-2026.jpg">
+<link rel="preload" as="image" fetchpriority="high" media="(max-width:640px)" href="/_vercel/image?url=%2Fimg%2Fhero-vlevo-2026.jpg&amp;w=800&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:641px) and (max-width:1366px)" href="/_vercel/image?url=%2Fimg%2Fhero-vlevo-2026.jpg&amp;w=1200&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:1367px)" href="/_vercel/image?url=%2Fimg%2Fhero-vlevo-2026.jpg&amp;w=1920&amp;q=75">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -316,11 +318,12 @@
     display:flex;
     flex-direction:column;
     color:#fdfaf5;
-    background:
-      url(/img/hero-vlevo-2026.jpg);
+    background-image:url("/_vercel/image?url=%2Fimg%2Fhero-vlevo-2026.jpg&w=1200&q=75");
     background-size:cover;
     background-position:center;
   }
+  @media (max-width:640px){.hero{background-image:url("/_vercel/image?url=%2Fimg%2Fhero-vlevo-2026.jpg&w=800&q=75")}}
+  @media (min-width:1367px){.hero{background-image:url("/_vercel/image?url=%2Fimg%2Fhero-vlevo-2026.jpg&w=1920&q=75")}}
 
 
   .nav-home{margin-right:auto;display:flex;align-items:center;color:#fdfaf5;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:opacity .25s}
@@ -858,7 +861,7 @@
 
 
   <div class="akce-grid" id="akce-grid"><!-- AKCE-TITULKA:START -->
-<article class="akce-card"><img class="akce-foto" src="https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/eshop/akce-re-kreace-uchop-svou-mentalni-silu/1789546874023_f3x6fg.jpg" alt="RE-KREACE - uchop svou mentální sílu" loading="lazy">
+<article class="akce-card"><img class="akce-foto" src="/_vercel/image?url=https%3A%2F%2Fmyybuesoourgpbouwwst.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Feshop%2Fakce-re-kreace-uchop-svou-mentalni-silu%2F1789546874023_f3x6fg.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=https%3A%2F%2Fmyybuesoourgpbouwwst.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Feshop%2Fakce-re-kreace-uchop-svou-mentalni-silu%2F1789546874023_f3x6fg.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=https%3A%2F%2Fmyybuesoourgpbouwwst.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Feshop%2Fakce-re-kreace-uchop-svou-mentalni-silu%2F1789546874023_f3x6fg.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:900px) 100vw, 390px" alt="RE-KREACE - uchop svou mentální sílu" loading="lazy">
       <div class="akce-body">
         <p class="datum">Víkend 16.-18.10.2026</p>
         <h3>RE-KREACE - uchop svou mentální sílu</h3>
@@ -867,7 +870,7 @@
       </div>
     </article>
 
-    <article class="akce-card"><img class="akce-foto" src="https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/eshop/akce-healing-space-ramin-a-kushi/1791904175172_6yumeo.jpg" alt="HEALING SPACE - Ramin a Kushi" loading="lazy">
+    <article class="akce-card"><img class="akce-foto" src="/_vercel/image?url=https%3A%2F%2Fmyybuesoourgpbouwwst.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Feshop%2Fakce-healing-space-ramin-a-kushi%2F1791904175172_6yumeo.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=https%3A%2F%2Fmyybuesoourgpbouwwst.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Feshop%2Fakce-healing-space-ramin-a-kushi%2F1791904175172_6yumeo.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=https%3A%2F%2Fmyybuesoourgpbouwwst.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Feshop%2Fakce-healing-space-ramin-a-kushi%2F1791904175172_6yumeo.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:900px) 100vw, 390px" alt="HEALING SPACE - Ramin a Kushi" loading="lazy">
       <div class="akce-body">
         <p class="datum">víkend 23.-25.10.2026</p>
         <h3>HEALING SPACE - Ramin a Kushi</h3>
@@ -876,7 +879,7 @@
       </div>
     </article>
 
-    <article class="akce-card"><img class="akce-foto" src="https://myybuesoourgpbouwwst.supabase.co/storage/v1/object/public/eshop/akce-re-kreace-uchop-svou-mentalni-silu/1789408230820_4b7579.jpg" alt="RE-KREACE - uchop svou mentální sílu" loading="lazy">
+    <article class="akce-card"><img class="akce-foto" src="/_vercel/image?url=https%3A%2F%2Fmyybuesoourgpbouwwst.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Feshop%2Fakce-re-kreace-uchop-svou-mentalni-silu%2F1789408230820_4b7579.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=https%3A%2F%2Fmyybuesoourgpbouwwst.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Feshop%2Fakce-re-kreace-uchop-svou-mentalni-silu%2F1789408230820_4b7579.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=https%3A%2F%2Fmyybuesoourgpbouwwst.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Feshop%2Fakce-re-kreace-uchop-svou-mentalni-silu%2F1789408230820_4b7579.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:900px) 100vw, 390px" alt="RE-KREACE - uchop svou mentální sílu" loading="lazy">
       <div class="akce-body">
         <p class="datum">27.–29. října 2026</p>
         <h3>RE-KREACE - uchop svou mentální sílu</h3>
@@ -920,79 +923,79 @@
     <button class="gal-nav prev" type="button" aria-label="Předchozí fotka">&#8249;</button>
     <div class="gal-track" id="gal-track" tabindex="0" aria-label="Galerie Oázy">
       <figure class="gal-item">
-        <img src="/img/gal-04.webp" alt="Portál Sirius v zahradě Oázy Adamanthea" loading="eager" decoding="async" fetchpriority="high">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-04.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-04.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-04.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-04.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-04.webp&amp;w=1200&amp;q=75" alt="Portál Sirius v zahradě Oázy Adamanthea" loading="lazy" decoding="async">
         <figcaption class="popisek">Portál Sirius</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-10.webp" alt="Dřevěná meditační pyramida v zahradě Oázy" loading="eager" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-10.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-10.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-10.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-10.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-10.webp&amp;w=1200&amp;q=75" alt="Dřevěná meditační pyramida v zahradě Oázy" loading="lazy" decoding="async">
         <figcaption class="popisek">Pyramida</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-01.webp" alt="Kamenná socha Buddhy v zeleni zahrady" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-01.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-01.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-01.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-01.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-01.webp&amp;w=1200&amp;q=75" alt="Kamenná socha Buddhy v zeleni zahrady" loading="lazy" decoding="async">
         <figcaption class="popisek">Buddha v zahradě</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-16.webp" alt="Shalla — dřevěná stavba nad zahradou s proutěným srdcem" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-16.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-16.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-16.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-16.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-16.webp&amp;w=1200&amp;q=75" alt="Shalla — dřevěná stavba nad zahradou s proutěným srdcem" loading="lazy" decoding="async">
         <figcaption class="popisek">Shalla</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-05.webp" alt="Martina a Lukáš u velkého křišťálového generátoru" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-05.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-05.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-05.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-05.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-05.webp&amp;w=1200&amp;q=75" alt="Martina a Lukáš u velkého křišťálového generátoru" loading="lazy" decoding="async">
         <figcaption class="popisek">Martina a Lukáš s krystalem</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-13.webp" alt="Plejádský portál — kamenný kruh s křišťálem" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-13.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-13.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-13.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-13.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-13.webp&amp;w=1200&amp;q=75" alt="Plejádský portál — kamenný kruh s křišťálem" loading="lazy" decoding="async">
         <figcaption class="popisek">Plejádský portál</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-18.webp" alt="Atlantis chrám — lesní portál s křišťálem" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-18.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-18.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-18.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-18.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-18.webp&amp;w=1200&amp;q=75" alt="Atlantis chrám — lesní portál s křišťálem" loading="lazy" decoding="async">
         <figcaption class="popisek">Atlantis chrám</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-07.webp" alt="Martina a Lukáš v shalle pod mandalou" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-07.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-07.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-07.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-07.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-07.webp&amp;w=1200&amp;q=75" alt="Martina a Lukáš v shalle pod mandalou" loading="lazy" decoding="async">
         <figcaption class="popisek">V shalle</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-19.webp" alt="Krystal Atlantis na podstavci v lesním zákoutí" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-19.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-19.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-19.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-19.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-19.webp&amp;w=1200&amp;q=75" alt="Krystal Atlantis na podstavci v lesním zákoutí" loading="lazy" decoding="async">
         <figcaption class="popisek">Krystal Atlantis</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-11.webp" alt="Socha anděla milosti s křišťálem v zahradě" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-11.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-11.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-11.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-11.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-11.webp&amp;w=1200&amp;q=75" alt="Socha anděla milosti s křišťálem v zahradě" loading="lazy" decoding="async">
         <figcaption class="popisek">Anděl milosti</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-14.webp" alt="Oltář Ganeshy s křišťály a zvonkohrou" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-14.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-14.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-14.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-14.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-14.webp&amp;w=1200&amp;q=75" alt="Oltář Ganeshy s křišťály a zvonkohrou" loading="lazy" decoding="async">
         <figcaption class="popisek">Ganesha</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-09.webp" alt="Meditační místnost s křišťálovými věžemi" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-09.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-09.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-09.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-09.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-09.webp&amp;w=1200&amp;q=75" alt="Meditační místnost s křišťálovými věžemi" loading="lazy" decoding="async">
         <figcaption class="popisek">Meditační místnost s krystaly</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-15.webp" alt="Portálová zahrada — rozkvetlá brána s výhledem na pyramidu" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-15.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-15.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-15.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-15.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-15.webp&amp;w=1200&amp;q=75" alt="Portálová zahrada — rozkvetlá brána s výhledem na pyramidu" loading="lazy" decoding="async">
         <figcaption class="popisek">Portálová zahrada</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-12.webp" alt="Plejádský krystal na podstavci uvnitř kamenného kruhu" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-12.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-12.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-12.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-12.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-12.webp&amp;w=1200&amp;q=75" alt="Plejádský krystal na podstavci uvnitř kamenného kruhu" loading="lazy" decoding="async">
         <figcaption class="popisek">Plejádský krystal</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-06.webp" alt="Martina se sochou jednorožce v zahradě" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-06.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-06.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-06.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-06.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-06.webp&amp;w=1200&amp;q=75" alt="Martina se sochou jednorožce v zahradě" loading="lazy" decoding="async">
         <figcaption class="popisek">Jednorožec a Martina</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-17.webp" alt="Místo u stromu předků v lese" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-17.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-17.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-17.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-17.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-17.webp&amp;w=1200&amp;q=75" alt="Místo u stromu předků v lese" loading="lazy" decoding="async">
         <figcaption class="popisek">U stromu předků</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-03.webp" alt="Portálová zahrada s andělem a pyramidou" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-03.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-03.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-03.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-03.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-03.webp&amp;w=1200&amp;q=75" alt="Portálová zahrada s andělem a pyramidou" loading="lazy" decoding="async">
         <figcaption class="popisek">Portálová zahrada</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-08.webp" alt="Křišťálové věže v meditační místnosti" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-08.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-08.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-08.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-08.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-08.webp&amp;w=1200&amp;q=75" alt="Křišťálové věže v meditační místnosti" loading="lazy" decoding="async">
         <figcaption class="popisek">V meditační místnosti s krystaly</figcaption>
       </figure>
       <figure class="gal-item">
-        <img src="/img/gal-02.webp" alt="Altán pro Ganeshu za korálkovým závěsem" loading="lazy" decoding="async">
+        <img src="/_vercel/image?url=%2Fimg%2Fgal-02.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fgal-02.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fgal-02.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fgal-02.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:900px) 84vw, 392px" data-velky="/_vercel/image?url=%2Fimg%2Fgal-02.webp&amp;w=1200&amp;q=75" alt="Altán pro Ganeshu za korálkovým závěsem" loading="lazy" decoding="async">
         <figcaption class="popisek">Altán pro Ganeshu</figcaption>
       </figure>
     </div>
@@ -1026,28 +1029,28 @@
 
   <div class="shop-grid" id="shop-grid">
     <a class="produkt" href="/produkt/flow-disc-nyni-k-dispozici-medovy-a-modry-178">
-      <img class="produkt-foto" src="/img/produkt-3.jpg" alt="Flow Disc" loading="lazy">
+      <img class="produkt-foto" src="/_vercel/image?url=%2Fimg%2Fprodukt-3.jpg&amp;w=480&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fprodukt-3.jpg&amp;w=320&amp;q=75 320w, /_vercel/image?url=%2Fimg%2Fprodukt-3.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fprodukt-3.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:900px) 46vw, 290px" alt="Flow Disc" loading="lazy">
       <div class="produkt-body">
         <h3>Flow Disc</h3>
         <p class="cena">12 000 Kč / 480 €</p>
       </div>
     </a>
     <a class="produkt" href="/produkt/aura-sprej-narozeni-190">
-      <img class="produkt-foto" src="/img/produkt-1.jpg" alt="Aura sprej – Zrození" loading="lazy">
+      <img class="produkt-foto" src="/_vercel/image?url=%2Fimg%2Fprodukt-1.jpg&amp;w=480&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fprodukt-1.jpg&amp;w=320&amp;q=75 320w, /_vercel/image?url=%2Fimg%2Fprodukt-1.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fprodukt-1.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:900px) 46vw, 290px" alt="Aura sprej – Zrození" loading="lazy">
       <div class="produkt-body">
         <h3>Aura sprej – Zrození</h3>
         <p class="cena">690 Kč / 28 €</p>
       </div>
     </a>
     <a class="produkt" href="/produkt/ceremonialni-kakao-ubud-raw-120g-196">
-      <img class="produkt-foto" src="/img/produkt-2.jpg" alt="Ceremoniální kakao UBUD RAW" loading="lazy">
+      <img class="produkt-foto" src="/_vercel/image?url=%2Fimg%2Fprodukt-2.jpg&amp;w=480&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fprodukt-2.jpg&amp;w=320&amp;q=75 320w, /_vercel/image?url=%2Fimg%2Fprodukt-2.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fprodukt-2.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:900px) 46vw, 290px" alt="Ceremoniální kakao UBUD RAW" loading="lazy">
       <div class="produkt-body">
         <h3>Ceremoniální kakao UBUD RAW</h3>
         <p class="cena">350 Kč / 14 €</p>
       </div>
     </a>
     <a class="produkt" href="/produkt/saty-s-vysivkou-indie-109">
-      <img class="produkt-foto" src="/img/produkt-4.jpg" alt="Šaty s výšivkou Indie" loading="lazy">
+      <img class="produkt-foto" src="/_vercel/image?url=%2Fimg%2Fprodukt-4.jpg&amp;w=480&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fprodukt-4.jpg&amp;w=320&amp;q=75 320w, /_vercel/image?url=%2Fimg%2Fprodukt-4.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fprodukt-4.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:900px) 46vw, 290px" alt="Šaty s výšivkou Indie" loading="lazy">
       <div class="produkt-body">
         <h3>Šaty s výšivkou Indie</h3>
         <p class="cena">1 550 Kč / 62 €</p>
@@ -1301,6 +1304,7 @@
     var KALENDAR='/akce';
     var arrow='<svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg>';
     function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function opt(u,w){return /^https:\/\/myybuesoourgpbouwwst\.supabase\.co\/storage\/v1\/object\/public\/eshop\//.test(u)?'/_vercel/image?url='+encodeURIComponent(u)+'&w='+w+'&q=75':u;}
     function teaser(s){if(!s)return'';var t=s.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();return t.length>105?t.slice(0,105)+'…':t;}
     fetch('/api/akce-list').then(function(r){return r.json();}).then(function(d){
       var akce=(d&&d.akce)||[];
@@ -1313,7 +1317,7 @@
       if(!up.length)return;
       grid.innerHTML=up.map(function(a){
         var foto=a.obrazek_url
-          ?'<img class="akce-foto" src="'+esc(a.obrazek_url)+'" alt="'+esc(a.nazev)+'" loading="lazy">'
+          ?'<img class="akce-foto" src="'+esc(opt(a.obrazek_url,800))+'" srcset="'+esc(opt(a.obrazek_url,480))+' 480w, '+esc(opt(a.obrazek_url,800))+' 800w" sizes="(max-width:900px) 100vw, 390px" alt="'+esc(a.nazev)+'" loading="lazy">'
           :'<div class="akce-foto" style="display:flex;align-items:center;justify-content:center;background:#efe4cd;color:#9a7628;font-family:Cinzel,serif;letter-spacing:2px">OÁZA</div>';
         return '<article class="akce-card">'+foto+
           '<div class="akce-body">'+
@@ -1409,7 +1413,7 @@
     function ukaz(i){
       akt=(i+items.length)%items.length;
       var obr=items[akt].querySelector('img');
-      boxImg.src=obr.getAttribute('src');
+      boxImg.src=obr.getAttribute('data-velky')||obr.getAttribute('src');
       boxImg.alt=obr.getAttribute('alt')||'';
       boxPopis.textContent=items[akt].querySelector('.popisek').textContent;
     }
@@ -1468,6 +1472,7 @@
       return true;
     }
 
+    function opt(u,w){return /^https:\/\/myybuesoourgpbouwwst\.supabase\.co\/storage\/v1\/object\/public\/eshop\//.test(u)?'/_vercel/image?url='+encodeURIComponent(u)+'&w='+w+'&q=75':u;}
     function karta(p){
       var slug=hodnota(p,['slug','url_slug','handle']);
       var nazev=hodnota(p,['nazev','name','title','nazev_produktu']);
@@ -1483,7 +1488,7 @@
       if(eur!==null) cena+=(cena?' / ':'')+mezery(eur)+'\u00a0€';
 
       return '<a class="produkt" href="/produkt/'+encodeURIComponent(slug)+'">'
-        +'<img class="produkt-foto" src="'+esc(foto)+'" alt="'+esc(nazev)+'" loading="lazy">'
+        +'<img class="produkt-foto" src="'+esc(opt(foto,480))+'" srcset="'+esc(opt(foto,320))+' 320w, '+esc(opt(foto,480))+' 480w, '+esc(opt(foto,800))+' 800w" sizes="(max-width:900px) 46vw, 290px" alt="'+esc(nazev)+'" loading="lazy">'
         +'<div class="produkt-body"><h3>'+esc(nazev)+'</h3>'
         +(cena?'<p class="cena">'+cena+'</p>':'')
         +'</div></a>';

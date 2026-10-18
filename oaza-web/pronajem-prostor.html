@@ -23,6 +23,8 @@
 
 
 <!-- Fonts -->
+<link rel="preload" as="image" fetchpriority="high" media="(max-width:640px)" href="/_vercel/image?url=%2Fimg%2Fshalla.jpg&amp;w=800&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:641px)" href="/_vercel/image?url=%2Fimg%2Fshalla.jpg&amp;w=1200&amp;q=75">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73ord4iYl.woff2">
@@ -104,9 +106,9 @@ nav .btn:hover{background:#9c585a}
 .oa-hero{
   position:relative;overflow:hidden;text-align:center;
   padding:112px 24px 104px;
-  background:
-    url('/img/shalla.jpg') center 42%/cover no-repeat;
+  background:url("/_vercel/image?url=%2Fimg%2Fshalla.jpg&w=1200&q=75") center 42%/cover no-repeat;
 }
+@media (max-width:640px){.oa-hero{background-image:url("/_vercel/image?url=%2Fimg%2Fshalla.jpg&w=800&q=75")}}
 /* jemná zlatá záře za portálem */
 .oa-hero::after{
   content:"";position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
@@ -634,7 +636,7 @@ textarea.k-in{resize:vertical;}
 
     <div class="grid two">
       <div class="card">
-        <img class="card-photo" src="/img/meditacka.jpg" alt="Meditační místnost — krystal uprostřed mandaly, čakrové kruhy a krystaly" loading="lazy">
+        <img class="card-photo" src="/_vercel/image?url=%2Fimg%2Fmeditacka.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fmeditacka.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fmeditacka.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fmeditacka.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Meditační místnost — krystal uprostřed mandaly, čakrové kruhy a krystaly" loading="lazy">
         <h3>Meditační místnost</h3>
         <p class="tag">Pro intimní setkání a hlubokou práci</p>
         <p>Prostor, kde se čas zpomaluje a dovoluje jít do hloubky. Pozvednut přítomností mnoha velkých krystalů — útulný, tichý a bezpečný.</p>
@@ -651,7 +653,7 @@ textarea.k-in{resize:vertical;}
 
 
       <div class="card">
-        <img class="card-photo" src="/img/shalla.jpg" alt="Shalla — prostorný kruhový sál s polštáři a podsvíceným dřevěným stropem" loading="lazy">
+        <img class="card-photo" src="/_vercel/image?url=%2Fimg%2Fshalla.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fshalla.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fshalla.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fshalla.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Shalla — prostorný kruhový sál s polštáři a podsvíceným dřevěným stropem" loading="lazy">
         <h3>Shalla</h3>
         <p class="tag">Velkorysý prostor pro dech, pohyb i proměnu</p>
         <p>Světlý a vzdušný prostor o rozloze 70 m² s vysokou vibrací — stvořený pro dynamičtější i hluboce relaxační aktivity větších skupin.</p>
@@ -672,7 +674,7 @@ textarea.k-in{resize:vertical;}
 
 
     <figure style="margin:8px 0 0">
-      <img class="wide-photo" src="/img/shalla-oltar.jpg" alt="Oltář v Shalle — zlatá mandala, soška Buddhy a velké ametystové drúzy mezi bambusy" loading="lazy">
+      <img class="wide-photo" src="/_vercel/image?url=%2Fimg%2Fshalla-oltar.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fshalla-oltar.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fshalla-oltar.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fshalla-oltar.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:1080px) 100vw, 1032px" alt="Oltář v Shalle — zlatá mandala, soška Buddhy a velké ametystové drúzy mezi bambusy" loading="lazy">
       <figcaption class="photo-cap">Oltář v Shalle — zlatá mandala, Buddha a ametystové drúzy</figcaption>
     </figure>
 
@@ -823,7 +825,7 @@ textarea.k-in{resize:vertical;}
 
     <div class="grid rooms" style="margin-top:46px">
       <div class="room"><div class="room-inner">
-        <img class="room-photo" src="/img/pokoj-zen.jpg" alt="Pokoj Zen — dvě jednolůžka, Buddha, lotos a čakry" loading="lazy">
+        <img class="room-photo" src="/_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Pokoj Zen — dvě jednolůžka, Buddha, lotos a čakry" loading="lazy">
         <div class="glyph">🪷</div>
         <h3>Pokoj Zen</h3>
         <p>Čistota a ticho mysli, spojení se Zemí. Jednoduchost a minimalismus pro hluboké ztišení a návrat do přítomného okamžiku.</p>
@@ -833,7 +835,7 @@ textarea.k-in{resize:vertical;}
 
 
       <div class="room"><div class="room-inner">
-        <img class="room-photo" src="/img/pokoj-egyptsky.jpg" alt="Egyptský pokoj — zlatá mandala, pyramidy, papyrus a soška kočky" loading="lazy">
+        <img class="room-photo" src="/_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Egyptský pokoj — zlatá mandala, pyramidy, papyrus a soška kočky" loading="lazy">
         <div class="glyph">🏺</div>
         <h3>Egyptský pokoj</h3>
         <p>Mystika a vnitřní síla. Přenese vás do země pyramid a pradávné moudrosti.</p>
@@ -843,7 +845,7 @@ textarea.k-in{resize:vertical;}
 
 
       <div class="room"><div class="room-inner">
-        <img class="room-photo" src="/img/pokoj-andelsky.jpg" alt="Andělský pokoj — jemné růžové tóny, andělská polička, třešňové květy" loading="lazy">
+        <img class="room-photo" src="/_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Andělský pokoj — jemné růžové tóny, andělská polička, třešňové květy" loading="lazy">
         <div class="glyph">🪽</div>
         <h3>Andělský pokoj</h3>
         <p>Jemnost, světelná ochrana a bezpečí. Oáza jemnosti a světla — bezpečný přístav pro jemné duše a klidný spánek.</p>
@@ -853,7 +855,7 @@ textarea.k-in{resize:vertical;}
 
 
       <div class="room"><div class="room-inner">
-        <img class="room-photo" src="/img/pokoj-boho.jpg" alt="Boho pokoj — dřevěné trámy, lapač snů, útulný přírodní prostor" loading="lazy">
+        <img class="room-photo" src="/_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Boho pokoj — dřevěné trámy, lapač snů, útulný přírodní prostor" loading="lazy">
         <div class="glyph">🪢</div>
         <h3>Boho pokoj</h3>
         <p>Oslava svobody, inspirace, kreativity i hojnosti.</p>

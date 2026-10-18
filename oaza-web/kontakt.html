@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" fetchpriority="high" media="(max-width:640px)" href="/_vercel/image?url=%2Fimg%2Fkontakt-hero.jpg&amp;w=800&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:641px) and (max-width:1366px)" href="/_vercel/image?url=%2Fimg%2Fkontakt-hero.jpg&amp;w=1200&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:1367px)" href="/_vercel/image?url=%2Fimg%2Fkontakt-hero.jpg&amp;w=1920&amp;q=75">
 <title>Kontakt | Oáza Adamanthea</title>
 <meta name="description" content="Kontakt na Oázu Adamanthea — krystal & retreat centrum v Halenkovicích na Moravě. Adresa, telefon, e-mail a mapa. Terapie, pobyty a akce po předchozí domluvě.">
 <meta property="og:type" content="website">
@@ -12,16 +15,23 @@
 <meta property="og:image" content="https://oaza-adamanthea.cz/img/og-nahled.jpg">
 <meta property="og:locale" content="cs_CZ">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73ord4iYl.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73oTd4g.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-htM8Efs.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-iNM8.woff2">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cormorant-garamond-latin-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cormorant-garamond-latin-ext-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-latin-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-latin-ext-wght-normal.woff2">
 <style>
+@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/cinzel-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/cinzel-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-wght-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-ext-wght-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Jost';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/jost-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Jost';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/jost-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+</style>
+<style>
+:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fkontakt-hero.jpg&w=1200&q=75")}@media (max-width:640px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fkontakt-hero.jpg&w=800&q=75")}}@media (min-width:1367px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fkontakt-hero.jpg&w=1920&q=75")}}
+
 :root{--cream:#f5f1e9;--cream-dark:#ede7db;--green:#2e4434;--green-deep:#1f3024;--rose:#b06a6c;--rose-dark:#9c585a;--ink:#3a3f38;--line:#d8d0c2;--gold:#bca060;--gold-soft:#d8bd83}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -48,7 +58,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 
 
 /* HERO */
-.svc-hero{position:relative;min-height:42vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(180deg,rgba(20,32,24,.56) 0%,rgba(24,38,28,.40) 45%,rgba(22,36,27,.30) 68%,rgba(20,32,24,.06) 100%),url('/img/kontakt-hero.jpg') center 68%/cover no-repeat}
+.svc-hero{position:relative;min-height:42vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(180deg,rgba(20,32,24,.56) 0%,rgba(24,38,28,.40) 45%,rgba(22,36,27,.30) 68%,rgba(20,32,24,.06) 100%),var(--oi1) center 68%/cover no-repeat}
 .svc-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(216,189,131,.12),transparent 60%)}
 .svc-hero-content{position:relative;z-index:2;text-align:center;padding:122px 28px 60px;max-width:760px}
 .svc-eyebrow{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:20px}

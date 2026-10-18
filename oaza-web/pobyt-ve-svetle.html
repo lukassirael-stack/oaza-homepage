@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" fetchpriority="high" media="(max-width:640px)" href="/_vercel/image?url=%2Fimg%2Fpvs-hero.jpg&amp;w=800&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:641px) and (max-width:1366px)" href="/_vercel/image?url=%2Fimg%2Fpvs-hero.jpg&amp;w=1200&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:1367px)" href="/_vercel/image?url=%2Fimg%2Fpvs-hero.jpg&amp;w=1920&amp;q=75">
 <title>Pobyt ve světle | Oáza Adamanthea</title>
 <meta name="description" content="Balijská boho chatka — lesní glamping na Moravě nedaleko Zlína a Uherského Hradiště. Vytápěná chatka otevřená celoročně. Prostor pro odpočinek, meditaci a návrat k sobě. Rezervujte si svůj pobyt ve světle.">
 <meta property="og:type" content="website">
@@ -12,16 +15,23 @@
 <meta property="og:image" content="https://oaza-adamanthea.cz/img/og-nahled.jpg">
 <meta property="og:locale" content="cs_CZ">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73ord4iYl.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/jost/v20/92zatBhPNqw73oTd4g.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-htM8Efs.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jD-iNM8.woff2">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cormorant-garamond-latin-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cormorant-garamond-latin-ext-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-latin-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-latin-ext-wght-normal.woff2">
 <style>
+@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/cinzel-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Cinzel';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/cinzel-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-wght-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-ext-wght-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Jost';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/jost-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Jost';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/jost-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+</style>
+<style>
+:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fpvs-hero.jpg&w=1200&q=75")}@media (max-width:640px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fpvs-hero.jpg&w=800&q=75")}}@media (min-width:1367px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fpvs-hero.jpg&w=1920&q=75")}}
+
 /* ====================================================================
    GLOBÁLNÍ ZÁKLAD (sjednoceno s homepage)
    ==================================================================== */
@@ -83,7 +93,7 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .pvs-hero{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:96px 16px 48px}
 .pvs-hero-bg{
   position:absolute;inset:0;
-  background-image:url('/img/pvs-hero.jpg');
+  background-image:var(--oi1);
   background-size:cover;background-position:center;background-repeat:no-repeat;
   filter:brightness(0.85);transform:scale(1.02);transition:transform 8s ease;
 }
@@ -577,9 +587,9 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 <!-- ============ ČÁST 2 — GALERIE + TEXT ============ -->
 <section class="pvs2">
   <div class="pvs2-gallery">
-    <figure><img src="/img/pobyt-1.jpg" alt="Balijská boho chatka v lese" loading="lazy"></figure>
-    <figure><img src="/img/pobyt-2.jpg" alt="Terasa chatky s výhledem do přírody" loading="lazy"></figure>
-    <figure><img src="/img/pobyt-3.jpg" alt="Interiér chatky" loading="lazy"></figure>
+    <figure><img src="/_vercel/image?url=%2Fimg%2Fpobyt-1.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpobyt-1.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpobyt-1.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpobyt-1.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 90vw, 199px" alt="Balijská boho chatka v lese" loading="lazy"></figure>
+    <figure><img src="/_vercel/image?url=%2Fimg%2Fpobyt-2.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpobyt-2.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpobyt-2.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpobyt-2.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 90vw, 199px" alt="Terasa chatky s výhledem do přírody" loading="lazy"></figure>
+    <figure><img src="/_vercel/image?url=%2Fimg%2Fpobyt-3.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpobyt-3.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpobyt-3.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpobyt-3.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 90vw, 199px" alt="Interiér chatky" loading="lazy"></figure>
   </div>
 
 
@@ -732,7 +742,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
 
             <div class="service-item" onclick="toggleService(this,'aura',700)">
-              <img class="service-img img-aura" src="/img/aura-hero.jpg" alt="Focení aury a čaker" loading="lazy">
+              <img class="service-img img-aura" src="/_vercel/image?url=%2Fimg%2Faura-hero.jpg&amp;w=480&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Faura-hero.jpg&amp;w=320&amp;q=75 320w, /_vercel/image?url=%2Fimg%2Faura-hero.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Faura-hero.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:760px) 72vw, 279px" alt="Focení aury a čaker" loading="lazy">
               <div class="service-body">
                 <div class="service-header">
                   <div class="service-name">🔮 Focení aury a čaker</div>
@@ -745,7 +755,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
 
             <div class="service-item" onclick="toggleService(this,'terapie',2200)">
-              <img class="service-img" src="/img/pvs-terapie.jpg" alt="Terapie" loading="lazy">
+              <img class="service-img" src="/_vercel/image?url=%2Fimg%2Fpvs-terapie.jpg&amp;w=480&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpvs-terapie.jpg&amp;w=320&amp;q=75 320w, /_vercel/image?url=%2Fimg%2Fpvs-terapie.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpvs-terapie.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:760px) 72vw, 279px" alt="Terapie" loading="lazy">
               <div class="service-body">
                 <div class="service-header">
                   <div class="service-name">🌿 Osobní terapie</div>
@@ -758,7 +768,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
 
             <div class="service-item" onclick="toggleService(this,'ocista',1500)">
-              <img class="service-img img-ocista" src="/img/jmeno-hero.jpg" alt="Energetická očista" loading="lazy">
+              <img class="service-img img-ocista" src="/_vercel/image?url=%2Fimg%2Fjmeno-hero.jpg&amp;w=480&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fjmeno-hero.jpg&amp;w=320&amp;q=75 320w, /_vercel/image?url=%2Fimg%2Fjmeno-hero.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fjmeno-hero.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:760px) 72vw, 279px" alt="Energetická očista" loading="lazy">
               <div class="service-body">
                 <div class="service-header">
                   <div class="service-name">✨ Energetická očista</div>
@@ -771,7 +781,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
 
             <div class="service-item" onclick="toggleService(this,'shop',0)">
-              <img class="service-img img-shop" src="/img/bali-shop.jpg" alt="Bali Shop" loading="lazy">
+              <img class="service-img img-shop" src="/_vercel/image?url=%2Fimg%2Fbali-shop.jpg&amp;w=480&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fbali-shop.jpg&amp;w=320&amp;q=75 320w, /_vercel/image?url=%2Fimg%2Fbali-shop.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fbali-shop.jpg&amp;w=800&amp;q=75 800w" sizes="(max-width:760px) 72vw, 279px" alt="Bali Shop" loading="lazy">
               <div class="service-body">
                 <div class="service-header">
                   <div class="service-name">🛍️ Návštěva Bali Shopu</div>

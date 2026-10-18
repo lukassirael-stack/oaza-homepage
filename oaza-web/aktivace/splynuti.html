@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" fetchpriority="high" media="(max-width:640px)" href="/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&amp;w=800&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:641px) and (max-width:1366px)" href="/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&amp;w=1200&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:1367px)" href="/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&amp;w=1920&amp;q=75">
 <title>Splynutí — vedená meditace | Oáza Adamanthea</title>
 <meta name="description" content="Vedená meditace Splynutí z Oázy Adamanthea. Spojení mužské a ženské energie, harmonie a uzdravení. Poslech 30 dní, kolikrát chceš.">
 <link rel="canonical" href="https://oaza-adamanthea.cz/aktivace/splynuti">
@@ -28,6 +31,8 @@
 {"@context": "https://schema.org", "@type": "Product", "name": "Splynutí — vedená meditace", "image": "https://oaza-adamanthea.cz/img/meditace-splynuti-muze-zeny.webp?v=1", "description": "Vedená meditace pro spojení mužské a ženské energie.", "brand": {"@type": "Brand", "name": "Oáza Adamanthea"}, "url": "https://oaza-adamanthea.cz/aktivace/splynuti", "offers": {"@type": "Offer", "price": "399", "priceCurrency": "CZK", "url": "https://oaza-adamanthea.cz/aktivace/splynuti", "availability": "https://schema.org/InStock"}}
 </script>
 <style>
+:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&w=1200&q=75")}@media (max-width:640px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&w=800&q=75")}}@media (min-width:1367px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&w=1920&q=75")}}
+
 :root{
   --krem:#fbf6ee; --krem-2:#f6eee2; --bila:#fffdf9;
   --zlata:#a9823f; --zlata-tm:#8a682e; --zlata-sv:#d9bf8c;
@@ -92,7 +97,7 @@ nav.web .btn:hover{background:#9c585a}
 .hero{position:relative;padding:150px 0 64px;min-height:680px;display:flex;align-items:center;
   background:
     linear-gradient(90deg,rgba(251,246,238,.82) 0%,rgba(251,246,238,.62) 28%,rgba(251,246,238,.18) 48%,rgba(251,246,238,0) 62%),
-    url('/img/hero-pozadi.webp?v=1') center 58%/cover no-repeat,#f8ead8}
+    var(--oi1) center 58%/cover no-repeat,#f8ead8}
 .hero>.obal{width:min(var(--sirka),100% - 40px)}
 .hero .obal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;align-items:center}
 .nadpisek{font:600 12px/1 var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--zlata-tm);margin-bottom:22px}
@@ -242,7 +247,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   .hero-logo .l4{font-size:8px}
 }
 @media (max-width:860px){
-  .hero{padding:205px 0 40px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
+  .hero{padding:205px 0 40px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),var(--oi1)}
   .hero h1{font-size:46px;letter-spacing:.05em}
   .hero h1 .online{font-size:.62em;letter-spacing:.22em;margin-bottom:.1em}
   .hero .pod{max-width:30ch;font-size:21px;line-height:1.3;margin:12px auto 26px}
@@ -365,7 +370,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
 <main>
 <section class="detail-hero">
   <div class="obal">
-    <div class="detail-obraz"><img src="/img/meditace-splynuti-muze-zeny.webp?v=1" alt="Muž a žena v objetí ve světelném kruhu, meditace Splynutí" width="1200" height="1200"></div>
+    <div class="detail-obraz"><img src="/_vercel/image?url=%2Fimg%2Fmeditace-splynuti-muze-zeny.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fmeditace-splynuti-muze-zeny.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fmeditace-splynuti-muze-zeny.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fmeditace-splynuti-muze-zeny.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 87vw, 480px" alt="Muž a žena v objetí ve světelném kruhu, meditace Splynutí" width="1200" height="1200"></div>
     <div>
       <a class="zpet" href="/aktivace#meditace" onclick="return zpetNaSeznam()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg> Všechny meditace</a>
       <h1>Splynutí</h1>

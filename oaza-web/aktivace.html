@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" fetchpriority="high" media="(max-width:640px)" href="/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&amp;w=800&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:641px) and (max-width:1366px)" href="/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&amp;w=1200&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:1367px)" href="/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&amp;w=1920&amp;q=75">
 <title>Audio aktivace | Oáza Adamanthea</title>
 <meta name="description" content="Audio aktivace Oázy Adamanthea: nahraná vedení pro léčení, uzdravení a procházení životních i spirituálních témat. Vyber si aktivaci, získej okamžitý přístup a poslouchej ji 30 dní, kolikrát chceš.">
 <link rel="canonical" href="https://oaza-adamanthea.cz/aktivace">
@@ -29,6 +32,8 @@
 {"@context":"https://schema.org","@type":"CollectionPage","name":"Audio aktivace","url":"https://oaza-adamanthea.cz/aktivace","inLanguage":"cs","isPartOf":{"@type":"WebSite","name":"Oáza Adamanthea","url":"https://oaza-adamanthea.cz/"},"description":"Audio aktivace Oázy Adamanthea: nahraná vedení pro léčení, uzdravení a procházení životních i spirituálních témat."}
 </script>
 <style>
+:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&w=1200&q=75")}@media (max-width:640px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&w=800&q=75")}}@media (min-width:1367px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fhero-pozadi.webp&w=1920&q=75")}}
+
 :root{
   --krem:#fbf6ee; --krem-2:#f6eee2; --bila:#fffdf9;
   --zlata:#a9823f; --zlata-tm:#8a682e; --zlata-sv:#d9bf8c;
@@ -93,7 +98,7 @@ nav.web .btn:hover{background:#9c585a}
 .hero{position:relative;padding:110px 0 70px;min-height:760px;display:flex;align-items:center;
   background:
     linear-gradient(90deg,rgba(251,246,238,.82) 0%,rgba(251,246,238,.62) 28%,rgba(251,246,238,.18) 48%,rgba(251,246,238,0) 62%),
-    url('/img/hero-pozadi.webp?v=1') center 58%/cover no-repeat,#f8ead8}
+    var(--oi1) center 58%/cover no-repeat,#f8ead8}
 .hero>.obal{width:min(var(--sirka),100% - 40px)}
 .hero .obal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(30px,3vw,48px);align-items:center}
 .nadpisek{font:500 17px/1 var(--serif);letter-spacing:.3em;text-transform:uppercase;color:var(--zlata-tm);margin-bottom:22px}
@@ -252,7 +257,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   .hero-logo .l4{font-size:8px}
 }
 @media (max-width:860px){
-  .hero{padding:96px 0 40px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),url('/img/hero-pozadi.webp?v=1')}
+  .hero{padding:96px 0 40px;min-height:0;background-position:center top;background-image:linear-gradient(180deg,rgba(251,246,238,.5) 0%,rgba(251,246,238,.28) 40%,rgba(251,246,238,0) 58%),var(--oi1)}
   .hero h1{font-size:50px;letter-spacing:.02em}
 
   .hero .pod{max-width:30ch;font-size:21px;line-height:1.3;margin:12px auto 26px}
@@ -395,7 +400,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
         <svg class="l3" viewBox="0 0 400 14" aria-hidden="true"><path d="M0 7h178M222 7h178" stroke="currentColor" stroke-width="1.2"/><path d="M200 1l6 6-6 6-6-6z" fill="currentColor"/></svg>
         <span class="l4">Crystal &amp; Retreat centrum</span>
       </div>
-      <div class="hero-karty" aria-hidden="true"><img src="/img/hero-karty.webp?v=6" alt="" width="1698" height="839" fetchpriority="high"></div>
+      <div class="hero-karty" aria-hidden="true"><img src="/_vercel/image?url=%2Fimg%2Fhero-karty.webp&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fhero-karty.webp&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fhero-karty.webp&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fhero-karty.webp&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 87vw, 583px" alt="" width="1698" height="839" fetchpriority="high"></div>
     </div>
   </div>
 </section>
@@ -443,7 +448,7 @@ dialog .zavrit{position:absolute;top:12px;right:12px;width:40px;height:40px;bord
   </div>
 </section>
 
-<section class="vzniklo" id="o-meditacich" style="--foto:url('/img/meditace-vzniklo.webp?v=1')">
+<section class="vzniklo" id="o-meditacich" style="--foto:url('/_vercel/image?url=%2Fimg%2Fmeditace-vzniklo.webp&w=1200&q=75')">
   <p class="rukopis" aria-hidden="true">Posvátný prostor<br>pro skutečný život ♡</p>
   <div class="obal">
     <div class="text">
@@ -552,14 +557,14 @@ const NASTAVENI = {
   dniPristupu: 30
 };
 const MEDITACE = [
-  { klic:'odpusteni',     nazev:'Odpuštění',     kratky:'Odpuštění',     afirmace:'Propouštím a vracím se k lehkosti.', popis:'Uvolnění zranění spojených s druhými a návrat lehkosti do srdce.',                  obrazek:'/img/meditace-odpusteni.webp?v=1',        odkaz:'/aktivace/odpusteni', delka:'17 minut', cena:'349 Kč', ukazka:'' },
-  { klic:'otec',          nazev:'Kořeny a mužská síla', kratky:'Kořeny a mužská síla',          afirmace:'Stojím pevně ve svých kořenech.', popis:'Uzdravení vztahu s otcem, stabilita a pevnost.',          obrazek:'/img/meditace-otec.webp?v=2',          odkaz:'/aktivace/koreny-a-muzska-sila', delka:'24 minut', cena:'349 Kč', ukazka:'' },
-  { klic:'harmonizace-energetickych-center', nazev:'Harmonizace energetických center', kratky:'Harmonizace čaker', afirmace:'Mé tělo, mysl i duše proudí v souladu.', popis:'Vyladění všech sedmi čaker do harmonie a otevření jejich proudu.', obrazek:'/img/meditace-harmonizace-energetickych-center.webp?v=1', odkaz:'/aktivace/harmonizace-energetickych-center', delka:'63 minut', cena:'od 399 Kč', ukazka:'' },
-  { klic:'splynuti', nazev:'Splynutí', kratky:'Splynutí', afirmace:'Mužský a ženský princip ve mně proudí v jednotě.', popis:'Spojení mužské a ženské energie, harmonie a uzdravení ve vztazích.', obrazek:'/img/meditace-splynuti-muze-zeny.webp?v=1', odkaz:'/aktivace/splynuti', delka:'61 minut', cena:'399 Kč', ukazka:'' },
-  { klic:'rovnovaha-jin-a-jang', nazev:'Rovnováha jin a jang', kratky:'Jin a jang', afirmace:'Slunce i měsíc ve mně tančí v harmonii.', popis:'Sladění ženské a mužské energie, klidu a síly.', obrazek:'/img/meditace-rovnovaha-jin-a-jang.webp?v=1', odkaz:'/aktivace/rovnovaha-jin-a-jang', delka:'33 minut', cena:'349 Kč', ukazka:'' },
-  { klic:'lvi-brana', nazev:'Lví brána', kratky:'Lví brána', afirmace:'Probouzím svůj vnitřní oheň a sílu.', popis:'Vnitřní oheň, síla a probuzení do vlastní velikosti. Pro zdravé sebevědomí, sebe-projevení, hranice i hojnost.', obrazek:'/img/meditace-lvi-brana.webp?v=1', odkaz:'/aktivace/lvi-brana', delka:'36 minut', cena:'444 Kč', ukazka:'' },
-  { klic:'pyramida-slunce', nazev:'Aktivace na pyramidě Slunce', kratky:'Pyramida Slunce', afirmace:'Meditace a aktivace v Bosně, 26. 9. 2026', popis:'Autentická nahrávka z největší a nejstarší pyramidy světa.', obrazek:'/img/meditace-pyramida-slunce.webp?v=1', odkaz:'/aktivace/pyramida-slunce', delka:'29 minut', cena:'499 Kč', ukazka:'' },
-  { klic:'pyramida-mesice', nazev:'Meditace na úpatí pyramidy Měsíce', kratky:'Pyramida Měsíce', afirmace:'Léčení ženské energie a vztahu s matkou', popis:'Autentická nahrávka od druhé největší a nejstarší pyramidy světa, 26. 9. 2026.', obrazek:'/img/meditace-pyramida-mesice.webp?v=1', odkaz:'/aktivace/pyramida-mesice', delka:'27 minut', cena:'499 Kč', ukazka:'' }
+  { klic:'odpusteni',     nazev:'Odpuštění',     kratky:'Odpuštění',     afirmace:'Propouštím a vracím se k lehkosti.', popis:'Uvolnění zranění spojených s druhými a návrat lehkosti do srdce.',                  obrazek:'/_vercel/image?url=%2Fimg%2Fmeditace-odpusteni.webp&w=800&q=75',        odkaz:'/aktivace/odpusteni', delka:'17 minut', cena:'349 Kč', ukazka:'' },
+  { klic:'otec',          nazev:'Kořeny a mužská síla', kratky:'Kořeny a mužská síla',          afirmace:'Stojím pevně ve svých kořenech.', popis:'Uzdravení vztahu s otcem, stabilita a pevnost.',          obrazek:'/_vercel/image?url=%2Fimg%2Fmeditace-otec.webp&w=800&q=75',          odkaz:'/aktivace/koreny-a-muzska-sila', delka:'24 minut', cena:'349 Kč', ukazka:'' },
+  { klic:'harmonizace-energetickych-center', nazev:'Harmonizace energetických center', kratky:'Harmonizace čaker', afirmace:'Mé tělo, mysl i duše proudí v souladu.', popis:'Vyladění všech sedmi čaker do harmonie a otevření jejich proudu.', obrazek:'/_vercel/image?url=%2Fimg%2Fmeditace-harmonizace-energetickych-center.webp&w=800&q=75', odkaz:'/aktivace/harmonizace-energetickych-center', delka:'63 minut', cena:'od 399 Kč', ukazka:'' },
+  { klic:'splynuti', nazev:'Splynutí', kratky:'Splynutí', afirmace:'Mužský a ženský princip ve mně proudí v jednotě.', popis:'Spojení mužské a ženské energie, harmonie a uzdravení ve vztazích.', obrazek:'/_vercel/image?url=%2Fimg%2Fmeditace-splynuti-muze-zeny.webp&w=800&q=75', odkaz:'/aktivace/splynuti', delka:'61 minut', cena:'399 Kč', ukazka:'' },
+  { klic:'rovnovaha-jin-a-jang', nazev:'Rovnováha jin a jang', kratky:'Jin a jang', afirmace:'Slunce i měsíc ve mně tančí v harmonii.', popis:'Sladění ženské a mužské energie, klidu a síly.', obrazek:'/_vercel/image?url=%2Fimg%2Fmeditace-rovnovaha-jin-a-jang.webp&w=800&q=75', odkaz:'/aktivace/rovnovaha-jin-a-jang', delka:'33 minut', cena:'349 Kč', ukazka:'' },
+  { klic:'lvi-brana', nazev:'Lví brána', kratky:'Lví brána', afirmace:'Probouzím svůj vnitřní oheň a sílu.', popis:'Vnitřní oheň, síla a probuzení do vlastní velikosti. Pro zdravé sebevědomí, sebe-projevení, hranice i hojnost.', obrazek:'/_vercel/image?url=%2Fimg%2Fmeditace-lvi-brana.webp&w=800&q=75', odkaz:'/aktivace/lvi-brana', delka:'36 minut', cena:'444 Kč', ukazka:'' },
+  { klic:'pyramida-slunce', nazev:'Aktivace na pyramidě Slunce', kratky:'Pyramida Slunce', afirmace:'Meditace a aktivace v Bosně, 26. 9. 2026', popis:'Autentická nahrávka z největší a nejstarší pyramidy světa.', obrazek:'/_vercel/image?url=%2Fimg%2Fmeditace-pyramida-slunce.webp&w=800&q=75', odkaz:'/aktivace/pyramida-slunce', delka:'29 minut', cena:'499 Kč', ukazka:'' },
+  { klic:'pyramida-mesice', nazev:'Meditace na úpatí pyramidy Měsíce', kratky:'Pyramida Měsíce', afirmace:'Léčení ženské energie a vztahu s matkou', popis:'Autentická nahrávka od druhé největší a nejstarší pyramidy světa, 26. 9. 2026.', obrazek:'/_vercel/image?url=%2Fimg%2Fmeditace-pyramida-mesice.webp&w=800&q=75', odkaz:'/aktivace/pyramida-mesice', delka:'27 minut', cena:'499 Kč', ukazka:'' }
 ];
 const OHLASY = [
   // { text:'…', jmeno:'Jméno P.' }  ← skutečné ohlasy posluchačů; sekce se zobrazí sama

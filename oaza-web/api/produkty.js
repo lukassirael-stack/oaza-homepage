@@ -107,6 +107,7 @@ export default async function handler(req, res) {
         cena_eur: eur(p.cena, p.cena_eur, kurz), digitalni: !!p.digitalni,
         kategorie: p.kategorie, barva: p.barva, velikost: p.velikost,
         ucel: (p.vlastnosti && p.vlastnosti.ucel) || [],
+        vice_kusu: !!(p.vlastnosti && p.vlastnosti.vice_kusu),
         fotky: p.fotky || [], videa: p.videa || [], stav: p.stav, stitek: p.stitek,
         rezervovano,
       }});

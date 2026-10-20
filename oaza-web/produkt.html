@@ -203,7 +203,7 @@ function render(p){
         ? (p.rezervovano
             ? '✦ Momentálně rezervováno jiným zákazníkem — zkus to prosím za pár hodin.'
             : '✦ Tento kus je již prodán.')
-        : '✦ Jediný kus — po prodeji už nebude k dispozici.');
+        : (p.vice_kusu ? '' : '✦ Jediný kus — po prodeji už nebude k dispozici.'));
 
 
   $('#obsah').innerHTML=`
@@ -225,7 +225,7 @@ function render(p){
       ${p.popis?`<div class="popis">${esc(p.popis)}</div>`:''}
       ${vlast.length?`<div class="vlastnosti">${vlast.join('')}</div>`:''}
       <button class="koupit" id="doKosiku"${dostupny ? '' : ' disabled'}>${dostupny ? cta : (p.rezervovano ? 'Rezervováno' : 'Prodáno')}</button>
-      <div class="jeden">${pozn}</div>
+      ${pozn?`<div class="jeden">${pozn}</div>`:''}
       ${p.digitalni?'':'<div class="jeden dodani">Odesíláme do 3 pracovních dnů · Zásilkovna od 89 Kč · kartou, Apple Pay, Google Pay nebo QR platbou</div>'}
     </div>
   </div>`;

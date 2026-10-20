@@ -114,11 +114,12 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .pvs-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
 .pvs-list li{font-family:'Jost',sans-serif;font-size:clamp(13px,1.6vw,16px);font-weight:300;color:rgba(255,255,255,0.9);text-shadow:0 1px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;gap:10px}
 .pvs-list li::before{content:'•';color:rgba(200,230,150,0.9);font-size:18px;line-height:1}
-/* CTA v hero: kalendář obsazenosti na jeden klik */
-.pvs-cta{margin:-6px 0 34px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.pvs-cta-btn{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;background:rgba(255,255,255,.94);color:var(--green);font-family:'Jost',sans-serif;font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:16px 36px;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.28);transition:transform .25s,background .25s,box-shadow .25s}
-.pvs-cta-btn:hover{background:#fff;transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.32)}
-.pvs-cta-note{font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:rgba(255,255,255,.78);text-shadow:0 1px 8px rgba(0,0,0,.3)}
+/* CTA v hero: kalendář obsazenosti na jeden klik — sklo jako karta, serif jako nadpisy */
+.pvs-cta{margin:-2px 0 36px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.pvs-cta-btn{display:inline-flex;align-items:center;gap:12px;white-space:nowrap;background:rgba(255,255,255,.10);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.6);border-radius:4px;color:#fff;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:13px 34px 13px 30px;text-shadow:0 1px 12px rgba(0,0,0,.35);box-shadow:0 4px 24px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.2);transition:background .3s,border-color .3s,transform .3s}
+.pvs-cta-btn svg{width:20px;height:20px;flex:none;opacity:.9}
+.pvs-cta-btn:hover{background:rgba(255,255,255,.22);border-color:#fff;transform:translateY(-2px)}
+.pvs-cta-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,.8);text-shadow:0 1px 8px rgba(0,0,0,.3)}
 #kalendar{scroll-margin-top:24px}
 
 
@@ -357,7 +358,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   nav .btn:not(.jen-mobil){display:none}
 }
 @media(max-width:760px){
-  .pvs-cta-btn{padding:14px 26px;font-size:13px}
+  .pvs-cta-btn{padding:12px 24px 12px 20px;font-size:17px;letter-spacing:.12em}
   .pvs2{padding:60px 20px 20px}
   .pvs2-gallery{grid-template-columns:1fr;gap:14px}
   .pvs2-gallery img{aspect-ratio:16/10}
@@ -371,7 +372,8 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 .to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
 .to-top:hover{background:#1f3024}
 /* Plovoucí tlačítko „Volné termíny" — zobrazí se po opuštění hero, schová se, když je kalendář vidět */
-.cal-jump{position:fixed;left:22px;bottom:22px;z-index:80;display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:14px 22px;border-radius:50px;box-shadow:0 4px 16px rgba(0,0,0,.2);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility .3s,background .25s}
+.cal-jump{position:fixed;left:22px;bottom:22px;z-index:80;display:inline-flex;align-items:center;gap:9px;background:var(--green);color:#fdfaf5;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:12px 22px 12px 18px;border-radius:50px;box-shadow:0 4px 16px rgba(0,0,0,.2);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility .3s,background .25s}
+.cal-jump svg{width:17px;height:17px;flex:none;opacity:.9}
 .cal-jump.show{opacity:1;visibility:visible;transform:translateY(0)}
 .cal-jump:hover{background:#1f3024}
 
@@ -558,7 +560,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
     <a href="/spirit-lab">Spirit Lab</a>
       <a href="/o-nas">O nás</a>
       <a href="/kontakt">Kontakt</a>
-      <a href="#kalendar" class="js-prijet jen-mobil">📅 Volné termíny</a>
+      <a href="#kalendar" class="js-prijet jen-mobil">Volné termíny</a>
     </div>
     <a class="btn js-prijet" href="#rezervace">Chci přijet</a>
   </nav>
@@ -575,7 +577,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       <div class="pvs-divider"></div>
       <p class="pvs-quote">„Existují místa, kde se člověk znovu nadechne."</p>
       <div class="pvs-cta">
-        <a class="pvs-cta-btn" href="#kalendar">📅 Volné termíny</a>
+        <a class="pvs-cta-btn" href="#kalendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h2M12 14h2M8 17h2"/></svg>Volné termíny</a>
         <span class="pvs-cta-note">Kalendář obsazenosti a rezervace na jeden klik</span>
       </div>
       <p class="pvs-perex">
@@ -1466,7 +1468,7 @@ const reviews = [
 })();
 </script>
 
-<a class="cal-jump" id="calJump" href="#kalendar" aria-label="Přejít na kalendář volných termínů">📅 Volné termíny</a>
+<a class="cal-jump" id="calJump" href="#kalendar" aria-label="Přejít na kalendář volných termínů"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h2M12 14h2M8 17h2"/></svg>Volné termíny</a>
 <button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',window.scrollY>500);});

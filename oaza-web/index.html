@@ -673,32 +673,41 @@
   .modal-backdrop.open{display:flex}
   .modal{
     background:#fdf7ea;
-    border-radius:16px;
-    max-width:1060px;width:100%;
-    padding:40px 44px 44px;
-    position:relative;
+    border-radius:26px;
+    max-width:1300px;width:100%;
+    padding:54px 60px 58px;
+    position:relative;isolation:isolate;overflow:hidden;
     box-shadow:0 30px 80px rgba(0,0,0,.35);
   }
-  .modal .eyebrow-m{
-    font-size:15px;letter-spacing:.3em;text-transform:uppercase;
-    color:var(--rose);margin-bottom:10px;
+  .modal-hlavicka{
+    position:absolute;top:0;right:0;width:38%;height:310px;
+    object-fit:cover;object-position:center top;z-index:-1;display:block;
+    -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 48%),linear-gradient(180deg,#000 50%,rgba(0,0,0,0) 100%);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 48%),linear-gradient(180deg,#000 50%,rgba(0,0,0,0) 100%);
+    mask-composite:intersect;
   }
-  .modal h2{font-size:clamp(28px,4vw,38px);margin-bottom:14px}
-  .modal .modal-uvod{font-size:19px;line-height:1.55;color:#4c5247;max-width:760px;margin-bottom:30px}
+  .modal .eyebrow-m{
+    font-size:16px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--rose);margin-bottom:14px;
+  }
+  .modal h2{font-size:clamp(30px,4vw,52px);line-height:1.15;margin-bottom:16px}
+  .modal .modal-uvod{font-size:clamp(18px,1.7vw,22px);line-height:1.6;color:#4c5247;max-width:760px;margin-bottom:34px}
   .modal-close{
-    position:absolute;top:30px;right:32px;
-    width:48px;height:48px;
-    background:#fff;border:1px solid var(--line);border-radius:8px;
-    font-size:22px;color:var(--green);cursor:pointer;
+    position:absolute;top:34px;right:34px;z-index:2;
+    width:58px;height:58px;
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    font-size:24px;color:var(--green);cursor:pointer;
     display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
     transition:background .2s;
   }
   .modal-close:hover{background:var(--cream-dark)}
-  .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
   .modal-card{
     display:block;background:#fff;position:relative;overflow:hidden;
-    border:1px solid var(--line);border-radius:14px;
-    min-height:226px;
+    border:1px solid var(--line);border-radius:18px;
+    min-height:250px;
     transition:border-color .2s, transform .2s, box-shadow .2s;
   }
   .modal-card:hover{
@@ -706,42 +715,48 @@
     box-shadow:0 10px 24px rgba(46,68,52,.10);
   }
   .modal-card .mc-foto{
-    position:absolute;top:0;right:0;bottom:0;width:62%;height:100%;
+    position:absolute;top:0;right:0;bottom:0;width:60%;height:100%;
     object-fit:cover;display:block;
-    -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 42%);
-    mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 42%);
+    -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 45%);
+    mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 45%);
   }
   .modal-card .mc-text{
-    position:relative;z-index:1;max-width:60%;
-    padding:24px 8px 22px 28px;
+    position:relative;z-index:1;max-width:58%;
+    padding:28px 10px 26px 30px;
   }
-  .modal-card.bez-foto .mc-text{max-width:100%;padding-right:28px}
-  .modal-card .mc-ikona{height:40px;margin-bottom:12px;display:flex;align-items:flex-end}
-  .modal-card .mc-ikona svg{stroke:#c3a05a}
-  .modal-card h3{font-size:25px;font-weight:600;margin-bottom:6px}
-  .modal-card p{font-size:17px;line-height:1.45;color:#4c5247;margin-bottom:16px}
+  .modal-card.bez-foto .mc-text{max-width:100%;padding-right:30px}
+  .modal-card .mc-ikona{height:56px;margin-bottom:14px;display:flex;align-items:flex-end}
+  .modal-card .mc-ikona svg{width:56px;height:56px;stroke:#c3a05a}
+  .modal-card h3{font-size:clamp(26px,2.4vw,32px);font-weight:500;line-height:1.15;margin-bottom:8px}
+  .modal-card p{font-size:clamp(17px,1.55vw,21px);line-height:1.4;color:#4c5247;margin-bottom:18px;max-width:330px}
   .modal-card .mc-odkaz{
-    display:inline-flex;align-items:center;gap:12px;
-    font-size:13.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);white-space:nowrap;
+    display:inline-flex;align-items:center;gap:14px;
+    font-size:15px;letter-spacing:.25em;text-transform:uppercase;color:var(--rose);white-space:nowrap;
   }
   .modal-card .mc-odkaz span{
-    width:40px;height:40px;border:1px solid var(--line);border-radius:50%;
+    width:46px;height:46px;border:1px solid var(--line);border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     transition:transform .25s, border-color .25s;
   }
   .modal-card:hover .mc-odkaz span{transform:translateX(4px);border-color:var(--rose)}
-  @media (max-width:680px){
-    .modal{padding:30px 22px 26px}
-    .modal-close{top:22px;right:20px}
+  @media (max-width:1000px){
+    .modal{padding:44px 40px 44px;border-radius:20px}
+    .modal-hlavicka{display:none}
     .modal-grid{grid-template-columns:1fr}
-    .modal-card{min-height:0}
+  }
+  @media (max-width:680px){
+    .modal{padding:30px 22px 26px;border-radius:16px}
+    .modal-close{top:22px;right:20px;width:48px;height:48px}
+    .modal-card{min-height:0;border-radius:14px}
     .modal-card .mc-foto{
-      width:100%;height:170px;bottom:auto;
+      width:100%;height:180px;bottom:auto;
       -webkit-mask-image:linear-gradient(180deg,#000 45%,rgba(0,0,0,0) 100%);
       mask-image:linear-gradient(180deg,#000 45%,rgba(0,0,0,0) 100%);
     }
-    .modal-card .mc-text{max-width:100%;padding:150px 22px 22px}
+    .modal-card .mc-text{max-width:100%;padding:156px 22px 22px}
     .modal-card.bez-foto .mc-text{padding-top:22px}
+    .modal-card .mc-ikona{height:44px}
+    .modal-card .mc-ikona svg{width:44px;height:44px}
   }
   @media (max-width:900px){
     .shop-grid{grid-template-columns:repeat(2,1fr);gap:14px}
@@ -1237,6 +1252,7 @@
 <!-- ============ ROZCESTNÍK „CO TEĎ POTŘEBUJI" ============ -->
 <div class="modal-backdrop" id="prijet" role="dialog" aria-modal="true" aria-labelledby="prijet-h">
   <div class="modal">
+    <img class="modal-hlavicka" src="/_vercel/image?url=%2Fimg%2Frozcestnik-hlavicka.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Frozcestnik-hlavicka.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Frozcestnik-hlavicka.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Frozcestnik-hlavicka.jpg&amp;w=1200&amp;q=75 1200w" sizes="500px" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.remove()">
     <button class="modal-close" aria-label="Zavřít" onclick="zavriPrijet()">✕</button>
     <p class="eyebrow-m">Co teď potřebuji</p>
     <h2 id="prijet-h">Po čem právě touží vaše duše?</h2>

@@ -679,14 +679,6 @@
     position:relative;isolation:isolate;overflow:hidden;
     box-shadow:0 30px 80px rgba(0,0,0,.35);
   }
-  .modal-hlavicka{
-    position:absolute;top:0;right:0;width:38%;height:310px;
-    object-fit:cover;object-position:center top;z-index:-1;display:block;
-    -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 48%),linear-gradient(180deg,#000 50%,rgba(0,0,0,0) 100%);
-    -webkit-mask-composite:source-in;
-    mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 48%),linear-gradient(180deg,#000 50%,rgba(0,0,0,0) 100%);
-    mask-composite:intersect;
-  }
   .modal .eyebrow-m{
     font-size:16px;letter-spacing:.32em;text-transform:uppercase;
     color:var(--rose);margin-bottom:14px;
@@ -741,7 +733,6 @@
   .modal-card:hover .mc-odkaz span{transform:translateX(4px);border-color:var(--rose)}
   @media (max-width:1000px){
     .modal{padding:44px 40px 44px;border-radius:20px}
-    .modal-hlavicka{display:none}
     .modal-grid{grid-template-columns:1fr}
   }
   @media (max-width:680px){
@@ -1252,7 +1243,6 @@
 <!-- ============ ROZCESTNÍK „CO TEĎ POTŘEBUJI" ============ -->
 <div class="modal-backdrop" id="prijet" role="dialog" aria-modal="true" aria-labelledby="prijet-h">
   <div class="modal">
-    <img class="modal-hlavicka" src="/_vercel/image?url=%2Fimg%2Frozcestnik-hlavicka.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Frozcestnik-hlavicka.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Frozcestnik-hlavicka.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Frozcestnik-hlavicka.jpg&amp;w=1200&amp;q=75 1200w" sizes="500px" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.remove()">
     <button class="modal-close" aria-label="Zavřít" onclick="zavriPrijet()">✕</button>
     <p class="eyebrow-m">Co teď potřebuji</p>
     <h2 id="prijet-h">Po čem právě touží vaše duše?</h2>

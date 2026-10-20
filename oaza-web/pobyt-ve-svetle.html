@@ -114,6 +114,12 @@ nav .btn{font-family:'Cormorant Garamond',serif;font-size:18px;padding:11px 26px
 .pvs-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
 .pvs-list li{font-family:'Jost',sans-serif;font-size:clamp(13px,1.6vw,16px);font-weight:300;color:rgba(255,255,255,0.9);text-shadow:0 1px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;gap:10px}
 .pvs-list li::before{content:'•';color:rgba(200,230,150,0.9);font-size:18px;line-height:1}
+/* CTA v hero: kalendář obsazenosti na jeden klik */
+.pvs-cta{margin:-6px 0 34px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.pvs-cta-btn{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;background:rgba(255,255,255,.94);color:var(--green);font-family:'Jost',sans-serif;font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:16px 36px;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.28);transition:transform .25s,background .25s,box-shadow .25s}
+.pvs-cta-btn:hover{background:#fff;transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.32)}
+.pvs-cta-note{font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:rgba(255,255,255,.78);text-shadow:0 1px 8px rgba(0,0,0,.3)}
+#kalendar{scroll-margin-top:24px}
 
 
 /* ====================================================================
@@ -351,6 +357,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
   nav .btn:not(.jen-mobil){display:none}
 }
 @media(max-width:760px){
+  .pvs-cta-btn{padding:14px 26px;font-size:13px}
   .pvs2{padding:60px 20px 20px}
   .pvs2-gallery{grid-template-columns:1fr;gap:14px}
   .pvs2-gallery img{aspect-ratio:16/10}
@@ -363,6 +370,10 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 .to-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--green);color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility .3s;z-index:80;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
 .to-top:hover{background:#1f3024}
+/* Plovoucí tlačítko „Volné termíny" — zobrazí se po opuštění hero, schová se, když je kalendář vidět */
+.cal-jump{position:fixed;left:22px;bottom:22px;z-index:80;display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:14px 22px;border-radius:50px;box-shadow:0 4px 16px rgba(0,0,0,.2);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility .3s,background .25s}
+.cal-jump.show{opacity:1;visibility:visible;transform:translateY(0)}
+.cal-jump:hover{background:#1f3024}
 
 /* menu s položkou Meditace */
 @media(min-width:901px) and (max-width:1240px){nav{gap:20px;padding-left:28px;padding-right:28px}nav .menu{gap:16px;font-size:.76rem}nav .menu a{white-space:nowrap}}
@@ -547,7 +558,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
     <a href="/spirit-lab">Spirit Lab</a>
       <a href="/o-nas">O nás</a>
       <a href="/kontakt">Kontakt</a>
-      <a href="/kontakt" class="js-prijet jen-mobil">Chci přijet</a>
+      <a href="#kalendar" class="js-prijet jen-mobil">📅 Volné termíny</a>
     </div>
     <a class="btn js-prijet" href="#rezervace">Chci přijet</a>
   </nav>
@@ -563,6 +574,10 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
       <h1 class="pvs-title">POBYT VE SVĚTLE</h1>
       <div class="pvs-divider"></div>
       <p class="pvs-quote">„Existují místa, kde se člověk znovu nadechne."</p>
+      <div class="pvs-cta">
+        <a class="pvs-cta-btn" href="#kalendar">📅 Volné termíny</a>
+        <span class="pvs-cta-note">Kalendář obsazenosti a rezervace na jeden klik</span>
+      </div>
       <p class="pvs-perex">
         Představte si místo uprostřed lesa, kde na chvíli utichne svět.<br>
         Jen vy, příroda a prostor pro návrat k sobě.<br><br>
@@ -713,7 +728,7 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
 
         <!-- KALENDÁŘ -->
-        <div class="cal-wrap">
+        <div class="cal-wrap" id="kalendar">
           <span class="cal-label">Datum příjezdu a odjezdu <span class="required">*</span></span>
           <div class="cal-header">
             <button type="button" class="cal-nav" id="calPrev" onclick="prevMonth()">‹</button>
@@ -969,6 +984,17 @@ function prepniMenu(btn){
   btn.textContent=open?'✕':'☰';
   document.body.style.overflow=open?'hidden':'';
 }
+// Odkaz na kotvu v otevřeném mobilním menu: menu zavřít a nechat stránku sjet na místo.
+document.querySelectorAll('#menu a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(){
+    var m=document.getElementById('menu');
+    if(m&&m.classList.contains('open')){
+      m.classList.remove('open');
+      document.body.style.overflow='';
+      var t=document.querySelector('.nav-toggle'); if(t)t.textContent='☰';
+    }
+  });
+});
 
 
 // ── REZERVAČNÍ PROXY (vlastní Vercel projekt) ────────
@@ -1440,9 +1466,19 @@ const reviews = [
 })();
 </script>
 
+<a class="cal-jump" id="calJump" href="#kalendar" aria-label="Přejít na kalendář volných termínů">📅 Volné termíny</a>
 <button class="to-top" id="toTop" aria-label="Nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',window.scrollY>500);});
+// Plovoucí „Volné termíny": ukázat po sjetí z hero, schovat, dokud je kalendář na obrazovce.
+(function(){
+  var j=document.getElementById('calJump'),k=document.getElementById('kalendar'),h=document.querySelector('.pvs-hero');
+  if(!j||!k)return;
+  var calVisible=false;
+  function upd(){var past=window.scrollY>((h?h.offsetHeight:600)-120);j.classList.toggle('show',past&&!calVisible);}
+  if('IntersectionObserver' in window){new IntersectionObserver(function(e){calVisible=e[0].isIntersecting;upd();},{threshold:0.15}).observe(k);}
+  window.addEventListener('scroll',upd,{passive:true});upd();
+})();
 </script>
 <!-- ===================================================================== -->
 <!--  COOKIE SOUHLAS + META PIXEL  —  Oáza Adamanthea                       -->

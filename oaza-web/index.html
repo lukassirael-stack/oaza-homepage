@@ -674,7 +674,7 @@
   .modal{
     background:#fdf7ea;
     border-radius:16px;
-    max-width:880px;width:100%;
+    max-width:1060px;width:100%;
     padding:40px 44px 44px;
     position:relative;
     box-shadow:0 30px 80px rgba(0,0,0,.35);
@@ -684,7 +684,7 @@
     color:var(--rose);margin-bottom:10px;
   }
   .modal h2{font-size:clamp(28px,4vw,38px);margin-bottom:14px}
-  .modal .modal-uvod{font-size:19px;line-height:1.55;color:#4c5247;max-width:720px;margin-bottom:30px}
+  .modal .modal-uvod{font-size:19px;line-height:1.55;color:#4c5247;max-width:760px;margin-bottom:30px}
   .modal-close{
     position:absolute;top:30px;right:32px;
     width:48px;height:48px;
@@ -694,23 +694,54 @@
     transition:background .2s;
   }
   .modal-close:hover{background:var(--cream-dark)}
-  .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .modal-card{
-    display:block;background:#fff;
-    border:1px solid var(--line);border-radius:10px;
-    padding:22px 26px;
+    display:block;background:#fff;position:relative;overflow:hidden;
+    border:1px solid var(--line);border-radius:14px;
+    min-height:226px;
     transition:border-color .2s, transform .2s, box-shadow .2s;
   }
   .modal-card:hover{
     border-color:var(--rose);transform:translateY(-2px);
     box-shadow:0 10px 24px rgba(46,68,52,.10);
   }
-  .modal-card h3{font-size:24px;font-weight:600;margin-bottom:6px}
-  .modal-card p{font-size:18px;color:#4c5247}
+  .modal-card .mc-foto{
+    position:absolute;top:0;right:0;bottom:0;width:62%;height:100%;
+    object-fit:cover;display:block;
+    -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 42%);
+    mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 42%);
+  }
+  .modal-card .mc-text{
+    position:relative;z-index:1;max-width:60%;
+    padding:24px 8px 22px 28px;
+  }
+  .modal-card.bez-foto .mc-text{max-width:100%;padding-right:28px}
+  .modal-card .mc-ikona{height:40px;margin-bottom:12px;display:flex;align-items:flex-end}
+  .modal-card .mc-ikona svg{stroke:#c3a05a}
+  .modal-card h3{font-size:25px;font-weight:600;margin-bottom:6px}
+  .modal-card p{font-size:17px;line-height:1.45;color:#4c5247;margin-bottom:16px}
+  .modal-card .mc-odkaz{
+    display:inline-flex;align-items:center;gap:12px;
+    font-size:13.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);white-space:nowrap;
+  }
+  .modal-card .mc-odkaz span{
+    width:40px;height:40px;border:1px solid var(--line);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .25s, border-color .25s;
+  }
+  .modal-card:hover .mc-odkaz span{transform:translateX(4px);border-color:var(--rose)}
   @media (max-width:680px){
     .modal{padding:30px 22px 26px}
     .modal-close{top:22px;right:20px}
     .modal-grid{grid-template-columns:1fr}
+    .modal-card{min-height:0}
+    .modal-card .mc-foto{
+      width:100%;height:170px;bottom:auto;
+      -webkit-mask-image:linear-gradient(180deg,#000 45%,rgba(0,0,0,0) 100%);
+      mask-image:linear-gradient(180deg,#000 45%,rgba(0,0,0,0) 100%);
+    }
+    .modal-card .mc-text{max-width:100%;padding:150px 22px 22px}
+    .modal-card.bez-foto .mc-text{padding-top:22px}
   }
   @media (max-width:900px){
     .shop-grid{grid-template-columns:repeat(2,1fr);gap:14px}
@@ -1209,31 +1240,61 @@
     <button class="modal-close" aria-label="Zavřít" onclick="zavriPrijet()">✕</button>
     <p class="eyebrow-m">Co teď potřebuji</p>
     <h2 id="prijet-h">Po čem právě touží vaše duše?</h2>
-    <p class="modal-uvod">Po chvíli klidu, hlubokém nadechnutí, lásce, radosti nebo novém začátku? Každý z nás někdy potřebuje zastavit, načerpat sílu a znovu pocítit krásu života. Objevte svou cestu v Oáze.</p>
+    <p class="modal-uvod">Po klidu, lásce, radosti, novém nadechnutí nebo chvíli jen pro sebe? Každá cesta začíná tím, co právě potřebujeme. Objevte tu svou v Oáze.</p>
     <div class="modal-grid">
       <a class="modal-card" href="/pobyt" onclick="zavriPrijet()">
-        <h3>Na pobyt</h3>
-        <p>Vyberte Pobyt ve světle nebo soukromý pokoj.</p>
+        <img class="mc-foto" src="/_vercel/image?url=%2Fimg%2Frozcestnik-pobyt.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Frozcestnik-pobyt.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Frozcestnik-pobyt.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Frozcestnik-pobyt.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:680px) 100vw, 330px" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('bez-foto');this.remove()">
+        <div class="mc-text">
+          <div class="mc-ikona"><svg width="40" height="34" viewBox="0 0 46 40" fill="none" stroke-width="1.3" aria-hidden="true"><path d="M23 6 C27 12 27 20 23 26 C19 20 19 12 23 6Z"/><path d="M10 14 C16 16 20 22 21 28 C14 27 10 21 10 14Z"/><path d="M36 14 C30 16 26 22 25 28 C32 27 36 21 36 14Z"/><path d="M4 26 C10 32 18 34 23 33 C28 34 36 32 42 26 C36 38 10 38 4 26Z"/></svg></div>
+          <h3>Toužím po klidu</h3>
+          <p>Zastavit se, odpočinout si a načerpat novou sílu.</p>
+          <div class="mc-odkaz">Na pobyt <span><svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg></span></div>
+        </div>
       </a>
       <a class="modal-card" href="/akce" onclick="zavriPrijet()">
-        <h3>Na akci</h3>
-        <p>Přejde na kalendář a nejbližší události v Oáze.</p>
+        <img class="mc-foto" src="/_vercel/image?url=%2Fimg%2Frozcestnik-akce.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Frozcestnik-akce.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Frozcestnik-akce.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Frozcestnik-akce.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:680px) 100vw, 330px" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('bez-foto');this.remove()">
+        <div class="mc-text">
+          <div class="mc-ikona"><svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><circle cx="20" cy="20" r="7"/><path d="M20 3v6M20 31v6M3 20h6M31 20h6M8 8l4.2 4.2M27.8 27.8 32 32M32 8l-4.2 4.2M12.2 27.8 8 32"/></svg></div>
+          <h3>Chci něco prožít</h3>
+          <p>Setkat se, inspirovat a odnést si nezapomenutelné chvíle.</p>
+          <div class="mc-odkaz">Na akci <span><svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg></span></div>
+        </div>
       </a>
       <a class="modal-card" href="/nabidka-sluzeb" onclick="zavriPrijet()">
-        <h3>Na sezení</h3>
-        <p>Otevře nabídku služeb, terapií a harmonizací.</p>
+        <img class="mc-foto" src="/_vercel/image?url=%2Fimg%2Frozcestnik-sezeni.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Frozcestnik-sezeni.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Frozcestnik-sezeni.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Frozcestnik-sezeni.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:680px) 100vw, 330px" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('bez-foto');this.remove()">
+        <div class="mc-text">
+          <div class="mc-ikona"><svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke-width="1.3" aria-hidden="true"><circle cx="20" cy="14" r="8.5"/><circle cx="13.5" cy="25" r="8.5"/><circle cx="26.5" cy="25" r="8.5"/></svg></div>
+          <h3>Potřebuji harmonii</h3>
+          <p>Uvolnit napětí, najít rovnováhu a vrátit se k sobě.</p>
+          <div class="mc-odkaz">Na sezení <span><svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg></span></div>
+        </div>
       </a>
       <a class="modal-card" href="/portalova-zahrada" onclick="zavriPrijet()">
-        <h3>Do zahrady</h3>
-        <p>Vede k Portálové zahradě jako samostatnému prožitku.</p>
+        <img class="mc-foto" src="/_vercel/image?url=%2Fimg%2Frozcestnik-zahrada.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Frozcestnik-zahrada.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Frozcestnik-zahrada.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Frozcestnik-zahrada.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:680px) 100vw, 330px" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('bez-foto');this.remove()">
+        <div class="mc-text">
+          <div class="mc-ikona"><svg width="36" height="40" viewBox="0 0 36 40" fill="none" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><path d="M18 38V20"/><path d="M18 20c-9 0-14-6-14-13c6-1 11 2 14 7c3-5 8-8 14-7c0 7-5 13-14 13Z"/><path d="M18 20c-3-3-6-4-10-4M18 20c3-3 6-4 10-4"/><path d="M8 38h20"/></svg></div>
+          <h3>Chci jen být</h3>
+          <p>Vnímat krásu přírody, ticho a kouzlo přítomného okamžiku.</p>
+          <div class="mc-odkaz">Do zahrady <span><svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg></span></div>
+        </div>
       </a>
       <a class="modal-card" href="/pronajem-prostor" onclick="zavriPrijet()">
-        <h3>Pronajmout prostor</h3>
-        <p>Pro lektory, průvodce a pořadatele vlastních setkání.</p>
+        <img class="mc-foto" src="/_vercel/image?url=%2Fimg%2Frozcestnik-prostor.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Frozcestnik-prostor.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Frozcestnik-prostor.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Frozcestnik-prostor.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:680px) 100vw, 330px" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('bez-foto');this.remove()">
+        <div class="mc-text">
+          <div class="mc-ikona"><svg width="36" height="40" viewBox="0 0 36 40" fill="none" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M18 2 23 13v23H13V13Z"/><path d="M18 2v34M13 13l5 4 5-4"/><path d="M13 23 7 29v7h6M23 23l6 6v7h-6"/><path d="M4 36h28"/></svg></div>
+          <h3>Chci tvořit a sdílet</h3>
+          <p>Najít výjimečný prostor pro vlastní setkání a nové inspirace.</p>
+          <div class="mc-odkaz">Pronajmout prostor <span><svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg></span></div>
+        </div>
       </a>
       <a class="modal-card" href="/kontakt" onclick="zavriPrijet()">
-        <h3>Nejsem si jistá</h3>
-        <p>Vede rovnou na kontakt, kde se dá společně vybrat cesta.</p>
+        <img class="mc-foto" src="/_vercel/image?url=%2Fimg%2Frozcestnik-cesta.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Frozcestnik-cesta.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Frozcestnik-cesta.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Frozcestnik-cesta.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:680px) 100vw, 330px" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('bez-foto');this.remove()">
+        <div class="mc-text">
+          <div class="mc-ikona"><svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><circle cx="20" cy="20" r="15"/><circle cx="20" cy="20" r="3"/><path d="M20 5l3 12-3 3-3-3ZM20 35l-3-12 3-3 3 3ZM5 20l12-3 3 3-3 3ZM35 20l-12 3-3-3 3-3Z"/></svg></div>
+          <h3>Hledám svou cestu</h3>
+          <p>Nevím přesně, co potřebuji. Pojďme to společně objevit.</p>
+          <div class="mc-odkaz">Nejsem si jistá <span><svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6 H16 M11 1 L16 6 L11 11" stroke="#b06a6c" stroke-width="1.3"/></svg></span></div>
+        </div>
       </a>
     </div>
   </div>

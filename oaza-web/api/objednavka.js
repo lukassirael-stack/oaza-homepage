@@ -192,7 +192,7 @@ export default async function handler(req, res) {
     if (!slugy.length) return res.status(400).json({ error: 'Košík je prázdný.' });
 
     const inList = slugy.join(',');
-    const produkty = await rest(`produkty?slug=in.(${inList})&stav=eq.skladem&select=slug,nazev,cena,cena_eur,digitalni`);
+    const produkty = await rest(`produkty?slug=in.(${inList})&stav=eq.skladem&select=slug,nazev,cena,cena_eur,digitalni,pocet`);
     const mapa = Object.fromEntries((produkty || []).map(p => [p.slug, p]));
 
     const chybi = slugy.filter(s => !mapa[s]);
@@ -206,6 +206,8 @@ export default async function handler(req, res) {
         slug: p.slug, nazev: p.nazev,
         cena: p.cena, cena_eur: eur(p.cena, p.cena_eur),
         digitalni: !!p.digitalni,
+        // víc kusů skladem → kus se nerezervuje, po zaplacení se jen sníží počet
+        vice_kusu: (p.pocet == null ? 1 : p.pocet) > 1,
       };
     });
     const cena_zbozi = polozky.reduce((sum, p) => sum + (mena === 'EUR' ? p.cena_eur : p.cena), 0);
@@ -272,10 +274,10 @@ export default async function handler(req, res) {
     const cena_celkem = cena_zbozi - sleva_castka + doprava_cena;
     const poznamka = String(body.poznamka || '').slice(0, 1000);
 
-    // --- 24h rezervace unikátů (digitální produkty se nerezervují) ---
+    // --- 24h rezervace unikátů (digitální produkty a produkty s více kusy se nerezervují) ---
     // Podmíněný zápis: zabereme jen kusy, které jsou skladem a nejsou právě rezervované.
     // Když se vrátí míň kusů, než chceme, někdo nás předběhl -> uvolníme a odmítneme.
-    const rezSlugy = polozky.filter(p => !p.digitalni).map(p => p.slug);
+    const rezSlugy = polozky.filter(p => !p.digitalni && !p.vice_kusu).map(p => p.slug);
     let rezervovano = [];
     if (rezSlugy.length) {
       const nowIso = new Date().toISOString();

@@ -38,6 +38,35 @@ async function dopisSeznam() {
 }
 const dopisPodpis = (email) => crypto.createHmac('sha256', process.env.SUPABASE_SERVICE_KEY || 'x').update('dopis:' + email).digest('hex').slice(0, 20);
 const SITE = 'https://oaza-adamanthea.cz';
+
+// ---------- Zboží.cz — program Data objednávek (druhá polovina měření konverzí; první posílá zbozi.js z pokladny) ----------
+// Seznam spojí obě poloviny přes orderId. Posílá se obsah košíku v Kč, doprava a platba; e-mail zákazníka neposíláme.
+// Tajný klíč z Centra prodejce (prodejce.seznam.cz) je v env ZBOZI_PRIVATE_KEY; bez něj se krok tiše přeskočí.
+const ZBOZI_ID = parseInt(process.env.ZBOZI_ID, 10) || 295248;
+async function zboziDataObjednavky(o) {
+  const klic = process.env.ZBOZI_PRIVATE_KEY;
+  if (!klic) return;
+  const czk = v => Math.round(Number(v || 0) * (o.mena === 'EUR' ? o.kurz : 1));
+  const dopravaTyp = { vydejni_misto: 'ZASILKOVNA', adresa: 'ZASILKOVNA_NA_ADRESU', mezi_nami: 'ZASILKOVNA', digital: 'ONLINE' }[o.doprava] || 'ZASILKOVNA';
+  const telo = {
+    PRIVATE_KEY: klic,
+    sandbox: false,
+    orderId: String(o.cislo),
+    deliveryType: dopravaTyp,
+    deliveryPrice: czk(o.doprava_cena),
+    paymentType: o.platba === 'karta' ? 'kartou' : 'převodem',
+    otherCosts: -czk(o.sleva_castka),
+    cart: o.polozky.map(p => ({ itemId: String(p.id), productName: String(p.nazev || '').slice(0, 255), unitPrice: czk(o.mena === 'EUR' ? p.cena_eur : p.cena), quantity: 1 })),
+  };
+  const ctrl = new AbortController();
+  const stop = setTimeout(() => ctrl.abort(), 4000);
+  try {
+    await fetch(`https://www.zbozi.cz/action/${ZBOZI_ID}/conversion/backend`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(telo), signal: ctrl.signal,
+    });
+  } catch (e) {} finally { clearTimeout(stop); }
+}
+
 function uvitaciEmail(email) {
   const odhl = `${SITE}/api/objednavka?odhlasit=${encodeURIComponent(email)}&t=${dopisPodpis(email)}`;
   return `<div style="font-family:Georgia,serif;color:#1B2A41;max-width:560px;margin:0 auto;padding:24px;background:#FBF8F1">
@@ -192,7 +221,7 @@ export default async function handler(req, res) {
     if (!slugy.length) return res.status(400).json({ error: 'Košík je prázdný.' });
 
     const inList = slugy.join(',');
-    const produkty = await rest(`produkty?slug=in.(${inList})&stav=eq.skladem&select=slug,nazev,cena,cena_eur,digitalni,pocet`);
+    const produkty = await rest(`produkty?slug=in.(${inList})&stav=eq.skladem&select=id,slug,nazev,cena,cena_eur,digitalni,pocet`);
     const mapa = Object.fromEntries((produkty || []).map(p => [p.slug, p]));
 
     const chybi = slugy.filter(s => !mapa[s]);
@@ -327,6 +356,12 @@ export default async function handler(req, res) {
     if (sleva_kod && sleva_castka > 0) {
       try { await rest('rpc/pouzij_slevovy_kod', { method: 'POST', body: JSON.stringify({ p_kod: sleva_kod }) }); } catch (e) {}
     }
+
+    // Zboží.cz — data objednávky (ID produktů = ITEM_ID z feedu)
+    await zboziDataObjednavky({
+      cislo, mena, kurz, doprava, doprava_cena, sleva_castka, platba,
+      polozky: polozky.map(p => ({ ...p, id: mapa[p.slug] && mapa[p.slug].id })),
+    });
 
     // --- karta: Stripe Checkout (e-maily pošle až administrace po zaplacení) ---
     if (platba === 'karta') {

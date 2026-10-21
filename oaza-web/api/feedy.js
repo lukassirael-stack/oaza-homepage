@@ -299,11 +299,13 @@ ${xmlItems}
       const ns = typ === 'zbozi'
         ? ' xmlns="http://www.zbozi.cz/ns/offer/1.0"'
         : ' xmlns="http://www.heureka.cz/ns/offer/1.0"';
-      // Oblečení jde do srovnávačů jen s vyplněnou velikostí (povinný PARAM); název = značka + kus + velikost.
+      // Oblečení jde do srovnávačů jen s vyplněnou velikostí (povinný PARAM); název = značka + kus + velikost
+      // (velikost se připojí jen tehdy, když ji název ještě neobsahuje).
+      const maVelikost = (nazev, vel) => new RegExp(`(^|[\\s.])${vel.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}(?=$|[\\s,.)])`, 'i').test(nazev);
       const items = odlisNazvy(
         produkty.map(polozka)
           .filter(p => !p.obleceni || p.velikost)
-          .map(p => ({ ...p, titul: p.obleceni ? `${ZNACKA} ${p.nazev} ${p.velikost}` : p.nazev }))
+          .map(p => ({ ...p, titul: p.obleceni && !maVelikost(p.nazev, p.velikost) ? `${ZNACKA} ${p.nazev} ${p.velikost}` : (p.obleceni ? `${ZNACKA} ${p.nazev}` : p.nazev) }))
       );
       const xmlItems = items.map(p => {
         const sekce = p.obleceni ? modniSekce(typ, p.nazev) : SEKCE[typ][p.druh];

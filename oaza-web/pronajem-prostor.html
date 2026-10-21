@@ -246,6 +246,21 @@ section:nth-of-type(even){background:var(--cream-warm);}
 .prices .note{font-size:1rem;font-style:italic;text-align:center;padding-top:14px;color:var(--ink-soft);}
 
 
+/* ---------- Záloha & storno ---------- */
+.storno{max-width:760px;margin:16px auto 0;background:#fffdf8;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);scroll-margin-top:90px;}
+.storno summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 30px;font-family:"Jost",sans-serif;font-weight:500;letter-spacing:.03em;color:var(--gold-deep);}
+.storno summary::-webkit-details-marker{display:none;}
+.storno summary::after{content:"›";font-size:1.5rem;line-height:1;color:var(--gold);transition:transform .3s;}
+.storno[open] summary::after{transform:rotate(90deg);}
+.storno .storno-body{padding:4px 30px 22px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.98rem;line-height:1.75;}
+.storno .storno-body p{margin:14px 0 0;}
+.storno .storno-body ul{margin:12px 0 0;padding-left:1.2rem;}
+.storno .storno-body li{margin:.35rem 0;}
+.storno .storno-body strong{color:var(--ink);font-family:"Jost",sans-serif;font-weight:500;}
+.storno .storno-body .pozn{font-size:.92rem;font-style:italic;opacity:.85;}
+@media(max-width:640px){.storno summary{padding:14px 20px;}.storno .storno-body{padding:4px 20px 18px;}}
+
+
 /* ---------- Lists & quote ---------- */
 .softlist{max-width:60ch;margin:0 auto;list-style:none;padding:0;}
 .softlist li{position:relative;padding:9px 0 9px 30px;border-bottom:1px solid var(--line);}
@@ -559,6 +574,7 @@ textarea.k-in{resize:vertical;}
       "url": "https://oaza-adamanthea.cz/pronajem-prostor",
       "availability": "https://schema.org/InStock",
       "name": "Záloha při potvrzení termínu víkendového retreatu",
+      "description": "Záloha se započítává do ceny akce. Zrušení 8 a více týdnů před akcí: záloha vrácena v plné výši; 6 až 8 týdnů: převod na nový termín do 12 měsíců; méně než 6 týdnů: záloha zůstává Oáze jako náhrada za držený termín.",
       "price": 5000
     }
   ],
@@ -718,6 +734,19 @@ textarea.k-in{resize:vertical;}
       <div class="row"><span class="name">Chatka Pobyt ve světle<small>1–2 osoby · vytápěná, celoročně · cena za noc pro organizátora akce · od 10 účastníků zdarma</small></span><span class="amount">1 500 Kč / 60 €</span></div>
       <p class="note">Nocování až 6 účastníků na matracích v meditační místnosti — přímo mezi velkými krystaly, jejichž pole hosty provází i ve spánku — je součástí ceny. Termín víkendového retreatu rezervujete zálohou 5 000 Kč při jeho potvrzení, u menších akcí zálohu nastavíme individuálně. Uvedené ceny platí pro <strong>pronájem na skupinové akce a retreaty</strong>; pro soukromý pobyt jednotlivců (včetně cen pokojů) platí <a href="#soukromy-pobyt" style="color:var(--gold-deep)">vlastní ceník níže</a>.</p>
     </div>
+
+    <details class="storno" id="storno">
+      <summary>Záloha a storno podmínky</summary>
+      <div class="storno-body">
+        <p>Termín je závazně rezervovaný přijetím zálohy <strong>5 000 Kč</strong> (u menších akcí podle domluvy). Záloha se započítává do konečné ceny akce. Každý termín držíme s respektem právě pro vás, a proto prosíme o stejné vnímání i z vaší strany.</p>
+        <ul>
+          <li>Zrušení <strong>8 a více týdnů</strong> před akcí — zálohu vracíme v plné výši.</li>
+          <li>Zrušení <strong>6 až 8 týdnů</strong> před akcí — zálohu převedeme na nový termín do 12 měsíců.</li>
+          <li>Zrušení <strong>méně než 6 týdnů</strong> před akcí — záloha zůstává Oáze jako náhrada za držený termín.</li>
+        </ul>
+        <p class="pozn">Zrušení nám prosím napište e-mailem, rozhodující je den doručení. Děkujeme, že k rezervaci přistupujete vědomě a s respektem 🌿</p>
+      </div>
+    </details>
 
 
 
@@ -1007,7 +1036,7 @@ document.addEventListener('click', function(e){
     var celkem=r.reduce(function(a,x){return a+x[2];},0);
     document.getElementById('kRadky').innerHTML=r.map(function(x){return '<div class="r"><span>'+x[0]+'<small>'+x[1]+'</small></span><b>'+(x[2]?kc(x[2]):'zdarma')+'</b></div>';}).join('');
     document.getElementById('kCelkem').textContent=kc(celkem);
-    document.getElementById('kZaloha').innerHTML=retreat?'Termín rezervujete zálohou <b>5 000 Kč</b> při jeho potvrzení.':'Zálohu k rezervaci termínu vám nastavíme individuálně.';
+    document.getElementById('kZaloha').innerHTML=(retreat?'Termín rezervujete zálohou <b>5 000 Kč</b> při jeho potvrzení.':'Zálohu k rezervaci termínu vám nastavíme individuálně.')+' <a href="#storno" style="color:var(--gold-deep)" onclick="document.getElementById(\'storno\').open=true">Storno podmínky</a>';
     document.getElementById('kNaOsobu').textContent='přibližně '+kc(Math.round(celkem/o))+' na účastníka';
     var mk=o-p;
     var org=!ch;

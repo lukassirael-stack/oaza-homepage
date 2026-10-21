@@ -264,6 +264,18 @@ var Org = (() => {
     document.querySelectorAll('[data-u]').forEach(r => r.onclick = () => form(U.find(u => u.id === r.dataset.u)));
   }
   const UCET = { cislo: '8159854004/5500', iban: 'CZ1655000000008159854004' };
+  const STORNO = { vratka: 56, prevod: 42 }; // dní před akcí: 8 týdnů = plná vratka, 6 týdnů = převod na nový termín
+  function stornoInfo(){
+    const od = D.akce && D.akce.datum_od; if (!od) return '';
+    const iso = x => `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, '0')}-${String(x.getDate()).padStart(2, '0')}`;
+    const minus = n => { const x = new Date(od + 'T12:00:00'); x.setDate(x.getDate() - n); return iso(x); };
+    const plus1 = d => { const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() + 1); return iso(x); };
+    const t1 = minus(STORNO.vratka), t2 = minus(STORNO.prevod), dnes = iso(new Date());
+    const faze = dnes <= t1 ? 'Teď platí: zálohu vracíme v plné výši.' : dnes <= t2 ? 'Teď platí: zálohu převedeme na nový termín.' : 'Teď platí: záloha zůstává Oáze jako náhrada za držený termín.';
+    return `<div class="muted small" style="margin-top:10px;line-height:1.7">
+      <b>Storno:</b> do ${dt(t1)} zálohu vracíme v plné výši · do ${dt(t2)} ji převedeme na nový termín do 12 měsíců · od ${dt(plus1(t2))} záloha zůstává Oáze jako náhrada za držený termín. <b>${faze}</b>
+      <a href="/pronajem-prostor#storno" target="_blank" rel="noopener">Celé podmínky</a></div>`;
+  }
   function zalohaStav(){
     const z = D.zaloha; if (!z) return '';
     if (z.zaplaceno) return `<div class="row" style="padding:12px 16px;border-radius:14px;background:var(--ok-soft);color:var(--ok);font-weight:600">
@@ -276,10 +288,10 @@ var Org = (() => {
   function zalohaCard(){
     const z = D.zaloha; if (!z) return '';
     if (z.zaplaceno) return `<div class="card row" style="border-color:var(--ok)"><div style="flex:1"><h3>Záloha ${kc(z.castka)}</h3>
-      <div class="muted small">Přijata ${dt(z.zaplaceno)}. Děkujeme, termín je potvrzený.</div></div><span class="chip ok">zaplaceno</span></div>`;
+      <div class="muted small">Přijata ${dt(z.zaplaceno)}. Děkujeme, termín je potvrzený.</div>${stornoInfo()}</div><span class="chip ok">zaplaceno</span></div>`;
     return `<div class="card stack" id="zaloha" style="border:2px solid var(--warn);background:#fff8f4">
       <div class="row"><div style="flex:1"><h3>Záloha ${kc(z.castka)}</h3>
-        <div class="muted small">Zálohou se potvrzuje termín akce.${z.splatnost ? ' Splatnost ' + dt(z.splatnost) + '.' : ''}</div></div>
+        <div class="muted small">Zálohou se potvrzuje termín akce.${z.splatnost ? ' Splatnost ' + dt(z.splatnost) + '.' : ''}</div>${stornoInfo()}</div>
         <span class="chip warn">čeká na platbu</span></div>
       <div class="row" style="align-items:flex-start;gap:16px">
         <div id="zqr" style="background:#fff;padding:8px;border-radius:12px;border:1px solid var(--line)"></div>

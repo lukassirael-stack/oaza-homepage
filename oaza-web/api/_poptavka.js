@@ -88,7 +88,14 @@ export async function poptavka(req, res) {
     <p>Děkujeme, ${esc(jmeno.split(' ')[0])}. Vaši poptávku jsme přijali a brzy se vám ozveme s potvrzením termínu a finální nabídkou.</p>
     ${detaily}${tabulka}
     <p style="margin:10px 0">${k.varianta === 'retreat' ? 'Termín rezervujete zálohou <b>5 000 Kč</b> při jeho potvrzení — pokyny k platbě vám pošleme spolu s potvrzením.' : 'Zálohu k rezervaci termínu vám nastavíme individuálně spolu s potvrzením.'}</p>
-    <p style="color:#6b4a55;font-size:13px">Cena vychází z aktuálního ceníku skupinových pronájmů. Podrobnosti rádi doladíme spolu — stačí odpovědět na tento e-mail.</p>`;
+    <p style="margin:16px 0 4px"><b>Záloha a storno podmínky</b></p>
+    <ul style="margin:0;padding-left:18px;line-height:1.7">
+      <li>zrušení <b>8 a více týdnů</b> před akcí — zálohu vracíme v plné výši</li>
+      <li>zrušení <b>6 až 8 týdnů</b> před akcí — zálohu převedeme na nový termín do 12 měsíců</li>
+      <li>zrušení <b>méně než 6 týdnů</b> před akcí — záloha zůstává Oáze jako náhrada za držený termín</li>
+    </ul>
+    <p style="margin:6px 0 0;color:#6b4a55;font-size:13px">Záloha se započítává do konečné ceny akce. Zrušení nám prosím napište e-mailem, rozhodující je den doručení. Celé podmínky: <a href="https://oaza-adamanthea.cz/pronajem-prostor#storno" style="color:#9a7628">oaza-adamanthea.cz/pronajem-prostor</a></p>
+    <p style="color:#6b4a55;font-size:13px;margin-top:14px">Cena vychází z aktuálního ceníku skupinových pronájmů. Podrobnosti rádi doladíme spolu — stačí odpovědět na tento e-mail.</p>`;
   const teloNas = `
     <p><b>${esc(jmeno)}</b> · <a href="mailto:${esc(email)}">${esc(email)}</a>${telefon ? ' · ' + esc(telefon) : ''}</p>
     ${detaily}${tabulka}`;

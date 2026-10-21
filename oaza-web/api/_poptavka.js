@@ -8,8 +8,8 @@ const CENIK = {
   minOsob: 7,      // minimum účastníků pro retreat
   snidane: 160, obed: 220, vecere: 220,
   pokoj: 300,      // soukromý pokoj / os. / noc
-  pokojeMax: 9,
-  chatka: 2000,    // Pobyt ve světle / noc (víkendová cena, retreaty bývají o víkendu)
+  pokojeMax: 14,   // 8 pokojů pro 14 osob (+ meditační místnost pro 6)
+  chatka: 1500,    // Pobyt ve světle / noc pro organizátora (stejně jako na webu)
 };
 
 const int = (v, min, max) => Math.min(max, Math.max(min, parseInt(v, 10) || 0));

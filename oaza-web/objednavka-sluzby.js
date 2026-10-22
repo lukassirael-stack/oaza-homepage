@@ -146,6 +146,22 @@
         { n: 'Vaše představa', typ: 'dlouhy', nizky: true }
       ]
     },
+    'pronajem-prostor': {
+      nazev: 'Soukromý pobyt v Oáze',
+      druh: 'poptávka',
+      titul: 'Chci tu pobýt',
+      uvod: 'Napište nám termín a my se vám ozveme s potvrzením volného pokoje.',
+      odeslat: 'Odeslat poptávku',
+      pole: [
+        { n: 'Pokoj', typ: 'vyber', povinne: true,
+          moznosti: ['Relax pokoj', 'Egyptský pokoj', 'Boho pokoj', 'Andělský pokoj', 'Pokoj Zen', 'Nechám na vás'] },
+        { n: 'Příjezd', vstup: 'date', povinne: true, pul: true },
+        { n: 'Odjezd', vstup: 'date', povinne: true, pul: true },
+        { n: 'Počet osob', vstup: 'number', od: 1, 'do': 2, hodnota: 1, povinne: true, pul: true },
+        { n: 'Strava', typ: 'volba', moznosti: ['Vlastní', 'Vegetariánská', 'Veganská'], vychozi: 'Vlastní' },
+        { n: 'Vzkaz pro nás', typ: 'dlouhy', nizky: true, ph: 'záměr pobytu, speciální přání, otázky…' }
+      ]
+    },
     'portalova-zahrada': {
       nazev: 'Portálová zahrada',
       druh: 'poptávka',
@@ -458,7 +474,7 @@
         });
     });
 
-    return { uzel: uzel, titulId: titulId, prvni: jmeno.prvek, hotovo: false };
+    return { uzel: uzel, titulId: titulId, prvni: jmeno.prvek, hotovo: false, pole: vlastni };
   }
 
   function zalozniMailto(typ, d) {
@@ -497,6 +513,23 @@
     z.focus();
   }
 
+  // tlačítko může nést data-predvyplnit="Popisek pole=hodnota; Jiné pole=hodnota"
+  function predvyplnit(P, zdroj) {
+    var zadani = zdroj && zdroj.getAttribute && zdroj.getAttribute('data-predvyplnit');
+    if (!zadani || !P.pole) return;
+    zadani.split(';').forEach(function (kus) {
+      var i = kus.indexOf('='); if (i < 0) return;
+      var n = kus.slice(0, i).trim(), h = kus.slice(i + 1).trim();
+      P.pole.forEach(function (f) {
+        if (f.def.n !== n || !f.prvek) return;
+        if (f.def.typ === 'volba') {
+          var r = f.uzel.querySelector('input[value="' + h.replace(/"/g, '') + '"]'); if (r) r.checked = true;
+        } else if (f.def.typ === 'zaskrt') f.prvek.checked = h === 'Ano';
+        else f.prvek.value = h;
+      });
+    });
+  }
+
   function otevrit(typ, zdroj) {
     typ = typ === 'dotaz' ? 'dotaz' : 'objednavka';
     zaklad();
@@ -504,6 +537,7 @@
     var P = panely[typ];
     while (box.firstChild) box.removeChild(box.firstChild);
     box.appendChild(P.uzel);
+    predvyplnit(P, zdroj);
     box.setAttribute('aria-labelledby', P.titulId);
     otevirac = zdroj || document.activeElement;
     if (!overlay.classList.contains('os-on')) {

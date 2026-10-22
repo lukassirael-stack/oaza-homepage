@@ -22,6 +22,7 @@ const SLUZBY = {
   'lemoare-krystaly':              { nazev: 'Lemoare Krystaly', druh: 'poptávka', dalsi: 'Brzy vám pošleme aktuální nabídku a katalog.' },
   'spoluprace':                    { nazev: 'Spolupráce s Oázou', druh: 'poptávka', dalsi: 'Brzy se vám ozveme a domluvíme další postup.' },
   'portalova-zahrada':             { nazev: 'Portálová zahrada', druh: 'poptávka', dalsi: 'Brzy se vám ozveme s potvrzením termínu.' },
+  'pronajem-prostor':              { nazev: 'Soukromý pobyt v Oáze', druh: 'poptávka', dalsi: 'Brzy se vám ozveme s potvrzením volného pokoje a termínu.' },
 };
 
 const OAZA_EMAIL = 'oaza.adamanthea@gmail.com';

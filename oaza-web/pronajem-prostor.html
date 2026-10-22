@@ -191,27 +191,47 @@ section:nth-of-type(even){background:var(--cream-warm);}
 .card ul li::before{content:"◈";position:absolute;left:0;top:5px;color:var(--gold);font-size:.85rem;}
 
 
-/* room card — double gold frame signature */
+/* room card — compact, inviting tiles with the gold hairline frame */
+.grid.rooms{grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:1000px){.grid.rooms{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.grid.rooms{grid-template-columns:1fr;}}
 .room{
-  background:#fffdf8;border-radius:8px;padding:6px;
-  box-shadow:var(--shadow);
-  background-image:linear-gradient(#fffdf8,#fffdf8);
+  background:#fffdf8;border-radius:8px;padding:5px;
+  box-shadow:var(--shadow);transition:transform .3s ease,box-shadow .3s ease;
 }
+.room:hover{transform:translateY(-4px);box-shadow:0 20px 42px -24px rgba(74,57,66,.5);}
 .room-inner{
-  border:1px solid var(--gold);border-radius:5px;padding:30px 28px;height:100%;
-  position:relative;display:flex;flex-direction:column;
+  border:1px solid var(--gold);border-radius:5px;height:100%;overflow:hidden;
+  display:flex;flex-direction:column;background:#fffdf8;
 }
-.room-inner::before{
-  content:"";position:absolute;inset:6px;border:1px solid rgba(201,161,74,.35);
-  border-radius:3px;pointer-events:none;
+.room-media{position:relative;aspect-ratio:3/2;overflow:hidden;background:#efe2c6;}
+.room-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease;}
+.room:hover .room-media img{transform:scale(1.045);}
+.room-art{height:100%;display:grid;place-items:center;font-size:3.4rem;background:radial-gradient(circle at 50% 42%,#f8efdc,#ecdcbb);}
+.room-cap{
+  position:absolute;left:12px;bottom:12px;background:rgba(255,253,248,.93);color:var(--gold-deep);
+  font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1rem;line-height:1;
+  padding:6px 12px;border-radius:999px;border:1px solid rgba(201,161,74,.5);
 }
-.room-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;margin-bottom:18px;display:block;box-shadow:0 8px 20px -14px rgba(74,57,66,.5);}
-.room .glyph{font-size:1.9rem;line-height:1;margin-bottom:.5rem;}
-.room h3{font-size:1.2rem;letter-spacing:.03em;margin-bottom:.3rem;}
-.room .energy{font-style:italic;color:var(--gold-deep);margin:.7rem 0 0;}
-.room p{margin:.5rem 0 0;}
-.room-cta{margin-top:auto;padding-top:22px;}
-.room-cta .btn{display:block;width:100%;text-align:center;}
+.room-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1;}
+.room-title{display:flex;align-items:center;gap:8px;margin-bottom:.4rem;}
+.room .glyph{font-size:1.25rem;line-height:1;}
+.room h3{font-size:1.05rem;letter-spacing:.03em;margin:0;}
+.room-lead{margin:0;font-size:1.02rem;line-height:1.5;}
+.room-vibes{display:flex;flex-wrap:wrap;gap:6px;margin:.75rem 0 0;}
+.room-vibes span{
+  font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.98rem;line-height:1;
+  color:var(--gold-deep);background:rgba(201,161,74,.11);padding:5px 11px;border-radius:999px;
+}
+.room-foot{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-top:1px dashed var(--line);}
+.room-vibes + .room-foot{margin-top:16px;}
+.room-price{font-family:"Cormorant Garamond",serif;font-size:1.2rem;font-weight:600;color:var(--ink);white-space:nowrap;}
+.room-price small{font-size:.9rem;font-weight:400;color:var(--ink-soft);}
+.room-link{
+  color:var(--gold-deep);text-decoration:none;font-weight:600;font-size:.95rem;letter-spacing:.02em;
+  border-bottom:1px solid rgba(201,161,74,.55);white-space:nowrap;transition:color .2s,border-color .2s;
+}
+.room-link:hover{color:var(--ink);border-color:var(--ink);}
 
 
 /* ---------- Reasons ---------- */
@@ -858,53 +878,51 @@ textarea.k-in{resize:vertical;}
 
 
     <div class="grid rooms" style="margin-top:46px">
-      <div class="room"><div class="room-inner">
-        <img class="room-photo" src="/_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Relax pokoj — dvě jednolůžka, Buddha, lotos a čakry" loading="lazy">
-        <div class="glyph">🌿</div>
-        <h3>Relax pokoj</h3>
-        <p>Uvolnění těla i mysli. Měkké světlo, pohodlí a ticho pro hluboký odpočinek, regeneraci a spánek, který léčí.</p>
-        <p class="energy">Kapacita: 2× jednolůžko · Energie: odpočinek, regenerace, lehkost</p>
-        <div class="room-cta"><a class="btn btn-gold" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Relax%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Relax%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Rezervovat termín →</a></div>
-      </div></div>
-
-
-      <div class="room"><div class="room-inner">
-        <img class="room-photo" src="/_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Egyptský pokoj — zlatá mandala, pyramidy, papyrus a soška kočky" loading="lazy">
-        <div class="glyph">🏺</div>
-        <h3>Egyptský pokoj</h3>
-        <p>Mystika a vnitřní síla. Přenese vás do země pyramid a pradávné moudrosti.</p>
-        <p class="energy">Kapacita: dvoulůžko · Energie: uzemnění, pevnost, sebevědomí, intuice</p>
-        <div class="room-cta"><a class="btn btn-gold" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Egyptsk%C3%BD%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Egyptsk%C3%BD%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Rezervovat termín →</a></div>
-      </div></div>
-
-
-      <div class="room"><div class="room-inner">
-        <img class="room-photo" src="/_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Andělský pokoj — jemné růžové tóny, andělská polička, třešňové květy" loading="lazy">
-        <div class="glyph">🪽</div>
-        <h3>Andělský pokoj</h3>
-        <p>Jemnost, světelná ochrana a bezpečí. Oáza jemnosti a světla — bezpečný přístav pro jemné duše a klidný spánek.</p>
-        <p class="energy">Kapacita: 1× jednolůžko · Energie: čistota, bezpečí, světelná péče</p>
-        <div class="room-cta"><a class="btn btn-gold" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20And%C4%9Blsk%C3%BD%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28And%C4%9Blsk%C3%BD%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Rezervovat termín →</a></div>
-      </div></div>
-
-
-      <div class="room"><div class="room-inner">
-        <div class="glyph">🪷</div>
-        <h3>Pokoj Zen</h3>
-        <p>Čistota a ticho mysli, spojení se Zemí. Jednoduchost a minimalismus pro hluboké ztišení a návrat do přítomného okamžiku.</p>
-        <p class="energy">Kapacita: 1× jednolůžko · Energie: klid, spočinutí, ticho</p>
-        <div class="room-cta"><a class="btn btn-gold" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Pokoj%20Zen&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Pokoj%20Zen%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Rezervovat termín →</a></div>
-      </div></div>
-
-
-      <div class="room"><div class="room-inner">
-        <img class="room-photo" src="/_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:760px) 100vw, 516px" alt="Boho pokoj — dřevěné trámy, lapač snů, útulný přírodní prostor" loading="lazy">
-        <div class="glyph">🪢</div>
-        <h3>Boho pokoj</h3>
-        <p>Oslava svobody, inspirace, kreativity i hojnosti.</p>
-        <p class="energy">Kapacita: dvoulůžko + jednolůžko (2 osoby) · Energie: opečování, volnost, tvůrčí flow</p>
-        <div class="room-cta"><a class="btn btn-gold" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Boho%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Boho%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Rezervovat termín →</a></div>
-      </div></div>
+      <article class="room"><div class="room-inner">
+        <div class="room-media"><img  src="/_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-zen.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:600px) 100vw, (max-width:1000px) 50vw, 340px" alt="Relax pokoj — dvě jednolůžka, Buddha, lotos a čakry" loading="lazy"><span class="room-cap">Pro dva</span></div>
+        <div class="room-body">
+          <div class="room-title"><span class="glyph">🌿</span><h3>Relax pokoj</h3></div>
+          <p class="room-lead">Uvolnění těla i mysli – měkké světlo, pohodlí a ticho pro spánek, který léčí.</p>
+          <div class="room-vibes"><span>odpočinek</span><span>regenerace</span><span>lehkost</span></div>
+          <div class="room-foot"><span class="room-price">od 1 000 Kč <small>/ noc</small></span><a class="room-link" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Relax%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Relax%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Chci tu pobýt →</a></div>
+        </div>
+      </div></article>
+      <article class="room"><div class="room-inner">
+        <div class="room-media"><img  src="/_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-egyptsky.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:600px) 100vw, (max-width:1000px) 50vw, 340px" alt="Egyptský pokoj — zlatá mandala, pyramidy, papyrus a soška kočky" loading="lazy"><span class="room-cap">Pro dva</span></div>
+        <div class="room-body">
+          <div class="room-title"><span class="glyph">🏺</span><h3>Egyptský pokoj</h3></div>
+          <p class="room-lead">Mystika a vnitřní síla – přenese vás do země pyramid a pradávné moudrosti.</p>
+          <div class="room-vibes"><span>uzemnění</span><span>pevnost</span><span>intuice</span></div>
+          <div class="room-foot"><span class="room-price">od 1 000 Kč <small>/ noc</small></span><a class="room-link" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Egyptsk%C3%BD%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Egyptsk%C3%BD%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Chci tu pobýt →</a></div>
+        </div>
+      </div></article>
+      <article class="room"><div class="room-inner">
+        <div class="room-media"><img  src="/_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-boho.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:600px) 100vw, (max-width:1000px) 50vw, 340px" alt="Boho pokoj — dřevěné trámy, lapač snů, útulný přírodní prostor" loading="lazy"><span class="room-cap">Pro dva</span></div>
+        <div class="room-body">
+          <div class="room-title"><span class="glyph">🪢</span><h3>Boho pokoj</h3></div>
+          <p class="room-lead">Oslava svobody, inspirace, kreativity i hojnosti.</p>
+          <div class="room-vibes"><span>opečování</span><span>volnost</span><span>tvůrčí flow</span></div>
+          <div class="room-foot"><span class="room-price">od 1 000 Kč <small>/ noc</small></span><a class="room-link" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Boho%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Boho%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Chci tu pobýt →</a></div>
+        </div>
+      </div></article>
+      <article class="room"><div class="room-inner">
+        <div class="room-media"><img  src="/_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=800&amp;q=75" srcset="/_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=480&amp;q=75 480w, /_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fpokoj-andelsky.jpg&amp;w=1200&amp;q=75 1200w" sizes="(max-width:600px) 100vw, (max-width:1000px) 50vw, 340px" alt="Andělský pokoj — jemné růžové tóny, andělská polička, třešňové květy" loading="lazy"><span class="room-cap">Pro jednoho</span></div>
+        <div class="room-body">
+          <div class="room-title"><span class="glyph">🪽</span><h3>Andělský pokoj</h3></div>
+          <p class="room-lead">Jemnost, světlo a bezpečí – tichý přístav pro jemné duše a klidný spánek.</p>
+          <div class="room-vibes"><span>čistota</span><span>bezpečí</span><span>světelná péče</span></div>
+          <div class="room-foot"><span class="room-price">800 Kč <small>/ noc</small></span><a class="room-link" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20And%C4%9Blsk%C3%BD%20pokoj&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28And%C4%9Blsk%C3%BD%20pokoj%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Chci tu pobýt →</a></div>
+        </div>
+      </div></article>
+      <article class="room"><div class="room-inner">
+        <div class="room-media"><div class="room-art" aria-hidden="true">🪷</div><span class="room-cap">Pro jednoho</span></div>
+        <div class="room-body">
+          <div class="room-title"><span class="glyph">🪷</span><h3>Pokoj Zen</h3></div>
+          <p class="room-lead">Jednoduchost a ticho mysli – návrat do přítomného okamžiku.</p>
+          <div class="room-vibes"><span>klid</span><span>spočinutí</span><span>ticho</span></div>
+          <div class="room-foot"><span class="room-price">800 Kč <small>/ noc</small></span><a class="room-link" href="mailto:oaza.adamanthea@gmail.com?subject=Rezervace%3A%20Pokoj%20Zen&body=Dobr%C3%BD%20den%2C%0D%0A%0D%0Am%C3%A1m%20z%C3%A1jem%20o%20soukrom%C3%BD%20pobyt%20%28Pokoj%20Zen%29%20a%20pros%C3%ADm%20o%20ov%C4%9B%C5%99en%C3%AD%20voln%C3%A9ho%20term%C3%ADnu.%0D%0A%0D%0ATerm%C3%ADn%20%28od%E2%80%93do%29%3A%20%0D%0APo%C4%8Det%20osob%3A%20%0D%0AJm%C3%A9no%20a%20p%C5%99%C3%ADjmen%C3%AD%3A%20%0D%0ATelefon%3A%20%0D%0A%0D%0APozn%C3%A1mka%20%2F%20p%C5%99%C3%A1n%C3%AD%3A%20%0D%0A%0D%0AD%C4%9Bkuji.">Chci tu pobýt →</a></div>
+        </div>
+      </div></article>
     </div>
 
 

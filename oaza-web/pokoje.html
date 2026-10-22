@@ -323,7 +323,8 @@ var Org = (() => {
         ${c.chci ? '<span class="chip ok">rezervováno</span>' : ''}</div>
       ${c.chci ? `<div>${den(c.prijezd)} – ${den(c.odjezd)} · ${nociTxt(noci)}${c.kdo ? ' · ' + esc(c.kdo) : ''}</div>` : ''}
       <div class="price">${cena}</div>
-      ${!c.uzavreno ? `<div class="muted small">Cena se zafixuje ${dt(c.uzaverka)} podle počtu přihlášených.${c.chci ? ' Do té doby můžeš chatku kdykoli uvolnit.' : ' Rezervací si termín držíš už teď.'}</div>` : ''}
+      ${!c.uzavreno ? `<div class="muted small">${c.chci ? `Termín je tvůj. Cena se zafixuje ${dt(c.uzaverka)} podle počtu přihlášených, do té doby můžeš chatku kdykoli uvolnit.`
+        : `Chatka je po celý rok v nabídce i pro ostatní hosty Oázy a termín patří tomu, kdo si ho zarezervuje první – proto si ji zarezervuj co nejdřív. Rezervací ho máš jistý hned, cena se zafixuje ${dt(c.uzaverka)} podle počtu přihlášených a do té doby můžeš chatku kdykoli uvolnit.`}</div>` : ''}
       ${otevreno ? `<div class="row">${c.chci ? '<button class="btn ghost sm" data-ch="upravit">Upravit</button><button class="btn danger sm" data-ch="uvolnit">Uvolnit chatku</button>'
         : '<button class="btn sm" data-ch="rezervovat">Rezervovat chatku</button>'}</div>` : ''}
     </div>`;

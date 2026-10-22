@@ -238,12 +238,13 @@ var Org = (() => {
         ${chatkaCard()}
         ${D.pokoje.map(roomCard).join('')}
         ${nez.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Čekají na pokoj</h3>
-          <div class="muted small">Klikni na jméno a vyber místo.</div></div></div>
+          <div class="muted small">Spí v Oáze, pokoj ještě nemají. Klikni na jméno a vyber pokoj nebo sál.</div></div></div>
           <div class="people">${nez.map(personRow).join('')}</div></div>` : ''}
-        ${doj.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Dojíždějí – bez noclehu</h3>
-          <div class="muted small">Denní pronájem bez noci ${kc(D.jidla.den)} za den a strava podle jídel.</div></div></div>
-          <div class="people">${doj.map(personRow).join('')}</div></div>` : ''}
-        <button class="btn gold" id="addAny" style="width:100%;justify-content:center">+ Přidat účastníka</button>
+        <div class="card room"><div class="room-h"><div class="t"><h3>Dojíždějí – bez noclehu</h3>
+          <div class="muted small">Přijíždějí přes den a nocují jinde. Platí denní pronájem bez noci ${kc(D.jidla.den)} za den a stravu podle jídel.</div></div>
+          <div><span class="chip ${doj.length ? 'plum' : ''}">${doj.length} ${doj.length === 1 ? 'osoba' : doj.length >= 2 && doj.length <= 4 ? 'osoby' : 'osob'}</span></div></div>
+          ${doj.length ? `<div class="people">${doj.map(personRow).join('')}</div>` : ''}
+          <div class="add"><button class="btn ghost sm" id="addDoj">+ Přidat dojíždějícího</button></div></div>
         <div class="card stack" style="text-align:center;border-color:var(--plum)">
           <h3>${a.kompletni ? 'Přehled je odeslaný Oáze' : 'Máte skupinu kompletní?'}</h3>
           <div class="muted small">${a.kompletni ? 'Odesláno ' + new Date(a.kompletni).toLocaleString('cs-CZ', { day:'numeric', month:'numeric', hour:'2-digit', minute:'2-digit' }) + '. Po dalších změnách pošlete aktualizovaný přehled.'
@@ -259,7 +260,7 @@ var Org = (() => {
     $('#csv').onclick = csv;
     $('#editAkce').onclick = akceForm;
     $('#kompl').onclick = komplForm;
-    $('#addAny').onclick = () => form({ pokoj: firstFree() });
+    $('#addDoj').onclick = () => form({ dojizdi: true });
     zalohaQR();
     document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => chatkaForm());
     document.querySelectorAll('[data-add]').forEach(b => b.onclick = () => form({ pokoj: b.dataset.add }));
@@ -413,7 +414,6 @@ var Org = (() => {
       } catch(e) { $('#cerr').textContent = e.message; $('#cerr').classList.add('on'); $('#cs').disabled = false; }
     };
   }
-  function firstFree(){ const p = D.pokoje.find(p => !p.v_cene && volno(p) > 0) || D.pokoje.find(p => volno(p) > 0); return p ? p.kod : ''; }
   function roomCard(p){
     const os = inRoom(p.kod), v = volno(p), sam = os.some(u => u.rezim === 'sam');
     const beds = Array.from({length: p.kapacita}, (_, i) => `<span class="bed ${sam ? 's' : (i < os.length ? 'f' : '')}"></span>`).join('');
@@ -432,7 +432,7 @@ var Org = (() => {
         <div class="beds">${beds}</div></div>
         <div>${v > 0 ? `<span class="chip ok">volno ${v}</span>` : `<span class="chip plum">plno</span>`}</div></div>
       ${os.length ? `<div class="people">${os.map(personRow).join('')}</div>` : ''}
-      ${v > 0 ? `<div class="add"><button class="btn ghost sm" data-add="${p.kod}">+ Přidat do pokoje</button></div>` : ''}
+      ${v > 0 ? `<div class="add"><button class="btn ghost sm" data-add="${p.kod}">${p.v_cene ? '+ Přidat do sálu' : '+ Přidat do pokoje'}</button></div>` : ''}
     </div>`;
   }
   function personRow(u){
@@ -450,15 +450,16 @@ var Org = (() => {
     const opts = D.pokoje.map(p => { const v = volno(p, edit.id); const ok = v > 0 || p.kod === u?.pokoj && u?.id;
       return `<option value="${p.kod}" ${ok ? '' : 'disabled'}>${esc(p.nazev)} – ${ok ? 'volno ' + Math.max(v,0) : 'plno'}</option>`; }).join('');
     openSheet(`<div class="stack">
-      <div class="row"><h2>${edit.id ? 'Upravit účastníka' : 'Nový účastník'}</h2><div class="spacer"></div><button class="btn ghost sm" id="fx">Zavřít</button></div>
+      <div class="row"><h2>${edit.id ? 'Upravit účastníka' : edit.dojizdi ? 'Nový účastník – bez noclehu' : 'Nový účastník – ' + (room(edit.pokoj)?.nazev || 'čeká na pokoj')}</h2><div class="spacer"></div><button class="btn ghost sm" id="fx">Zavřít</button></div>
       <div><label>Jméno a příjmení</label><input id="fj" value="${esc(edit.jmeno)}"></div>
       <div class="grid2"><div><label>Telefon</label><input id="ft" type="tel" value="${esc(edit.telefon)}"></div>
         <div><label>E-mail</label><input id="fe" type="email" value="${esc(edit.email)}"></div></div>
       <div class="grid2"><div><label>Příjezd</label><select id="fpd">${dny}</select><select id="fpj" style="margin-top:6px">${o(PRV)}</select></div>
         <div><label>Odjezd</label><select id="fod">${dny}</select><select id="foj" style="margin-top:6px">${o(POS)}</select></div></div>
-      <div><label>Pobyt</label><div class="seg" id="fdj">
+      ${edit.id ? `<div><label>Pobyt</label><div class="seg" id="fdj">
         <button data-d="0"><b>Spí v Oáze</b><span>pokoj nebo sál</span></button>
-        <button data-d="1"><b>Dojíždí – bez noclehu</b><span>denní pronájem ${kc(D.jidla.den)} / den + strava</span></button></div></div>
+        <button data-d="1"><b>Dojíždí – bez noclehu</b><span>denní pronájem ${kc(D.jidla.den)} / den + strava</span></button></div></div>`
+      : edit.dojizdi ? `<div><label>Pobyt</label><div class="chip plum">Bez noclehu · přijíždí přes den · denní pronájem ${kc(D.jidla.den)} / den + strava</div></div>` : ''}
       <div id="fpw"><label>Pokoj</label><select id="fp"><option value="">Čeká na pokoj</option>${opts}</select></div>
       <div id="frez"></div>
       <div><label>Strava</label><div class="seg" id="fs">

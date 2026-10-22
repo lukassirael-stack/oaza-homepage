@@ -498,8 +498,9 @@ var Org = (() => {
     if (edit.rezim === 'sam' && volno(p, edit.id) < p.kapacita && R.includes('sdileny')) edit.rezim = 'sdileny';
     const samOK = volno(p, edit.id) === p.kapacita;
     $('#frez').innerHTML = p.v_cene ? `<div class="chip ok">Matrace v meditačním sále · v ceně pronájmu</div>` :
+      p.kapacita === 1 ? `<div><label>Ubytování</label><div class="chip">Jednolůžkový pokoj · ${p.cena_sam != null ? kc(p.cena_sam) + ' / noc' : 'cenu doplní Oáza'}</div></div>` :
       `<label>Ubytování</label><div class="seg">
-        ${R.includes('sam') ? `<button data-r="sam" ${samOK ? '' : 'disabled'}><b>Sám v pokoji</b><span>${p.cena_sam != null ? kc(p.cena_sam) + ' / noc' : 'cenu doplní Oáza'}${samOK ? '' : ' · pokoj je už sdílený'}</span></button>` : ''}
+        ${R.includes('sam') ? `<button data-r="sam" ${samOK ? '' : 'disabled'}><b>Sám v pokoji</b><span>celý pokoj pro sebe · ${p.cena_sam != null ? kc(p.cena_sam) + ' / noc' : 'cenu doplní Oáza'}${samOK ? '' : ' · pokoj je už sdílený'}</span></button>` : ''}
         ${R.includes('sdileny') ? `<button data-r="sdileny"><b>Sdílený pokoj</b><span>${p.cena_sdileny != null ? kc(p.cena_sdileny) + ' / os. / noc' : 'cenu doplní Oáza'}</span></button>` : ''}
       </div>`;
     document.querySelectorAll('#frez [data-r]').forEach(b => { b.classList.toggle('on', b.dataset.r === edit.rezim); b.onclick = () => { edit.rezim = b.dataset.r; rez(); }; });

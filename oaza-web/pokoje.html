@@ -159,10 +159,12 @@ var Org = (() => {
   const rezimy = p => p.v_cene ? ['sdileny'] : (p.kapacita === 1 ? ['sam'] : ['sam','sdileny']);
   function rate(p, rez){ if (!p) return 0; if (p.v_cene) return 0; return rez === 'sam' ? p.cena_sam : p.cena_sdileny; }
   const noci = u => u.dojizdi ? 0 : Math.max(0, dnu(u.prijezd, u.odjezd));
+  const dni = u => Math.max(1, dnu(u.prijezd, u.odjezd));
+  const dniTxt = n => n === 1 ? '1 den' : (n >= 2 && n <= 4 ? n + ' dny' : n + ' dní');
   const celyPobyt = u => u.prijezd === D.akce.datum_od && u.odjezd === D.akce.datum_do && u.prvni_jidlo === D.akce.prvni_jidlo && u.posledni_jidlo === D.akce.posledni_jidlo;
   const pobytTxt = u => celyPobyt(u) ? 'celý pobyt' : den(u.prijezd) + ' ' + PRV[u.prvni_jidlo] + ' – ' + den(u.odjezd) + ' ' + POS[u.posledni_jidlo];
   function cena(u){
-    const p = u.dojizdi ? null : room(u.pokoj), r = rate(p, u.rezim), n = noci(u);
+    const p = u.dojizdi ? null : room(u.pokoj), r = u.dojizdi ? (D.jidla.den || 0) : rate(p, u.rezim), n = u.dojizdi ? dni(u) : noci(u);
     const ub = r == null ? null : r * n;
     const pj = u.stravovani ? pocty(seznamJidel(u, D.akce.datum_od)) : { snidane:0, obed:0, vecere:0 };
     const st = JIDLA.reduce((s, j) => s + pj[j] * (D.jidla[j] || 0), 0);
@@ -173,7 +175,7 @@ var Org = (() => {
     if (os.some(u => u.rezim === 'sam')) return 0;
     return p.kapacita - os.length;
   }
-  function rezLabel(u){ if (u.dojizdi) return 'dojíždí'; const p = room(u.pokoj); if (!p) return ''; if (p.v_cene) return 'matrace v sále'; return u.rezim === 'sam' ? 'sám v pokoji' : 'sdílený pokoj'; }
+  function rezLabel(u){ if (u.dojizdi) return 'bez noclehu'; const p = room(u.pokoj); if (!p) return ''; if (p.v_cene) return 'matrace v sále'; return u.rezim === 'sam' ? 'sám v pokoji' : 'sdílený pokoj'; }
 
   async function start(){
     const q = new URLSearchParams(location.search);
@@ -230,12 +232,18 @@ var Org = (() => {
           <div class="stat"><b>${U.length}</b><span>přihlášených osob</span></div>
           <div class="stat"><b>${obs} / ${luzek}</b><span>obsazená místa</span></div>
           <div class="stat"><b>${veg} · ${vgn}</b><span>vegetariánská · veganská</span></div>
-          <div class="stat"><b>${kc(total)}</b><span>celkem ubytování a strava</span></div>
+          <div class="stat"><b>${kc(total)}</b><span>celkem pobyt a strava</span></div>
         </div>
         ${zalohaCard()}
         ${chatkaCard()}
-        <button class="btn gold" id="addAny" style="width:100%;justify-content:center">+ Přidat účastníka</button>
         ${D.pokoje.map(roomCard).join('')}
+        ${nez.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Čekají na pokoj</h3>
+          <div class="muted small">Klikni na jméno a vyber místo.</div></div></div>
+          <div class="people">${nez.map(personRow).join('')}</div></div>` : ''}
+        ${doj.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Dojíždějí – bez noclehu</h3>
+          <div class="muted small">Denní pronájem bez noci ${kc(D.jidla.den)} za den a strava podle jídel.</div></div></div>
+          <div class="people">${doj.map(personRow).join('')}</div></div>` : ''}
+        <button class="btn gold" id="addAny" style="width:100%;justify-content:center">+ Přidat účastníka</button>
         <div class="card stack" style="text-align:center;border-color:var(--plum)">
           <h3>${a.kompletni ? 'Přehled je odeslaný Oáze' : 'Máte skupinu kompletní?'}</h3>
           <div class="muted small">${a.kompletni ? 'Odesláno ' + new Date(a.kompletni).toLocaleString('cs-CZ', { day:'numeric', month:'numeric', hour:'2-digit', minute:'2-digit' }) + '. Po dalších změnách pošlete aktualizovaný přehled.'
@@ -244,13 +252,7 @@ var Org = (() => {
           ${a.prijezd_org_den ? `<div class="small">Váš předběžný příjezd: <b>${den(a.prijezd_org_den)} v ${esc(a.prijezd_org_cas)}</b>${a.prijezd_org_pozn ? ' · ' + esc(a.prijezd_org_pozn) : ''}</div>` : ''}
           <button class="btn ${a.kompletni ? 'ghost' : 'gold'}" id="kompl" style="justify-content:center">${a.kompletni ? 'Odeslat aktualizovaný přehled' : 'Skupina je kompletní – odeslat Oáze'}</button>
         </div>
-        ${nez.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Čekají na pokoj</h3>
-          <div class="muted small">Klikni na jméno a vyber místo.</div></div></div>
-          <div class="people">${nez.map(personRow).join('')}</div></div>` : ''}
-        ${doj.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Dojíždějí</h3>
-          <div class="muted small">Ubytování si zajišťují sami, platí jen stravu.</div></div></div>
-          <div class="people">${doj.map(personRow).join('')}</div></div>` : ''}
-        <p class="muted small">Ubytování se počítá za osobu a noc podle ceníku Oázy. Strava se počítá po jídlech podle příjezdu a odjezdu: snídaně ${kc(D.jidla.snidane)}, oběd ${kc(D.jidla.obed)}, večeře ${kc(D.jidla.vecere)}. Osobní údaje vidíš jen ty – Oáza vidí obsazenost pokojů a počty jídel.</p>
+        <p class="muted small">Ubytování se počítá za osobu a noc podle ceníku Oázy, dojíždějící bez noclehu platí denní pronájem ${kc(D.jidla.den)} za den. Strava se počítá po jídlech podle příjezdu a odjezdu: snídaně ${kc(D.jidla.snidane)}, oběd ${kc(D.jidla.obed)}, večeře ${kc(D.jidla.vecere)}. Osobní údaje vidíš jen ty – Oáza vidí obsazenost pokojů a počty jídel.</p>
         <div class="foot">Oáza Adamanthea · Crystal &amp; Retreat centrum · Halenkovice</div>
       </div>`;
     $('#out').onclick = () => { store.del('oaza_pokoje_org'); heslo = ''; login(); };
@@ -259,7 +261,7 @@ var Org = (() => {
     $('#kompl').onclick = komplForm;
     $('#addAny').onclick = () => form({ pokoj: firstFree() });
     zalohaQR();
-    document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => b.dataset.ch === 'uvolnit' ? chatkaUvolnit() : chatkaForm());
+    document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => chatkaForm());
     document.querySelectorAll('[data-add]').forEach(b => b.onclick = () => form({ pokoj: b.dataset.add }));
     document.querySelectorAll('[data-u]').forEach(r => r.onclick = () => form(U.find(u => u.id === r.dataset.u)));
   }
@@ -323,9 +325,9 @@ var Org = (() => {
         ${c.chci ? '<span class="chip ok">rezervováno</span>' : ''}</div>
       ${c.chci ? `<div>${den(c.prijezd)} – ${den(c.odjezd)} · ${nociTxt(noci)}${c.kdo ? ' · ' + esc(c.kdo) : ''}</div>` : ''}
       <div class="price">${cena}</div>
-      ${!c.uzavreno ? `<div class="muted small">${c.chci ? `Termín je tvůj. Cena se zafixuje ${dt(c.uzaverka)} podle počtu přihlášených, do té doby můžeš chatku kdykoli uvolnit.`
-        : `Chatka je po celý rok v nabídce i pro ostatní hosty Oázy a termín patří tomu, kdo si ho zarezervuje první – proto si ji zarezervuj co nejdřív. Rezervací ho máš jistý hned, cena se zafixuje ${dt(c.uzaverka)} podle počtu přihlášených a do té doby můžeš chatku kdykoli uvolnit.`}</div>` : ''}
-      ${otevreno ? `<div class="row">${c.chci ? '<button class="btn ghost sm" data-ch="upravit">Upravit</button><button class="btn danger sm" data-ch="uvolnit">Uvolnit chatku</button>'
+      ${!c.uzavreno ? `<div class="muted small">${c.chci ? `Termín je tvůj a rezervace je závazná. Cena se zafixuje ${dt(c.uzaverka)} podle počtu přihlášených; změnu termínu domluvíš s Oázou.`
+        : `Chatka je po celý rok v nabídce i pro ostatní hosty Oázy a termín patří tomu, kdo si ho zarezervuje první – proto si ji zarezervuj co nejdřív. Rezervace je závazná, cena se zafixuje ${dt(c.uzaverka)} podle počtu přihlášených.`}</div>` : ''}
+      ${otevreno ? `<div class="row">${c.chci ? '<button class="btn ghost sm" data-ch="upravit">Upravit, kdo bydlí</button>'
         : '<button class="btn sm" data-ch="rezervovat">Rezervovat chatku</button>'}</div>` : ''}
     </div>`;
   }
@@ -395,24 +397,21 @@ var Org = (() => {
     const c = D.chatka, dny = dnyAkce(D.akce.datum_od, D.akce.datum_do);
     const opt = (list, v) => list.map(d => `<option value="${d}" ${d === v ? 'selected' : ''}>${den(d)}</option>`).join('');
     openSheet(`<div class="stack"><div class="row"><h2>Pobyt ve světle</h2><div class="spacer"></div><button class="btn ghost sm" id="cx">Zavřít</button></div>
-      <div class="grid2"><div><label>Příjezd</label><select id="cp">${opt(dny.slice(0, -1), c.prijezd || D.akce.datum_od)}</select></div>
+      ${c.chci ? `<div>${den(c.prijezd)} – ${den(c.odjezd)} · ${nociTxt(dnu(c.prijezd, c.odjezd))} <span class="muted small">· termín je závazný, změnu domluvíš s Oázou</span></div>`
+        : `<div class="grid2"><div><label>Příjezd</label><select id="cp">${opt(dny.slice(0, -1), c.prijezd || D.akce.datum_od)}</select></div>
         <div><label>Odjezd</label><select id="co">${opt(dny.slice(1), c.odjezd || D.akce.datum_do)}</select></div></div>
+      <div class="muted small">Rezervace je závazná – termín je tvůj a chatka se pro ostatní hosty zavře.</div>`}
       <div><label>Kdo bude v chatce bydlet</label><input id="ck" placeholder="např. Jana Nováková + partner" value="${esc(c.kdo || '')}"></div>
       <div class="err" id="cerr"></div>
-      <button class="btn" id="cs">${c.chci ? 'Uložit' : 'Rezervovat chatku'}</button></div>`);
+      <button class="btn" id="cs">${c.chci ? 'Uložit' : 'Závazně rezervovat chatku'}</button></div>`);
     $('#cx').onclick = closeSheet;
     $('#cs').onclick = async () => {
       $('#cs').disabled = true;
-      try { const r = await rpc('pokoje_org_chatka', { p_kod: kod, p_heslo: heslo, p_c: { chci: true, prijezd: $('#cp').value, odjezd: $('#co').value, kdo: $('#ck').value } });
+      try { const r = await rpc('pokoje_org_chatka', { p_kod: kod, p_heslo: heslo, p_c: { chci: true, prijezd: c.chci ? c.prijezd : $('#cp').value, odjezd: c.chci ? c.odjezd : $('#co').value, kdo: $('#ck').value } });
         if (r.chyba) { $('#cerr').textContent = r.chyba; $('#cerr').classList.add('on'); $('#cs').disabled = false; return; }
-        D = r; closeSheet(); render(); toast('Chatka je rezervovaná');
+        D = r; closeSheet(); render(); toast(c.chci ? 'Uloženo' : 'Chatka je závazně rezervovaná');
       } catch(e) { $('#cerr').textContent = e.message; $('#cerr').classList.add('on'); $('#cs').disabled = false; }
     };
-  }
-  async function chatkaUvolnit(){
-    if (!confirm('Uvolnit Pobyt ve světle? Termín se vrátí ostatním hostům.')) return;
-    try { const r = await rpc('pokoje_org_chatka', { p_kod: kod, p_heslo: heslo, p_c: { chci: false } });
-      if (r.chyba) return toast(r.chyba); D = r; render(); toast('Chatka uvolněna'); } catch(e) { toast(e.message); }
   }
   function firstFree(){ const p = D.pokoje.find(p => !p.v_cene && volno(p) > 0) || D.pokoje.find(p => volno(p) > 0); return p ? p.kod : ''; }
   function roomCard(p){
@@ -438,10 +437,10 @@ var Org = (() => {
   }
   function personRow(u){
     const c = cena(u);
-    const info = [rezLabel(u), pobytTxt(u), u.dojizdi ? '' : nociTxt(c.n), u.stravovani ? (u.strava === 'veganska' ? 'veganská' : 'vegetariánská') + (u.specialni_strava ? ' + ' + u.specialni_strava : '') : 'vlastní strava', u.telefon, u.email].filter(Boolean).join(' · ');
+    const info = [rezLabel(u), pobytTxt(u), u.dojizdi ? dniTxt(c.n) : nociTxt(c.n), u.stravovani ? (u.strava === 'veganska' ? 'veganská' : 'vegetariánská') + (u.specialni_strava ? ' + ' + u.specialni_strava : '') : 'vlastní strava', u.telefon, u.email].filter(Boolean).join(' · ');
     return `<div class="p" data-u="${u.id}"><div class="n"><b>${esc(u.jmeno)}</b><div>${esc(info)}</div></div>
       <div class="c">${c.doplni ? '<span class="muted small">cenu doplní Oáza</span>' : kc(c.celkem)}
-      <small>${c.ub && !c.doplni ? 'ubyt. ' + kc(c.ub) : ''}${c.ub && c.st ? ' · ' : ''}${c.st ? 'strava ' + kc(c.st) : ''}</small></div></div>`;
+      <small>${c.ub && !c.doplni ? (u.dojizdi ? 'pronájem ' : 'ubyt. ') + kc(c.ub) : ''}${c.ub && c.st ? ' · ' : ''}${c.st ? 'strava ' + kc(c.st) : ''}</small></div></div>`;
   }
   function form(u){
     edit = Object.assign({ id:'', jmeno:'', telefon:'', email:'', pokoj:'', rezim:'sdileny', stravovani:true, strava:'vegetarianska', specialni_strava:'', poznamka:'',
@@ -457,9 +456,9 @@ var Org = (() => {
         <div><label>E-mail</label><input id="fe" type="email" value="${esc(edit.email)}"></div></div>
       <div class="grid2"><div><label>Příjezd</label><select id="fpd">${dny}</select><select id="fpj" style="margin-top:6px">${o(PRV)}</select></div>
         <div><label>Odjezd</label><select id="fod">${dny}</select><select id="foj" style="margin-top:6px">${o(POS)}</select></div></div>
-      <div><label>Ubytování</label><div class="seg" id="fdj">
+      <div><label>Pobyt</label><div class="seg" id="fdj">
         <button data-d="0"><b>Spí v Oáze</b><span>pokoj nebo sál</span></button>
-        <button data-d="1"><b>Dojíždí</b><span>platí jen stravu</span></button></div></div>
+        <button data-d="1"><b>Dojíždí – bez noclehu</b><span>denní pronájem ${kc(D.jidla.den)} / den + strava</span></button></div></div>
       <div id="fpw"><label>Pokoj</label><select id="fp"><option value="">Čeká na pokoj</option>${opts}</select></div>
       <div id="frez"></div>
       <div><label>Strava</label><div class="seg" id="fs">
@@ -512,8 +511,8 @@ var Org = (() => {
   }
   function price(){
     const c = cena(edit);
-    const ubT = edit.dojizdi ? 'dojíždí' : !edit.pokoj ? 'po přidělení pokoje' : c.doplni ? 'cenu doplní Oáza' : kc(c.ub) + ` <span class="muted small">(${nociTxt(c.n)})</span>`;
-    $('#fpr').innerHTML = `<div class="row"><div>Ubytování: ${ubT}<br>Strava: ${edit.stravovani ? kc(c.st) + ` <span class="muted small">(${jidlaTxt(c.pj) || '0 jídel'})</span>` : 'vlastní'}</div>
+    const ubT = edit.dojizdi ? kc(c.ub) + ` <span class="muted small">(bez noclehu, denní pronájem · ${dniTxt(c.n)})</span>` : !edit.pokoj ? 'po přidělení pokoje' : c.doplni ? 'cenu doplní Oáza' : kc(c.ub) + ` <span class="muted small">(${nociTxt(c.n)})</span>`;
+    $('#fpr').innerHTML = `<div class="row"><div>${edit.dojizdi ? 'Pronájem' : 'Ubytování'}: ${ubT}<br>Strava: ${edit.stravovani ? kc(c.st) + ` <span class="muted small">(${jidlaTxt(c.pj) || '0 jídel'})</span>` : 'vlastní'}</div>
       <div class="spacer"></div><div class="tot">${kc(c.celkem)}</div></div>`;
   }
   async function save(){
@@ -533,8 +532,8 @@ var Org = (() => {
   }
   function csv(){
     const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
-    const rows = [['Jméno','Telefon','E-mail','Pokoj','Ubytování','Příjezd','Odjezd','Noci','Strava','Speciální strava','Snídaně','Obědy','Večeře','Ubytování Kč','Strava Kč','Celkem Kč','Poznámka']];
-    D.ucastnici.forEach(u => { const c = cena(u); rows.push([u.jmeno, u.telefon, u.email, u.dojizdi ? 'dojíždí' : (room(u.pokoj)?.nazev || 'čeká na pokoj'), rezLabel(u),
+    const rows = [['Jméno','Telefon','E-mail','Pokoj','Ubytování','Příjezd','Odjezd','Noci / dny','Strava','Speciální strava','Snídaně','Obědy','Večeře','Ubytování / pronájem Kč','Strava Kč','Celkem Kč','Poznámka']];
+    D.ucastnici.forEach(u => { const c = cena(u); rows.push([u.jmeno, u.telefon, u.email, u.dojizdi ? 'bez noclehu' : (room(u.pokoj)?.nazev || 'čeká na pokoj'), rezLabel(u),
       den(u.prijezd) + ' ' + PRV[u.prvni_jidlo], den(u.odjezd) + ' ' + POS[u.posledni_jidlo], c.n,
       u.stravovani ? (u.strava === 'veganska' ? 'veganská' : 'vegetariánská') : 'vlastní', u.specialni_strava, c.pj.snidane, c.pj.obed, c.pj.vecere, c.ub ?? '', c.st, c.celkem, u.poznamka]); });
     const blob = new Blob(['﻿' + rows.map(r => r.map(q).join(';')).join('\r\n')], { type:'text/csv;charset=utf-8' });
@@ -595,7 +594,7 @@ var Admin = (() => {
           <div class="occ">${D.pokoje.map(p => { const o = a.obsazenost[p.kod] || { osob:0, sam:false }; const f = o.sam ? p.kapacita : o.osob;
             return `<div>${esc(p.nazev)}<div class="bar"><i class="${o.sam ? 's' : ''}" style="width:${100 * f / p.kapacita}%"></i></div></div>
               <div class="small">${o.osob}/${p.kapacita}${o.sam ? ' · sám' : ''}</div>`; }).join('')}</div>
-          <div class="row" style="gap:6px"><span class="chip">${a.osob} osob</span>${a.dojizdi ? `<span class="chip">${a.dojizdi} dojíždí</span>` : ''}
+          <div class="row" style="gap:6px"><span class="chip">${a.osob} osob</span>${a.dojizdi ? `<span class="chip">${a.dojizdi} bez noclehu</span>` : ''}
             ${a.nezarazeno ? `<span class="chip warn">${a.nezarazeno} čeká na pokoj</span>` : ''}</div>
           ${kuchyne(a)}
           ${a.specialni.length ? `<div class="small"><b>Speciální strava:</b> ${a.specialni.map(esc).join(' · ')}</div>` : ''}
@@ -651,7 +650,7 @@ var Admin = (() => {
     };
   }
   function cenik(){
-    $('#body').innerHTML = `<div class="card stack"><p class="muted small">Ubytování za osobu a noc, strava za jednotlivé jídlo. Organizátoři je vidí u pokojů a počítají se z nich ceny účastníků.</p>
+    $('#body').innerHTML = `<div class="card stack"><p class="muted small">Ubytování za osobu a noc, dojíždějící bez noclehu denní pronájem za den, strava za jednotlivé jídlo. Organizátoři je vidí u pokojů a počítají se z nich ceny účastníků.</p>
       <table class="cen"><tr><th>Pokoj</th><th>Sám v pokoji</th><th>Sdílený / os.</th></tr>
       ${D.pokoje.map(p => `<tr><td><b>${esc(p.nazev)}</b><div class="small muted">${p.kapacita} ${p.kapacita === 1 ? 'místo' : p.kapacita < 5 ? 'místa' : 'míst'}</div></td>
         ${p.v_cene ? `<td colspan="2"><span class="chip ok">v ceně pronájmu</span></td>` :
@@ -659,6 +658,7 @@ var Admin = (() => {
            <td>${p.kapacita === 1 ? '<span class="small muted">jen pro jednoho</span>' : `<input type="number" min="0" data-k="${p.kod}" data-f="cena_sdileny" value="${p.cena_sdileny ?? ''}" placeholder="Kč">`}</td>`}</tr>`).join('')}
       </table>
       <div class="grid2" style="grid-template-columns:repeat(3,1fr)">${JIDLA.map(j => `<div><label>${JN[j][0].toUpperCase() + JN[j].slice(1)} (Kč)</label><input type="number" min="0" data-j="${j}" value="${D.jidla[j]}"></div>`).join('')}</div>
+      <div><label>Dojíždí bez noclehu – denní pronájem (Kč / den)</label><input type="number" min="0" data-j="den" value="${D.jidla.den ?? 700}"></div>
       <button class="btn" id="cs">Uložit ceník</button></div>`;
     $('#cs').onclick = async () => {
       const m = {};

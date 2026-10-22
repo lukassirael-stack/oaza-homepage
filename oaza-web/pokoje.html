@@ -59,8 +59,19 @@ textarea{min-height:64px;resize:vertical}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .stat b{display:block;font-size:22px;font-family:"Cormorant Garamond",serif;font-weight:600}
 .stat span{font-size:12px;color:var(--muted)}
-.room{padding:0;overflow:hidden}
-.room-h{padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.room{padding:0;overflow:hidden;border-left:4px solid var(--rc,var(--line))}
+.room-h{padding:16px 18px;display:flex;gap:12px;align-items:flex-start;background:var(--rs,transparent)}
+.room[data-room=andelsky]{--rc:#8fa9c6;--rs:#eef3f8}
+.room[data-room=zen]{--rc:#86a083;--rs:#edf3ea}
+.room[data-room=egyptsky]{--rc:#c9a85a;--rs:#f7efdd}
+.room[data-room=zenovy]{--rc:#d49c7c;--rs:#f9ede4}
+.room[data-room=boho]{--rc:#c78a79;--rs:#f8e9e5}
+.room[data-room=mandala]{--rc:#a78fbf;--rs:#f2ecf6}
+.room[data-room=pokoj7]{--rc:#7fa99b;--rs:#e9f2ee}
+.room[data-room=pokoj8]{--rc:#c48aa0;--rs:#f8e9ee}
+.room[data-room=sal]{--rc:var(--plum);--rs:var(--plum-soft)}
+.room[data-room=nez]{--rc:var(--warn);--rs:var(--warn-soft)}
+.room[data-room=doj]{--rc:#9a918c;--rs:#f1eeea}
 .room-h .t{flex:1;min-width:0}
 .beds{display:flex;gap:5px;margin-top:8px}
 .bed{width:22px;height:9px;border-radius:5px;background:var(--line)}
@@ -237,10 +248,10 @@ var Org = (() => {
         ${zalohaCard()}
         ${chatkaCard()}
         ${D.pokoje.map(roomCard).join('')}
-        ${nez.length ? `<div class="card room"><div class="room-h"><div class="t"><h3>Čekají na pokoj</h3>
+        ${nez.length ? `<div class="card room" data-room="nez"><div class="room-h"><div class="t"><h3>Čekají na pokoj</h3>
           <div class="muted small">Spí v Oáze, pokoj ještě nemají. Klikni na jméno a vyber pokoj nebo sál.</div></div></div>
           <div class="people">${nez.map(personRow).join('')}</div></div>` : ''}
-        <div class="card room"><div class="room-h"><div class="t"><h3>Dojíždějí – bez noclehu</h3>
+        <div class="card room" data-room="doj"><div class="room-h"><div class="t"><h3>Dojíždějí – bez noclehu</h3>
           <div class="muted small">Přijíždějí přes den a nocují jinde. Platí denní pronájem bez noci ${kc(D.jidla.den)} za den a stravu podle jídel.</div></div>
           <div><span class="chip ${doj.length ? 'plum' : ''}">${doj.length} ${doj.length === 1 ? 'osoba' : doj.length >= 2 && doj.length <= 4 ? 'osoby' : 'osob'}</span></div></div>
           ${doj.length ? `<div class="people">${doj.map(personRow).join('')}</div>` : ''}
@@ -425,7 +436,7 @@ var Org = (() => {
       if (rezimy(p).includes('sdileny')) c.push(`<span class="chip plum">sdílený ${p.cena_sdileny != null ? kc(p.cena_sdileny) : 'cenu doplní Oáza'} / os. / noc</span>`);
       ceny = c.join(' ');
     }
-    return `<div class="card room">
+    return `<div class="card room" data-room="${esc(p.kod)}">
       <div class="room-h"><div class="t"><h3>${esc(p.nazev)}</h3>
         <div class="muted small">${esc(p.popis)}</div>
         <div class="row" style="margin-top:8px;gap:6px">${ceny}</div>

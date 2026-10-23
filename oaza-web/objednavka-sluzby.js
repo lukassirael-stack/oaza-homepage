@@ -157,7 +157,8 @@
           moznosti: ['Relax pokoj', 'Egyptský pokoj', 'Boho pokoj', 'Domeček Mandala', 'Andělský pokoj', 'Pokoj Zen', 'Nechám na vás'] },
         { n: 'Příjezd', vstup: 'date', povinne: true, pul: true },
         { n: 'Odjezd', vstup: 'date', povinne: true, pul: true },
-        { n: 'Počet osob', vstup: 'number', od: 1, 'do': 2, hodnota: 1, povinne: true, pul: true },
+        { n: 'Počet osob', vstup: 'number', od: 1, 'do': 2, hodnota: 1, povinne: true, pul: true,
+          podle: 'Pokoj', limity: { 'Andělský pokoj': 1, 'Pokoj Zen': 1 } },
         { n: 'Vzkaz pro nás', typ: 'dlouhy', nizky: true, ph: 'záměr pobytu, speciální přání, otázky…' }
       ]
     },
@@ -362,7 +363,8 @@
       } else if (p.vstup === 'number') {
         platne = function () {
           var v = prvek.value.trim(); if (!v) return true;
-          var n = Number(v); return n === Math.floor(n) && n >= p.od && n <= p['do'];
+          var n = Number(v), max = prvek.max !== '' ? Number(prvek.max) : p['do'];
+          return n === Math.floor(n) && n >= p.od && n <= max;
         };
       }
     }
@@ -392,6 +394,22 @@
     var vlastni = C.pole.map(function (p) { return postavPole(p, typ); });
     var vsechna = [jmeno, email, telefon].concat(vlastni);
     vsechna.forEach(function (f) { form.appendChild(f.uzel); });
+
+    // horní mez číselného pole podle jiného pole (např. počet osob podle pokoje)
+    vsechna.forEach(function (f) {
+      if (!f.def.podle || !f.def.limity) return;
+      var zdroj = vsechna.filter(function (g) { return g.def.n === f.def.podle; })[0];
+      if (!zdroj || !zdroj.prvek) return;
+      function srovnej() {
+        var max = f.def.limity[zdroj.prvek.value];
+        if (max == null) max = f.def['do'];
+        f.prvek.max = max;
+        if (Number(f.prvek.value) > max) f.prvek.value = max;
+      }
+      zdroj.prvek.addEventListener('change', srovnej);
+      f.prvek.addEventListener('input', srovnej);
+      f.srovnej = srovnej;
+    });
 
     // skryté kontrolní pole (vyplní ho jen automat)
     var hp = el('div', 'os-hp'); hp.setAttribute('aria-hidden', 'true');
@@ -527,6 +545,7 @@
         else f.prvek.value = h;
       });
     });
+    P.pole.forEach(function (f) { if (f.srovnej) f.srovnej(); });
   }
 
   function otevrit(typ, zdroj) {

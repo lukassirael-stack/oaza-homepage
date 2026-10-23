@@ -158,7 +158,6 @@
         { n: 'Příjezd', vstup: 'date', povinne: true, pul: true },
         { n: 'Odjezd', vstup: 'date', povinne: true, pul: true },
         { n: 'Počet osob', vstup: 'number', od: 1, 'do': 2, hodnota: 1, povinne: true, pul: true },
-        { n: 'Strava', typ: 'volba', moznosti: ['Vlastní', 'Vegetariánská', 'Veganská'], vychozi: 'Vlastní' },
         { n: 'Vzkaz pro nás', typ: 'dlouhy', nizky: true, ph: 'záměr pobytu, speciální přání, otázky…' }
       ]
     },

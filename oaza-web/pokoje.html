@@ -326,14 +326,16 @@ var Org = (() => {
   function chatkaCard(){
     const c = D.chatka, n = D.ucastnici.length, noci = c.chci ? dnu(c.prijezd, c.odjezd) : D.akce.noci;
     const otevreno = !c.uzavreno && new Date() < new Date(c.uzaverka + 'T00:00:00');
+    const sz = c.strava_zdarma_od || 0, bezna = c.cena_bezna ? ` <span class="muted small">(zvýhodněná cena, běžně ${kc(c.cena_bezna)})</span>` : '';
+    const stravaTxt = m => sz ? (m >= sz ? ` Od ${sz} přihlášených máš zdarma i stravu – a to máš.` : ` Strava je zvlášť podle jídel; od ${sz} přihlášených ji máš zdarma${m >= c.zdarma_od ? ` (stačí ještě ${sz - m})` : ''}.`) : '';
     let cena;
-    if (c.uzavreno) cena = c.cena_final === 0 ? `<b>Zdarma</b> · k uzávěrce ${c.ucastniku_final} přihlášených`
-      : `<b>${kc(c.cena_final)} / ${c.cena_eur_final} €</b> · k uzávěrce ${c.ucastniku_final} přihlášených`;
-    else if (n >= c.zdarma_od) cena = `<b>Zdarma</b> · máš ${n} přihlášených (zdarma od ${c.zdarma_od})`;
-    else cena = `<b>${kc(c.cena)} / ${c.cena_eur} € za noc</b>${c.chci ? ` · celkem ${kc(c.cena * noci)}` : ''}<br><span class="muted small">Od ${c.zdarma_od} přihlášených je zdarma – teď máš ${n}, stačí ještě ${c.zdarma_od - n}.</span>`;
+    if (c.uzavreno) cena = c.cena_final === 0 ? `<b>Pobyt zdarma</b> · k uzávěrce ${c.ucastniku_final} přihlášených${c.ucastniku_final >= sz && sz ? ' · strava zdarma' : ' · strava zvlášť'}`
+      : `<b>${kc(c.cena_final)} / ${c.cena_eur_final} € za noc</b> · k uzávěrce ${c.ucastniku_final} přihlášených · strava zvlášť`;
+    else if (n >= c.zdarma_od) cena = `<b>Pobyt zdarma</b> · máš ${n} přihlášených (zdarma od ${c.zdarma_od})<br><span class="muted small">${stravaTxt(n).trim()}</span>`;
+    else cena = `<b>${kc(c.cena)} / ${c.cena_eur} € za noc</b>${bezna}${c.chci ? ` · celkem ${kc(c.cena * noci)}` : ''}<br><span class="muted small">Od ${c.zdarma_od} přihlášených je pobyt zdarma – teď máš ${n}, stačí ještě ${c.zdarma_od - n}.${stravaTxt(n)}</span>`;
     return `<div class="card stack" style="border-color:var(--gold)">
       <div class="row"><div style="flex:1;min-width:0"><h3>Pobyt ve světle</h3>
-        <div class="muted small">Samostatná vytápěná chatka v zahradě Oázy pro tebe jako organizátora a tvůj doprovod.</div></div>
+        <div class="muted small">Samostatná vytápěná chatka v zahradě Oázy pro tebe jako organizátora a tvůj doprovod.${c.cena_bezna && sz ? ` Pro organizátory za zvýhodněných ${kc(c.cena)} za noc místo ${kc(c.cena_bezna)}; od ${c.zdarma_od} přihlášených je pobyt zdarma a od ${sz} přihlášených i strava.` : ''}</div></div>
         ${c.chci ? '<span class="chip ok">rezervováno</span>' : ''}</div>
       ${c.chci ? `<div>${den(c.prijezd)} – ${den(c.odjezd)} · ${nociTxt(noci)}${c.kdo ? ' · ' + esc(c.kdo) : ''}</div>` : ''}
       <div class="price">${cena}</div>

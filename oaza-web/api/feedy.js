@@ -97,14 +97,15 @@ function modniSekce(typ, nazev) {
       svetr: `${C} > Shirts & Tops`, saty: `${C} > Dresses`,
     }[d];
   }
-  // Heureka
-  const M = 'Oblečení, obuv a doplňky';
+  // Heureka — listy ověřené proti heureka-sekce.xml (26. 10. 2026)
+  const D = 'Heureka.cz | Oblečení, obuv a doplňky | Dámské oblečení';
+  const P = 'Heureka.cz | Oblečení, obuv a doplňky | Pánské oblečení';
   return {
-    pan_tricko: `${M} | Pánské oblečení | Pánská trička a tílka`, pan_tilko: `${M} | Pánské oblečení | Pánská trička a tílka`,
-    overal: `${M} | Dámské oblečení | Dámské overaly`, komplet: `${M} | Dámské oblečení | Dámské komplety`,
-    kalhoty: `${M} | Dámské oblečení | Dámské kalhoty`, sukne: `${M} | Dámské oblečení | Dámské sukně`,
-    tricko: `${M} | Dámské oblečení | Dámská trička a tílka`, svetr: `${M} | Dámské oblečení | Dámské mikiny a svetry`,
-    saty: `${M} | Dámské oblečení | Dámské šaty`,
+    pan_tricko: `${P} | Pánská trička a tílka | Pánská trička`, pan_tilko: `${P} | Pánská trička a tílka | Pánská tílka`,
+    overal: `${D} | Dámské soupravy a overaly | Dámské overaly`, komplet: `${D} | Dámské soupravy a overaly | Dámské overaly`,
+    kalhoty: `${D} | Dámské kalhoty | Dámské klasické kalhoty`, sukne: `${D} | Dámské šaty a sukně | Dámské sukně`,
+    tricko: `${D} | Dámská trička a tílka | Dámská tílka`, svetr: `${D} | Dámské mikiny a svetry | Dámské svetry a pulovry`,
+    saty: `${D} | Dámské šaty a sukně | Dámské šaty`,
   }[d];
 }
 
@@ -112,8 +113,10 @@ function modniSekce(typ, nazev) {
 const SEKCE = (() => {
   const zS = 'Oblečení a móda | Módní doplňky | Šperky';
   const zDek = 'Dům, byt a zahrada | Bydlení a doplňky | Bytový textil, doplňky a dekorace | Bytové dekorace';
-  const hS = 'Hodinky a šperky | Šperky';
-  const hDek = 'Bydlení a doplňky | Bytové dekorace';
+  const hS = 'Heureka.cz | Oblečení, obuv a doplňky | Módní doplňky | Hodinky a šperky | Šperky';
+  const hDek = 'Heureka.cz | Bydlení a doplňky | Bytové dekorace';
+  const hMod = 'Heureka.cz | Oblečení, obuv a doplňky | Módní doplňky';
+  const hVune = `${hDek} | Vůně do bytu a svíčky`;
   const gJ = 'Apparel & Accessories > Jewelry';
   const gDek = 'Home & Garden > Decor';
   return {
@@ -132,14 +135,15 @@ const SEKCE = (() => {
     heureka: {
       nausnice: `${hS} | Náušnice`, naramek: `${hS} | Náramky`, prsten: `${hS} | Prsteny`,
       nahrdelnik: `${hS} | Náhrdelníky`, privesek: `${hS} | Přívěsky`,
-      kabelka: 'Oblečení, obuv a doplňky | Kabelky a tašky | Kabelky',
-      satek: 'Oblečení, obuv a doplňky | Módní doplňky | Šátky a šály',
-      pasek: 'Oblečení, obuv a doplňky | Módní doplňky | Pásky',
-      lapac: hDek, drevo: hDek, dekorace: hDek, artefakt: hDek, maska: hDek, krystal: hDek,
-      obraz: `${hDek} | Obrazy`,
-      sprej: `${hDek} | Vůně do bytu a svíčky`,
-      olej: 'Kosmetika a zdraví | Aromaterapie | Esenciální oleje',
-      set: 'Dárkové sety | Balíčky s krystaly',
+      kabelka: `${hMod} | Batohy, tašky a kabelky | Kabelky`,
+      satek: `${hMod} | Šátky, šály a nákrčníky | Šátky`,
+      pasek: `${hMod} | Pásky a kšandy | Pásky`,
+      lapac: `${hDek} | Nástěnné dekorace | Lapače snů`,
+      obraz: `${hDek} | Nástěnné dekorace | Obrazy`,
+      drevo: hDek, dekorace: hDek, artefakt: hDek, maska: hDek, krystal: hDek,
+      sprej: hVune,
+      olej: `${hVune} | Příslušenství pro aroma lampy | Vonné oleje`,
+      set: 'Heureka.cz | Hobby | Zábava | Originální dárky | Dárkové koše',
     },
     google: {
       nausnice: `${gJ} > Earrings`, naramek: `${gJ} > Bracelets`, prsten: `${gJ} > Rings`,
@@ -166,6 +170,46 @@ function cistyNazev(n) {
     .replace(/\b(?:TOP\s+)?novinka\b/gi, ' ')
     .replace(/\bNOVÉ barvy\b/gi, ' ')
     .replace(/\s{2,}/g, ' ').trim();
+}
+
+// Heureka/Zboží párují podle tvaru „druh produktu + upřesnění“. Kde název druh neobsahuje,
+// feed ho doplní na začátek (v e-shopu zůstává původní název).
+const DRUH_SLOVO = {
+  nausnice: [/náušnic/i, 'Náušnice'], naramek: [/náram/i, 'Náramek'], prsten: [/prsten/i, 'Prsten'],
+  nahrdelnik: [/náhrdelník/i, 'Náhrdelník'], privesek: [/přívěs|amulet/i, 'Přívěsek'],
+  kabelka: [/kabelk/i, 'Kabelka'], satek: [/šátek|sarong|šál/i, 'Šátek'], pasek: [/pás/i, 'Pásek'],
+  lapac: [/lapač/i, 'Lapač snů'], obraz: [/obraz/i, 'Obraz'], maska: [/maska/i, 'Maska'],
+  drevo: [/dekorac|ozdoba/i, 'Dřevěná dekorace'], krystal: [/křišťál|krystal|ametyst|apofylit|drúza|koule/i, 'Krystal'],
+  sprej: [/sprej/i, 'Aura sprej'], olej: [/esence|olej/i, 'Aromatická esence'],
+  set: [/dárkov/i, 'Dárkový'], // „Balíček Hojnost“ → „Dárkový balíček Hojnost“
+};
+const SLOVO_OBLECENI = [/šaty/i, 'Šaty'];
+function nazevSDruhem(nazev, druh, obleceni) {
+  const n = nazev.replace(/\s*\|\s*/g, ', ').replace(/\s{2,}/g, ' ').trim();
+  if (druh === 'set') return /dárkov/i.test(n) ? n : n.replace(/^Balíček\b/i, 'Dárkový balíček');
+  const [re, slovo] = obleceni ? (JE_OBLECENI.test(n) ? [/./, ''] : SLOVO_OBLECENI) : (DRUH_SLOVO[druh] || [/./, '']);
+  if (!slovo || re.test(n)) return n;
+  // přídavné jméno na začátku se za doplněným druhem píše malým písmenem („Dřevěná dekorace ručně vyřezávaný Ohm“)
+  const dal = /^(Ručně|Ruční|Dekorativní|Originální|Háčkovan\p{L}*|Saténov\p{L}*)(?=\s)/u.test(n)
+    ? n.charAt(0).toLowerCase() + n.slice(1) : n;
+  return `${slovo} ${dal}`;
+}
+
+// Materiál z názvu (popis zmiňuje i jiné kameny, proto jen název) + údaje z adminu.
+const MATERIALY = [
+  [/mosaz/i, 'mosaz'], [/perle?ť|matka perel/i, 'perleť'], [/paua/i, 'mušle Paua'],
+  [/křišťál/i, 'křišťál'], [/ametyst/i, 'ametyst'], [/apofylit/i, 'apofylit'],
+  [/dřev/i, 'dřevo'], [/korál/i, 'korálky'], [/perl(?!eť)/i, 'perly'], [/kůž/i, 'kůže'],
+  [/bavln/i, 'bavlna'], [/satén/i, 'satén'], [/hedváb|silk/i, 'umělé hedvábí'],
+];
+function materialZNazvu(nazev, admin) {
+  if (admin) return admin;
+  const nalez = [];
+  for (const [re, m] of MATERIALY) {
+    if (m === 'perly' && nalez.includes('perleť')) continue;
+    if (re.test(nazev) && !nalez.includes(m)) nalez.push(m);
+  }
+  return nalez.join(', ');
 }
 
 const MOTIVY = [
@@ -255,7 +299,7 @@ export default async function handler(req, res) {
         druh: druhKusu(nazev, p.kategorie),
         velikost,
         barva: (p.barva || []).filter(Boolean).join(', '),
-        material: (p.material || []).filter(m => m && !/velikost/i.test(m)).join(', '),
+        material: materialZNazvu(nazev, (p.material || []).filter(m => m && !/velikost/i.test(m)).join(', ')),
       };
     };
 
@@ -305,15 +349,21 @@ ${xmlItems}
       const items = odlisNazvy(
         produkty.map(polozka)
           .filter(p => !p.obleceni || p.velikost)
-          .map(p => ({ ...p, titul: p.obleceni && !maVelikost(p.nazev, p.velikost) ? `${ZNACKA} ${p.nazev} ${p.velikost}` : (p.obleceni ? `${ZNACKA} ${p.nazev}` : p.nazev) }))
+          .map(p => {
+            const zaklad = nazevSDruhem(p.nazev, p.druh, p.obleceni);
+            const titul = p.obleceni
+              ? `${ZNACKA} ${zaklad}${maVelikost(zaklad, p.velikost) ? '' : ' ' + p.velikost}`
+              : zaklad;
+            return { ...p, titul };
+          })
       );
       const xmlItems = items.map(p => {
         const sekce = p.obleceni ? modniSekce(typ, p.nazev) : SEKCE[typ][p.druh];
-        const parametry = p.obleceni ? [
-          param('Velikost', p.velikost),
+        const parametry = [
+          p.obleceni ? param('Velikost', p.velikost) : '',
           p.barva ? param('Barva', p.barva) : '',
           p.material ? param('Materiál', p.material) : '',
-        ].filter(Boolean).join('\n') : '';
+        ].filter(Boolean).join('\n');
         return `<SHOPITEM>
   <ITEM_ID>${p.id}</ITEM_ID>
   <PRODUCTNAME>${esc(p.titul)}</PRODUCTNAME>
@@ -322,7 +372,8 @@ ${xmlItems}
   <IMGURL>${esc(p.foto)}</IMGURL>
 ${p.dalsiFotky.map(f => `  <IMGURL_ALTERNATIVE>${esc(f)}</IMGURL_ALTERNATIVE>`).join('\n')}
   <PRICE_VAT>${p.cena}</PRICE_VAT>
-${p.obleceni ? `  <MANUFACTURER>${esc(ZNACKA)}</MANUFACTURER>\n` : ''}  <DELIVERY_DATE>${ODESLANI_DNU}</DELIVERY_DATE>
+  <MANUFACTURER>${esc(ZNACKA)}</MANUFACTURER>
+  <DELIVERY_DATE>${ODESLANI_DNU}</DELIVERY_DATE>
 ${dopravaXml()}
   <CATEGORYTEXT>${esc(sekce)}</CATEGORYTEXT>
 ${parametry ? parametry + '\n' : ''}</SHOPITEM>`;

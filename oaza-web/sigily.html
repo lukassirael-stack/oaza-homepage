@@ -144,6 +144,28 @@ section{padding:62px 0}
 .sigil .vic{margin-top:auto;padding-top:8px;font-family:"Jost",sans-serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--zlato)}
 .nacitani,.prazdno{text-align:center;color:#cfc4e0;font-style:italic;grid-column:1/-1;padding:30px 0}
 .galerie .dole{text-align:center;margin-top:38px}
+.strazci{margin-top:76px;padding-top:56px;border-top:1px solid rgba(201,164,92,.22)}
+#strazci{display:flex;flex-wrap:wrap;justify-content:center}
+#strazci .sigil{flex:0 1 340px}
+.sigil.u-strazce{cursor:zoom-in;font:inherit;text-align:inherit;padding:0;width:100%}
+.sigil .f .druha{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}
+.sigil:hover .f .druha{opacity:1}
+.sigil .orig.strazce{background:rgba(18,13,34,.75);color:var(--zlato-sv);border:1px solid rgba(236,217,168,.5)}
+.sigil .pocet{position:absolute;right:12px;bottom:12px;font-family:"Jost",sans-serif;font-size:.68rem;letter-spacing:.1em;color:#fff;background:rgba(18,13,34,.6);padding:4px 9px;border-radius:20px}
+.strazci .pozn{text-align:center;font-style:italic;color:#d8cfe6;max-width:600px;margin:34px auto 0}
+.strazci .pozn a{color:var(--zlato-sv)}
+/* prohlížení fotek */
+.lb{position:fixed;inset:0;z-index:200;background:rgba(10,7,20,.94);display:none;align-items:center;justify-content:center;flex-direction:column;padding:56px 16px 24px}
+.lb.on{display:flex}
+.lb img{max-width:min(92vw,900px);max-height:calc(100vh - 150px);object-fit:contain;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lb .nadpis{font-family:"Cinzel",serif;color:#fff;letter-spacing:.08em;margin-top:14px;font-size:1.05rem;text-align:center}
+.lb .citac{font-family:"Jost",sans-serif;font-size:.75rem;letter-spacing:.14em;color:var(--zlato-sv);margin-top:4px}
+.lb button{position:absolute;background:rgba(255,255,255,.08);border:1px solid rgba(236,217,168,.4);color:#fff;width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:1.4rem;line-height:1;display:flex;align-items:center;justify-content:center}
+.lb button:hover{background:rgba(201,164,92,.35)}
+.lb .zavrit{top:14px;right:14px}
+.lb .pred{left:14px;top:50%;transform:translateY(-50%)}
+.lb .dal{right:14px;top:50%;transform:translateY(-50%)}
+@media(max-width:600px){.lb{padding-bottom:86px}.lb .pred,.lb .dal{top:auto;bottom:18px;transform:none}.lb .pred{left:calc(50% - 60px)}.lb .dal{right:calc(50% - 60px)}.lb img{max-height:calc(100vh - 190px)}}
 
 /* jak se sigilem žít */
 .kroky{counter-reset:k;display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
@@ -323,8 +345,27 @@ footer .f-meta{font-size:.96rem;line-height:1.7}
     <p class="uvod">Nechte se vést tím, který vás osloví jako první. Sigil si svého nositele najde sám.</p>
     <div class="mrizka" id="mrizka"><p class="nacitani">Sigily se načítají…</p></div>
     <div class="dole"><a class="btn ghost" href="/bali-shop">Celý Bali Shop</a></div>
+
+    <div class="strazci">
+      <div class="section-head">
+        <p class="mala">Už u svých strážců</p>
+        <h2>Sigily, které našly svůj domov</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="mrizka" id="strazci"></div>
+      <p class="pozn">Oslovil vás některý z nich? <a href="mailto:oaza.adamanthea@gmail.com?subject=Sigily%20%E2%80%93%20dotaz">Napište nám</a> a rádi vám povíme, které sigily právě vznikají.</p>
+    </div>
   </div>
 </section>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Fotky sigilu">
+  <button class="zavrit" type="button" aria-label="Zavřít">×</button>
+  <button class="pred" type="button" aria-label="Předchozí fotka">‹</button>
+  <img id="lb-img" alt="">
+  <div class="nadpis" id="lb-nadpis"></div>
+  <div class="citac" id="lb-citac"></div>
+  <button class="dal" type="button" aria-label="Další fotka">›</button>
+</div>
 
 <section class="alt">
   <div class="wrap">
@@ -411,6 +452,41 @@ function prepniMenu(){document.getElementById('nav').classList.toggle('open');}
       </a>`;
     }).join('');
   }).catch(()=>{box.innerHTML='<p class="prazdno">Sigily najdete také v <a href="/bali-shop" style="color:var(--zlato-sv)">Bali Shopu</a>.</p>';});
+})();
+</script>
+<script>
+// Sigily u svých strážců – stálá ukázka. Nový sigil = nový řádek (fotky v oaza-web/img/).
+// stred = svislá pozice výřezu na kartě (fotky na výšku)
+const STRAZCI=[
+  {nazev:'Třetí oko', fotky:[1,2,3,4,5,6,7,8].map(i=>'/img/sigil-treti-oko-'+i+'.jpg'), stred:['57%','57%']},
+];
+(function(){
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const opt=(u,w)=>'/_vercel/image?url='+encodeURIComponent(u)+'&w='+w+'&q=75';
+  const box=document.getElementById('strazci');
+  box.innerHTML=STRAZCI.map((s,i)=>`<button type="button" class="sigil u-strazce" data-i="${i}" aria-label="Fotky sigilu ${esc(s.nazev)}">
+    <div class="f">
+      <img src="${opt(s.fotky[0],480)}" srcset="${opt(s.fotky[0],480)} 480w, ${opt(s.fotky[0],800)} 800w" sizes="(max-width:520px) 92vw, 360px" alt="Sigil ${esc(s.nazev)}" loading="lazy" decoding="async" style="object-position:50% ${s.stred[0]}">
+      ${s.fotky[1]?`<img class="druha" src="${opt(s.fotky[1],800)}" alt="" loading="lazy" decoding="async" style="object-position:50% ${s.stred[1]||s.stred[0]}">`:''}
+      <span class="orig strazce">U svého strážce</span>
+      <span class="pocet">${s.fotky.length} fotek</span>
+    </div>
+    <div class="t"><h3>${esc(s.nazev)}</h3><span class="vic">Prohlédnout fotky ›</span></div>
+  </button>`).join('');
+  const lb=document.getElementById('lb'), im=document.getElementById('lb-img');
+  let a=0,b=0;
+  const ukaz=()=>{const s=STRAZCI[a];im.src=opt(s.fotky[b],1200);im.alt='Sigil '+s.nazev+' – fotka '+(b+1);
+    document.getElementById('lb-nadpis').textContent=s.nazev;document.getElementById('lb-citac').textContent=(b+1)+' / '+s.fotky.length;};
+  const krok=d=>{const n=STRAZCI[a].fotky.length;b=(b+d+n)%n;ukaz();};
+  const zavri=()=>{lb.classList.remove('on');document.body.style.overflow='';};
+  box.addEventListener('click',e=>{const k=e.target.closest('.u-strazce');if(!k)return;a=+k.dataset.i;b=0;ukaz();lb.classList.add('on');document.body.style.overflow='hidden';});
+  lb.querySelector('.zavrit').onclick=zavri;
+  lb.querySelector('.pred').onclick=()=>krok(-1);
+  lb.querySelector('.dal').onclick=()=>krok(1);
+  lb.addEventListener('click',e=>{if(e.target===lb)zavri();});
+  document.addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')zavri();if(e.key==='ArrowLeft')krok(-1);if(e.key==='ArrowRight')krok(1);});
+  let x0=null;lb.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+  lb.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)krok(dx<0?1:-1);x0=null;});
 })();
 </script>
 <script defer src="/navstevnost.js"></script>

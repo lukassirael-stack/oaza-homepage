@@ -347,7 +347,7 @@
     <a class="vstup" data-k="darkove-sety" href="/bali-shop?kat=darkove-sety#katalog"><div class="f"><img id="vstup-1" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Dárek s příběhem</b><small>sety, šperky a drobnosti, které udělají radost</small><i>Prohlédnout ›</i></div></a>
     <a class="vstup" data-k="sperky" href="/bali-shop?kat=sperky#katalog"><div class="f"><img id="vstup-2" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šperky z Bali</b><small>křídla, perleť, paua a ruční práce</small><i>Prohlédnout ›</i></div></a>
     <a class="vstup" data-k="saty" href="/bali-shop?kat=saty#katalog"><div class="f"><img id="vstup-3" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šaty pro lehkost a ceremonii</b><small>léto, pohyb, ženskost</small><i>Prohlédnout ›</i></div></a>
-    <a class="vstup" href="/sigily"><div class="f"><img id="vstup-4" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Sigily</b><small>intuitivní artefakty světla z krystalů a zlata</small><i>Objevit ›</i></div></a>
+    <a class="vstup" href="/sigily"><div class="f"><img id="vstup-4" alt="Sigil Atlantis a jiné světy v zahradě Oázy" loading="lazy" style="object-position:50% 62%"></div><div class="t"><span class="z">✦</span><b>Sigily</b><small>intuitivní artefakty světla z krystalů a zlata</small><i>Objevit ›</i></div></a>
   </div>
   <div class="katalog-nadpis" id="katalog"><span>Celá nabídka</span></div>
   <div class="ovladani">
@@ -556,8 +556,8 @@ function renderVybrano(){
     const p=VSE.find(x=>x.slug===pref&&x.fotky[0]) || VSE.find(x=>x.kategorie===k&&!x.doporucujeme&&x.fotky[0]) || VSE.find(x=>x.kategorie===k&&x.fotky[0]);
     if(p) $(sel).src=img(p.fotky[0],800);
   });
-  { const s=VSE.find(x=>x.slug==='sigil-andelska-ochrana-74'&&x.fotky[0]) || VSE.find(x=>/sigil/i.test(x.nazev||'')&&x.fotky[0]);
-    if(s) $('#vstup-4').src=img(s.fotky[0],800); }
+  // vstup Sigily: pevná fotka Atlantisu v zahradě se slunečním paprskem
+  $('#vstup-4').src=img('/img/sigil-atlantis-1.jpg',800);
 }
 document.querySelectorAll('.vstup[data-k]').forEach(a=>a.onclick=e=>{
   e.preventDefault(); STAV.kat=a.dataset.k; history.replaceState(null,'','/bali-shop?kat='+STAV.kat+'#katalog'); render();

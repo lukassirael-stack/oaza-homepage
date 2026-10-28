@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="image" fetchpriority="high" media="(max-width:640px)" href="/_vercel/image?url=%2Fimg%2Fsigily-hero.jpg&amp;w=800&amp;q=75">
-<link rel="preload" as="image" fetchpriority="high" media="(min-width:641px) and (max-width:1366px)" href="/_vercel/image?url=%2Fimg%2Fsigily-hero.jpg&amp;w=1200&amp;q=75">
-<link rel="preload" as="image" fetchpriority="high" media="(min-width:1367px)" href="/_vercel/image?url=%2Fimg%2Fsigily-hero.jpg&amp;w=1920&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(max-width:640px)" href="/_vercel/image?url=%2Fimg%2Fsigily-hero-noc.jpg&amp;w=800&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:641px) and (max-width:1366px)" href="/_vercel/image?url=%2Fimg%2Fsigily-hero-noc.jpg&amp;w=1200&amp;q=75">
+<link rel="preload" as="image" fetchpriority="high" media="(min-width:1367px)" href="/_vercel/image?url=%2Fimg%2Fsigily-hero-noc.jpg&amp;w=1920&amp;q=75">
 <title>Sigily – intuitivní artefakty světla | Oáza Adamanthea</title>
 <meta name="description" content="Sigily Oázy Adamanthea: ručně tvořené artefakty z pryskyřice, krystalů a zlata. Každý zachycuje úroveň vědomí, bytost, dimenzi či frekvenci a existuje v jediném originálu.">
 <meta name="format-detection" content="telephone=no">
@@ -15,7 +15,7 @@
 <meta property="og:title" content="Sigily – intuitivní artefakty světla | Oáza Adamanthea">
 <meta property="og:description" content="Ručně tvořené artefakty z pryskyřice, krystalů a zlata. Každý sigil v jediném originálu.">
 <meta property="og:url" content="https://oaza-adamanthea.cz/sigily">
-<meta property="og:image" content="https://oaza-adamanthea.cz/img/sigily-hero.jpg">
+<meta property="og:image" content="https://oaza-adamanthea.cz/img/sigily-hero-noc.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://oaza-adamanthea.cz/sigily">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
@@ -37,7 +37,7 @@
 @font-face{font-family:'Jost';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/jost-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 </style>
 <style>
-:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fsigily-hero.jpg&w=1200&q=75")}@media (max-width:640px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fsigily-hero.jpg&w=800&q=75")}}@media (min-width:1367px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fsigily-hero.jpg&w=1920&q=75")}}
+:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fsigily-hero-noc.jpg&w=1200&q=75")}@media (max-width:640px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fsigily-hero-noc.jpg&w=800&q=75")}}@media (min-width:1367px){:root{--oi1:url("/_vercel/image?url=%2Fimg%2Fsigily-hero-noc.jpg&w=1920&q=75")}}
 :root{
   --noc:#120d22;--noc-2:#1d1636;--noc-3:#2a2150;
   --krem:#fbf8f1;--krem-2:#f4eee2;
@@ -72,10 +72,19 @@ img{max-width:100%}
 @media(min-width:821px) and (max-width:920px){.nav a:not(.nav-home){padding:8px 4px;font-size:.68rem;letter-spacing:0}}
 
 /* hero – fotka přes optimalizátor, pod ní noční přechod */
-.hero{position:relative;padding:118px 24px 104px;text-align:center;overflow:hidden;
-  background:var(--oi1) center 60%/cover no-repeat,radial-gradient(ellipse at 50% 35%,var(--noc-3) 0%,var(--noc-2) 45%,var(--noc) 100%)}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,13,34,.55) 0%,rgba(18,13,34,.35) 55%,rgba(18,13,34,.15) 100%);pointer-events:none}
-.hero-in{position:relative;z-index:2;max-width:780px;margin:0 auto}
+.hero{position:relative;padding:112px 24px 104px;text-align:left;overflow:hidden;
+  background:var(--oi1) 100% center/cover no-repeat,radial-gradient(ellipse at 50% 35%,var(--noc-3) 0%,var(--noc-2) 45%,var(--noc) 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,8,26,.62) 0%,rgba(12,8,26,.35) 40%,rgba(12,8,26,0) 62%);pointer-events:none}
+.hero-in{position:relative;z-index:2;max-width:470px;margin-left:max(0px,calc((100% - 1140px)/2))}
+.hero .rule{margin:24px 0}
+.hero .lead{margin:0}
+@media(max-width:1240px){
+  .hero{padding:110px 22px 96px;text-align:center;background-position:72% center}
+  .hero::after{background:linear-gradient(180deg,rgba(12,8,26,.7),rgba(12,8,26,.45))}
+  .hero-in{margin:0 auto;max-width:620px}
+  .hero .rule{margin:24px auto}
+  .hero .lead{margin:0 auto}
+}
 .eyebrow{font-family:"Jost",sans-serif;font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;color:var(--zlato-sv);margin:0 0 22px;text-shadow:0 1px 6px rgba(0,0,0,.7)}
 .hero h1{font-size:clamp(2.4rem,7vw,4.2rem);letter-spacing:.14em;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.85),0 2px 14px rgba(0,0,0,.6),0 0 40px rgba(201,164,92,.35)}
 .hero .podtitul{font-family:"Cinzel",serif;font-size:clamp(.95rem,2.2vw,1.15rem);letter-spacing:.24em;text-transform:uppercase;color:var(--zlato-sv);margin-top:12px;text-shadow:0 1px 6px rgba(0,0,0,.8)}

@@ -179,10 +179,11 @@ section{padding:62px 0}
 @media(max-width:900px){.mrizka{grid-template-columns:repeat(2,1fr);gap:18px}}
 @media(max-width:520px){.mrizka{grid-template-columns:1fr;max-width:400px;margin:0 auto}}
 .sigil{display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:rgba(120,60,170,.16);border:1.2px solid rgba(214,178,104,.34);transition:transform .35s,box-shadow .35s;color:inherit}
-.sigil:hover{transform:translateY(-4px);box-shadow:0 0 0 1.2px rgba(236,217,168,.6),0 26px 60px -24px rgba(0,0,0,.8),0 0 70px -10px rgba(201,164,92,.45)}
+.sigil:hover,.sigil.zari{transform:translateY(-4px);box-shadow:0 0 0 1.2px rgba(236,217,168,.6),0 26px 60px -24px rgba(0,0,0,.8),0 0 70px -10px rgba(201,164,92,.45)}
 .sigil .f{position:relative;aspect-ratio:1/1;overflow:hidden;background:#0d0919}
 .sigil .f img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1s ease}
-.sigil:hover .f img{transform:scale(1.05)}
+.sigil:hover .f img,.sigil.zari .f img{transform:scale(1.05)}
+@media(hover:none){.sigil{transition:transform .7s ease,box-shadow .7s ease}.sigil .f img{transition:transform 1.4s ease}}
 .sigil .orig{position:absolute;left:12px;top:12px;font-family:"Jost",sans-serif;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--noc);background:var(--zlato-sv);padding:5px 10px;border-radius:20px}
 .sigil .t{padding:18px 18px 22px;text-align:center;display:flex;flex-direction:column;gap:6px;flex:1}
 .sigil h3{color:#fff;font-size:1.06rem;letter-spacing:.06em}
@@ -196,6 +197,7 @@ section{padding:62px 0}
 .sigil.u-strazce{cursor:zoom-in;font:inherit;text-align:inherit;padding:0;width:100%}
 .sigil .f .druha{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}
 .sigil:hover .f .druha{opacity:1}
+.sigil.zari .f .druha{opacity:1;transition-delay:.9s}
 .sigil .orig.strazce{background:rgba(18,13,34,.75);color:var(--zlato-sv);border:1px solid rgba(236,217,168,.5)}
 .sigil .pocet{position:absolute;right:12px;bottom:12px;font-family:"Jost",sans-serif;font-size:.68rem;letter-spacing:.1em;color:#fff;background:rgba(18,13,34,.6);padding:4px 9px;border-radius:20px}
 .strazci .pozn{text-align:center;font-style:italic;color:#d8cfe6;max-width:600px;margin:34px auto 0}
@@ -545,6 +547,20 @@ const STRAZCI=[
   document.addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')zavri();if(e.key==='ArrowLeft')krok(-1);if(e.key==='ArrowRight')krok(1);});
   let x0=null;lb.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
   lb.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)krok(dx<0?1:-1);x0=null;});
+})();
+</script>
+<script>
+// Na telefonu (bez myši) se sigil rozzáří, když je celý vidět na obrazovce
+(function(){
+  if(!('IntersectionObserver' in window) || !matchMedia('(hover:none)').matches) return;
+  const io=new IntersectionObserver(zaznamy=>zaznamy.forEach(z=>{
+    const h=z.boundingClientRect.height, vh=window.innerHeight||1;
+    const potreba=h>vh ? (vh/h)*0.9 : 0.9;   // karta vyšší než displej: stačí, když ho téměř zaplní
+    z.target.classList.toggle('zari', z.isIntersecting && z.intersectionRatio>=potreba);
+  }),{threshold:[0,.2,.4,.6,.7,.8,.85,.9,.95,1],rootMargin:'-70px 0px 0px 0px'});
+  const sleduj=()=>document.querySelectorAll('.sigil:not([data-zari])').forEach(k=>{k.dataset.zari='1';io.observe(k);});
+  ['mrizka','strazci'].forEach(id=>{const el=document.getElementById(id);if(el)new MutationObserver(sleduj).observe(el,{childList:true});});
+  sleduj();
 })();
 </script>
 <script defer src="/navstevnost.js"></script>

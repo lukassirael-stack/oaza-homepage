@@ -101,7 +101,7 @@ section{padding:62px 0}
 .section-head .rule{margin:18px auto 0}
 .lede{font-size:1.28rem}
 .lede p{margin:0 0 1.1em}
-.lede p:first-child::first-letter{font-family:"Cinzel",serif;float:left;font-size:3.3rem;line-height:.9;padding:6px 10px 0 0;color:var(--zlato-tm)}
+.lede p:first-child::first-letter{font-family:"Cinzel",serif;float:left;font-size:3.3rem;line-height:.9;padding:5px 3px 0 0;color:var(--zlato-tm)}
 .alt{background:linear-gradient(180deg,var(--krem-2),var(--krem))}
 
 /* co sigil zachycuje */
@@ -145,13 +145,30 @@ section{padding:62px 0}
 @media(max-width:600px){.vrstvy{grid-template-columns:1fr;max-width:345px;margin:0 auto}.vrstva{aspect-ratio:1.6;padding:18px 10% 20px}}
 
 /* tvorba */
-.tvorba{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
-.tvorba-foto{border-radius:220px 220px 16px 16px;overflow:hidden;aspect-ratio:4/5;background:radial-gradient(ellipse at 50% 35%,var(--noc-3),var(--noc));box-shadow:0 30px 60px -34px rgba(18,13,34,.7)}
-.tvorba-foto img{width:100%;height:100%;object-fit:cover;display:block}
-.materialy{list-style:none;padding:0;margin:18px 0 0}
-.materialy li{position:relative;padding:9px 0 9px 30px;border-bottom:1px solid var(--linka)}
-.materialy li::before{content:"✦";position:absolute;left:4px;top:9px;color:var(--zlato)}
-@media(max-width:760px){.tvorba{grid-template-columns:1fr;gap:28px}.tvorba-foto{max-width:360px;margin:0 auto;width:100%}}
+/* Ruční tvorba – podle předlohy */
+.tvorba-sekce{position:relative;overflow:hidden;padding:clamp(44px,4.5vw,70px) 0;background:
+  radial-gradient(ellipse 30% 45% at 4% 88%,rgba(255,250,238,1),rgba(255,250,238,0) 70%),
+  radial-gradient(ellipse 40% 50% at 98% 20%,rgba(240,225,195,.55),rgba(240,225,195,0) 70%),
+  radial-gradient(ellipse 35% 40% at 92% 85%,rgba(238,222,190,.45),rgba(238,222,190,0) 70%),
+  radial-gradient(ellipse 30% 35% at 2% 30%,rgba(242,228,200,.5),rgba(242,228,200,0) 70%),
+  linear-gradient(180deg,#fbf7f0,#f8f2e8)}
+.tvorba-sekce .dekor{position:absolute;pointer-events:none;color:#c9a45c}
+.tvorba-sekce .dekor-l{left:clamp(4px,1.5vw,30px);top:12%;height:76%;width:80px}
+.tvorba-sekce .dekor-p{right:0;top:0;width:clamp(120px,12vw,210px);height:auto}
+.tvorba{position:relative;display:grid;grid-template-columns:45% 1fr;gap:clamp(30px,3.6vw,64px);align-items:center;max-width:1760px;margin:0 auto;padding:0 clamp(24px,4.2vw,80px) 0 clamp(40px,6.9vw,130px)}
+.tvorba-foto{position:relative;border-radius:999px 999px 18px 18px;aspect-ratio:654/832;padding:5px;
+  background:linear-gradient(160deg,#f3dfa6,#c9a45c 40%,#f6e7bd 70%,#b8913f);
+  box-shadow:0 0 0 1px rgba(255,255,255,.6) inset,0 30px 60px -30px rgba(120,85,25,.45),0 0 40px -6px rgba(240,210,140,.55)}
+.tvorba-foto img{width:100%;height:100%;object-fit:cover;display:block;border-radius:999px 999px 14px 14px}
+.tvorba-text .mala{font-family:"Jost",sans-serif;font-size:clamp(.72rem,.95vw,1.05rem);letter-spacing:.32em;text-transform:uppercase;color:var(--zlato-tm);margin:0}
+.tvorba-text .carka{width:38px;height:1px;background:var(--zlato);margin:14px 0 20px}
+.tvorba-text h2{font-size:clamp(1.9rem,3.6vw,4rem);letter-spacing:.03em;color:#1b1f4a;margin:0 0 clamp(22px,2.4vw,40px)}
+.tvorba-text p{margin:0 0 clamp(18px,2vw,32px);font-size:clamp(1.12rem,1.5vw,1.68rem);line-height:1.6;color:#2c2a4a}
+.materialy{list-style:none;padding:0;margin:0}
+.materialy li{position:relative;padding:clamp(10px,1.1vw,17px) 0 clamp(10px,1.1vw,17px) 2.1em;border-bottom:1px solid rgba(201,164,92,.45);font-size:clamp(1.08rem,1.45vw,1.6rem);color:#2c2a4a}
+.materialy li::before{content:"";position:absolute;left:.2em;top:50%;width:.95em;height:.95em;transform:translateY(-50%);background:linear-gradient(135deg,#e7c26e,#b8862f);
+  clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+@media(max-width:860px){.tvorba{grid-template-columns:1fr;gap:30px;padding:0 22px}.tvorba-foto{max-width:360px;margin:0 auto;width:100%}.tvorba-sekce .dekor-l{display:none}.tvorba-sekce .dekor-p{width:110px;opacity:.7}}
 
 /* galerie – noční pás */
 .galerie{background:radial-gradient(ellipse at 50% 0%,var(--noc-3) 0%,var(--noc-2) 40%,var(--noc) 100%);color:#e9e2f4}
@@ -340,27 +357,37 @@ footer .f-meta{font-size:.96rem;line-height:1.7}
   </div>
 </section>
 
-<section>
-  <div class="wrap siroky">
-    <div class="tvorba">
-      <div class="tvorba-foto"><img id="tvorba-img" alt="Tvorba sigilu v Oáze Adamanthea" loading="lazy" decoding="async"
-        src="/_vercel/image?url=%2Fimg%2Fsigily-tvorba-atlantis.jpg&amp;w=800&amp;q=75"
-        srcset="/_vercel/image?url=%2Fimg%2Fsigily-tvorba-atlantis.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fsigily-tvorba-atlantis.jpg&amp;w=1200&amp;q=75 1200w"
-        sizes="(max-width:760px) 360px, 520px" onerror="this.style.display='none'"></div>
-      <div>
-        <div class="section-head" style="text-align:left;margin-bottom:22px">
-          <p class="mala">Jak vznikají</p>
-          <h2>Ruční tvorba v Oáze</h2>
-          <div class="rule" style="margin:18px 0 0"></div>
-        </div>
-        <p>Každý sigil vzniká v Oáze Adamanthea v Halenkovicích. Tvorba začíná ztišením a nasloucháním — tvar, barvy i krystaly přicházejí intuitivně, podle energie, která se chce projevit. Hotový sigil pak prochází aktivací a je připraven pro svého strážce.</p>
-        <ul class="materialy">
-          <li>Epoxidová pryskyřice — průzračné tělo, které energii uchovává</li>
-          <li>Krystaly a minerály vybrané pro každý sigil zvlášť</li>
-          <li>Zlaté prvky, plátky a dekorace</li>
-          <li>Jediný originál — každý sigil existuje právě jednou</li>
-        </ul>
-      </div>
+<section class="tvorba-sekce">
+  <svg class="dekor dekor-l" viewBox="0 0 80 600" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+    <line x1="40" y1="40" x2="40" y2="580" opacity=".7"/>
+    <circle cx="60" cy="300" r="56" opacity=".45"/>
+    <path d="M40 31C41.08 38.92 41.08 38.92 49 40C41.08 41.08 41.08 41.08 40 49C38.92 41.08 38.92 41.08 31 40C38.92 38.92 38.92 38.92 40 31Z" fill="currentColor" stroke="none"/><path d="M40 284C41.92 298.08 41.92 298.08 56 300C41.92 301.92 41.92 301.92 40 316C38.08 301.92 38.08 301.92 24 300C38.08 298.08 38.08 298.08 40 284Z" fill="currentColor" stroke="none"/><path d="M78 34C78.0 34.0 78.0 34.0 78 34C78.0 34.0 78.0 34.0 78 34C78.0 34.0 78.0 34.0 78 34C78.0 34.0 78.0 34.0 78 34Z" fill="currentColor" stroke="none"/>
+    <circle cx="40" cy="300" r="2" fill="currentColor"/>
+    <path d="M64 0C64.0 0.0 64.0 0.0 64 0C64.0 0.0 64.0 0.0 64 0C64.0 0.0 64.0 0.0 64 0C64.0 0.0 64.0 0.0 64 0Z" fill="currentColor" stroke="none"/>
+  </svg>
+  <svg class="dekor dekor-p" viewBox="0 0 210 330" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+    <circle cx="140" cy="125" r="56" opacity=".55"/>
+    <circle cx="150" cy="95" r="112" opacity=".3"/>
+    <line x1="140" y1="0" x2="140" y2="330" stroke-dasharray="1 5" opacity=".7"/>
+    <path d="M140 103C142.64 122.36 142.64 122.36 162 125C142.64 127.64 142.64 127.64 140 147C137.36 127.64 137.36 127.64 118 125C137.36 122.36 137.36 122.36 140 103Z" fill="currentColor" stroke="none"/>
+    <circle cx="140" cy="62" r="1.6" fill="currentColor"/><circle cx="140" cy="190" r="1.6" fill="currentColor"/>
+  </svg>
+  <div class="tvorba">
+    <div class="tvorba-foto"><img id="tvorba-img" alt="Sigil Atlantis na oltáři v Oáze Adamanthea" loading="lazy" decoding="async"
+      src="/_vercel/image?url=%2Fimg%2Fsigily-tvorba-oltar.jpg&amp;w=800&amp;q=75"
+      srcset="/_vercel/image?url=%2Fimg%2Fsigily-tvorba-oltar.jpg&amp;w=800&amp;q=75 800w, /_vercel/image?url=%2Fimg%2Fsigily-tvorba-oltar.jpg&amp;w=1200&amp;q=75 1200w"
+      sizes="(max-width:860px) 360px, 40vw"></div>
+    <div class="tvorba-text">
+      <p class="mala">Jak vznikají</p>
+      <div class="carka"></div>
+      <h2>Ruční tvorba v Oáze</h2>
+      <p>Každý sigil vzniká v Oáze Adamanthea v Halenkovicích. Tvorba začíná ztišením a nasloucháním — tvar, barvy i krystaly přicházejí intuitivně, podle energie, která se chce projevit. Hotový sigil pak prochází aktivací a je připraven pro svého strážce.</p>
+      <ul class="materialy">
+        <li>Epoxidová pryskyřice — průzračné tělo, které energii uchovává</li>
+        <li>Krystaly a minerály vybrané pro každý sigil zvlášť</li>
+        <li>Zlaté prvky, plátky, dekorace a pigmenty</li>
+        <li>Jediný originál — každý sigil existuje právě jednou</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -422,7 +449,7 @@ footer .f-meta{font-size:.96rem;line-height:1.7}
     </div>
     <details><summary>Jak poznám, který sigil je ten můj?</summary><p>Prohlížejte si je v klidu a všímejte si, u kterého se zastavíte, co cítíte v těle a ke kterému se vracíte. Ten, který vás volá, je váš. Rádi vám s výběrem pomůžeme i osobně — stačí nám napsat.</p></details>
     <details><summary>Je každý sigil originál?</summary><p>Ano. Každý sigil vzniká ručně a intuitivně, a proto existuje v jediném kusu. Jakmile najde svého strážce, z nabídky odchází.</p></details>
-    <details><summary>Z čeho jsou sigily vyrobené?</summary><p>Z epoxidové pryskyřice, krystalů a minerálů, zlatých prvků a dekorací. Přesné složení a rozměry najdete u každého sigilu v jeho detailu.</p></details>
+    <details><summary>Z čeho jsou sigily vyrobené?</summary><p>Z epoxidové pryskyřice, krystalů a minerálů, zlatých prvků, dekorací a pigmentů. Přesné složení a rozměry najdete u každého sigilu v jeho detailu.</p></details>
     <details><summary>Jak sigil zaplatím a jak ke mně dorazí?</summary><p>Platit můžete kartou, Apple Pay, Google Pay nebo převodem přes QR kód. Sigil pečlivě zabalíme a pošleme přes Zásilkovnu nebo na adresu. Vyzvednout si ho můžete také osobně v Oáze v Halenkovicích.</p></details>
     <details><summary>Jak o sigil pečovat?</summary><p>Stačí ho občas otřít jemným suchým hadříkem. Pryskyřici nejlépe svědčí rozptýlené světlo, takže mu vyberte místo v klidném koutě vašeho domova.</p></details>
   </div>

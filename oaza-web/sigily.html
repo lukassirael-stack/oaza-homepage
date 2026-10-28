@@ -106,11 +106,14 @@ section{padding:62px 0}
 
 /* co sigil zachycuje */
 /* Co sigily zachycují – světlá sekce podle návrhu */
+:root{--svetlo:url("/_vercel/image?url=%2Fimg%2Fsigily-svetlo-pozadi.jpg&w=1920&q=75")}
+@media(max-width:1366px){:root{--svetlo:url("/_vercel/image?url=%2Fimg%2Fsigily-svetlo-pozadi.jpg&w=1200&q=75")}}
+@media(max-width:640px){:root{--svetlo:url("/_vercel/image?url=%2Fimg%2Fsigily-svetlo-pozadi.jpg&w=800&q=75")}}
 .svetlo{position:relative;overflow:hidden;background:
-  radial-gradient(ellipse 60% 50% at 78% 0%,rgba(255,236,190,.75),transparent 70%),
-  radial-gradient(ellipse 50% 45% at 10% 100%,rgba(240,222,240,.55),transparent 70%),
+  linear-gradient(180deg,rgba(251,246,236,.5),rgba(251,246,236,.35) 40%,rgba(251,246,236,.6)),
+  var(--svetlo) center 40%/cover no-repeat,
   linear-gradient(180deg,#fbf6ec,#f7efe1)}
-.svetlo::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70%;height:90%;pointer-events:none;opacity:.55;
+.svetlo::before{display:none;content:"";position:absolute;inset:-20% -10% auto auto;width:70%;height:90%;pointer-events:none;opacity:.55;
   background:repeating-linear-gradient(115deg,transparent 0 46px,rgba(255,240,205,.55) 46px 52px,transparent 52px 110px),
   linear-gradient(115deg,transparent 40%,rgba(200,170,255,.18) 48%,rgba(255,200,150,.18) 52%,transparent 60%);
   -webkit-mask-image:radial-gradient(ellipse at 80% 10%,#000,transparent 70%);mask-image:radial-gradient(ellipse at 80% 10%,#000,transparent 70%)}

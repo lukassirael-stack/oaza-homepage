@@ -554,7 +554,7 @@ function renderVybrano(){
   }
   // obrázky vstupů: první fotka z dané kategorie (doporučené napřed)
   // obrázky vstupů: jiné kousky než pětice nahoře (preferovaný slug, jinak první další z kategorie)
-  [['darkove-sety','#vstup-1','balicek-laska-134'],['sperky','#vstup-2','privesek-kvet-zivota-andelska-kridla-47'],['saty','#vstup-3','ceremonialni-saty-zavazovaci-1']].forEach(([k,sel,pref])=>{
+  [['darkove-sety','#vstup-1','balicek-sebelaska-133'],['sperky','#vstup-2','privesek-kvet-zivota-andelska-kridla-47'],['saty','#vstup-3','ceremonialni-saty-zavazovaci-1']].forEach(([k,sel,pref])=>{
     const p=VSE.find(x=>x.slug===pref&&x.fotky[0]) || VSE.find(x=>x.kategorie===k&&!x.doporucujeme&&x.fotky[0]) || VSE.find(x=>x.kategorie===k&&x.fotky[0]);
     if(p) $(sel).src=img(p.fotky[0],800);
   });

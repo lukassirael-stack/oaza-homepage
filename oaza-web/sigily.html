@@ -459,6 +459,7 @@ function prepniMenu(){document.getElementById('nav').classList.toggle('open');}
 // stred = svislá pozice výřezu na kartě (fotky na výšku)
 const STRAZCI=[
   {nazev:'Třetí oko', fotky:[1,2,3,4,5,6,7,8].map(i=>'/img/sigil-treti-oko-'+i+'.jpg'), stred:['57%','57%']},
+  {nazev:'Náruč Bohyně', fotky:['/img/sigil-naruc-bohyne-1.jpg'], stred:['50%']},
 ];
 (function(){
   const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -469,7 +470,7 @@ const STRAZCI=[
       <img src="${opt(s.fotky[0],480)}" srcset="${opt(s.fotky[0],480)} 480w, ${opt(s.fotky[0],800)} 800w" sizes="(max-width:520px) 92vw, 360px" alt="Sigil ${esc(s.nazev)}" loading="lazy" decoding="async" style="object-position:50% ${s.stred[0]}">
       ${s.fotky[1]?`<img class="druha" src="${opt(s.fotky[1],800)}" alt="" loading="lazy" decoding="async" style="object-position:50% ${s.stred[1]||s.stred[0]}">`:''}
       <span class="orig strazce">U svého strážce</span>
-      <span class="pocet">${s.fotky.length} fotek</span>
+      ${s.fotky.length>1?`<span class="pocet">${s.fotky.length} ${s.fotky.length<5?'fotky':'fotek'}</span>`:''}
     </div>
     <div class="t"><h3>${esc(s.nazev)}</h3><span class="vic">Prohlédnout fotky ›</span></div>
   </button>`).join('');

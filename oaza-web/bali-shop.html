@@ -142,6 +142,9 @@
   .vstup img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block;transition:transform .9s ease}
   .vstup:hover img{transform:scale(1.05)}
   .vstup .t{position:relative;margin-top:-46px;padding:0 18px 20px;text-align:center;color:var(--namornicka)}
+  /* zakryje vlasovou linku na spodním okraji fotky (vzniká při zvětšení fotky po najetí myší) */
+  .vstup .t{z-index:0}
+  .vstup .t::before{content:"";position:absolute;left:0;right:0;top:43px;height:6px;background:#FBF8F1;z-index:-1}
   .vstup .t .z{display:block;color:var(--zlata);font-size:1rem;letter-spacing:.3em;margin-bottom:6px;text-shadow:0 0 12px rgba(251,248,241,.9)}
   .vstup .t b{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.5rem;line-height:1.15}
   .vstup .t small{display:block;font-style:italic;color:var(--tlumeny);margin-top:4px}

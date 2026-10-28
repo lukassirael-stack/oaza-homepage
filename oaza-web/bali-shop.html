@@ -127,7 +127,8 @@
 
 
   /* vstupy a Vybráno */
-  .vstupy{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin:44px 0 8px}
+  .vstupy{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:44px 0 8px}
+  @media(min-width:641px) and (max-width:980px){.vstupy{grid-template-columns:repeat(2,1fr)}}
   .vstup{position:relative;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:var(--karta);cursor:pointer;
     border:1px solid rgba(184,146,74,.45);box-shadow:0 0 0 6px rgba(184,146,74,.08),0 18px 40px -22px rgba(27,42,65,.35),0 0 60px -10px rgba(217,188,126,.45);
     transition:transform .35s,box-shadow .35s}
@@ -346,6 +347,7 @@
     <a class="vstup" data-k="darkove-sety" href="/bali-shop?kat=darkove-sety#katalog"><div class="f"><img id="vstup-1" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Dárek s příběhem</b><small>sety, šperky a drobnosti, které udělají radost</small><i>Prohlédnout ›</i></div></a>
     <a class="vstup" data-k="sperky" href="/bali-shop?kat=sperky#katalog"><div class="f"><img id="vstup-2" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šperky z Bali</b><small>křídla, perleť, paua a ruční práce</small><i>Prohlédnout ›</i></div></a>
     <a class="vstup" data-k="saty" href="/bali-shop?kat=saty#katalog"><div class="f"><img id="vstup-3" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šaty pro lehkost a ceremonii</b><small>léto, pohyb, ženskost</small><i>Prohlédnout ›</i></div></a>
+    <a class="vstup" href="/sigily"><div class="f"><img id="vstup-4" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Sigily</b><small>intuitivní artefakty světla z krystalů a zlata</small><i>Objevit ›</i></div></a>
   </div>
   <div class="katalog-nadpis" id="katalog"><span>Celá nabídka</span></div>
   <div class="ovladani">
@@ -554,8 +556,10 @@ function renderVybrano(){
     const p=VSE.find(x=>x.slug===pref&&x.fotky[0]) || VSE.find(x=>x.kategorie===k&&!x.doporucujeme&&x.fotky[0]) || VSE.find(x=>x.kategorie===k&&x.fotky[0]);
     if(p) $(sel).src=img(p.fotky[0],800);
   });
+  { const s=VSE.find(x=>x.slug==='sigil-andelska-ochrana-74'&&x.fotky[0]) || VSE.find(x=>/sigil/i.test(x.nazev||'')&&x.fotky[0]);
+    if(s) $('#vstup-4').src=img(s.fotky[0],800); }
 }
-document.querySelectorAll('.vstup').forEach(a=>a.onclick=e=>{
+document.querySelectorAll('.vstup[data-k]').forEach(a=>a.onclick=e=>{
   e.preventDefault(); STAV.kat=a.dataset.k; history.replaceState(null,'','/bali-shop?kat='+STAV.kat+'#katalog'); render();
   document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('akt',x.dataset.k===STAV.kat));
   $('#katalog').scrollIntoView({behavior:'smooth',block:'start'});

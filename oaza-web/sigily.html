@@ -506,8 +506,16 @@ function prepniMenu(){document.getElementById('nav').classList.toggle('open');}
   const cena=c=>Math.round(c||0).toLocaleString('cs-CZ')+' Kč';
   const box=document.getElementById('mrizka');
   fetch('/api/produkty').then(r=>r.json()).then(j=>{
+    // Pořadí podle psychologie ceny a vizuálu:
+    // 1. řada = střední ceny a nejsilnější fotky (vstup bez cenového šoku),
+    // 2. řada = dostupný sigil vedle nejdražšího (kotva – ostatní pak působí dostupně),
+    // na konci prémiový kus. Nový sigil se zařadí na začátek 2. řady.
+    const PORADI=['sigil-atlantis','sigil-navrat-k-sobe','sigil-stabilizace-79',
+      'sigil-aktivator-energie-75','sigil-bozstvi-v-hojnosti-77','sigil-andelska-ochrana-74',
+      'sigil-arkha-ra-klic-k-prastaremu-slunci-7'];
+    const misto=p=>{const i=PORADI.indexOf(p.slug);return i<0?2.5:i;};
     const list=(j.produkty||[]).filter(p=>/sigil/i.test(p.nazev||'')||/sigil/i.test(p.slug||''))
-      .sort((a,b)=>(b.cena||0)-(a.cena||0));
+      .sort((a,b)=>misto(a)-misto(b)||(a.cena||0)-(b.cena||0));
     if(!list.length){box.innerHTML='<p class="prazdno">Nové sigily právě vznikají. Sledujte náš Instagram — první se dozvíte tam.</p>';return;}
     box.innerHTML=list.map(p=>{
       const f=p.fotky&&p.fotky[0]||'';

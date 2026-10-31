@@ -392,6 +392,32 @@ html{scroll-behavior:smooth;}
 .k-sub{font-family:"Cormorant Garamond",serif;font-weight:400;font-style:italic;color:var(--ink-soft);font-size:.95rem;}
 .k-field legend small{font-family:"Cormorant Garamond",serif;font-weight:400;font-style:italic;color:var(--ink-soft);font-size:.95rem;}
 .k-hint{font-size:1rem;font-style:italic;margin:-4px 0 10px;}
+/* kalendář volných termínů */
+.kal{border:1px solid var(--line);border-radius:12px;background:#fffdf8;padding:12px 12px 10px;margin:0 0 12px;}
+.kal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.kal-mes{font-family:"Cinzel",serif;font-weight:500;color:var(--ink);letter-spacing:.05em;font-size:1.02rem;text-transform:capitalize;}
+.kal-nav{width:38px;height:38px;border:1px solid var(--line);border-radius:999px;background:var(--cream);color:var(--gold-deep);font-size:1.3rem;line-height:1;cursor:pointer;}
+.kal-nav[disabled]{opacity:.35;cursor:default;}
+.kal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.kal-dny span{text-align:center;font-family:"Jost",sans-serif;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);opacity:.7;padding:2px 0 4px;}
+.kal-d{position:relative;aspect-ratio:1/1;min-height:34px;border:1px solid transparent;border-radius:8px;background:rgba(201,161,74,.16);color:var(--ink);font-family:"Jost",sans-serif;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
+.kal-d:hover{border-color:var(--gold);}
+.kal-d.vikend{background:rgba(201,161,74,.28);}
+.kal-d.minulost,.kal-d.prazdny{background:transparent;color:#c8bcae;cursor:default;border-color:transparent;}
+.kal-d.obs{background:#ece6dc;color:#b3a698;cursor:default;text-decoration:line-through;text-decoration-color:rgba(107,74,85,.35);}
+.kal-d.obs:hover{border-color:transparent;}
+.kal-d.pred{background:repeating-linear-gradient(135deg,rgba(201,161,74,.30) 0 5px,rgba(255,253,248,.9) 5px 10px);color:var(--ink);}
+.kal-d.vyber{background:var(--gold-deep);color:#fff;}
+.kal-d.rozsah{background:rgba(154,118,40,.32);}
+.kal-d.dnes::after{content:"";position:absolute;bottom:4px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--gold-deep);}
+.kal-legenda{display:flex;flex-wrap:wrap;gap:6px 16px;margin:10px 2px 0;font-size:.88rem;}
+.kal-legenda span{display:inline-flex;align-items:center;gap:6px;}
+.kal-i{display:inline-block;width:14px;height:14px;border-radius:4px;}
+.kal-i.volno{background:rgba(201,161,74,.28);}
+.kal-i.pred{background:repeating-linear-gradient(135deg,rgba(201,161,74,.45) 0 3px,#fffdf8 3px 6px);border:1px solid rgba(201,161,74,.4);}
+.kal-i.obs{background:#ece6dc;}
+.kal-info{font-size:.95rem;font-style:italic;margin:8px 2px 0;min-height:1.2em;color:var(--ink-soft);}
+.kal-info b{font-style:normal;font-family:"Jost",sans-serif;font-weight:500;color:var(--gold-deep);}
 .k-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;}
 .k-row2 .k-field{padding-bottom:10px;}
 .k-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
@@ -828,7 +854,22 @@ textarea.k-in{resize:vertical;}
 
           <fieldset class="k-field">
             <legend>O jaký termín máte zájem?</legend>
-            <p class="k-hint">Napište nám jednu až dvě možnosti, volný termín vám potvrdíme.</p>
+            <p class="k-hint">Vyberte v kalendáři příjezd a odjezd, termín se doplní sám. Klidně napište i druhou možnost.</p>
+            <div class="kal" id="kal" aria-label="Kalendář volných termínů">
+              <div class="kal-head">
+                <button type="button" class="kal-nav" data-kal="-1" aria-label="Předchozí měsíc">‹</button>
+                <strong class="kal-mes" id="kalMes"></strong>
+                <button type="button" class="kal-nav" data-kal="1" aria-label="Další měsíc">›</button>
+              </div>
+              <div class="kal-grid kal-dny"><span>Po</span><span>Út</span><span>St</span><span>Čt</span><span>Pá</span><span>So</span><span>Ne</span></div>
+              <div class="kal-grid" id="kalGrid"></div>
+              <div class="kal-legenda">
+                <span><i class="kal-i volno"></i>volno</span>
+                <span><i class="kal-i pred"></i>předběžně rezervováno</span>
+                <span><i class="kal-i obs"></i>obsazeno</span>
+              </div>
+              <p class="kal-info" id="kalInfo" aria-live="polite"></p>
+            </div>
             <div class="k-row2">
               <input class="k-in" name="termin1" placeholder="1. možnost, např. 12.–14. 3. 2027" required>
               <input class="k-in" name="termin2" placeholder="2. možnost">
@@ -1126,6 +1167,92 @@ document.addEventListener('click', function(e){
   predvyplnStravu();prepocet();
 })();
 </script>
+<script>
+/* Kalendář volných termínů — data z Supabase (akce Oázy, pronájmy, ruční blokace; bez názvů) */
+(function(){
+  var kal=document.getElementById('kal'); if(!kal) return;
+  var f=document.getElementById('kalkForm');
+  var SB='https://myybuesoourgpbouwwst.supabase.co', KEY='sb_publishable_v9E-GhERgU5JCvE0D-l65A_QB2S2yux';
+  var MES=['leden','únor','březen','duben','květen','červen','červenec','srpen','září','říjen','listopad','prosinec'];
+  var iso=function(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
+  var zIso=function(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2],12);};
+  var cz=function(s){var d=zIso(s);return d.getDate()+'. '+(d.getMonth()+1)+'.';};
+  var dnes=iso(new Date()), stav={}, plati={}, od=null, doo=null;
+  var t=new Date(); var mes=new Date(t.getFullYear(),t.getMonth(),1,12);
+  var MAX=new Date(t.getFullYear(),t.getMonth()+18,1,12);
+
+  function oznac(z){
+    for(var d=zIso(z.od), k=zIso(z.do); d<=k; d.setDate(d.getDate()+1)){
+      var i=iso(d);
+      if(z.stav==='obsazeno'){stav[i]='obs';}
+      else if(stav[i]!=='obs'){stav[i]='pred'; if(z.plati_do && (!plati[i]||z.plati_do>plati[i])) plati[i]=z.plati_do;}
+    }
+  }
+  function vRozsahu(i){return od && doo && i>=od && i<=doo;}
+  function kresli(){
+    document.getElementById('kalMes').textContent=MES[mes.getMonth()]+' '+mes.getFullYear();
+    kal.querySelector('[data-kal="-1"]').disabled = mes.getFullYear()===t.getFullYear() && mes.getMonth()===t.getMonth();
+    kal.querySelector('[data-kal="1"]').disabled = mes>=MAX;
+    var h='', prvni=(mes.getDay()+6)%7, pocet=new Date(mes.getFullYear(),mes.getMonth()+1,0).getDate();
+    for(var p=0;p<prvni;p++) h+='<span class="kal-d prazdny"></span>';
+    for(var n=1;n<=pocet;n++){
+      var d=new Date(mes.getFullYear(),mes.getMonth(),n,12), i=iso(d), w=d.getDay(), c='kal-d', lbl=n+'. '+(mes.getMonth()+1)+'.';
+      if(w===0||w===6||w===5) c+=' vikend';
+      if(i<dnes){c+=' minulost';}
+      else if(stav[i]==='obs'){c+=' obs';lbl+=' obsazeno';}
+      else if(stav[i]==='pred'){c+=' pred';lbl+=' předběžně rezervováno'+(plati[i]?' do '+cz(plati[i]):'');}
+      else lbl+=' volno';
+      if(i===dnes) c+=' dnes';
+      if(i===od||i===doo) c+=' vyber'; else if(vRozsahu(i)) c+=' rozsah';
+      var klik = i>=dnes && stav[i]!=='obs';
+      h+='<button type="button" class="'+c+'" data-d="'+i+'" aria-label="'+lbl+'"'+(klik?'':' disabled')+'>'+n+'</button>';
+    }
+    document.getElementById('kalGrid').innerHTML=h;
+  }
+  function info(html){document.getElementById('kalInfo').innerHTML=html||'';}
+  function terminTxt(a,b){
+    var A=zIso(a),B=zIso(b);
+    if(a===b) return A.getDate()+'. '+(A.getMonth()+1)+'. '+A.getFullYear();
+    return A.getMonth()===B.getMonth()&&A.getFullYear()===B.getFullYear()
+      ? A.getDate()+'.–'+B.getDate()+'. '+(B.getMonth()+1)+'. '+B.getFullYear()
+      : A.getDate()+'. '+(A.getMonth()+1)+'.'+(A.getFullYear()!==B.getFullYear()?' '+A.getFullYear():'')+' – '+B.getDate()+'. '+(B.getMonth()+1)+'. '+B.getFullYear();
+  }
+  function predbezneV(a,b){var m=null;for(var d=zIso(a),k=zIso(b);d<=k;d.setDate(d.getDate()+1)){var i=iso(d);if(stav[i]==='pred'){m=m||'';if(plati[i]&&plati[i]>m)m=plati[i];}}return m;}
+  function obsazenoV(a,b){for(var d=zIso(a),k=zIso(b);d<=k;d.setDate(d.getDate()+1)){if(stav[iso(d)]==='obs')return true;}return false;}
+  function vypln(a,b){
+    var txt=terminTxt(a,b), t1=f&&f.elements.termin1, t2=f&&f.elements.termin2;
+    if(!t1) return;
+    var cil = !t1.value.trim()||t1.dataset.kal==='1' ? t1 : (!t2.value.trim()||t2.dataset.kal==='1' ? t2 : t1);
+    if(cil===t2 && t1.dataset.kal==='1' && t2.dataset.kal==='1') cil=t1;
+    cil.value=txt; cil.dataset.kal='1'; cil.classList.remove('chyba');
+    var noci=Math.round((zIso(b)-zIso(a))/864e5);
+    var pred=predbezneV(a,b);
+    info('<b>'+txt+'</b>'+(noci?' · '+noci+' '+(noci===1?'noc':noci<5?'noci':'nocí'):'')+' – doplněno jako '+(cil===t1?'1.':'2.')+' možnost.'
+      +(pred!==null?' Část termínu je předběžně rezervovaná'+(pred?' do '+cz(pred):'')+'; rádi vás zapíšeme jako další v pořadí.':''));
+    if(f.elements.delka && noci>0 && f.querySelector('input[name=varianta][value=retreat]').checked){
+      f.elements.delka.value=noci; f.elements.delka.dispatchEvent(new Event('input',{bubbles:true})); f.elements.delka.dispatchEvent(new Event('change',{bubbles:true}));
+    }
+  }
+  kal.addEventListener('click',function(e){
+    var nav=e.target.closest('[data-kal]');
+    if(nav){mes=new Date(mes.getFullYear(),mes.getMonth()+(+nav.dataset.kal),1,12);kresli();return;}
+    var b=e.target.closest('button[data-d]'); if(!b||b.disabled) return;
+    var i=b.dataset.d;
+    if(!od||doo){od=i;doo=null;kresli();
+      info(stav[i]==='pred'?'Předběžně rezervováno'+(plati[i]?' do <b>'+cz(plati[i])+'</b>':'')+'. Teď vyberte den odjezdu.':'Příjezd <b>'+cz(i)+'</b>. Teď vyberte den odjezdu.');return;}
+    var a=od, z=i; if(z<a){var x=a;a=z;z=x;}
+    if(obsazenoV(a,z)){od=i;doo=null;kresli();info('V tomto rozmezí je obsazený den. Příjezd <b>'+cz(i)+'</b> — vyberte prosím bližší den odjezdu.');return;}
+    od=a;doo=z;kresli();vypln(a,z);
+  });
+  ['termin1','termin2'].forEach(function(n){var el=f&&f.elements[n];if(el)el.addEventListener('input',function(){el.dataset.kal='';});});
+  kresli();
+  fetch(SB+'/rest/v1/rpc/kalendar_obsazenost',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},body:'{}'})
+    .then(function(r){return r.ok?r.json():[];})
+    .then(function(z){(z||[]).forEach(oznac);kresli();})
+    .catch(function(){});
+})();
+</script>
+
 
 </body>
 </html>

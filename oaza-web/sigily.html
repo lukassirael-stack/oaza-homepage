@@ -510,11 +510,10 @@ function prepniMenu(){document.getElementById('nav').classList.toggle('open');}
     // 1. řada = střední ceny a nejsilnější fotky (vstup bez cenového šoku),
     // 2. řada = dostupný sigil vedle nejdražšího (kotva – ostatní pak působí dostupně),
     // na konci prémiový kus. Nový sigil se zařadí na začátek 2. řady.
-    const PORADI=['sigil-atlantis','sigil-navrat-k-sobe','sigil-andelska-ochrana-74',
-      'sigil-arkha-ra-klic-k-prastaremu-slunci-7'];
+    const PORADI=['sigil-atlantis','sigil-navrat-k-sobe','sigil-arkha-ra-klic-k-prastaremu-slunci-7'];
     const misto=p=>{const i=PORADI.indexOf(p.slug);return i<0?2.5:i;};
     // sigily, které na stránce /sigily nechceme ukazovat (v Bali Shopu zůstávají)
-    const VYNECHAT=['sigil-stabilizace-79','sigil-aktivator-energie-75','sigil-bozstvi-v-hojnosti-77'];
+    const VYNECHAT=['sigil-stabilizace-79','sigil-aktivator-energie-75','sigil-bozstvi-v-hojnosti-77','sigil-andelska-ochrana-74'];
     const list=(j.produkty||[]).filter(p=>(/sigil/i.test(p.nazev||'')||/sigil/i.test(p.slug||''))&&!VYNECHAT.includes(p.slug))
       .sort((a,b)=>misto(a)-misto(b)||(a.cena||0)-(b.cena||0));
     if(!list.length){box.innerHTML='<p class="prazdno">Nové sigily právě vznikají. Sleduj náš Instagram — dozvíš se o nich jako první.</p>';return;}

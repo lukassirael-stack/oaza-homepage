@@ -1118,7 +1118,7 @@ document.addEventListener('click', function(e){
     if(st)r.push(['Strava',[s&&s+'× snídaně',ob&&ob+'× oběd',ve&&ve+'× večeře'].filter(Boolean).join(', ')+' · '+uc(o),st]);
     if(p)r.push(['Soukromé pokoje',p+' os. × '+d+' '+tvar(d,'noc','noci','nocí'),p*d*C.pokoj]);
     var chZdarma=o>=10;
-    document.getElementById('kChatkaInfo').textContent=chZdarma?'1–2 osoby · pro organizátora zdarma':'1–2 osoby · 1 500 Kč / noc · od 10 účastníků zdarma';
+    document.getElementById('kChatkaInfo').textContent=chZdarma?'1–2 osoby · od 10 účastníků zdarma — pro vaši akci zdarma':'1–2 osoby · 1 500 Kč / noc · od 10 účastníků zdarma';
     if(ch)r.push(['Chatka Pobyt ve světle',d+' '+tvar(d,'noc','noci','nocí')+(chZdarma?' · pro organizátora zdarma':''),chZdarma?0:d*C.chatka]);
     var celkem=r.reduce(function(a,x){return a+x[2];},0);
     document.getElementById('kRadky').innerHTML=r.map(function(x){return '<div class="r"><span>'+x[0]+'<small>'+x[1]+'</small></span><b>'+(x[2]?kc(x[2]):'zdarma')+'</b></div>';}).join('');

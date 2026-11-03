@@ -9,8 +9,6 @@ const CENIK = {
   snidane: 160, obed: 220, vecere: 220,
   pokoj: 300,      // soukromý pokoj / os. / noc
   pokojeMax: 14,   // 8 pokojů pro 14 osob (+ meditační místnost pro 6)
-  pokojSam: 500,   // pokoj obsazený jednou osobou / noc
-  pokojeSamMax: 8,
   chatka: 1500,    // Pobyt ve světle / noc pro organizátora (stejně jako na webu)
 };
 
@@ -24,8 +22,7 @@ function spocitej(b) {
   const osob = int(b.osob, 1, 60);
   const delka = varianta === 'pulden' ? 1 : int(b.delka, 1, 30);
   const s = int(b.snidane, 0, 60), o = int(b.obedy, 0, 60), v = int(b.vecere, 0, 60);
-  const pokojeSam = varianta === 'retreat' ? int(b.pokojeSam, 0, Math.min(CENIK.pokojeSamMax, osob)) : 0;
-  const pokojeOs = varianta === 'retreat' ? int(b.pokoje, 0, Math.max(0, Math.min(CENIK.pokojeMax - pokojeSam, osob - pokojeSam))) : 0;
+  const pokojeOs = varianta === 'retreat' ? int(b.pokoje, 0, Math.min(CENIK.pokojeMax, osob)) : 0;
   const chatka = varianta === 'retreat' && !!b.chatka;
 
   const radky = [];
@@ -39,11 +36,10 @@ function spocitej(b) {
   }
   const strava = (s * CENIK.snidane + o * CENIK.obed + v * CENIK.vecere) * osob;
   if (strava) radky.push([`Strava · ${s}× snídaně, ${o}× oběd, ${v}× večeře · ${uc(osob)}`, strava]);
-  if (pokojeOs) radky.push([`Soukromé pokoje · ${pokojeOs} os. × ${delka} noc.`, pokojeOs * delka * CENIK.pokoj]);
-  if (pokojeSam) radky.push([`Pokoje obsazené jednou osobou · ${pokojeSam} × ${delka} noc.`, pokojeSam * delka * CENIK.pokojSam]);
+  if (pokojeOs) radky.push([`Soukromé pokoje · ${pokojeOs} os. × ${delka} noc. · výslednou cenu upřesníme podle obsazení pokojů (sdílený 300 Kč / os., pokoj pro jednoho 500 Kč / noc)`, pokojeOs * delka * CENIK.pokoj]);
   if (chatka) radky.push([`Chatka Pobyt ve světle · ${delka} noc.${osob >= 10 ? ' · pro organizátora zdarma' : ''}`, osob >= 10 ? 0 : delka * CENIK.chatka]);
   const celkem = radky.reduce((a, r) => a + r[1], 0);
-  return { varianta, osob, delka, pokojeOs, pokojeSam, chatka, radky, celkem };
+  return { varianta, osob, delka, pokojeOs, chatka, radky, celkem };
 }
 
 export async function poptavka(req, res) {

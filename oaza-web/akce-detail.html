@@ -623,16 +623,20 @@ function vlozJsonLd(a){
     const popis=String(a.popis||'').replace(/[#*\[\]]/g,'').replace(/\s+/g,' ').trim().slice(0,300);
     ld.description=popis||((a.nazev||'Akce')+(a.datum_text?' – '+a.datum_text:'')+
       (jeOnline?'. Dálková akce Oázy Adamanthea.':'. Oáza Adamanthea, Crystal & Retreat centrum v Halenkovicích.'));
-    // offers – vždy: zdarma = cena 0, jinak CZK, případně EUR
-    let cena=null,mena='CZK';
-    if(a.platba_typ==='zdarma') cena=0;
-    else if(a.cena_czk!=null) cena=a.cena_czk;
-    else if(a.cena_eur!=null){ cena=a.cena_eur; mena='EUR'; }
-    if(cena!=null){
-      ld.offers={'@type':'Offer',url:url,price:String(cena),priceCurrency:mena,
+    // offers – zdarma = cena 0; placená akce má nabídku v každé uvedené měně (Kč i €)
+    const nabidka=(cena,mena)=>{
+      const o={'@type':'Offer',url:url,price:String(cena),priceCurrency:mena,
         availability:a.stav==='obsazena'?'https://schema.org/SoldOut':'https://schema.org/InStock'};
-      if(a.vytvoreno) ld.offers.validFrom=String(a.vytvoreno).slice(0,10);
+      if(a.vytvoreno) o.validFrom=String(a.vytvoreno).slice(0,10);
+      return o;
+    };
+    const nabidky=[];
+    if(a.platba_typ==='zdarma') nabidky.push(nabidka(0,'CZK'));
+    else {
+      if(a.cena_czk!=null) nabidky.push(nabidka(a.cena_czk,'CZK'));
+      if(a.cena_eur!=null) nabidky.push(nabidka(a.cena_eur,'EUR'));
     }
+    if(nabidky.length) ld.offers = nabidky.length===1 ? nabidky[0] : nabidky;
     const s=document.createElement('script');
     s.type='application/ld+json';
     s.textContent=JSON.stringify(ld);

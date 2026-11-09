@@ -154,11 +154,11 @@
       odeslat: 'Odeslat poptávku',
       pole: [
         { n: 'Pokoj', typ: 'vyber', povinne: true,
-          moznosti: ['Relax pokoj', 'Egyptský pokoj', 'Boho pokoj', 'Domeček Mandala', 'Andělský pokoj', 'Pokoj Zen', 'Nechám na vás'] },
+          moznosti: ['Relax pokoj', 'Egyptský pokoj', 'Boho pokoj', 'Domeček Mandala', 'Andělský pokoj', 'Nechám na vás'] },
         { n: 'Příjezd', vstup: 'date', povinne: true, pul: true },
         { n: 'Odjezd', vstup: 'date', povinne: true, pul: true },
         { n: 'Počet osob', vstup: 'number', od: 1, 'do': 2, hodnota: 1, povinne: true, pul: true,
-          podle: 'Pokoj', limity: { 'Andělský pokoj': 1, 'Pokoj Zen': 1 } },
+          podle: 'Pokoj', limity: { 'Andělský pokoj': 1 } },
         { n: 'Vzkaz pro nás', typ: 'dlouhy', nizky: true, ph: 'záměr pobytu, speciální přání, otázky…' }
       ]
     },

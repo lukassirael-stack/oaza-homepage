@@ -8,7 +8,7 @@ const CENIK = {
   minOsob: 7,      // minimum účastníků pro retreat
   snidane: 160, obed: 220, vecere: 220,
   pokoj: 300,      // soukromý pokoj / os. / noc
-  pokojeMax: 14,   // 8 pokojů pro 14 osob (+ meditační místnost pro 6)
+  pokojeMax: 9,    // 5 pokojů pro 9 osob (+ meditační místnost pro 6)
   chatka: 1500,    // Pobyt ve světle / noc pro organizátora (stejně jako na webu)
 };
 

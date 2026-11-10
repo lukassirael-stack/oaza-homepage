@@ -7,6 +7,36 @@ const {
   BANKY, ADMIN_EMAIL, cors,
 } = require('./_lib');
 
+// Pokyny před akcí: kdo se přihlásí do POKYNY_DNY_PREDEM dnů před akcí, dostane je rovnou v potvrzení
+// (ranní rozesílka v adminu je posílá ve stejném okně; přihláška se označí, aby nepřišly podruhé).
+const POKYNY_DNY_PREDEM = 2;
+function dnesPraha() { return new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' }); }
+function ymdPlus(ymd, n) { const d = new Date(ymd + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
+function pokynyVPotvrzeni(akce) {
+  if (!String(akce.pokyny || '').trim() || !akce.datum_od) return false;
+  const dnes = dnesPraha(), od = String(akce.datum_od).slice(0, 10);
+  return od >= dnes && od <= ymdPlus(dnes, POKYNY_DNY_PREDEM);
+}
+// Text pokynů z adminu → HTML: odstavce, odrážky („- "), **tučně**, odkazy
+function pokynyText2Html(txt) {
+  const e = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const inline = s => e(s)
+    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+    .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" style="color:#9a7628">$1</a>');
+  const P = 'margin:0 0 10px;font-family:Arial,sans-serif;font-size:15px;color:#4a3b33;line-height:1.7';
+  let html = '', ul = [], para = [];
+  const flushUl = () => { if (ul.length) { html += `<ul style="margin:0 0 12px;padding-left:22px;${P}">${ul.map(l => `<li style="margin:3px 0">${l}</li>`).join('')}</ul>`; ul = []; } };
+  const flushP = () => { if (para.length) { html += `<p style="${P}">${para.join('<br>')}</p>`; para = []; } };
+  for (const raw of String(txt || '').replace(/\r/g, '').split('\n')) {
+    const l = raw.trim();
+    if (!l) { flushUl(); flushP(); continue; }
+    const m = l.match(/^[-•*]\s+(.*)$/);
+    if (m) { flushP(); ul.push(inline(m[1])); } else { flushUl(); para.push(inline(l)); }
+  }
+  flushUl(); flushP();
+  return html;
+}
+
 function esc(s) {
   return String(s || '').replace(/[&<>"]/g, c => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]
@@ -123,14 +153,20 @@ module.exports = async (req, res) => {
     }
 
     // --- potvrzovací e-mail zákazníkovi ---
-    const html = buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInfo, prespani_castka });
+    const sPokyny = pokynyVPotvrzeni(akce);
+    const html = buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInfo, prespani_castka, sPokyny });
     await brevoSend({
       to: email,
       toName: jmeno,
-      subject: `Přihláška na akci: ${akce.nazev}`,
+      subject: sPokyny ? `Přihláška na akci: ${akce.nazev} · pokyny k akci` : `Přihláška na akci: ${akce.nazev}`,
       html,
       bcc: ADMIN_EMAIL,
     });
+    if (sPokyny) {
+      await supaRest(`prihlasky_akce?id=eq.${prihlaska.id}`, {
+        method: 'PATCH', prefer: 'return=minimal', body: { pripominka_odeslana: new Date().toISOString() },
+      }).catch(e => console.error('pripominka_odeslana', e && e.message));
+    }
 
     return res.status(200).json({
       ok: true,
@@ -148,7 +184,7 @@ module.exports = async (req, res) => {
 };
 
 // ------------------------------------------------------------------
-function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInfo, prespani_castka }) {
+function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInfo, prespani_castka, sPokyny }) {
   const G = '#9a7628', GOLD = '#c9a14a', TXT = '#4a3b33', CREAM = '#fdfaf5';
   const symbol = mena === 'eur' ? '€' : 'Kč';
   const cistka = v => `${Number(v).toLocaleString('cs-CZ')} ${symbol}`;
@@ -219,6 +255,8 @@ function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInf
               👤 Počet osob: <b>${prihlaska.pocet_osob}</b>
               ${prihlaska.prespani ? `<br>🌙 Přespání po akci v meditační místnosti s krystaly` : ''}
             </td></tr>
+            ${sPokyny ? `<tr><td style="padding:24px 0 8px;font-family:Georgia,serif;font-size:18px;color:${G};">Pokyny před akcí</td></tr>
+            <tr><td>${pokynyText2Html(akce.pokyny)}</td></tr>` : ''}
             ${platebniSekce}
             <tr><td style="padding-top:28px;border-top:1px solid #f0e6d5;font-family:Arial,sans-serif;font-size:13px;color:#8a7d72;line-height:1.7;">
               V případě dotazů odpovězte na tento e-mail nebo volejte +420 737 869 752.<br>

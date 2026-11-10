@@ -36,6 +36,27 @@ async function dopisSeznam() {
   const nl = await brevo('/contacts/lists', { method: 'POST', body: JSON.stringify({ name: DOPIS_SEZNAM, folderId }) });
   return (dopisListId = nl.data && nl.data.id);
 }
+// Ochrana proti zahlcení: stejné počitadlo pokusů jako u formulářů služeb (Supabase overeni_pokusy).
+// Když je počitadlo nedostupné, požadavek projde — přednost má objednávka zákazníka.
+async function prekrocenLimit(req, druh, maxIp, maxCelkem, okno) {
+  const URL = process.env.SUPABASE_URL, KEY = process.env.SUPABASE_SERVICE_KEY;
+  if (!URL || !KEY) return false;
+  const adresa = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || String(req.headers['x-real-ip'] || '');
+  const ip = adresa ? crypto.createHash('sha256').update('eshop:' + KEY.slice(-16) + adresa).digest('hex').slice(0, 24) : null;
+  const hlavicky = { apikey: KEY, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' };
+  try {
+    const r = await fetch(`${URL}/rest/v1/rpc/overeni_limit`, {
+      method: 'POST', headers: hlavicky, signal: AbortSignal.timeout(2500),
+      body: JSON.stringify({ p_druh: druh, p_ip: ip, p_max_ip: maxIp, p_max_celkem: maxCelkem, p_okno: okno }),
+    });
+    if (r.ok && (await r.json()) === true) return true;
+    await fetch(`${URL}/rest/v1/overeni_pokusy`, {
+      method: 'POST', headers: { ...hlavicky, Prefer: 'return=minimal' }, signal: AbortSignal.timeout(2500),
+      body: JSON.stringify({ druh, ip }),
+    });
+  } catch {}
+  return false;
+}
 const dopisPodpis = (email) => crypto.createHmac('sha256', process.env.SUPABASE_SERVICE_KEY || 'x').update('dopis:' + email).digest('hex').slice(0, 20);
 const SITE = 'https://oaza-adamanthea.cz';
 
@@ -137,6 +158,7 @@ export default async function handler(req, res) {
     }
     // ?overit_kod=SVETLO10&mezisoucet=1000&mena=CZK  → { platny, sleva, duvod }
     if (req.query && req.query.overit_kod) {
+      if (await prekrocenLimit(req, 'eshop_kod', 20, 300, '1 hour')) return res.status(200).json({ platny: false, sleva: 0, duvod: 'Zkus to prosím za chvíli znovu' });
       try {
         const ov = await rest('rpc/overit_slevovy_kod', {
           method: 'POST',
@@ -176,6 +198,7 @@ export default async function handler(req, res) {
   if (body.akce === 'dopis') {
     const em = String(body.email || '').trim().toLowerCase();
     if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em) || em.length > 200) return res.status(400).json({ error: 'E-mail' });
+    if (await prekrocenLimit(req, 'eshop_dopis', 5, 80, '1 hour')) return res.status(429).json({ error: 'Zkus to prosím za chvíli znovu.' });
     if (body.seznam === 'oaza') {
       // Dopisy z Oázy (Beehiiv): uložit u nás + přihlásit v Beehiiv, jakmile je nastavený klíč
       try { await rest('rpc/eshop_dopis_prihlasit', { method: 'POST', body: JSON.stringify({ p_email: em, p_zdroj: 'dopisy-z-oazy' }) }); } catch {}
@@ -214,7 +237,7 @@ export default async function handler(req, res) {
     // --- položky: ověř proti DB (skladem) a přepočítej ceny ---
     const vstupSlugy = (body.polozky || []).map(p => p && p.slug).filter(Boolean);
     // slug smí obsahovat jen malá písmena, číslice a pomlčky (jde přímo do dotazu na produkty)
-    if (vstupSlugy.length > 100 || vstupSlugy.some(s => typeof s !== 'string' || !/^[a-z0-9][a-z0-9-]{0,119}$/.test(s))) {
+    if (vstupSlugy.length > 30 || vstupSlugy.some(s => typeof s !== 'string' || !/^[a-z0-9][a-z0-9-]{0,119}$/.test(s))) {
       return res.status(400).json({ error: 'Neplatná položka v košíku.' });
     }
     const slugy = [...new Set(vstupSlugy)];
@@ -301,6 +324,11 @@ export default async function handler(req, res) {
     }
 
     const cena_celkem = cena_zbozi - sleva_castka + doprava_cena;
+
+    // --- ochrana proti zahlcení: nejvýš 8 objednávek z jedné adresy a 60 celkem za den ---
+    if (await prekrocenLimit(req, 'eshop_objednavka', 8, 60, '1 day')) {
+      return res.status(429).json({ error: 'Dnes už od tebe dorazilo hodně objednávek. Napiš nám prosím na oaza.adamanthea@gmail.com a domluvíme se.' });
+    }
     const poznamka = String(body.poznamka || '').slice(0, 1000);
 
     // --- 24h rezervace unikátů (digitální produkty a produkty s více kusy se nerezervují) ---
@@ -501,6 +529,7 @@ export default async function handler(req, res) {
       polozky,
     });
   } catch (e) {
-    return res.status(500).json({ error: 'Objednávku se nepodařilo vytvořit: ' + (e.message || e) });
+    console.error('objednavka:', e && e.message ? e.message : e);
+    return res.status(500).json({ error: 'Objednávku se nepodařilo vytvořit. Zkus to prosím znovu, nebo nám napiš na oaza.adamanthea@gmail.com.' });
   }
 }

@@ -974,8 +974,6 @@ footer .drobne{margin-top:30px;font-style:italic;font-size:16px;color:#8a8e80}
 
 
 <!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>emailjs.init('p05n4K9B-MKfAohxp');</script>
 
 
 <script>
@@ -999,12 +997,7 @@ document.querySelectorAll('#menu a[href^="#"]').forEach(function(a){
 });
 
 
-// ── REZERVAČNÍ PROXY (vlastní Vercel projekt) ────────
-// Token ani base ID nejsou v kódu — žijí jen na serveru proxy.
-const PROXY_URL = 'https://rezervace-proxy.vercel.app/api/airtable';
-// ── EMAILJS KONFIGURACE ──────────────────────────────
-const EJS_SERVICE  = 'service_4lhe2ki';
-const EJS_TEMPLATE = 'template_z8387nb';
+// Rezervaci ukládá server webu (/api/zahrada): sám spočítá cenu, ověří termín a pošle potvrzení s QR platbou.
 
 
 let BOOKED_RANGES = [];
@@ -1322,7 +1315,7 @@ async function submitForm(){
     : 'Žádné';
 
   try {
-    await saveToAirtable({
+    const odp = await saveToAirtable({
       jmeno: name,
       email: email,
       telefon: phone||'—',
@@ -1332,31 +1325,25 @@ async function submitForm(){
       dospeli: adults,
       deti: parseInt(children)||0,
       sluzby: svcList,
+      sluzby_klice: Object.keys(selectedServices),
       cena_celkem: total,
       variabilni_symbol: vs,
       poznamka: document.getElementById('note').value||'',
       faktura: document.getElementById('checkFaktura').classList.contains('checked') ? 'Ano – ' + (document.getElementById('firmaName').value||'') + ', IČO: ' + (document.getElementById('ico').value||'') + (document.getElementById('dic').value ? ', DIČ: '+document.getElementById('dic').value : '') : 'Ne'
     });
 
-    var _spayd='SPD*1.0*ACC:CZ1655000000008159854004*AM:'+Number(total).toFixed(2)+'*CC:CZK*X-VS:'+vs+'*MSG:Pobyt ve svetle Oaza Adamanthea';
-    var _qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=0&data='+encodeURIComponent(_spayd);
-    try {
-      await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
-        jmeno: name, email: email,
-        qr_url: _qrUrl,
-        datum_prijezdu: dateLabel(checkIn),
-        datum_odjezdu: dateLabel(checkOut),
-        pocet_noci: nights, dospeli: adults, sluzby: svcList,
-        cena_celkem: total.toLocaleString('cs-CZ'),
-        variabilni_symbol: vs
-      });
-    } catch(ejsErr){ console.warn('EmailJS chyba:', ejsErr); }
+    // platí hodnoty potvrzené serverem
+    if(odp && odp.cena_celkem!=null) total = Number(odp.cena_celkem);
+    if(odp && odp.pocet_noci) nights = Number(odp.pocet_noci);
+    const vsF = (odp && odp.variabilni_symbol) ? String(odp.variabilni_symbol) : vs;
+    currentVS = vsF;
+    const escT = t => String(t==null?'':t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
     document.getElementById('formContent').style.display='none';
     const sp=document.getElementById('successPayment');
     sp.innerHTML=`
       <strong>📋 Vaše rezervace:</strong><br>
-      Jméno: <strong>${name}</strong><br>
+      Jméno: <strong>${escT(name)}</strong><br>
       Příjezd: <strong>${dateLabel(checkIn)}</strong><br>
       Odjezd: <strong>${dateLabel(checkOut)}</strong><br>
       Počet nocí: <strong>${nights}</strong><br>
@@ -1365,9 +1352,9 @@ async function submitForm(){
       <strong>💳 Platební údaje:</strong><br>
       Číslo účtu: <strong>8159854004/5500</strong><br>
       Banka: <strong>Raiffeisen Bank</strong><br>
-      Variabilní symbol: <strong>${vs}</strong><br>
+      Variabilní symbol: <strong>${escT(vsF)}</strong><br>
       Částka: <strong>${total.toLocaleString('cs-CZ')} Kč</strong><br><br>
-      <em>Rezervace bude potvrzena po přijetí platby na náš účet.</em>
+      <em>${odp && odp.email_odeslan ? 'Souhrn s QR platbou jsme vám poslali na '+escT(email)+'. ' : ''}Rezervace bude potvrzena po přijetí platby na náš účet.</em>
     `;
     document.getElementById('successMsg').style.display='block';
     // Plynule posuň pohled k potvrzení (s malým odstupem nad horní hranou).

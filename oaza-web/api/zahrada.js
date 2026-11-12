@@ -11,25 +11,25 @@
 // Operace:
 //   GET ?ranges=pobyt                    → veřejné: obsazené termíny chatky (z cache v Supabase)
 //   GET                                  → { closed: [] } (jen pro starší otevřené stránky zahrady)
-//   POST {action:'pobyt', fields}        → veřejné: pobytová rezervace (proxy → fallback Supabase buffer)
+//   POST {action:'pobyt', fields}        → veřejné: pobytová rezervace (cenu a termín ověřuje server)
 
 const { supaRest } = require('./_lib');
 
 // ── Pobyt ve světle ───────────────────────────────────────────────
-// Tento endpoint hostí odolný zápis POBYTOVÝCH rezervací (action:'pobyt'),
-// aby se projekt vešel do limitu 12 Vercel funkcí na Hobby plánu (jinak by
-// samostatný api/pobyt-rezervace.js byl 13. funkce a deploy by spadl).
-// Pobyt rezervaci jen přepošleme do její proxy; když je proxy/Airtable na
-// limitu, odložíme ji do Supabase bufferu a po obnově přehrajeme. VS dělá
-// stránka a posílá ho ve fields, takže odložená rezervace nese stejný VS.
-const POBYT_PROXY = 'https://rezervace-proxy.vercel.app/api/airtable';
-const POBYT_BUF   = 'rezervace_pobyt_buffer';
-// Faktura na přání hosta: web zapíše VS do Supabase fronty (faktury_fronta)
-// a hned spustí vystavení. Cron faktury-pobyt se Airtable ptá jen tehdy,
-// když ve frontě něco čeká — spotřeba API volání tak odpovídá počtu faktur.
+// Rezervaci zapisuje jen server: databázová funkce pobyt_rezervace_vytvor si sama
+// spočítá cenu podle ceníku, ověří termín (volno, aspoň 2 noci), hlídá limit pokusů
+// a zapíše do Airtable (klíč je ve Vaultu Supabase). Když je Airtable na limitu,
+// rezervace počká v bufferu a přehraje se sama. Potvrzení s QR platbou posílá server.
+const crypto = require('crypto');
+const { brevoSend, ADMIN_EMAIL } = require('./_lib');
+const POBYT_IBAN = 'CZ1655000000008159854004';
+const POBYT_UCET = '8159854004/5500';
+
 function chceFakturu(pf) {
   return /^\s*ano/i.test(String((pf && pf.faktura) || ''));
 }
+// Faktura na přání hosta: VS jde do fronty (faktury_fronta) a hned se zkusí vystavit;
+// co se nestihne, dožene cron faktury-pobyt do 10 minut.
 async function zaradFakturu(pf) {
   await supaRest('faktury_fronta', {
     method: 'POST', prefer: 'return=minimal',
@@ -37,60 +37,57 @@ async function zaradFakturu(pf) {
   });
 }
 async function vystavFakturuHned() {
-  // max. 8 s, ať host nečeká; co nestihne, dožene cron do 10 minut
   await Promise.race([
     supaRest('rpc/vystav_faktury_pobyt', { method: 'POST', body: {} }),
     new Promise((resolve) => setTimeout(resolve, 8000)),
   ]);
 }
-// Obsazenost chatky se z Airtable obnovuje pravidelně jen 4× denně (šetří měsíční
-// limit volání). Po rezervaci z webu ji proto obnovíme hned, ať je termín obsazený
-// do pár minut i v kalendáři pro Airbnb a e-chalupy. Stojí to 1 volání na rezervaci.
-async function obnovObsazenostHned() {
-  // max. 6 s, ať host nečeká; kdyby to nestihla, dožene to pravidelná obnova
-  await Promise.race([
-    supaRest('rpc/refresh_booked_ranges', { method: 'POST', body: {} }),
-    new Promise((resolve) => setTimeout(resolve, 6000)),
-  ]);
+function otiskAdresy(req) {
+  const adresa = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || String(req.headers['x-real-ip'] || '');
+  const klic = String(process.env.SUPABASE_SERVICE_KEY || '').slice(-16);
+  return adresa ? crypto.createHash('sha256').update('pobyt:' + klic + adresa).digest('hex').slice(0, 24) : null;
 }
-function pobytOverlaps(aIn, aOut, bIn, bOut) {
-  if (!aIn || !aOut || !bIn || !bOut) return false;
-  return aIn < bOut && bIn < aOut; // [in, out) překryv
+const escH = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const datumCz = (iso) => { const [y, m, d] = String(iso).slice(0, 10).split('-').map(Number); return `${d}. ${m}. ${y}`; };
+const kc = (n) => Number(n || 0).toLocaleString('cs-CZ') + ' Kč';
+
+async function posliPotvrzeni(f) {
+  const spayd = `SPD*1.0*ACC:${POBYT_IBAN}*AM:${Number(f.cena_celkem).toFixed(2)}*CC:CZK*X-VS:${f.variabilni_symbol}*MSG:Pobyt ve svetle Oaza Adamanthea`;
+  const qr = 'https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=0&data=' + encodeURIComponent(spayd);
+  const radek = (k, v) => `<tr><td style="padding:5px 14px 5px 0;color:#6b7370">${k}</td><td style="padding:5px 0"><strong>${v}</strong></td></tr>`;
+  const html = `<div style="background:#fbf7ef;padding:28px 16px;font-family:Georgia,serif;color:#2c342f">
+<div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e8e2d4">
+<div style="background:#1f3129;padding:22px 28px"><div style="color:#c9a14a;letter-spacing:3px;font-size:13px">OÁZA ADAMANTHEA</div><div style="color:#fbf7ef;font-size:12px;margin-top:4px">Pobyt ve světle</div></div>
+<div style="padding:26px 28px">
+<p style="margin:0 0 14px">Dobrý den, ${escH(f.jmeno)},</p>
+<p style="margin:0 0 16px">děkujeme za rezervaci Pobytu ve světle. Tady je její souhrn a údaje k platbě.</p>
+<table style="border-collapse:collapse;font-size:15px;margin:0 0 18px">
+${radek('Příjezd', datumCz(f.datum_prijezdu))}
+${radek('Odjezd', datumCz(f.datum_odjezdu))}
+${radek('Počet nocí', f.pocet_noci)}
+${radek('Hosté', f.dospeli + (f.dospeli === 1 ? ' dospělý' : ' dospělí') + (f.deti ? ', ' + f.deti + ' dítě' : ''))}
+${radek('Doplňkové služby', escH(f.sluzby))}
+${radek('Cena celkem', kc(f.cena_celkem))}
+</table>
+<div style="margin:0 0 16px;padding:18px;background:#fbf7ef;border:1px solid #e8e2d4;border-radius:10px;text-align:center">
+<div style="font-size:12px;letter-spacing:2px;color:#9a8060;text-transform:uppercase;margin-bottom:10px">Platební údaje</div>
+<div style="font-size:15px;margin-bottom:4px">Účet: <strong>${POBYT_UCET}</strong> (Raiffeisenbank)</div>
+<div style="font-size:15px;margin-bottom:4px">Variabilní symbol: <strong>${escH(f.variabilni_symbol)}</strong></div>
+<div style="font-size:15px;margin-bottom:14px">Částka: <strong>${kc(f.cena_celkem)}</strong></div>
+<img src="${qr}" width="200" height="200" alt="QR platba" style="display:block;margin:0 auto;border:6px solid #fff;border-radius:8px">
+<div style="font-size:12px;color:#6b7370;margin-top:10px">Naskenujte QR kód v bankovní aplikaci — údaje se vyplní samy.</div>
+</div>
+<p style="margin:0 0 6px">Rezervaci potvrdíme po přijetí platby na náš účet. S čímkoli stačí odpovědět na tento e-mail.</p>
+<p style="margin:0;color:#6b7370">Lukáš &amp; Martina<br>Oáza Adamanthea, Halenkovice</p>
+</div></div></div>`;
+  await brevoSend({
+    to: f.email, toName: f.jmeno, bcc: ADMIN_EMAIL,
+    subject: `Rezervace Pobytu ve světle ${datumCz(f.datum_prijezdu)} – ${datumCz(f.datum_odjezdu)}`,
+    html,
+  });
 }
 
 module.exports = async function handler(req, res) {
-  // přehraje odložené POBYTOVÉ rezervace do proxy (volá se po úspěšném zápisu)
-  async function flushPobytBuffer() {
-    let rows;
-    try {
-      rows = await supaRest(`${POBYT_BUF}?synced=eq.false&order=created_at.asc&limit=25&select=id,payload`);
-    } catch (e) { return; }
-    if (!rows || !rows.length) return;
-    for (const row of rows) {
-      let r;
-      try {
-        r = await fetch(POBYT_PROXY, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ fields: row.payload }),
-        });
-      } catch (e) { return; }
-      if (r.status === 429) return;
-      if (!r.ok) {
-        const txt = await r.text().catch(() => '');
-        await supaRest(`${POBYT_BUF}?id=eq.${row.id}`, {
-          method: 'PATCH', prefer: 'return=minimal',
-          body: { last_error: 'HTTP ' + r.status + ' ' + txt.slice(0, 200) },
-        }).catch(() => {});
-        continue;
-      }
-      await supaRest(`${POBYT_BUF}?id=eq.${row.id}`, {
-        method: 'PATCH', prefer: 'return=minimal',
-        body: { synced: true, synced_at: new Date().toISOString() },
-      }).catch(() => {});
-    }
-  }
-
   try {
     if (req.method === 'GET') {
       // Pobyt – dostupnost (obsazené termíny) z cron-cache booked_ranges_v3,
@@ -116,53 +113,33 @@ module.exports = async function handler(req, res) {
       const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
       const action = body.action;
 
-      // ── VEŘEJNÉ: pobytová rezervace (obal proxy + buffer) ──
+      // ── VEŘEJNÉ: pobytová rezervace ──
       if (action === 'pobyt') {
-        const pf = body.fields || {};
-        if (!pf.jmeno || !pf.email || !pf.datum_prijezdu || !pf.datum_odjezdu) {
-          return res.status(400).json({ error: 'Chybí povinná pole rezervace.' });
-        }
-        // 1) přepošli do pobytové proxy (ta zapíše do Airtable jako vždy)
-        let ppr = null;
+        const pf = (body.fields && typeof body.fields === 'object') ? body.fields : {};
+        let v;
         try {
-          ppr = await fetch(POBYT_PROXY, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fields: pf }),
-          });
-        } catch (netErr) { ppr = null; }
-
-        if (ppr && ppr.ok) {
-          const pj = await ppr.json().catch(() => ({ ok: true }));
-          try { await flushPobytBuffer(); } catch (e) {} // proxy jede → dožeň odložené
-          try { await obnovObsazenostHned(); } catch (e) {} // nový termín hned do obsazenosti
-          if (chceFakturu(pf)) {
-            try { await zaradFakturu(pf); await vystavFakturuHned(); } catch (e) {}
-          }
-          return res.status(200).json(pj);
+          v = await supaRest('rpc/pobyt_rezervace_vytvor', { method: 'POST', body: { p: pf, p_ip: otiskAdresy(req) } });
+        } catch (e) {
+          console.error('pobyt rezervace:', e && e.message);
+          return res.status(502).json({ error: 'Rezervaci se teď nepodařilo uložit. Zkuste to prosím za chvíli znovu, nebo nám napište na oaza.adamanthea@gmail.com.' });
         }
-        // 2) jiná 4xx než limit (validace) → vrať reálnou chybu proxy
-        if (ppr && ppr.status >= 400 && ppr.status < 500 && ppr.status !== 429) {
-          const pj = await ppr.json().catch(() => ({ error: 'Rezervace odmítnuta' }));
-          return res.status(ppr.status).json(pj);
+        if (!v || !v.ok) {
+          if (v && v.detail) console.error('pobyt rezervace:', v.detail);
+          const kod = v && v.kod;
+          const stav = kod === 'obsazeno' ? 409 : kod === 'limit' ? 429 : kod === 'vstup' ? 400 : 502;
+          return res.status(stav).json({ error: (v && v.error) || 'Rezervaci se nepodařilo uložit. Zkuste to prosím znovu.' });
         }
-        // 3) proxy/Airtable nedostupná (429/5xx/síť) → buffer, ať NEUTČE
-        let pending = [];
-        try { pending = await supaRest(`${POBYT_BUF}?synced=eq.false&select=payload`); } catch (e) { pending = []; }
-        const clash = (pending || []).some((p) =>
-          pobytOverlaps(pf.datum_prijezdu, pf.datum_odjezdu,
-                        p.payload && p.payload.datum_prijezdu, p.payload && p.payload.datum_odjezdu));
-        if (clash) {
-          return res.status(409).json({ error: 'Tento termín byl právě rezervován. Zvolte prosím jiný.' });
+        const f = v.fields;
+        let email_odeslan = false;
+        try { await posliPotvrzeni(f); email_odeslan = true; } catch (e) { console.error('pobyt potvrzení:', e && e.message); }
+        if (chceFakturu(f)) {
+          try { await zaradFakturu(f); if (!v.buffered) await vystavFakturuHned(); } catch (e) {}
         }
-        try {
-          await supaRest(POBYT_BUF, { method: 'POST', prefer: 'return=minimal', body: [{ payload: pf }] });
-          // faktura počká ve frontě, cron ji vystaví po přehrání rezervace do Airtable
-          if (chceFakturu(pf)) { try { await zaradFakturu(pf); } catch (e) {} }
-          return res.status(200).json({ ok: true, buffered: true });
-        } catch (bufErr) {
-          return res.status(502).json({ error: 'Rezervaci se nepodařilo uložit', detail: String((bufErr && bufErr.message) || bufErr) });
-        }
+        return res.status(200).json({
+          ok: true, buffered: !!v.buffered, email_odeslan,
+          variabilni_symbol: f.variabilni_symbol, cena_celkem: f.cena_celkem, pocet_noci: f.pocet_noci,
+          dospeli: f.dospeli, deti: f.deti, sluzby: f.sluzby,
+        });
       }
 
       // starší otevřená stránka zahrady (rezervace přes Airtable) → ať si ji člověk obnoví
@@ -176,6 +153,7 @@ module.exports = async function handler(req, res) {
     res.setHeader('Allow', 'GET, POST');
     return res.status(405).json({ error: 'Metoda nepovolena' });
   } catch (e) {
-    return res.status(500).json({ error: 'Serverová chyba', detail: String((e && e.message) || e) });
+    console.error('zahrada:', e && e.message);
+    return res.status(500).json({ error: 'Něco se nepovedlo. Zkuste to prosím znovu.' });
   }
 };

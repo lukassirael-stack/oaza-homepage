@@ -594,6 +594,14 @@ textarea.k-in{resize:vertical;}
       "priceCurrency": "CZK",
       "url": "https://oaza-adamanthea.cz/pronajem-prostor",
       "availability": "https://schema.org/InStock",
+      "name": "Shalla + meditační místnost, retreat na 4 a více dní – zvýhodněná cena za účastníka a den",
+      "price": 800
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "CZK",
+      "url": "https://oaza-adamanthea.cz/pronajem-prostor",
+      "availability": "https://schema.org/InStock",
       "name": "Denní pronájem (bez noci) – za účastníka",
       "price": 700
     },
@@ -788,6 +796,7 @@ textarea.k-in{resize:vertical;}
     <div class="prices">
       <p class="price-kind">Pronájem prostor — skupinové akce a retreaty</p>
       <div class="row"><span class="name">Shalla + meditační místnost<small>den a noc — 24 hodin / za účastníka · minimálně 7 účastníků</small></span><span class="amount">1 000 Kč / 40 €</span></div>
+      <div class="row sub"><span class="name">Retreat na 4 a více dní<small>zvýhodněná cena za účastníka a den · platí pro celý pobyt</small></span><span class="amount">800 Kč / 32 €</span></div>
       <div class="row sub"><span class="name">Denní pronájem (bez noci)<small>za účastníka</small></span><span class="amount">700 Kč / 28 €</span></div>
       <div class="row sub"><span class="name">Půldenní pronájem (do 4 hodin)<small>za účastníka</small></span><span class="amount">400 Kč / 16 €</span></div>
       <div class="row"><span class="name">Vegetariánská / veganská strava<small>snídaně 160 Kč · oběd 220 Kč · večeře 220 Kč</small></span><span class="amount">600 Kč / den</span></div>
@@ -1072,7 +1081,7 @@ document.addEventListener('click', function(e){
 <script defer src="/objednavka-sluzby.js"></script>
 <script>
 (function(){
-  var C={retreat:1000,den:700,pulden:400,min:7,snidane:160,obedy:220,vecere:220,pokoj:300,pokojeMax:9,krystalyMax:6,chatka:1500};
+  var C={retreat:1000,retreatDlouhy:800,dlouhyOd:4,den:700,pulden:400,min:7,snidane:160,obedy:220,vecere:220,pokoj:300,pokojeMax:9,krystalyMax:6,chatka:1500};
   var f=document.getElementById('kalkForm'); if(!f) return;
   var $=function(n){return f.elements[n];};
   var kc=function(v){return v.toLocaleString('cs-CZ')+' Kč';};
@@ -1101,7 +1110,7 @@ document.addEventListener('click', function(e){
     var p=retreat?num('pokoje',0,Math.min(C.pokojeMax,o)):0;
     var ch=retreat&&$('chatka').checked;
     var r=[];
-    if(retreat){var u=Math.max(o,C.min);r.push(['Shalla, meditační místnost a zahrada',uc(u)+' × '+d+' '+tvar(d,'noc','noci','nocí')+(o<C.min?' · minimum 7 účastníků':''),u*d*C.retreat]);}
+    if(retreat){var u=Math.max(o,C.min),dl=d>=C.dlouhyOd,cr=dl?C.retreatDlouhy:C.retreat;r.push(['Shalla, meditační místnost a zahrada',uc(u)+' × '+d+' '+tvar(d,'noc','noci','nocí')+(o<C.min?' · minimum 7 účastníků':'')+(dl?' · zvýhodněná cena '+kc(cr)+' / den od '+C.dlouhyOd+' dnů':''),u*d*cr]);}
     else if(v==='den')r.push(['Shalla, meditační místnost a zahrada',uc(o)+' × '+d+' '+tvar(d,'den','dny','dní'),o*d*C.den]);
     else r.push(['Shalla, meditační místnost a zahrada',uc(o)+' · do 4 hodin',o*C.pulden]);
     var st=(s*C.snidane+ob*C.obedy+ve*C.vecere)*o;

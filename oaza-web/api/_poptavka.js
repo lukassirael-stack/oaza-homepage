@@ -2,7 +2,9 @@
 // Podtržítko = pomocný modul, Vercel z něj funkci nedělá. Volá se přes /api/objednavka?akce=poptavka.
 
 const CENIK = {
-  retreat: 1000,   // Shalla + meditační místnost, 24 h / os.
+  retreat: 1000,   // Shalla + meditační místnost, 24 h / os. (1–3 dny)
+  retreatDlouhy: 800, // zvýhodněná cena / os. / den u retreatu na 4 a více dní (platí pro celý pobyt)
+  dlouhyOd: 4,
   den: 700,        // jednodenní akce / os.
   pulden: 400,     // půldenní akce (do 4 h) / os.
   minOsob: 7,      // minimum účastníků pro retreat
@@ -28,7 +30,8 @@ function spocitej(b) {
   const radky = [];
   if (varianta === 'retreat') {
     const uctovano = Math.max(osob, CENIK.minOsob);
-    radky.push([`Shalla + meditační místnost · ${uc(uctovano)} × ${delka} ${delka === 1 ? 'noc' : delka < 5 ? 'noci' : 'nocí'}`, uctovano * delka * CENIK.retreat]);
+    const dlouhy = delka >= CENIK.dlouhyOd, cenaDen = dlouhy ? CENIK.retreatDlouhy : CENIK.retreat;
+    radky.push([`Shalla + meditační místnost · ${uc(uctovano)} × ${delka} ${delka === 1 ? 'noc' : delka < 5 ? 'noci' : 'nocí'}${dlouhy ? ` · zvýhodněná cena ${kc(cenaDen)} / den od ${CENIK.dlouhyOd} dnů` : ''}`, uctovano * delka * cenaDen]);
   } else if (varianta === 'den') {
     radky.push([`Jednodenní akce · ${uc(osob)} × ${delka} ${delka === 1 ? 'den' : delka < 5 ? 'dny' : 'dní'}`, osob * delka * CENIK.den]);
   } else {

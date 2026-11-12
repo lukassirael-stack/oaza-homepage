@@ -395,9 +395,9 @@ function vykreslit(d) {
 
   async function obnovitZdroj() {
     const t = a.currentTime, hral = !a.paused;
-    const r = await fetch(FUNKCE, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ token }) });
+    const r = await fetch(FUNKCE, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ token, obnova: true }) });
     const n = await r.json();
-    if (n.ok) { a.src = n.zvuk; a.currentTime = t; vyprsi = Date.now() + (n.platnost - 30) * 1000; if (hral) a.play(); }
+    if (n.ok) { a.src = n.zvuk; a.currentTime = t; vyprsi = Date.now() + (n.platnost - 30) * 1000; if (hral) a.play().catch(() => {}); }
   }
 
   const hrat = document.getElementById('hrat');
@@ -410,16 +410,25 @@ function vykreslit(d) {
   });
   a.addEventListener('play',  () => ikona(false));
   a.addEventListener('pause', () => ikona(true));
-  document.getElementById('zpet').addEventListener('click',  () => a.currentTime = Math.max(0, a.currentTime - 15));
-  document.getElementById('vpred').addEventListener('click', () => a.currentTime = Math.min(a.duration||0, a.currentTime + 15));
+  // odkaz na zvuk má omezenou platnost: před posunem ho obnovíme a při výpadku načteme znovu
+  const cerstvy = async () => { if (Date.now() > vyprsi) await obnovitZdroj(); };
+  let obnovuji = false;
+  a.addEventListener('error', async () => {
+    if (obnovuji) return; obnovuji = true;
+    try { await obnovitZdroj(); } catch {}
+    setTimeout(() => { obnovuji = false; }, 8000);
+  });
+  document.getElementById('zpet').addEventListener('click',  async () => { const t = Math.max(0, a.currentTime - 15); await cerstvy(); a.currentTime = t; });
+  document.getElementById('vpred').addEventListener('click', async () => { const t = Math.min(a.duration||0, a.currentTime + 15); await cerstvy(); a.currentTime = t; });
   a.addEventListener('loadedmetadata', () => { if (isFinite(a.duration)) document.getElementById('celkem').textContent = cas(a.duration); });
   a.addEventListener('timeupdate', () => {
     document.getElementById('ted').textContent = cas(a.currentTime);
     document.getElementById('postup').style.width = ((a.currentTime / (a.duration||1)) * 100) + '%';
   });
-  document.getElementById('pruh').addEventListener('click', e => {
+  document.getElementById('pruh').addEventListener('click', async e => {
     const r = e.currentTarget.getBoundingClientRect();
-    a.currentTime = ((e.clientX - r.left) / r.width) * (a.duration||0);
+    const t = ((e.clientX - r.left) / r.width) * (a.duration||0);
+    await cerstvy(); a.currentTime = t;
   });
   const tlKap=[...document.querySelectorAll('.kapitoly button')];
   tlKap.forEach(t=>t.addEventListener('click', async ()=>{

@@ -540,6 +540,21 @@ f.addEventListener('submit', async e => {
     ? '<div class="pp-ikona" aria-hidden="true">✦</div><h2>Děkujeme, platba proběhla v pořádku</h2><p>Na e-mail, který jsi zadal(a), ti právě odešel <strong>osobní odkaz k poslechu</strong>. Otevři si poštu a klikni na tlačítko „Otevřít meditaci“.</p><p class="pp-tip">E-mail přijde do pár minut. Kdyby nebyl ve schránce, mrkni i do složky Hromadné, Promoakce nebo Spam. S čímkoli ti rádi pomůžeme na <a href="mailto:oaza.adamanthea@gmail.com">oaza.adamanthea@gmail.com</a>.</p><button type="button" class="tl tl-plne pp-zavrit">Rozumím</button>'
     : '<h2>Platba čeká na dokončení</h2><p>Meditaci si můžeš odemknout kdykoli: vyber způsob platby níže a dokonči ji v klidu.</p><button type="button" class="tl tl-linka pp-zavrit">Pokračovat</button>') + '</div>';
   document.body.appendChild(box);
+  const sid=new URLSearchParams(location.search).get('s');
+  if(hotovo && sid){ let n=0; (async function zkus(){
+    try{
+      const r=await fetch(FUNKCE,{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify({overit:sid})});
+      const d=await r.json();
+      if(d.odkaz){
+        const z=box.querySelector('.pp-zavrit'); if(!z) return;
+        const p=document.createElement('p'); p.className='pp-tip'; p.textContent='Poslech máš připravený i tady:';
+        const a=document.createElement('a'); a.className='tl tl-plne'; a.href=d.odkaz; a.textContent='Spustit poslech hned'; a.style.margin='0 0 12px';
+        z.before(p,a); z.className='tl tl-linka pp-zavrit'; z.textContent='Poslechnu si později';
+        return;
+      }
+    }catch{}
+    if(++n<15) setTimeout(zkus,2000);
+  })(); }
   const zavri=()=>{ box.remove(); history.replaceState(null,'',location.pathname); if(!hotovo) document.getElementById('odemknuti')?.scrollIntoView({behavior:'smooth'}); };
   box.querySelector('.pp-zavrit').addEventListener('click',zavri);
   box.addEventListener('click',e=>{ if(e.target===box) zavri(); });

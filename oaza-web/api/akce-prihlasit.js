@@ -258,6 +258,10 @@ function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInf
             ${sPokyny ? `<tr><td style="padding:24px 0 8px;font-family:Georgia,serif;font-size:18px;color:${G};">Pokyny před akcí</td></tr>
             <tr><td>${pokynyText2Html(akce.pokyny)}</td></tr>` : ''}
             ${platebniSekce}
+            ${!sPokyny ? `<tr><td style="padding:24px 0 8px;font-family:Georgia,serif;font-size:18px;color:${G};">Co bude dál</td></tr>
+            <tr><td style="font-family:Arial,sans-serif;font-size:15px;color:${TXT};line-height:1.7;">
+              Den až dva před akcí vám pošleme e-mail s pokyny. Jeho předmět začíná slovem <b>Pokyny</b>. Pro jistotu nahlédněte i do složky Hromadné nebo Spam.
+            </td></tr>` : ''}
             <tr><td style="padding-top:28px;border-top:1px solid #f0e6d5;font-family:Arial,sans-serif;font-size:13px;color:#8a7d72;line-height:1.7;">
               V případě dotazů odpovězte na tento e-mail nebo volejte +420 737 869 752.<br>
               S láskou, tým Oázy Adamanthea 🌿

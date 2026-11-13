@@ -101,10 +101,13 @@
     padding:8px 13px;border:1px solid var(--linka);border-radius:40px;color:var(--namornicka2);cursor:pointer;
     background:transparent;transition:.18s;white-space:nowrap}
   .pill:hover{border-color:var(--zlata)}
-  /* dárkový poukaz mezi kategoriemi — celoročně viditelný odkaz na /darkovy-poukaz */
-  .pill-poukaz{display:inline-block;line-height:normal;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;
-    padding:8px 15px;border-radius:40px;border:1px solid var(--zlata);background:var(--zlata);color:#fff;cursor:pointer;transition:.18s;white-space:nowrap}
-  .pill-poukaz:hover{background:var(--namornicka);border-color:var(--namornicka);color:var(--slonovina)}
+  /* dárkový poukaz v řádku ovládání (mezi hledáním a řazením) — celoročně viditelný odkaz na /darkovy-poukaz */
+  .poukaz-tlac{display:inline-flex;align-items:center;gap:10px;line-height:normal;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+    padding:13px 30px;border-radius:40px;border:1px solid var(--zlata);background:var(--zlata);color:#fff;transition:.18s;white-space:nowrap;box-shadow:0 4px 14px rgba(184,146,74,.28)}
+  .poukaz-tlac small{font-family:'EB Garamond',serif;font-style:italic;font-size:.95rem;letter-spacing:0;text-transform:none;opacity:.92}
+  .poukaz-tlac:hover{background:var(--namornicka);border-color:var(--namornicka);color:var(--slonovina)}
+  @media(max-width:1000px){.poukaz-tlac small{display:none}}
+  @media(max-width:760px){.poukaz-tlac{order:3;width:100%;justify-content:center;padding:12px 20px}}
   .pill.akt{background:var(--namornicka);color:var(--slonovina);border-color:var(--namornicka)}
 
 
@@ -355,13 +358,13 @@
     <a class="vstup" data-k="saty" href="/bali-shop?kat=saty#katalog"><div class="f"><img id="vstup-3" alt="" loading="lazy"></div><div class="t"><span class="z">✦</span><b>Šaty pro lehkost a ceremonii</b><small>léto, pohyb, ženskost</small><i>Prohlédnout ›</i></div></a>
     <a class="vstup" href="/sigily"><div class="f"><img id="vstup-4" alt="Sigil Atlantis a jiné světy v zahradě Oázy" loading="lazy" style="object-position:50% 62%"></div><div class="t"><span class="z">✦</span><b>Sigily</b><small>intuitivní artefakty světla z krystalů a zlata</small><i>Objevit ›</i></div></a>
   </div>
-  <a href="/darkovy-poukaz" style="display:block;max-width:760px;margin:26px auto 0;padding:16px 22px;text-align:center;text-decoration:none;border:1px solid #D9BC7E;border-radius:14px;background:#FBF8F1;color:#1B2A41;font-size:1.08rem"><span style="color:#B8924A">✦</span> <b style="font-weight:600">Dárkový poukaz podle tebe</b> — zvolíš hodnotu i věnování a do e-mailu ti dorazí jako PDF <span style="color:#B8924A;font-style:italic;white-space:nowrap">Vytvořit poukaz ›</span></a>
   <div class="katalog-nadpis" id="katalog"><span>Celá nabídka</span></div>
   <div class="ovladani">
     <div class="hledat">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
       <input id="hledat" type="search" placeholder="Hledat v obchodě…">
     </div>
+    <a class="poukaz-tlac" href="/darkovy-poukaz">✦ Dárkový poukaz <small>hodnotu i věnování zvolíš ty</small></a>
     <div class="razeni">
       <div class="mena-prep" id="mena-prep">
         <button data-m="czk" class="akt">Kč</button><button data-m="eur">€</button>
@@ -472,8 +475,7 @@ function renderKategorie(){
   const dostupne=KATEGORIE.filter(k=>pocty[k.slug]);
   $('#kategorie').innerHTML=
     `<button class="pill akt" data-k="vse">Vše (${VSE.length})</button>`+
-    dostupne.map(k=>`<button class="pill" data-k="${esc(k.slug)}">${esc(k.nazev)} (${pocty[k.slug]})</button>`).join('')+
-    `<a class="pill-poukaz" href="/darkovy-poukaz">✦ Dárkový poukaz</a>`;
+    dostupne.map(k=>`<button class="pill" data-k="${esc(k.slug)}">${esc(k.nazev)} (${pocty[k.slug]})</button>`).join('');
   document.querySelectorAll('.pill').forEach(b=>b.onclick=()=>{
     document.querySelectorAll('.pill').forEach(x=>x.classList.remove('akt'));
     b.classList.add('akt'); STAV.kat=b.dataset.k; render();

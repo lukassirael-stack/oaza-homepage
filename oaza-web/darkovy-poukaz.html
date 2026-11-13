@@ -139,12 +139,29 @@
   .pk-box small{font-size:calc(var(--pt)*8.5);letter-spacing:.21em;margin-right:-.21em;color:#7A715F}
   .pk-kod{font-size:calc(var(--pt)*20);font-weight:600;letter-spacing:.11em;margin-right:-.11em}
   .pk-do{font-size:calc(var(--pt)*16);font-weight:600}
+  /* náhled je jen ukázka: místo čísla text a přes poukaz vodoznak — platný poukaz vzniká až po zaplacení */
+  .pk-kod-vzor{font-size:calc(var(--pt)*12.5);font-weight:400;font-style:italic;letter-spacing:0;margin-right:0;color:#7A715F}
+  .pk-vzor{position:absolute;top:50%;transform:translate(-50%,-50%) rotate(-24deg);font-size:calc(var(--pt)*58);font-weight:600;letter-spacing:.12em;margin-left:.06em;pointer-events:none;user-select:none}
+  .pk-vzor.v1{left:calc(var(--pt)*198);color:rgba(255,255,255,.2)}
+  .pk-vzor.v2{left:calc(var(--pt)*619);color:rgba(27,42,65,.085)}
   .pk-veta{bottom:calc(var(--pt)*78.5);font-size:calc(var(--pt)*10.3);color:#7A715F}
   .pk-veta span{display:block;line-height:calc(var(--pt)*13) !important}
   .pk-web{bottom:calc(var(--pt)*54.5);font-size:calc(var(--pt)*16.5);font-weight:600;letter-spacing:.02em}
   .pk-tel{bottom:calc(var(--pt)*39.3);font-size:calc(var(--pt)*11.3);color:#33486A}
   .pk-adr{bottom:calc(var(--pt)*25.8);font-size:calc(var(--pt)*10);color:#7A715F}
   .skryte{display:none !important}
+  /* zvětšený náhled přes celou obrazovku */
+  #poukaz{cursor:zoom-in}
+  .zvetsit{display:block;margin:12px auto 0;border:1px solid var(--zlata);background:transparent;color:var(--namornicka2);border-radius:30px;padding:8px 18px;cursor:pointer;
+    font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;transition:.15s}
+  .zvetsit:hover{background:var(--zlata);color:#fff}
+  .lupa{position:fixed;inset:0;z-index:9500;background:rgba(15,24,38,.88);overflow:auto;display:none;padding:56px 2vw 24px;cursor:zoom-out}
+  .lupa.otevreno{display:block}
+  .lupa .poukaz{width:max(min(96vw,calc((100vh - 90px)*1.4142)),720px);margin:0 auto;cursor:zoom-out;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .lupa-zavri{position:fixed;top:12px;right:16px;z-index:9501;border:1px solid rgba(255,255,255,.5);background:rgba(15,24,38,.6);color:#fff;border-radius:30px;padding:8px 16px;cursor:pointer;
+    font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+  .lupa-rada{position:fixed;top:18px;left:16px;color:rgba(255,255,255,.75);font-style:italic;font-size:.92rem}
+  @media(min-width:760px){.lupa-rada{display:none}}
 
   .co-dostanes{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px;color:var(--namornicka2);font-size:1.02rem}
   .co-dostanes li{display:flex;gap:10px;align-items:baseline}
@@ -264,23 +281,26 @@
           <p class="pk-od" id="pk-od"></p>
         </div>
         <div class="pk-box">
-          <div><small>ČÍSLO POUKAZU</small><span class="pk-kod">0042027</span></div>
+          <div><small>ČÍSLO POUKAZU</small><span class="pk-kod pk-kod-vzor">přidělíme po zaplacení</span></div>
           <div><small>PLATÍ DO</small><span class="pk-do" id="pk-do"></span></div>
         </div>
+        <span class="pk-vzor v1" aria-hidden="true">NÁHLED</span><span class="pk-vzor v2" aria-hidden="true">NÁHLED</span>
         <p class="pk-s pk-veta"><span id="pk-veta1">Vyber si terapii, pobyt, akci nebo poklad z Bali Shopu.</span><span>Při rezervaci uveď číslo poukazu.</span></p>
         <p class="pk-s pk-web">www.oaza-adamanthea.cz</p>
         <p class="pk-s pk-tel">Lukáš +420 737 869 752 &nbsp;·&nbsp; Martina +420 608 828 996</p>
         <p class="pk-s pk-adr">oaza.adamanthea@gmail.com &nbsp;·&nbsp; Halenkovice 400, 763 63 Halenkovice</p>
       </div>
+      <button type="button" class="zvetsit" id="zvetsit">Zvětšit poukaz</button>
       <ul class="co-dostanes">
         <li>Poukaz dorazí e-mailem jako PDF — vytiskneš ho doma ve formátu A5 (půlka A4) nebo přepošleš dál.</li>
-        <li>Číslo poukazu přidělíme po zaplacení; v náhledu je ukázkové.</li>
+        <li>Tady vidíš náhled. Platný poukaz se svým číslem dostaneš v PDF hned po zaplacení.</li>
         <li>Platí 5 měsíců na služby, pobyty i poklady z Bali Shopu.</li>
       </ul>
     </div>
   </div>
   </div>
 </div>
+<div class="lupa" id="lupa" role="dialog" aria-modal="true" aria-label="Zvětšený náhled poukazu"><span class="lupa-rada">Posouvej prstem do stran</span><button type="button" class="lupa-zavri" id="lupa-zavri">Zavřít ✕</button><div id="lupa-obsah"></div></div>
 <footer><div class="wrap">Oáza Adamanthea · <a href="/kontakt">Kontakt</a> · <a href="/obchodni-podminky">Obchodní podmínky</a> · <a href="/nabidka-sluzeb">Nabídka služeb</a></div></footer>
 
 <script>
@@ -423,6 +443,13 @@ function potvrzeni(j){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+// zvětšený náhled: kopie poukazu přes celou obrazovku (na mobilu širší než displej, posouvá se do stran)
+function lupaOtevri(){ const k=$('#poukaz').cloneNode(true); k.removeAttribute('id'); k.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));
+  $('#lupa-obsah').replaceChildren(k); $('#lupa').classList.add('otevreno'); document.body.style.overflow='hidden'; $('#lupa-zavri').focus();
+  // na úzkém displeji začni u textu poukazu (obrázek je vlevo, stačí posunout zpět)
+  const l=$('#lupa'); l.scrollTop=0; l.scrollLeft = k.offsetWidth>l.clientWidth ? Math.round(k.offsetWidth*0.47) : 0; }
+function lupaZavri(){ $('#lupa').classList.remove('otevreno'); $('#lupa-obsah').replaceChildren(); document.body.style.overflow=''; }
+
 (function start(){
   nacti();
   const d=dnes(), max=ymd(new Date(Date.now()+ODESLAT_DNU*86400000));
@@ -436,6 +463,8 @@ function potvrzeni(j){
     if(c>0) $('#castka').value = STAV.mena==='EUR' ? Math.max(12,Math.round(c/25)) : Math.min(30000,c*25); volby(); nahled(); uloz(); chyba(''); });
   $('#ukazat-cenu').onchange=e=>{ STAV.cena=e.target.checked; nahled(); uloz(); };
   $('#formular').addEventListener('submit',odeslat);
+  $('#zvetsit').onclick=lupaOtevri; $('#poukaz').onclick=lupaOtevri; $('#lupa').onclick=lupaZavri;
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') lupaZavri(); });
   window.addEventListener('resize',nahled);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(nahled);
   if(new URLSearchParams(location.search).get('platba')==='zruseno'){

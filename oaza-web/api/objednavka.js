@@ -124,13 +124,40 @@ async function dopisOdhlasit(email, rest) {
 // Zákazník si volí hodnotu a texty; objednávka má jedinou digitální položku s daty poukazu.
 // Kód, PDF a e-maily vznikají až po zaplacení v administraci (api/admin → poukazPoZaplaceni).
 const POUKAZ_MIN = 300, POUKAZ_MAX = 30000, POUKAZ_ODESLAT_DNU = 60;
+const POUKAZ_MIN_EUR = 12, POUKAZ_MAX_EUR = 1200;
+// Poukaz na službu: cenu určuje server (Kč i €, jako na stránkách služeb).
+// Stejný seznam (klíč, název, ceny) má stránka darkovy-poukaz.html — měň obojí.
+const POUKAZ_SLUZBY = {
+  'kranio':           { nazev: 'Kraniosakrální terapie & Divine Healing', cena: 1300, eur: 52 },
+  'aura':             { nazev: 'Focení aury a diagnostika čaker', cena: 700, eur: 28 },
+  'terapie':          { nazev: 'Osobní terapie v Oáze', cena: 2200, eur: 88 },
+  'hojnost':          { nazev: 'Terapie hojnosti a prosperity', cena: 2200, eur: 88 },
+  'rodove-klice':     { nazev: 'Rodové klíče', cena: 2200, eur: 88 },
+  'karma':            { nazev: 'Karma a minulé životy', cena: 2200, eur: 88 },
+  'dalkova':          { nazev: 'Dálková harmonizace aury', cena: 1500, eur: 60 },
+  'jmeno':            { nazev: 'Harmonizace jména a příjmení', cena: 1500, eur: 60 },
+  'shamballa':        { nazev: 'Shamballa zasvěcení 1. a 2. stupeň', cena: 1200, eur: 50 },
+  'zahrada-pruvodce': { nazev: 'Portálová zahrada s průvodcem', cena: 2000, eur: 75 },
+  'zahrada':          { nazev: 'Vstup do Portálové zahrady', cena: 250, eur: 10 },
+  'pobyt-noc':        { nazev: 'Pobyt ve světle – 1 noc (neděle až čtvrtek)', cena: 1700, eur: 70 },
+  'pobyt-vikend':     { nazev: 'Pobyt ve světle – víkend (2 noci)', cena: 4000, eur: 160 },
+};
 const poukazText = (s, max) => String(s == null ? '' : s).replace(/[\u0000-\u001F\u007F]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max);
-function poukazVstup(v) {
-  const castka = Number(v.castka);
-  if (!Number.isInteger(castka) || castka < POUKAZ_MIN || castka > POUKAZ_MAX) {
-    return { chyba: `Hodnota poukazu může být od ${POUKAZ_MIN} do ${POUKAZ_MAX.toLocaleString('cs-CZ')} Kč.` };
+function poukazVstup(v, mena) {
+  const eur = mena === 'EUR';
+  let castka, sluzba = null;
+  if (v.sluzba) {
+    const sl = Object.prototype.hasOwnProperty.call(POUKAZ_SLUZBY, String(v.sluzba)) ? POUKAZ_SLUZBY[String(v.sluzba)] : null;
+    if (!sl) return { chyba: 'Vyber prosím službu ze seznamu.' };
+    castka = eur ? sl.eur : sl.cena; sluzba = sl.nazev;
+  } else {
+    castka = Number(v.castka);
+    const min = eur ? POUKAZ_MIN_EUR : POUKAZ_MIN, max = eur ? POUKAZ_MAX_EUR : POUKAZ_MAX;
+    if (!Number.isInteger(castka) || castka < min || castka > max) {
+      return { chyba: `Hodnota poukazu může být od ${min} do ${max.toLocaleString('cs-CZ')} ${eur ? '€' : 'Kč'}.` };
+    }
   }
-  const out = { castka, pro: poukazText(v.pro, 60), od: poukazText(v.od, 60), venovani: poukazText(v.venovani, 200), obdarovany_email: null, odeslat_dne: null };
+  const out = { castka, sluzba, ukazat_cenu: !!(sluzba && v.ukazat_cenu), pro: poukazText(v.pro, 60), od: poukazText(v.od, 60), venovani: poukazText(v.venovani, 200), obdarovany_email: null, odeslat_dne: null };
   const em = String(v.obdarovany_email || '').trim().toLowerCase();
   if (em) {
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em) || em.length > 160) return { chyba: 'E-mail obdarovaného má jiný tvar.' };
@@ -257,12 +284,12 @@ export default async function handler(req, res) {
     const kurz = parseFloat(N.kurz_eur) || 25;
     const eur = (czk, override) => (override != null ? override : Math.round(czk / kurz));
 
-    // --- dárkový poukaz: vlastní částka a texty, vždy v Kč ---
-    const poukaz = (body.poukaz && typeof body.poukaz === 'object') ? poukazVstup(body.poukaz) : null;
-    if (poukaz && poukaz.chyba) return res.status(400).json({ error: poukaz.chyba });
-
     // --- měna ---
-    const mena = poukaz ? 'CZK' : ((body.mena === 'EUR') ? 'EUR' : 'CZK');
+    const mena = (body.mena === 'EUR') ? 'EUR' : 'CZK';
+
+    // --- dárkový poukaz: vlastní částka nebo služba, vlastní texty; hodnota je v měně objednávky (Kč nebo €) ---
+    const poukaz = (body.poukaz && typeof body.poukaz === 'object') ? poukazVstup(body.poukaz, mena) : null;
+    if (poukaz && poukaz.chyba) return res.status(400).json({ error: poukaz.chyba });
 
     // --- položky: ověř proti DB (skladem) a přepočítej ceny ---
     const vstupSlugy = poukaz ? ['darkovy-poukaz'] : (body.polozky || []).map(p => p && p.slug).filter(Boolean);
@@ -275,7 +302,10 @@ export default async function handler(req, res) {
 
     const inList = slugy.join(',');
     const produkty = poukaz
-      ? [{ id: null, slug: 'darkovy-poukaz', nazev: `Dárkový poukaz ${poukaz.castka.toLocaleString('cs-CZ')} Kč`, cena: poukaz.castka, cena_eur: null, digitalni: true, pocet: 99 }]
+      ? [{ id: null, slug: 'darkovy-poukaz', digitalni: true, pocet: 99,
+          nazev: poukaz.sluzba ? `Dárkový poukaz – ${poukaz.sluzba}` : `Dárkový poukaz ${poukaz.castka.toLocaleString('cs-CZ')} ${mena === 'EUR' ? '€' : 'Kč'}`,
+          // u poukazu v eurech je závazná částka v €, korunová je jen orientační přepočet
+          cena: mena === 'EUR' ? Math.round(poukaz.castka * kurz) : poukaz.castka, cena_eur: mena === 'EUR' ? poukaz.castka : null }]
       : await rest(`produkty?slug=in.(${inList})&stav=eq.skladem&select=id,slug,nazev,cena,cena_eur,digitalni,pocet`);
     const mapa = Object.fromEntries((produkty || []).map(p => [p.slug, p]));
 
@@ -292,7 +322,7 @@ export default async function handler(req, res) {
         digitalni: !!p.digitalni,
         // víc kusů skladem → kus se nerezervuje, po zaplacení se jen sníží počet
         vice_kusu: (p.pocet == null ? 1 : p.pocet) > 1,
-        ...(poukaz ? { poukaz: { pro: poukaz.pro, od: poukaz.od, venovani: poukaz.venovani, obdarovany_email: poukaz.obdarovany_email, odeslat_dne: poukaz.odeslat_dne } } : {}),
+        ...(poukaz ? { poukaz: { sluzba: poukaz.sluzba, ukazat_cenu: poukaz.ukazat_cenu, pro: poukaz.pro, od: poukaz.od, venovani: poukaz.venovani, obdarovany_email: poukaz.obdarovany_email, odeslat_dne: poukaz.odeslat_dne } } : {}),
       };
     });
     const cena_zbozi = polozky.reduce((sum, p) => sum + (mena === 'EUR' ? p.cena_eur : p.cena), 0);

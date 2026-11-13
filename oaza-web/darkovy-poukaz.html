@@ -85,6 +85,8 @@
   .volba .pod{color:var(--tlumeny);font-size:.9rem;font-style:italic;line-height:1.35;margin-top:3px}
   #obdarovany{margin-top:14px}
 
+  .platba-info{background:var(--slonovina);border:1px solid var(--linka);border-radius:10px;padding:12px 15px;font-size:1rem;line-height:1.45;color:var(--namornicka2)}
+  .platba-info b{font-weight:600;color:var(--namornicka)}
   .tlac{display:block;width:100%;text-align:center;background:var(--namornicka);color:var(--slonovina);border:none;cursor:pointer;text-decoration:none;
     font-family:'Cinzel',serif;font-size:.84rem;letter-spacing:.12em;text-transform:uppercase;padding:16px;border-radius:8px;margin-top:18px}
   .tlac:hover{background:var(--namornicka2)}
@@ -235,11 +237,8 @@
           <div class="pole"><label for="jmeno">Jméno a příjmení</label><input id="jmeno" maxlength="120" autocomplete="name"></div>
           <div class="pole"><label for="email">E-mail</label><input id="email" type="email" maxlength="160" autocomplete="email"></div>
         </div>
-        <div class="volby" id="plat-volby">
-          <div class="volba akt" data-plat="karta"><div class="nadpis">Kartou · Apple Pay · Google Pay</div><div class="pod">Poukaz i fakturu máš v e-mailu během pár minut.</div></div>
-          <div class="volba" data-plat="qr"><div class="nadpis">QR platba / převod</div><div class="pod">Poukaz pošleme po připsání platby, obvykle do 1–2 pracovních dnů.</div></div>
-        </div>
-        <button class="tlac" id="odeslat" type="submit">Zaplatit kartou</button>
+        <div class="platba-info"><b>Platba kartou, Apple Pay nebo Google Pay</b> na zabezpečené stránce Stripe. Platba se spáruje hned a poukaz i fakturu máš v e-mailu během pár minut.</div>
+        <button class="tlac" id="odeslat" type="submit">Zaplatit</button>
         <div class="chyba" id="chyba"></div>
         <div class="souhlas">Odesláním souhlasíš s <a href="/obchodni-podminky" target="_blank" rel="noopener">obchodními podmínkami</a>. Poukaz platí 5 měsíců od zakoupení.</div>
       </div>
@@ -306,6 +305,7 @@ const SLUZBY=[
   ['pobyt-vikend','Pobyt ve světle – víkend (2 noci)',4000,160],
 ];
 const KONCEPT='oaza_poukaz_koncept';
+// platba je vždy kartou / Apple Pay / Google Pay (Stripe) — spáruje se hned a poukaz odchází okamžitě
 const STAV={ dor:'ja', platba:'karta', typ:'castka', mena:'CZK', sluzba:null, cena:false };
 const POLE=['castka','pro','venovani','od','obd_email','obd_den','jmeno','email'];
 
@@ -355,14 +355,13 @@ function nahled(){
   tlacText();
 }
 function tlacText(){ const b=$('#odeslat'); if(!b || b.disabled) return; const k=kPlatbe(), ok=STAV.typ==='sluzba' ? k>0 : (k>=meze().min && k<=meze().max);
-  b.textContent=(STAV.platba==='karta'?'Zaplatit kartou':'Objednat poukaz')+(ok?' · '+fmtKc(k):''); }
+  b.textContent='Zaplatit'+(ok?' · '+fmtKc(k):''); }
 function uloz(){ try{ const d={dor:STAV.dor,platba:STAV.platba,typ:STAV.typ,mena:STAV.mena,sluzba:STAV.sluzba,cena:STAV.cena}; POLE.forEach(k=>d[k]=$('#'+k).value); sessionStorage.setItem(KONCEPT,JSON.stringify(d)); }catch(e){} }
 function nacti(){ try{ const d=JSON.parse(sessionStorage.getItem(KONCEPT)||'null'); if(!d) return;
-  POLE.forEach(k=>{ if(d[k]!=null) $('#'+k).value=d[k]; }); if(d.dor) STAV.dor=d.dor; if(d.platba) STAV.platba=d.platba;
+  POLE.forEach(k=>{ if(d[k]!=null) $('#'+k).value=d[k]; }); if(d.dor) STAV.dor=d.dor;
   if(d.typ==='sluzba') STAV.typ='sluzba'; if(d.mena==='EUR') STAV.mena='EUR'; if(SLUZBY.some(x=>x[0]===d.sluzba)) STAV.sluzba=d.sluzba; STAV.cena=!!d.cena; }catch(e){} }
 function volby(){
   document.querySelectorAll('#dor-volby .volba').forEach(v=>v.classList.toggle('akt',v.dataset.dor===STAV.dor));
-  document.querySelectorAll('#plat-volby .volba').forEach(v=>v.classList.toggle('akt',v.dataset.plat===STAV.platba));
   document.querySelectorAll('#typ-volby .volba').forEach(v=>v.classList.toggle('akt',v.dataset.typ===STAV.typ));
   document.querySelectorAll('#mena-prep button').forEach(b=>b.classList.toggle('akt',b.dataset.mena===STAV.mena));
   $('#obdarovany').classList.toggle('skryte',STAV.dor!=='obdarovany');
@@ -431,7 +430,6 @@ function potvrzeni(j){
   volby(); nahled();
   POLE.forEach(k=>$('#'+k).addEventListener('input',()=>{ nahled(); uloz(); }));
   document.querySelectorAll('#dor-volby .volba').forEach(v=>v.onclick=()=>{ STAV.dor=v.dataset.dor; volby(); uloz(); if(STAV.dor==='obdarovany') $('#obd_email').focus(); });
-  document.querySelectorAll('#plat-volby .volba').forEach(v=>v.onclick=()=>{ STAV.platba=v.dataset.plat; volby(); tlacText(); uloz(); });
   document.querySelectorAll('#typ-volby .volba').forEach(v=>v.onclick=()=>{ STAV.typ=v.dataset.typ; volby(); nahled(); uloz(); chyba(''); });
   // přepnutí měny: vlastní částku přepočteme orientačně (25 Kč = 1 €), ceny služeb jsou dané v obou měnách
   document.querySelectorAll('#mena-prep button').forEach(b=>b.onclick=()=>{ if(b.dataset.mena===STAV.mena) return; const c=castka(); STAV.mena=b.dataset.mena;
@@ -442,7 +440,7 @@ function potvrzeni(j){
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(nahled);
   if(new URLSearchParams(location.search).get('platba')==='zruseno'){
     history.replaceState(null,'',location.pathname);
-    const e=$('#chyba'); e.style.color='var(--namornicka2)'; e.textContent='Platba čeká na dokončení — poukaz máš připravený, stačí zvolit kartu nebo QR kód.';
+    const e=$('#chyba'); e.style.color='var(--namornicka2)'; e.textContent='Platba čeká na dokončení — poukaz máš připravený, stačí kliknout na Zaplatit.';
   }
   window.addEventListener('load',()=>{ if(window.Bali) Bali.udalost('produkt',{slug:'darkovy-poukaz',castka:kPlatbe(),mena:STAV.mena}); });
 })();

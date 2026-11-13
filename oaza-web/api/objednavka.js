@@ -120,6 +120,32 @@ async function dopisOdhlasit(email, rest) {
   try { const listId = await dopisSeznam(); if (listId) await brevo(`/contacts/lists/${listId}/contacts/remove`, { method: 'POST', body: JSON.stringify({ emails: [email] }) }); } catch {}
 }
 
+// ---------- Dárkový poukaz (/darkovy-poukaz) ----------
+// Zákazník si volí hodnotu a texty; objednávka má jedinou digitální položku s daty poukazu.
+// Kód, PDF a e-maily vznikají až po zaplacení v administraci (api/admin → poukazPoZaplaceni).
+const POUKAZ_MIN = 300, POUKAZ_MAX = 30000, POUKAZ_ODESLAT_DNU = 60;
+const poukazText = (s, max) => String(s == null ? '' : s).replace(/[\u0000-\u001F\u007F]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max);
+function poukazVstup(v) {
+  const castka = Number(v.castka);
+  if (!Number.isInteger(castka) || castka < POUKAZ_MIN || castka > POUKAZ_MAX) {
+    return { chyba: `Hodnota poukazu může být od ${POUKAZ_MIN} do ${POUKAZ_MAX.toLocaleString('cs-CZ')} Kč.` };
+  }
+  const out = { castka, pro: poukazText(v.pro, 60), od: poukazText(v.od, 60), venovani: poukazText(v.venovani, 200), obdarovany_email: null, odeslat_dne: null };
+  const em = String(v.obdarovany_email || '').trim().toLowerCase();
+  if (em) {
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em) || em.length > 160) return { chyba: 'E-mail obdarovaného má jiný tvar.' };
+    out.obdarovany_email = em;
+    const den = String(v.odeslat_dne || '');
+    if (den) {
+      const dnes = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' });
+      const max = new Date(Date.now() + POUKAZ_ODESLAT_DNU * 86400000).toLocaleDateString('en-CA', { timeZone: 'Europe/Prague' });
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(den) || den < dnes || den > max) return { chyba: `Den odeslání obdarovanému zvol v příštích ${POUKAZ_ODESLAT_DNU} dnech.` };
+      if (den > dnes) out.odeslat_dne = den;
+    }
+  }
+  return out;
+}
+
 export default async function handler(req, res) {
   // poptávka pronájmu prostor (sdílí funkci kvůli limitu 12 funkcí na Vercelu)
   if (req.query && req.query.akce === 'poptavka') return poptavka(req, res);
@@ -231,11 +257,15 @@ export default async function handler(req, res) {
     const kurz = parseFloat(N.kurz_eur) || 25;
     const eur = (czk, override) => (override != null ? override : Math.round(czk / kurz));
 
+    // --- dárkový poukaz: vlastní částka a texty, vždy v Kč ---
+    const poukaz = (body.poukaz && typeof body.poukaz === 'object') ? poukazVstup(body.poukaz) : null;
+    if (poukaz && poukaz.chyba) return res.status(400).json({ error: poukaz.chyba });
+
     // --- měna ---
-    const mena = (body.mena === 'EUR') ? 'EUR' : 'CZK';
+    const mena = poukaz ? 'CZK' : ((body.mena === 'EUR') ? 'EUR' : 'CZK');
 
     // --- položky: ověř proti DB (skladem) a přepočítej ceny ---
-    const vstupSlugy = (body.polozky || []).map(p => p && p.slug).filter(Boolean);
+    const vstupSlugy = poukaz ? ['darkovy-poukaz'] : (body.polozky || []).map(p => p && p.slug).filter(Boolean);
     // slug smí obsahovat jen malá písmena, číslice a pomlčky (jde přímo do dotazu na produkty)
     if (vstupSlugy.length > 30 || vstupSlugy.some(s => typeof s !== 'string' || !/^[a-z0-9][a-z0-9-]{0,119}$/.test(s))) {
       return res.status(400).json({ error: 'Neplatná položka v košíku.' });
@@ -244,7 +274,9 @@ export default async function handler(req, res) {
     if (!slugy.length) return res.status(400).json({ error: 'Košík je prázdný.' });
 
     const inList = slugy.join(',');
-    const produkty = await rest(`produkty?slug=in.(${inList})&stav=eq.skladem&select=id,slug,nazev,cena,cena_eur,digitalni,pocet`);
+    const produkty = poukaz
+      ? [{ id: null, slug: 'darkovy-poukaz', nazev: `Dárkový poukaz ${poukaz.castka.toLocaleString('cs-CZ')} Kč`, cena: poukaz.castka, cena_eur: null, digitalni: true, pocet: 99 }]
+      : await rest(`produkty?slug=in.(${inList})&stav=eq.skladem&select=id,slug,nazev,cena,cena_eur,digitalni,pocet`);
     const mapa = Object.fromEntries((produkty || []).map(p => [p.slug, p]));
 
     const chybi = slugy.filter(s => !mapa[s]);
@@ -260,6 +292,7 @@ export default async function handler(req, res) {
         digitalni: !!p.digitalni,
         // víc kusů skladem → kus se nerezervuje, po zaplacení se jen sníží počet
         vice_kusu: (p.pocet == null ? 1 : p.pocet) > 1,
+        ...(poukaz ? { poukaz: { pro: poukaz.pro, od: poukaz.od, venovani: poukaz.venovani, obdarovany_email: poukaz.obdarovany_email, odeslat_dne: poukaz.odeslat_dne } } : {}),
       };
     });
     const cena_zbozi = polozky.reduce((sum, p) => sum + (mena === 'EUR' ? p.cena_eur : p.cena), 0);
@@ -309,7 +342,7 @@ export default async function handler(req, res) {
 
     // --- slevový kód (ověření na serveru; klientovi se nevěří) ---
     let sleva_kod = null, sleva_castka = 0;
-    const kodInput = String(body.sleva_kod || '').trim().slice(0, 40);
+    const kodInput = poukaz ? '' : String(body.sleva_kod || '').trim().slice(0, 40); // poukaz se prodává v plné hodnotě
     if (kodInput) {
       try {
         const ov = await rest('rpc/overit_slevovy_kod', {
@@ -385,8 +418,8 @@ export default async function handler(req, res) {
       try { await rest('rpc/pouzij_slevovy_kod', { method: 'POST', body: JSON.stringify({ p_kod: sleva_kod }) }); } catch (e) {}
     }
 
-    // Zboží.cz — data objednávky (ID produktů = ITEM_ID z feedu)
-    await zboziDataObjednavky({
+    // Zboží.cz — data objednávky (ID produktů = ITEM_ID z feedu); poukaz ve feedu není
+    if (!poukaz) await zboziDataObjednavky({
       cislo, mena, kurz, doprava, doprava_cena, sleva_castka, platba,
       polozky: polozky.map(p => ({ ...p, id: mapa[p.slug] && mapa[p.slug].id })),
     });
@@ -450,7 +483,8 @@ export default async function handler(req, res) {
         : `objednávka #${cislo}`;
 
       let dopravaText;
-      if (doprava === 'digital') dopravaText = 'Digitální obsah zašleme e-mailem po zaplacení.';
+      if (poukaz) dopravaText = 'Dárkový poukaz v PDF ti pošleme e-mailem hned po připsání platby.';
+      else if (doprava === 'digital') dopravaText = 'Digitální obsah zašleme e-mailem po zaplacení.';
       else if (doprava === 'mezi_nami') dopravaText = (packeta_point && packeta_point.kod)
         ? `Zásilkovna „Mezi námi“ — podací kód: <b>${esc(packeta_point.kod)}</b>.`
         : 'Zásilkovna „Mezi námi“ — vytvoř zásilku ve své aplikaci Zásilkovna a pošli nám podací kód na oaza.adamanthea@gmail.com.';
@@ -489,7 +523,7 @@ export default async function handler(req, res) {
         <div style="text-align:center;margin:8px 0"><img src="${qr_url}" alt="QR platba" width="200" height="200" style="border:1px solid #E2D6BC;border-radius:10px;padding:8px;background:#fff"></div>
         ${platBlok}
         ${!vseDigital ? `<p style="background:#F3ECD9;border:1px solid #E2D6BC;border-radius:8px;padding:11px 13px;color:#7A6A2E;font-size:13px;margin-top:14px">✦ Zboží pro tebe držíme <b>rezervované 24 hodin</b>. Zaplať prosím do té doby, ať o svůj kousek nepřijdeš — po připsání platby objednávku potvrdíme.</p>` : ''}
-        <p style="color:#7A715F;font-size:13px;margin-top:14px">Po přijetí platby objednávku potvrdíme${doprava === 'digital' ? ' a zašleme digitální obsah' : ''}. Jakákoli otázka? Stačí odpovědět na tento e-mail.</p>`;
+        <p style="color:#7A715F;font-size:13px;margin-top:14px">Po přijetí platby objednávku potvrdíme${poukaz ? ' a pošleme dárkový poukaz' : (doprava === 'digital' ? ' a zašleme digitální obsah' : '')}. Jakákoli otázka? Stačí odpovědět na tento e-mail.</p>`;
 
       // ---- interní ----
       const teloNas = `

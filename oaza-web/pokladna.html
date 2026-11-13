@@ -415,7 +415,7 @@ function zaplacenoKartou(id){
     $('#obsah').innerHTML=`<div class="hotovo"><div class="znak">✦</div>
       <h2>${hotovo?'Zaplaceno, děkujeme!':'Platba se dokončuje…'}</h2>
       <p style="color:var(--tlumeny);font-style:italic;max-width:440px;margin:10px auto">${o&&o.cislo?`Objednávka #${esc(o.cislo)}. `:''}${hotovo
-        ? (o.doprava==='digital' ? 'Fakturu a odkaz ke stažení máš v e-mailu.' : 'Fakturu máš v e-mailu, zboží pro tebe chystáme k odeslání.')
+        ? (window._jePoukaz ? 'Dárkový poukaz v PDF a fakturu máš v e-mailu.' : (o.doprava==='digital' ? 'Fakturu a odkaz ke stažení máš v e-mailu.' : 'Fakturu máš v e-mailu, zboží pro tebe chystáme k odeslání.'))
         : 'Stripe nám právě potvrzuje platbu, za pár vteřin se tu ukáže potvrzení.'}</p>
       <a class="tlac" style="max-width:260px;margin:18px auto" href="/bali-shop">Zpět do obchodu</a></div>`;
     return hotovo;
@@ -522,6 +522,10 @@ function potvrzeni(j){
   const start=()=>{
     if(plat && id && /^[0-9a-f-]{36}$/i.test(id)){
       history.replaceState(null,'',location.pathname);
+      // dárkový poukaz (/darkovy-poukaz) platí stejnou cestou; po přerušení platby vracíme na jeho stránku
+      let jePoukaz=false; try{ jePoukaz=sessionStorage.getItem('oaza_poukaz_obj')===id; }catch(e){}
+      if(jePoukaz && plat==='zruseno'){ sbFn({druh:'eshop_zrusit',objednavka:id}).catch(()=>({})).then(v=>{ if(v && v.stav==='zaplaceno'){ window._jePoukaz=true; zaplacenoKartou(id); } else location.replace('/darkovy-poukaz?platba=zruseno'); }); return; }
+      if(jePoukaz && plat==='hotovo'){ window._jePoukaz=true; try{ sessionStorage.removeItem('oaza_poukaz_obj'); sessionStorage.removeItem('oaza_poukaz_koncept'); }catch(e){} }
       if(plat==='hotovo'){ zaplacenoKartou(id); return; }
       if(plat==='zruseno'){
         sbFn({druh:'eshop_zrusit',objednavka:id}).then(v=>{ if(v && v.stav==='zaplaceno') zaplacenoKartou(id); }).catch(()=>{});

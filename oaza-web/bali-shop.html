@@ -101,6 +101,10 @@
     padding:8px 13px;border:1px solid var(--linka);border-radius:40px;color:var(--namornicka2);cursor:pointer;
     background:transparent;transition:.18s;white-space:nowrap}
   .pill:hover{border-color:var(--zlata)}
+  /* dárkový poukaz mezi kategoriemi — celoročně viditelný odkaz na /darkovy-poukaz */
+  .pill-poukaz{display:inline-block;line-height:normal;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;
+    padding:8px 15px;border-radius:40px;border:1px solid var(--zlata);background:var(--zlata);color:#fff;cursor:pointer;transition:.18s;white-space:nowrap}
+  .pill-poukaz:hover{background:var(--namornicka);border-color:var(--namornicka);color:var(--slonovina)}
   .pill.akt{background:var(--namornicka);color:var(--slonovina);border-color:var(--namornicka)}
 
 
@@ -468,7 +472,8 @@ function renderKategorie(){
   const dostupne=KATEGORIE.filter(k=>pocty[k.slug]);
   $('#kategorie').innerHTML=
     `<button class="pill akt" data-k="vse">Vše (${VSE.length})</button>`+
-    dostupne.map(k=>`<button class="pill" data-k="${esc(k.slug)}">${esc(k.nazev)} (${pocty[k.slug]})</button>`).join('');
+    dostupne.map(k=>`<button class="pill" data-k="${esc(k.slug)}">${esc(k.nazev)} (${pocty[k.slug]})</button>`).join('')+
+    `<a class="pill-poukaz" href="/darkovy-poukaz">✦ Dárkový poukaz</a>`;
   document.querySelectorAll('.pill').forEach(b=>b.onclick=()=>{
     document.querySelectorAll('.pill').forEach(x=>x.classList.remove('akt'));
     b.classList.add('akt'); STAV.kat=b.dataset.k; render();

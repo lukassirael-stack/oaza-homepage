@@ -78,6 +78,11 @@
   .sluzba-radek b{font-weight:500;color:var(--namornicka2);white-space:nowrap}
   .zaskrt{display:flex;align-items:center;gap:8px;margin-top:12px;color:var(--namornicka2);font-size:1rem;cursor:pointer}
   .zaskrt input{width:17px;height:17px;accent-color:#B8924A}
+  .motivy{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+  .motiv{border:1px solid var(--linka);background:var(--slonovina);border-radius:10px;padding:8px 8px 9px;cursor:pointer;text-align:center;transition:.15s}
+  .motiv.akt{border-color:var(--zlata);background:#fff;box-shadow:0 0 0 1px var(--zlata) inset}
+  .motiv img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;object-position:50% 38%;border-radius:6px}
+  .motiv span{display:block;margin-top:7px;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
   .volby{display:flex;gap:10px;flex-wrap:wrap}
   .volba{flex:1;min-width:150px;border:1px solid var(--linka);background:var(--slonovina);border-radius:10px;padding:12px 14px;cursor:pointer;transition:.15s}
   .volba.akt{border-color:var(--zlata);background:#fff;box-shadow:0 0 0 1px var(--zlata) inset}
@@ -143,6 +148,7 @@
   .pk-kod-vzor{font-size:calc(var(--pt)*12.5);font-weight:400;font-style:italic;letter-spacing:0;margin-right:0;color:#7A715F}
   .pk-vzor{position:absolute;top:50%;transform:translate(-50%,-50%) rotate(-24deg);font-size:calc(var(--pt)*58);font-weight:600;letter-spacing:.12em;margin-left:.06em;pointer-events:none;user-select:none}
   .pk-vzor.v1{left:calc(var(--pt)*198);top:69%;color:rgba(27,42,65,.3)}
+  .poukaz.m-krystaly .pk-vzor.v1{top:27%;color:rgba(255,255,255,.34)}
   .pk-vzor.v2{left:calc(var(--pt)*619);color:rgba(27,42,65,.15)}
   .pk-veta{bottom:calc(var(--pt)*78.5);font-size:calc(var(--pt)*10.3);color:#7A715F}
   .pk-veta span{display:block;line-height:calc(var(--pt)*13) !important}
@@ -227,7 +233,11 @@
       </div>
 
       <div class="karta">
-        <h2><span>2</span>Slova na poukazu</h2>
+        <h2><span>2</span>Vzhled a slova</h2>
+        <div class="motivy" id="motivy" role="radiogroup" aria-label="Motiv poukazu">
+          <div class="motiv" data-motiv="vanoce" role="radio" tabindex="0"><img src="/img/darkovy-poukaz.jpg?v=4" alt="" loading="lazy"><span>Vánoční</span></div>
+          <div class="motiv" data-motiv="krystaly" role="radio" tabindex="0"><img src="/img/darkovy-poukaz-krystaly.jpg?v=1" alt="" loading="lazy"><span>Pro každou příležitost</span></div>
+        </div>
         <div class="pole"><label for="pro">Pro koho</label><input id="pro" maxlength="60" placeholder="např. Janu, Pro maminku" autocomplete="off"></div>
         <div class="pole"><label for="venovani">Vlastní věnování <i id="pocet">0 / 200</i></label><textarea id="venovani" maxlength="200" placeholder="Pár vět od srdce…"></textarea><div class="rada">Na každém poukazu je naše přání „Ať ti tenhle čas v Oáze přinese klid, radost a spoustu světla.“ — tvoje slova budou hned nad ním.</div></div>
         <div class="pole"><label for="od">Od koho</label><input id="od" maxlength="60" placeholder="např. Petr, Tvoje děti" autocomplete="off"></div>
@@ -326,7 +336,9 @@ const SLUZBY=[
 ];
 const KONCEPT='oaza_poukaz_koncept';
 // platba je vždy kartou / Apple Pay / Google Pay (Stripe) — spáruje se hned a poukaz odchází okamžitě
-const STAV={ dor:'ja', platba:'karta', typ:'castka', mena:'CZK', sluzba:null, cena:false };
+// motivy poukazu (obrázek vlevo) — stejné klíče a soubory má admin (POUKAZ_MOTIVY v api/admin.js)
+const MOTIVY={ vanoce:'/img/darkovy-poukaz.jpg?v=4', krystaly:'/img/darkovy-poukaz-krystaly.jpg?v=1' };
+const STAV={ dor:'ja', platba:'karta', typ:'castka', mena:'CZK', sluzba:null, cena:false, motiv:'vanoce' };
 const POLE=['castka','pro','venovani','od','obd_email','obd_den','jmeno','email'];
 
 // znaky, které umí písmo v PDF (latinka, čeština, běžná interpunkce, €) — náhled ukazuje přesně to, co se vytiskne
@@ -376,11 +388,14 @@ function nahled(){
 }
 function tlacText(){ const b=$('#odeslat'); if(!b || b.disabled) return; const k=kPlatbe(), ok=STAV.typ==='sluzba' ? k>0 : (k>=meze().min && k<=meze().max);
   b.textContent='Zaplatit'+(ok?' · '+fmtKc(k):''); }
-function uloz(){ try{ const d={dor:STAV.dor,platba:STAV.platba,typ:STAV.typ,mena:STAV.mena,sluzba:STAV.sluzba,cena:STAV.cena}; POLE.forEach(k=>d[k]=$('#'+k).value); sessionStorage.setItem(KONCEPT,JSON.stringify(d)); }catch(e){} }
+function uloz(){ try{ const d={dor:STAV.dor,platba:STAV.platba,typ:STAV.typ,mena:STAV.mena,sluzba:STAV.sluzba,cena:STAV.cena,motiv:STAV.motiv}; POLE.forEach(k=>d[k]=$('#'+k).value); sessionStorage.setItem(KONCEPT,JSON.stringify(d)); }catch(e){} }
 function nacti(){ try{ const d=JSON.parse(sessionStorage.getItem(KONCEPT)||'null'); if(!d) return;
   POLE.forEach(k=>{ if(d[k]!=null) $('#'+k).value=d[k]; }); if(d.dor) STAV.dor=d.dor;
-  if(d.typ==='sluzba') STAV.typ='sluzba'; if(d.mena==='EUR') STAV.mena='EUR'; if(SLUZBY.some(x=>x[0]===d.sluzba)) STAV.sluzba=d.sluzba; STAV.cena=!!d.cena; }catch(e){} }
+  if(d.typ==='sluzba') STAV.typ='sluzba'; if(d.mena==='EUR') STAV.mena='EUR'; if(SLUZBY.some(x=>x[0]===d.sluzba)) STAV.sluzba=d.sluzba; STAV.cena=!!d.cena; if(MOTIVY[d.motiv]) STAV.motiv=d.motiv; }catch(e){} }
 function volby(){
+  document.querySelectorAll('#motivy .motiv').forEach(m=>{ const a=m.dataset.motiv===STAV.motiv; m.classList.toggle('akt',a); m.setAttribute('aria-checked',a); });
+  if($('#pk-img').getAttribute('src')!==MOTIVY[STAV.motiv]) $('#pk-img').src=MOTIVY[STAV.motiv];
+  $('#poukaz').classList.toggle('m-krystaly',STAV.motiv==='krystaly');
   document.querySelectorAll('#dor-volby .volba').forEach(v=>v.classList.toggle('akt',v.dataset.dor===STAV.dor));
   document.querySelectorAll('#typ-volby .volba').forEach(v=>v.classList.toggle('akt',v.dataset.typ===STAV.typ));
   document.querySelectorAll('#mena-prep button').forEach(b=>b.classList.toggle('akt',b.dataset.mena===STAV.mena));
@@ -413,7 +428,7 @@ async function odeslat(ev){
   const btn=$('#odeslat'); btn.disabled=true; btn.textContent='Odesílám…';
   try{
     const r=await fetch('/api/objednavka',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      poukaz:{ ...(sl ? { sluzba:STAV.sluzba, ukazat_cenu:STAV.cena } : { castka:c }), pro:$('#pro').value, od:$('#od').value, venovani:$('#venovani').value, obdarovany_email:obdEmail, odeslat_dne:obdDen },
+      poukaz:{ motiv:STAV.motiv, ...(sl ? { sluzba:STAV.sluzba, ukazat_cenu:STAV.cena } : { castka:c }), pro:$('#pro').value, od:$('#od').value, venovani:$('#venovani').value, obdarovany_email:obdEmail, odeslat_dne:obdDen },
       jmeno, email, platba:STAV.platba, mena:STAV.mena, zeme:'CZ' })});
     const j=await r.json().catch(()=>({}));
     if(!r.ok || !j.ok) throw new Error(j.error||'Objednávku se teď nepodařilo vytvořit. Zkus to prosím znovu.');
@@ -461,6 +476,7 @@ function lupaZavri(){ $('#lupa').classList.remove('otevreno'); $('#lupa-obsah').
   // přepnutí měny: vlastní částku přepočteme orientačně (25 Kč = 1 €), ceny služeb jsou dané v obou měnách
   document.querySelectorAll('#mena-prep button').forEach(b=>b.onclick=()=>{ if(b.dataset.mena===STAV.mena) return; const c=castka(); STAV.mena=b.dataset.mena;
     if(c>0) $('#castka').value = STAV.mena==='EUR' ? Math.max(12,Math.round(c/25)) : Math.min(30000,c*25); volby(); nahled(); uloz(); chyba(''); });
+  document.querySelectorAll('#motivy .motiv').forEach(m=>{ const zvol=()=>{ STAV.motiv=m.dataset.motiv; volby(); uloz(); }; m.onclick=zvol; m.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); zvol(); } }; });
   $('#ukazat-cenu').onchange=e=>{ STAV.cena=e.target.checked; nahled(); uloz(); };
   $('#formular').addEventListener('submit',odeslat);
   $('#zvetsit').onclick=lupaOtevri; $('#poukaz').onclick=lupaOtevri; $('#lupa').onclick=lupaZavri;

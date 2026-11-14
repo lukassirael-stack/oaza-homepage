@@ -157,7 +157,7 @@ function poukazVstup(v, mena) {
       return { chyba: `Hodnota poukazu může být od ${min} do ${max.toLocaleString('cs-CZ')} ${eur ? '€' : 'Kč'}.` };
     }
   }
-  const out = { castka, sluzba, ukazat_cenu: !!(sluzba && v.ukazat_cenu), pro: poukazText(v.pro, 60), od: poukazText(v.od, 60), venovani: poukazText(v.venovani, 200), obdarovany_email: null, odeslat_dne: null };
+  const out = { motiv: v.motiv === 'krystaly' ? 'krystaly' : 'vanoce', castka, sluzba, ukazat_cenu: !!(sluzba && v.ukazat_cenu), pro: poukazText(v.pro, 60), od: poukazText(v.od, 60), venovani: poukazText(v.venovani, 200), obdarovany_email: null, odeslat_dne: null };
   const em = String(v.obdarovany_email || '').trim().toLowerCase();
   if (em) {
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em) || em.length > 160) return { chyba: 'E-mail obdarovaného má jiný tvar.' };
@@ -322,7 +322,7 @@ export default async function handler(req, res) {
         digitalni: !!p.digitalni,
         // víc kusů skladem → kus se nerezervuje, po zaplacení se jen sníží počet
         vice_kusu: (p.pocet == null ? 1 : p.pocet) > 1,
-        ...(poukaz ? { poukaz: { sluzba: poukaz.sluzba, ukazat_cenu: poukaz.ukazat_cenu, pro: poukaz.pro, od: poukaz.od, venovani: poukaz.venovani, obdarovany_email: poukaz.obdarovany_email, odeslat_dne: poukaz.odeslat_dne } } : {}),
+        ...(poukaz ? { poukaz: { motiv: poukaz.motiv, sluzba: poukaz.sluzba, ukazat_cenu: poukaz.ukazat_cenu, pro: poukaz.pro, od: poukaz.od, venovani: poukaz.venovani, obdarovany_email: poukaz.obdarovany_email, odeslat_dne: poukaz.odeslat_dne } } : {}),
       };
     });
     const cena_zbozi = polozky.reduce((sum, p) => sum + (mena === 'EUR' ? p.cena_eur : p.cena), 0);

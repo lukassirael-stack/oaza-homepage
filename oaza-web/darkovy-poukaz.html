@@ -148,7 +148,6 @@
   .pk-kod-vzor{font-size:calc(var(--pt)*12.5);font-weight:400;font-style:italic;letter-spacing:0;margin-right:0;color:#7A715F}
   .pk-vzor{position:absolute;top:50%;transform:translate(-50%,-50%) rotate(-24deg);font-size:calc(var(--pt)*58);font-weight:600;letter-spacing:.12em;margin-left:.06em;pointer-events:none;user-select:none}
   .pk-vzor.v1{left:calc(var(--pt)*198);top:69%;color:rgba(27,42,65,.3)}
-  .poukaz.m-krystaly .pk-vzor.v1{top:27%;color:rgba(255,255,255,.34)}
   .pk-vzor.v2{left:calc(var(--pt)*619);color:rgba(27,42,65,.15)}
   .pk-veta{bottom:calc(var(--pt)*78.5);font-size:calc(var(--pt)*10.3);color:#7A715F}
   .pk-veta span{display:block;line-height:calc(var(--pt)*13) !important}
@@ -236,7 +235,7 @@
         <h2><span>2</span>Vzhled a slova</h2>
         <div class="motivy" id="motivy" role="radiogroup" aria-label="Motiv poukazu">
           <div class="motiv" data-motiv="vanoce" role="radio" tabindex="0"><img src="/img/darkovy-poukaz.jpg?v=4" alt="" loading="lazy"><span>Vánoční</span></div>
-          <div class="motiv" data-motiv="krystaly" role="radio" tabindex="0"><img src="/img/darkovy-poukaz-krystaly.jpg?v=1" alt="" loading="lazy"><span>Pro každou příležitost</span></div>
+          <div class="motiv" data-motiv="krystaly" role="radio" tabindex="0"><img src="/img/darkovy-poukaz-krystaly.jpg?v=2" alt="" loading="lazy"><span>Pro každou příležitost</span></div>
         </div>
         <div class="pole"><label for="pro">Pro koho</label><input id="pro" maxlength="60" placeholder="např. Janu, Pro maminku" autocomplete="off"></div>
         <div class="pole"><label for="venovani">Vlastní věnování <i id="pocet">0 / 200</i></label><textarea id="venovani" maxlength="200" placeholder="Pár vět od srdce…"></textarea><div class="rada">Na každém poukazu je naše přání „Ať ti tenhle čas v Oáze přinese klid, radost a spoustu světla.“ — tvoje slova budou hned nad ním.</div></div>
@@ -337,7 +336,7 @@ const SLUZBY=[
 const KONCEPT='oaza_poukaz_koncept';
 // platba je vždy kartou / Apple Pay / Google Pay (Stripe) — spáruje se hned a poukaz odchází okamžitě
 // motivy poukazu (obrázek vlevo) — stejné klíče a soubory má admin (POUKAZ_MOTIVY v api/admin.js)
-const MOTIVY={ vanoce:'/img/darkovy-poukaz.jpg?v=4', krystaly:'/img/darkovy-poukaz-krystaly.jpg?v=1' };
+const MOTIVY={ vanoce:'/img/darkovy-poukaz.jpg?v=4', krystaly:'/img/darkovy-poukaz-krystaly.jpg?v=2' };
 const STAV={ dor:'ja', platba:'karta', typ:'castka', mena:'CZK', sluzba:null, cena:false, motiv:'vanoce' };
 const POLE=['castka','pro','venovani','od','obd_email','obd_den','jmeno','email'];
 

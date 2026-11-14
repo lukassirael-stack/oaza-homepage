@@ -368,8 +368,10 @@ function nahled(){
     // název služby: největší písmo, se kterým se vejde na jeden řádek, případně na dva (stejně jako v PDF)
     for(let S=34; S>=18; S--){ n.style.setProperty('--ss',S); const radku=Math.round(n.offsetHeight/(S*1.12*pt)); if(radku<=1 || (radku===2 && S<=27)) break; }
     const uk=STAV.cena && x; $('#pk-sl-cena').textContent = uk ? 'v hodnotě '+fmtKc(cenaSluzby(x)) : ''; $('#pk-sl-cena').classList.toggle('skryte',!uk);
-    vrch=Math.max(228, 166+$('#pk-sl').offsetHeight/pt+14);
+    vrch=166+$('#pk-sl').offsetHeight/pt+14;
   }
+  // výchozí poloha (pro měření); u služby se po rozvržení textů ještě dorovná — viz konec funkce
+  $('#pk-stitek').style.top=''; $('#pk-sl').style.top=''; $('#pk-stred').style.justifyContent='';
   $('#pk-stred').style.top=`calc(var(--pt)*${vrch.toFixed(1)})`;
   const pro=proTisk($('#pro').value), od=proTisk($('#od').value), ven=proTisk($('#venovani').value);
   $('#pk-pro').textContent=pro; $('#pk-pro').classList.toggle('skryte',!pro); $('#pk-pro-l').classList.toggle('skryte',!pro);
@@ -381,6 +383,13 @@ function nahled(){
   { const v=$('#pk-ven'), st=v.parentNode, vejde=()=>st.scrollHeight<=st.clientHeight+0.5;
     const zkus=(h,odVs,doVs)=>{ st.classList.toggle('husty',h); for(let vs=odVs; vs>=doVs; vs-=0.5){ v.style.setProperty('--vs',vs); if(vejde()) return true; } return false; };
     if(!zkus(false,14.5,12.5)) zkus(true,13,10); }
+  if(sl){ // volné místo: 30 % nad hlavičku služby, 15 % mezi ni a „PRO", zbytek pod blok (stejně jako v PDF)
+    const st=$('#pk-stred'), deti=[...st.children].filter(e=>e.offsetHeight>0);
+    const obsah=deti.length ? deti[deti.length-1].getBoundingClientRect().bottom-deti[0].getBoundingClientRect().top : 0;
+    const volne=Math.max(0,(st.clientHeight-obsah)/pt), posun=volne*0.3;
+    $('#pk-stitek').style.top=`calc(var(--pt)*${(149+posun).toFixed(1)})`; $('#pk-sl').style.top=`calc(var(--pt)*${(166+posun).toFixed(1)})`;
+    st.style.justifyContent='flex-start'; st.style.top=`calc(var(--pt)*${(vrch+volne*0.45).toFixed(1)})`;
+  }
   $('#pk-do').textContent=plusMesice(dnes(),MESICU);
   $('#pocet').textContent=$('#venovani').value.length+' / 200';
   tlacText();

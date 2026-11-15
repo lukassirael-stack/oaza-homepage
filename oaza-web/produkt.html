@@ -67,6 +67,21 @@
     padding:15px 34px;border:none;cursor:pointer;border-radius:2px;transition:.18s}
   .koupit:hover{background:var(--namornicka2)}
   .jeden{font-style:italic;color:var(--tlumeny);font-size:.92rem;margin-top:12px}
+  .koupit[disabled]{background:var(--slonovina2);color:var(--tlumeny);border:1px solid var(--linka);cursor:default}
+  .koupit.dotaz{background:transparent;color:var(--namornicka);border:1px solid var(--zlata);margin-left:10px}
+  .koupit.dotaz:hover{background:var(--zlata);color:var(--slonovina)}
+  @media(max-width:560px){.koupit.dotaz{margin-left:0;display:block}}
+  .dotaz-form{margin-top:18px;padding:20px;background:var(--karta);border:1px solid var(--linka);border-radius:12px}
+  .dotaz-form h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.45rem;line-height:1.2;margin-bottom:4px}
+  .dotaz-form p{color:var(--tlumeny);font-size:.96rem}
+  .dotaz-form label{display:block;font-family:'Cinzel',serif;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tlumeny);margin:14px 0 5px}
+  .dotaz-form input,.dotaz-form textarea{width:100%;padding:11px 12px;border:1px solid var(--linka);border-radius:8px;background:#fff;color:var(--namornicka);font:inherit;font-size:1rem}
+  .dotaz-form input:focus,.dotaz-form textarea:focus{outline:none;border-color:var(--zlata)}
+  .dotaz-form textarea{min-height:110px;resize:vertical}
+  .dotaz-form .past{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .dotaz-form .koupit{margin-top:16px}
+  .dotaz-form .hlaska{margin-top:12px;color:var(--cervena);font-size:.95rem}
+  .dotaz-form .hotovo{color:var(--namornicka);font-size:1.05rem}
 
 
   .podobne{padding:36px 0 70px;border-top:1px solid var(--linka)}
@@ -205,13 +220,14 @@ function render(p){
   const predmet=encodeURIComponent('Zájem o produkt: '+p.nazev);
   const telo=encodeURIComponent('Dobrý den,\n\nmám zájem o produkt „'+p.nazev+'" ('+cenaText+').\nProsím o informace.\n\nDěkuji.');
   const dostupny = (p.stav === 'skladem') && !p.rezervovano;
+  const prodano = !dostupny && !p.rezervovano && !p.digitalni; // prodaný kus, který zůstává vidět → tlačítko na dotaz
   const cta = 'Do košíku';
   const pozn = p.digitalni
     ? '✦ Digitální produkt — doručíme po zaplacení e-mailem.'
     : (!dostupny
         ? (p.rezervovano
             ? '✦ Momentálně rezervováno jiným zákazníkem — zkus to prosím za pár hodin.'
-            : '✦ Tento kus je již prodán.')
+            : '✦ Tento kus už má svého majitele. Napiš nám — rádi ti najdeme podobný.')
         : (p.vice_kusu ? '' : '✦ Jediný kus — po prodeji už nebude k dispozici.'));
 
 
@@ -234,7 +250,9 @@ function render(p){
       ${p.popis?`<div class="popis">${esc(p.popis)}</div>`:''}
       ${vlast.length?`<div class="vlastnosti">${vlast.join('')}</div>`:''}
       <button class="koupit" id="doKosiku"${dostupny ? '' : ' disabled'}>${dostupny ? cta : (p.rezervovano ? 'Rezervováno' : 'Prodáno')}</button>
+      ${prodano?`<a class="koupit dotaz" id="dotazBtn" href="mailto:${KONTAKT}?subject=${predmet}&body=${telo}">Napsat dotaz</a>`:''}
       ${pozn?`<div class="jeden">${pozn}</div>`:''}
+      ${prodano?'<div id="dotazMisto"></div>':''}
       ${p.digitalni?'':'<div class="jeden dodani">Odesíláme do 3 pracovních dnů · Zásilkovna od 89 Kč · kartou, Apple Pay, Google Pay nebo QR platbou</div>'}
     </div>
   </div>`;
@@ -250,12 +268,51 @@ function render(p){
       syncBtn();
     };
   }
+  if(prodano) dotazPriprav(p);
   document.querySelectorAll('#mena-prep button').forEach(b=>{
     b.classList.toggle('akt',b.dataset.m===MENA);
     b.onclick=()=>{MENA=b.dataset.m;localStorage.setItem('oaza_mena',MENA);
       document.querySelectorAll('#mena-prep button').forEach(x=>x.classList.toggle('akt',x.dataset.m===MENA));
       $('#cenaText').textContent=cenaFmt(window.PROD);};
   });
+}
+// Dotaz na prodaný kus — formulář přímo na stránce, odchází přes /api/objednavka?akce=sluzba (api/_sluzba.js).
+// Odkaz mailto v href tlačítka zůstává jako záloha.
+function dotazPriprav(p){
+  const btn=$('#dotazBtn'), misto=$('#dotazMisto'); if(!btn||!misto) return;
+  btn.onclick=e=>{
+    e.preventDefault();
+    if(misto.firstChild){misto.querySelector('input').focus();return;}
+    misto.innerHTML=`<form class="dotaz-form" id="dotazForm">
+      <h2>Dotaz k produktu</h2>
+      <p>${esc(p.nazev)} · odpovíme ti e-mailem.</p>
+      <label for="dJmeno">Jméno</label><input id="dJmeno" name="jmeno" required autocomplete="name" maxlength="120">
+      <label for="dEmail">E-mail</label><input id="dEmail" name="email" type="email" required autocomplete="email" maxlength="160">
+      <label for="dZprava">Zpráva</label><textarea id="dZprava" name="zprava" required maxlength="2000">Líbí se mi „${esc(p.nazev)}". Máte podobný kus?</textarea>
+      <input class="past" name="kontrola" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="koupit" type="submit">Odeslat dotaz</button>
+      <div class="hlaska" id="dHlaska" role="alert"></div>
+    </form>`;
+    const f=$('#dotazForm');
+    f.scrollIntoView({behavior:'smooth',block:'center'});
+    f.jmeno.focus({preventScroll:true});
+    f.onsubmit=async ev=>{
+      ev.preventDefault();
+      const tl=f.querySelector('button'), hl=$('#dHlaska');
+      tl.disabled=true; tl.textContent='Odesílám…'; hl.textContent='';
+      try{
+        const r=await fetch('/api/objednavka?akce=sluzba',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({sluzba:'bali-shop',typ:'dotaz',produkt:p.nazev,jmeno:f.jmeno.value,email:f.email.value,kontrola:f.kontrola.value,
+            pole:[['Produkt',p.nazev+' ('+(p.cena||0).toLocaleString('cs-CZ')+' Kč)'],['Odkaz','https://oaza-adamanthea.cz/produkt/'+encodeURIComponent(p.slug)],['Zpráva',f.zprava.value]]})});
+        const j=await r.json().catch(()=>({}));
+        if(!r.ok) throw new Error(j.error||'');
+        misto.innerHTML='<div class="dotaz-form"><p class="hotovo">✦ Děkujeme, tvůj dotaz je u nás. Brzy ti odpovíme e-mailem.</p></div>';
+      }catch(err){
+        hl.textContent=err.message||('Zkus to prosím za chvíli znovu, nebo nám napiš na '+KONTAKT+'.');
+        tl.disabled=false; tl.textContent='Odeslat dotaz';
+      }
+    };
+  };
 }
 window.prepni=(i,el)=>{$('#hlavniFoto').src=window.FOTKY[i];
   document.querySelectorAll('.mini img').forEach(x=>x.classList.remove('akt'));el.classList.add('akt');};

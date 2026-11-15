@@ -22,6 +22,7 @@ const SLUZBY = {
   'lemoare-krystaly':              { nazev: 'Lemoare Krystaly', druh: 'poptávka', dalsi: 'Brzy vám pošleme aktuální nabídku a katalog.' },
   'spoluprace':                    { nazev: 'Spolupráce s Oázou', druh: 'poptávka', dalsi: 'Brzy se vám ozveme a domluvíme další postup.' },
   'portalova-zahrada':             { nazev: 'Portálová zahrada', druh: 'poptávka', dalsi: 'Brzy se vám ozveme s potvrzením termínu.' },
+  'bali-shop':                     { nazev: 'Bali Shop', druh: 'poptávka', dalsi: 'Brzy vám odpovíme.' },
   'pronajem-prostor':              { nazev: 'Soukromý pobyt v Oáze', druh: 'poptávka', dalsi: 'Brzy se vám ozveme s potvrzením volného pokoje a termínu.' },
 };
 
@@ -64,6 +65,9 @@ export async function sluzba(req, res) {
   const slug = radek(b.sluzba, 80);
   const S = Object.prototype.hasOwnProperty.call(SLUZBY, slug) ? SLUZBY[slug] : null;
   if (!S) return res.status(400).json({ error: 'Otevřete prosím formulář znovu ze stránky služby.' });
+  // dotaz k produktu z Bali Shopu (produkt.html) nese název kusu — patří do předmětu i nadpisu e-mailu
+  const produkt = slug === 'bali-shop' ? radek(b.produkt, 140) : '';
+  const nazev = produkt ? `${S.nazev} — ${produkt}` : S.nazev;
 
   const dotaz = b.typ === 'dotaz';
   const jmeno = radek(b.jmeno, 120);
@@ -117,12 +121,12 @@ export async function sluzba(req, res) {
   if (telefon) kontakt.push(['Telefon', telefon, `<a href="tel:${esc(telefon.replace(/[^\d+]/g, ''))}" style="color:#9a7628">${esc(telefon)}</a>`]);
 
   const teloNas = `
-    <p style="margin:0 0 6px"><b>${esc(S.nazev)}</b> · ${druh.toLowerCase()} z webu</p>
+    <p style="margin:0 0 6px"><b>${esc(nazev)}</b> · ${druh.toLowerCase()} z webu</p>
     ${tabulka(kontakt.concat(pole))}
     <p style="color:#6b4a55;font-size:13px">Odpovědí na tento e-mail píšete rovnou zákazníkovi.</p>`;
   const teloZak = `
     <p>Děkujeme, ${dotaz ? 'váš' : 'vaše'} ${slovo} je u nás. ${esc(dotaz ? 'Brzy vám odpovíme.' : S.dalsi)}</p>
-    <p style="margin:14px 0 0"><b>${esc(S.nazev)}</b></p>
+    <p style="margin:14px 0 0"><b>${esc(nazev)}</b></p>
     ${tabulka(kontakt.concat(pole))}
     <p style="color:#6b4a55;font-size:13px">Chcete něco doplnit? Stačí odpovědět na tento e-mail.</p>`;
 
@@ -140,11 +144,11 @@ export async function sluzba(req, res) {
   }
 
   try {
-    const okNas = await send(OAZA_EMAIL, `${robot ? '[automat?] ' : ''}${druh}: ${S.nazev} · ${jmeno}`, obal(`${dotaz ? 'Nový' : 'Nová'} ${slovo}`, teloNas), email);
+    const okNas = await send(OAZA_EMAIL, `${robot ? '[automat?] ' : ''}${druh}: ${nazev} · ${jmeno}`, obal(`${dotaz ? 'Nový' : 'Nová'} ${slovo}`, teloNas), email);
     if (!okNas) throw new Error('brevo');
     let potvrzeni = false;
     if (!robot && kopie) {
-      try { potvrzeni = await send(email, `${dotaz ? 'Váš' : 'Vaše'} ${slovo} — ${S.nazev} · Oáza Adamanthea`, obal(`${druh} ${dotaz ? 'přijat' : 'přijata'}`, teloZak), OAZA_EMAIL); } catch {}
+      try { potvrzeni = await send(email, `${dotaz ? 'Váš' : 'Vaše'} ${slovo} — ${nazev} · Oáza Adamanthea`, obal(`${druh} ${dotaz ? 'přijat' : 'přijata'}`, teloZak), OAZA_EMAIL); } catch {}
     }
     console.log('sluzba: odesláno', slug, slovo, potvrzeni ? 'kopie-odeslana' : (kopie ? 'kopie-neodesla' : 'bez-kopie'));
     return res.status(200).json({ ok: true, potvrzeni, dalsi: dotaz ? 'Brzy vám odpovíme.' : S.dalsi });

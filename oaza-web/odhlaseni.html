@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odhlášení z akce | Oáza Adamanthea</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cormorant-garamond-latin-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cormorant-garamond-latin-ext-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-latin-wght-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-latin-ext-wght-normal.woff2">
+<style>
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-wght-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300 700;font-display:swap;src:url(/fonts/cormorant-garamond-latin-ext-wght-italic.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Jost';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/jost-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Jost';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/jost-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+</style>
+<style>
+  :root{--cream:#f5f1e9;--green:#2e4434;--ink:#3a3f38;--line:#d8d0c2;--gold:#bca060}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--cream);
+    color:var(--ink);font-family:'Jost',system-ui,sans-serif;font-weight:300;line-height:1.6;padding:40px 20px}
+  main{max-width:560px;width:100%;text-align:center}
+  .znak{color:var(--gold);font-size:2rem}
+  h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;color:var(--green);font-size:clamp(2rem,6vw,2.9rem);line-height:1.1;margin:.3em 0 .4em}
+  p{font-size:1.08rem;margin:0 auto 22px;max-width:460px}
+  .karta{border:1px solid var(--line);border-radius:14px;background:#fffdf8;padding:20px 22px;margin:0 auto 26px;max-width:460px}
+  .karta b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:1.4rem;color:var(--green);line-height:1.25;margin-bottom:6px}
+  .karta span{display:block;font-size:1rem}
+  .tl{display:inline-block;padding:14px 32px;border:0;border-radius:999px;background:var(--green);color:var(--cream);text-decoration:none;
+    letter-spacing:.04em;font:inherit;font-weight:400;font-size:1.05rem;cursor:pointer}
+  .tl[disabled]{opacity:.6;cursor:progress}
+  .tl:focus-visible,.dal:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .dal{display:block;margin-top:18px;color:var(--green);font-size:1rem}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main aria-live="polite">
+  <div class="znak">✦</div>
+
+  <section id="nacitam">
+    <h1>Odhlášení z akce</h1>
+    <p>Načítáme vaši přihlášku…</p>
+  </section>
+
+  <section id="aktivni" hidden>
+    <h1>Odhlášení z akce</h1>
+    <p id="osloveni"></p>
+    <div class="karta"><b id="a-nazev"></b><span id="a-termin"></span><span id="a-osob"></span></div>
+    <button class="tl" id="odhlasit" type="button">Odhlásit se a uvolnit místo</button>
+    <a class="dal" id="zustavam" href="/akce">Zůstávám přihlášen/a</a>
+  </section>
+
+  <section id="hotovo" hidden>
+    <h1>Místo je uvolněné</h1>
+    <p id="h-text"></p>
+    <p id="h-platba" hidden>Ohledně přijaté platby se vám ozveme e-mailem.</p>
+    <a class="tl" href="/akce">Prohlédnout další akce</a>
+  </section>
+
+  <section id="probehla" hidden>
+    <h1>Tato akce už proběhla</h1>
+    <p>Děkujeme, že jste s námi. Podívejte se, co chystáme dál.</p>
+    <a class="tl" href="/akce">Prohlédnout další akce</a>
+  </section>
+
+  <section id="pomoc" hidden>
+    <h1>Pomůžeme vám osobně</h1>
+    <p id="p-text">Otevřete prosím odkaz přímo z e-mailu s potvrzením přihlášky. Rádi vás odhlásíme i sami — napište na <a href="mailto:oaza.adamanthea@gmail.com" style="color:var(--green)">oaza.adamanthea@gmail.com</a> nebo zavolejte na +420 737 869 752.</p>
+    <a class="tl" href="/akce">Prohlédnout akce</a>
+  </section>
+</main>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search).get('p') || '';
+  var API = '/api/akce-prihlasit?odhlaseni=1';
+  var $ = function(id){ return document.getElementById(id); };
+  function ukaz(id){ ['nacitam','aktivni','hotovo','probehla','pomoc'].forEach(function(s){ $(s).hidden = s !== id; }); }
+  function osob(n){ return n === 1 ? '1 osoba' : (n < 5 ? n + ' osoby' : n + ' osob'); }
+  function vykresli(d){
+    if (d.stav === 'probehla') return ukaz('probehla');
+    if (d.stav === 'odhlaseno') {
+      $('h-text').textContent = d.prave
+        ? 'Děkujeme, že jste nám dali vědět. Místo na akci ' + d.akce + ' teď může využít někdo další. Potvrzení vám posíláme e-mailem.'
+        : 'Vaše přihláška na akci ' + d.akce + ' je odhlášená a místo je volné pro další zájemce.';
+      $('h-platba').hidden = !(d.prave && d.zaplaceno);
+      return ukaz('hotovo');
+    }
+    $('osloveni').textContent = (d.jmeno ? d.jmeno + ', vaše' : 'Vaše') + ' přihláška:';
+    $('a-nazev').textContent = d.akce;
+    $('a-termin').textContent = d.termin || '';
+    $('a-osob').textContent = 'Počet míst: ' + osob(d.pocet_osob || 1);
+    if (d.slug) $('zustavam').href = '/akce/' + d.slug;
+    ukaz('aktivni');
+  }
+  if (!p) return ukaz('pomoc');
+  fetch(API + '&p=' + encodeURIComponent(p)).then(function(r){ return r.json(); }).then(function(d){
+    if (!d || !d.ok) return ukaz('pomoc');
+    vykresli(d);
+  }).catch(function(){ ukaz('pomoc'); });
+
+  $('odhlasit').addEventListener('click', function(){
+    var b = this; b.disabled = true; b.textContent = 'Uvolňujeme místo…';
+    fetch(API, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ p: p }) })
+      .then(function(r){ return r.json(); })
+      .then(function(d){ if (!d || !d.ok) return ukaz('pomoc'); vykresli(d); })
+      .catch(function(){ ukaz('pomoc'); });
+  });
+})();
+</script>
+</body>
+</html>

@@ -46,6 +46,8 @@ function esc(s) {
 module.exports = async (req, res) => {
   cors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
+  // odhlášení z akce odkazem z e-mailu (stránka /odhlaseni) — viz _odhlaseni.js
+  if (req.query && req.query.odhlaseni != null) return require('./_odhlaseni')(req, res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Jen POST' });
 
   try {
@@ -262,6 +264,9 @@ function buildEmail({ akce, prihlaska, castka, mena, platba, vs, qrUrl, bankaInf
             <tr><td style="font-family:Arial,sans-serif;font-size:15px;color:${TXT};line-height:1.7;">
               Den až dva před akcí vám pošleme e-mail s pokyny. Jeho předmět začíná slovem <b>Pokyny</b>. Pro jistotu nahlédněte i do složky Hromadné nebo Spam.
             </td></tr>` : ''}
+            <tr><td style="padding:22px 0 24px;font-family:Arial,sans-serif;font-size:14px;color:${TXT};line-height:1.7;">
+              Změní se vám plány? <a href="https://oaza-adamanthea.cz/odhlaseni?p=${prihlaska.id}" style="color:${G};">Odhlaste se jedním kliknutím</a> a místo uvolníte dalším zájemcům.
+            </td></tr>
             <tr><td style="padding-top:28px;border-top:1px solid #f0e6d5;font-family:Arial,sans-serif;font-size:13px;color:#8a7d72;line-height:1.7;">
               V případě dotazů odpovězte na tento e-mail nebo volejte +420 737 869 752.<br>
               S láskou, tým Oázy Adamanthea 🌿

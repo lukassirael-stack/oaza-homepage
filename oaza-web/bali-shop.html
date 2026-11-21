@@ -517,11 +517,25 @@ function render(){
 
   const filtrAktivni = STAV.kat!=='vse' || STAV.q || STAV.barva || STAV.cmin!=null || STAV.cmax!=null;
   $('#pocet').textContent=(filtrAktivni && list.length)?`${list.length} ${list.length===1?'kousek':(list.length<5?'kousky':'kousků')}`:'';
+  // dárkový poukaz je první kartou katalogu v každém výběru (kategorie, hledání, barva i cena) — stále v nabídce
   if(!list.length){
-    $('#mrizka').innerHTML='<div class="prazdno" style="grid-column:1/-1">Žádný kousek neodpovídá výběru.<br><button class="reset" onclick="resetuj()">Zrušit filtry</button></div>';
+    $('#mrizka').innerHTML=kartaPoukaz()+'<div class="prazdno" style="grid-column:1/-1">Žádný kousek neodpovídá výběru.<br><button class="reset" onclick="resetuj()">Zrušit filtry</button></div>';
     return;
   }
-  $('#mrizka').innerHTML=list.map(karta).join('');
+  $('#mrizka').innerHTML=kartaPoukaz()+list.map(karta).join('');
+}
+function kartaPoukaz(){
+  const f1='/img/darkovy-poukaz.jpg', f2='/img/darkovy-poukaz-krystaly.jpg';
+  return `<a class="karta-prod karta-poukaz" href="/darkovy-poukaz">
+      <div class="foto">
+        <img class="prvni" src="${img(f1,480)}" srcset="${img(f1,320)} 320w, ${img(f1,480)} 480w, ${img(f1,800)} 800w" sizes="(max-width:640px) 50vw, 300px" alt="Dárkový poukaz Oázy Adamanthea" loading="lazy" decoding="async" onload="this.parentNode.style.setProperty('--bg','url(&quot;'+this.currentSrc+'&quot;)')" onerror="if(this.src.indexOf('/_vercel/')<0)this.style.visibility='hidden'">
+        <img class="druha" data-src="${img(f2,800)}" alt="" decoding="async" onload="this.classList.add('ok')">
+        <span class="stitek">Stále v nabídce</span>
+        <span class="digi-tag">PDF e-mailem ihned</span>
+      </div>
+      <h3>Dárkový poukaz</h3>
+      <div class="cena">${MENA==='eur'?'od 12 €':'od 300 Kč'} · hodnotu i věnování zvolíš ty</div>
+    </a>`;
 }
 // zmenšený obrázek přes Vercel (povolené zdroje a šířky ve vercel.json → images); nezávislé na pořadí načtení bali.js
 const img=(u,w)=>{
